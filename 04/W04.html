@@ -139,6 +139,11 @@
             justify-content: center;
         }
         
+        .card-short {
+            min-height: auto;
+            padding: 50px 24px;
+        }
+        
         .card-dark {
             background: linear-gradient(180deg, #2d1810 0%, #1a0f0a 100%);
             color: white;
@@ -160,6 +165,11 @@
         .card-red {
             background: linear-gradient(135deg, #a81c1c 0%, #c75050 100%);
             color: white;
+        }
+        
+        .card-gold {
+            background: linear-gradient(135deg, #c9a66b 0%, #e8d4a8 50%, #c9a66b 100%);
+            color: var(--black);
         }
         
         /* 인트로 카드 */
@@ -191,9 +201,19 @@
             text-shadow: 0 2px 20px rgba(0,0,0,0.3);
         }
         
+        /* 색연필 하이라이트 스타일 */
         .intro-title .highlight {
-            color: #ffd700;
-            text-shadow: 0 0 30px rgba(255,215,0,0.5);
+            position: relative;
+            display: inline;
+            background: linear-gradient(
+                to bottom,
+                transparent 50%,
+                rgba(255, 215, 0, 0.5) 50%,
+                rgba(255, 215, 0, 0.5) 85%,
+                transparent 85%
+            );
+            padding: 0 4px;
+            margin: 0 -4px;
         }
         
         .intro-subtitle {
@@ -203,35 +223,29 @@
             line-height: 1.7;
         }
         
+        /* 둥근 원형 이미지 */
         .intro-image {
-            width: 100%;
-            max-width: 280px;
+            width: 240px;
+            height: 240px;
             margin: 0 auto;
             position: relative;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 6px solid rgba(255,255,255,0.3);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+            animation: float 3s ease-in-out infinite;
         }
         
         .intro-image img {
             width: 100%;
-            height: auto;
+            height: 100%;
+            object-fit: cover;
             display: block;
-            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.4));
-            animation: float 3s ease-in-out infinite;
         }
         
         @keyframes float {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-10px); }
-        }
-        
-        .intro-image::after {
-            content: '';
-            position: absolute;
-            bottom: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60%;
-            height: 20px;
-            background: radial-gradient(ellipse, rgba(0,0,0,0.3) 0%, transparent 70%);
         }
         
         .scroll-hint {
@@ -276,6 +290,21 @@
             margin-bottom: 20px;
         }
         
+        /* 색연필 강조 - 어두운 배경용 */
+        .highlight-dark {
+            position: relative;
+            display: inline;
+            background: linear-gradient(
+                to bottom,
+                transparent 50%,
+                rgba(255, 107, 53, 0.4) 50%,
+                rgba(255, 107, 53, 0.4) 85%,
+                transparent 85%
+            );
+            padding: 0 4px;
+            margin: 0 -4px;
+        }
+        
         .impact-sub {
             font-size: 0.9rem;
             opacity: 0.7;
@@ -302,6 +331,21 @@
             margin-bottom: 30px;
             color: var(--black);
             line-height: 1.4;
+        }
+        
+        /* 색연필 강조 - 밝은 배경용 */
+        .highlight-light {
+            position: relative;
+            display: inline;
+            background: linear-gradient(
+                to bottom,
+                transparent 50%,
+                rgba(255, 200, 87, 0.5) 50%,
+                rgba(255, 200, 87, 0.5) 85%,
+                transparent 85%
+            );
+            padding: 0 4px;
+            margin: 0 -4px;
         }
         
         .feature-grid {
@@ -461,8 +505,20 @@
             color: var(--black);
         }
         
-        .secret-text strong {
-            color: var(--red);
+        /* 색연필 강조 - 빨간색 */
+        .secret-text .highlight-red {
+            position: relative;
+            display: inline;
+            background: linear-gradient(
+                to bottom,
+                transparent 50%,
+                rgba(255, 100, 100, 0.35) 50%,
+                rgba(255, 100, 100, 0.35) 85%,
+                transparent 85%
+            );
+            padding: 0 2px;
+            margin: 0 -2px;
+            font-weight: 600;
         }
         
         /* 활용 카드 */
@@ -650,6 +706,78 @@
             font-weight: 700;
         }
         
+        /* 추천 상품 카드 */
+        .recommend-card {
+            text-align: center;
+        }
+        
+        .recommend-box {
+            background: white;
+            border-radius: 24px;
+            padding: 30px;
+            margin-top: 24px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .recommend-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 16px;
+            overflow: hidden;
+            flex-shrink: 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .recommend-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .recommend-content {
+            text-align: left;
+            flex: 1;
+        }
+        
+        .recommend-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .recommend-name {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: var(--black);
+        }
+        
+        .recommend-desc {
+            font-size: 0.8rem;
+            color: var(--gray);
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+        
+        .recommend-reason {
+            font-size: 0.85rem;
+            color: var(--green);
+            font-weight: 500;
+            padding: 10px 14px;
+            background: var(--green-light);
+            border-radius: 10px;
+            display: inline-block;
+        }
+        
         /* CTA 카드 */
         .cta-card {
             text-align: center;
@@ -657,14 +785,19 @@
         }
         
         .cta-product-image {
-            width: 200px;
+            width: 180px;
+            height: 180px;
             margin: 0 auto 30px;
-            filter: drop-shadow(0 15px 30px rgba(0,0,0,0.3));
+            border-radius: 50%;
+            overflow: hidden;
+            border: 5px solid rgba(255,255,255,0.3);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
         }
         
         .cta-product-image img {
             width: 100%;
-            height: auto;
+            height: 100%;
+            object-fit: cover;
         }
         
         .cta-title {
@@ -673,6 +806,21 @@
             font-weight: 700;
             margin-bottom: 16px;
             line-height: 1.4;
+        }
+        
+        /* 색연필 강조 - CTA용 */
+        .cta-title .highlight-cta {
+            position: relative;
+            display: inline;
+            background: linear-gradient(
+                to bottom,
+                transparent 50%,
+                rgba(255, 255, 255, 0.35) 50%,
+                rgba(255, 255, 255, 0.35) 85%,
+                transparent 85%
+            );
+            padding: 0 4px;
+            margin: 0 -4px;
         }
         
         .cta-desc {
@@ -865,7 +1013,7 @@
             <p class="impact-number">98<span class="impact-unit">%</span></p>
             <p class="impact-text">
                 고추씨는 대부분<br>
-                <strong style="color: #ff6b35;">버려집니다</strong>
+                <span class="highlight-dark">버려집니다</span>
             </p>
             <p class="impact-sub">
                 하지만 고추씨에는 고춧잎보다<br>
@@ -877,7 +1025,7 @@
         <section class="card card-warm product-card fade-in">
             <span class="section-label">WHY SPECIAL</span>
             <h2 class="section-title">
-                왜 고추씨기름인가요?
+                왜 <span class="highlight-light">고추씨기름</span>인가요?
             </h2>
             <div class="feature-grid">
                 <div class="feature-item">
@@ -921,23 +1069,23 @@
         <!-- 카드 4: 숨겨진 비밀 -->
         <section class="card secret-card fade-in">
             <div class="secret-icon">🔬</div>
-            <h2 class="secret-title">고추씨의 숨겨진 비밀</h2>
+            <h2 class="secret-title">고추씨의 <span class="highlight-light">숨겨진 비밀</span></h2>
             <div class="secret-list">
                 <div class="secret-item">
                     <div class="secret-check">✓</div>
-                    <p class="secret-text"><strong>캡사이신</strong>이 풍부해 신진대사 활성화</p>
+                    <p class="secret-text"><span class="highlight-red">캡사이신</span>이 풍부해 신진대사 활성화</p>
                 </div>
                 <div class="secret-item">
                     <div class="secret-check">✓</div>
-                    <p class="secret-text"><strong>비타민 E</strong>가 피부 건강에 도움</p>
+                    <p class="secret-text"><span class="highlight-red">비타민 E</span>가 피부 건강에 도움</p>
                 </div>
                 <div class="secret-item">
                     <div class="secret-check">✓</div>
-                    <p class="secret-text"><strong>불포화지방산</strong>이 혈관 건강 지원</p>
+                    <p class="secret-text"><span class="highlight-red">불포화지방산</span>이 혈관 건강 지원</p>
                 </div>
                 <div class="secret-item">
                     <div class="secret-check">✓</div>
-                    <p class="secret-text">일반 식용유보다 <strong>산화 안정성</strong>이 높음</p>
+                    <p class="secret-text">일반 식용유보다 <span class="highlight-red">산화 안정성</span>이 높음</p>
                 </div>
             </div>
         </section>
@@ -945,7 +1093,7 @@
         <!-- 카드 5: 활용법 -->
         <section class="card card-warm use-card fade-in">
             <span class="section-label">HOW TO USE</span>
-            <h2 class="section-title">한 방울이면 충분해요</h2>
+            <h2 class="section-title"><span class="highlight-light">한 방울</span>이면 충분해요</h2>
             <div class="use-grid">
                 <div class="use-item">
                     <div class="use-emoji">🍜</div>
@@ -973,7 +1121,7 @@
         <!-- 카드 6: 비교 -->
         <section class="card card-cream compare-card fade-in">
             <span class="section-label">COMPARE</span>
-            <h2 class="section-title">무엇이 다를까요?</h2>
+            <h2 class="section-title">무엇이 <span class="highlight-light">다를까요?</span></h2>
             <div class="compare-table">
                 <div class="compare-row">
                     <div class="compare-label compare-header">구분</div>
@@ -1030,14 +1178,39 @@
             </div>
         </section>
 
-        <!-- 카드 8: CTA -->
+        <!-- 카드 8: 함께 하면 좋은 상품 추천 -->
+        <section class="card card-short card-gold recommend-card fade-in">
+            <span class="section-label" style="color: #5a4a2a;">TOGETHER</span>
+            <h2 class="section-title" style="color: var(--black);">
+                🍳 함께 하면 <span class="highlight-light">더 좋아요</span>
+            </h2>
+            <div class="recommend-box">
+                <div class="recommend-image">
+                    <img src="58044B.jpg" alt="공정무역 현미유">
+                </div>
+                <div class="recommend-content">
+                    <span class="recommend-badge">🌍 공정무역</span>
+                    <h3 class="recommend-name">공정무역 현미유</h3>
+                    <p class="recommend-desc">
+                        고온 조리에 강한 현미유로<br>
+                        볶음·튀김 요리에 딱!
+                    </p>
+                    <p class="recommend-reason">
+                        💡 고추씨기름은 마무리용,<br>
+                        　　현미유는 조리용으로 완벽 조합!
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 카드 9: CTA -->
         <section class="card cta-card fade-in">
             <div class="cta-product-image">
                 <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58859C.jpg" alt="고추씨기름">
             </div>
             <h2 class="cta-title">
                 버려지던 씨앗이<br>
-                당신의 식탁을 바꿉니다
+                <span class="highlight-cta">당신의 식탁</span>을 바꿉니다
             </h2>
             <p class="cta-desc">
                 한 병에 담긴 정성,<br>
@@ -1049,7 +1222,7 @@
             <p class="cta-sub">두레생협 조합원만 구매 가능합니다</p>
         </section>
 
-        <!-- 카드 9: 의견 -->
+        <!-- 카드 10: 의견 -->
         <section class="card card-cream opinion-card fade-in">
             <span class="section-label">YOUR VOICE</span>
             <h2 class="section-title">조합원님의 의견을 들려주세요</h2>
