@@ -27,6 +27,7 @@
         html, body {
             height: 100%;
             overflow: hidden;
+            touch-action: none;
         }
         
         body {
@@ -36,7 +37,7 @@
             -webkit-font-smoothing: antialiased;
         }
         
-        /* 카드 슬라이더 컨테이너 */
+        /* 세로 슬라이더 컨테이너 */
         .slider-container {
             width: 100%;
             height: 100%;
@@ -46,35 +47,37 @@
         
         .slider-wrapper {
             display: flex;
+            flex-direction: column;
             height: 100%;
-            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
         
         /* 개별 카드 */
         .card {
-            min-width: 100%;
-            height: 100%;
+            min-height: 100vh;
+            width: 100%;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 40px 24px;
+            padding: 50px 24px;
             text-align: center;
             position: relative;
-            overflow-y: auto;
+            flex-shrink: 0;
         }
         
-        /* 네비게이션 */
+        /* 세로 네비게이션 */
         .nav-dots {
             position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
             display: flex;
+            flex-direction: column;
             gap: 8px;
             z-index: 100;
             background: rgba(0,0,0,0.3);
-            padding: 8px 16px;
+            padding: 12px 8px;
             border-radius: 20px;
         }
         
@@ -89,56 +92,54 @@
         
         .nav-dot.active {
             background: white;
-            width: 24px;
+            height: 24px;
             border-radius: 4px;
-        }
-        
-        .nav-arrows {
-            position: fixed;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            padding: 0 10px;
-            z-index: 100;
-            pointer-events: none;
-        }
-        
-        .nav-arrow {
-            width: 44px;
-            height: 44px;
-            background: rgba(255,255,255,0.9);
-            border: none;
-            border-radius: 50%;
-            font-size: 1.2rem;
-            cursor: pointer;
-            pointer-events: auto;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-            transition: all 0.3s;
-        }
-        
-        .nav-arrow:hover {
-            background: white;
-            transform: scale(1.1);
-        }
-        
-        .nav-arrow:disabled {
-            opacity: 0.3;
-            pointer-events: none;
         }
         
         /* 페이지 카운터 */
         .page-counter {
             position: fixed;
             top: 20px;
-            right: 20px;
+            left: 50%;
+            transform: translateX(-50%);
             background: rgba(0,0,0,0.5);
             color: white;
-            padding: 6px 14px;
-            border-radius: 15px;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            z-index: 100;
+        }
+        
+        /* 스크롤 힌트 */
+        .scroll-hint {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
             font-size: 0.8rem;
             z-index: 100;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            animation: hintFade 3s ease-in-out infinite;
+            pointer-events: none;
+        }
+        
+        .scroll-hint-arrow {
+            font-size: 1.2rem;
+            animation: arrowBounce 1s ease-in-out infinite;
+        }
+        
+        @keyframes arrowBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(5px); }
+        }
+        
+        @keyframes hintFade {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
         }
         
         /* ===== 카드 1: 인트로 ===== */
@@ -150,23 +151,23 @@
             display: inline-block;
             background: var(--gold);
             color: white;
-            padding: 10px 24px;
+            padding: 12px 28px;
             border-radius: 30px;
-            font-size: 0.9rem;
+            font-size: 1rem;
             font-weight: 700;
-            margin-bottom: 24px;
+            margin-bottom: 28px;
             box-shadow: 0 4px 20px rgba(212, 168, 83, 0.5);
             animation: bounce 2s infinite;
         }
         
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
+            50% { transform: translateY(-8px); }
         }
         
         .intro-title {
             font-family: 'Nanum Myeongjo', serif;
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: 800;
             color: var(--black);
             line-height: 1.4;
@@ -178,35 +179,23 @@
         }
         
         .intro-subtitle {
-            font-size: 1rem;
+            font-size: 1.05rem;
             color: var(--gray);
-            margin-bottom: 30px;
+            margin-bottom: 35px;
+            line-height: 1.6;
         }
         
         .product-hero-img {
-            width: 220px;
-            height: 220px;
+            width: 240px;
+            height: 240px;
             object-fit: contain;
-            filter: drop-shadow(0 15px 40px rgba(0,0,0,0.2));
+            filter: drop-shadow(0 20px 50px rgba(0,0,0,0.2));
             animation: float 3s ease-in-out infinite;
         }
         
         @keyframes float {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-        
-        .swipe-hint {
-            position: absolute;
-            bottom: 80px;
-            font-size: 0.85rem;
-            color: var(--gray);
-            animation: fadeInOut 2s infinite;
-        }
-        
-        @keyframes fadeInOut {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 1; }
+            50% { transform: translateY(-15px); }
         }
         
         /* ===== 카드 2: 영상 ===== */
@@ -232,106 +221,109 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: linear-gradient(transparent, rgba(0,0,0,0.8));
-            padding: 40px 24px 100px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.85));
+            padding: 50px 24px 80px;
             color: white;
-            text-align: left;
+            text-align: center;
         }
         
         .video-title {
             font-family: 'Nanum Myeongjo', serif;
-            font-size: 1.3rem;
+            font-size: 1.5rem;
             font-weight: 700;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
         
         .video-subtitle {
-            font-size: 0.9rem;
-            opacity: 0.8;
+            font-size: 0.95rem;
+            opacity: 0.85;
         }
         
         /* ===== 카드 3: 환경 효과 ===== */
         .card-eco {
             background: linear-gradient(180deg, #1a3a1a 0%, #2d5a27 100%);
             color: white;
+            padding: 40px 20px;
         }
         
         .eco-header {
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
         
         .eco-badge {
             display: inline-block;
             background: rgba(255,255,255,0.2);
-            padding: 8px 20px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            margin-bottom: 16px;
+            padding: 10px 22px;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            margin-bottom: 18px;
         }
         
         .eco-title {
             font-family: 'Nanum Myeongjo', serif;
-            font-size: 1.6rem;
+            font-size: 1.7rem;
             font-weight: 700;
             line-height: 1.4;
         }
         
         .eco-title .number {
-            font-size: 2.2rem;
+            font-size: 2.4rem;
             color: #7dd87d;
         }
         
         .eco-stats {
             width: 100%;
-            max-width: 320px;
+            max-width: 340px;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 16px;
         }
         
         .eco-stat {
-            background: rgba(255,255,255,0.1);
-            border-radius: 16px;
+            background: rgba(255,255,255,0.12);
+            border-radius: 20px;
             padding: 20px;
             text-align: left;
+            backdrop-filter: blur(10px);
         }
         
         .eco-stat-header {
             display: flex;
             align-items: center;
             gap: 12px;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
         
         .eco-stat-icon {
-            font-size: 1.8rem;
+            font-size: 2rem;
         }
         
         .eco-stat-label {
-            font-size: 0.85rem;
-            opacity: 0.8;
+            font-size: 0.9rem;
+            opacity: 0.85;
         }
         
         .eco-stat-value {
             font-family: 'Nanum Myeongjo', serif;
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: 800;
             color: #7dd87d;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
         }
         
         .eco-stat-value .unit {
             font-size: 1rem;
-            opacity: 0.8;
+            opacity: 0.85;
         }
         
         .eco-stat-desc {
             font-size: 0.8rem;
             opacity: 0.7;
+            line-height: 1.4;
         }
         
         .eco-compare {
-            margin-top: 24px;
+            margin-top: 20px;
             font-size: 0.85rem;
             opacity: 0.8;
             line-height: 1.6;
@@ -344,22 +336,23 @@
         /* ===== 카드 4: 조합원 반응 ===== */
         .card-reviews {
             background: var(--warm);
+            padding: 40px 20px;
         }
         
         .section-label {
             display: inline-block;
             background: var(--green);
             color: white;
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 0.8rem;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 0.85rem;
             font-weight: 600;
-            margin-bottom: 16px;
+            margin-bottom: 18px;
         }
         
         .card-title {
             font-family: 'Nanum Myeongjo', serif;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             font-weight: 700;
             color: var(--black);
             margin-bottom: 24px;
@@ -369,7 +362,7 @@
         .review-stats {
             display: flex;
             justify-content: center;
-            gap: 40px;
+            gap: 50px;
             margin-bottom: 24px;
         }
         
@@ -379,26 +372,26 @@
         
         .stat-number {
             font-family: 'Nanum Myeongjo', serif;
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             font-weight: 800;
             color: var(--green);
         }
         
         .stat-label {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: var(--gray);
         }
         
         .review-carousel {
             width: 100%;
-            max-width: 340px;
+            max-width: 360px;
         }
         
         .review-item {
             background: white;
-            padding: 20px;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            padding: 22px;
+            border-radius: 20px;
+            box-shadow: 0 6px 25px rgba(0,0,0,0.08);
             text-align: left;
             transition: all 0.4s ease;
         }
@@ -406,37 +399,38 @@
         .review-header {
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 12px;
+            gap: 12px;
+            margin-bottom: 14px;
         }
         
         .review-avatar {
-            width: 40px;
-            height: 40px;
+            width: 44px;
+            height: 44px;
             background: var(--green-light);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.9rem;
+            font-size: 1rem;
             color: var(--green);
-            font-weight: 600;
+            font-weight: 700;
         }
         
         .review-name {
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             font-weight: 600;
         }
         
         .review-stars {
             color: var(--gold);
             margin-left: auto;
+            font-size: 0.9rem;
         }
         
         .review-text {
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             color: var(--gray);
-            line-height: 1.7;
+            line-height: 1.75;
         }
         
         .review-text .hl {
@@ -448,15 +442,15 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 8px;
-            margin-top: 20px;
+            gap: 10px;
+            margin-top: 22px;
         }
         
         .keyword {
             background: white;
-            padding: 6px 14px;
+            padding: 8px 16px;
             border-radius: 20px;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: var(--green);
         }
         
@@ -474,42 +468,42 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 50px;
-            height: 50px;
+            width: 56px;
+            height: 56px;
             background: var(--green);
             color: white;
             border-radius: 50%;
             font-family: 'Nanum Myeongjo', serif;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             font-weight: 700;
             margin-bottom: 20px;
         }
         
         .event-title {
             font-family: 'Nanum Myeongjo', serif;
-            font-size: 1.5rem;
+            font-size: 1.7rem;
             font-weight: 700;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
         
         .event-desc {
-            font-size: 0.9rem;
+            font-size: 1rem;
             color: var(--gray);
-            margin-bottom: 30px;
+            margin-bottom: 35px;
         }
         
         .discount-cards {
             width: 100%;
-            max-width: 320px;
+            max-width: 340px;
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 18px;
         }
         
         .discount-card {
             background: var(--green-pale);
-            border-radius: 16px;
-            padding: 24px;
+            border-radius: 20px;
+            padding: 26px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -526,18 +520,18 @@
         
         .discount-type-name {
             font-weight: 600;
-            font-size: 1rem;
-            margin-bottom: 4px;
+            font-size: 1.05rem;
+            margin-bottom: 6px;
         }
         
         .discount-type-desc {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             opacity: 0.7;
         }
         
         .discount-rate {
             font-family: 'Nanum Myeongjo', serif;
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             font-weight: 800;
             color: var(--red);
         }
@@ -552,61 +546,62 @@
         }
         
         .gift-icon {
-            font-size: 4rem;
-            margin-bottom: 20px;
+            font-size: 5rem;
+            margin-bottom: 24px;
             animation: shake 2s infinite;
         }
         
         @keyframes shake {
             0%, 100% { transform: rotate(0); }
-            25% { transform: rotate(-5deg); }
-            75% { transform: rotate(5deg); }
+            25% { transform: rotate(-8deg); }
+            75% { transform: rotate(8deg); }
         }
         
         .gift-main {
             font-family: 'Nanum Myeongjo', serif;
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: 800;
             color: var(--black);
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
         
         .gift-sub {
-            font-size: 0.95rem;
+            font-size: 1rem;
             color: var(--gray);
-            margin-bottom: 30px;
+            margin-bottom: 35px;
         }
         
         .gift-bonus-box {
             background: white;
-            padding: 20px 30px;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            padding: 24px 35px;
+            border-radius: 20px;
+            box-shadow: 0 6px 25px rgba(0,0,0,0.1);
         }
         
         .gift-plus {
             color: var(--gold);
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: 700;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
         }
         
         .gift-bonus-title {
-            font-weight: 600;
+            font-weight: 700;
+            font-size: 1.05rem;
             color: var(--green);
-            margin-bottom: 4px;
+            margin-bottom: 6px;
         }
         
         .gift-bonus-desc {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: var(--gray);
         }
         
         .gift-note {
-            margin-top: 24px;
-            font-size: 0.75rem;
+            margin-top: 28px;
+            font-size: 0.8rem;
             color: var(--gray);
-            line-height: 1.6;
+            line-height: 1.7;
         }
         
         /* ===== 카드 7: 후기 이벤트 ===== */
@@ -616,29 +611,29 @@
         }
         
         .review-event-icon {
-            font-size: 4rem;
-            margin-bottom: 20px;
+            font-size: 5rem;
+            margin-bottom: 24px;
         }
         
         .review-event-title {
             font-family: 'Nanum Myeongjo', serif;
-            font-size: 1.5rem;
+            font-size: 1.7rem;
             font-weight: 700;
-            margin-bottom: 16px;
+            margin-bottom: 18px;
         }
         
         .review-event-desc {
-            font-size: 0.95rem;
+            font-size: 1rem;
             opacity: 0.9;
-            line-height: 1.8;
-            margin-bottom: 30px;
+            line-height: 1.9;
+            margin-bottom: 35px;
         }
         
         .review-event-prize {
             background: rgba(255,255,255,0.2);
-            padding: 16px 30px;
-            border-radius: 30px;
-            font-size: 1.1rem;
+            padding: 18px 35px;
+            border-radius: 35px;
+            font-size: 1.15rem;
             font-weight: 700;
         }
         
@@ -649,50 +644,50 @@
         
         .cta-title {
             font-family: 'Nanum Myeongjo', serif;
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             font-weight: 700;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
             line-height: 1.4;
         }
         
         .cta-subtitle {
-            font-size: 0.95rem;
+            font-size: 1rem;
             color: var(--gray);
-            margin-bottom: 30px;
+            margin-bottom: 35px;
         }
         
         .cta-button {
             display: inline-block;
             background: var(--green);
             color: white;
-            padding: 18px 50px;
+            padding: 20px 55px;
             border-radius: 50px;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             font-weight: 700;
             text-decoration: none;
-            box-shadow: 0 8px 30px rgba(74, 103, 65, 0.4);
+            box-shadow: 0 10px 35px rgba(74, 103, 65, 0.45);
             transition: all 0.3s;
         }
         
         .cta-button:active {
-            transform: scale(0.98);
+            transform: scale(0.97);
         }
         
         .cta-benefits {
-            margin-top: 30px;
+            margin-top: 35px;
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 10px;
+            gap: 12px;
         }
         
         .cta-benefit {
             background: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.8rem;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 0.9rem;
             color: var(--green);
-            font-weight: 500;
+            font-weight: 600;
         }
         
         /* 카운트업 애니메이션 */
@@ -714,14 +709,14 @@
                 </h1>
                 <p class="intro-subtitle">꾸준히 사랑받은 두레생협 귀리유<br>특별 감사 이벤트</p>
                 <img src="https://www.dfrr.co.kr/shop/data/goods/202401/large/1704853760_0.jpg" alt="귀리YOU" class="product-hero-img">
-                <p class="swipe-hint">← 밀어서 다음으로 →</p>
             </div>
             
             <!-- 카드 2: 영상 -->
             <div class="card card-video">
                 <div class="video-container">
                     <iframe 
-                        src="https://player.vimeo.com/video/1108328566?autoplay=1&muted=1&loop=1&background=1&title=0&byline=0&portrait=0" 
+                        id="vimeoPlayer"
+                        src="https://player.vimeo.com/video/1108328566?autoplay=0&muted=1&loop=1&background=0&title=0&byline=0&portrait=0" 
                         allow="autoplay; fullscreen; picture-in-picture" 
                         allowfullscreen>
                     </iframe>
@@ -749,7 +744,7 @@
                             <span class="eco-stat-label">물 절약</span>
                         </div>
                         <div class="eco-stat-value">
-                            <span class="count-up" data-target="180880000" data-suffix="">0</span><span class="unit"> L</span>
+                            <span class="count-up" data-target="180880000">0</span><span class="unit"> L</span>
                         </div>
                         <p class="eco-stat-desc">50m 수영장 724개 분량</p>
                     </div>
@@ -760,7 +755,7 @@
                             <span class="eco-stat-label">탄소 절감</span>
                         </div>
                         <div class="eco-stat-value">
-                            <span class="count-up" data-target="437" data-suffix="">0</span><span class="unit"> 톤 CO₂</span>
+                            <span class="count-up" data-target="437">0</span><span class="unit"> 톤 CO₂</span>
                         </div>
                         <p class="eco-stat-desc">30년생 소나무 6만 6천 그루가<br>1년간 흡수하는 양</p>
                     </div>
@@ -771,7 +766,7 @@
                             <span class="eco-stat-label">토지 절약</span>
                         </div>
                         <div class="eco-stat-value">
-                            <span class="count-up" data-target="156" data-suffix="">0</span><span class="unit"> 헥타르</span>
+                            <span class="count-up" data-target="156">0</span><span class="unit"> 헥타르</span>
                         </div>
                         <p class="eco-stat-desc">축구장 218개 면적</p>
                     </div>
@@ -901,27 +896,27 @@
         
         <!-- 네비게이션 -->
         <div class="nav-dots" id="navDots"></div>
-        <div class="nav-arrows">
-            <button class="nav-arrow" id="prevBtn">‹</button>
-            <button class="nav-arrow" id="nextBtn">›</button>
-        </div>
         <div class="page-counter"><span id="currentPage">1</span> / <span id="totalPages">8</span></div>
+        <div class="scroll-hint" id="scrollHint">
+            <span>위로 스와이프</span>
+            <span class="scroll-hint-arrow">↑</span>
+        </div>
     </div>
     
     <script>
-        // 슬라이더 기능
+        // 세로 슬라이더 기능
         const slider = {
             wrapper: document.getElementById('sliderWrapper'),
             dots: document.getElementById('navDots'),
-            prevBtn: document.getElementById('prevBtn'),
-            nextBtn: document.getElementById('nextBtn'),
+            scrollHint: document.getElementById('scrollHint'),
             currentPageEl: document.getElementById('currentPage'),
             totalPagesEl: document.getElementById('totalPages'),
             currentIndex: 0,
             totalSlides: 8,
-            startX: 0,
-            currentX: 0,
+            startY: 0,
+            currentY: 0,
             isDragging: false,
+            isAnimating: false,
             
             init() {
                 this.totalPagesEl.textContent = this.totalSlides;
@@ -940,56 +935,86 @@
             },
             
             bindEvents() {
-                this.prevBtn.addEventListener('click', () => this.prev());
-                this.nextBtn.addEventListener('click', () => this.next());
-                
-                // 터치 이벤트
+                // 터치 이벤트 (세로)
                 this.wrapper.addEventListener('touchstart', (e) => this.handleTouchStart(e), { passive: true });
-                this.wrapper.addEventListener('touchmove', (e) => this.handleTouchMove(e), { passive: true });
+                this.wrapper.addEventListener('touchmove', (e) => this.handleTouchMove(e), { passive: false });
                 this.wrapper.addEventListener('touchend', (e) => this.handleTouchEnd(e));
+                
+                // 마우스 휠
+                document.addEventListener('wheel', (e) => this.handleWheel(e), { passive: false });
                 
                 // 키보드
                 document.addEventListener('keydown', (e) => {
-                    if (e.key === 'ArrowLeft') this.prev();
-                    if (e.key === 'ArrowRight') this.next();
+                    if (e.key === 'ArrowUp') { e.preventDefault(); this.prev(); }
+                    if (e.key === 'ArrowDown') { e.preventDefault(); this.next(); }
                 });
             },
             
             handleTouchStart(e) {
-                this.startX = e.touches[0].clientX;
+                if (this.isAnimating) return;
+                this.startY = e.touches[0].clientY;
                 this.isDragging = true;
             },
             
             handleTouchMove(e) {
-                if (!this.isDragging) return;
-                this.currentX = e.touches[0].clientX;
-            },
-            
-            handleTouchEnd(e) {
-                if (!this.isDragging) return;
-                this.isDragging = false;
+                if (!this.isDragging || this.isAnimating) return;
+                this.currentY = e.touches[0].clientY;
                 
-                const diff = this.startX - this.currentX;
-                if (Math.abs(diff) > 50) {
-                    if (diff > 0) this.next();
-                    else this.prev();
+                // 기본 스크롤 방지
+                const diff = this.startY - this.currentY;
+                if (Math.abs(diff) > 10) {
+                    e.preventDefault();
                 }
             },
             
+            handleTouchEnd(e) {
+                if (!this.isDragging || this.isAnimating) return;
+                this.isDragging = false;
+                
+                const diff = this.startY - this.currentY;
+                if (Math.abs(diff) > 50) {
+                    if (diff > 0) this.next(); // 위로 스와이프 = 다음
+                    else this.prev(); // 아래로 스와이프 = 이전
+                }
+            },
+            
+            handleWheel(e) {
+                if (this.isAnimating) return;
+                e.preventDefault();
+                
+                if (e.deltaY > 30) this.next();
+                else if (e.deltaY < -30) this.prev();
+            },
+            
             goTo(index) {
-                if (index < 0 || index >= this.totalSlides) return;
+                if (index < 0 || index >= this.totalSlides || this.isAnimating) return;
+                
+                this.isAnimating = true;
                 this.currentIndex = index;
-                this.wrapper.style.transform = `translateX(-${index * 100}%)`;
+                this.wrapper.style.transform = `translateY(-${index * 100}vh)`;
                 this.updateUI();
+                
+                setTimeout(() => {
+                    this.isAnimating = false;
+                }, 500);
                 
                 // 환경 카드일 때 카운트업 시작
                 if (index === 2) {
                     this.startCountUp();
                 }
                 
+                // 영상 카드일 때 자동재생
+                if (index === 1) {
+                    this.playVideo();
+                } else {
+                    this.pauseVideo();
+                }
+                
                 // 리뷰 카드일 때 자동 슬라이드
                 if (index === 3) {
                     this.startReviewCarousel();
+                } else {
+                    this.stopReviewCarousel();
                 }
             },
             
@@ -1011,9 +1036,19 @@
                     dot.classList.toggle('active', i === this.currentIndex);
                 });
                 
-                // 화살표 버튼
-                this.prevBtn.disabled = this.currentIndex === 0;
-                this.nextBtn.disabled = this.currentIndex === this.totalSlides - 1;
+                // 스크롤 힌트 (마지막 페이지에서 숨김)
+                this.scrollHint.style.opacity = this.currentIndex === this.totalSlides - 1 ? '0' : '1';
+            },
+            
+            // 비디오 제어
+            playVideo() {
+                const iframe = document.getElementById('vimeoPlayer');
+                iframe.src = iframe.src.replace('autoplay=0', 'autoplay=1');
+            },
+            
+            pauseVideo() {
+                const iframe = document.getElementById('vimeoPlayer');
+                iframe.src = iframe.src.replace('autoplay=1', 'autoplay=0');
             },
             
             // 카운트업 애니메이션
@@ -1059,7 +1094,7 @@
             reviewInterval: null,
             
             startReviewCarousel() {
-                if (this.reviewInterval) clearInterval(this.reviewInterval);
+                if (this.reviewInterval) return;
                 
                 this.reviewInterval = setInterval(() => {
                     this.reviewIndex = (this.reviewIndex + 1) % this.reviews.length;
@@ -1067,18 +1102,25 @@
                     
                     const item = document.getElementById('reviewItem');
                     item.style.opacity = 0;
-                    item.style.transform = 'translateY(10px)';
+                    item.style.transform = 'translateY(15px)';
                     
                     setTimeout(() => {
                         document.getElementById('reviewAvatar').textContent = review.avatar;
                         document.getElementById('reviewName').textContent = review.name;
                         document.getElementById('reviewText').innerHTML = review.text;
                         
-                        item.style.transition = 'all 0.4s ease';
+                        item.style.transition = 'all 0.5s ease';
                         item.style.opacity = 1;
                         item.style.transform = 'translateY(0)';
                     }, 300);
                 }, 4000);
+            },
+            
+            stopReviewCarousel() {
+                if (this.reviewInterval) {
+                    clearInterval(this.reviewInterval);
+                    this.reviewInterval = null;
+                }
             }
         };
         
