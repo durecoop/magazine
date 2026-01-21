@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>두레생협 생활의 발견 | 26년 5주 - 귀리YOU 백만팩 감사 이벤트</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --green: #4a6741;
+            --green-dark: #3a5331;
+            --green-light: #e8f0e4;
+            --green-pale: #f4f7f3;
+            --cream: #fdfbf7;
+            --warm: #f7f3ed;
+            --black: #1a1a1a;
+            --gray: #666;
+            --gray-light: #999;
+            --accent: #c9a66b;
+            --gold: #d4a853;
+            --red: #c75050;
+            --orange: #e8a849;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: var(--cream);
+            color: var(--black);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        .magazine-container {
+            max-width: 480px;
+            margin: 0 auto;
+            background: var(--cream);
+        }
+        
+        /* 헤더 */
+        .magazine-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: white;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--green-light);
+        }
+        
+        .magazine-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .logo-circle {
+            width: 28px;
+            height: 28px;
+            background: var(--green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.65rem;
+            font-weight: 700;
+        }
+        
+        .logo-text {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--green);
+        }
+        
+        .brand-divider {
+            width: 1px;
+            height: 16px;
+            background: var(--green-light);
+        }
+        
+        .magazine-title {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+        
+        .magazine-issue {
+            font-size: 0.7rem;
+            color: var(--gray-light);
+            margin-left: 6px;
+        }
+        
+        .live-visitors {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--green-pale);
+            padding: 6px 12px;
+            border-radius: 20px;
+        }
+        
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background: #4CAF50;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .live-count {
+            font-size: 0.75rem;
+            color: var(--gray);
+        }
+        
+        /* 카드 공통 */
+        .card {
+            padding: 50px 24px;
+        }
+        
+        .card-intro {
+            background: linear-gradient(180deg, #f5e6c8 0%, #e8d4a8 100%);
+            text-align: center;
+            padding: 60px 24px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card-intro::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 60%);
+            animation: shimmer 4s ease-in-out infinite;
+        }
+        
+        @keyframes shimmer {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(10%, 10%); }
+        }
+        
+        .celebration-badge {
+            display: inline-block;
+            background: var(--gold);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 4px 15px rgba(212, 168, 83, 0.4);
+        }
+        
+        .intro-title {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--black);
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 1;
+            line-height: 1.4;
+        }
+        
+        .intro-title .highlight {
+            color: var(--green);
+        }
+        
+        .intro-subtitle {
+            font-size: 1rem;
+            color: var(--gray);
+            position: relative;
+            z-index: 1;
+            margin-bottom: 30px;
+        }
+        
+        .product-hero-img {
+            width: 200px;
+            height: 200px;
+            object-fit: contain;
+            position: relative;
+            z-index: 1;
+            filter: drop-shadow(0 10px 30px rgba(0,0,0,0.15));
+        }
+        
+        /* 상품 소개 카드 */
+        .card-product {
+            background: white;
+            text-align: center;
+        }
+        
+        .section-label {
+            display: inline-block;
+            background: var(--green);
+            color: white;
+            padding: 4px 14px;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        
+        .product-name {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--black);
+            margin-bottom: 8px;
+        }
+        
+        .product-desc {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-bottom: 30px;
+        }
+        
+        .feature-badges {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .feature-badge {
+            background: var(--green-light);
+            color: var(--green);
+            padding: 10px 18px;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .product-img {
+            width: 100%;
+            max-width: 280px;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+        }
+        
+        /* 영상 카드 */
+        .card-video {
+            background: var(--green-pale);
+            text-align: center;
+        }
+        
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+            margin-top: 20px;
+        }
+        
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        /* 조합원 반응 카드 */
+        .card-reviews {
+            background: var(--warm);
+        }
+        
+        .card-title {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--black);
+            margin-bottom: 8px;
+            text-align: center;
+        }
+        
+        .card-subtitle {
+            font-size: 0.9rem;
+            color: var(--gray);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .review-stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--green);
+        }
+        
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+        
+        .review-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .review-item {
+            background: white;
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .review-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        
+        .review-avatar {
+            width: 36px;
+            height: 36px;
+            background: var(--green-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            color: var(--green);
+            font-weight: 600;
+        }
+        
+        .review-name {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--black);
+        }
+        
+        .review-stars {
+            color: var(--gold);
+            font-size: 0.8rem;
+            margin-left: auto;
+        }
+        
+        .review-text {
+            font-size: 0.9rem;
+            color: var(--gray);
+            line-height: 1.7;
+        }
+        
+        .review-text .highlight {
+            background: linear-gradient(transparent 60%, #fff3cd 60%);
+            font-weight: 500;
+        }
+        
+        /* 이벤트 혜택 카드 */
+        .card-event {
+            background: white;
+        }
+        
+        .event-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .event-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: var(--green);
+            color: white;
+            border-radius: 50%;
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+        
+        .event-title {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--black);
+            margin-bottom: 8px;
+        }
+        
+        .event-desc {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        /* 할인 테이블 */
+        .discount-table {
+            background: var(--green-pale);
+            border-radius: 16px;
+            padding: 24px;
+        }
+        
+        .discount-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px dashed var(--green-light);
+        }
+        
+        .discount-row:last-child {
+            border-bottom: none;
+        }
+        
+        .discount-type {
+            font-size: 0.9rem;
+            color: var(--black);
+        }
+        
+        .discount-type small {
+            display: block;
+            font-size: 0.75rem;
+            color: var(--gray);
+            margin-top: 4px;
+        }
+        
+        .discount-rate {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--red);
+        }
+        
+        /* 증정 혜택 */
+        .gift-box {
+            background: linear-gradient(135deg, #fff9e6 0%, #fff3cd 100%);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            border: 2px dashed var(--gold);
+        }
+        
+        .gift-icon {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+        }
+        
+        .gift-main {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--black);
+            margin-bottom: 8px;
+        }
+        
+        .gift-plus {
+            font-size: 1rem;
+            color: var(--gold);
+            font-weight: 700;
+            margin: 12px 0;
+        }
+        
+        .gift-bonus {
+            background: white;
+            padding: 16px;
+            border-radius: 12px;
+            margin-top: 12px;
+        }
+        
+        .gift-bonus-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--green);
+            margin-bottom: 4px;
+        }
+        
+        .gift-bonus-desc {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+        
+        .gift-note {
+            font-size: 0.75rem;
+            color: var(--gray);
+            margin-top: 16px;
+        }
+        
+        /* 후기 이벤트 */
+        .review-event-box {
+            background: var(--green);
+            border-radius: 16px;
+            padding: 30px 24px;
+            text-align: center;
+            color: white;
+        }
+        
+        .review-event-icon {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+        }
+        
+        .review-event-title {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        
+        .review-event-desc {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-bottom: 16px;
+            line-height: 1.6;
+        }
+        
+        .review-event-prize {
+            background: rgba(255,255,255,0.2);
+            padding: 12px 20px;
+            border-radius: 25px;
+            display: inline-block;
+            font-weight: 600;
+        }
+        
+        /* CTA 카드 */
+        .card-cta {
+            background: linear-gradient(180deg, var(--green-pale) 0%, var(--green-light) 100%);
+            text-align: center;
+            padding: 60px 24px;
+        }
+        
+        .cta-title {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--black);
+            margin-bottom: 12px;
+        }
+        
+        .cta-subtitle {
+            font-size: 0.95rem;
+            color: var(--gray);
+            margin-bottom: 30px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: var(--green);
+            color: white;
+            padding: 18px 50px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 0 8px 25px rgba(74, 103, 65, 0.35);
+            transition: all 0.3s ease;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(74, 103, 65, 0.45);
+        }
+        
+        .cta-note {
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-top: 20px;
+        }
+        
+        /* 푸터 */
+        .magazine-footer {
+            background: var(--green);
+            color: white;
+            padding: 40px 24px;
+            text-align: center;
+        }
+        
+        .footer-logo {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        
+        .footer-desc {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            margin-bottom: 20px;
+        }
+        
+        .footer-link {
+            color: white;
+            text-decoration: none;
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+        
+        .footer-copyright {
+            font-size: 0.75rem;
+            opacity: 0.6;
+            margin-top: 20px;
+        }
+        
+        /* 키워드 클라우드 */
+        .keyword-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 24px;
+        }
+        
+        .keyword {
+            background: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--green);
+            border: 1px solid var(--green-light);
+        }
+        
+        .keyword.hot {
+            background: var(--green);
+            color: white;
+            border-color: var(--green);
+        }
+    </style>
+</head>
+<body>
+    <div class="magazine-container">
+        <!-- 헤더 -->
+        <header class="magazine-header">
+            <div class="magazine-brand">
+                <div class="brand-logo">
+                    <div class="logo-circle">두레</div>
+                    <span class="logo-text">두레생협</span>
+                </div>
+                <div class="brand-divider"></div>
+                <span class="magazine-title">생활의 발견</span>
+                <span class="magazine-issue">26년 5주 (1.26~2.1)</span>
+            </div>
+            <div class="live-visitors">
+                <div class="live-dot"></div>
+                <span class="live-count"><strong id="visitorCount">1</strong>명</span>
+            </div>
+        </header>
+        
+        <!-- 인트로 카드 -->
+        <section class="card card-intro">
+            <span class="celebration-badge">🎉 백만팩 달성 감사</span>
+            <h1 class="intro-title">
+                조합원님들의 사랑에<br>
+                <span class="highlight">귀리YOU</span>로 보답합니다
+            </h1>
+            <p class="intro-subtitle">꾸준히 사랑받은 두레생협 귀리유<br>특별 감사 이벤트</p>
+            <img src="https://www.dfrr.co.kr/shop/data/goods/202401/large/1704853760_0.jpg" alt="귀리YOU 제품" class="product-hero-img">
+        </section>
+        
+        <!-- 상품 소개 카드 -->
+        <section class="card card-product">
+            <span class="section-label">유기농 귀리유</span>
+            <h2 class="product-name">귀리YOU</h2>
+            <p class="product-desc">100% 국산 유기농 귀리로 만든<br>부드럽고 고소한 식물성 음료</p>
+            <div class="feature-badges">
+                <span class="feature-badge">🌾 100% 국산 귀리</span>
+                <span class="feature-badge">🍃 유기농 인증</span>
+                <span class="feature-badge">💚 베타글루칸 함유</span>
+            </div>
+            <img src="https://www.dfrr.co.kr/shop/data/goods/202401/large/1704853760_1.jpg" alt="귀리YOU" class="product-img">
+        </section>
+        
+        <!-- 영상 카드 -->
+        <section class="card card-video">
+            <span class="section-label">📹 귀리YOU 이야기</span>
+            <h2 class="card-title">귀리유가 탄생하기까지</h2>
+            <p class="card-subtitle">정읍 유기농 귀리밭에서 여러분의 식탁까지</p>
+            <div class="video-wrapper">
+                <iframe src="https://player.vimeo.com/video/1108328566?h=&title=0&byline=0&portrait=0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </section>
+        
+        <!-- 조합원 반응 카드 -->
+        <section class="card card-reviews">
+            <span class="section-label">💬 조합원 반응</span>
+            <h2 class="card-title">이미 많은 분들이<br>귀리YOU와 함께합니다</h2>
+            <p class="card-subtitle">실제 조합원님들의 생생한 후기</p>
+            
+            <div class="review-stats">
+                <div class="stat-item">
+                    <div class="stat-number">4.8</div>
+                    <div class="stat-label">평균 별점</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">96%</div>
+                    <div class="stat-label">추천해요</div>
+                </div>
+            </div>
+            
+            <div class="review-list">
+                <div class="review-item">
+                    <div class="review-header">
+                        <div class="review-avatar">김</div>
+                        <span class="review-name">김효선님</span>
+                        <span class="review-stars">★★★★★</span>
+                    </div>
+                    <p class="review-text">친정엄마가 유당불내증 때문에 우유를 못 드시다가 <span class="highlight">이 우유 마시고는 그렇지 않으시다</span>고 하시면서 달지 않아서 아껴드신다고 전화가 왔답니다</p>
+                </div>
+                
+                <div class="review-item">
+                    <div class="review-header">
+                        <div class="review-avatar">최</div>
+                        <span class="review-name">최인혜님</span>
+                        <span class="review-stars">★★★★★</span>
+                    </div>
+                    <p class="review-text"><span class="highlight">지금까지 안 마신 분은 있어도 한번 마신 분은 없다ㅎ</span> 단백질이 절실한 중장년으로서 애타게 찾던 그 생활재입니다. 담백한 맛, 가볍지만 꽉 찬 맛!</p>
+                </div>
+                
+                <div class="review-item">
+                    <div class="review-header">
+                        <div class="review-avatar">신</div>
+                        <span class="review-name">신동녀님</span>
+                        <span class="review-stars">★★★★★</span>
+                    </div>
+                    <p class="review-text">당뇨 중인 가족이 마시기 시작했어요. 그 덕인지 <span class="highlight">담당의사가 수치가 떨어졌다고 약 함량을 낮춰 처방</span>해 주더래요</p>
+                </div>
+                
+                <div class="review-item">
+                    <div class="review-header">
+                        <div class="review-avatar">김</div>
+                        <span class="review-name">김미정님</span>
+                        <span class="review-stars">★★★★★</span>
+                    </div>
+                    <p class="review-text">힘들게 운동하고 난 뒤 아무거나 먹고 싶지 않아 주문했어요. <span class="highlight">마시고 나면 포만감이 있어 다이어트</span> 하는데 많은 도움이 돼요</p>
+                </div>
+            </div>
+            
+            <div class="keyword-cloud">
+                <span class="keyword hot">달지 않아요</span>
+                <span class="keyword hot">속이 편해요</span>
+                <span class="keyword">고소해요</span>
+                <span class="keyword">소화 잘 돼요</span>
+                <span class="keyword">우유 대용</span>
+                <span class="keyword">아침 대용</span>
+            </div>
+        </section>
+        
+        <!-- 이벤트 1: 할인 혜택 -->
+        <section class="card card-event">
+            <div class="event-header">
+                <div class="event-number">1</div>
+                <h2 class="event-title">할인 혜택</h2>
+                <p class="event-desc">한 번에 크게 담으면 더 커지는 혜택!</p>
+            </div>
+            
+            <div class="discount-table">
+                <div class="discount-row">
+                    <div class="discount-type">
+                        4박스 택배 구매
+                        <small>배송일 지정</small>
+                    </div>
+                    <div class="discount-rate">25%</div>
+                </div>
+                <div class="discount-row">
+                    <div class="discount-type">
+                        1박스 단품 구매
+                        <small>상시 주문</small>
+                    </div>
+                    <div class="discount-rate">20%</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 이벤트 2: 증정 혜택 -->
+        <section class="card card-event" style="background: var(--cream);">
+            <div class="event-header">
+                <div class="event-number">2</div>
+                <h2 class="event-title">증정 혜택</h2>
+                <p class="event-desc">귀리유 1박스(16팩) 구매 시</p>
+            </div>
+            
+            <div class="gift-box">
+                <div class="gift-icon">🎁</div>
+                <div class="gift-main">3+1 혜택</div>
+                <p style="font-size: 0.85rem; color: var(--gray);">3박스 구매 시 1박스 추가 증정</p>
+                
+                <div class="gift-plus">+</div>
+                
+                <div class="gift-bonus">
+                    <div class="gift-bonus-title">🆕 신규 서리태쉐이크 200g</div>
+                    <div class="gift-bonus-desc">함께 드려요!</div>
+                </div>
+                
+                <p class="gift-note">
+                    * 한정 수량으로 조기 소진될 수 있습니다<br>
+                    * 조건 충족 시 별도 신청 없이 자동 공급됩니다
+                </p>
+            </div>
+        </section>
+        
+        <!-- 이벤트 3: 후기 작성 혜택 -->
+        <section class="card card-event">
+            <div class="event-header">
+                <div class="event-number">3</div>
+                <h2 class="event-title">후기 작성 혜택</h2>
+                <p class="event-desc">귀리유 활용 후기 남기고 1박스 받자!</p>
+            </div>
+            
+            <div class="review-event-box">
+                <div class="review-event-icon">✍️</div>
+                <h3 class="review-event-title">귀리유를 어떻게 드시나요?</h3>
+                <p class="review-event-desc">
+                    아침 대용으로? 커피에 넣어서?<br>
+                    콩국수 만들 때? 미숫가루에 타서?<br>
+                    자유롭게 후기를 남겨주세요!
+                </p>
+                <div class="review-event-prize">
+                    추첨 100명 · 1박스 증정 🎉
+                </div>
+            </div>
+        </section>
+        
+        <!-- CTA 카드 -->
+        <section class="card card-cta">
+            <h2 class="cta-title">백만팩 감사 이벤트<br>놓치지 마세요!</h2>
+            <p class="cta-subtitle">조합원님들의 사랑에 보답하는 특별 혜택</p>
+            <a href="https://www.dfrr.co.kr/shop/goods/goods_view.php?goodsno=57232" class="cta-button" target="_blank">
+                귀리YOU 주문하기 →
+            </a>
+            <p class="cta-note">* 이벤트 기간 동안만 적용되는 특별 혜택입니다</p>
+        </section>
+        
+        <!-- 푸터 -->
+        <footer class="magazine-footer">
+            <div class="footer-logo">두레생협</div>
+            <p class="footer-desc">생활의 발견 · 26년 5주차</p>
+            <a href="../" class="footer-link">← 다른 호 보기</a>
+            <p class="footer-copyright">© 2026 두레생협연합회</p>
+        </footer>
+    </div>
+    
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyDrb6CvMBn9jSfDeuwWseJywFHLbChNr4U",
+            authDomain: "durunioncoop.firebaseapp.com",
+            projectId: "durunioncoop",
+            storageBucket: "durunioncoop.firebasestorage.app",
+            messagingSenderId: "439719435906",
+            appId: "1:439719435906:web:3d1d841ad6e80939eb5e9b",
+            measurementId: "G-NSEYF1TDCH"
+        };
+        
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        
+        // 실시간 방문자 카운트
+        const visitorRef = db.collection('visitors').doc('w05-2026');
+        
+        visitorRef.get().then((doc) => {
+            if (doc.exists) {
+                visitorRef.update({
+                    count: firebase.firestore.FieldValue.increment(1)
+                });
+            } else {
+                visitorRef.set({ count: 1 });
+            }
+        });
+        
+        visitorRef.onSnapshot((doc) => {
+            if (doc.exists) {
+                document.getElementById('visitorCount').textContent = doc.data().count;
+            }
+        });
+    </script>
+</body>
+</html>
