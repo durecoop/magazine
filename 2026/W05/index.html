@@ -36,7 +36,7 @@
             right: 0;
             z-index: 1000;
             background: var(--green);
-            padding: 12px 20px;
+            padding: 10px 16px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -45,104 +45,104 @@
         .magazine-brand {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
 
         .brand-logo {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 5px;
         }
 
         .logo-circle {
-            width: 26px;
-            height: 26px;
+            width: 24px;
+            height: 24px;
             background: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.55rem;
+            font-size: 0.5rem;
             color: var(--green);
             font-weight: 800;
         }
 
         .logo-text {
             font-family: 'Nanum Myeongjo', serif;
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 700;
             color: white;
         }
 
         .brand-divider {
             width: 1px;
-            height: 16px;
+            height: 14px;
             background: rgba(255,255,255,0.3);
         }
 
         .magazine-title {
             font-family: 'Nanum Myeongjo', serif;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: rgba(255,255,255,0.9);
         }
 
         .magazine-issue {
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             color: rgba(255,255,255,0.7);
-            margin-left: 6px;
+            margin-left: 4px;
         }
 
         .live-visitors {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 5px;
             background: rgba(255,255,255,0.15);
-            padding: 6px 12px;
-            border-radius: 20px;
+            padding: 5px 10px;
+            border-radius: 15px;
         }
 
         .live-dot {
-            width: 8px;
-            height: 8px;
+            width: 6px;
+            height: 6px;
             background: #4CAF50;
             border-radius: 50%;
             animation: pulse 2s infinite;
         }
 
         @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.7; transform: scale(0.9); }
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
 
         .live-count {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: white;
         }
 
         /* ========== 스크롤 인디케이터 ========== */
         .scroll-indicator {
             position: fixed;
-            right: 10px;
+            right: 8px;
             top: 50%;
             transform: translateY(-50%);
             z-index: 100;
             display: flex;
             flex-direction: column;
-            gap: 5px;
+            gap: 4px;
         }
 
         .scroll-dot {
-            width: 5px;
-            height: 5px;
+            width: 4px;
+            height: 4px;
             border-radius: 50%;
-            background: rgba(0,0,0,0.15);
+            background: rgba(0,0,0,0.2);
             cursor: pointer;
             transition: all 0.3s ease;
         }
 
         .scroll-dot.active {
-            height: 18px;
-            border-radius: 3px;
+            height: 16px;
+            border-radius: 2px;
             background: var(--green);
         }
 
@@ -150,7 +150,7 @@
         .card {
             min-height: 100vh;
             min-height: 100dvh;
-            padding: 70px 20px 40px;
+            padding: 56px 16px 24px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -158,23 +158,16 @@
             text-align: center;
             scroll-snap-align: start;
             position: relative;
+            overflow: hidden;
         }
 
         .card-title {
             font-family: 'Nanum Myeongjo', serif;
-            font-size: clamp(1.5rem, 6.5vw, 2rem);
+            font-size: clamp(1.4rem, 6vw, 1.8rem);
             font-weight: 700;
             color: var(--black);
-            line-height: 1.4;
-            margin-bottom: 14px;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .card.in-view .card-title {
-            opacity: 1;
-            transform: translateY(0);
+            line-height: 1.35;
+            margin-bottom: 10px;
         }
 
         .card-title em {
@@ -183,77 +176,45 @@
         }
 
         .card-desc {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: var(--gray);
-            line-height: 1.7;
-            margin-bottom: 20px;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.15s;
-        }
-
-        .card.in-view .card-desc {
-            opacity: 1;
-            transform: translateY(0);
+            line-height: 1.6;
+            margin-bottom: 16px;
         }
 
         .section-badge {
             display: inline-block;
             background: var(--green);
             color: white;
-            padding: 8px 18px;
-            border-radius: 25px;
-            font-size: 0.8rem;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.75rem;
             font-weight: 600;
-            margin-bottom: 18px;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.5s ease;
+            margin-bottom: 12px;
         }
-
-        .card.in-view .section-badge {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .fade-up {
-            opacity: 0;
-            transform: translateY(25px);
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .card.in-view .fade-up {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .fade-up:nth-child(2) { transition-delay: 0.1s; }
-        .fade-up:nth-child(3) { transition-delay: 0.2s; }
-        .fade-up:nth-child(4) { transition-delay: 0.3s; }
-        .fade-up:nth-child(5) { transition-delay: 0.4s; }
 
         /* 카드 연결 문구 */
         .card-connector {
             position: absolute;
-            bottom: 25px;
-            font-size: 0.8rem;
+            bottom: 16px;
+            font-size: 0.75rem;
             color: var(--gray-light);
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
             animation: connectorPulse 2s infinite;
         }
 
         .card-connector svg {
-            width: 20px;
-            height: 20px;
+            width: 16px;
+            height: 16px;
             fill: var(--gray-light);
         }
 
         @keyframes connectorPulse {
-            0%, 100% { opacity: 0.5; transform: translateY(0); }
-            50% { opacity: 1; transform: translateY(3px); }
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
         }
 
         /* ========== 카드 0: 인트로 ========== */
@@ -265,39 +226,38 @@
             display: inline-block;
             background: var(--gold);
             color: white;
-            padding: 10px 24px;
-            border-radius: 30px;
-            font-size: 0.9rem;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 0.85rem;
             font-weight: 700;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 20px rgba(212, 168, 83, 0.4);
+            margin-bottom: 16px;
+            box-shadow: 0 4px 15px rgba(212, 168, 83, 0.4);
             animation: bounce 2s infinite;
         }
 
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
+            50% { transform: translateY(-6px); }
         }
 
         .product-hero {
-            width: 200px;
-            height: 200px;
+            width: 180px;
+            height: 180px;
             object-fit: contain;
-            filter: drop-shadow(0 15px 40px rgba(0,0,0,0.15));
+            filter: drop-shadow(0 10px 30px rgba(0,0,0,0.15));
             animation: float 3s ease-in-out infinite;
-            margin: 16px 0;
+            margin: 12px 0;
         }
 
         @keyframes float {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-12px); }
+            50% { transform: translateY(-10px); }
         }
 
         /* ========== 카드 1: 영상 (전체화면) ========== */
         .card-video {
             background: #000;
             padding: 0 !important;
-            position: relative;
         }
 
         .video-container {
@@ -313,7 +273,7 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 177.78vh; /* 16:9 비율 */
+            width: 177.78vh;
             height: 100vh;
             min-width: 100%;
             min-height: 56.25vw;
@@ -327,7 +287,7 @@
             left: 0;
             right: 0;
             background: linear-gradient(transparent, rgba(0,0,0,0.9));
-            padding: 60px 24px 40px;
+            padding: 50px 20px 35px;
             color: white;
             text-align: center;
             z-index: 10;
@@ -335,20 +295,19 @@
 
         .video-title {
             font-family: 'Nanum Myeongjo', serif;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: 700;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .video-subtitle {
-            font-size: 0.9rem;
-            opacity: 0.85;
+            font-size: 0.85rem;
+            opacity: 0.8;
         }
 
         .video-connector {
             color: rgba(255,255,255,0.7);
         }
-
         .video-connector svg {
             fill: rgba(255,255,255,0.7);
         }
@@ -357,6 +316,8 @@
         .card-eco {
             background: linear-gradient(180deg, #1a3a1a 0%, #2d5a27 100%);
             color: white;
+            padding-top: 50px;
+            padding-bottom: 50px;
         }
 
         .eco-badge {
@@ -366,77 +327,74 @@
 
         .eco-title {
             color: white;
+            margin-bottom: 16px;
         }
 
         .eco-title .number {
-            font-size: 2rem;
+            font-size: 1.8rem;
             color: #7dd87d;
         }
 
         .eco-stats {
             width: 100%;
-            max-width: 340px;
+            max-width: 320px;
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            margin-top: 16px;
+            gap: 10px;
         }
 
         .eco-stat {
             background: rgba(255,255,255,0.1);
-            border-radius: 14px;
-            padding: 16px;
+            border-radius: 12px;
+            padding: 14px;
             text-align: left;
-            backdrop-filter: blur(10px);
-        }
-
-        .eco-stat-header {
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 6px;
+            gap: 12px;
         }
 
         .eco-stat-icon {
-            font-size: 1.4rem;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .eco-stat-content {
+            flex: 1;
         }
 
         .eco-stat-label {
-            font-size: 0.8rem;
-            opacity: 0.8;
+            font-size: 0.75rem;
+            opacity: 0.7;
+            margin-bottom: 2px;
         }
 
         .eco-stat-value {
             font-family: 'Nanum Myeongjo', serif;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: 800;
             color: #7dd87d;
         }
 
         .eco-stat-value .unit {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             opacity: 0.8;
         }
 
         .eco-stat-desc {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             opacity: 0.6;
-            margin-top: 2px;
         }
 
         .eco-note {
-            margin-top: 16px;
-            font-size: 0.75rem;
-            opacity: 0.7;
-            line-height: 1.5;
+            margin-top: 14px;
+            font-size: 0.7rem;
+            opacity: 0.6;
+            line-height: 1.4;
         }
 
         .eco-note strong {
             color: #7dd87d;
-        }
-
-        .count-up {
-            display: inline-block;
+            opacity: 1;
         }
 
         .eco-connector {
@@ -449,14 +407,14 @@
         /* ========== 카드 3: 조합원 반응 (좋아요) ========== */
         .card-reviews {
             background: var(--warm);
-            padding: 70px 16px 40px;
+            padding-top: 50px;
         }
 
         .review-stats {
             display: flex;
             justify-content: center;
-            gap: 35px;
-            margin-bottom: 16px;
+            gap: 30px;
+            margin-bottom: 14px;
         }
 
         .stat-item {
@@ -465,76 +423,74 @@
 
         .stat-number {
             font-family: 'Nanum Myeongjo', serif;
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: 800;
             color: var(--green);
         }
 
         .stat-label {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: var(--gray);
         }
 
         .review-list {
             width: 100%;
-            max-width: 360px;
+            max-width: 340px;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
         }
 
         .review-item {
             background: white;
-            padding: 14px;
-            border-radius: 14px;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.05);
+            padding: 12px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
             text-align: left;
         }
 
         .review-header {
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 8px;
+            gap: 8px;
+            margin-bottom: 6px;
         }
 
         .review-avatar {
-            width: 32px;
-            height: 32px;
+            width: 28px;
+            height: 28px;
             background: var(--green-light);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             color: var(--green);
             font-weight: 600;
         }
 
-        .review-info {
-            flex: 1;
-        }
-
         .review-name {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 600;
             color: var(--black);
         }
 
         .review-meta {
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             color: var(--gray-light);
+            margin-left: 4px;
         }
 
         .review-stars {
             color: var(--gold);
-            font-size: 0.7rem;
+            font-size: 0.65rem;
+            margin-left: auto;
         }
 
         .review-text {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: var(--gray);
-            line-height: 1.6;
+            line-height: 1.5;
         }
 
         .review-text .hl {
@@ -547,14 +503,14 @@
             flex-wrap: wrap;
             justify-content: center;
             gap: 6px;
-            margin-top: 14px;
+            margin-top: 12px;
         }
 
         .keyword {
             background: white;
-            padding: 5px 12px;
-            border-radius: 15px;
-            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.7rem;
             color: var(--green);
         }
 
@@ -563,44 +519,41 @@
             color: white;
         }
 
-        /* ========== 카드 4: 조합원 반응 (더보기 + 아쉬워요) ========== */
+        /* ========== 카드 4: 조합원 반응 (더보기 + 솔직한 의견) ========== */
         .card-reviews-more {
             background: var(--cream);
-            padding: 70px 16px 40px;
+            padding-top: 50px;
         }
 
         .review-section-title {
             font-family: 'Nanum Myeongjo', serif;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 700;
             color: var(--black);
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            margin-bottom: 10px;
         }
 
         .review-section-title.negative {
             color: var(--gray);
+            margin-top: 16px;
         }
 
         .feedback-list {
             width: 100%;
-            max-width: 360px;
+            max-width: 340px;
             display: flex;
             flex-direction: column;
             gap: 8px;
-            margin-bottom: 20px;
         }
 
         .feedback-item {
             background: white;
-            padding: 12px 14px;
-            border-radius: 12px;
+            padding: 10px 12px;
+            border-radius: 10px;
             text-align: left;
             display: flex;
             align-items: flex-start;
-            gap: 10px;
+            gap: 8px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.04);
         }
 
@@ -610,7 +563,7 @@
         }
 
         .feedback-icon {
-            font-size: 1.1rem;
+            font-size: 1rem;
             flex-shrink: 0;
         }
 
@@ -619,54 +572,45 @@
         }
 
         .feedback-text {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: var(--gray);
-            line-height: 1.55;
-            margin-bottom: 4px;
+            line-height: 1.5;
         }
 
         .feedback-author {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             color: var(--gray-light);
+            margin-top: 3px;
         }
 
         .feedback-response {
             background: var(--green-light);
-            padding: 10px 12px;
-            border-radius: 10px;
-            margin-top: 8px;
-            font-size: 0.8rem;
+            padding: 8px 10px;
+            border-radius: 8px;
+            margin-top: 6px;
+            font-size: 0.75rem;
             color: var(--green-dark);
-            line-height: 1.45;
+            line-height: 1.4;
         }
 
         .feedback-response::before {
-            content: '💬 두레생협: ';
-            font-weight: 600;
+            content: '💬 ';
         }
 
         /* ========== 혜택 카드 공통 ========== */
         .benefit-cta {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             background: var(--green);
             color: white;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: 600;
-            padding: 14px 28px;
-            border-radius: 30px;
+            padding: 12px 24px;
+            border-radius: 25px;
             text-decoration: none;
-            margin-top: 20px;
-            box-shadow: 0 8px 25px rgba(74, 103, 65, 0.3);
-            opacity: 0;
-            transform: translateY(15px);
-            transition: all 0.5s ease 0.3s;
-        }
-
-        .card.in-view .benefit-cta {
-            opacity: 1;
-            transform: translateY(0);
+            margin-top: 14px;
+            box-shadow: 0 6px 20px rgba(74, 103, 65, 0.3);
         }
 
         .benefit-cta:active {
@@ -676,36 +620,37 @@
         /* ========== 카드 5: 자사배송 혜택 ========== */
         .card-benefit {
             background: white;
+            padding-top: 50px;
         }
 
         .benefit-type {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: var(--gray);
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
 
         .benefit-box {
             width: 100%;
-            max-width: 340px;
+            max-width: 320px;
             background: var(--green-pale);
-            border-radius: 18px;
-            padding: 20px;
-            margin-top: 16px;
+            border-radius: 16px;
+            padding: 16px;
+            margin-top: 12px;
         }
 
         .benefit-main {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 14px;
-            margin-bottom: 16px;
+            gap: 12px;
+            margin-bottom: 12px;
         }
 
         .benefit-product-img {
-            width: 85px;
-            height: 85px;
+            width: 70px;
+            height: 70px;
             object-fit: contain;
-            border-radius: 10px;
+            border-radius: 8px;
         }
 
         .benefit-detail {
@@ -714,39 +659,39 @@
 
         .benefit-title {
             font-family: 'Nanum Myeongjo', serif;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: 800;
             color: var(--green);
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
 
         .benefit-sub {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: var(--gray);
-            line-height: 1.4;
+            line-height: 1.3;
         }
 
         .benefit-plus {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             color: var(--gold);
             font-weight: 700;
-            margin: 12px 0;
+            margin: 10px 0;
         }
 
         .gift-box {
             background: white;
-            border-radius: 14px;
-            padding: 14px;
+            border-radius: 12px;
+            padding: 12px;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
 
         .gift-img {
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             object-fit: contain;
-            border-radius: 8px;
+            border-radius: 6px;
         }
 
         .gift-info {
@@ -755,78 +700,78 @@
         }
 
         .gift-label {
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             color: var(--orange);
             font-weight: 600;
-            margin-bottom: 3px;
-        }
-
-        .gift-name {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--black);
             margin-bottom: 2px;
         }
 
+        .gift-name {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--black);
+        }
+
         .gift-value {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: var(--gray);
         }
 
         .benefit-note {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             color: var(--gray-light);
-            margin-top: 14px;
-            line-height: 1.5;
+            margin-top: 10px;
+            line-height: 1.4;
         }
 
         /* ========== 카드 6: 택배 혜택 ========== */
         .card-delivery {
             background: var(--green-pale);
+            padding-top: 50px;
         }
 
         .delivery-box {
             width: 100%;
-            max-width: 340px;
+            max-width: 320px;
             background: var(--green);
-            border-radius: 18px;
-            padding: 24px 20px;
+            border-radius: 16px;
+            padding: 20px 16px;
             color: white;
-            margin-top: 16px;
+            margin-top: 12px;
         }
 
         .delivery-badge {
             display: inline-block;
             background: rgba(255,255,255,0.2);
-            padding: 5px 14px;
-            border-radius: 15px;
-            font-size: 0.75rem;
-            margin-bottom: 14px;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            margin-bottom: 12px;
         }
 
         .delivery-title {
             font-family: 'Nanum Myeongjo', serif;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 700;
             margin-bottom: 6px;
         }
 
         .delivery-desc {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             opacity: 0.85;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
             line-height: 1.4;
         }
 
         .delivery-discount {
             font-family: 'Nanum Myeongjo', serif;
-            font-size: 2.8rem;
+            font-size: 2.5rem;
             font-weight: 800;
             color: #ffeb3b;
         }
 
         .delivery-discount .percent {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
         }
 
         .delivery-cta {
@@ -837,45 +782,49 @@
         /* ========== 카드 7: 후기 이벤트 ========== */
         .card-review-event {
             background: linear-gradient(180deg, #fff9e6 0%, #fff3cd 100%);
+            padding-top: 50px;
         }
 
         .event-icon {
-            font-size: 3.5rem;
-            margin-bottom: 14px;
+            font-size: 3rem;
+            margin-bottom: 12px;
         }
 
         .event-prize {
             display: inline-block;
             background: var(--orange);
             color: white;
-            padding: 12px 24px;
-            border-radius: 25px;
-            font-size: 0.95rem;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
             font-weight: 700;
-            margin-top: 16px;
+            margin-top: 12px;
         }
 
         .event-cta {
             background: var(--orange);
-            margin-top: 16px;
         }
 
         /* ========== 카드 8: CTA ========== */
         .card-cta {
             background: linear-gradient(180deg, var(--green-light) 0%, var(--green-pale) 100%);
+            padding-top: 50px;
         }
 
         .cta-summary {
             width: 100%;
-            max-width: 340px;
-            margin-bottom: 20px;
+            max-width: 320px;
+            background: white;
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 16px;
         }
 
         .cta-summary-item {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 12px 0;
+            padding: 10px 0;
             border-bottom: 1px dashed var(--green-light);
         }
 
@@ -884,12 +833,12 @@
         }
 
         .cta-summary-label {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             color: var(--gray);
         }
 
         .cta-summary-value {
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             font-weight: 600;
             color: var(--green);
         }
@@ -897,23 +846,15 @@
         .cta-button {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             background: var(--green);
             color: white;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 600;
-            padding: 18px 40px;
-            border-radius: 50px;
+            padding: 16px 36px;
+            border-radius: 30px;
             text-decoration: none;
-            box-shadow: 0 12px 35px rgba(74, 103, 65, 0.35);
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
-        }
-
-        .card.in-view .cta-button {
-            opacity: 1;
-            transform: translateY(0);
+            box-shadow: 0 10px 30px rgba(74, 103, 65, 0.35);
         }
 
         .cta-button:active {
@@ -921,13 +862,14 @@
         }
 
         /* ========== 반응형 ========== */
-        @media (max-height: 700px) {
-            .product-hero { width: 160px; height: 160px; }
-            .card-title { font-size: clamp(1.3rem, 5.5vw, 1.7rem); }
+        @media (max-height: 650px) {
+            .product-hero { width: 140px; height: 140px; }
+            .card-title { font-size: clamp(1.2rem, 5vw, 1.5rem); }
+            .eco-stat { padding: 10px; }
+            .eco-stat-value { font-size: 1.1rem; }
+            .benefit-box { padding: 12px; }
+            .delivery-box { padding: 14px 12px; }
             .review-item { padding: 10px; }
-            .eco-stat { padding: 12px; }
-            .benefit-box { padding: 16px; }
-            .delivery-box { padding: 18px 16px; }
         }
 
         html::-webkit-scrollbar { width: 0; display: none; }
@@ -956,7 +898,7 @@
 
     <!-- 0. 인트로 -->
     <section class="card card-intro" data-index="0">
-        <span class="celebration-badge fade-up">🎉 백만팩 돌파!</span>
+        <span class="celebration-badge">🎉 백만팩 돌파!</span>
         <h1 class="card-title">
             조합원님 덕분에<br>
             <em>귀리YOU</em> 100만팩
@@ -965,7 +907,7 @@
             2024년 첫 출시 후 꾸준한 사랑으로<br>
             100만팩을 달성했습니다
         </p>
-        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57232C.png" alt="귀리YOU" class="product-hero fade-up">
+        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57232C.png" alt="귀리YOU" class="product-hero">
         
         <div class="card-connector">
             <span>귀리YOU 이야기 보기</span>
@@ -995,49 +937,49 @@
 
     <!-- 2. 환경 효과 -->
     <section class="card card-eco" data-index="2">
-        <span class="section-badge eco-badge fade-up">🌍 100만팩이 만든 변화</span>
+        <span class="section-badge eco-badge">🌍 100만팩이 만든 변화</span>
         <h2 class="card-title eco-title">
             우유 대신 <span class="number">귀리유</span><br>
             지구가 받은 선물
         </h2>
         
-        <div class="eco-stats fade-up">
+        <div class="eco-stats">
             <div class="eco-stat">
-                <div class="eco-stat-header">
-                    <span class="eco-stat-icon">💧</span>
-                    <span class="eco-stat-label">물 절약</span>
+                <span class="eco-stat-icon">💧</span>
+                <div class="eco-stat-content">
+                    <div class="eco-stat-label">물 절약</div>
+                    <div class="eco-stat-value">
+                        <span class="count-up" data-target="180880000">0</span><span class="unit"> L</span>
+                    </div>
+                    <p class="eco-stat-desc">50m 수영장 724개 분량</p>
                 </div>
-                <div class="eco-stat-value">
-                    <span class="count-up" data-target="180880000">0</span><span class="unit"> L</span>
-                </div>
-                <p class="eco-stat-desc">50m 수영장 724개 분량</p>
             </div>
             
             <div class="eco-stat">
-                <div class="eco-stat-header">
-                    <span class="eco-stat-icon">🌱</span>
-                    <span class="eco-stat-label">탄소 절감</span>
+                <span class="eco-stat-icon">🌱</span>
+                <div class="eco-stat-content">
+                    <div class="eco-stat-label">탄소 절감</div>
+                    <div class="eco-stat-value">
+                        <span class="count-up" data-target="437">0</span><span class="unit"> 톤 CO₂</span>
+                    </div>
+                    <p class="eco-stat-desc">소나무 6.6만 그루 1년 흡수량</p>
                 </div>
-                <div class="eco-stat-value">
-                    <span class="count-up" data-target="437">0</span><span class="unit"> 톤 CO₂</span>
-                </div>
-                <p class="eco-stat-desc">소나무 6.6만 그루 1년 흡수량</p>
             </div>
             
             <div class="eco-stat">
-                <div class="eco-stat-header">
-                    <span class="eco-stat-icon">🌾</span>
-                    <span class="eco-stat-label">토지 절약</span>
+                <span class="eco-stat-icon">🌾</span>
+                <div class="eco-stat-content">
+                    <div class="eco-stat-label">토지 절약</div>
+                    <div class="eco-stat-value">
+                        <span class="count-up" data-target="156">0</span><span class="unit"> 헥타르</span>
+                    </div>
+                    <p class="eco-stat-desc">축구장 218개 면적</p>
                 </div>
-                <div class="eco-stat-value">
-                    <span class="count-up" data-target="156">0</span><span class="unit"> 헥타르</span>
-                </div>
-                <p class="eco-stat-desc">축구장 218개 면적</p>
             </div>
         </div>
         
-        <p class="eco-note fade-up">
-            * 우유 생산 대비 귀리유의 환경 효과 기준 계산<br>
+        <p class="eco-note">
+            * 우유 생산 대비 귀리유의 환경 효과 기준<br>
             <strong>조합원님의 선택이 지구를 바꿉니다</strong>
         </p>
         
@@ -1049,10 +991,10 @@
 
     <!-- 3. 조합원 반응 - 좋아요 -->
     <section class="card card-reviews" data-index="3">
-        <span class="section-badge fade-up">💬 실제 조합원 후기</span>
+        <span class="section-badge">💬 실제 조합원 후기</span>
         <h2 class="card-title">왜 100만팩이<br>팔렸을까요?</h2>
         
-        <div class="review-stats fade-up">
+        <div class="review-stats">
             <div class="stat-item">
                 <div class="stat-number">4.8</div>
                 <div class="stat-label">평균 별점</div>
@@ -1063,33 +1005,29 @@
             </div>
         </div>
         
-        <div class="review-list fade-up">
+        <div class="review-list">
             <div class="review-item">
                 <div class="review-header">
                     <div class="review-avatar">김</div>
-                    <div class="review-info">
-                        <span class="review-name">김효선님</span>
-                        <span class="review-meta">경기두레생협</span>
-                    </div>
+                    <span class="review-name">김효선님</span>
+                    <span class="review-meta">경기두레</span>
                     <span class="review-stars">★★★★★</span>
                 </div>
-                <p class="review-text">친정엄마가 유당불내증 때문에 우유를 못 드시다가 <span class="hl">이걸 마시고는 속이 편하다</span>고 하시면서 달지 않아서 아껴드신다고 전화가 왔어요</p>
+                <p class="review-text">친정엄마가 유당불내증으로 우유를 못 드시다가 <span class="hl">이걸 마시고는 속이 편하다</span>고 하시면서 달지 않아서 좋다고 하셨어요</p>
             </div>
             
             <div class="review-item">
                 <div class="review-header">
                     <div class="review-avatar">최</div>
-                    <div class="review-info">
-                        <span class="review-name">최인혜님</span>
-                        <span class="review-meta">은평두레생협</span>
-                    </div>
+                    <span class="review-name">최인혜님</span>
+                    <span class="review-meta">은평두레</span>
                     <span class="review-stars">★★★★★</span>
                 </div>
-                <p class="review-text"><span class="hl">안 마신 분은 있어도 한번 마신 분은 없다ㅎ</span> 단백질이 필요한 중장년에게 딱이에요</p>
+                <p class="review-text"><span class="hl">안 마신 분은 있어도 한번 마신 분은 없다ㅎ</span> 단백질이 필요한 중장년에게 딱!</p>
             </div>
         </div>
         
-        <div class="keyword-cloud fade-up">
+        <div class="keyword-cloud">
             <span class="keyword hot">달지 않아요</span>
             <span class="keyword hot">속이 편해요</span>
             <span class="keyword">고소해요</span>
@@ -1104,8 +1042,8 @@
 
     <!-- 4. 조합원 반응 - 더보기 + 솔직한 의견 -->
     <section class="card card-reviews-more" data-index="4">
-        <h3 class="review-section-title fade-up">👍 이런 점이 좋았어요</h3>
-        <div class="feedback-list fade-up">
+        <h3 class="review-section-title">👍 이런 점이 좋았어요</h3>
+        <div class="feedback-list">
             <div class="feedback-item">
                 <span class="feedback-icon">💪</span>
                 <div class="feedback-content">
@@ -1116,28 +1054,28 @@
             <div class="feedback-item">
                 <span class="feedback-icon">🏃</span>
                 <div class="feedback-content">
-                    <p class="feedback-text">운동 후 마시면 <span class="hl">포만감이 있어 다이어트</span>에 도움! 할인 때 쟁여놔야 해요</p>
+                    <p class="feedback-text">운동 후 마시면 <span class="hl">포만감이 있어 다이어트</span>에 도움! 할인 때 꼭 쟁여놔요</p>
                     <span class="feedback-author">김미정님 · 두레생협연합회</span>
                 </div>
             </div>
         </div>
         
-        <h3 class="review-section-title negative fade-up">💭 솔직한 의견도 있어요</h3>
-        <div class="feedback-list fade-up">
+        <h3 class="review-section-title negative">💭 솔직한 의견도 있어요</h3>
+        <div class="feedback-list">
             <div class="feedback-item negative">
                 <span class="feedback-icon">📦</span>
                 <div class="feedback-content">
-                    <p class="feedback-text">1리터 대용량도 있으면 좋겠어요. 가족이 매일 마시니까요</p>
-                    <span class="feedback-author">장정경님 · 푸른두레생협</span>
-                    <div class="feedback-response">대용량 출시 검토 중입니다. 소중한 의견 감사해요!</div>
+                    <p class="feedback-text">1리터 대용량도 있으면 좋겠어요</p>
+                    <span class="feedback-author">장정경님</span>
+                    <div class="feedback-response">대용량 출시 검토 중입니다!</div>
                 </div>
             </div>
             <div class="feedback-item negative">
                 <span class="feedback-icon">🥤</span>
                 <div class="feedback-content">
-                    <p class="feedback-text">종이빨대가 물을 흡수해요. 빨대 선택 옵션이 있으면 좋겠어요</p>
-                    <span class="feedback-author">이경진님 · 서울남부두레생협</span>
-                    <div class="feedback-response">환경과 편의성의 균형, 계속 고민하겠습니다</div>
+                    <p class="feedback-text">종이빨대가 물을 흡수해요</p>
+                    <span class="feedback-author">이경진님</span>
+                    <div class="feedback-response">환경과 편의성, 계속 고민하겠습니다</div>
                 </div>
             </div>
         </div>
@@ -1150,11 +1088,11 @@
 
     <!-- 5. 자사배송 혜택 -->
     <section class="card card-benefit" data-index="5">
-        <span class="section-badge fade-up">🎁 감사 혜택 ①</span>
-        <p class="benefit-type fade-up">자사배송 주문</p>
+        <span class="section-badge">🎁 감사 혜택 ①</span>
+        <p class="benefit-type">자사배송 주문</p>
         <h2 class="card-title">3박스 사면<br><em>1박스 + 서리태쉐이크</em></h2>
         
-        <div class="benefit-box fade-up">
+        <div class="benefit-box">
             <div class="benefit-main">
                 <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57232C.png" alt="귀리YOU" class="benefit-product-img">
                 <div class="benefit-detail">
@@ -1174,14 +1112,11 @@
                 </div>
             </div>
             
-            <p class="benefit-note">
-                * 한정 수량, 조기 소진 시 종료<br>
-                * 조건 충족 시 자동 공급
-            </p>
+            <p class="benefit-note">* 한정 수량, 조기 소진 시 종료 / 자동 공급</p>
         </div>
         
-        <a href="https://www.dfrr.co.kr/shop/goods/goods_view.php?goodsno=57232" class="benefit-cta" target="_blank">
-            자사배송으로 주문하기 →
+        <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1632#book0" class="benefit-cta" target="_blank">
+            자사배송 주문하기 →
         </a>
         
         <div class="card-connector">
@@ -1192,11 +1127,11 @@
 
     <!-- 6. 택배 혜택 -->
     <section class="card card-delivery" data-index="6">
-        <span class="section-badge fade-up">📦 감사 혜택 ②</span>
-        <p class="benefit-type fade-up">택배 배송 주문</p>
+        <span class="section-badge">📦 감사 혜택 ②</span>
+        <p class="benefit-type">택배 배송 주문</p>
         <h2 class="card-title">4박스 선물세트<br><em>25% 할인!</em></h2>
         
-        <div class="delivery-box fade-up">
+        <div class="delivery-box">
             <span class="delivery-badge">🚚 전국 택배 배송</span>
             <h3 class="delivery-title">귀리YOU 4박스 선물세트</h3>
             <p class="delivery-desc">소중한 분께 건강한 선물<br>배송일 지정 가능</p>
@@ -1205,8 +1140,8 @@
             </div>
         </div>
         
-        <a href="https://www.dfrr.co.kr/shop/goods/goods_view.php?goodsno=57232" class="benefit-cta delivery-cta" target="_blank">
-            택배 선물세트 주문하기 →
+        <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1632#book0" class="benefit-cta delivery-cta" target="_blank">
+            택배 선물세트 주문 →
         </a>
         
         <div class="card-connector">
@@ -1217,33 +1152,32 @@
 
     <!-- 7. 후기 이벤트 -->
     <section class="card card-review-event" data-index="7">
-        <span class="section-badge fade-up" style="background: var(--orange);">✍️ 감사 혜택 ③</span>
-        <div class="event-icon fade-up">📝</div>
+        <span class="section-badge" style="background: var(--orange);">✍️ 감사 혜택 ③</span>
+        <div class="event-icon">📝</div>
         <h2 class="card-title">귀리유 어떻게 드시나요?</h2>
         <p class="card-desc">
             아침 대용? 커피에 넣어서?<br>
-            콩국수? 미숫가루?<br>
             여러분만의 활용법을 알려주세요!
         </p>
-        <div class="event-prize fade-up">추첨 100명 · 1박스 증정 🎉</div>
+        <div class="event-prize">추첨 100명 · 1박스 증정 🎉</div>
         
-        <a href="https://www.dfrr.co.kr/shop/goods/goods_view.php?goodsno=57232" class="benefit-cta event-cta" target="_blank">
+        <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1632#book0" class="benefit-cta event-cta" target="_blank">
             후기 작성하러 가기 →
         </a>
     </section>
 
     <!-- 8. CTA -->
     <section class="card card-cta" data-index="8">
-        <span class="section-badge fade-up">🎊 혜택 정리</span>
+        <span class="section-badge">🎊 혜택 정리</span>
         <h2 class="card-title">백만팩 감사 이벤트<br>한눈에 보기</h2>
         
-        <div class="cta-summary fade-up">
+        <div class="cta-summary">
             <div class="cta-summary-item">
                 <span class="cta-summary-label">자사배송 3박스</span>
                 <span class="cta-summary-value">+1박스 +서리태쉐이크</span>
             </div>
             <div class="cta-summary-item">
-                <span class="cta-summary-label">택배 4박스 선물세트</span>
+                <span class="cta-summary-label">택배 4박스 세트</span>
                 <span class="cta-summary-value">25% 할인</span>
             </div>
             <div class="cta-summary-item">
@@ -1252,7 +1186,7 @@
             </div>
         </div>
         
-        <a href="https://www.dfrr.co.kr/shop/goods/goods_view.php?goodsno=57232" class="cta-button" target="_blank">
+        <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1632#book0" class="cta-button" target="_blank">
             귀리YOU 주문하기 →
         </a>
     </section>
@@ -1303,14 +1237,13 @@
             scrollIndicator.appendChild(dot);
         });
 
-        // Intersection Observer - 카드 애니메이션
+        // Intersection Observer
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('in-view');
+                    const index = parseInt(entry.target.dataset.index);
                     
                     // 스크롤 인디케이터 업데이트
-                    const index = parseInt(entry.target.dataset.index);
                     document.querySelectorAll('.scroll-dot').forEach((dot, i) => {
                         dot.classList.toggle('active', i === index);
                     });
