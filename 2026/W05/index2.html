@@ -590,52 +590,71 @@
             background: var(--cream);
         }
 
-        .usage-list {
+        .usage-grid {
             width: 100%;
             max-width: 340px;
-            display: flex;
-            flex-direction: column;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
             gap: 12px;
             margin-top: 14px;
         }
 
-        .usage-item {
+        .usage-card {
             background: white;
             border-radius: 16px;
-            padding: 16px;
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            text-align: left;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 14px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.5s ease;
         }
 
-        .usage-icon {
-            width: 50px;
-            height: 50px;
-            background: var(--primary-light);
-            border-radius: 14px;
+        .usage-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .usage-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+
+        .usage-image {
+            width: 100%;
+            height: 90px;
+            font-size: 3.5rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
-            flex-shrink: 0;
+            margin-bottom: 10px;
+            background: var(--primary-light);
+            border-radius: 12px;
+            animation: iconPulse 3s infinite;
         }
 
-        .usage-content {
-            flex: 1;
+        @keyframes iconPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
 
-        .usage-title {
-            font-size: 1rem;
-            font-weight: 600;
+        .usage-card-title {
+            font-size: 1.05rem;
+            font-weight: 700;
             color: var(--black);
-            margin-bottom: 3px;
+            margin-bottom: 6px;
         }
 
-        .usage-desc {
+        .usage-card-desc {
             font-size: 0.85rem;
             color: var(--gray);
+            line-height: 1.4;
+        }
+
+        .usage-card-desc .underline {
+            background: linear-gradient(transparent 60%, var(--primary-light) 60%);
+            font-weight: 600;
+            color: var(--primary-dark);
         }
 
         /* ========== 카드 5: 한정 혜택 안내 ========== */
@@ -1070,7 +1089,7 @@
         </p>
         <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57232C.png" alt="귀리YOU" class="product-hero">
         <div class="deadline-banner">
-            ⏰ 백만팩 감사 혜택 — 이번 주 마감!
+            ⏰ 백만팩 감사 혜택 — 한정 수량!
         </div>
         
         <div class="card-connector">
@@ -1084,7 +1103,7 @@
         <span class="section-badge trend-badge">📊 두레생협만 인기가 아니에요</span>
         <h2 class="card-title trend-title">
             지금 <em>전 세계</em>가<br>
-            귀리유에 주목 중!
+            귀리YOU에 주목 중!
         </h2>
         
         <div class="trend-cards">
@@ -1248,45 +1267,37 @@
         <span class="section-badge">☕ 이렇게 드셔보세요</span>
         <h2 class="card-title">
             조합원님들의<br>
-            <em>귀리유 활용법</em>
+            <em>귀리YOU 활용법</em>
         </h2>
         
-        <div class="usage-list">
-            <div class="usage-item">
-                <div class="usage-icon">🌅</div>
-                <div class="usage-content">
-                    <div class="usage-title">아침 대용으로</div>
-                    <div class="usage-desc">바쁜 아침, 한 팩이면 든든해요</div>
-                </div>
+        <div class="usage-grid">
+            <div class="usage-card" data-delay="0">
+                <div class="usage-image">🌅</div>
+                <div class="usage-card-title">아침 대용</div>
+                <div class="usage-card-desc"><span class="underline">한 팩이면 든든</span>하게 시작!</div>
             </div>
             
-            <div class="usage-item">
-                <div class="usage-icon">☕</div>
-                <div class="usage-content">
-                    <div class="usage-title">커피에 넣어서</div>
-                    <div class="usage-desc">오트라떼로 부드럽게 즐겨요</div>
-                </div>
+            <div class="usage-card" data-delay="100">
+                <div class="usage-image">☕</div>
+                <div class="usage-card-title">오트라떼</div>
+                <div class="usage-card-desc">커피에 넣으면 <span class="underline">부드러운 맛</span></div>
             </div>
             
-            <div class="usage-item">
-                <div class="usage-icon">🥣</div>
-                <div class="usage-content">
-                    <div class="usage-title">시리얼과 함께</div>
-                    <div class="usage-desc">아이들 간식으로도 좋아요</div>
-                </div>
+            <div class="usage-card" data-delay="200">
+                <div class="usage-image">🥣</div>
+                <div class="usage-card-title">시리얼과 함께</div>
+                <div class="usage-card-desc"><span class="underline">아이 간식</span>으로 딱!</div>
             </div>
             
-            <div class="usage-item">
-                <div class="usage-icon">🏃</div>
-                <div class="usage-content">
-                    <div class="usage-title">운동 후에</div>
-                    <div class="usage-desc">포만감 있어 다이어트에 도움돼요</div>
-                </div>
+            <div class="usage-card" data-delay="300">
+                <div class="usage-image">🏃</div>
+                <div class="usage-card-title">운동 후</div>
+                <div class="usage-card-desc"><span class="underline">포만감</span>으로 다이어트에 굿</div>
             </div>
         </div>
         
         <div class="card-connector">
-            <span>이번 주 특별 혜택은?</span>
+            <span>특별 혜택은?</span>
             <svg viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
         </div>
     </section>
@@ -1327,7 +1338,7 @@
     <!-- 6. 집으로 받기 혜택 -->
     <section class="card card-benefit" data-index="6">
         <span class="section-badge">🎁 감사 혜택 ①</span>
-        <p class="benefit-type">이번 주 집으로 주문하시면</p>
+        <p class="benefit-type">집으로 주문하시면</p>
         <h2 class="card-title">3박스 주문 시<br><em>+1박스 +서리태쉐이크</em></h2>
         
         <div class="benefit-box">
@@ -1335,7 +1346,7 @@
                 <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57232C.png" alt="귀리YOU" class="benefit-product-img">
                 <div class="benefit-detail">
                     <div class="benefit-title">3+1 증정</div>
-                    <p class="benefit-sub">귀리유 1박스(16팩)<br>무료 증정</p>
+                    <p class="benefit-sub">귀리YOU 1박스(16팩)<br>무료 증정</p>
                 </div>
             </div>
             
@@ -1393,7 +1404,7 @@
     <section class="card card-review-event" data-index="8">
         <span class="section-badge" style="background: var(--orange);">✍️ 감사 혜택 ③</span>
         <div class="event-icon">📝</div>
-        <h2 class="card-title">귀리유 어떻게 드시나요?</h2>
+        <h2 class="card-title">귀리YOU 어떻게 드시나요?</h2>
         <p class="card-desc">
             아침 대용? 커피에 넣어서?<br>
             조합원님만의 활용법을<br>
@@ -1486,7 +1497,118 @@
             scrollIndicator.appendChild(dot);
         });
 
-        // Intersection Observer
+        // ========== 애니메이션 함수들 ==========
+        
+        // 숫자 카운트업 애니메이션
+        function animateCountUp(element, target, duration = 2000) {
+            const start = performance.now();
+            const startValue = 0;
+            
+            function update(currentTime) {
+                const elapsed = currentTime - start;
+                const progress = Math.min(elapsed / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 4);
+                const current = Math.floor(eased * target);
+                
+                element.textContent = current.toLocaleString();
+                
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                }
+            }
+            requestAnimationFrame(update);
+        }
+
+        // 텍스트 타이핑 효과
+        function typeWriter(element, text, speed = 50) {
+            element.textContent = '';
+            let i = 0;
+            function type() {
+                if (i < text.length) {
+                    element.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+
+        // 요소 순차 페이드인
+        function staggerFadeIn(elements, delay = 100) {
+            elements.forEach((el, index) => {
+                setTimeout(() => {
+                    el.classList.add('visible');
+                }, index * delay);
+            });
+        }
+
+        // 파티클 효과 생성
+        function createParticles(container, count = 20) {
+            for (let i = 0; i < count; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.cssText = `
+                    position: absolute;
+                    width: ${Math.random() * 10 + 5}px;
+                    height: ${Math.random() * 10 + 5}px;
+                    background: rgba(212, 168, 83, ${Math.random() * 0.5 + 0.3});
+                    border-radius: 50%;
+                    left: ${Math.random() * 100}%;
+                    top: ${Math.random() * 100}%;
+                    animation: particleFloat ${Math.random() * 3 + 2}s infinite ease-in-out;
+                    animation-delay: ${Math.random() * 2}s;
+                `;
+                container.appendChild(particle);
+            }
+        }
+
+        // 스타일에 파티클 애니메이션 추가
+        const styleSheet = document.createElement('style');
+        styleSheet.textContent = `
+            @keyframes particleFloat {
+                0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.7; }
+                50% { transform: translateY(-20px) rotate(180deg); opacity: 1; }
+            }
+            @keyframes slideInLeft {
+                from { opacity: 0; transform: translateX(-50px); }
+                to { opacity: 1; transform: translateX(0); }
+            }
+            @keyframes slideInRight {
+                from { opacity: 0; transform: translateX(50px); }
+                to { opacity: 1; transform: translateX(0); }
+            }
+            @keyframes slideInUp {
+                from { opacity: 0; transform: translateY(50px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            @keyframes scaleIn {
+                from { opacity: 0; transform: scale(0.5); }
+                to { opacity: 1; transform: scale(1); }
+            }
+            @keyframes bounceIn {
+                0% { opacity: 0; transform: scale(0.3); }
+                50% { transform: scale(1.1); }
+                70% { transform: scale(0.9); }
+                100% { opacity: 1; transform: scale(1); }
+            }
+            @keyframes glowPulse {
+                0%, 100% { box-shadow: 0 0 5px rgba(212, 168, 83, 0.5); }
+                50% { box-shadow: 0 0 20px rgba(212, 168, 83, 0.8), 0 0 30px rgba(212, 168, 83, 0.4); }
+            }
+            .animate-slideInLeft { animation: slideInLeft 0.6s ease forwards; }
+            .animate-slideInRight { animation: slideInRight 0.6s ease forwards; }
+            .animate-slideInUp { animation: slideInUp 0.6s ease forwards; }
+            .animate-scaleIn { animation: scaleIn 0.5s ease forwards; }
+            .animate-bounceIn { animation: bounceIn 0.8s ease forwards; }
+            .animate-glow { animation: glowPulse 2s infinite; }
+            .hidden { opacity: 0; }
+        `;
+        document.head.appendChild(styleSheet);
+
+        // 애니메이션 상태 추적
+        const animatedCards = new Set();
+
+        // Intersection Observer - 확장된 애니메이션
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -1496,6 +1618,238 @@
                     document.querySelectorAll('.scroll-dot').forEach((dot, i) => {
                         dot.classList.toggle('active', i === index);
                     });
+
+                    // 이미 애니메이션된 카드는 스킵
+                    if (animatedCards.has(index)) return;
+                    animatedCards.add(index);
+
+                    // 카드별 애니메이션
+                    switch(index) {
+                        case 0: // 인트로
+                            const trophy = entry.target.querySelector('.trophy-badge');
+                            const title = entry.target.querySelector('.card-title');
+                            const hero = entry.target.querySelector('.product-hero');
+                            const deadline = entry.target.querySelector('.deadline-banner');
+                            
+                            if (trophy) {
+                                trophy.classList.add('hidden');
+                                setTimeout(() => {
+                                    trophy.classList.remove('hidden');
+                                    trophy.classList.add('animate-bounceIn');
+                                }, 200);
+                            }
+                            if (title) {
+                                title.classList.add('hidden');
+                                setTimeout(() => {
+                                    title.classList.remove('hidden');
+                                    title.classList.add('animate-slideInUp');
+                                }, 500);
+                            }
+                            if (hero) {
+                                hero.classList.add('hidden');
+                                setTimeout(() => {
+                                    hero.classList.remove('hidden');
+                                    hero.classList.add('animate-scaleIn');
+                                }, 800);
+                            }
+                            if (deadline) {
+                                deadline.classList.add('hidden');
+                                setTimeout(() => {
+                                    deadline.classList.remove('hidden');
+                                    deadline.classList.add('animate-bounceIn');
+                                    deadline.classList.add('animate-glow');
+                                }, 1100);
+                            }
+                            // 파티클 효과
+                            createParticles(entry.target, 15);
+                            break;
+
+                        case 1: // 트렌드
+                            const trendCards = entry.target.querySelectorAll('.trend-card');
+                            trendCards.forEach((card, i) => {
+                                card.classList.add('hidden');
+                                setTimeout(() => {
+                                    card.classList.remove('hidden');
+                                    card.classList.add(i % 2 === 0 ? 'animate-slideInLeft' : 'animate-slideInRight');
+                                }, 300 + i * 200);
+                            });
+                            break;
+
+                        case 2: // 건강 효과
+                            const healthItems = entry.target.querySelectorAll('.health-item');
+                            const compareRows = entry.target.querySelectorAll('.compare-row');
+                            
+                            healthItems.forEach((item, i) => {
+                                item.classList.add('hidden');
+                                setTimeout(() => {
+                                    item.classList.remove('hidden');
+                                    item.classList.add('animate-slideInLeft');
+                                }, 200 + i * 150);
+                            });
+                            
+                            compareRows.forEach((row, i) => {
+                                row.classList.add('hidden');
+                                setTimeout(() => {
+                                    row.classList.remove('hidden');
+                                    row.classList.add('animate-slideInUp');
+                                }, 800 + i * 100);
+                            });
+                            break;
+
+                        case 3: // 맛 후기
+                            const tasteStats = entry.target.querySelectorAll('.taste-number');
+                            const reviews = entry.target.querySelectorAll('.review-item');
+                            const keywords = entry.target.querySelectorAll('.keyword');
+                            
+                            tasteStats.forEach(stat => {
+                                const target = parseFloat(stat.textContent);
+                                if (!isNaN(target)) {
+                                    if (target < 10) {
+                                        // 소수점 애니메이션 (4.8)
+                                        animateCountUp(stat, target * 10, 1500);
+                                        setTimeout(() => {
+                                            stat.textContent = target.toFixed(1);
+                                        }, 1600);
+                                    } else {
+                                        animateCountUp(stat, target, 1500);
+                                    }
+                                }
+                            });
+                            
+                            reviews.forEach((review, i) => {
+                                review.classList.add('hidden');
+                                setTimeout(() => {
+                                    review.classList.remove('hidden');
+                                    review.classList.add('animate-slideInUp');
+                                }, 500 + i * 200);
+                            });
+                            
+                            keywords.forEach((kw, i) => {
+                                kw.classList.add('hidden');
+                                setTimeout(() => {
+                                    kw.classList.remove('hidden');
+                                    kw.classList.add('animate-scaleIn');
+                                }, 1200 + i * 100);
+                            });
+                            break;
+
+                        case 4: // 활용법
+                            const usageCards = entry.target.querySelectorAll('.usage-card');
+                            usageCards.forEach((card, i) => {
+                                setTimeout(() => {
+                                    card.classList.add('visible');
+                                }, i * 150);
+                            });
+                            break;
+
+                        case 5: // 한정 혜택
+                            const limitedIcon = entry.target.querySelector('.limited-icon');
+                            const limitedItems = entry.target.querySelectorAll('.limited-item');
+                            const warning = entry.target.querySelector('.limited-warning');
+                            
+                            if (limitedIcon) {
+                                limitedIcon.classList.add('hidden');
+                                setTimeout(() => {
+                                    limitedIcon.classList.remove('hidden');
+                                    limitedIcon.classList.add('animate-bounceIn');
+                                }, 200);
+                            }
+                            
+                            limitedItems.forEach((item, i) => {
+                                item.classList.add('hidden');
+                                setTimeout(() => {
+                                    item.classList.remove('hidden');
+                                    item.classList.add('animate-slideInLeft');
+                                }, 500 + i * 150);
+                            });
+                            
+                            if (warning) {
+                                warning.classList.add('hidden');
+                                setTimeout(() => {
+                                    warning.classList.remove('hidden');
+                                    warning.classList.add('animate-bounceIn');
+                                    warning.classList.add('animate-glow');
+                                }, 1000);
+                            }
+                            break;
+
+                        case 6: // 집으로 받기
+                        case 7: // 선물하기
+                            const benefitBox = entry.target.querySelector('.benefit-box, .delivery-box');
+                            const cta = entry.target.querySelector('.benefit-cta');
+                            
+                            if (benefitBox) {
+                                benefitBox.classList.add('hidden');
+                                setTimeout(() => {
+                                    benefitBox.classList.remove('hidden');
+                                    benefitBox.classList.add('animate-scaleIn');
+                                }, 300);
+                            }
+                            
+                            if (cta) {
+                                cta.classList.add('hidden');
+                                setTimeout(() => {
+                                    cta.classList.remove('hidden');
+                                    cta.classList.add('animate-bounceIn');
+                                    cta.classList.add('animate-glow');
+                                }, 700);
+                            }
+                            break;
+
+                        case 8: // 후기 이벤트
+                            const eventIcon = entry.target.querySelector('.event-icon');
+                            const eventPrize = entry.target.querySelector('.event-prize');
+                            
+                            if (eventIcon) {
+                                eventIcon.classList.add('hidden');
+                                setTimeout(() => {
+                                    eventIcon.classList.remove('hidden');
+                                    eventIcon.classList.add('animate-bounceIn');
+                                }, 200);
+                            }
+                            
+                            if (eventPrize) {
+                                eventPrize.classList.add('hidden');
+                                setTimeout(() => {
+                                    eventPrize.classList.remove('hidden');
+                                    eventPrize.classList.add('animate-scaleIn');
+                                }, 600);
+                            }
+                            break;
+
+                        case 9: // 마감 CTA
+                            const ctaSummary = entry.target.querySelectorAll('.cta-summary-item');
+                            const ctaDeadline = entry.target.querySelector('.cta-deadline');
+                            const ctaButton = entry.target.querySelector('.cta-button');
+                            
+                            ctaSummary.forEach((item, i) => {
+                                item.classList.add('hidden');
+                                setTimeout(() => {
+                                    item.classList.remove('hidden');
+                                    item.classList.add('animate-slideInLeft');
+                                }, 200 + i * 150);
+                            });
+                            
+                            if (ctaDeadline) {
+                                ctaDeadline.classList.add('hidden');
+                                setTimeout(() => {
+                                    ctaDeadline.classList.remove('hidden');
+                                    ctaDeadline.classList.add('animate-bounceIn');
+                                }, 800);
+                            }
+                            
+                            if (ctaButton) {
+                                ctaButton.classList.add('hidden');
+                                setTimeout(() => {
+                                    ctaButton.classList.remove('hidden');
+                                    ctaButton.classList.add('animate-bounceIn');
+                                    ctaButton.classList.add('animate-glow');
+                                }, 1000);
+                            }
+                            // 축하 파티클
+                            createParticles(entry.target, 25);
+                            break;
+                    }
                 }
             });
         }, { threshold: 0.5 });
