@@ -1,0 +1,1506 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>생활의 발견 | 귀리YOU 백만팩 감사 혜택 | 두레생협</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* 일요일 버전: 골드/오렌지 프리미엄 톤 */
+            --primary: #b8860b;          /* 다크골드 - 메인 */
+            --primary-dark: #8b6914;     /* 진한 골드 */
+            --primary-light: #f5e6c8;    /* 연한 골드 */
+            --primary-pale: #fdf8ed;     /* 배경용 골드 */
+            --cream: #fffbf5;            /* 기본 배경 */
+            --warm: #f9f3e8;             /* 따뜻한 배경 */
+            --black: #1a1a1a;
+            --gray: #555;
+            --gray-light: #888;
+            --gold: #d4a853;
+            --orange: #e8a849;
+            --red: #c75050;
+            --coral: #e07a5f;
+            --accent: #2d5a4a;           /* 포인트 그린 */
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+        body { font-family: 'Noto Sans KR', sans-serif; background: var(--cream); overflow-x: hidden; }
+
+        /* ========== 매거진 헤더 ========== */
+        .magazine-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: linear-gradient(135deg, #8b6914 0%, #b8860b 100%);
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .magazine-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .logo-circle {
+            width: 28px;
+            height: 28px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.55rem;
+            color: var(--primary);
+            font-weight: 800;
+        }
+
+        .logo-text {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .brand-divider {
+            width: 1px;
+            height: 16px;
+            background: rgba(255,255,255,0.3);
+        }
+
+        .magazine-title {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .magazine-issue {
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.7);
+            margin-left: 5px;
+        }
+
+        .live-visitors {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255,255,255,0.15);
+            padding: 6px 12px;
+            border-radius: 16px;
+        }
+
+        .live-dot {
+            width: 7px;
+            height: 7px;
+            background: #4CAF50;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .live-count {
+            font-size: 0.85rem;
+            color: white;
+        }
+
+        /* ========== 스크롤 인디케이터 ========== */
+        .scroll-indicator {
+            position: fixed;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .scroll-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .scroll-dot.active {
+            height: 20px;
+            border-radius: 3px;
+            background: var(--gold);
+        }
+
+        /* ========== 카드 공통 ========== */
+        .card {
+            min-height: 100vh;
+            min-height: 100dvh;
+            padding: 58px 18px 28px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            scroll-snap-align: start;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-title {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: clamp(1.5rem, 6vw, 2rem);
+            font-weight: 700;
+            color: var(--black);
+            line-height: 1.4;
+            margin-bottom: 12px;
+        }
+
+        .card-title em {
+            color: var(--primary);
+            font-style: normal;
+        }
+
+        .card-title .gold {
+            color: var(--gold);
+        }
+
+        .card-desc {
+            font-size: 1rem;
+            color: var(--gray);
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+
+        .section-badge {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        /* 카드 연결 문구 */
+        .card-connector {
+            position: absolute;
+            bottom: 18px;
+            font-size: 0.85rem;
+            color: var(--gray-light);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            animation: connectorPulse 2s infinite;
+        }
+
+        .card-connector svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--gray-light);
+        }
+
+        @keyframes connectorPulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        /* ========== 카드 0: 인트로 ========== */
+        .card-intro {
+            background: linear-gradient(180deg, #fdf6e3 0%, #f5e6c8 100%);
+        }
+
+        .trophy-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: linear-gradient(135deg, #d4a853 0%, #f0c674 100%);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 15px rgba(212, 168, 83, 0.4);
+        }
+
+        .product-hero {
+            width: 170px;
+            height: 170px;
+            object-fit: contain;
+            filter: drop-shadow(0 10px 25px rgba(0,0,0,0.15));
+            animation: float 3s ease-in-out infinite;
+            margin: 12px 0;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .deadline-banner {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--coral);
+            color: white;
+            padding: 10px 18px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 12px;
+            animation: shake 3s infinite;
+        }
+
+        @keyframes shake {
+            0%, 90%, 100% { transform: translateX(0); }
+            92%, 96% { transform: translateX(-3px); }
+            94%, 98% { transform: translateX(3px); }
+        }
+
+        /* ========== 카드 1: 트렌드 증명 ========== */
+        .card-trend {
+            background: linear-gradient(180deg, #2d3a4a 0%, #1a252f 100%);
+            color: white;
+        }
+
+        .trend-badge {
+            background: rgba(255,255,255,0.15);
+            color: white;
+        }
+
+        .trend-title {
+            color: white;
+        }
+
+        .trend-title em {
+            color: var(--gold);
+        }
+
+        .trend-cards {
+            width: 100%;
+            max-width: 340px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .trend-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 16px;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .trend-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .trend-content {
+            flex: 1;
+        }
+
+        .trend-source {
+            font-size: 0.75rem;
+            color: var(--gold);
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+
+        .trend-text {
+            font-size: 0.95rem;
+            color: white;
+            line-height: 1.4;
+        }
+
+        .trend-text strong {
+            color: var(--gold);
+        }
+
+        .trend-connector {
+            color: rgba(255,255,255,0.6);
+        }
+        .trend-connector svg {
+            fill: rgba(255,255,255,0.6);
+        }
+
+        /* ========== 카드 2: 건강 효과 ========== */
+        .card-health {
+            background: var(--primary-pale);
+        }
+
+        .health-box {
+            width: 100%;
+            max-width: 340px;
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin-top: 14px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .health-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 16px;
+            padding-bottom: 14px;
+            border-bottom: 1px dashed var(--primary-light);
+        }
+
+        .health-header-icon {
+            font-size: 1.3rem;
+        }
+
+        .health-header-text {
+            font-size: 0.9rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .health-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .health-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            text-align: left;
+        }
+
+        .health-check {
+            width: 28px;
+            height: 28px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .health-text {
+            flex: 1;
+        }
+
+        .health-label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--black);
+            margin-bottom: 2px;
+        }
+
+        .health-desc {
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        .nutrition-compare {
+            width: 100%;
+            max-width: 340px;
+            background: white;
+            border-radius: 16px;
+            padding: 16px;
+            margin-top: 14px;
+        }
+
+        .compare-title {
+            font-size: 0.85rem;
+            color: var(--gray);
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .compare-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--primary-light);
+        }
+
+        .compare-row:last-child {
+            border-bottom: none;
+        }
+
+        .compare-label {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .compare-value {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+        }
+
+        /* ========== 카드 3: 맛 후기 ========== */
+        .card-taste {
+            background: var(--warm);
+        }
+
+        .taste-stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 16px;
+        }
+
+        .taste-stat {
+            text-align: center;
+        }
+
+        .taste-number {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .taste-label {
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        .review-list {
+            width: 100%;
+            max-width: 360px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .review-item {
+            background: white;
+            padding: 14px;
+            border-radius: 14px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            text-align: left;
+        }
+
+        .review-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .review-avatar {
+            width: 32px;
+            height: 32px;
+            background: var(--primary-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            color: var(--primary-dark);
+            font-weight: 600;
+        }
+
+        .review-name {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--black);
+        }
+
+        .review-meta {
+            font-size: 0.75rem;
+            color: var(--gray-light);
+            margin-left: 4px;
+        }
+
+        .review-stars {
+            color: var(--gold);
+            font-size: 0.8rem;
+            margin-left: auto;
+        }
+
+        .review-text {
+            font-size: 0.95rem;
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        .review-text .hl {
+            background: linear-gradient(transparent 60%, #fff3cd 60%);
+            font-weight: 500;
+        }
+
+        .keyword-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 14px;
+        }
+
+        .keyword {
+            background: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--primary-dark);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .keyword.hot {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* ========== 카드 4: 활용법 ========== */
+        .card-usage {
+            background: var(--cream);
+        }
+
+        .usage-list {
+            width: 100%;
+            max-width: 340px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 14px;
+        }
+
+        .usage-item {
+            background: white;
+            border-radius: 16px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            text-align: left;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .usage-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-light);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .usage-content {
+            flex: 1;
+        }
+
+        .usage-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--black);
+            margin-bottom: 3px;
+        }
+
+        .usage-desc {
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        /* ========== 카드 5: 한정 혜택 안내 ========== */
+        .card-limited {
+            background: linear-gradient(180deg, #c75050 0%, #a04040 100%);
+            color: white;
+        }
+
+        .limited-icon {
+            font-size: 3.5rem;
+            margin-bottom: 12px;
+            animation: ring 2s infinite;
+        }
+
+        @keyframes ring {
+            0%, 100% { transform: rotate(0deg); }
+            10%, 30% { transform: rotate(-10deg); }
+            20%, 40% { transform: rotate(10deg); }
+            50% { transform: rotate(0deg); }
+        }
+
+        .limited-title {
+            color: white;
+        }
+
+        .limited-title em {
+            color: #ffeb3b;
+        }
+
+        .limited-box {
+            width: 100%;
+            max-width: 320px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 16px;
+            padding: 18px;
+            margin-top: 16px;
+        }
+
+        .limited-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .limited-item:last-child {
+            border-bottom: none;
+        }
+
+        .limited-check {
+            font-size: 1.2rem;
+        }
+
+        .limited-text {
+            font-size: 1rem;
+            flex: 1;
+        }
+
+        .limited-text strong {
+            color: #ffeb3b;
+        }
+
+        .limited-warning {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 16px;
+            padding: 12px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 12px;
+            font-size: 0.95rem;
+        }
+
+        .limited-connector {
+            color: rgba(255,255,255,0.7);
+        }
+        .limited-connector svg {
+            fill: rgba(255,255,255,0.7);
+        }
+
+        /* ========== 혜택 카드 공통 ========== */
+        .benefit-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #b8860b 0%, #d4a853 100%);
+            color: white;
+            font-size: 1.05rem;
+            font-weight: 600;
+            padding: 14px 28px;
+            border-radius: 28px;
+            text-decoration: none;
+            margin-top: 14px;
+            box-shadow: 0 6px 20px rgba(184, 134, 11, 0.35);
+        }
+
+        .benefit-cta:active {
+            transform: scale(0.97);
+        }
+
+        /* ========== 카드 6: 집으로 받기 혜택 ========== */
+        .card-benefit {
+            background: white;
+        }
+
+        .benefit-type {
+            font-size: 0.85rem;
+            color: var(--gray);
+            margin-bottom: 5px;
+        }
+
+        .benefit-box {
+            width: 100%;
+            max-width: 340px;
+            background: var(--primary-pale);
+            border-radius: 18px;
+            padding: 18px;
+            margin-top: 12px;
+        }
+
+        .benefit-main {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            margin-bottom: 12px;
+        }
+
+        .benefit-product-img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+
+        .benefit-detail {
+            text-align: left;
+        }
+
+        .benefit-title {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+
+        .benefit-sub {
+            font-size: 0.9rem;
+            color: var(--gray);
+            line-height: 1.4;
+        }
+
+        .benefit-plus {
+            font-size: 1.3rem;
+            color: var(--gold);
+            font-weight: 700;
+            margin: 10px 0;
+        }
+
+        .gift-box {
+            background: white;
+            border-radius: 12px;
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .gift-img {
+            width: 55px;
+            height: 55px;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .gift-info {
+            text-align: left;
+            flex: 1;
+        }
+
+        .gift-label {
+            font-size: 0.75rem;
+            color: var(--orange);
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+
+        .gift-name {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--black);
+        }
+
+        .gift-value {
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        .benefit-note {
+            font-size: 0.8rem;
+            color: var(--coral);
+            margin-top: 10px;
+            line-height: 1.4;
+            font-weight: 500;
+        }
+
+        /* ========== 카드 7: 선물하기 혜택 ========== */
+        .card-delivery {
+            background: var(--primary-pale);
+        }
+
+        .delivery-box {
+            width: 100%;
+            max-width: 340px;
+            background: linear-gradient(135deg, #b8860b 0%, #d4a853 100%);
+            border-radius: 18px;
+            padding: 20px 16px;
+            color: white;
+            margin-top: 12px;
+        }
+
+        .delivery-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 5px 12px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            margin-bottom: 12px;
+        }
+
+        .delivery-product-img {
+            width: 110px;
+            height: 110px;
+            object-fit: contain;
+            margin: 10px 0;
+            border-radius: 12px;
+        }
+
+        .delivery-title {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .delivery-desc {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-bottom: 14px;
+            line-height: 1.45;
+        }
+
+        .delivery-discount {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #ffeb3b;
+        }
+
+        .delivery-discount .percent {
+            font-size: 1.2rem;
+        }
+
+        .delivery-cta {
+            background: white;
+            color: var(--primary-dark);
+        }
+
+        /* ========== 카드 8: 후기 이벤트 ========== */
+        .card-review-event {
+            background: linear-gradient(180deg, #fff9e6 0%, #fff3cd 100%);
+        }
+
+        .event-icon {
+            font-size: 3.2rem;
+            margin-bottom: 12px;
+        }
+
+        .event-prize {
+            display: inline-block;
+            background: var(--orange);
+            color: white;
+            padding: 12px 22px;
+            border-radius: 22px;
+            font-size: 1rem;
+            font-weight: 700;
+            margin-top: 12px;
+        }
+
+        .event-cta {
+            background: var(--orange);
+        }
+
+        /* ========== 카드 9: 마감 CTA ========== */
+        .card-cta {
+            background: linear-gradient(180deg, #b8860b 0%, #8b6914 100%);
+            color: white;
+        }
+
+        .cta-title {
+            color: white;
+        }
+
+        .cta-title em {
+            color: #ffeb3b;
+        }
+
+        .cta-message {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 1.15rem;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 18px;
+        }
+
+        .cta-summary {
+            width: 100%;
+            max-width: 340px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 18px;
+            padding: 18px;
+            margin-bottom: 18px;
+        }
+
+        .cta-summary-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.15);
+        }
+
+        .cta-summary-item:last-child {
+            border-bottom: none;
+        }
+
+        .cta-summary-label {
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.8);
+        }
+
+        .cta-summary-value {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #ffeb3b;
+        }
+
+        .cta-deadline {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: var(--coral);
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            animation: pulse-bg 2s infinite;
+        }
+
+        @keyframes pulse-bg {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.85; }
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: white;
+            color: var(--primary-dark);
+            font-size: 1.15rem;
+            font-weight: 700;
+            padding: 16px 36px;
+            border-radius: 32px;
+            text-decoration: none;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .cta-button:active {
+            transform: scale(0.97);
+        }
+
+        /* ========== 반응형 ========== */
+        @media (max-height: 700px) {
+            .product-hero { width: 140px; height: 140px; }
+            .card-title { font-size: clamp(1.3rem, 5.5vw, 1.7rem); }
+            .trend-card { padding: 12px; }
+            .health-box { padding: 16px; }
+            .benefit-box { padding: 14px; }
+            .delivery-box { padding: 16px 14px; }
+            .review-item { padding: 12px; }
+        }
+
+        html::-webkit-scrollbar { width: 0; display: none; }
+    </style>
+</head>
+<body>
+
+    <!-- 매거진 헤더 -->
+    <header class="magazine-header">
+        <div class="magazine-brand">
+            <div class="brand-logo">
+                <div class="logo-circle">두레</div>
+                <span class="logo-text">두레생협</span>
+            </div>
+            <div class="brand-divider"></div>
+            <span class="magazine-title">생활의 발견</span>
+            <span class="magazine-issue">26년 5주 (1.26~2.1)</span>
+        </div>
+        <div class="live-visitors">
+            <div class="live-dot"></div>
+            <span class="live-count"><strong id="visitorCount">1</strong>명</span>
+        </div>
+    </header>
+
+    <div class="scroll-indicator" id="scrollIndicator"></div>
+
+    <!-- 0. 인트로 -->
+    <section class="card card-intro" data-index="0">
+        <span class="trophy-badge">🏆 두레생협 단시간 최대 판매기록</span>
+        <h1 class="card-title">
+            두레생협 <em>대표 생활재</em>로<br>
+            등극한 <span class="gold">귀리YOU</span>
+        </h1>
+        <p class="card-desc">
+            출시 1년 만에 백만팩 돌파!<br>
+            요즘 외부에서도 인기라는데...
+        </p>
+        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57232C.png" alt="귀리YOU" class="product-hero">
+        <div class="deadline-banner">
+            ⏰ 백만팩 감사 혜택 — 이번 주 마감!
+        </div>
+        
+        <div class="card-connector">
+            <span>왜 인기일까요?</span>
+            <svg viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
+        </div>
+    </section>
+
+    <!-- 1. 트렌드 증명 -->
+    <section class="card card-trend" data-index="1">
+        <span class="section-badge trend-badge">📊 두레생협만 인기가 아니에요</span>
+        <h2 class="card-title trend-title">
+            지금 <em>전 세계</em>가<br>
+            귀리유에 주목 중!
+        </h2>
+        
+        <div class="trend-cards">
+            <div class="trend-card">
+                <div class="trend-icon">🏅</div>
+                <div class="trend-content">
+                    <div class="trend-source">타임지 선정</div>
+                    <div class="trend-text"><strong>세계 10대 슈퍼푸드</strong></div>
+                </div>
+            </div>
+            
+            <div class="trend-card">
+                <div class="trend-icon">📈</div>
+                <div class="trend-content">
+                    <div class="trend-source">글로벌 시장 전망</div>
+                    <div class="trend-text">오트밀크 시장 <strong>연 8.7% 성장</strong><br>2034년 75억 달러 규모</div>
+                </div>
+            </div>
+            
+            <div class="trend-card">
+                <div class="trend-icon">🇰🇷</div>
+                <div class="trend-content">
+                    <div class="trend-source">국내 시장</div>
+                    <div class="trend-text">대체우유 시장 <strong>5년 내 40% 성장</strong> 전망</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card-connector trend-connector">
+            <span>건강에 어떻게 좋을까요?</span>
+            <svg viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
+        </div>
+    </section>
+
+    <!-- 2. 건강 효과 -->
+    <section class="card card-health" data-index="2">
+        <span class="section-badge">💚 검증된 건강 효과</span>
+        <h2 class="card-title">
+            <em>식약처</em>가 인정한<br>
+            건강기능식품 성분
+        </h2>
+        
+        <div class="health-box">
+            <div class="health-header">
+                <span class="health-header-icon">🔬</span>
+                <span class="health-header-text">임상시험으로 입증된 효과</span>
+            </div>
+            <div class="health-list">
+                <div class="health-item">
+                    <div class="health-check">✓</div>
+                    <div class="health-text">
+                        <div class="health-label">콜레스테롤 수치 개선</div>
+                        <div class="health-desc">베타글루칸이 나쁜 콜레스테롤 흡수 억제</div>
+                    </div>
+                </div>
+                <div class="health-item">
+                    <div class="health-check">✓</div>
+                    <div class="health-text">
+                        <div class="health-label">혈당 상승 조절</div>
+                        <div class="health-desc">식후 급격한 혈당 상승 완화</div>
+                    </div>
+                </div>
+                <div class="health-item">
+                    <div class="health-check">✓</div>
+                    <div class="health-text">
+                        <div class="health-label">장 건강 & 포만감</div>
+                        <div class="health-desc">식이섬유가 현미의 3배</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="nutrition-compare">
+            <div class="compare-title">📊 일반 우유와 비교</div>
+            <div class="compare-row">
+                <span class="compare-label">칼로리</span>
+                <span class="compare-value">절반 수준</span>
+            </div>
+            <div class="compare-row">
+                <span class="compare-label">콜레스테롤</span>
+                <span class="compare-value">0 (제로)</span>
+            </div>
+            <div class="compare-row">
+                <span class="compare-label">유당</span>
+                <span class="compare-value">없음 (속 편해요)</span>
+            </div>
+        </div>
+        
+        <div class="card-connector">
+            <span>실제로 드셔본 분들 반응은?</span>
+            <svg viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
+        </div>
+    </section>
+
+    <!-- 3. 맛 후기 -->
+    <section class="card card-taste" data-index="3">
+        <span class="section-badge">💬 100만팩의 비결</span>
+        <h2 class="card-title">
+            <em>맛</em>으로 증명한<br>
+            조합원님들의 입소문
+        </h2>
+        
+        <div class="taste-stats">
+            <div class="taste-stat">
+                <div class="taste-number">4.8</div>
+                <div class="taste-label">평균 별점</div>
+            </div>
+            <div class="taste-stat">
+                <div class="taste-number">96%</div>
+                <div class="taste-label">재구매 의향</div>
+            </div>
+        </div>
+        
+        <div class="review-list">
+            <div class="review-item">
+                <div class="review-header">
+                    <div class="review-avatar">신</div>
+                    <span class="review-name">신동*님</span>
+                    <span class="review-meta">바른두레</span>
+                    <span class="review-stars">★★★★★</span>
+                </div>
+                <p class="review-text">당뇨 있는 가족이 드시기 시작한 뒤 <span class="hl">담당의사가 약 함량을 낮춰 처방</span>해 주셨어요!</p>
+            </div>
+            
+            <div class="review-item">
+                <div class="review-header">
+                    <div class="review-avatar">김</div>
+                    <span class="review-name">김미*님</span>
+                    <span class="review-meta">두레연합회</span>
+                    <span class="review-stars">★★★★★</span>
+                </div>
+                <p class="review-text">운동 후 마시면 <span class="hl">포만감이 있어 다이어트에 딱</span>이에요. 할인 때 꼭 쟁여놔요!</p>
+            </div>
+            
+            <div class="review-item">
+                <div class="review-header">
+                    <div class="review-avatar">박</div>
+                    <span class="review-name">박선*님</span>
+                    <span class="review-meta">인천두레</span>
+                    <span class="review-stars">★★★★★</span>
+                </div>
+                <p class="review-text"><span class="hl">고소하고 달지 않아서</span> 온 가족이 매일 아침 한 팩씩 마셔요</p>
+            </div>
+        </div>
+        
+        <div class="keyword-cloud">
+            <span class="keyword hot">달지 않아요</span>
+            <span class="keyword hot">고소해요</span>
+            <span class="keyword">속 편해요</span>
+            <span class="keyword">매일 마셔요</span>
+        </div>
+        
+        <div class="card-connector">
+            <span>어떻게 드시면 좋을까요?</span>
+            <svg viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
+        </div>
+    </section>
+
+    <!-- 4. 활용법 -->
+    <section class="card card-usage" data-index="4">
+        <span class="section-badge">☕ 이렇게 드셔보세요</span>
+        <h2 class="card-title">
+            조합원님들의<br>
+            <em>귀리유 활용법</em>
+        </h2>
+        
+        <div class="usage-list">
+            <div class="usage-item">
+                <div class="usage-icon">🌅</div>
+                <div class="usage-content">
+                    <div class="usage-title">아침 대용으로</div>
+                    <div class="usage-desc">바쁜 아침, 한 팩이면 든든해요</div>
+                </div>
+            </div>
+            
+            <div class="usage-item">
+                <div class="usage-icon">☕</div>
+                <div class="usage-content">
+                    <div class="usage-title">커피에 넣어서</div>
+                    <div class="usage-desc">오트라떼로 부드럽게 즐겨요</div>
+                </div>
+            </div>
+            
+            <div class="usage-item">
+                <div class="usage-icon">🥣</div>
+                <div class="usage-content">
+                    <div class="usage-title">시리얼과 함께</div>
+                    <div class="usage-desc">아이들 간식으로도 좋아요</div>
+                </div>
+            </div>
+            
+            <div class="usage-item">
+                <div class="usage-icon">🏃</div>
+                <div class="usage-content">
+                    <div class="usage-title">운동 후에</div>
+                    <div class="usage-desc">포만감 있어 다이어트에 도움돼요</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card-connector">
+            <span>이번 주 특별 혜택은?</span>
+            <svg viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
+        </div>
+    </section>
+
+    <!-- 5. 한정 혜택 안내 -->
+    <section class="card card-limited" data-index="5">
+        <div class="limited-icon">🔔</div>
+        <h2 class="card-title limited-title">
+            백만팩 감사 혜택<br>
+            <em>이번 주가 마지막!</em>
+        </h2>
+        
+        <div class="limited-box">
+            <div class="limited-item">
+                <span class="limited-check">🎁</span>
+                <span class="limited-text">집으로 3박스 → <strong>+1박스 +서리태쉐이크</strong></span>
+            </div>
+            <div class="limited-item">
+                <span class="limited-check">📦</span>
+                <span class="limited-text">선물하기 4박스 → <strong>25% 할인</strong></span>
+            </div>
+            <div class="limited-item">
+                <span class="limited-check">✍️</span>
+                <span class="limited-text">후기 작성 → <strong>100명 추첨 1박스</strong></span>
+            </div>
+        </div>
+        
+        <div class="limited-warning">
+            ⚠️ 한정 수량 · 소진 시 조기 마감
+        </div>
+        
+        <div class="card-connector limited-connector">
+            <span>혜택 자세히 보기</span>
+            <svg viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
+        </div>
+    </section>
+
+    <!-- 6. 집으로 받기 혜택 -->
+    <section class="card card-benefit" data-index="6">
+        <span class="section-badge">🎁 감사 혜택 ①</span>
+        <p class="benefit-type">이번 주 집으로 주문하시면</p>
+        <h2 class="card-title">3박스 주문 시<br><em>+1박스 +서리태쉐이크</em></h2>
+        
+        <div class="benefit-box">
+            <div class="benefit-main">
+                <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57232C.png" alt="귀리YOU" class="benefit-product-img">
+                <div class="benefit-detail">
+                    <div class="benefit-title">3+1 증정</div>
+                    <p class="benefit-sub">귀리유 1박스(16팩)<br>무료 증정</p>
+                </div>
+            </div>
+            
+            <div class="benefit-plus">+</div>
+            
+            <div class="gift-box">
+                <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58914C.jpg" alt="서리태쉐이크" class="gift-img">
+                <div class="gift-info">
+                    <span class="gift-label">🆕 신제품 증정</span>
+                    <p class="gift-name">서리태쉐이크 200g</p>
+                    <p class="gift-value">1만원 상당</p>
+                </div>
+            </div>
+            
+            <p class="benefit-note">⚠️ 한정 수량 · 소진 시 조기 마감</p>
+        </div>
+        
+        <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1632#book0" class="benefit-cta" target="_blank">
+            집으로 받기 주문 →
+        </a>
+        
+        <div class="card-connector">
+            <span>선물하기 혜택도 있어요</span>
+            <svg viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
+        </div>
+    </section>
+
+    <!-- 7. 선물하기 혜택 -->
+    <section class="card card-delivery" data-index="7">
+        <span class="section-badge">📦 감사 혜택 ②</span>
+        <p class="benefit-type">소중한 분께 건강을 선물하세요</p>
+        <h2 class="card-title">4박스 선물세트<br><em>25% 할인!</em></h2>
+        
+        <div class="delivery-box">
+            <span class="delivery-badge">🚚 전국 택배 배송</span>
+            <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57485C.jpg" alt="귀리YOU 4박스 선물세트" class="delivery-product-img">
+            <h3 class="delivery-title">귀리YOU 4박스 선물세트</h3>
+            <p class="delivery-desc">부모님, 형제, 지인에게<br>건강한 마음을 전하세요</p>
+            <div class="delivery-discount">
+                25<span class="percent">%</span> 할인
+            </div>
+        </div>
+        
+        <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=05&returnNo=57485&returnPlanNo=77" class="benefit-cta delivery-cta" target="_blank">
+            선물하기 주문 →
+        </a>
+        
+        <div class="card-connector">
+            <span>후기 쓰면 1박스 더?</span>
+            <svg viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
+        </div>
+    </section>
+
+    <!-- 8. 후기 이벤트 -->
+    <section class="card card-review-event" data-index="8">
+        <span class="section-badge" style="background: var(--orange);">✍️ 감사 혜택 ③</span>
+        <div class="event-icon">📝</div>
+        <h2 class="card-title">귀리유 어떻게 드시나요?</h2>
+        <p class="card-desc">
+            아침 대용? 커피에 넣어서?<br>
+            조합원님만의 활용법을<br>
+            댓글로 알려주세요!
+        </p>
+        <div class="event-prize">추첨 100명 · 1박스 증정 🎉</div>
+        
+        <a href="https://ecoop.or.kr/DureShop/event/event.do?returnTypeGb=event&returnNo=126" class="benefit-cta event-cta" target="_blank">
+            후기 작성하러 가기 →
+        </a>
+    </section>
+
+    <!-- 9. 마감 CTA -->
+    <section class="card card-cta" data-index="9">
+        <span class="section-badge" style="background: rgba(255,255,255,0.2);">🎊 혜택 정리</span>
+        <h2 class="card-title cta-title">
+            백만팩 감사 혜택<br>
+            <em>이번 주가 마지막!</em>
+        </h2>
+        
+        <p class="cta-message">💚 조합원님의 사랑을 돌려드릴게요</p>
+        
+        <div class="cta-summary">
+            <div class="cta-summary-item">
+                <span class="cta-summary-label">집으로 3박스</span>
+                <span class="cta-summary-value">+1박스 +서리태쉐이크</span>
+            </div>
+            <div class="cta-summary-item">
+                <span class="cta-summary-label">선물하기 4박스</span>
+                <span class="cta-summary-value">25% 할인</span>
+            </div>
+            <div class="cta-summary-item">
+                <span class="cta-summary-label">후기 작성</span>
+                <span class="cta-summary-value">100명 추첨 1박스</span>
+            </div>
+        </div>
+        
+        <div class="cta-deadline">
+            ⏰ 한정 수량 · 소진 시 조기 마감
+        </div>
+        
+        <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1632#book0" class="cta-button" target="_blank">
+            귀리YOU 주문하기 →
+        </a>
+    </section>
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script>
+        // Firebase 설정
+        const firebaseConfig = {
+            apiKey: "AIzaSyDrb6CvMBn9jSfDeuwWseJywFHLbChNr4U",
+            authDomain: "durunioncoop.firebaseapp.com",
+            projectId: "durunioncoop",
+            storageBucket: "durunioncoop.firebasestorage.app",
+            messagingSenderId: "439719435906",
+            appId: "1:439719435906:web:3d1d841ad6e80939eb5e9b"
+        };
+        
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        
+        // 실시간 방문자 수 (일요일 버전 별도 카운트)
+        const visitorRef = db.collection('visitors').doc('w05-2026-sun');
+        visitorRef.get().then((doc) => {
+            if (doc.exists) {
+                visitorRef.update({ count: firebase.firestore.FieldValue.increment(1) });
+            } else {
+                visitorRef.set({ count: 1 });
+            }
+        });
+        
+        visitorRef.onSnapshot((doc) => {
+            if (doc.exists) {
+                document.getElementById('visitorCount').textContent = doc.data().count;
+            }
+        });
+
+        // 스크롤 인디케이터 생성
+        const cards = document.querySelectorAll('.card');
+        const scrollIndicator = document.getElementById('scrollIndicator');
+        
+        cards.forEach((card, index) => {
+            const dot = document.createElement('div');
+            dot.className = 'scroll-dot' + (index === 0 ? ' active' : '');
+            dot.addEventListener('click', () => {
+                card.scrollIntoView({ behavior: 'smooth' });
+            });
+            scrollIndicator.appendChild(dot);
+        });
+
+        // Intersection Observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const index = parseInt(entry.target.dataset.index);
+                    
+                    // 스크롤 인디케이터 업데이트
+                    document.querySelectorAll('.scroll-dot').forEach((dot, i) => {
+                        dot.classList.toggle('active', i === index);
+                    });
+                }
+            });
+        }, { threshold: 0.5 });
+
+        cards.forEach(card => observer.observe(card));
+    </script>
+</body>
+</html>
