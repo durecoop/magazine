@@ -507,6 +507,74 @@
             background: white;
         }
 
+        /* ========== 타임라인 포토 갤러리 ========== */
+        .timeline-gallery {
+            width: 100%;
+            max-width: 360px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .timeline-photo {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .timeline-photo img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .timeline-photo.current img {
+            height: 220px;
+        }
+
+        .timeline-photo.current {
+            border: 3px solid var(--jeju-orange);
+        }
+
+        .timeline-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            padding: 40px 16px 16px;
+            color: white;
+        }
+
+        .timeline-year {
+            display: inline-block;
+            background: var(--jeju-orange);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .timeline-photo.current .timeline-year {
+            background: var(--green);
+        }
+
+        .timeline-caption p {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .timeline-caption strong {
+            color: var(--jeju-yellow);
+        }
+
         /* ========== 카드 5: 공급 시기 ========== */
         .card-schedule {
             background: var(--warm);
@@ -744,93 +812,95 @@
 
     <!-- 0. 인트로 -->
     <section class="card card-intro" data-index="0">
-        <span class="season-badge">🍊 20년의 정성</span>
+        <span class="season-badge">🍊 지금이 전성기</span>
         <h1 class="card-title">
-            <em>강석종</em> 감귤<br>
-            제주 최고를 향한 여정
+            평생을<br>
+            <em>감귤</em>과 함께한 사람
         </h1>
-        <p class="card-desc">
-            두레생협 3만 여 가지 생활재 중<br>
-            <strong style="color: var(--jeju-orange);">생산자 이름을 붙인 건 단 2개</strong><br>
-            <span style="font-size: 0.9em; opacity: 0.9;">정규연 토마토, 그리고 강석종 감귤</span>
+        <p class="card-desc" style="font-size: 1.1em; line-height: 1.8;">
+            제주 바람 맞으며 40년<br>
+            오직 감귤 하나만 바라봤습니다
         </p>
-        <div style="background: rgba(255,255,255,0.15); border-radius: 12px; padding: 12px 16px; margin: 15px 0;">
-            <span style="font-size: 1.1em;">🏅 <strong>명인</strong>만이 가질 수 있는 영예</span><br>
-            <span style="font-size: 0.85em; opacity: 0.9;">맛은 두레생협이 보장합니다</span>
-        </div>
         <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/53893C.jpg" 
              alt="강석종 감귤" class="product-hero">
+        <div style="background: rgba(255,255,255,0.15); border-radius: 12px; padding: 14px 18px; margin: 15px 0;">
+            <span style="font-size: 1.2em; font-weight: 700;">강석종 감귤</span><br>
+            <span style="font-size: 0.9em; opacity: 0.9;">두레생협이 이름을 붙인 단 2개의 생활재</span>
+        </div>
         <div class="card-connector">
-            <span>강석종 생산자를 만나볼까요?</span>
+            <span>그 사람을 만나볼까요?</span>
             <svg viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
         </div>
     </section>
 
     <!-- 1. 생산자 스토리 -->
     <section class="card card-producer" data-index="1">
-        <span class="section-badge" style="background: var(--green);">👨‍🌾 강석종 생산자</span>
-        <img src="https://photos.fife.usercontent.google.com/pw/AP1GczMTGpfBtP-4UKaY7k4-E_PBMOySUmJHqS2YthifbgeeA4vHSGdQYAtxlg=w1674-h1112-s-no-gm?authuser=0" 
-             alt="강석종 생산자" class="producer-photo">
+        <span class="section-badge" style="background: var(--green);">👨‍🌾 강석종</span>
+        <img src="https://raw.githubusercontent.com/durecoop/magazine/main/2026/W05/images/27665C.png" 
+             alt="강석종 생산자 부부" class="producer-photo">
         <div class="producer-name">강석종</div>
-        <div class="producer-location">📍 제주도 · 🏅 두레생협 명인</div>
-        <div style="background: var(--green-light); border-radius: 10px; padding: 10px 14px; margin: 10px 0; font-size: 0.85em;">
-            <strong style="color: var(--green);">3만 여 가지 생활재 중 이름을 붙인 단 2명</strong><br>
-            정규연 토마토 · 강석종 감귤
-        </div>
+        <div class="producer-location">📍 제주도 서귀포</div>
         <div class="producer-quote">
-            <p>
-                <strong>20년 전</strong>, 젊은 청년이 제주 감귤밭에 섰습니다.<br><br>
-                "두레생협 조합원님께 <strong>제주도 최고의 감귤</strong>을 
-                드리겠습니다"<br><br>
-                그 약속을 지키기 위해 20년을 
-                <strong>한결같이 땀 흘려</strong> 왔습니다.
+            <p style="font-size: 1.15em; line-height: 1.9;">
+                스무 살, 아버지의 감귤밭을 물려받았습니다<br><br>
+                <em style="color: var(--jeju-orange);">"내 이름 걸고 부끄럽지 않은 감귤"</em><br><br>
+                그 다짐 하나로<br>
+                40년을 버텨왔습니다
             </p>
         </div>
+        <div style="background: var(--green-light); border-radius: 10px; padding: 12px 16px; margin: 15px 0; font-size: 0.9em; text-align: center;">
+            🏅 <strong style="color: var(--green);">두레생협 명인</strong><br>
+            <span style="font-size: 0.85em;">3만 가지 생활재 중 이름을 붙인 단 2명</span>
+        </div>
         <div class="card-connector">
-            <span>어떤 고생을 했을까요?</span>
+            <span>어떤 하루를 보낼까요?</span>
             <svg viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
         </div>
     </section>
 
     <!-- 2. 재배의 고생 -->
     <section class="card card-feature" data-index="2">
-        <span class="section-badge feature-badge">💪 맛있는 감귤의 비밀</span>
+        <span class="section-badge feature-badge">🌅 하루</span>
         <h2 class="card-title feature-title">
-            한 알의 감귤에 담긴<br>
-            <em style="color: var(--jeju-yellow);">365일의 땀</em>
+            새벽 5시,<br>
+            <em style="color: var(--jeju-yellow);">오늘도 과수원으로</em>
         </h2>
+        <p style="text-align: center; color: rgba(255,255,255,0.85); margin-bottom: 20px; font-size: 0.95em;">
+            비가 오나 눈이 오나<br>
+            40년간 하루도 쉰 적 없습니다
+        </p>
         <div class="feature-grid">
             <div class="feature-item">
                 <span class="feature-icon">🌅</span>
                 <div class="feature-content">
-                    <h4>새벽부터 시작되는 하루</h4>
-                    <p>해 뜨기 전 과수원에 나가 이슬 맺힌 나뭇잎 하나하나 살펴봅니다</p>
+                    <h4>새벽 이슬</h4>
+                    <p>해 뜨기 전, 나뭇잎 하나하나 살핍니다</p>
                 </div>
             </div>
             <div class="feature-item">
                 <span class="feature-icon">🥵</span>
                 <div class="feature-content">
-                    <h4>한여름 제초 작업</h4>
-                    <p>40도 가까운 폭염 속에서도 농약 대신 손으로 직접 풀을 뽑습니다</p>
+                    <h4>한여름 땡볕</h4>
+                    <p>40도 폭염에도 손으로 풀을 뽑습니다</p>
                 </div>
             </div>
             <div class="feature-item">
                 <span class="feature-icon">🌧️</span>
                 <div class="feature-content">
-                    <h4>태풍과의 싸움</h4>
-                    <p>매년 찾아오는 태풍, 밤새 과수원을 지키며 나무를 보호합니다</p>
+                    <h4>태풍의 밤</h4>
+                    <p>밤새 과수원을 지킵니다</p>
                 </div>
             </div>
             <div class="feature-item">
                 <span class="feature-icon">❄️</span>
                 <div class="feature-content">
-                    <h4>겨울 동해 방지</h4>
-                    <p>영하의 추위에도 나무가 얼지 않도록 보온 작업을 합니다</p>
+                    <h4>겨울 한파</h4>
+                    <p>나무가 얼지 않도록 감싸줍니다</p>
                 </div>
             </div>
         </div>
         <div class="card-connector eco-connector">
-            <span>왜 무농약일까요?</span>
+            <span>왜 무농약을 고집할까요?</span>
             <svg viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
         </div>
     </section>
@@ -842,77 +912,107 @@
             <span class="text">무농약</span>
         </div>
         <h2 class="card-title">
-            <em>더 힘들어도</em><br>
-            무농약을 고집하는 이유
+            <em>"아이들이</em><br>
+            <em>껍질째 먹어도 되게"</em>
         </h2>
-        <p class="card-desc">
-            "조합원님 아이들이<br>
-            껍질째 먹어도 안심할 수 있게"
+        <p class="card-desc" style="font-size: 1em; line-height: 1.8; margin-bottom: 25px;">
+            더 힘들어도, 더 손이 가도<br>
+            그 마음 하나로 40년을 지켜왔습니다
         </p>
         <div class="cert-list">
             <div class="cert-item">
-                <span class="cert-item-icon">🚫</span>
+                <span class="cert-item-icon">✋</span>
                 <p class="cert-item-text">
-                    <strong>농약 대신 손으로</strong><br>
-                    병해충을 일일이 잡아내는 고된 작업
+                    <strong>손으로 벌레를 잡습니다</strong><br>
+                    농약 한 방울 안 뿌립니다
                 </p>
             </div>
             <div class="cert-item">
-                <span class="cert-item-icon">🧪</span>
+                <span class="cert-item-icon">🍊</span>
                 <p class="cert-item-text">
-                    <strong>왁스·피막제 NO</strong><br>
-                    껍질째 드셔도 안전합니다
+                    <strong>왁스를 바르지 않습니다</strong><br>
+                    껍질째 드셔도 됩니다
                 </p>
             </div>
             <div class="cert-item">
-                <span class="cert-item-icon">💚</span>
+                <span class="cert-item-icon">✅</span>
                 <p class="cert-item-text">
-                    <strong>잔류농약 비검출 100%</strong><br>
-                    20년간 지켜온 신뢰
+                    <strong>잔류농약 불검출</strong><br>
+                    매년 검사, 40년 무결점
                 </p>
             </div>
         </div>
         <div class="card-connector">
-            <span>20년의 변화를 볼까요?</span>
+            <span>40년의 세월</span>
             <svg viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
         </div>
     </section>
 
-    <!-- 4. 20년의 변화 -->
+    <!-- 4. 40년의 세월 - 사진으로 보는 스토리 -->
     <section class="card card-taste" data-index="4">
-        <span class="section-badge">📸 20년의 변화</span>
+        <span class="section-badge">📸 세월</span>
         <h2 class="card-title">
-            청년 농부에서<br>
-            <em>제주 최고 생산자로</em>
+            40년,<br>
+            <em>한 사람의 일생</em>
         </h2>
-        <div class="taste-compare">
-            <div class="taste-box">
-                <div class="taste-box-title">20년 전</div>
-                <img src="https://photos.fife.usercontent.google.com/pw/AP1GczMDIut-YTSRQD-Ct2j10x23igJ1jBd2W3PAZxint-kv8GZBo7CXgFzh2A=w1674-h1112-s-no-gm?authuser=0" 
-                     alt="젊은 강석종 생산자" style="width: 100%; height: 120px; object-fit: cover; border-radius: 10px; margin-bottom: 10px;">
-                <div class="taste-box-name">도전의 시작</div>
-                <div class="taste-stat">
-                    <span>경험</span>
-                    <span>초보</span>
-                </div>
-                <div class="taste-bar">
-                    <div class="taste-bar-fill" style="width: 0%;" data-target="20"></div>
+        
+        <!-- 타임라인 포토 갤러리 -->
+        <div class="timeline-gallery">
+            <!-- 2005년 이전: 젊은 시절 -->
+            <div class="timeline-photo">
+                <img src="https://raw.githubusercontent.com/durecoop/magazine/main/2026/W05/images/강석종생산자.jpg" 
+                     alt="젊은 강석종 생산자">
+                <div class="timeline-caption">
+                    <span class="timeline-year">처음</span>
+                    <p>아버지의 감귤밭을<br>물려받던 청년</p>
                 </div>
             </div>
-            <div class="taste-box highlight">
-                <div class="taste-box-title">지금</div>
-                <img src="https://photos.fife.usercontent.google.com/pw/AP1GczNcnO8F14iI_RN87wDPK89YHfj3tQFn8A4Z9ej7ewrftrsmZvEFewwzrg=w1280-h960-s-no-gm?authuser=0" 
-                     alt="현재 강석종 생산자" style="width: 100%; height: 120px; object-fit: cover; border-radius: 10px; margin-bottom: 10px;">
-                <div class="taste-box-name">두레 명인</div>
-                <div class="taste-stat">
-                    <span>경험</span>
-                    <span>20년 베테랑</span>
+            
+            <!-- 2005년: 눈 내리는 날 -->
+            <div class="timeline-photo">
+                <img src="https://raw.githubusercontent.com/durecoop/magazine/main/2026/W05/images/DSC02693.JPG" 
+                     alt="눈 내리는 감귤밭">
+                <div class="timeline-caption">
+                    <span class="timeline-year">2005년 겨울</span>
+                    <p>눈이 와도<br>감귤은 지켜야 했습니다</p>
                 </div>
-                <div class="taste-bar">
-                    <div class="taste-bar-fill" style="width: 0%;" data-target="100"></div>
+            </div>
+            
+            <!-- 부부 함께 -->
+            <div class="timeline-photo">
+                <img src="https://raw.githubusercontent.com/durecoop/magazine/main/2026/W05/images/DSC04306.JPG" 
+                     alt="강석종 부부">
+                <div class="timeline-caption">
+                    <span class="timeline-year">함께</span>
+                    <p>아내와 둘이서<br>40년을 버텨왔습니다</p>
+                </div>
+            </div>
+            
+            <!-- 수확의 기쁨 -->
+            <div class="timeline-photo">
+                <img src="https://raw.githubusercontent.com/durecoop/magazine/main/2026/W05/images/강석종이사님.JPG" 
+                     alt="감귤 수확">
+                <div class="timeline-caption">
+                    <span class="timeline-year">수확</span>
+                    <p>두 손 가득<br>정성의 결실</p>
+                </div>
+            </div>
+            
+            <!-- 현재 -->
+            <div class="timeline-photo current">
+                <img src="https://raw.githubusercontent.com/durecoop/magazine/main/2026/W05/images/27665C.png" 
+                     alt="현재 강석종 부부">
+                <div class="timeline-caption">
+                    <span class="timeline-year">지금</span>
+                    <p>두레생협 명인<br><strong>지금이 전성기입니다</strong></p>
                 </div>
             </div>
         </div>
+        
+        <p style="text-align: center; margin-top: 25px; font-size: 1em; color: var(--gray); line-height: 1.8;">
+            주름 하나하나가<br>
+            <strong>감귤과 함께한 세월</strong>입니다
+        </p>
         <div class="card-connector">
             <span>지금 제철 감귤은?</span>
             <svg viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
@@ -1004,17 +1104,20 @@
 
     <!-- 7. CTA -->
     <section class="card card-cta" data-index="7">
-        <span class="section-badge">🍊 강석종 감귤</span>
+        <span class="section-badge">🍊 지금이 전성기</span>
         <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/53893C.jpg" 
              alt="강석종 감귤" class="cta-product-img">
         <h2 class="card-title">
-            <em>20년의 정성</em><br>
-            지금 맛보세요
+            <em>평생을 바친 사람의</em><br>
+            감귤을 맛보세요
         </h2>
+        <p style="text-align: center; color: var(--gray); margin-bottom: 20px; font-size: 0.95em;">
+            40년 세월이 담긴 한 알<br>
+            맛은 두레생협이 보장합니다
+        </p>
         <div class="cta-highlights">
-            <span class="cta-highlight main">🏅 두레생협 단 2명의 명인</span>
-            <span class="cta-highlight">🌱 무농약 20년</span>
-            <span class="cta-highlight">✅ 맛 보장</span>
+            <span class="cta-highlight main">🏅 두레생협 명인</span>
+            <span class="cta-highlight">🌱 무농약 40년</span>
             <span class="cta-highlight">🔥 지금이 제철</span>
         </div>
         <a href="https://ecoop.or.kr/DureShop/recommend.do" 
