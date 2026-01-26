@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>생활의 발견 | 강석종 감귤 - 20년의 정성 | 두레생협</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --green: #4a6741;
+            --green-dark: #3a5331;
+            --green-light: #e8f0e4;
+            --green-pale: #f4f7f3;
+            --cream: #fdfbf7;
+            --warm: #f7f3ed;
+            --black: #1a1a1a;
+            --gray: #555;
+            --gray-light: #888;
+            --gold: #d4a853;
+            --orange: #e8a849;
+            --jeju-orange: #ff8c42;
+            --jeju-yellow: #ffb84d;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+        body { font-family: 'Noto Sans KR', sans-serif; background: var(--cream); overflow-x: hidden; }
+
+        /* ========== 매거진 헤더 ========== */
+        .magazine-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: var(--green);
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .magazine-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .logo-circle {
+            width: 28px;
+            height: 28px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.55rem;
+            color: var(--green);
+            font-weight: 800;
+        }
+
+        .logo-text {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .brand-divider {
+            width: 1px;
+            height: 16px;
+            background: rgba(255,255,255,0.3);
+        }
+
+        .magazine-title {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .magazine-issue {
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.7);
+            margin-left: 5px;
+        }
+
+        .live-visitors {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255,255,255,0.15);
+            padding: 6px 12px;
+            border-radius: 16px;
+        }
+
+        .live-dot {
+            width: 7px;
+            height: 7px;
+            background: #4CAF50;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .live-count {
+            font-size: 0.85rem;
+            color: white;
+        }
+
+        /* ========== 스크롤 인디케이터 ========== */
+        .scroll-indicator {
+            position: fixed;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .scroll-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .scroll-dot.active {
+            height: 20px;
+            border-radius: 3px;
+            background: var(--jeju-orange);
+        }
+
+        /* ========== 카드 공통 ========== */
+        .card {
+            min-height: 100vh;
+            min-height: 100dvh;
+            padding: 58px 18px 28px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            scroll-snap-align: start;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-title {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: clamp(1.5rem, 6vw, 2rem);
+            font-weight: 700;
+            color: var(--black);
+            line-height: 1.4;
+            margin-bottom: 12px;
+        }
+
+        .card-title em {
+            color: var(--jeju-orange);
+            font-style: normal;
+        }
+
+        .card-desc {
+            font-size: 1rem;
+            color: var(--gray);
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+
+        .section-badge {
+            display: inline-block;
+            background: var(--jeju-orange);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        /* 카드 연결 문구 */
+        .card-connector {
+            position: absolute;
+            bottom: 18px;
+            font-size: 0.85rem;
+            color: var(--gray-light);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            animation: connectorPulse 2s infinite;
+        }
+
+        .card-connector svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--gray-light);
+        }
+
+        @keyframes connectorPulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        /* ========== 카드 0: 인트로 ========== */
+        .card-intro {
+            background: linear-gradient(180deg, #fff8e1 0%, #ffecb3 100%);
+        }
+
+        .season-badge {
+            display: inline-block;
+            background: var(--jeju-orange);
+            color: white;
+            padding: 10px 22px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 15px rgba(255, 140, 66, 0.4);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .product-hero {
+            width: 200px;
+            height: 200px;
+            object-fit: contain;
+            filter: drop-shadow(0 10px 25px rgba(0,0,0,0.15));
+            animation: float 3s ease-in-out infinite;
+            margin: 12px 0;
+            border-radius: 20px;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        /* ========== 카드 1: 생산자 스토리 ========== */
+        .card-producer {
+            background: linear-gradient(180deg, #e8f5e9 0%, #c8e6c9 100%);
+        }
+
+        .producer-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid white;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-bottom: 16px;
+        }
+
+        .producer-name {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--green);
+            margin-bottom: 4px;
+        }
+
+        .producer-location {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-bottom: 16px;
+        }
+
+        .producer-quote {
+            background: white;
+            padding: 20px;
+            border-radius: 16px;
+            max-width: 340px;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .producer-quote::before {
+            content: '"';
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 3rem;
+            color: var(--jeju-orange);
+            position: absolute;
+            top: 5px;
+            left: 15px;
+            opacity: 0.3;
+        }
+
+        .producer-quote p {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--gray);
+        }
+
+        /* ========== 카드 2: 비가림재배 특징 ========== */
+        .card-feature {
+            background: linear-gradient(180deg, #1a4a2e 0%, #2d6a4f 100%);
+            color: white;
+        }
+
+        .feature-badge {
+            background: rgba(255,255,255,0.2);
+            color: white;
+        }
+
+        .feature-title {
+            color: white;
+        }
+
+        .feature-grid {
+            width: 100%;
+            max-width: 340px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .feature-item {
+            background: rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 16px;
+            text-align: left;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        .feature-content h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: var(--jeju-yellow);
+        }
+
+        .feature-content p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+
+        .eco-connector {
+            color: rgba(255,255,255,0.6);
+        }
+
+        .eco-connector svg {
+            fill: rgba(255,255,255,0.6);
+        }
+
+        /* ========== 카드 3: 무농약 인증 ========== */
+        .card-cert {
+            background: var(--green-pale);
+        }
+
+        .cert-badge-large {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin-bottom: 16px;
+            box-shadow: 0 8px 25px rgba(74, 103, 65, 0.3);
+        }
+
+        .cert-badge-large .icon {
+            font-size: 2rem;
+        }
+
+        .cert-badge-large .text {
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-top: 2px;
+        }
+
+        .cert-list {
+            width: 100%;
+            max-width: 340px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .cert-item {
+            background: white;
+            padding: 14px 16px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+        }
+
+        .cert-item-icon {
+            font-size: 1.5rem;
+        }
+
+        .cert-item-text {
+            font-size: 0.95rem;
+            color: var(--gray);
+            text-align: left;
+            line-height: 1.5;
+        }
+
+        .cert-item-text strong {
+            color: var(--green);
+        }
+
+        /* ========== 카드 4: 맛 비교 ========== */
+        .card-taste {
+            background: linear-gradient(180deg, #fff3e0 0%, #ffe0b2 100%);
+        }
+
+        .taste-compare {
+            width: 100%;
+            max-width: 340px;
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .taste-box {
+            flex: 1;
+            background: white;
+            border-radius: 16px;
+            padding: 16px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .taste-box.highlight {
+            background: var(--jeju-orange);
+            color: white;
+            transform: scale(1.03);
+        }
+
+        .taste-box-title {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            margin-bottom: 8px;
+        }
+
+        .taste-box-icon {
+            font-size: 2.5rem;
+            margin-bottom: 8px;
+        }
+
+        .taste-box-name {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .taste-stat {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            margin-bottom: 6px;
+        }
+
+        .taste-bar {
+            height: 6px;
+            background: rgba(0,0,0,0.1);
+            border-radius: 3px;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+
+        .taste-bar-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 1.5s ease-out;
+        }
+
+        .taste-box:not(.highlight) .taste-bar-fill {
+            background: var(--gray-light);
+        }
+
+        .taste-box.highlight .taste-bar-fill {
+            background: white;
+        }
+
+        /* ========== 카드 5: 공급 시기 ========== */
+        .card-schedule {
+            background: var(--warm);
+        }
+
+        .schedule-timeline {
+            width: 100%;
+            max-width: 340px;
+            margin-top: 16px;
+        }
+
+        .schedule-item {
+            display: flex;
+            align-items: stretch;
+            margin-bottom: 0;
+        }
+
+        .schedule-marker {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 30px;
+        }
+
+        .schedule-dot {
+            width: 14px;
+            height: 14px;
+            background: var(--gray-light);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .schedule-dot.active {
+            background: var(--jeju-orange);
+            box-shadow: 0 0 0 4px rgba(255, 140, 66, 0.2);
+        }
+
+        .schedule-line {
+            width: 2px;
+            flex: 1;
+            background: var(--gray-light);
+            margin: 4px 0;
+        }
+
+        .schedule-content {
+            flex: 1;
+            background: white;
+            padding: 14px 16px;
+            border-radius: 12px;
+            margin-left: 12px;
+            margin-bottom: 10px;
+            text-align: left;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+        }
+
+        .schedule-content.active {
+            background: var(--jeju-orange);
+            color: white;
+        }
+
+        .schedule-period {
+            font-size: 0.8rem;
+            opacity: 0.7;
+            margin-bottom: 4px;
+        }
+
+        .schedule-name {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .schedule-desc {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            margin-top: 4px;
+        }
+
+        /* ========== 카드 6: 주의사항 ========== */
+        .card-notice {
+            background: #fff9f0;
+        }
+
+        .notice-list {
+            width: 100%;
+            max-width: 340px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .notice-item {
+            background: white;
+            padding: 14px 16px;
+            border-radius: 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            text-align: left;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            border-left: 3px solid var(--jeju-orange);
+        }
+
+        .notice-num {
+            width: 24px;
+            height: 24px;
+            background: var(--jeju-orange);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .notice-text {
+            font-size: 0.9rem;
+            color: var(--gray);
+            line-height: 1.5;
+        }
+
+        .notice-text strong {
+            color: var(--black);
+        }
+
+        /* ========== 카드 7: CTA ========== */
+        .card-cta {
+            background: linear-gradient(180deg, #fff8e1 0%, #ffecb3 100%);
+        }
+
+        .cta-product-img {
+            width: 160px;
+            height: 160px;
+            object-fit: contain;
+            border-radius: 20px;
+            margin-bottom: 16px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .cta-highlights {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .cta-highlight {
+            background: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--green);
+            font-weight: 500;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .cta-highlight.main {
+            background: var(--jeju-orange);
+            color: white;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--green);
+            color: white;
+            font-size: 1.15rem;
+            font-weight: 600;
+            padding: 16px 36px;
+            border-radius: 32px;
+            text-decoration: none;
+            box-shadow: 0 10px 30px rgba(74, 103, 65, 0.35);
+            margin-top: 8px;
+        }
+
+        .cta-button:active {
+            transform: scale(0.97);
+        }
+
+        .cta-note {
+            font-size: 0.85rem;
+            color: var(--gray-light);
+            margin-top: 16px;
+        }
+
+        /* ========== 반응형 ========== */
+        @media (max-height: 700px) {
+            .product-hero {
+                width: 150px;
+                height: 150px;
+            }
+            .card-title {
+                font-size: clamp(1.3rem, 5.5vw, 1.7rem);
+            }
+            .feature-item {
+                padding: 12px;
+            }
+            .producer-photo {
+                width: 100px;
+                height: 100px;
+            }
+        }
+
+        html::-webkit-scrollbar {
+            width: 0;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 매거진 헤더 -->
+    <header class="magazine-header">
+        <div class="magazine-brand">
+            <div class="brand-logo">
+                <div class="logo-circle">두레</div>
+                <span class="logo-text">두레생협</span>
+            </div>
+            <div class="brand-divider"></div>
+            <span class="magazine-title">생활의 발견</span>
+            <span class="magazine-issue">26년 5주 (1.26~2.1)</span>
+        </div>
+        <div class="live-visitors">
+            <div class="live-dot"></div>
+            <span class="live-count"><strong id="visitorCount">1</strong>명</span>
+        </div>
+    </header>
+
+    <div class="scroll-indicator" id="scrollIndicator"></div>
+
+    <!-- 0. 인트로 -->
+    <section class="card card-intro" data-index="0">
+        <span class="season-badge">🍊 20년의 정성</span>
+        <h1 class="card-title">
+            <em>강석종</em> 감귤<br>
+            제주 최고를 향한 여정
+        </h1>
+        <p class="card-desc">
+            두레생협 3만 여 가지 생활재 중<br>
+            <strong style="color: var(--jeju-orange);">생산자 이름을 붙인 건 단 2개</strong><br>
+            <span style="font-size: 0.9em; opacity: 0.9;">정규연 토마토, 그리고 강석종 감귤</span>
+        </p>
+        <div style="background: rgba(255,255,255,0.15); border-radius: 12px; padding: 12px 16px; margin: 15px 0;">
+            <span style="font-size: 1.1em;">🏅 <strong>명인</strong>만이 가질 수 있는 영예</span><br>
+            <span style="font-size: 0.85em; opacity: 0.9;">맛은 두레생협이 보장합니다</span>
+        </div>
+        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/53893C.jpg" 
+             alt="강석종 감귤" class="product-hero">
+        <div class="card-connector">
+            <span>강석종 생산자를 만나볼까요?</span>
+            <svg viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
+        </div>
+    </section>
+
+    <!-- 1. 생산자 스토리 -->
+    <section class="card card-producer" data-index="1">
+        <span class="section-badge" style="background: var(--green);">👨‍🌾 강석종 생산자</span>
+        <img src="/mnt/user-data/uploads/1769432628417_image.png" 
+             alt="강석종 생산자" class="producer-photo"
+             onerror="this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/53893D.jpg'">
+        <div class="producer-name">강석종</div>
+        <div class="producer-location">📍 제주도 · 🏅 두레생협 명인</div>
+        <div style="background: var(--green-light); border-radius: 10px; padding: 10px 14px; margin: 10px 0; font-size: 0.85em;">
+            <strong style="color: var(--green);">3만 여 가지 생활재 중 이름을 붙인 단 2명</strong><br>
+            정규연 토마토 · 강석종 감귤
+        </div>
+        <div class="producer-quote">
+            <p>
+                <strong>20년 전</strong>, 젊은 청년이 제주 감귤밭에 섰습니다.<br><br>
+                "두레생협 조합원님께 <strong>제주도 최고의 감귤</strong>을 
+                드리겠습니다"<br><br>
+                그 약속을 지키기 위해 20년을 
+                <strong>한결같이 땀 흘려</strong> 왔습니다.
+            </p>
+        </div>
+        <div class="card-connector">
+            <span>어떤 고생을 했을까요?</span>
+            <svg viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
+        </div>
+    </section>
+
+    <!-- 2. 재배의 고생 -->
+    <section class="card card-feature" data-index="2">
+        <span class="section-badge feature-badge">💪 맛있는 감귤의 비밀</span>
+        <h2 class="card-title feature-title">
+            한 알의 감귤에 담긴<br>
+            <em style="color: var(--jeju-yellow);">365일의 땀</em>
+        </h2>
+        <div class="feature-grid">
+            <div class="feature-item">
+                <span class="feature-icon">🌅</span>
+                <div class="feature-content">
+                    <h4>새벽부터 시작되는 하루</h4>
+                    <p>해 뜨기 전 과수원에 나가 이슬 맺힌 나뭇잎 하나하나 살펴봅니다</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon">🥵</span>
+                <div class="feature-content">
+                    <h4>한여름 제초 작업</h4>
+                    <p>40도 가까운 폭염 속에서도 농약 대신 손으로 직접 풀을 뽑습니다</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon">🌧️</span>
+                <div class="feature-content">
+                    <h4>태풍과의 싸움</h4>
+                    <p>매년 찾아오는 태풍, 밤새 과수원을 지키며 나무를 보호합니다</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon">❄️</span>
+                <div class="feature-content">
+                    <h4>겨울 동해 방지</h4>
+                    <p>영하의 추위에도 나무가 얼지 않도록 보온 작업을 합니다</p>
+                </div>
+            </div>
+        </div>
+        <div class="card-connector eco-connector">
+            <span>왜 무농약일까요?</span>
+            <svg viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
+        </div>
+    </section>
+
+    <!-- 3. 무농약의 이유 -->
+    <section class="card card-cert" data-index="3">
+        <div class="cert-badge-large">
+            <span class="icon">🌱</span>
+            <span class="text">무농약</span>
+        </div>
+        <h2 class="card-title">
+            <em>더 힘들어도</em><br>
+            무농약을 고집하는 이유
+        </h2>
+        <p class="card-desc">
+            "조합원님 아이들이<br>
+            껍질째 먹어도 안심할 수 있게"
+        </p>
+        <div class="cert-list">
+            <div class="cert-item">
+                <span class="cert-item-icon">🚫</span>
+                <p class="cert-item-text">
+                    <strong>농약 대신 손으로</strong><br>
+                    병해충을 일일이 잡아내는 고된 작업
+                </p>
+            </div>
+            <div class="cert-item">
+                <span class="cert-item-icon">🧪</span>
+                <p class="cert-item-text">
+                    <strong>왁스·피막제 NO</strong><br>
+                    껍질째 드셔도 안전합니다
+                </p>
+            </div>
+            <div class="cert-item">
+                <span class="cert-item-icon">💚</span>
+                <p class="cert-item-text">
+                    <strong>잔류농약 비검출 100%</strong><br>
+                    20년간 지켜온 신뢰
+                </p>
+            </div>
+        </div>
+        <div class="card-connector">
+            <span>20년의 변화를 볼까요?</span>
+            <svg viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
+        </div>
+    </section>
+
+    <!-- 4. 20년의 변화 -->
+    <section class="card card-taste" data-index="4">
+        <span class="section-badge">📸 20년의 변화</span>
+        <h2 class="card-title">
+            청년 농부에서<br>
+            <em>제주 최고 생산자로</em>
+        </h2>
+        <div class="taste-compare">
+            <div class="taste-box">
+                <div class="taste-box-title">20년 전</div>
+                <div class="taste-box-icon">👨‍🌾</div>
+                <div class="taste-box-name">도전의 시작</div>
+                <div class="taste-stat">
+                    <span>경험</span>
+                    <span>초보</span>
+                </div>
+                <div class="taste-bar">
+                    <div class="taste-bar-fill" style="width: 0%;" data-target="20"></div>
+                </div>
+                <div class="taste-stat">
+                    <span>신뢰</span>
+                    <span>쌓아가는 중</span>
+                </div>
+                <div class="taste-bar">
+                    <div class="taste-bar-fill" style="width: 0%;" data-target="30"></div>
+                </div>
+            </div>
+            <div class="taste-box highlight">
+                <div class="taste-box-title">지금</div>
+                <div class="taste-box-icon">🏆</div>
+                <div class="taste-box-name">제주 최고</div>
+                <div class="taste-stat">
+                    <span>경험</span>
+                    <span>20년 베테랑</span>
+                </div>
+                <div class="taste-bar">
+                    <div class="taste-bar-fill" style="width: 0%;" data-target="95"></div>
+                </div>
+                <div class="taste-stat">
+                    <span>신뢰</span>
+                    <span>두레 대표 생산자</span>
+                </div>
+                <div class="taste-bar">
+                    <div class="taste-bar-fill" style="width: 0%;" data-target="100"></div>
+                </div>
+            </div>
+        </div>
+        <div class="card-connector">
+            <span>지금 제철 감귤은?</span>
+            <svg viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
+        </div>
+    </section>
+
+    <!-- 5. 노지감귤 제철 -->
+    <section class="card card-schedule" data-index="5">
+        <span class="section-badge" style="background: var(--green);">📅 제철 안내</span>
+        <h2 class="card-title">
+            <em>강석종 노지감귤</em><br>
+            지금이 가장 맛있어요
+        </h2>
+        <div class="schedule-timeline">
+            <div class="schedule-item">
+                <div class="schedule-marker">
+                    <div class="schedule-dot"></div>
+                    <div class="schedule-line"></div>
+                </div>
+                <div class="schedule-content">
+                    <div class="schedule-period">10월 중순 ~ 10월 말</div>
+                    <div class="schedule-name">① 극조생</div>
+                    <div class="schedule-desc">시즌 첫 감귤, 상큼한 맛</div>
+                </div>
+            </div>
+            <div class="schedule-item">
+                <div class="schedule-marker">
+                    <div class="schedule-dot active"></div>
+                    <div class="schedule-line"></div>
+                </div>
+                <div class="schedule-content active">
+                    <div class="schedule-period">11월 ~ 1월</div>
+                    <div class="schedule-name">② 노지감귤 🔥 지금!</div>
+                    <div class="schedule-desc">당도와 산미의 완벽한 조화</div>
+                </div>
+            </div>
+            <div class="schedule-item">
+                <div class="schedule-marker">
+                    <div class="schedule-dot"></div>
+                </div>
+                <div class="schedule-content">
+                    <div class="schedule-period">1월 중순 ~ 1월 말</div>
+                    <div class="schedule-name">③ 비가림감귤</div>
+                    <div class="schedule-desc">껍질 얇고 당도 최고조</div>
+                </div>
+            </div>
+        </div>
+        <div class="card-connector">
+            <span>구매 전 알아두세요</span>
+            <svg viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
+        </div>
+    </section>
+
+    <!-- 6. 생산자의 당부 -->
+    <section class="card card-notice" data-index="6">
+        <span class="section-badge" style="background: var(--orange);">💬 강석종 생산자의 당부</span>
+        <h2 class="card-title">
+            조합원님께<br>
+            <em>드리는 말씀</em>
+        </h2>
+        <div class="notice-list">
+            <div class="notice-item">
+                <span class="notice-num">1</span>
+                <p class="notice-text">
+                    껍질이 얇아서 간혹 <strong>터지거나 상처</strong>가 있을 수 있어요.
+                    하지만 맛과 당도는 그대로입니다!
+                </p>
+            </div>
+            <div class="notice-item">
+                <span class="notice-num">2</span>
+                <p class="notice-text">
+                    <strong>색이 연해도</strong> 걱정 마세요. 
+                    품종 특성이에요. 맛으로 증명합니다!
+                </p>
+            </div>
+            <div class="notice-item">
+                <span class="notice-num">3</span>
+                <p class="notice-text">
+                    <strong>껍질째 드셔도</strong> 안전합니다.
+                    20년간 무농약, 왁스 없이 키웠습니다.
+                </p>
+            </div>
+        </div>
+        <div class="card-connector">
+            <span>강석종 감귤 주문하기</span>
+            <svg viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
+        </div>
+    </section>
+
+    <!-- 7. CTA -->
+    <section class="card card-cta" data-index="7">
+        <span class="section-badge">🍊 강석종 감귤</span>
+        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/53893C.jpg" 
+             alt="강석종 감귤" class="cta-product-img">
+        <h2 class="card-title">
+            <em>20년의 정성</em><br>
+            지금 맛보세요
+        </h2>
+        <div class="cta-highlights">
+            <span class="cta-highlight main">🏅 두레생협 단 2명의 명인</span>
+            <span class="cta-highlight">🌱 무농약 20년</span>
+            <span class="cta-highlight">✅ 맛 보장</span>
+            <span class="cta-highlight">🔥 지금이 제철</span>
+        </div>
+        <a href="https://ecoop.or.kr/DureShop/recommend.do" 
+           class="cta-button" target="_blank">
+            강석종 감귤 주문하기 →
+        </a>
+        <p class="cta-note">
+            📞 주문 문의: 1661-5310
+        </p>
+    </section>
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script>
+        // Firebase 설정
+        const firebaseConfig = {
+            apiKey: "AIzaSyDrb6CvMBn9jSfDeuwWseJywFHLbChNr4U",
+            authDomain: "durunioncoop.firebaseapp.com",
+            projectId: "durunioncoop",
+            storageBucket: "durunioncoop.firebasestorage.app",
+            messagingSenderId: "439719435906",
+            appId: "1:439719435906:web:3d1d841ad6e80939eb5e9b"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // 실시간 방문자 수
+        const visitorRef = db.collection('visitors').doc('w05-gamgul-2026');
+        visitorRef.get().then((doc) => {
+            if (doc.exists) {
+                visitorRef.update({ count: firebase.firestore.FieldValue.increment(1) });
+            } else {
+                visitorRef.set({ count: 1 });
+            }
+        });
+
+        visitorRef.onSnapshot((doc) => {
+            if (doc.exists) {
+                document.getElementById('visitorCount').textContent = doc.data().count;
+            }
+        });
+
+        // 스크롤 인디케이터 생성
+        const cards = document.querySelectorAll('.card');
+        const scrollIndicator = document.getElementById('scrollIndicator');
+
+        cards.forEach((card, index) => {
+            const dot = document.createElement('div');
+            dot.className = 'scroll-dot' + (index === 0 ? ' active' : '');
+            dot.addEventListener('click', () => {
+                card.scrollIntoView({ behavior: 'smooth' });
+            });
+            scrollIndicator.appendChild(dot);
+        });
+
+        // Intersection Observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const index = parseInt(entry.target.dataset.index);
+
+                    // 스크롤 인디케이터 업데이트
+                    document.querySelectorAll('.scroll-dot').forEach((dot, i) => {
+                        dot.classList.toggle('active', i === index);
+                    });
+
+                    // 맛 비교 차트 애니메이션
+                    if (index === 4 && !window.tasteAnimated) {
+                        window.tasteAnimated = true;
+                        document.querySelectorAll('.taste-bar-fill').forEach(bar => {
+                            const target = bar.dataset.target;
+                            setTimeout(() => {
+                                bar.style.width = target + '%';
+                            }, 300);
+                        });
+                    }
+                }
+            });
+        }, { threshold: 0.5 });
+
+        cards.forEach(card => observer.observe(card));
+    </script>
+</body>
+</html>
