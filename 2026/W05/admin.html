@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>강석종 감귤 매거진 - 관리자</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: #f5f5f5;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .header {
+            background: #4a6741;
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            font-size: 1.3em;
+            margin-bottom: 5px;
+        }
+        .header p {
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .card h2 {
+            font-size: 1.1em;
+            color: #333;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #4a6741;
+        }
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .stat-row:last-child {
+            border-bottom: none;
+        }
+        .stat-label {
+            color: #666;
+        }
+        .stat-value {
+            font-weight: 700;
+            color: #4a6741;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 10px;
+            transition: all 0.2s;
+        }
+        .btn-danger {
+            background: #e74c3c;
+            color: white;
+        }
+        .btn-danger:hover {
+            background: #c0392b;
+        }
+        .btn-warning {
+            background: #f39c12;
+            color: white;
+        }
+        .btn-warning:hover {
+            background: #d68910;
+        }
+        .btn-primary {
+            background: #4a6741;
+            color: white;
+        }
+        .btn-primary:hover {
+            background: #3a5331;
+        }
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .message-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .message-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+        .message-content {
+            flex: 1;
+        }
+        .message-text {
+            font-size: 0.95em;
+            color: #333;
+            margin-bottom: 4px;
+        }
+        .message-time {
+            font-size: 0.8em;
+            color: #999;
+        }
+        .delete-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.85em;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        .delete-btn:hover {
+            background: #c0392b;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 30px;
+            color: #999;
+        }
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 0.95em;
+        }
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+        }
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        #alertBox {
+            display: none;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🍊 강석종 감귤 매거진</h1>
+            <p>관리자 페이지</p>
+        </div>
+
+        <div id="alertBox" class="alert"></div>
+
+        <!-- 통계 -->
+        <div class="card">
+            <h2>📊 현황</h2>
+            <div class="stat-row">
+                <span class="stat-label">총 방문자 수</span>
+                <span class="stat-value" id="visitorCount">-</span>
+            </div>
+            <div class="stat-row">
+                <span class="stat-label">응원 메시지 수</span>
+                <span class="stat-value" id="messageCount">-</span>
+            </div>
+        </div>
+
+        <!-- 응원 메시지 관리 -->
+        <div class="card">
+            <h2>💬 응원 메시지 관리</h2>
+            <div class="message-list" id="messageList">
+                <div class="empty-state">로딩 중...</div>
+            </div>
+        </div>
+
+        <!-- 일괄 작업 -->
+        <div class="card">
+            <h2>⚙️ 일괄 작업</h2>
+            <button class="btn btn-danger" onclick="deleteAllMessages()">
+                🗑️ 모든 응원 메시지 삭제
+            </button>
+            <button class="btn btn-warning" onclick="resetVisitorCount()">
+                🔄 방문자 수 초기화
+            </button>
+            <button class="btn btn-primary" onclick="location.reload()">
+                🔃 새로고침
+            </button>
+        </div>
+
+        <!-- 링크 -->
+        <div class="card">
+            <h2>🔗 바로가기</h2>
+            <a href="https://durecoop.github.io/magazine/2026/W05/gamgul.html" target="_blank" class="btn btn-primary">
+                📱 매거진 페이지 열기
+            </a>
+            <a href="https://console.firebase.google.com/project/durunioncoop/firestore" target="_blank" class="btn btn-warning">
+                🔥 Firebase 콘솔 열기
+            </a>
+        </div>
+    </div>
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script>
+        // Firebase 설정
+        const firebaseConfig = {
+            apiKey: "AIzaSyDrb6CvMBn9jSfDeuwWseJywFHLbChNr4U",
+            authDomain: "durunioncoop.firebaseapp.com",
+            projectId: "durunioncoop",
+            storageBucket: "durunioncoop.firebasestorage.app",
+            messagingSenderId: "439719435906",
+            appId: "1:439719435906:web:3d1d841ad6e80939eb5e9b"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // 알림 표시
+        function showAlert(message, type) {
+            var alertBox = document.getElementById('alertBox');
+            alertBox.textContent = message;
+            alertBox.className = 'alert alert-' + type;
+            alertBox.style.display = 'block';
+            setTimeout(function() {
+                alertBox.style.display = 'none';
+            }, 3000);
+        }
+
+        // 방문자 수 불러오기
+        function loadVisitorCount() {
+            db.collection('visitors').doc('w05-gamgul-2026').get()
+                .then(function(doc) {
+                    if (doc.exists) {
+                        document.getElementById('visitorCount').textContent = doc.data().count + '명';
+                    } else {
+                        document.getElementById('visitorCount').textContent = '0명';
+                    }
+                })
+                .catch(function(err) {
+                    console.error('Error:', err);
+                    document.getElementById('visitorCount').textContent = '오류';
+                });
+        }
+
+        // 메시지 불러오기
+        function loadMessages() {
+            db.collection('opinions')
+                .where('page', '==', 'w05-gamgul')
+                .orderBy('timestamp', 'desc')
+                .get()
+                .then(function(snapshot) {
+                    var container = document.getElementById('messageList');
+                    var count = snapshot.size;
+                    document.getElementById('messageCount').textContent = count + '개';
+
+                    if (count === 0) {
+                        container.innerHTML = '<div class="empty-state">응원 메시지가 없습니다.</div>';
+                        return;
+                    }
+
+                    var html = '';
+                    snapshot.forEach(function(doc) {
+                        var data = doc.data();
+                        var time = data.timestamp ? data.timestamp.toDate().toLocaleString('ko-KR') : '';
+                        html += '<div class="message-item" id="msg-' + doc.id + '">' +
+                            '<div class="message-content">' +
+                            '<div class="message-text">' + (data.message || '') + '</div>' +
+                            '<div class="message-time">' + time + '</div>' +
+                            '</div>' +
+                            '<button class="delete-btn" onclick="deleteMessage(\'' + doc.id + '\')">삭제</button>' +
+                            '</div>';
+                    });
+                    container.innerHTML = html;
+                })
+                .catch(function(err) {
+                    console.error('Error:', err);
+                    document.getElementById('messageList').innerHTML = '<div class="empty-state">불러오기 실패</div>';
+                });
+        }
+
+        // 개별 메시지 삭제
+        function deleteMessage(docId) {
+            if (!confirm('이 메시지를 삭제하시겠습니까?')) return;
+
+            db.collection('opinions').doc(docId).delete()
+                .then(function() {
+                    document.getElementById('msg-' + docId).remove();
+                    showAlert('삭제되었습니다.', 'success');
+                    loadMessages(); // 카운트 업데이트
+                })
+                .catch(function(err) {
+                    console.error('Error:', err);
+                    showAlert('삭제 실패: ' + err.message, 'error');
+                });
+        }
+
+        // 모든 메시지 삭제
+        function deleteAllMessages() {
+            if (!confirm('정말 모든 응원 메시지를 삭제하시겠습니까?\n이 작업은 되돌릴 수 없습니다.')) return;
+
+            db.collection('opinions')
+                .where('page', '==', 'w05-gamgul')
+                .get()
+                .then(function(snapshot) {
+                    if (snapshot.empty) {
+                        showAlert('삭제할 메시지가 없습니다.', 'error');
+                        return;
+                    }
+
+                    var batch = db.batch();
+                    snapshot.forEach(function(doc) {
+                        batch.delete(doc.ref);
+                    });
+
+                    return batch.commit();
+                })
+                .then(function() {
+                    showAlert('모든 메시지가 삭제되었습니다.', 'success');
+                    loadMessages();
+                })
+                .catch(function(err) {
+                    console.error('Error:', err);
+                    showAlert('삭제 실패: ' + err.message, 'error');
+                });
+        }
+
+        // 방문자 수 초기화
+        function resetVisitorCount() {
+            if (!confirm('방문자 수를 0으로 초기화하시겠습니까?')) return;
+
+            db.collection('visitors').doc('w05-gamgul-2026').set({ count: 0 })
+                .then(function() {
+                    showAlert('방문자 수가 초기화되었습니다.', 'success');
+                    loadVisitorCount();
+                })
+                .catch(function(err) {
+                    console.error('Error:', err);
+                    showAlert('초기화 실패: ' + err.message, 'error');
+                });
+        }
+
+        // 페이지 로드 시 실행
+        loadVisitorCount();
+        loadMessages();
+    </script>
+</body>
+</html>
