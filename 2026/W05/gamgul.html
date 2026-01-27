@@ -1033,13 +1033,16 @@
             <p style="text-align: center; color: rgba(0,0,0,0.4); font-size: 1em; padding: 40px 20px;">첫 번째 응원을 남겨주세요! 🧡</p>
         </div>
         
-        <!-- 하단 입력창 (고정) -->
-        <div style="background: white; padding: 12px 15px; display: flex; gap: 10px; align-items: center; flex-shrink: 0; border-top: 1px solid #ddd;">
-            <input type="text" id="cheerInput" placeholder="응원 메시지를 입력하세요" 
-                style="flex: 1; border: none; background: #f5f5f5; padding: 14px 18px; border-radius: 25px; font-size: 1em; outline: none;">
+        <!-- 하단 입력창 (카카오톡 스타일) -->
+        <div style="background: white; padding: 10px 12px; display: flex; gap: 10px; align-items: center; flex-shrink: 0; border-top: 1px solid #e5e5e5;">
+            <div style="display: flex; align-items: center; gap: 8px; color: #999;">
+                <span style="font-size: 1.4em;">+</span>
+            </div>
+            <input type="text" id="cheerInput" placeholder="메시지 입력" 
+                style="flex: 1; border: 1px solid #e5e5e5; background: #f5f5f5; padding: 12px 16px; border-radius: 20px; font-size: 1em; outline: none;">
             <button onclick="submitCheer()" id="sendBtn"
-                style="width: 50px; height: 50px; background: var(--jeju-orange); color: white; border: none; border-radius: 50%; font-size: 1.4em; cursor: pointer; display: flex; align-items: center; justify-content: center;">
-                ↑
+                style="background: #ffe066; color: #333; border: none; border-radius: 6px; padding: 10px 16px; font-size: 0.95em; font-weight: 600; cursor: pointer;">
+                전송
             </button>
         </div>
         
@@ -1166,30 +1169,68 @@
         // 카카오톡 스타일 응원 메시지 기능
         var messagesRef = db.collection('opinions');
         
-        // 조합원 메시지 렌더링 (우측, 노란색)
+        // 감성 답변 목록
+        var replyMessages = [
+            '감사합니다~ 🧡',
+            '정말 감사해요~ 힘이 납니다! 💪',
+            '조합원님 덕분에 행복합니다 🍊',
+            '더 맛있는 감귤로 보답할게요~',
+            '마음 전해주셔서 감사합니다 🙏',
+            '응원 감사해요! 올해도 최선을 다할게요~',
+            '따뜻한 말씀 감사합니다 ☺️',
+            '40년 농사 보람을 느낍니다 🧡',
+            '조합원님이 있어 행복해요~',
+            '귤처럼 달콤한 하루 되세요! 🍊'
+        ];
+        
+        // 랜덤 답변 선택
+        function getRandomReply(index) {
+            return replyMessages[index % replyMessages.length];
+        }
+        
+        // 시간 포맷
+        function formatTime(timestamp) {
+            if (!timestamp) return '';
+            var date = timestamp.toDate();
+            var hours = date.getHours();
+            var minutes = date.getMinutes();
+            var ampm = hours >= 12 ? '오후' : '오전';
+            hours = hours % 12;
+            hours = hours ? hours : 12;
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            return ampm + ' ' + hours + ':' + minutes;
+        }
+        
+        // 조합원 메시지 (오른쪽, 노란색)
         function renderUserMsg(msg, time) {
-            var timeStr = time ? new Date(time.toDate()).toLocaleTimeString('ko-KR', {hour: '2-digit', minute:'2-digit'}) : '';
-            return '<div style="display: flex; justify-content: flex-end; align-items: flex-end; margin-bottom: 6px; gap: 6px;">' +
-                '<span style="font-size: 0.75em; color: rgba(0,0,0,0.4);">' + timeStr + '</span>' +
-                '<div style="background: #ffe066; padding: 12px 16px; border-radius: 18px 4px 18px 18px; max-width: 230px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">' +
-                '<p style="margin: 0; font-size: 1em; color: #333; line-height: 1.5; word-break: break-word;">' + msg + '</p>' +
+            var timeStr = formatTime(time);
+            return '<div style="display: flex; justify-content: flex-end; align-items: flex-end; margin-bottom: 4px; padding-right: 10px;">' +
+                '<span style="font-size: 0.7em; color: rgba(0,0,0,0.4); margin-right: 6px;">' + timeStr + '</span>' +
+                '<div style="background: #ffe066; padding: 10px 14px; border-radius: 12px 4px 12px 12px; max-width: 220px;">' +
+                '<p style="margin: 0; font-size: 0.95em; color: #333; line-height: 1.4;">' + msg + '</p>' +
                 '</div></div>';
         }
         
-        // 강석종 생산자 답글 렌더링 (좌측, 흰색)
-        function renderReplyMsg() {
-            return '<div style="display: flex; align-items: flex-start; margin-bottom: 15px; gap: 8px;">' +
-                '<img src="https://raw.githubusercontent.com/durecoop/magazine/main/2026/W05/k2.jpg" style="width: 44px; height: 44px; border-radius: 50%; object-fit: cover; flex-shrink: 0;" onerror="this.src=\'https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/27665C.png\'">' +
-                '<div>' +
-                '<span style="font-size: 0.8em; color: #555; display: block; margin-bottom: 4px;">감귤명인 강석종</span>' +
-                '<div style="background: white; padding: 12px 16px; border-radius: 4px 18px 18px 18px; max-width: 200px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">' +
-                '<p style="margin: 0; font-size: 1em; color: #333; line-height: 1.5;">감사합니다~ 🧡</p>' +
+        // 강석종 생산자 답글 (왼쪽, 흰색)
+        function renderReplyMsg(replyText, time) {
+            var timeStr = formatTime(time);
+            return '<div style="display: flex; align-items: flex-start; margin-bottom: 15px; padding-left: 10px;">' +
+                '<img src="https://raw.githubusercontent.com/durecoop/magazine/main/2026/W05/k2.jpg" ' +
+                'style="width: 40px; height: 40px; border-radius: 12px; object-fit: cover; margin-right: 8px; flex-shrink: 0;" ' +
+                'onerror="this.src=\'https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/27665C.png\'">' +
+                '<div style="flex: 1;">' +
+                '<span style="font-size: 0.75em; color: #555; display: block; margin-bottom: 4px;">감귤명인 강석종</span>' +
+                '<div style="display: flex; align-items: flex-end; gap: 6px;">' +
+                '<div style="background: white; padding: 10px 14px; border-radius: 4px 12px 12px 12px; max-width: 200px;">' +
+                '<p style="margin: 0; font-size: 0.95em; color: #333; line-height: 1.4;">' + replyText + '</p>' +
+                '</div>' +
+                '<span style="font-size: 0.7em; color: rgba(0,0,0,0.4);">' + timeStr + '</span>' +
                 '</div></div></div>';
         }
         
         // 메시지 불러오기 (실시간)
         function loadCheers() {
-            messagesRef.where('page', '==', 'w05-gamgul').orderBy('timestamp', 'desc').limit(10)
+            messagesRef.where('page', '==', 'w05-gamgul').orderBy('timestamp', 'desc').limit(15)
                 .onSnapshot(function(snapshot) {
                     var container = document.getElementById('chatMessages');
                     var messages = [];
@@ -1201,7 +1242,7 @@
                         }
                     });
                     
-                    messages.reverse(); // 오래된 순으로
+                    messages.reverse();
                     
                     if (messages.length === 0) {
                         container.innerHTML = '<p style="text-align: center; color: rgba(0,0,0,0.4); font-size: 1em; padding: 40px 20px;">첫 번째 응원을 남겨주세요! 🧡</p>';
@@ -1209,19 +1250,17 @@
                         var html = '';
                         for (var i = 0; i < messages.length; i++) {
                             html += renderUserMsg(messages[i].message, messages[i].timestamp);
-                            html += renderReplyMsg();
+                            html += renderReplyMsg(getRandomReply(i), messages[i].timestamp);
                         }
                         container.innerHTML = html;
                     }
                     
-                    // 스크롤 맨 아래로
                     container.scrollTop = container.scrollHeight;
                 }, function(err) {
                     console.error('Snapshot error:', err);
                 });
         }
         
-        // 페이지 로드 시 실시간 리스너 시작
         loadCheers();
 
         // 감사 팝업 닫기
@@ -1245,7 +1284,7 @@
             
             var btn = document.getElementById('sendBtn');
             btn.disabled = true;
-            btn.innerHTML = '...';
+            btn.textContent = '...';
             
             messagesRef.add({
                 page: 'w05-gamgul',
@@ -1254,19 +1293,16 @@
             }).then(function() {
                 inputEl.value = '';
                 btn.disabled = false;
-                btn.innerHTML = '↑';
-                
-                // 감사 팝업 표시
+                btn.textContent = '전송';
                 document.getElementById('thankYouPopup').style.display = 'flex';
             }).catch(function(err) {
                 console.error('Submit error:', err);
                 btn.disabled = false;
-                btn.innerHTML = '↑';
+                btn.textContent = '전송';
                 alert('전송 실패. 다시 시도해주세요.');
             });
         }
 
-        // Enter 키로 전송
         document.getElementById('cheerInput').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 e.preventDefault();
