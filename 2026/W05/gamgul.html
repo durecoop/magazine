@@ -1016,55 +1016,55 @@
     </section>
 
     <!-- 6. 응원 섹션 - 카카오톡 스타일 -->
-    <section class="card card-cheer" data-index="6" style="background: linear-gradient(180deg, #b2c7d9 0%, #9bb3c9 100%); min-height: 100vh;">
-        <span class="section-badge" style="background: var(--jeju-orange);">💬 응원 한마디</span>
-        <h2 class="card-title" style="color: white; text-shadow: 0 1px 3px rgba(0,0,0,0.2);">
-            강석종 생산자에게<br>
-            <em style="color: #fff3d6;">응원 한마디!</em>
-        </h2>
+    <section class="card card-cheer" data-index="6" style="background: #b2c7d9; min-height: 100vh; padding: 0; display: flex; flex-direction: column;">
         
-        <!-- 카카오톡 스타일 채팅창 -->
-        <div class="chat-container" style="width: 100%; max-width: 360px; background: #b2c7d9; border-radius: 0; flex: 1; display: flex; flex-direction: column;">
-            
-            <!-- 채팅 메시지 영역 -->
-            <div id="chatMessages" style="flex: 1; overflow-y: auto; padding: 15px; max-height: 350px;">
-                <!-- 메시지가 여기에 표시됩니다 -->
-            </div>
-            
-            <!-- 입력 영역 -->
-            <div style="background: white; padding: 10px; border-radius: 0 0 20px 20px; display: flex; gap: 8px; align-items: center;">
-                <input type="text" id="cheerInput" placeholder="응원 메시지를 입력하세요" 
-                    style="flex: 1; border: none; background: #f5f5f5; padding: 12px 16px; border-radius: 20px; font-size: 0.95em; outline: none;">
-                <button onclick="submitCheer()" 
-                    style="width: 44px; height: 44px; background: var(--jeju-orange); color: white; border: none; border-radius: 50%; font-size: 1.2em; cursor: pointer; display: flex; align-items: center; justify-content: center;">
-                    ↑
-                </button>
-            </div>
+        <!-- 상단 헤더 -->
+        <div style="background: #b2c7d9; padding: 20px; text-align: center; flex-shrink: 0;">
+            <span class="section-badge" style="background: var(--jeju-orange);">💬 응원 한마디</span>
+            <h2 style="color: white; font-family: 'Nanum Myeongjo', serif; font-size: 1.4em; margin-top: 12px; text-shadow: 0 1px 3px rgba(0,0,0,0.2);">
+                강석종 생산자에게<br>
+                <em style="color: #fff3d6;">응원 한마디!</em>
+            </h2>
         </div>
         
-        <!-- 감사 팝업 (숨김) -->
+        <!-- 채팅 메시지 영역 -->
+        <div id="chatMessages" style="flex: 1; overflow-y: auto; padding: 15px; background: #b2c7d9;">
+            <p style="text-align: center; color: rgba(0,0,0,0.4); font-size: 1em; padding: 40px 20px;">첫 번째 응원을 남겨주세요! 🧡</p>
+        </div>
+        
+        <!-- 하단 입력창 (고정) -->
+        <div style="background: white; padding: 12px 15px; display: flex; gap: 10px; align-items: center; flex-shrink: 0; border-top: 1px solid #ddd;">
+            <input type="text" id="cheerInput" placeholder="응원 메시지를 입력하세요" 
+                style="flex: 1; border: none; background: #f5f5f5; padding: 14px 18px; border-radius: 25px; font-size: 1em; outline: none;">
+            <button onclick="submitCheer()" id="sendBtn"
+                style="width: 50px; height: 50px; background: var(--jeju-orange); color: white; border: none; border-radius: 50%; font-size: 1.4em; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+                ↑
+            </button>
+        </div>
+        
+        <!-- 하단 연결 -->
+        <div style="background: #a3b8c9; padding: 15px; text-align: center;">
+            <a href="#" onclick="document.querySelector('[data-index=\\'7\\']').scrollIntoView({behavior:'smooth'}); return false;" 
+               style="color: white; text-decoration: none; font-size: 1em;">
+                강석종 감귤 주문하기 ↓
+            </a>
+        </div>
+        
+        <!-- 감사 팝업 -->
         <div id="thankYouPopup" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); z-index: 9999; justify-content: center; align-items: center;">
             <div style="background: white; border-radius: 20px; padding: 30px; text-align: center; max-width: 300px; margin: 20px; animation: popIn 0.3s ease;">
                 <img src="https://raw.githubusercontent.com/durecoop/magazine/main/2026/W05/k2.jpg" 
-                     alt="강석종 생산자" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin-bottom: 15px; border: 4px solid var(--jeju-orange);">
-                <h3 style="color: var(--green); margin-bottom: 10px; font-family: 'Nanum Myeongjo', serif;">강석종 생산자</h3>
-                <p style="font-size: 1.2em; color: var(--black); line-height: 1.6; margin-bottom: 20px;">
-                    조합원님의 응원<br>
+                     alt="강석종 생산자" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-bottom: 15px; border: 4px solid var(--jeju-orange);"
+                     onerror="this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/27665C.png'">
+                <h3 style="color: var(--green); margin-bottom: 10px; font-family: 'Nanum Myeongjo', serif; font-size: 1.2em;">감귤명인 강석종</h3>
+                <p style="font-size: 1.3em; color: var(--black); line-height: 1.6; margin-bottom: 15px;">
                     <strong style="color: var(--jeju-orange);">감사합니다! 🧡</strong>
                 </p>
-                <p style="font-size: 0.9em; color: var(--gray);">
-                    더 맛있는 감귤로 보답하겠습니다
-                </p>
                 <button onclick="closeThankYou()" 
-                    style="margin-top: 20px; padding: 12px 40px; background: var(--jeju-orange); color: white; border: none; border-radius: 25px; font-size: 1em; cursor: pointer;">
+                    style="padding: 14px 50px; background: var(--jeju-orange); color: white; border: none; border-radius: 25px; font-size: 1.1em; cursor: pointer;">
                     확인
                 </button>
             </div>
-        </div>
-        
-        <div class="card-connector" style="margin-top: 15px;">
-            <span>강석종 감귤 주문하기</span>
-            <svg viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
         </div>
     </section>
 
@@ -1162,60 +1162,73 @@
 
         cards.forEach(card => observer.observe(card));
 
-        // 응원 메시지 기능 - opinions 컬렉션 사용
+        // 카카오톡 스타일 응원 메시지 기능
         var messagesRef = db.collection('opinions');
         
-        // 채팅 메시지 렌더링 - 조합원
-        function renderUserMessage(msg) {
-            return '<div style="display: flex; justify-content: flex-end; margin-bottom: 8px;"><div style="background: #ffe066; padding: 10px 14px; border-radius: 15px 0 15px 15px; max-width: 220px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);"><p style="margin: 0; font-size: 0.95em; color: #333; line-height: 1.5;">' + msg + '</p></div></div>';
+        // 조합원 메시지 렌더링 (우측, 노란색)
+        function renderUserMsg(msg, time) {
+            var timeStr = time ? new Date(time.toDate()).toLocaleTimeString('ko-KR', {hour: '2-digit', minute:'2-digit'}) : '';
+            return '<div style="display: flex; justify-content: flex-end; align-items: flex-end; margin-bottom: 6px; gap: 6px;">' +
+                '<span style="font-size: 0.75em; color: rgba(0,0,0,0.4);">' + timeStr + '</span>' +
+                '<div style="background: #ffe066; padding: 12px 16px; border-radius: 18px 4px 18px 18px; max-width: 230px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">' +
+                '<p style="margin: 0; font-size: 1em; color: #333; line-height: 1.5; word-break: break-word;">' + msg + '</p>' +
+                '</div></div>';
         }
         
-        // 채팅 메시지 렌더링 - 생산자 답글
-        function renderReplyMessage() {
-            return '<div style="display: flex; align-items: flex-start; margin-bottom: 12px;"><img src="https://raw.githubusercontent.com/durecoop/magazine/main/2026/W05/k2.jpg" style="width: 44px; height: 44px; border-radius: 50%; object-fit: cover; margin-right: 8px;" onerror="this.src=\'https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/27665C.png\'"><div><span style="font-size: 0.8em; color: #555; margin-bottom: 4px; display: block;">강석종 생산자</span><div style="background: white; padding: 10px 14px; border-radius: 0 15px 15px 15px; max-width: 200px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);"><p style="margin: 0; font-size: 0.95em; color: #333; line-height: 1.5;">감사합니다! 🧡</p></div></div></div>';
+        // 강석종 생산자 답글 렌더링 (좌측, 흰색)
+        function renderReplyMsg() {
+            return '<div style="display: flex; align-items: flex-start; margin-bottom: 15px; gap: 8px;">' +
+                '<img src="https://raw.githubusercontent.com/durecoop/magazine/main/2026/W05/k2.jpg" style="width: 44px; height: 44px; border-radius: 50%; object-fit: cover; flex-shrink: 0;" onerror="this.src=\'https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/27665C.png\'">' +
+                '<div>' +
+                '<span style="font-size: 0.8em; color: #555; display: block; margin-bottom: 4px;">감귤명인 강석종</span>' +
+                '<div style="background: white; padding: 12px 16px; border-radius: 4px 18px 18px 18px; max-width: 200px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">' +
+                '<p style="margin: 0; font-size: 1em; color: #333; line-height: 1.5;">감사합니다~ 🧡</p>' +
+                '</div></div></div>';
         }
         
-        // 응원 메시지 불러오기
+        // 메시지 불러오기 (실시간)
         function loadCheers() {
-            var container = document.getElementById('chatMessages');
-            
-            messagesRef.where('page', '==', 'w05-gamgul').orderBy('timestamp', 'desc').limit(8).get()
-                .then(function(querySnapshot) {
-                    var html = '';
+            messagesRef.where('page', '==', 'w05-gamgul').orderBy('timestamp', 'desc').limit(10)
+                .onSnapshot(function(snapshot) {
+                    var container = document.getElementById('chatMessages');
                     var messages = [];
                     
-                    querySnapshot.forEach(function(doc) {
-                        messages.push(doc.data());
+                    snapshot.forEach(function(doc) {
+                        var data = doc.data();
+                        if (data.message) {
+                            messages.push(data);
+                        }
                     });
                     
-                    messages.reverse();
+                    messages.reverse(); // 오래된 순으로
                     
                     if (messages.length === 0) {
-                        html = '<p style="text-align: center; color: rgba(0,0,0,0.5); font-size: 1em; padding: 30px;">첫 번째 응원을 남겨주세요! 🧡</p>';
+                        container.innerHTML = '<p style="text-align: center; color: rgba(0,0,0,0.4); font-size: 1em; padding: 40px 20px;">첫 번째 응원을 남겨주세요! 🧡</p>';
                     } else {
+                        var html = '';
                         for (var i = 0; i < messages.length; i++) {
-                            html += renderUserMessage(messages[i].message || '');
-                            html += renderReplyMessage();
+                            html += renderUserMsg(messages[i].message, messages[i].timestamp);
+                            html += renderReplyMsg();
                         }
+                        container.innerHTML = html;
                     }
                     
-                    container.innerHTML = html;
+                    // 스크롤 맨 아래로
                     container.scrollTop = container.scrollHeight;
-                })
-                .catch(function(err) {
-                    console.error('Load error:', err);
-                    container.innerHTML = '<p style="text-align: center; color: rgba(0,0,0,0.5); font-size: 1em; padding: 30px;">첫 번째 응원을 남겨주세요! 🧡</p>';
+                }, function(err) {
+                    console.error('Snapshot error:', err);
                 });
         }
         
-        setTimeout(loadCheers, 500);
+        // 페이지 로드 시 실시간 리스너 시작
+        loadCheers();
 
         // 감사 팝업 닫기
         function closeThankYou() {
             document.getElementById('thankYouPopup').style.display = 'none';
         }
 
-        // 응원 메시지 제출
+        // 메시지 제출
         function submitCheer() {
             var inputEl = document.getElementById('cheerInput');
             var msg = inputEl.value.trim();
@@ -1229,7 +1242,7 @@
                 return;
             }
             
-            var btn = document.querySelector('.chat-container button');
+            var btn = document.getElementById('sendBtn');
             btn.disabled = true;
             btn.innerHTML = '...';
             
@@ -1241,8 +1254,9 @@
                 inputEl.value = '';
                 btn.disabled = false;
                 btn.innerHTML = '↑';
+                
+                // 감사 팝업 표시
                 document.getElementById('thankYouPopup').style.display = 'flex';
-                setTimeout(loadCheers, 300);
             }).catch(function(err) {
                 console.error('Submit error:', err);
                 btn.disabled = false;
@@ -1251,6 +1265,7 @@
             });
         }
 
+        // Enter 키로 전송
         document.getElementById('cheerInput').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 e.preventDefault();
