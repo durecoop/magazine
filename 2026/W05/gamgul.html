@@ -981,60 +981,13 @@
         </div>
         
         <div class="card-connector">
-            <span>지금 제철 감귤은?</span>
-            <svg viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
-        </div>
-    </section>
-
-    <!-- 5. 노지감귤 제철 -->
-    <section class="card card-schedule" data-index="5">
-        <span class="section-badge" style="background: var(--green);">📅 제철 안내</span>
-        <h2 class="card-title">
-            <em>강석종 노지감귤</em><br>
-            지금이 가장 맛있어요
-        </h2>
-        <div class="schedule-timeline">
-            <div class="schedule-item">
-                <div class="schedule-marker">
-                    <div class="schedule-dot"></div>
-                    <div class="schedule-line"></div>
-                </div>
-                <div class="schedule-content">
-                    <div class="schedule-period">10월 중순 ~ 10월 말</div>
-                    <div class="schedule-name">① 극조생</div>
-                    <div class="schedule-desc">시즌 첫 감귤, 상큼한 맛</div>
-                </div>
-            </div>
-            <div class="schedule-item">
-                <div class="schedule-marker">
-                    <div class="schedule-dot active"></div>
-                    <div class="schedule-line"></div>
-                </div>
-                <div class="schedule-content active">
-                    <div class="schedule-period">11월 ~ 1월</div>
-                    <div class="schedule-name">② 노지감귤 🔥 지금!</div>
-                    <div class="schedule-desc">당도와 산미의 완벽한 조화</div>
-                </div>
-            </div>
-            <div class="schedule-item">
-                <div class="schedule-marker">
-                    <div class="schedule-dot"></div>
-                </div>
-                <div class="schedule-content">
-                    <div class="schedule-period">1월 중순 ~ 1월 말</div>
-                    <div class="schedule-name">③ 비가림감귤</div>
-                    <div class="schedule-desc">껍질 얇고 당도 최고조</div>
-                </div>
-            </div>
-        </div>
-        <div class="card-connector">
             <span>구매 전 알아두세요</span>
             <svg viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
         </div>
     </section>
 
-    <!-- 6. 생산자의 당부 -->
-    <section class="card card-notice" data-index="6">
+    <!-- 5. 생산자의 당부 -->
+    <section class="card card-notice" data-index="5">
         <span class="section-badge" style="background: var(--orange);">💬 강석종 생산자의 당부</span>
         <h2 class="card-title">
             조합원님께<br>
@@ -1069,8 +1022,8 @@
         </div>
     </section>
 
-    <!-- 7. 응원 섹션 - 카카오톡 스타일 -->
-    <section class="card card-cheer" data-index="7" style="background: linear-gradient(180deg, #b2c7d9 0%, #9bb3c9 100%); min-height: 100vh;">
+    <!-- 6. 응원 섹션 - 카카오톡 스타일 -->
+    <section class="card card-cheer" data-index="6" style="background: linear-gradient(180deg, #b2c7d9 0%, #9bb3c9 100%); min-height: 100vh;">
         <span class="section-badge" style="background: var(--jeju-orange);">💬 응원 한마디</span>
         <h2 class="card-title" style="color: white; text-shadow: 0 1px 3px rgba(0,0,0,0.2);">
             강석종 생산자에게<br>
@@ -1122,8 +1075,8 @@
         </div>
     </section>
 
-    <!-- 8. CTA -->
-    <section class="card card-cta" data-index="8">
+    <!-- 7. CTA -->
+    <section class="card card-cta" data-index="7">
         <span class="section-badge">🍊 지금이 전성기</span>
         <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/27665C.png" 
              alt="강석종 감귤" class="cta-product-img">
@@ -1221,49 +1174,56 @@
 
         cards.forEach(card => observer.observe(card));
 
-        // 카카오톡 스타일 응원 메시지 기능
-        const cheersRef = db.collection('cheers').doc('w05-gamgul-2026');
+        // 응원 메시지 기능 - 단순 컬렉션 방식
+        var messagesRef = db.collection('gamgul-cheers');
         
         // 채팅 메시지 렌더링 - 조합원
-        function renderUserMessage(message) {
-            return '<div style="display: flex; justify-content: flex-end; margin-bottom: 8px;"><div style="background: #ffe066; padding: 10px 14px; border-radius: 15px 0 15px 15px; max-width: 220px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);"><p style="margin: 0; font-size: 0.9em; color: #333; line-height: 1.5;">' + message + '</p></div></div>';
+        function renderUserMessage(msg) {
+            return '<div style="display: flex; justify-content: flex-end; margin-bottom: 8px;"><div style="background: #ffe066; padding: 10px 14px; border-radius: 15px 0 15px 15px; max-width: 220px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);"><p style="margin: 0; font-size: 0.9em; color: #333; line-height: 1.5;">' + msg + '</p></div></div>';
         }
         
         // 채팅 메시지 렌더링 - 생산자 답글
         function renderReplyMessage() {
-            return '<div style="display: flex; align-items: flex-start; margin-bottom: 12px;"><img src="https://raw.githubusercontent.com/durecoop/magazine/main/2026/W05/k2.jpg" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover; margin-right: 8px;"><div><span style="font-size: 0.75em; color: #555; margin-bottom: 4px; display: block;">강석종 생산자</span><div style="background: white; padding: 10px 14px; border-radius: 0 15px 15px 15px; max-width: 220px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);"><p style="margin: 0; font-size: 0.9em; color: #333; line-height: 1.5;">감사합니다! 🧡</p></div></div></div>';
+            return '<div style="display: flex; align-items: flex-start; margin-bottom: 12px;"><img src="https://raw.githubusercontent.com/durecoop/magazine/main/2026/W05/k2.jpg" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover; margin-right: 8px;" onerror="this.src=\'https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/27665C.png\'"><div><span style="font-size: 0.75em; color: #555; margin-bottom: 4px; display: block;">강석종 생산자</span><div style="background: white; padding: 10px 14px; border-radius: 0 15px 15px 15px; max-width: 220px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);"><p style="margin: 0; font-size: 0.9em; color: #333; line-height: 1.5;">감사합니다! 🧡</p></div></div></div>';
         }
         
         // 응원 메시지 불러오기
         function loadCheers() {
-            cheersRef.collection('messages')
-                .orderBy('timestamp', 'asc')
-                .limit(10)
-                .get()
-                .then(function(snapshot) {
-                    var container = document.getElementById('chatMessages');
+            var container = document.getElementById('chatMessages');
+            container.innerHTML = '<p style="text-align: center; color: rgba(0,0,0,0.5); font-size: 0.85em; padding: 10px;">로딩중...</p>';
+            
+            messagesRef.orderBy('timestamp', 'desc').limit(10).get()
+                .then(function(querySnapshot) {
                     var html = '';
+                    var messages = [];
                     
-                    if (snapshot.empty) {
+                    querySnapshot.forEach(function(doc) {
+                        messages.push(doc.data());
+                    });
+                    
+                    // 오래된 순으로 정렬
+                    messages.reverse();
+                    
+                    if (messages.length === 0) {
                         html = '<p style="text-align: center; color: rgba(0,0,0,0.5); font-size: 0.9em; padding: 20px;">첫 번째 응원을 남겨주세요! 🧡</p>';
                     } else {
-                        snapshot.forEach(function(doc) {
-                            var data = doc.data();
-                            html += renderUserMessage(data.message);
+                        for (var i = 0; i < messages.length; i++) {
+                            html += renderUserMessage(messages[i].message || '');
                             html += renderReplyMessage();
-                        });
+                        }
                     }
                     
                     container.innerHTML = html;
                     container.scrollTop = container.scrollHeight;
                 })
-                .catch(function(error) {
-                    console.error('Load error:', error);
+                .catch(function(err) {
+                    console.error('Load error:', err);
+                    container.innerHTML = '<p style="text-align: center; color: rgba(0,0,0,0.5); font-size: 0.9em; padding: 20px;">첫 번째 응원을 남겨주세요! 🧡</p>';
                 });
         }
         
         // 페이지 로드 시 메시지 불러오기
-        loadCheers();
+        setTimeout(loadCheers, 500);
 
         // 감사 팝업 닫기
         function closeThankYou() {
@@ -1272,33 +1232,42 @@
 
         // 응원 메시지 제출
         function submitCheer() {
-            var input = document.getElementById('cheerInput');
-            var message = input.value.trim();
+            var inputEl = document.getElementById('cheerInput');
+            var msg = inputEl.value.trim();
             
-            if (!message) {
+            if (!msg) {
                 alert('응원 메시지를 입력해주세요!');
                 return;
             }
-            if (message.length > 100) {
+            if (msg.length > 100) {
                 alert('100자 이내로 작성해주세요.');
                 return;
             }
             
+            // 버튼 비활성화
+            var btn = document.querySelector('.chat-container button');
+            btn.disabled = true;
+            btn.innerHTML = '...';
+            
             // 메시지 저장
-            cheersRef.collection('messages').add({
-                message: message,
+            messagesRef.add({
+                message: msg,
                 timestamp: firebase.firestore.FieldValue.serverTimestamp()
             }).then(function() {
-                input.value = '';
+                inputEl.value = '';
+                btn.disabled = false;
+                btn.innerHTML = '↑';
                 
                 // 감사 팝업 표시
                 document.getElementById('thankYouPopup').style.display = 'flex';
                 
                 // 메시지 새로고침
-                loadCheers();
-            }).catch(function(error) {
-                console.error('Submit error:', error);
-                alert('전송에 실패했습니다. 다시 시도해주세요.');
+                setTimeout(loadCheers, 300);
+            }).catch(function(err) {
+                console.error('Submit error:', err);
+                btn.disabled = false;
+                btn.innerHTML = '↑';
+                alert('전송 실패: ' + err.message);
             });
         }
 
