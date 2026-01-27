@@ -815,20 +815,20 @@
         <span class="season-badge">🍊 지금이 전성기</span>
         <h1 class="card-title">
             평생을<br>
-            <em>감귤</em>과 함께한 사람
+            <em>감귤</em>과 함께한 생산자
         </h1>
         <p class="card-desc" style="font-size: 1.1em; line-height: 1.8;">
             제주 바람 맞으며 40년<br>
             오직 감귤 하나만 바라봤습니다
         </p>
-        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/53893C.jpg" 
+        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/27665C.png" 
              alt="강석종 감귤" class="product-hero">
         <div style="background: rgba(255,255,255,0.15); border-radius: 12px; padding: 14px 18px; margin: 15px 0;">
             <span style="font-size: 1.2em; font-weight: 700;">강석종 감귤</span><br>
             <span style="font-size: 0.9em; opacity: 0.9;">두레생협이 이름을 붙인 단 2개의 생활재</span>
         </div>
         <div class="card-connector">
-            <span>그 사람을 만나볼까요?</span>
+            <span>강석종 생산자를 만나볼까요?</span>
             <svg viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
         </div>
     </section>
@@ -842,10 +842,16 @@
         <div class="producer-location">📍 제주도 서귀포 · 감귤 재배 40년</div>
         <div style="background: var(--green-light); border-radius: 12px; padding: 16px; margin: 15px 0; text-align: center;">
             <p style="font-size: 1.1em; line-height: 1.7; color: var(--green); margin: 0;">
-                <strong>3만 가지 생활재 중<br>이름을 붙인 단 2명</strong>
+                <strong>2만 가지 생활재 중<br>이름을 붙인 단 2명</strong>
             </p>
             <p style="font-size: 0.9em; color: var(--gray); margin-top: 8px;">
                 정규연 토마토 · 강석종 감귤
+            </p>
+        </div>
+        <div style="background: #fff3e0; border-radius: 10px; padding: 12px; margin-top: 10px; text-align: center;">
+            <p style="font-size: 0.9em; color: var(--jeju-orange); margin: 0; line-height: 1.6;">
+                ⚠️ 수량이 많지 않아<br>
+                <strong>1년에 1주일 정도</strong>만 공급됩니다
             </p>
         </div>
         <div class="card-connector">
@@ -954,13 +960,13 @@
         
         <!-- 타임라인 포토 갤러리 -->
         <div class="timeline-gallery">
-            <!-- 2005년 이전: 젊은 시절 -->
+            <!-- 초보 시절 -->
             <div class="timeline-photo">
                 <img src="https://raw.githubusercontent.com/durecoop/magazine/main/2026/W05/강석종생산자.jpg" 
                      alt="젊은 강석종 생산자">
                 <div class="timeline-caption">
-                    <span class="timeline-year">처음</span>
-                    <p>아버지의 감귤밭을<br>물려받던 청년</p>
+                    <span class="timeline-year">초보 시절</span>
+                    <p>감귤 농사의<br>첫 걸음을 떼던 때</p>
                 </div>
             </div>
             
@@ -1098,32 +1104,54 @@
         </div>
     </section>
 
-    <!-- 7. 응원 섹션 -->
-    <section class="card card-cheer" data-index="7" style="background: linear-gradient(180deg, #fff9e6 0%, #fff3d6 100%);">
+    <!-- 7. 응원 섹션 - 카카오톡 스타일 -->
+    <section class="card card-cheer" data-index="7" style="background: linear-gradient(180deg, #b2c7d9 0%, #9bb3c9 100%); min-height: 100vh;">
         <span class="section-badge" style="background: var(--jeju-orange);">💬 응원 한마디</span>
-        <h2 class="card-title" style="color: var(--black);">
-            명인 강석종 생산자에게<br>
-            <em style="color: var(--jeju-orange);">응원 한마디!</em>
+        <h2 class="card-title" style="color: white; text-shadow: 0 1px 3px rgba(0,0,0,0.2);">
+            강석종 생산자에게<br>
+            <em style="color: #fff3d6;">응원 한마디!</em>
         </h2>
-        <p style="text-align: center; color: var(--gray); margin-bottom: 20px; font-size: 0.95em;">
-            40년간 정성을 다해오신<br>
-            강석종 생산자님께 따뜻한 한마디를 전해주세요
-        </p>
         
-        <div id="cheerMessages" style="width: 100%; max-width: 340px; margin-bottom: 20px; max-height: 200px; overflow-y: auto;">
-            <!-- 응원 메시지가 여기에 표시됩니다 -->
+        <!-- 카카오톡 스타일 채팅창 -->
+        <div class="chat-container" style="width: 100%; max-width: 360px; background: #b2c7d9; border-radius: 0; flex: 1; display: flex; flex-direction: column;">
+            
+            <!-- 채팅 메시지 영역 -->
+            <div id="chatMessages" style="flex: 1; overflow-y: auto; padding: 15px; max-height: 350px;">
+                <!-- 메시지가 여기에 표시됩니다 -->
+            </div>
+            
+            <!-- 입력 영역 -->
+            <div style="background: white; padding: 10px; border-radius: 0 0 20px 20px; display: flex; gap: 8px; align-items: center;">
+                <input type="text" id="cheerInput" placeholder="응원 메시지를 입력하세요" 
+                    style="flex: 1; border: none; background: #f5f5f5; padding: 12px 16px; border-radius: 20px; font-size: 0.95em; outline: none;">
+                <button onclick="submitCheer()" 
+                    style="width: 44px; height: 44px; background: var(--jeju-orange); color: white; border: none; border-radius: 50%; font-size: 1.2em; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+                    ↑
+                </button>
+            </div>
         </div>
         
-        <div style="width: 100%; max-width: 340px;">
-            <textarea id="cheerInput" placeholder="응원 메시지를 남겨주세요..." 
-                style="width: 100%; height: 80px; border: 2px solid var(--jeju-orange); border-radius: 12px; padding: 12px; font-size: 0.95em; resize: none; font-family: 'Noto Sans KR', sans-serif;"></textarea>
-            <button onclick="submitCheer()" 
-                style="width: 100%; margin-top: 10px; padding: 14px; background: var(--jeju-orange); color: white; border: none; border-radius: 12px; font-size: 1em; font-weight: 600; cursor: pointer;">
-                🧡 응원 보내기
-            </button>
+        <!-- 감사 팝업 (숨김) -->
+        <div id="thankYouPopup" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); z-index: 9999; justify-content: center; align-items: center;">
+            <div style="background: white; border-radius: 20px; padding: 30px; text-align: center; max-width: 300px; margin: 20px; animation: popIn 0.3s ease;">
+                <img src="https://raw.githubusercontent.com/durecoop/magazine/main/2026/W05/27665C.png" 
+                     alt="강석종 생산자" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin-bottom: 15px; border: 4px solid var(--jeju-orange);">
+                <h3 style="color: var(--green); margin-bottom: 10px; font-family: 'Nanum Myeongjo', serif;">강석종 생산자</h3>
+                <p style="font-size: 1.2em; color: var(--black); line-height: 1.6; margin-bottom: 20px;">
+                    조합원님의 응원<br>
+                    <strong style="color: var(--jeju-orange);">감사합니다! 🧡</strong>
+                </p>
+                <p style="font-size: 0.9em; color: var(--gray);">
+                    더 맛있는 감귤로 보답하겠습니다
+                </p>
+                <button onclick="closeThankYou()" 
+                    style="margin-top: 20px; padding: 12px 40px; background: var(--jeju-orange); color: white; border: none; border-radius: 25px; font-size: 1em; cursor: pointer;">
+                    확인
+                </button>
+            </div>
         </div>
         
-        <div class="card-connector" style="margin-top: 20px;">
+        <div class="card-connector" style="margin-top: 15px;">
             <span>강석종 감귤 주문하기</span>
             <svg viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
         </div>
@@ -1132,10 +1160,10 @@
     <!-- 8. CTA -->
     <section class="card card-cta" data-index="8">
         <span class="section-badge">🍊 지금이 전성기</span>
-        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/53893C.jpg" 
+        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/27665C.png" 
              alt="강석종 감귤" class="cta-product-img">
         <h2 class="card-title">
-            <em>평생을 바친 사람의</em><br>
+            <em>평생을 바친 생산자의</em><br>
             감귤을 맛보세요
         </h2>
         <p style="text-align: center; color: var(--gray); margin-bottom: 20px; font-size: 0.95em;">
@@ -1228,55 +1256,125 @@
 
         cards.forEach(card => observer.observe(card));
 
-        // 응원 메시지 기능
+        // 카카오톡 스타일 응원 메시지 기능
         const cheersRef = db.collection('cheers').doc('w05-gamgul-2026');
+        let hasSubmittedThisSession = sessionStorage.getItem('cheerSubmitted') === 'true';
+        
+        // 채팅 메시지 렌더링
+        function renderMessage(data, isReply = false) {
+            const chatContainer = document.getElementById('chatMessages');
+            
+            if (isReply) {
+                // 강석종 생산자 답글 (좌측)
+                return `
+                    <div style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+                        <img src="https://raw.githubusercontent.com/durecoop/magazine/main/2026/W05/27665C.png" 
+                             style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover; margin-right: 8px;">
+                        <div>
+                            <span style="font-size: 0.75em; color: #555; margin-bottom: 4px; display: block;">강석종 생산자</span>
+                            <div style="background: white; padding: 10px 14px; border-radius: 0 15px 15px 15px; max-width: 220px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">
+                                <p style="margin: 0; font-size: 0.9em; color: #333; line-height: 1.5;">감사합니다! 🧡<br>더 맛있는 감귤로 보답할게요~</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                // 조합원 메시지 (우측)
+                return `
+                    <div style="display: flex; justify-content: flex-end; margin-bottom: 8px;">
+                        <div style="background: #ffe066; padding: 10px 14px; border-radius: 15px 0 15px 15px; max-width: 220px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">
+                            <p style="margin: 0; font-size: 0.9em; color: #333; line-height: 1.5;">${data.message}</p>
+                        </div>
+                    </div>
+                `;
+            }
+        }
         
         // 응원 메시지 불러오기
         function loadCheers() {
             cheersRef.collection('messages')
                 .orderBy('timestamp', 'desc')
-                .limit(10)
+                .limit(5)
                 .onSnapshot((snapshot) => {
-                    const container = document.getElementById('cheerMessages');
-                    container.innerHTML = '';
+                    const container = document.getElementById('chatMessages');
+                    let html = '';
+                    
+                    // 기존 메시지들 역순으로 (오래된 것부터)
+                    const messages = [];
                     snapshot.forEach((doc) => {
-                        const data = doc.data();
-                        const msgDiv = document.createElement('div');
-                        msgDiv.style.cssText = 'background: white; padding: 12px 14px; border-radius: 10px; margin-bottom: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);';
-                        msgDiv.innerHTML = `<p style="margin: 0; font-size: 0.9em; color: #333; line-height: 1.5;">${data.message}</p>
-                            <span style="font-size: 0.75em; color: #999;">${data.timestamp ? new Date(data.timestamp.toDate()).toLocaleDateString('ko-KR') : ''}</span>`;
-                        container.appendChild(msgDiv);
+                        messages.push(doc.data());
                     });
-                    if (snapshot.empty) {
-                        container.innerHTML = '<p style="text-align: center; color: #999; font-size: 0.9em;">첫 번째 응원을 남겨주세요! 🧡</p>';
+                    messages.reverse();
+                    
+                    messages.forEach((data) => {
+                        html += renderMessage(data, false);
+                        html += renderMessage(data, true); // 자동 답글
+                    });
+                    
+                    if (messages.length === 0) {
+                        html = '<p style="text-align: center; color: rgba(255,255,255,0.7); font-size: 0.9em; padding: 20px;">첫 번째 응원을 남겨주세요! 🧡</p>';
                     }
+                    
+                    container.innerHTML = html;
+                    container.scrollTop = container.scrollHeight;
                 });
         }
         loadCheers();
+
+        // 감사 팝업 닫기
+        function closeThankYou() {
+            document.getElementById('thankYouPopup').style.display = 'none';
+        }
 
         // 응원 메시지 제출
         function submitCheer() {
             const input = document.getElementById('cheerInput');
             const message = input.value.trim();
+            
             if (!message) {
                 alert('응원 메시지를 입력해주세요!');
                 return;
             }
-            if (message.length > 200) {
-                alert('200자 이내로 작성해주세요.');
+            if (message.length > 100) {
+                alert('100자 이내로 작성해주세요.');
                 return;
             }
+            
+            // 세션당 1회만 작성 가능
+            if (hasSubmittedThisSession) {
+                alert('이미 응원을 보내셨습니다! 감사합니다 🧡');
+                return;
+            }
+            
             cheersRef.collection('messages').add({
                 message: message,
                 timestamp: firebase.firestore.FieldValue.serverTimestamp()
             }).then(() => {
                 input.value = '';
-                alert('응원이 전달되었습니다! 🧡');
+                hasSubmittedThisSession = true;
+                sessionStorage.setItem('cheerSubmitted', 'true');
+                
+                // 감사 팝업 표시
+                document.getElementById('thankYouPopup').style.display = 'flex';
             }).catch((error) => {
                 console.error('Error:', error);
                 alert('전송에 실패했습니다. 다시 시도해주세요.');
             });
         }
+
+        // Enter 키로 전송
+        document.getElementById('cheerInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                submitCheer();
+            }
+        });
     </script>
+    
+    <style>
+        @keyframes popIn {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+    </style>
 </body>
 </html>
