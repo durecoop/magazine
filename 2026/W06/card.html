@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>생활의 발견 - 영광법성포굴비</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Noto Sans KR', sans-serif;
+            background: #000;
+        }
+
+        .card-container {
+            width: 100%;
+            height: 100%;
+            max-width: 480px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+            touch-action: pan-y;
+        }
+
+        .card {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 30px;
+            text-align: center;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .card.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .card.prev {
+            transform: translateX(-100%);
+        }
+
+        /* 카드 1: 인트로 */
+        .card-1 {
+            background: linear-gradient(135deg, #1a3a52 0%, #2d5a7b 100%);
+        }
+
+        .card-1 .badge {
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 20px;
+            font-size: 11px;
+            color: rgba(255,255,255,0.9);
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+        }
+
+        .card-1 h1 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.4;
+            margin-bottom: 20px;
+        }
+
+        .card-1 p {
+            font-size: 15px;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.8;
+        }
+
+        /* 카드 2: 핵심 특징 1 */
+        .card-2 {
+            background: #fff;
+        }
+
+        .feature-num {
+            font-size: 64px;
+            font-weight: 900;
+            color: rgba(45, 90, 123, 0.1);
+            margin-bottom: -20px;
+        }
+
+        .feature-title {
+            font-size: 26px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .highlight {
+            color: #2d5a7b;
+        }
+
+        .feature-desc {
+            font-size: 15px;
+            color: #666;
+            line-height: 1.9;
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #2d5a7b 0%, #1a3a52 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            font-size: 36px;
+        }
+
+        /* 카드 3, 4, 5: 특징들 */
+        .card-3 { background: #f8f6f3; }
+        .card-4 { background: #fff; }
+        .card-5 { background: #f8f6f3; }
+
+        /* 카드 6: 이미지 카드 */
+        .card-6 {
+            background: #1a3a52;
+            padding: 0;
+        }
+
+        .card-6 img {
+            width: 100%;
+            height: 60%;
+            object-fit: cover;
+        }
+
+        .card-6 .img-caption {
+            padding: 30px;
+            text-align: center;
+        }
+
+        .card-6 .img-caption h3 {
+            font-size: 20px;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .card-6 .img-caption p {
+            font-size: 14px;
+            color: rgba(255,255,255,0.7);
+        }
+
+        /* 카드 7: 생산자 */
+        .card-7 {
+            background: linear-gradient(180deg, #2d5a7b 0%, #1a3a52 100%);
+        }
+
+        .producer-badge {
+            padding: 6px 14px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 15px;
+            font-size: 11px;
+            color: #fff;
+            margin-bottom: 25px;
+        }
+
+        .producer-name {
+            font-size: 28px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .producer-career {
+            font-size: 16px;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 25px;
+        }
+
+        .producer-info {
+            background: rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 20px;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .producer-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .producer-row:last-child {
+            border-bottom: none;
+        }
+
+        .producer-row span:first-child {
+            color: rgba(255,255,255,0.6);
+            font-size: 13px;
+        }
+
+        .producer-row span:last-child {
+            color: #fff;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        /* 카드 8: 상품 정보 */
+        .card-8 {
+            background: #fff;
+        }
+
+        .product-name {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+        }
+
+        .product-spec {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 25px;
+        }
+
+        .product-price {
+            font-size: 38px;
+            font-weight: 900;
+            color: #2d5a7b;
+            margin-bottom: 5px;
+        }
+
+        .product-unit {
+            font-size: 13px;
+            color: #aaa;
+            margin-bottom: 30px;
+        }
+
+        .product-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .tag {
+            padding: 8px 14px;
+            background: #f0f4f7;
+            border-radius: 20px;
+            font-size: 12px;
+            color: #2d5a7b;
+            font-weight: 500;
+        }
+
+        /* 카드 9: CTA */
+        .card-9 {
+            background: linear-gradient(135deg, #2d5a7b 0%, #1a3a52 100%);
+        }
+
+        .cta-title {
+            font-size: 26px;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .cta-sub {
+            font-size: 14px;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 35px;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 16px 45px;
+            background: #fff;
+            color: #2d5a7b;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 15px;
+            font-weight: 700;
+            transition: transform 0.2s;
+        }
+
+        .cta-btn:active {
+            transform: scale(0.96);
+        }
+
+        /* 네비게이션 */
+        .nav-dots {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 100;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .dot.active {
+            width: 24px;
+            border-radius: 4px;
+            background: #fff;
+        }
+
+        .card-2 ~ .nav-dots .dot,
+        .card-3 ~ .nav-dots .dot,
+        .card-4 ~ .nav-dots .dot,
+        .card-5 ~ .nav-dots .dot,
+        .card-8 ~ .nav-dots .dot {
+            background: rgba(0,0,0,0.2);
+        }
+
+        /* 스와이프 힌트 */
+        .swipe-hint {
+            position: fixed;
+            bottom: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            color: rgba(255,255,255,0.5);
+            animation: fadeInOut 3s ease-in-out;
+            z-index: 100;
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0; }
+            20%, 80% { opacity: 1; }
+        }
+
+        /* 페이지 카운터 */
+        .page-counter {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            font-size: 12px;
+            color: rgba(255,255,255,0.6);
+            z-index: 100;
+            background: rgba(0,0,0,0.2);
+            padding: 6px 12px;
+            border-radius: 15px;
+        }
+
+        .card-2 .page-counter,
+        .card-3 .page-counter,
+        .card-4 .page-counter,
+        .card-5 .page-counter,
+        .card-8 .page-counter {
+            color: rgba(0,0,0,0.4);
+            background: rgba(0,0,0,0.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="card-container" id="cardContainer">
+        <!-- 카드 1: 인트로 -->
+        <div class="card card-1 active" data-index="0">
+            <span class="badge">생활의 발견 W06</span>
+            <h1>얼리지 않은<br>참조기의 맛,<br>아세요?</h1>
+            <p>냉동이 아닌 '생물'로 가공해<br>살아있는 식감과 깊은 감칠맛</p>
+        </div>
+
+        <!-- 카드 2: 특징 1 - 색감 -->
+        <div class="card card-2" data-index="1">
+            <span class="feature-num">01</span>
+            <div class="feature-icon">✨</div>
+            <h2 class="feature-title"><span class="highlight">색감</span>이<br>살아있습니다</h2>
+            <p class="feature-desc">
+                세포막이 손상되지 않아<br>
+                해동 후에도 <strong>탱글탱글</strong>하고<br>
+                <strong>쫄깃한 살</strong>을 느낄 수 있어요
+            </p>
+        </div>
+
+        <!-- 카드 3: 특징 2 - 육즙 -->
+        <div class="card card-3" data-index="2">
+            <span class="feature-num">02</span>
+            <div class="feature-icon">💧</div>
+            <h2 class="feature-title"><span class="highlight">육즙</span>을 꽉<br>가두었습니다</h2>
+            <p class="feature-desc">
+                해동해도 <strong>드립이 거의 없어요</strong><br><br>
+                생선 본연의 고소한 풍미와<br>
+                촉촉함을 그대로 즐기세요
+            </p>
+        </div>
+
+        <!-- 카드 4: 특징 3 - 안전 -->
+        <div class="card card-4" data-index="3">
+            <span class="feature-num">03</span>
+            <div class="feature-icon">🛡️</div>
+            <h2 class="feature-title">가장 <span class="highlight">위생적</span>이고<br><span class="highlight">안전</span>합니다</h2>
+            <p class="feature-desc">
+                잡은 직후 가장 신선할 때 동결<br>
+                미생물 번식을 원천 차단<br><br>
+                <strong>HACCP 인증</strong> 시설에서<br>
+                위생 90% 이상 관리
+            </p>
+        </div>
+
+        <!-- 카드 5: 특징 4 - 전통 -->
+        <div class="card card-5" data-index="4">
+            <span class="feature-num">04</span>
+            <div class="feature-icon">🏺</div>
+            <h2 class="feature-title"><span class="highlight">전통 섶간</span><br>방식 그대로</h2>
+            <p class="feature-desc">
+                굴비의 본고장 <strong>영광</strong>에서<br>
+                <strong>국내산 천일염</strong>으로<br>
+                전통 방식 그대로 가공했어요
+            </p>
+        </div>
+
+        <!-- 카드 6: 이미지 -->
+        <div class="card card-6" data-index="5">
+            <img src="seo4(1).jpg" alt="입항부터 포장까지">
+            <div class="img-caption">
+                <h3>입항부터 포장까지 일원화</h3>
+                <p>어선입항 → 경매 → 선별 → 가공 → 진공포장</p>
+            </div>
+        </div>
+
+        <!-- 카드 7: 생산자 -->
+        <div class="card card-7" data-index="6">
+            <span class="producer-badge">PRODUCER</span>
+            <h2 class="producer-name">영어조합법인 서풍</h2>
+            <p class="producer-career">2대째 이어온 50년 수산 외길</p>
+            <div class="producer-info">
+                <div class="producer-row">
+                    <span>생산지</span>
+                    <span>전남 여수시</span>
+                </div>
+                <div class="producer-row">
+                    <span>인증</span>
+                    <span>HACCP</span>
+                </div>
+                <div class="producer-row">
+                    <span>특징</span>
+                    <span>새벽 경매 직접 선별</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 카드 8: 상품 정보 -->
+        <div class="card card-8" data-index="7">
+            <h2 class="product-name">영광법성포굴비</h2>
+            <p class="product-spec">1.1kg / 10미</p>
+            <p class="product-price">136,000원</p>
+            <p class="product-unit">1미당 13,600원</p>
+            <div class="product-tags">
+                <span class="tag">국내산 참조기</span>
+                <span class="tag">국내산 천일염</span>
+                <span class="tag">냉동 2년</span>
+            </div>
+        </div>
+
+        <!-- 카드 9: CTA -->
+        <div class="card card-9" data-index="8">
+            <h2 class="cta-title">정직한 50년이<br>담긴 한 마리</h2>
+            <p class="cta-sub">얼리지 않은 참조기의 진짜 맛,<br>직접 확인해보세요</p>
+            <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=58927&returnPlanNo=0" class="cta-btn">
+                구매하러 가기
+            </a>
+        </div>
+    </div>
+
+    <!-- 네비게이션 -->
+    <div class="nav-dots" id="navDots"></div>
+
+    <!-- 페이지 카운터 -->
+    <div class="page-counter" id="pageCounter">1 / 9</div>
+
+    <!-- 스와이프 힌트 -->
+    <div class="swipe-hint" id="swipeHint">← 밀어서 넘기기 →</div>
+
+    <script>
+        const container = document.getElementById('cardContainer');
+        const cards = document.querySelectorAll('.card');
+        const navDots = document.getElementById('navDots');
+        const pageCounter = document.getElementById('pageCounter');
+        const swipeHint = document.getElementById('swipeHint');
+
+        let currentIndex = 0;
+        let startX = 0;
+        let isDragging = false;
+
+        // 도트 네비게이션 생성
+        cards.forEach((_, i) => {
+            const dot = document.createElement('div');
+            dot.className = 'dot' + (i === 0 ? ' active' : '');
+            dot.addEventListener('click', () => goToCard(i));
+            navDots.appendChild(dot);
+        });
+
+        function updateCard(index) {
+            cards.forEach((card, i) => {
+                card.classList.remove('active', 'prev');
+                if (i === index) {
+                    card.classList.add('active');
+                } else if (i < index) {
+                    card.classList.add('prev');
+                }
+            });
+
+            // 도트 업데이트
+            document.querySelectorAll('.dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+
+            // 페이지 카운터 업데이트
+            pageCounter.textContent = `${index + 1} / ${cards.length}`;
+
+            // 힌트 숨기기
+            if (index > 0) {
+                swipeHint.style.display = 'none';
+            }
+        }
+
+        function goToCard(index) {
+            if (index >= 0 && index < cards.length) {
+                currentIndex = index;
+                updateCard(currentIndex);
+            }
+        }
+
+        function nextCard() {
+            if (currentIndex < cards.length - 1) {
+                currentIndex++;
+                updateCard(currentIndex);
+            }
+        }
+
+        function prevCard() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateCard(currentIndex);
+            }
+        }
+
+        // 터치 이벤트
+        container.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+            isDragging = true;
+        });
+
+        container.addEventListener('touchend', (e) => {
+            if (!isDragging) return;
+            const endX = e.changedTouches[0].clientX;
+            const diff = startX - endX;
+
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) {
+                    nextCard();
+                } else {
+                    prevCard();
+                }
+            }
+            isDragging = false;
+        });
+
+        // 마우스 이벤트 (데스크톱)
+        container.addEventListener('mousedown', (e) => {
+            startX = e.clientX;
+            isDragging = true;
+        });
+
+        container.addEventListener('mouseup', (e) => {
+            if (!isDragging) return;
+            const diff = startX - e.clientX;
+
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) {
+                    nextCard();
+                } else {
+                    prevCard();
+                }
+            }
+            isDragging = false;
+        });
+
+        // 키보드 이벤트
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextCard();
+            } else if (e.key === 'ArrowLeft') {
+                prevCard();
+            }
+        });
+
+        // 클릭으로 넘기기
+        container.addEventListener('click', (e) => {
+            const rect = container.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+
+            if (clickX > rect.width * 0.7) {
+                nextCard();
+            } else if (clickX < rect.width * 0.3) {
+                prevCard();
+            }
+        });
+    </script>
+</body>
+</html>
