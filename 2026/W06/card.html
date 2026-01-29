@@ -83,23 +83,23 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 75px 24px 45px;
+            padding: 70px 24px 30px;
             text-align: center;
         }
 
         .question {
-            font-size: 15px;
+            font-size: 14px;
             color: #888;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
 
         .big-title {
             font-family: 'Nanum Myeongjo', serif;
-            font-size: 28px;
+            font-size: 26px;
             font-weight: 800;
             line-height: 1.45;
             color: #111;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
 
         .hl {
@@ -111,19 +111,19 @@
         }
 
         .sub-text {
-            font-size: 15px;
+            font-size: 14px;
             color: #666;
-            line-height: 1.8;
+            line-height: 1.75;
         }
 
-        /* 이미지 스타일 */
+        /* 이미지 */
         .img-box {
             width: 100%;
-            max-width: 340px;
-            margin: 24px auto;
-            border-radius: 16px;
+            max-width: 320px;
+            margin: 20px auto;
+            border-radius: 14px;
             overflow: hidden;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+            box-shadow: 0 8px 28px rgba(0,0,0,0.12);
         }
 
         .img-box img {
@@ -131,14 +131,39 @@
             display: block;
         }
 
-        .img-full {
-            width: 100%;
-            max-width: 360px;
-            border-radius: 20px;
-            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+        /* 주문 버튼 (공통) */
+        .order-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 28px;
+            background: var(--red);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(196,18,48,0.3);
+            transition: transform 0.2s;
         }
 
-        /* 카드 1: 도입 질문 */
+        .order-btn:active {
+            transform: scale(0.97);
+        }
+
+        .order-btn-dark {
+            background: #111;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .order-btn-white {
+            background: #fff;
+            color: var(--red);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+
+        /* 카드 1 */
         .card-1 {
             background: var(--cream);
         }
@@ -147,156 +172,126 @@
             display: inline-block;
             background: var(--red);
             color: #fff;
-            padding: 8px 20px;
-            border-radius: 25px;
+            padding: 8px 18px;
+            border-radius: 20px;
             font-size: 13px;
             font-weight: 700;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
 
         .memory-box {
             background: #fff;
-            border-radius: 14px;
-            padding: 20px;
-            margin-top: 24px;
+            border-radius: 12px;
+            padding: 18px;
+            margin-top: 16px;
             border-left: 4px solid var(--gold);
             text-align: left;
+            max-width: 320px;
         }
 
         .memory-box p {
             font-family: 'Nanum Myeongjo', serif;
             font-size: 14px;
             color: #777;
-            line-height: 1.85;
+            line-height: 1.8;
         }
 
-        /* 카드 2-3: 이미지 + 질문 */
-        .card-light {
-            background: #fff;
-        }
-
-        .card-cream {
-            background: var(--cream);
-        }
-
+        /* 답변 박스 */
         .answer-box {
             background: var(--cream);
-            border-radius: 14px;
-            padding: 18px 20px;
-            margin-top: 20px;
+            border-radius: 12px;
+            padding: 16px 18px;
+            margin-top: 16px;
             text-align: left;
+            max-width: 320px;
+        }
+
+        .card-cream .answer-box {
+            background: #fff;
         }
 
         .answer-box p {
             font-size: 14px;
             color: #555;
-            line-height: 1.75;
+            line-height: 1.7;
         }
 
         .answer-box strong {
             color: var(--blue);
         }
 
-        /* 카드 4: 두레생협 굴비 */
+        /* 카드 4 */
         .card-4 {
             background: linear-gradient(180deg, var(--blue) 0%, #0d2137 100%);
             color: #fff;
         }
 
-        .card-4 .question {
-            color: rgba(255,255,255,0.6);
-        }
-
-        .card-4 .big-title {
-            color: #fff;
-        }
-
-        .card-4 .hl {
-            color: var(--gold);
-        }
-
-        .card-4 .sub-text {
-            color: rgba(255,255,255,0.8);
-        }
+        .card-4 .question { color: rgba(255,255,255,0.6); }
+        .card-4 .big-title { color: #fff; }
+        .card-4 .hl { color: var(--gold); }
 
         .diff-box {
             background: rgba(255,255,255,0.1);
-            border-radius: 14px;
-            padding: 20px;
-            margin-top: 24px;
+            border-radius: 12px;
+            padding: 18px;
+            margin-top: 20px;
             text-align: left;
+            max-width: 320px;
         }
 
         .diff-item {
             display: flex;
             align-items: flex-start;
-            gap: 12px;
-            margin-bottom: 14px;
+            gap: 10px;
+            margin-bottom: 12px;
         }
 
-        .diff-item:last-child {
-            margin-bottom: 0;
-        }
+        .diff-item:last-child { margin-bottom: 0; }
 
-        .diff-icon {
-            font-size: 20px;
-            flex-shrink: 0;
-        }
+        .diff-icon { font-size: 18px; }
 
         .diff-text {
-            font-size: 14px;
+            font-size: 13px;
             color: rgba(255,255,255,0.9);
-            line-height: 1.6;
+            line-height: 1.5;
         }
 
-        /* 카드 5-6: 서풍 소개 */
-        .card-5, .card-6 {
-            background: #fff;
-        }
-
+        /* 카드 5-6 */
         .producer-label {
             font-size: 11px;
             letter-spacing: 3px;
             color: var(--blue);
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
 
         .producer-quote {
             background: var(--cream);
-            border-radius: 14px;
-            padding: 20px;
-            margin-top: 20px;
+            border-radius: 12px;
+            padding: 16px 18px;
+            margin-top: 16px;
+            max-width: 320px;
         }
 
         .producer-quote p {
             font-family: 'Nanum Myeongjo', serif;
-            font-size: 15px;
+            font-size: 14px;
             color: #555;
-            line-height: 1.85;
-        }
-
-        /* 카드 7: 공정 */
-        .card-7 {
-            background: var(--cream);
+            line-height: 1.8;
         }
 
         /* 카드 8: 가격 */
-        .card-8 {
-            background: #fff;
-        }
-
-        .product-img {
-            width: 180px;
-            height: 180px;
-            border-radius: 20px;
+        .product-img-sm {
+            width: 160px;
+            height: 160px;
+            border-radius: 18px;
             object-fit: cover;
-            box-shadow: 0 12px 36px rgba(0,0,0,0.12);
-            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+            margin-bottom: 16px;
         }
 
         .product-name {
             font-family: 'Nanum Myeongjo', serif;
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 800;
         }
 
@@ -304,13 +299,13 @@
             font-size: 13px;
             color: #888;
             margin-top: 4px;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
 
         .price-box {
             background: var(--red);
-            border-radius: 16px;
-            padding: 24px 32px;
+            border-radius: 14px;
+            padding: 20px 28px;
             color: #fff;
         }
 
@@ -332,27 +327,25 @@
             background: #fff;
             color: var(--red);
             padding: 4px 12px;
-            border-radius: 15px;
-            font-size: 15px;
+            border-radius: 12px;
+            font-size: 14px;
             font-weight: 900;
         }
 
         .final-price {
-            font-size: 32px;
+            font-size: 30px;
             font-weight: 900;
         }
 
-        .final-price span {
-            font-size: 16px;
-        }
+        .final-price span { font-size: 15px; }
 
         .price-note {
             font-size: 12px;
             opacity: 0.8;
-            margin-top: 6px;
+            margin-top: 4px;
         }
 
-        .cta-btn {
+        .order-btn-big {
             display: block;
             width: 100%;
             max-width: 280px;
@@ -363,28 +356,32 @@
             border-radius: 12px;
             font-size: 16px;
             font-weight: 700;
-            margin-top: 20px;
+            margin-top: 16px;
         }
 
         .tags {
             display: flex;
-            gap: 8px;
-            margin-top: 16px;
+            gap: 6px;
+            margin-top: 14px;
             flex-wrap: wrap;
             justify-content: center;
         }
 
         .tag {
-            padding: 6px 12px;
+            padding: 6px 10px;
             background: #f0f0f0;
-            border-radius: 15px;
+            border-radius: 12px;
             font-size: 11px;
             color: #666;
         }
 
+        /* 배경 색상 */
+        .card-light { background: #fff; }
+        .card-cream { background: var(--cream); }
+
         /* 푸터 */
         .footer {
-            padding: 30px;
+            padding: 25px;
             background: #0d2137;
             text-align: center;
         }
@@ -414,18 +411,21 @@
 
     <!-- 1: 도입 -->
     <section class="card card-1" data-i="0">
-        <span class="sale-tag">설 명절 한 주간 25% 할인</span>
-        <p class="question">명절 선물, 뭘 드려야 할지 고민이시죠?</p>
+        <span class="sale-tag">명절 한정 25% 할인</span>
         <h1 class="big-title">
-            역시 <span class="hl">굴비</span>는<br>
-            <span class="hl-gold">법성포</span>입니다
+            명절에만 먹던<br>
+            <span class="hl-gold">그 귀한 음식</span>,<br>
+            <span class="hl">굴비</span>
         </h1>
         <div class="img-box">
             <img src="58927C.jpg" alt="영광법성포굴비">
         </div>
         <div class="memory-box">
-            <p>"명절이면 마루에 걸어두던<br>굴비 한 두름, 그 짭조름한 향...<br>아직도 생각나시죠?"</p>
+            <p>"어릴 적 명절,<br>밥상에 굴비 한 마리 올라오면<br>그날은 특별한 날이었죠."</p>
         </div>
+        <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=58927&returnPlanNo=0" class="order-btn">
+            🐟 지금 주문하기
+        </a>
     </section>
 
     <!-- 2: 질문 1 -->
@@ -440,12 +440,15 @@
         </div>
         <div class="answer-box">
             <p>
-                일반 굴비는 <strong>냉동→해동→재냉동</strong>을 반복해요.<br>
-                그래서 해동하면 물이 빠지고 살이 퍽퍽해지죠.<br><br>
-                두레생협 굴비는 <strong>얼리지 않은 생물 상태</strong>에서<br>
-                바로 가공해서 <strong>세포가 살아있어요.</strong>
+                일반 굴비는 <strong>냉동→해동→재냉동</strong> 반복.<br>
+                그래서 물 빠지고 살이 퍽퍽해져요.<br><br>
+                이 굴비는 <strong>얼리지 않은 생물</strong>로 가공해<br>
+                <strong>세포가 살아있어요.</strong>
             </p>
         </div>
+        <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=58927&returnPlanNo=0" class="order-btn order-btn-dark">
+            🐟 지금 주문하기
+        </a>
     </section>
 
     <!-- 3: 질문 2 -->
@@ -461,11 +464,14 @@
         <div class="answer-box">
             <p>
                 <strong>해동해도 물이 안 빠져요.</strong><br>
-                드립(육즙 손실) 현상이 거의 없어서<br>
-                <strong>촉촉하고 탱글탱글한 살</strong>을 느낄 수 있어요.<br><br>
-                굽거나 쪄도 퍽퍽하지 않아요.
+                드립 현상이 거의 없어서<br>
+                <strong>촉촉하고 탱글한 살</strong>이 그대로.<br><br>
+                명절 밥상에 올려도 부끄럽지 않아요.
             </p>
         </div>
+        <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=58927&returnPlanNo=0" class="order-btn">
+            🐟 지금 주문하기
+        </a>
     </section>
 
     <!-- 4: 두레생협 굴비 -->
@@ -475,13 +481,13 @@
             두레생협 굴비는<br>
             <span class="hl">뭐가 다른가요?</span>
         </h2>
-        <p class="sub-text" style="font-size:20px; margin-bottom:0;">
-            <strong style="color:#fff;">만드는 사람</strong>이 다릅니다
+        <p style="font-size:18px; color:#fff; font-weight:700; margin-bottom:0;">
+            만드는 사람이 다릅니다
         </p>
         <div class="diff-box">
             <div class="diff-item">
                 <span class="diff-icon">👁️</span>
-                <p class="diff-text">50년 경력 베테랑이 <strong style="color:#fff;">새벽마다 직접 선별</strong></p>
+                <p class="diff-text">50년 경력이 <strong style="color:#fff;">새벽마다 직접 선별</strong></p>
             </div>
             <div class="diff-item">
                 <span class="diff-icon">🐟</span>
@@ -493,13 +499,16 @@
             </div>
             <div class="diff-item">
                 <span class="diff-icon">🛡️</span>
-                <p class="diff-text"><strong style="color:#fff;">HACCP 인증</strong> 위생 시설</p>
+                <p class="diff-text"><strong style="color:#fff;">HACCP 인증</strong> 위생 관리</p>
             </div>
         </div>
+        <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=58927&returnPlanNo=0" class="order-btn order-btn-white">
+            🐟 지금 주문하기
+        </a>
     </section>
 
     <!-- 5: 서풍 소개 1 -->
-    <section class="card card-5" data-i="4">
+    <section class="card card-light" data-i="4">
         <p class="producer-label">두레 수산 대표생산자</p>
         <h2 class="big-title">
             <span class="hl-gold">서풍</span>을<br>
@@ -511,12 +520,15 @@
         <p class="sub-text">
             <strong style="color:#222;">2대째, 50년</strong> 수산 외길<br>
             아버지에게 배운 '선별의 눈'으로<br>
-            <strong style="color:#222;">좋은 것만</strong> 골라냅니다
+            <strong style="color:#222;">좋은 것만</strong> 고릅니다
         </p>
+        <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=58927&returnPlanNo=0" class="order-btn order-btn-dark">
+            🐟 지금 주문하기
+        </a>
     </section>
 
     <!-- 6: 서풍 소개 2 -->
-    <section class="card card-light" data-i="5">
+    <section class="card card-cream" data-i="5">
         <p class="question">서풍이 특별한 이유</p>
         <h2 class="big-title">
             <span class="hl">매일 새벽</span><br>
@@ -532,10 +544,13 @@
                 <strong style="color:var(--blue);">확신이 드는 것만</strong> 삽니다."
             </p>
         </div>
+        <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=58927&returnPlanNo=0" class="order-btn">
+            🐟 지금 주문하기
+        </a>
     </section>
 
     <!-- 7: 공정 -->
-    <section class="card card-7" data-i="6">
+    <section class="card card-light" data-i="6">
         <p class="question">어떻게 만들어지나요?</p>
         <h2 class="big-title">
             입항부터 포장까지<br>
@@ -546,14 +561,18 @@
         </div>
         <p class="sub-text">
             어선 입항 → 새벽 경매 → 선별 →<br>
-            전처리 가공 → 진공포장 → 급속냉동<br><br>
+            가공 → 진공포장 → 급속냉동<br><br>
             <strong style="color:#222;">신선함을 그대로 가둡니다</strong>
         </p>
+        <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=58927&returnPlanNo=0" class="order-btn order-btn-dark">
+            🐟 지금 주문하기
+        </a>
     </section>
 
     <!-- 8: 가격 -->
-    <section class="card card-8" data-i="7">
-        <img src="58927C.jpg" alt="영광법성포굴비" class="product-img">
+    <section class="card card-cream" data-i="7">
+        <p class="question">명절, 추억의 그 맛을 다시</p>
+        <img src="58927C.jpg" alt="영광법성포굴비" class="product-img-sm">
         <h2 class="product-name">영광법성포굴비</h2>
         <p class="product-spec">1.1kg · 10미</p>
 
@@ -566,14 +585,14 @@
             <p class="price-note">1마리당 10,170원</p>
         </div>
 
-        <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=58927&returnPlanNo=0" class="cta-btn">
-            설 선물 주문하기
+        <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=58927&returnPlanNo=0" class="order-btn-big">
+            🐟 지금 주문하기
         </a>
 
         <div class="tags">
             <span class="tag">국내산 참조기</span>
             <span class="tag">국내산 천일염</span>
-            <span class="tag">HACCP 인증</span>
+            <span class="tag">HACCP</span>
         </div>
     </section>
 
