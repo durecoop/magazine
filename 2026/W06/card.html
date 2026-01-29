@@ -5,22 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>생활의 발견 - 영광법성포굴비</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@700;800&family=Noto+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --blue: #1a4a6e;
             --blue-dark: #0d2137;
             --gold: #d4a853;
-            --cream: #fdfbf7;
-            --text: #222;
-            --text-light: #666;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         html {
             scroll-snap-type: y mandatory;
@@ -29,43 +22,32 @@
 
         body {
             font-family: 'Noto Sans KR', sans-serif;
-            background: var(--cream);
-            color: var(--text);
-            line-height: 1.7;
-            overflow-x: hidden;
+            background: #000;
+            color: #fff;
         }
 
-        /* ===== 헤더 ===== */
+        /* 헤더 */
         .header {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
+            top: 0; left: 0; right: 0;
             z-index: 1000;
-            background: var(--blue);
-            padding: 12px 20px;
+            padding: 14px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            background: linear-gradient(180deg, rgba(0,0,0,0.6) 0%, transparent 100%);
         }
 
-        .header-title {
-            font-size: 13px;
+        .header span {
+            font-size: 12px;
             font-weight: 600;
-            color: #fff;
             letter-spacing: 1px;
         }
 
-        .header-week {
-            font-size: 11px;
-            color: rgba(255,255,255,0.6);
-            letter-spacing: 2px;
-        }
-
-        /* ===== 스크롤 인디케이터 ===== */
-        .scroll-indicator {
+        /* 스크롤 인디케이터 */
+        .dots {
             position: fixed;
-            right: 16px;
+            right: 14px;
             top: 50%;
             transform: translateY(-50%);
             z-index: 1000;
@@ -74,499 +56,304 @@
             gap: 8px;
         }
 
-        .scroll-dot {
+        .dot {
             width: 6px;
             height: 6px;
             border-radius: 3px;
-            background: rgba(0,0,0,0.15);
-            transition: all 0.3s ease;
+            background: rgba(255,255,255,0.3);
+            transition: all 0.3s;
             cursor: pointer;
         }
 
-        .scroll-dot.active {
-            height: 24px;
-            background: var(--blue);
-        }
-
-        .card-dark .scroll-dot {
-            background: rgba(255,255,255,0.3);
-        }
-
-        .card-dark .scroll-dot.active {
+        .dot.active {
+            height: 20px;
             background: #fff;
         }
 
-        /* ===== 카드 공통 ===== */
+        /* 카드 공통 */
         .card {
             min-height: 100vh;
             scroll-snap-align: start;
+            position: relative;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 80px 30px 50px;
-            text-align: center;
-            position: relative;
+            justify-content: flex-end;
+            padding: 0 24px 60px;
         }
 
-        /* ===== 텍스트 스타일 ===== */
-        .card-label {
+        /* 배경 이미지 */
+        .card-bg {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .card-bg::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.4) 100%);
+        }
+
+        .card-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 텍스트 */
+        .label {
             font-size: 11px;
             font-weight: 600;
             letter-spacing: 3px;
-            margin-bottom: 20px;
-            color: var(--blue);
+            color: var(--gold);
+            margin-bottom: 12px;
         }
 
-        .card-title {
+        .title {
             font-family: 'Nanum Myeongjo', serif;
-            font-size: clamp(1.6rem, 7vw, 2.2rem);
+            font-size: 28px;
             font-weight: 800;
-            line-height: 1.45;
-            margin-bottom: 24px;
-            color: var(--text);
-        }
-
-        .card-desc {
-            font-size: 15px;
-            font-weight: 400;
-            color: var(--text-light);
-            line-height: 1.9;
-        }
-
-        /* 텍스트 강조 */
-        em {
-            font-style: normal;
-            color: var(--blue);
-            font-weight: 600;
+            line-height: 1.4;
+            margin-bottom: 14px;
         }
 
         .hl {
-            background: linear-gradient(transparent 60%, rgba(212, 168, 83, 0.35) 60%);
-            padding: 0 2px;
-        }
-
-        .point {
-            color: var(--blue);
-        }
-
-        strong {
-            font-weight: 600;
-            color: var(--text);
-        }
-
-        /* ===== 카드 배경 타입 ===== */
-        .card-dark {
-            background: linear-gradient(160deg, var(--blue-dark) 0%, var(--blue) 100%);
-        }
-
-        .card-dark .card-label {
-            color: rgba(255,255,255,0.5);
-        }
-
-        .card-dark .card-title {
-            color: #fff;
-        }
-
-        .card-dark .card-desc {
-            color: rgba(255,255,255,0.75);
-        }
-
-        .card-dark em {
             color: var(--gold);
         }
 
-        .card-cream {
-            background: var(--cream);
-        }
-
-        .card-white {
-            background: #fff;
-        }
-
-        /* ===== 카드 1: 인트로 ===== */
-        .intro-emoji {
-            font-size: 64px;
-            margin-bottom: 24px;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .scroll-hint {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 12px;
-            color: rgba(255,255,255,0.4);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            animation: bounce 2s infinite;
-        }
-
-        .scroll-hint::after {
-            content: '';
-            width: 1px;
-            height: 24px;
-            background: rgba(255,255,255,0.3);
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(5px); }
-        }
-
-        /* ===== 카드 2-5: 특징 ===== */
-        .feature-icon {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 28px;
-            font-size: 36px;
-            box-shadow: 0 8px 24px rgba(26, 74, 110, 0.25);
-        }
-
-        .feature-num {
-            position: absolute;
-            top: 80px;
-            right: 30px;
-            font-family: 'Nanum Myeongjo', serif;
-            font-size: 72px;
-            font-weight: 800;
-            color: rgba(26, 74, 110, 0.06);
-        }
-
-        /* ===== 카드 6: 생산자 ===== */
-        .producer-icon {
-            width: 100px;
-            height: 100px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 24px;
-            font-size: 48px;
-        }
-
-        .producer-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-            margin-top: 28px;
-        }
-
-        .p-tag {
-            padding: 10px 18px;
-            background: rgba(255,255,255,0.12);
-            border-radius: 25px;
-            font-size: 13px;
-            color: #fff;
-            font-weight: 500;
-        }
-
-        /* ===== 카드 7: 상품/CTA ===== */
-        .product-badge {
-            display: inline-block;
-            padding: 6px 14px;
-            background: var(--blue);
-            border-radius: 20px;
-            font-size: 11px;
-            color: #fff;
-            letter-spacing: 1px;
-            margin-bottom: 20px;
-        }
-
-        .product-name {
-            font-family: 'Nanum Myeongjo', serif;
-            font-size: 26px;
-            font-weight: 800;
-            color: var(--text);
-            margin-bottom: 6px;
-        }
-
-        .product-spec {
+        .desc {
             font-size: 14px;
-            color: var(--text-light);
-            margin-bottom: 28px;
+            color: rgba(255,255,255,0.75);
+            line-height: 1.7;
         }
 
-        .product-price {
-            font-size: 42px;
-            font-weight: 700;
-            color: var(--blue);
+        .desc strong {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        /* 카드 1: 커버 */
+        .card-1 .card-bg {
+            background-image: url('58927C.jpg');
+        }
+
+        .card-1 .title {
+            font-size: 32px;
+        }
+
+        /* 카드 2 */
+        .card-2 .card-bg {
+            background-image: url('seo1.gif');
+        }
+
+        /* 카드 3 */
+        .card-3 .card-bg {
+            background-image: url('seo3.gif');
+            background-position: top center;
+        }
+
+        /* 카드 4 */
+        .card-4 .card-bg {
+            background-image: url('seo4(1).jpg');
+            background-position: top center;
+        }
+
+        /* 카드 5: 생산자 */
+        .card-5 .card-bg {
+            background-image: url('seo5(1).gif');
+            background-position: center 30%;
+        }
+
+        /* 카드 6: CTA */
+        .card-6 {
+            background: linear-gradient(160deg, var(--blue-dark) 0%, var(--blue) 100%);
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px 30px;
+        }
+
+        .card-6 .product-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 20px;
+            object-fit: cover;
+            margin-bottom: 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .card-6 .product-name {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 22px;
+            font-weight: 800;
             margin-bottom: 4px;
         }
 
-        .product-price span {
-            font-size: 18px;
+        .card-6 .product-spec {
+            font-size: 13px;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 20px;
+        }
+
+        .card-6 .price {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .card-6 .price span {
+            font-size: 16px;
             font-weight: 500;
         }
 
-        .product-unit {
-            font-size: 13px;
-            color: #999;
-            margin-bottom: 32px;
+        .card-6 .unit {
+            font-size: 12px;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 28px;
         }
 
         .cta-btn {
             display: block;
             width: 100%;
-            max-width: 300px;
-            padding: 18px 0;
-            background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%);
-            color: #fff;
+            max-width: 260px;
+            padding: 16px 0;
+            background: #fff;
+            color: var(--blue-dark);
             text-decoration: none;
-            border-radius: 14px;
-            font-size: 16px;
+            border-radius: 12px;
+            font-size: 15px;
             font-weight: 700;
-            letter-spacing: 1px;
-            box-shadow: 0 8px 24px rgba(26, 74, 110, 0.3);
-            transition: transform 0.2s, box-shadow 0.2s;
         }
 
-        .cta-btn:active {
-            transform: scale(0.98);
-        }
-
-        .product-tags {
+        .tags {
             display: flex;
             gap: 8px;
-            margin-top: 20px;
+            margin-top: 16px;
             flex-wrap: wrap;
             justify-content: center;
         }
 
-        .product-tag {
-            padding: 8px 14px;
-            background: #f0f4f7;
-            border-radius: 20px;
-            font-size: 12px;
-            color: var(--blue);
-            font-weight: 500;
+        .tag {
+            padding: 6px 12px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            font-size: 11px;
+            color: rgba(255,255,255,0.7);
         }
 
-        /* ===== 푸터 ===== */
+        /* 푸터 */
         .footer {
-            padding: 40px 30px;
-            background: var(--blue-dark);
+            padding: 30px;
+            background: #000;
             text-align: center;
         }
 
-        .footer-logo {
-            font-size: 13px;
-            color: rgba(255,255,255,0.4);
-            letter-spacing: 3px;
-            margin-bottom: 8px;
-        }
-
-        .footer-text {
+        .footer p {
             font-size: 11px;
-            color: rgba(255,255,255,0.25);
-        }
-
-        /* ===== 애니메이션 ===== */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
+            color: rgba(255,255,255,0.3);
+            letter-spacing: 2px;
         }
     </style>
 </head>
 <body>
-    <!-- 헤더 -->
     <header class="header">
-        <span class="header-title">생활의 발견</span>
-        <span class="header-week">2026 W06</span>
+        <span>생활의 발견</span>
+        <span>W06</span>
     </header>
 
-    <!-- 스크롤 인디케이터 -->
-    <div class="scroll-indicator" id="scrollIndicator">
-        <div class="scroll-dot active" data-index="0"></div>
-        <div class="scroll-dot" data-index="1"></div>
-        <div class="scroll-dot" data-index="2"></div>
-        <div class="scroll-dot" data-index="3"></div>
-        <div class="scroll-dot" data-index="4"></div>
-        <div class="scroll-dot" data-index="5"></div>
-        <div class="scroll-dot" data-index="6"></div>
+    <div class="dots" id="dots">
+        <div class="dot active" data-i="0"></div>
+        <div class="dot" data-i="1"></div>
+        <div class="dot" data-i="2"></div>
+        <div class="dot" data-i="3"></div>
+        <div class="dot" data-i="4"></div>
+        <div class="dot" data-i="5"></div>
     </div>
 
-    <!-- 카드 0: 인트로 -->
-    <section class="card card-dark" data-index="0">
-        <div class="intro-emoji">🐟</div>
-        <p class="card-label">YEONGKWANG GULBI</p>
-        <h1 class="card-title fade-in">
-            <em class="hl">얼리지 않은</em><br>
-            참조기만이<br>
-            낼 수 있는 맛
-        </h1>
-        <p class="card-desc fade-in">
-            냉동 참조기와는 다릅니다<br>
-            <em>진짜 굴비의 맛</em>을 보여드릴게요
-        </p>
-        <div class="scroll-hint">스크롤</div>
-    </section>
-
-    <!-- 카드 1: 특징 1 -->
-    <section class="card card-cream" data-index="1">
-        <span class="feature-num">01</span>
-        <div class="feature-icon">✨</div>
-        <p class="card-label">POINT 01</p>
-        <h2 class="card-title fade-in">
-            <span class="hl">탱글탱글</span><br>
-            살아있는 색감
-        </h2>
-        <p class="card-desc fade-in">
-            세포막이 손상되지 않아<br>
-            해동해도 <em>빛깔이 선명</em>하고<br>
-            <strong>탄력 있는 살</strong>이 유지돼요
-        </p>
-    </section>
-
-    <!-- 카드 2: 특징 2 -->
-    <section class="card card-white" data-index="2">
-        <span class="feature-num">02</span>
-        <div class="feature-icon">💧</div>
-        <p class="card-label">POINT 02</p>
-        <h2 class="card-title fade-in">
-            <span class="hl">드립 없이</span><br>
-            육즙 그대로
-        </h2>
-        <p class="card-desc fade-in">
-            해동해도 <em>물이 안 빠져요</em><br><br>
-            생선 본연의 <strong>고소한 풍미</strong>와<br>
-            <strong>촉촉함</strong>을 그대로 즐기세요
-        </p>
-    </section>
-
-    <!-- 카드 3: 특징 3 -->
-    <section class="card card-cream" data-index="3">
-        <span class="feature-num">03</span>
-        <div class="feature-icon">🛡️</div>
-        <p class="card-label">POINT 03</p>
-        <h2 class="card-title fade-in">
-            <span class="hl">HACCP 인증</span><br>
-            위생·안전 관리
-        </h2>
-        <p class="card-desc fade-in">
-            잡은 직후 <em>가장 신선할 때</em> 동결<br>
-            미생물 번식을 원천 차단<br><br>
-            <strong>위생 90% 이상</strong> 철저 관리
-        </p>
-    </section>
-
-    <!-- 카드 4: 특징 4 -->
-    <section class="card card-white" data-index="4">
-        <span class="feature-num">04</span>
-        <div class="feature-icon">🏺</div>
-        <p class="card-label">POINT 04</p>
-        <h2 class="card-title fade-in">
-            <span class="hl">영광 전통</span><br>
-            섶간 방식
-        </h2>
-        <p class="card-desc fade-in">
-            굴비의 본고장 <em>영광</em>에서<br>
-            <strong>국내산 천일염</strong>으로<br>
-            전통 그대로 정성껏 가공
-        </p>
-    </section>
-
-    <!-- 카드 5: 생산자 -->
-    <section class="card card-dark" data-index="5">
-        <div class="producer-icon">👨‍🌾</div>
-        <p class="card-label">PRODUCER</p>
-        <h2 class="card-title fade-in">
-            영어조합법인<br>
-            <em>서풍</em>
-        </h2>
-        <p class="card-desc fade-in">
-            <span class="hl">2대째</span> 이어온 <em>50년</em> 수산 외길<br>
-            매일 새벽 경매장에서 직접 선별
-        </p>
-        <div class="producer-tags fade-in">
-            <span class="p-tag">전남 여수</span>
-            <span class="p-tag">HACCP</span>
-            <span class="p-tag">새벽 직접 선별</span>
+    <!-- 1: 커버 -->
+    <section class="card card-1" data-i="0">
+        <div class="card-bg"></div>
+        <div class="card-content">
+            <p class="label">YEONGKWANG GULBI</p>
+            <h1 class="title"><span class="hl">얼리지 않은</span><br>참조기의 맛</h1>
+            <p class="desc">50년 수산 외길, 서풍의 영광법성포굴비</p>
         </div>
     </section>
 
-    <!-- 카드 6: 상품/CTA -->
-    <section class="card card-white" data-index="6">
-        <span class="product-badge">BEST ITEM</span>
-        <h2 class="product-name fade-in">영광법성포굴비</h2>
+    <!-- 2: 선별 -->
+    <section class="card card-2" data-i="1">
+        <div class="card-bg"></div>
+        <div class="card-content">
+            <p class="label">POINT 01</p>
+            <h2 class="title">새벽 경매장<br><span class="hl">직접 선별</span></h2>
+            <p class="desc"><strong>50년 경력</strong>의 눈으로<br>최상급만 골라냅니다</p>
+        </div>
+    </section>
+
+    <!-- 3: 특징 -->
+    <section class="card card-3" data-i="2">
+        <div class="card-bg"></div>
+        <div class="card-content">
+            <p class="label">POINT 02</p>
+            <h2 class="title"><span class="hl">탱글한 살</span><br>육즙 그대로</h2>
+            <p class="desc">세포 손상 없이 가공해<br><strong>드립 없이</strong> 촉촉함 유지</p>
+        </div>
+    </section>
+
+    <!-- 4: 공정 -->
+    <section class="card card-4" data-i="3">
+        <div class="card-bg"></div>
+        <div class="card-content">
+            <p class="label">POINT 03</p>
+            <h2 class="title">입항부터 포장<br><span class="hl">일원화 시스템</span></h2>
+            <p class="desc"><strong>HACCP 인증</strong> · 위생 90% 이상 관리</p>
+        </div>
+    </section>
+
+    <!-- 5: 생산자 -->
+    <section class="card card-5" data-i="4">
+        <div class="card-bg"></div>
+        <div class="card-content">
+            <p class="label">PRODUCER</p>
+            <h2 class="title">영어조합법인<br><span class="hl">서풍</span></h2>
+            <p class="desc"><strong>2대째</strong> 이어온 50년 수산 외길<br>전남 여수 · 영광 전통 섶간</p>
+        </div>
+    </section>
+
+    <!-- 6: CTA -->
+    <section class="card card-6" data-i="5">
+        <img src="58927C.jpg" alt="영광법성포굴비" class="product-img">
+        <h2 class="product-name">영광법성포굴비</h2>
         <p class="product-spec">1.1kg · 10미</p>
-        <p class="product-price fade-in">136,000<span>원</span></p>
-        <p class="product-unit">1미당 13,600원</p>
-        <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=58927&returnPlanNo=0" class="cta-btn fade-in">
-            구매하기
-        </a>
-        <div class="product-tags fade-in">
-            <span class="product-tag">국내산 참조기</span>
-            <span class="product-tag">국내산 천일염</span>
-            <span class="product-tag">냉동 2년</span>
+        <p class="price">136,000<span>원</span></p>
+        <p class="unit">1미당 13,600원</p>
+        <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=58927&returnPlanNo=0" class="cta-btn">구매하기</a>
+        <div class="tags">
+            <span class="tag">국내산 참조기</span>
+            <span class="tag">국내산 천일염</span>
         </div>
     </section>
 
-    <!-- 푸터 -->
     <footer class="footer">
-        <p class="footer-logo">DURE COOP</p>
-        <p class="footer-text">두레생협 생활의 발견 2026 W06</p>
+        <p>DURE COOP · 2026 W06</p>
     </footer>
 
     <script>
-        // 스크롤 인디케이터 업데이트
         const cards = document.querySelectorAll('.card');
-        const dots = document.querySelectorAll('.scroll-dot');
+        const dots = document.querySelectorAll('.dot');
 
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.5
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const index = entry.target.dataset.index;
-
-                    // 도트 업데이트
-                    dots.forEach((dot, i) => {
-                        dot.classList.toggle('active', i == index);
-                    });
-
-                    // 페이드인 애니메이션
-                    entry.target.querySelectorAll('.fade-in').forEach(el => {
-                        el.classList.add('visible');
-                    });
+        const obs = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    const i = e.target.dataset.i;
+                    dots.forEach((d, idx) => d.classList.toggle('active', idx == i));
                 }
             });
-        }, observerOptions);
+        }, { threshold: 0.5 });
 
-        cards.forEach(card => observer.observe(card));
-
-        // 도트 클릭으로 이동
-        dots.forEach(dot => {
-            dot.addEventListener('click', () => {
-                const index = dot.dataset.index;
-                cards[index].scrollIntoView({ behavior: 'smooth' });
-            });
-        });
+        cards.forEach(c => obs.observe(c));
+        dots.forEach(d => d.onclick = () => cards[d.dataset.i].scrollIntoView({ behavior: 'smooth' }));
     </script>
 </body>
 </html>
