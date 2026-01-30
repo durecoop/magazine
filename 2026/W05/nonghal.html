@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>생활의 발견 - 설 맞이 농축산물 할인지원</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --red: #c41230;
+            --cream: #fdfbf7;
+            --blue: #1a1a2e;
+            --gold: #b8860b;
+            --dark-navy: #16213e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: var(--cream);
+            color: #333;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* 헤더 */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(253, 251, 247, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .header-title {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--red);
+            letter-spacing: 1px;
+        }
+
+        .header-week {
+            font-size: 11px;
+            color: #888;
+            letter-spacing: 1px;
+        }
+
+        /* 스크롤 인디케이터 */
+        .scroll-indicator {
+            position: fixed;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 4px;
+            background: #ddd;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .dot.active {
+            height: 20px;
+            background: var(--red);
+        }
+
+        /* 카드 공통 */
+        .card {
+            min-height: 100vh;
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 80px 25px 40px;
+            position: relative;
+        }
+
+        /* 카드 타입별 스타일 */
+        .card-cream {
+            background: var(--cream);
+        }
+
+        .card-dark {
+            background: var(--cream);
+            color: #333;
+        }
+
+        .card-white {
+            background: #fff;
+        }
+
+        .card-red {
+            background: linear-gradient(135deg, #fdfbf7 0%, #fff5e6 100%);
+            color: #333;
+        }
+
+        /* 타이포그래피 */
+        .card-label {
+            font-size: 11px;
+            letter-spacing: 2px;
+            color: var(--red);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .card-dark .card-label {
+            color: var(--red);
+        }
+
+        .card-title {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 32px;
+            font-weight: 800;
+            line-height: 1.4;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .card-subtitle {
+            font-size: 20px;
+            color: #666;
+            text-align: center;
+            max-width: 350px;
+            line-height: 1.8;
+        }
+
+        .card-dark .card-subtitle {
+            color: #666;
+        }
+
+        /* 메인 이미지 카드 */
+        .main-image {
+            width: 100%;
+            max-width: 380px;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            margin-bottom: 30px;
+        }
+
+        /* 강조 숫자 */
+        .highlight-number {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 150px;
+            font-weight: 800;
+            color: var(--red);
+            line-height: 1;
+            margin: 20px 0;
+        }
+
+        .card-dark .highlight-number {
+            color: var(--red);
+        }
+
+        .highlight-unit {
+            font-size: 60px;
+        }
+
+        /* 정보 박스 */
+        .info-box {
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 25px;
+            width: 100%;
+            max-width: 350px;
+            margin: 20px 0;
+        }
+
+        .card-cream .info-box,
+        .card-white .info-box {
+            background: #fff;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .card-dark .info-row {
+            border-bottom-color: rgba(255,255,255,0.1);
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-size: 14px;
+            color: #888;
+        }
+
+        .card-dark .info-label {
+            color: rgba(255,255,255,0.6);
+        }
+
+        .info-value {
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        /* 메모 박스 */
+        .memo-box {
+            border-left: 4px solid var(--gold);
+            padding: 20px 25px;
+            background: rgba(184, 134, 11, 0.08);
+            margin: 25px 0;
+            max-width: 350px;
+        }
+
+        .memo-box p {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 15px;
+            line-height: 1.8;
+            color: #5a4a3a;
+        }
+
+        /* 상품 리스트 */
+        .product-list {
+            width: 100%;
+            max-width: 350px;
+        }
+
+        .product-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 18px;
+            background: #fff;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .card-dark .product-item {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .product-emoji {
+            font-size: 2.5em;
+            flex-shrink: 0;
+        }
+
+        .product-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 12px;
+            object-fit: cover;
+            flex-shrink: 0;
+            background: #f5f5f5;
+        }
+
+        .product-info {
+            flex: 1;
+        }
+
+        .product-name {
+            font-weight: 700;
+            font-size: 17px;
+            margin-bottom: 6px;
+        }
+
+        .product-price {
+            color: var(--red);
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .card-dark .product-price {
+            color: #ffd700;
+        }
+
+        .product-unit {
+            font-size: 12px;
+            color: #888;
+            font-weight: 400;
+        }
+
+        /* 프로그레스 바 */
+        .progress-section {
+            width: 100%;
+            max-width: 350px;
+            margin: 25px 0;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ffd700, var(--red));
+            border-radius: 4px;
+            transition: width 1s ease;
+        }
+
+        /* 버튼 */
+        .order-btn {
+            display: inline-block;
+            background: var(--red);
+            color: #fff;
+            text-decoration: none;
+            padding: 16px 50px;
+            border-radius: 30px;
+            font-size: 15px;
+            font-weight: 700;
+            margin-top: 25px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(196, 18, 48, 0.3);
+        }
+
+        .order-btn:active {
+            transform: scale(0.97);
+        }
+
+        .order-btn-white {
+            background: #fff;
+            color: var(--red);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .order-btn-gold {
+            background: linear-gradient(135deg, #ffd700, #b8860b);
+            color: #1a1a2e;
+        }
+
+        /* 스텝 */
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+            max-width: 320px;
+            margin: 30px 0;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .step-number {
+            width: 36px;
+            height: 36px;
+            background: var(--red);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .card-dark .step-number {
+            background: #ffd700;
+            color: var(--blue);
+        }
+
+        .step-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #fff5f5 0%, #ffe5e5 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+            box-shadow: 0 2px 10px rgba(196, 18, 48, 0.1);
+        }
+
+        .step-text {
+            font-size: 17px;
+            line-height: 1.5;
+        }
+
+        /* 밝은 배경용 카운트다운 */
+        .countdown-box-light {
+            background: linear-gradient(135deg, #fff5f5 0%, #ffe5e5 100%);
+            border: 2px solid var(--red);
+            border-radius: 16px;
+            padding: 25px 35px;
+            text-align: center;
+            margin: 25px 0;
+        }
+
+        .countdown-label-light {
+            font-size: 15px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .countdown-date-light {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--red);
+        }
+
+        /* 푸터 */
+        .footer-card {
+            text-align: center;
+        }
+
+        .footer-logo {
+            display: inline-block;
+            background: var(--red);
+            color: #fff;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .footer-text {
+            font-size: 13px;
+            color: #888;
+            line-height: 1.8;
+        }
+
+        /* 스크롤 힌트 */
+        .scroll-hint {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-hint span {
+            font-size: 11px;
+            color: #888;
+            letter-spacing: 1px;
+        }
+
+        .scroll-hint .arrow {
+            font-size: 20px;
+            color: var(--red);
+        }
+
+        .card-dark .scroll-hint span {
+            color: rgba(255,255,255,0.5);
+        }
+
+        .card-dark .scroll-hint .arrow {
+            color: #ffd700;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-8px); }
+        }
+
+        /* 카운트다운 느낌 강조 */
+        .countdown-box {
+            background: linear-gradient(135deg, #fff5f5 0%, #ffe5e5 100%);
+            border: 2px solid var(--red);
+            border-radius: 16px;
+            padding: 25px 35px;
+            text-align: center;
+            margin: 25px 0;
+        }
+
+        .countdown-label {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .countdown-date {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 34px;
+            font-weight: 700;
+            color: var(--red);
+        }
+
+        /* 뽑기함 애니메이션 */
+        .lottery-container {
+            cursor: pointer;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .lottery-machine {
+            position: relative;
+            width: 280px;
+            height: 340px;
+            margin: 0 auto;
+        }
+
+        .lottery-top {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90px;
+            height: 35px;
+            background: linear-gradient(135deg, #c41230, #8b0000);
+            border-radius: 15px 15px 0 0;
+            z-index: 3;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .lottery-globe {
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 240px;
+            height: 240px;
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9), rgba(200,220,255,0.6));
+            border: 5px solid #4a90d9;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: inset 0 0 40px rgba(74, 144, 217, 0.3), 0 8px 30px rgba(0,0,0,0.15);
+        }
+
+        .ball {
+            position: absolute;
+            font-size: 42px;
+            transition: all 0.1s;
+        }
+
+        .ball1 { top: 60%; left: 20%; }
+        .ball2 { top: 50%; left: 55%; }
+        .ball3 { top: 70%; left: 45%; }
+        .ball4 { top: 40%; left: 30%; }
+        .ball5 { top: 65%; left: 65%; }
+        .ball6 { top: 55%; left: 15%; }
+
+        .lottery-machine.spinning .ball {
+            animation: ballSpin 0.3s linear infinite;
+        }
+
+        .lottery-machine.spinning .ball1 { animation-delay: 0s; }
+        .lottery-machine.spinning .ball2 { animation-delay: 0.05s; }
+        .lottery-machine.spinning .ball3 { animation-delay: 0.1s; }
+        .lottery-machine.spinning .ball4 { animation-delay: 0.15s; }
+        .lottery-machine.spinning .ball5 { animation-delay: 0.2s; }
+        .lottery-machine.spinning .ball6 { animation-delay: 0.25s; }
+
+        @keyframes ballSpin {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(30px, -20px) rotate(90deg); }
+            50% { transform: translate(60px, 0) rotate(180deg); }
+            75% { transform: translate(30px, 20px) rotate(270deg); }
+            100% { transform: translate(0, 0) rotate(360deg); }
+        }
+
+        .lottery-base {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 160px;
+            height: 60px;
+            background: linear-gradient(135deg, #c41230, #8b0000);
+            border-radius: 0 0 30px 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .lottery-exit {
+            position: absolute;
+            bottom: 35px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 30px;
+            background: #333;
+            border-radius: 0 0 15px 15px;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.5);
+        }
+
+        .lottery-hint {
+            margin-top: 20px;
+            font-size: 22px;
+            color: var(--red);
+            animation: pulse-text 1.5s ease-in-out infinite;
+        }
+
+        /* 쿠폰 결과 */
+        .coupon-result {
+            display: none;
+            text-align: center;
+        }
+
+        .coupon-result.show {
+            display: block;
+            animation: popUp 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        @keyframes popUp {
+            0% { opacity: 0; transform: scale(0) rotate(-10deg); }
+            50% { transform: scale(1.1) rotate(5deg); }
+            100% { opacity: 1; transform: scale(1) rotate(0deg); }
+        }
+
+        .coupon-popup-card {
+            background: linear-gradient(135deg, #fff1f1, #ffe8e8);
+            border: 4px solid var(--red);
+            border-radius: 25px;
+            padding: 40px 50px;
+            display: inline-block;
+            box-shadow: 0 10px 40px rgba(196, 18, 48, 0.2);
+            width: 90%;
+            max-width: 350px;
+        }
+
+        .coupon-badge-anim {
+            font-size: 18px;
+            color: #8b4513;
+            margin-bottom: 10px;
+        }
+
+        .coupon-popup-card .highlight-number {
+            color: #c41230;
+            margin: 10px 0;
+        }
+
+        .coupon-desc {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--red);
+        }
+
+        /* 공 튀어나오는 애니메이션 */
+        .ball-exit {
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 50px;
+            opacity: 0;
+        }
+
+        .ball-exit.animate {
+            animation: ballExit 0.8s ease-out forwards;
+        }
+
+        @keyframes ballExit {
+            0% { opacity: 1; bottom: 35px; transform: translateX(-50%) scale(0.5); }
+            50% { opacity: 1; bottom: 120px; transform: translateX(-50%) scale(1.2); }
+            100% { opacity: 1; bottom: 90px; transform: translateX(-50%) scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <!-- 헤더 -->
+    <header class="header">
+        <div class="header-title">생활의 발견</div>
+        <div class="header-week">2026 W05</div>
+    </header>
+
+    <!-- 스크롤 인디케이터 -->
+    <div class="scroll-indicator">
+        <div class="dot active" data-card="0"></div>
+        <div class="dot" data-card="1"></div>
+        <div class="dot" data-card="2"></div>
+        <div class="dot" data-card="3"></div>
+        <div class="dot" data-card="4"></div>
+        <div class="dot" data-card="5"></div>
+    </div>
+
+    <!-- 카드 1: 인트로 -->
+    <section class="card card-cream" data-index="0">
+        <div class="card-label">농식품부 할인지원</div>
+        <img src="nong_mo (1).png" alt="설 맞이 농축산물 할인지원" class="main-image">
+        <p class="card-subtitle">
+            <strong>농림축산식품부 x 두레생협</strong><br>
+            설맞이 농축산물 할인지원
+        </p>
+        <div class="scroll-hint">
+            <span>SCROLL</span>
+            <div class="arrow">↓</div>
+        </div>
+    </section>
+
+    <!-- 카드 2: 할인 혜택 -->
+    <section class="card card-dark" data-index="1">
+        <div class="card-label">DISCOUNT</div>
+
+        <!-- 뽑기함 애니메이션 -->
+        <div class="lottery-container" id="lotteryMachine" onclick="startLottery()">
+            <div class="lottery-machine">
+                <div class="lottery-top"></div>
+                <div class="lottery-globe">
+                    <div class="ball ball1">🟡</div>
+                    <div class="ball ball2">🔴</div>
+                    <div class="ball ball3">🟢</div>
+                    <div class="ball ball4">🟠</div>
+                    <div class="ball ball5">🟣</div>
+                    <div class="ball ball6">⚪</div>
+                </div>
+                <div class="lottery-base"></div>
+                <div class="lottery-exit"></div>
+            </div>
+            <p class="lottery-hint" id="lotteryHint">👆 터치해서 뽑기!</p>
+        </div>
+
+        <!-- 쿠폰 결과 (숨김) -->
+        <div class="coupon-result" id="couponResult">
+            <div class="coupon-popup-card">
+                <div class="highlight-number">20<span class="highlight-unit">%</span></div>
+                <p class="coupon-desc">할인 쿠폰</p>
+            </div>
+            <p class="card-subtitle" style="margin-top: 20px;">
+                1인당 최대 2만원까지<br>
+                할인 혜택을 받으실 수 있습니다.
+            </p>
+            <div class="countdown-box">
+                <div class="countdown-label">사용 기간</div>
+                <div class="countdown-date">1.29(목) ~ 2.4(수)</div>
+            </div>
+        </div>
+
+        <div class="scroll-hint">
+            <span>SCROLL</span>
+            <div class="arrow">↓</div>
+        </div>
+    </section>
+
+    <!-- 카드 3: 상품 - 과일 -->
+    <section class="card card-white" data-index="2">
+        <div class="card-label">FRUIT</div>
+        <h2 class="card-title">신선한 과일</h2>
+        <div class="product-list">
+            <div class="product-item">
+                <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/27665C.png" alt="감귤" class="product-img">
+                <div class="product-info">
+                    <div class="product-name">강석종 감귤</div>
+                    <div class="product-price">17,900원 <span class="product-unit">/ 1.8kg</span></div>
+                </div>
+            </div>
+            <div class="product-item">
+                <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56605C.jpg" alt="레드향" class="product-img">
+                <div class="product-info">
+                    <div class="product-name">레드향</div>
+                    <div class="product-price">12,600원 <span class="product-unit">/ 1kg</span></div>
+                </div>
+            </div>
+            <div class="product-item">
+                <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/27372C.jpg" alt="신고배" class="product-img">
+                <div class="product-info">
+                    <div class="product-name">의성 신고배</div>
+                    <div class="product-price">14,300원 <span class="product-unit">/ 2kg</span></div>
+                </div>
+            </div>
+            <div class="product-item">
+                <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/27644C.jpg" alt="천혜향" class="product-img">
+                <div class="product-info">
+                    <div class="product-name">천혜향</div>
+                    <div class="product-price">11,800원 <span class="product-unit">/ 1kg</span></div>
+                </div>
+            </div>
+            <div class="product-item">
+                <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/35134C.png" alt="한라봉" class="product-img">
+                <div class="product-info">
+                    <div class="product-name">한라봉</div>
+                    <div class="product-price">10,900원 <span class="product-unit">/ 1kg</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="memo-box">
+            <p>
+                "명인의 노하우로 재배한<br>
+                <strong>신선한 고당도 과일</strong>입니다."
+            </p>
+        </div>
+        <div class="scroll-hint">
+            <span>SCROLL</span>
+            <div class="arrow">↓</div>
+        </div>
+    </section>
+
+    <!-- 카드 4: 상품 - 축산 -->
+    <section class="card card-cream" data-index="3">
+        <div class="card-label">MEAT</div>
+        <h2 class="card-title">프리미엄 축산물</h2>
+        <div class="product-list">
+            <div class="product-item">
+                <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56904C.jpg" alt="목살" class="product-img">
+                <div class="product-info">
+                    <div class="product-name">동물복지 목살</div>
+                    <div class="product-price">19,700원 <span class="product-unit">/ 500g</span></div>
+                </div>
+            </div>
+            <div class="product-item">
+                <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56905C.jpg" alt="삼겹살" class="product-img">
+                <div class="product-info">
+                    <div class="product-name">동물복지 삼겹살</div>
+                    <div class="product-price">20,500원 <span class="product-unit">/ 500g</span></div>
+                </div>
+            </div>
+            <div class="product-item">
+                <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56906C.jpg" alt="보쌈삼겹" class="product-img">
+                <div class="product-info">
+                    <div class="product-name">동물복지 보쌈삼겹</div>
+                    <div class="product-price">20,500원 <span class="product-unit">/ 500g</span></div>
+                </div>
+            </div>
+            <div class="product-item">
+                <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56907C.jpg" alt="제육" class="product-img">
+                <div class="product-info">
+                    <div class="product-name">동물복지 제육</div>
+                    <div class="product-price">12,200원 <span class="product-unit">/ 500g</span></div>
+                </div>
+            </div>
+            <div class="product-item">
+                <img src="56774B.jpg" alt="한우등심불고기" class="product-img">
+                <div class="product-info">
+                    <div class="product-name">한우등심불고기</div>
+                    <div class="product-price">25,300원 <span class="product-unit">/ 300g</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="memo-box">
+            <p>
+                "두레생협이 엄선한<br>
+                <strong>믿을 수 있는 축산물</strong>입니다."
+            </p>
+        </div>
+        <div class="scroll-hint">
+            <span>SCROLL</span>
+            <div class="arrow">↓</div>
+        </div>
+    </section>
+
+    <!-- 카드 5: 이용방법 -->
+    <section class="card card-white" data-index="4">
+        <div class="card-label">HOW TO USE</div>
+        <h2 class="card-title">이용 방법</h2>
+        <div class="steps">
+            <div class="step">
+                <div class="step-icon">🖥️</div>
+                <div class="step-text">두레생협 온라인몰에 접속합니다.</div>
+            </div>
+            <div class="step">
+                <div class="step-icon">🎟️</div>
+                <div class="step-text">기획전 페이지에서 쿠폰을 다운로드합니다.</div>
+            </div>
+            <div class="step">
+                <div class="step-icon">🛒</div>
+                <div class="step-text">원하는 상품을 장바구니에 담습니다.</div>
+            </div>
+            <div class="step">
+                <div class="step-icon">✅</div>
+                <div class="step-text">결제 시 쿠폰을 적용하면 끝!</div>
+            </div>
+        </div>
+        <div class="countdown-box-light">
+            <div class="countdown-label-light">⏰ 놓치지 마세요!</div>
+            <div class="countdown-date-light">2월 4일(수)까지</div>
+        </div>
+        <div class="scroll-hint">
+            <span>SCROLL</span>
+            <div class="arrow">↓</div>
+        </div>
+    </section>
+
+    <!-- 카드 6: CTA -->
+    <section class="card card-red footer-card" data-index="5">
+        <div class="card-label">SPECIAL OFFER</div>
+        <h2 class="card-title" style="font-size: 36px;">
+            설 연휴 전,<br>
+            지금 바로 신청하세요
+        </h2>
+        <div class="info-box">
+            <div class="info-row">
+                <span class="info-label">할인율</span>
+                <span class="info-value" style="color: var(--red); font-size: 18px;">20%</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">최대 할인</span>
+                <span class="info-value" style="color: var(--red); font-size: 18px;">20,000원</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">사용 기간</span>
+                <span class="info-value" style="color: var(--red); font-size: 18px;">1.29 ~ 2.4</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">조건</span>
+                <span class="info-value" style="font-size: 18px;">주문금액 제한 없음</span>
+            </div>
+        </div>
+        <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1634" target="_blank" class="order-btn" style="font-size: 18px; padding: 18px 55px;">
+            쿠폰 받으러 가기 →
+        </a>
+    </section>
+
+    <script>
+        // 스크롤 인디케이터 업데이트
+        const cards = document.querySelectorAll('.card');
+        const dots = document.querySelectorAll('.dot');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const index = entry.target.dataset.index;
+                    dots.forEach((dot, i) => {
+                        dot.classList.toggle('active', i == index);
+                    });
+                }
+            });
+        }, { threshold: 0.5 });
+
+        cards.forEach(card => observer.observe(card));
+
+        // 닷 클릭 시 해당 카드로 이동
+        dots.forEach((dot, i) => {
+            dot.addEventListener('click', () => {
+                cards[i].scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // 뽑기 애니메이션
+        let lotteryStarted = false;
+
+        function startLottery() {
+            if (lotteryStarted) return;
+            lotteryStarted = true;
+
+            const machine = document.querySelector('.lottery-machine');
+            const hint = document.getElementById('lotteryHint');
+            const container = document.getElementById('lotteryMachine');
+            const result = document.getElementById('couponResult');
+
+            // 힌트 숨기기
+            hint.style.display = 'none';
+
+            // 공 돌리기 시작
+            machine.classList.add('spinning');
+
+            // 2초 후 멈추기
+            setTimeout(() => {
+                machine.classList.remove('spinning');
+
+                // 공 튀어나오는 효과
+                const exitBall = document.createElement('div');
+                exitBall.className = 'ball-exit';
+                exitBall.textContent = '🎱';
+                machine.appendChild(exitBall);
+
+                setTimeout(() => {
+                    exitBall.classList.add('animate');
+                }, 100);
+
+                // 1초 후 쿠폰 표시
+                setTimeout(() => {
+                    container.style.display = 'none';
+                    result.classList.add('show');
+                }, 1000);
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
