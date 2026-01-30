@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>생활의 발견 - 품질인증 오징어</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Serif+KR:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f8f6f3;
+            color: #2c2c2c;
+            line-height: 1.8;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            background: #fff;
+            overflow: hidden;
+        }
+
+        /* 히어로 섹션 */
+        .hero {
+            position: relative;
+            height: 100vh;
+            min-height: 600px;
+            background: linear-gradient(180deg, #1a2a4a 0%, #2d4a6b 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px 30px;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="0.5"/></svg>');
+            background-size: 200px;
+            opacity: 0.5;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 30px;
+            font-size: 12px;
+            letter-spacing: 3px;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-title {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 15px;
+            font-weight: 400;
+            color: rgba(255,255,255,0.7);
+            letter-spacing: 8px;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-main {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 42px;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.3;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-sub {
+            font-size: 16px;
+            color: rgba(255,255,255,0.8);
+            font-weight: 300;
+            line-height: 1.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-scroll {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.5);
+            font-size: 12px;
+            letter-spacing: 2px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        /* 인트로 섹션 */
+        .intro {
+            padding: 80px 30px;
+            background: #fff;
+            text-align: center;
+        }
+
+        .intro-label {
+            font-size: 11px;
+            letter-spacing: 4px;
+            color: #2d4a6b;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .intro-title {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 26px;
+            font-weight: 600;
+            color: #1a1a1a;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .intro-divider {
+            width: 40px;
+            height: 1px;
+            background: #2d4a6b;
+            margin: 0 auto 30px;
+        }
+
+        .intro-text {
+            font-size: 15px;
+            color: #666;
+            line-height: 2;
+            font-weight: 300;
+        }
+
+        /* 이미지 섹션 */
+        .full-image {
+            width: 100%;
+            display: block;
+        }
+
+        .full-image img {
+            width: 100%;
+            display: block;
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, #2d4a6b 0%, #1a2a4a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,0.5);
+            font-size: 14px;
+        }
+
+        /* 스토리 섹션 */
+        .story {
+            padding: 70px 30px;
+            background: #f8f6f3;
+        }
+
+        .story-number {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 48px;
+            color: rgba(45, 74, 107, 0.15);
+            font-weight: 700;
+            margin-bottom: -10px;
+        }
+
+        .story-title {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 24px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .story-highlight {
+            color: #2d4a6b;
+        }
+
+        .story-text {
+            font-size: 15px;
+            color: #555;
+            line-height: 2;
+            font-weight: 300;
+        }
+
+        .story-white {
+            background: #fff;
+        }
+
+        /* 감성 인용 */
+        .quote-section {
+            padding: 80px 30px;
+            background: #2d4a6b;
+            text-align: center;
+        }
+
+        .quote-mark {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 60px;
+            color: rgba(255,255,255,0.2);
+            line-height: 1;
+            margin-bottom: 20px;
+        }
+
+        .quote-text {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 20px;
+            color: #fff;
+            line-height: 1.9;
+            font-weight: 400;
+        }
+
+        .quote-author {
+            margin-top: 30px;
+            font-size: 13px;
+            color: rgba(255,255,255,0.6);
+            letter-spacing: 2px;
+        }
+
+        /* 특징 카드 */
+        .features {
+            padding: 70px 30px;
+            background: #fff;
+        }
+
+        .features-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .features-label {
+            font-size: 11px;
+            letter-spacing: 4px;
+            color: #2d4a6b;
+            margin-bottom: 15px;
+        }
+
+        .features-title {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 26px;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .feature-card {
+            background: #f8f6f3;
+            border-radius: 16px;
+            padding: 35px 25px;
+            margin-bottom: 20px;
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: #2d4a6b;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        .feature-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+        }
+
+        .feature-desc {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        /* 프로세스 */
+        .process {
+            padding: 70px 30px;
+            background: linear-gradient(180deg, #f8f6f3 0%, #fff 100%);
+        }
+
+        .process-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .process-step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 25px;
+        }
+
+        .step-number {
+            width: 36px;
+            height: 36px;
+            background: #2d4a6b;
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 600;
+            flex-shrink: 0;
+            margin-right: 18px;
+        }
+
+        .step-content h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 5px;
+        }
+
+        .step-content p {
+            font-size: 13px;
+            color: #888;
+            font-weight: 300;
+        }
+
+        /* 신뢰 섹션 */
+        .trust {
+            padding: 70px 30px;
+            background: #1a2a4a;
+            text-align: center;
+        }
+
+        .trust-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 24px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 30px;
+            margin-bottom: 30px;
+        }
+
+        .trust-badge span {
+            color: #fff;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .trust-title {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 28px;
+            color: #fff;
+            font-weight: 600;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .trust-text {
+            font-size: 14px;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.9;
+            font-weight: 300;
+        }
+
+        /* 제품 정보 */
+        .product-info {
+            padding: 60px 30px;
+            background: #fff;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 18px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .info-label {
+            font-size: 14px;
+            color: #888;
+        }
+
+        .info-value {
+            font-size: 14px;
+            color: #1a1a1a;
+            font-weight: 500;
+            text-align: right;
+        }
+
+        /* CTA */
+        .cta {
+            padding: 60px 30px 80px;
+            background: linear-gradient(180deg, #fff 0%, #f8f6f3 100%);
+            text-align: center;
+        }
+
+        .cta-text {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 22px;
+            color: #1a1a1a;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+
+        .cta-price {
+            font-size: 32px;
+            font-weight: 700;
+            color: #2d4a6b;
+            margin-bottom: 10px;
+        }
+
+        .cta-original {
+            font-size: 16px;
+            color: #999;
+            text-decoration: line-through;
+            margin-bottom: 5px;
+        }
+
+        .cta-unit {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 30px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 18px 50px;
+            background: #2d4a6b;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 15px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background: #1a2a4a;
+            transform: translateY(-2px);
+        }
+
+        /* 푸터 */
+        .footer {
+            padding: 40px 30px;
+            background: #1a1a1a;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-size: 14px;
+            color: rgba(255,255,255,0.5);
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+        }
+
+        .footer-text {
+            font-size: 12px;
+            color: rgba(255,255,255,0.3);
+        }
+
+        /* 퀴즈 섹션 */
+        .quiz {
+            padding: 70px 30px;
+            background: linear-gradient(135deg, #f0f4f8 0%, #e8f0e8 100%);
+        }
+
+        .quiz-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .quiz-label {
+            font-size: 11px;
+            letter-spacing: 4px;
+            color: #2d4a6b;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .quiz-title {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 24px;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .quiz-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 30px 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .quiz-question {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .quiz-question em {
+            color: #2d4a6b;
+            font-style: normal;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .quiz-option {
+            padding: 16px 20px;
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            font-size: 15px;
+            color: #333;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+
+        .quiz-option:hover {
+            border-color: #2d4a6b;
+            background: #f0f4f8;
+        }
+
+        .quiz-option.selected {
+            border-color: #2d4a6b;
+            background: #e8f0f8;
+        }
+
+        .quiz-option.correct {
+            border-color: #28a745;
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .quiz-option.wrong {
+            border-color: #dc3545;
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .quiz-result {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            display: none;
+        }
+
+        .quiz-result.show {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .quiz-result.correct {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+        }
+
+        .quiz-result.wrong {
+            background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+        }
+
+        .quiz-result-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .quiz-result-text {
+            font-size: 15px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .quiz-result-desc {
+            font-size: 13px;
+            color: #555;
+            line-height: 1.7;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 히어로 -->
+        <section class="hero">
+            <span class="hero-badge">2026 WEEK 08</span>
+            <p class="hero-title">생활의 발견</p>
+            <h1 class="hero-main">
+                바다의<br>
+                쫄깃함을<br>
+                그대로
+            </h1>
+            <p class="hero-sub">
+                잡은 그 순간의 신선함<br>
+                IQF 급속냉동으로<br>
+                식탁까지 온전히
+            </p>
+            <div class="hero-scroll">SCROLL</div>
+        </section>
+
+        <!-- 인트로 -->
+        <section class="intro">
+            <p class="intro-label">QUALITY SQUID</p>
+            <h2 class="intro-title">
+                냉동 오징어,<br>
+                다 같은 줄 아셨나요?
+            </h2>
+            <div class="intro-divider"></div>
+            <p class="intro-text">
+                마트에서 집어든 냉동 오징어,<br>
+                해동하면 물이 줄줄 빠지고<br>
+                질겨서 씹히지도 않던 경험.<br><br>
+                그건 오징어의 문제가 아닙니다.<br>
+                어떻게 얼렸느냐의 문제입니다.
+            </p>
+        </section>
+
+        <!-- 이미지 1 -->
+        <div class="full-image">
+            <img src="seo1.gif" alt="서풍 소개">
+        </div>
+
+        <!-- 스토리 1 -->
+        <section class="story">
+            <p class="story-number">01</p>
+            <h3 class="story-title">
+                IQF,<br>
+                <span class="story-highlight">개별급속냉동</span>의 비밀
+            </h3>
+            <p class="story-text">
+                일반 냉동은 천천히 얼립니다.<br>
+                그 사이 세포가 터지고, 육즙이 빠져나갑니다.<br><br>
+                IQF는 다릅니다.<br>
+                영하 40도에서 순식간에 얼려<br>
+                세포막을 그대로 보존합니다.<br><br>
+                그래서 해동해도<br>
+                <strong>쫄깃함이 살아있습니다.</strong>
+            </p>
+        </section>
+
+        <!-- 이미지 2 -->
+        <div class="full-image">
+            <img src="seo2.jpg" alt="서풍 이야기">
+        </div>
+
+        <!-- 감성 인용 -->
+        <section class="quote-section">
+            <p class="quote-mark">"</p>
+            <p class="quote-text">
+                좋은 오징어는<br>
+                해동해도 물이 안 빠집니다<br>
+                그게 진짜 신선한 겁니다
+            </p>
+            <p class="quote-author">- 영어조합법인 서풍 -</p>
+        </section>
+
+        <!-- 스토리 2 -->
+        <section class="story story-white">
+            <p class="story-number">02</p>
+            <h3 class="story-title">
+                50년 수산 외길,<br>
+                <span class="story-highlight">서풍의 눈</span>
+            </h3>
+            <p class="story-text">
+                영광 법성포에서<br>
+                2대째 수산업을 이어온 서풍.<br><br>
+                새벽 경매장에서 직접 고르고,<br>
+                가장 신선할 때 바로 손질합니다.<br><br>
+                50년이 만든 '선별의 눈'으로<br>
+                오직 최상급만 골라냅니다.<br><br>
+                위탁이 아닌, <strong>직접 수매</strong>.<br>
+                그것이 서풍의 원칙입니다.
+            </p>
+        </section>
+
+        <!-- 특징 섹션 -->
+        <section class="features">
+            <div class="features-header">
+                <p class="features-label">WHY DIFFERENT</p>
+                <h3 class="features-title">이 오징어가 다른 이유</h3>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <span style="color: #fff;">01</span>
+                </div>
+                <h4 class="feature-title">해동해도 쫄깃합니다</h4>
+                <p class="feature-desc">
+                    IQF 개별급속냉동으로 세포막 손상 없이 얼려, 해동 후에도 갓 잡은 오징어처럼 탱탱하고 쫄깃한 식감을 유지합니다.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <span style="color: #fff;">02</span>
+                </div>
+                <h4 class="feature-title">드립이 거의 없습니다</h4>
+                <p class="feature-desc">
+                    급속냉동으로 육즙을 꽉 가두어 해동 시 물 빠짐이 거의 없습니다. 오징어 본연의 감칠맛을 온전히 즐기실 수 있습니다.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <span style="color: #fff;">03</span>
+                </div>
+                <h4 class="feature-title">품질인증 안심 수산물</h4>
+                <p class="feature-desc">
+                    수산물이력제와 품질인증을 통과한 안심 수산물입니다. 어디서 잡혔는지, 어떻게 가공됐는지 투명하게 확인할 수 있습니다.
+                </p>
+            </div>
+        </section>
+
+        <!-- 이미지 3 -->
+        <div class="full-image">
+            <img src="seo3.gif" alt="IQF 급속냉동">
+        </div>
+
+        <!-- 프로세스 -->
+        <section class="process">
+            <div class="process-header">
+                <p class="features-label">FROM SEA TO TABLE</p>
+                <h3 class="features-title">바다에서 식탁까지</h3>
+            </div>
+
+            <div class="process-step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h4>어획</h4>
+                    <p>국내 청정해역에서 갓 잡은 싱싱한 오징어</p>
+                </div>
+            </div>
+
+            <div class="process-step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h4>선별</h4>
+                    <p>50년 경력의 눈으로 최상급만 직접 선별</p>
+                </div>
+            </div>
+
+            <div class="process-step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h4>손질</h4>
+                    <p>신선할 때 바로 세척하고 정성껏 손질</p>
+                </div>
+            </div>
+
+            <div class="process-step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h4>IQF 급속냉동</h4>
+                    <p>개별 급속냉동으로 신선함을 그대로 보존</p>
+                </div>
+            </div>
+
+            <div class="process-step">
+                <div class="step-number">5</div>
+                <div class="step-content">
+                    <h4>포장 & 배송</h4>
+                    <p>냉동 상태 그대로 안전하게 배송</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 이미지 4 -->
+        <div class="full-image">
+            <img src="seo4.jpg" alt="품질인증 오징어">
+        </div>
+
+        <!-- 신뢰 섹션 -->
+        <section class="trust">
+            <div class="trust-badge">
+                <span>품질인증 + 수산물이력제</span>
+            </div>
+            <h3 class="trust-title">
+                믿을 수 있는<br>
+                안심 수산물
+            </h3>
+            <p class="trust-text">
+                품질인증과 수산물이력제를 통해<br>
+                원산지부터 가공까지 투명하게 관리합니다.<br>
+                조합원 여러분께 가장 안전한 수산물을 공급합니다.
+            </p>
+        </section>
+
+        <!-- 활용법 섹션 -->
+        <section class="story story-white">
+            <p class="story-number">TIP</p>
+            <h3 class="story-title">
+                이렇게<br>
+                <span class="story-highlight">드세요</span>
+            </h3>
+            <p class="story-text">
+                <strong>오징어볶음</strong><br>
+                쫄깃한 식감이 살아있어 더 맛있습니다.<br><br>
+                <strong>오징어무침</strong><br>
+                데쳐서 초고추장에 찍어 드세요.<br><br>
+                <strong>버터구이</strong><br>
+                버터에 구우면 고소함이 배가됩니다.<br><br>
+                <strong>해물탕/찌개</strong><br>
+                시원한 국물 요리에 넣어도 좋습니다.
+            </p>
+        </section>
+
+        <!-- 제품 정보 -->
+        <section class="product-info">
+            <div class="info-row">
+                <span class="info-label">상품명</span>
+                <span class="info-value">품질인증 오징어</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">중량</span>
+                <span class="info-value">900g</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">원산지</span>
+                <span class="info-value">국내산</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">생산자</span>
+                <span class="info-value">영어조합법인 서풍</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">보관방법</span>
+                <span class="info-value">-18℃ 이하 냉동보관</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">소비기한</span>
+                <span class="info-value">포장일로부터 2년</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">주의사항</span>
+                <span class="info-value">해동 후 재냉동 금지</span>
+            </div>
+        </section>
+
+        <!-- 퀴즈 -->
+        <section class="quiz">
+            <div class="quiz-header">
+                <p class="quiz-label">QUIZ TIME</p>
+                <h3 class="quiz-title">오늘 배운 내용 퀴즈!</h3>
+            </div>
+
+            <!-- 퀴즈 1 -->
+            <div class="quiz-card" id="quiz1">
+                <p class="quiz-question">Q1. <em>IQF</em>는 무엇의 약자일까요?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(1, this, false)">Instant Quick Freeze</div>
+                    <div class="quiz-option" onclick="checkAnswer(1, this, true)">Individual Quick Frozen (개별급속냉동)</div>
+                    <div class="quiz-option" onclick="checkAnswer(1, this, false)">International Quality Food</div>
+                </div>
+                <div class="quiz-result" id="result1">
+                    <div class="quiz-result-icon"></div>
+                    <p class="quiz-result-text"></p>
+                    <p class="quiz-result-desc">IQF(Individual Quick Frozen)는 개별급속냉동 방식으로, 영하 40도에서 순식간에 얼려 세포막을 보존합니다.</p>
+                </div>
+            </div>
+
+            <!-- 퀴즈 2 -->
+            <div class="quiz-card" id="quiz2">
+                <p class="quiz-question">Q2. 서풍은 몇 년째 수산업을 이어오고 있을까요?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(2, this, false)">30년</div>
+                    <div class="quiz-option" onclick="checkAnswer(2, this, true)">50년</div>
+                    <div class="quiz-option" onclick="checkAnswer(2, this, false)">70년</div>
+                </div>
+                <div class="quiz-result" id="result2">
+                    <div class="quiz-result-icon"></div>
+                    <p class="quiz-result-text"></p>
+                    <p class="quiz-result-desc">영어조합법인 서풍은 2대째 50년간 수산 외길을 걸어온 영광 법성포의 수산 전문 기업입니다.</p>
+                </div>
+            </div>
+
+            <!-- 퀴즈 3 -->
+            <div class="quiz-card" id="quiz3">
+                <p class="quiz-question">Q3. IQF 급속냉동의 가장 큰 장점은?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(3, this, false)">오래 보관할 수 있다</div>
+                    <div class="quiz-option" onclick="checkAnswer(3, this, false)">가격이 저렴하다</div>
+                    <div class="quiz-option" onclick="checkAnswer(3, this, true)">해동해도 쫄깃함이 유지된다</div>
+                </div>
+                <div class="quiz-result" id="result3">
+                    <div class="quiz-result-icon"></div>
+                    <p class="quiz-result-text"></p>
+                    <p class="quiz-result-desc">IQF는 세포막 손상 없이 얼려서 해동 후에도 드립(육즙 손실)이 거의 없고, 쫄깃한 식감이 그대로 유지됩니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta">
+            <p class="cta-text">
+                바다의 신선함을<br>
+                그대로 담은 한 봉지
+            </p>
+            <p class="cta-original">27,800원</p>
+            <p class="cta-price">25,000원</p>
+            <p class="cta-unit">900g / 조합원가</p>
+            <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=58898&returnPlanNo=0" class="cta-button">
+                자세히 보기
+            </a>
+        </section>
+
+        <!-- 푸터 -->
+        <footer class="footer">
+            <p class="footer-logo">DURE COOP</p>
+            <p class="footer-text">두레생협 생활의 발견 2026 W08</p>
+        </footer>
+    </div>
+    <script>
+        function checkAnswer(quizNum, element, isCorrect) {
+            const quizCard = document.getElementById('quiz' + quizNum);
+            const result = document.getElementById('result' + quizNum);
+            const options = quizCard.querySelectorAll('.quiz-option');
+
+            // 이미 답변했으면 무시
+            if (result.classList.contains('show')) return;
+
+            // 모든 옵션 비활성화 스타일
+            options.forEach(opt => {
+                opt.style.pointerEvents = 'none';
+            });
+
+            // 선택한 답변 표시
+            element.classList.add('selected');
+
+            if (isCorrect) {
+                element.classList.add('correct');
+                result.classList.add('correct');
+                result.querySelector('.quiz-result-icon').textContent = '🎉';
+                result.querySelector('.quiz-result-text').textContent = '정답입니다!';
+            } else {
+                element.classList.add('wrong');
+                result.classList.add('wrong');
+                result.querySelector('.quiz-result-icon').textContent = '😅';
+                result.querySelector('.quiz-result-text').textContent = '아쉬워요!';
+
+                // 정답 표시
+                options.forEach(opt => {
+                    if (opt.onclick.toString().includes('true')) {
+                        opt.classList.add('correct');
+                    }
+                });
+            }
+
+            result.classList.add('show');
+        }
+    </script>
+</body>
+</html>
