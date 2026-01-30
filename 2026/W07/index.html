@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>품질인증 오징어 - 두레생협 생활의 발견</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --red: #c41230;
+            --blue: #1a4e6e;
+            --gold: #b8860b;
+            --cream: #fdfbf7;
+            --dark-blue: #0d2a3d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: var(--cream);
+            color: #333;
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            background: #fff;
+            position: relative;
+        }
+
+        /* 고정 헤더 */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 480px;
+            z-index: 1000;
+            background: var(--blue);
+            text-align: center;
+            padding: 8px 0;
+        }
+
+        .header-top {
+            font-size: 11px;
+            color: rgba(255,255,255,0.9);
+            letter-spacing: 0.5px;
+        }
+
+        .header-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #fff;
+            margin-top: 2px;
+        }
+
+        /* 스크롤 인디케이터 */
+        .scroll-indicator {
+            position: fixed;
+            right: calc(50% - 230px);
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            z-index: 999;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 4px;
+            background: rgba(26, 78, 110, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .dot.active {
+            height: 20px;
+            background: var(--blue);
+        }
+
+        /* 섹션 공통 */
+        section {
+            padding: 60px 24px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .section-number {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 12px;
+            color: var(--gold);
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 26px;
+            font-weight: 700;
+            line-height: 1.4;
+            margin-bottom: 20px;
+            color: #1a1a1a;
+            word-break: keep-all;
+        }
+
+        .section-desc {
+            font-size: 15px;
+            color: #555;
+            line-height: 1.9;
+            word-break: keep-all;
+        }
+
+        .highlight {
+            color: var(--blue);
+            font-weight: 700;
+        }
+
+        .highlight-gold {
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        /* 섹션 배경 */
+        .card-cream {
+            background: var(--cream);
+        }
+
+        .card-light {
+            background: #fff;
+        }
+
+        .card-dark {
+            background: linear-gradient(180deg, var(--dark-blue) 0%, var(--blue) 100%);
+            color: #fff;
+        }
+
+        .card-dark .section-title {
+            color: #fff;
+        }
+
+        .card-dark .section-desc {
+            color: rgba(255,255,255,0.85);
+        }
+
+        /* 히어로 섹션 */
+        .hero {
+            padding-top: 100px;
+            text-align: center;
+            background: linear-gradient(180deg, var(--blue) 0%, var(--dark-blue) 100%);
+            color: #fff;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: var(--gold);
+            color: #fff;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 6px 16px;
+            border-radius: 20px;
+            margin-bottom: 24px;
+            letter-spacing: 1px;
+        }
+
+        .hero .section-title {
+            color: #fff;
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+
+        .hero-sub {
+            font-size: 16px;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 32px;
+        }
+
+        .hero-price {
+            margin-top: 24px;
+        }
+
+        .price-original {
+            font-size: 14px;
+            color: rgba(255,255,255,0.5);
+            text-decoration: line-through;
+        }
+
+        .price-sale {
+            font-size: 36px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .price-discount {
+            display: inline-block;
+            background: var(--red);
+            color: #fff;
+            font-size: 14px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 4px;
+            margin-left: 8px;
+        }
+
+        .scroll-hint {
+            margin-top: 40px;
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-hint span {
+            display: block;
+            font-size: 12px;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 8px;
+        }
+
+        .scroll-arrow {
+            width: 24px;
+            height: 24px;
+            border-right: 2px solid rgba(255,255,255,0.6);
+            border-bottom: 2px solid rgba(255,255,255,0.6);
+            transform: rotate(45deg);
+            margin: 0 auto;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        /* 이미지 */
+        .section-image {
+            width: calc(100% + 48px);
+            margin: 24px -24px;
+            height: 240px;
+            object-fit: cover;
+        }
+
+        .image-full {
+            width: 100%;
+            margin: 24px 0;
+            border-radius: 8px;
+        }
+
+        .hero-image {
+            width: calc(100% + 48px);
+            margin: 32px -24px 0;
+            height: 280px;
+            object-fit: cover;
+        }
+
+        .section-image-rounded {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin: 24px 0;
+        }
+
+        /* 포인트 리스트 */
+        .point-list {
+            margin-top: 24px;
+        }
+
+        .point-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding: 16px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+        }
+
+        .card-light .point-item,
+        .card-cream .point-item {
+            background: rgba(26, 78, 110, 0.05);
+        }
+
+        .point-number {
+            flex-shrink: 0;
+            width: 28px;
+            height: 28px;
+            background: var(--gold);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .point-text {
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .point-text strong {
+            display: block;
+            font-size: 16px;
+            margin-bottom: 4px;
+            color: var(--blue);
+        }
+
+        .card-dark .point-text strong {
+            color: var(--gold);
+        }
+
+        /* 프로세스 */
+        .process-list {
+            margin-top: 24px;
+        }
+
+        .process-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.08);
+        }
+
+        .process-step {
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            background: var(--blue);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .process-text {
+            font-size: 15px;
+        }
+
+        .process-text strong {
+            display: block;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        /* 레시피 카드 */
+        .recipe-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .recipe-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px 16px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .recipe-icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .recipe-name {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--blue);
+        }
+
+        /* 상품 정보 테이블 */
+        .info-table {
+            margin-top: 24px;
+            border-top: 2px solid var(--blue);
+        }
+
+        .info-row {
+            display: flex;
+            border-bottom: 1px solid #eee;
+        }
+
+        .info-label {
+            flex-shrink: 0;
+            width: 100px;
+            padding: 14px 12px;
+            background: #f8f8f8;
+            font-size: 13px;
+            font-weight: 500;
+            color: #666;
+        }
+
+        .info-value {
+            flex: 1;
+            padding: 14px 12px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        /* 주문 버튼 */
+        .order-btn {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background: var(--blue);
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 700;
+            border-radius: 8px;
+            margin-top: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .order-btn:hover {
+            background: var(--dark-blue);
+            transform: translateY(-2px);
+        }
+
+        .order-btn-light {
+            background: #fff;
+            color: var(--blue);
+            border: 2px solid var(--blue);
+        }
+
+        .order-btn-light:hover {
+            background: var(--blue);
+            color: #fff;
+        }
+
+        /* 푸터 */
+        .footer {
+            text-align: center;
+            padding: 40px 24px;
+            background: #f5f5f5;
+            font-size: 12px;
+            color: #999;
+        }
+
+        /* 인용문 */
+        .quote-box {
+            background: rgba(255,255,255,0.1);
+            border-left: 3px solid var(--gold);
+            padding: 20px 24px;
+            margin: 24px 0;
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 18px;
+            line-height: 1.8;
+        }
+
+        .card-light .quote-box,
+        .card-cream .quote-box {
+            background: rgba(26, 78, 110, 0.05);
+        }
+
+        @media (max-width: 480px) {
+            .scroll-indicator {
+                right: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 고정 헤더 -->
+        <header class="header">
+            <div class="header-top">생활의 발견 7주차</div>
+            <div class="header-title">품질인증 오징어 (900g)</div>
+        </header>
+
+        <!-- 스크롤 인디케이터 -->
+        <nav class="scroll-indicator">
+            <div class="dot active" data-i="0"></div>
+            <div class="dot" data-i="1"></div>
+            <div class="dot" data-i="2"></div>
+            <div class="dot" data-i="3"></div>
+            <div class="dot" data-i="4"></div>
+            <div class="dot" data-i="5"></div>
+            <div class="dot" data-i="6"></div>
+            <div class="dot" data-i="7"></div>
+        </nav>
+
+        <!-- 섹션 1: 히어로 -->
+        <section class="hero" data-section="0">
+            <span class="hero-badge">조합원 10% 할인</span>
+            <h1 class="section-title">여수 바다가 키운<br>쫄깃한 오징어</h1>
+            <p class="hero-sub">품질인증 오징어 900g</p>
+            <div class="hero-price">
+                <span class="price-original">27,800원</span><br>
+                <span class="price-sale">25,000원</span>
+                <span class="price-discount">10%</span>
+            </div>
+            <div class="scroll-hint">
+                <span>아래로 스크롤</span>
+                <div class="scroll-arrow"></div>
+            </div>
+            <img src="https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?w=600&q=80" alt="신선한 오징어" class="hero-image">
+        </section>
+
+        <!-- 섹션 2: 차별점 질문 -->
+        <section class="card-cream" data-section="1">
+            <p class="section-number">QUESTION</p>
+            <h2 class="section-title">마트에서 파는<br>냉동 오징어와<br>뭐가 다른가요?</h2>
+            <p class="section-desc">
+                똑같이 생긴 냉동 오징어,<br>
+                하지만 <span class="highlight">냉동 방식</span>이 다르면<br>
+                <span class="highlight">맛과 식감</span>이 완전히 달라집니다.
+            </p>
+            <a href="https://www.ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=58898" class="order-btn order-btn-light">주문하러 가기 →</a>
+        </section>
+
+        <!-- 섹션 3: IQF 설명 -->
+        <section class="card-light" data-section="2">
+            <p class="section-number">ANSWER 01</p>
+            <h2 class="section-title">IQF 개별급속동결,<br>그 차이를 아시나요?</h2>
+            <p class="section-desc">
+                일반 냉동은 오징어를 한꺼번에 얼립니다.<br>
+                이 과정에서 세포가 파괴되고,<br>
+                해동 후 <span class="highlight-gold">물이 빠지며 식감이 흐물흐물</span>해지죠.
+            </p>
+            <div class="quote-box">
+                "IQF는 낱개로 급속 냉동합니다.<br>
+                세포 손상 없이 <strong>갓 잡은 신선함</strong>을<br>
+                그대로 간직합니다."
+            </div>
+            <p class="section-desc">
+                해동해도 <span class="highlight">쫄깃한 식감</span>이 살아있는 이유,<br>
+                바로 IQF 방식 덕분입니다.
+            </p>
+            <img src="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=600&q=80" alt="오징어 요리" class="section-image-rounded">
+        </section>
+
+        <!-- 섹션 4: 두레생협 차별성 -->
+        <section class="card-dark" data-section="3">
+            <p class="section-number">WHY DURE</p>
+            <h2 class="section-title">두레생협 오징어가<br>특별한 4가지 이유</h2>
+            <div class="point-list">
+                <div class="point-item">
+                    <span class="point-number">1</span>
+                    <div class="point-text">
+                        <strong>청정 여수 앞바다</strong>
+                        전남 여수시 근해에서 어획한<br>국내산 오징어만 사용합니다.
+                    </div>
+                </div>
+                <div class="point-item">
+                    <span class="point-number">2</span>
+                    <div class="point-text">
+                        <strong>품질인증 마크</strong>
+                        두레생협의 엄격한 품질 기준을<br>통과한 인증 상품입니다.
+                    </div>
+                </div>
+                <div class="point-item">
+                    <span class="point-number">3</span>
+                    <div class="point-text">
+                        <strong>수산물이력제</strong>
+                        어획부터 유통까지 전 과정을<br>투명하게 추적할 수 있습니다.
+                    </div>
+                </div>
+                <div class="point-item">
+                    <span class="point-number">4</span>
+                    <div class="point-text">
+                        <strong>믿을 수 있는 생산자</strong>
+                        영어조합법인 서풍이<br>정성껏 가공합니다.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 섹션 5: 생산자 소개 -->
+        <section class="card-cream" data-section="4">
+            <p class="section-number">PRODUCER</p>
+            <h2 class="section-title">영어조합법인 서풍,<br>바다를 잇는 사람들</h2>
+            <p class="section-desc">
+                전남 여수에서 수산물을 가공하는<br>
+                <span class="highlight">영어조합법인 서풍</span>.<br><br>
+                두레생협과 함께 굴비, 오징어 등<br>
+                다양한 수산물을 조합원에게 전합니다.<br><br>
+                <span class="highlight-gold">"바다의 신선함을 식탁까지"</span><br>
+                서풍의 변함없는 약속입니다.
+            </p>
+            <a href="https://www.ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=58898" class="order-btn">주문하러 가기 →</a>
+        </section>
+
+        <!-- 섹션 6: 가공 과정 -->
+        <section class="card-light" data-section="5">
+            <p class="section-number">PROCESS</p>
+            <h2 class="section-title">신선함을 지키는<br>5단계 공정</h2>
+            <img src="https://images.unsplash.com/photo-1579631542720-3a87824fff86?w=600&q=80" alt="수산물 가공" class="section-image-rounded">
+            <div class="process-list">
+                <div class="process-item">
+                    <span class="process-step">1</span>
+                    <div class="process-text">
+                        <strong>어획</strong>
+                        여수 근해에서 싱싱한 오징어 포획
+                    </div>
+                </div>
+                <div class="process-item">
+                    <span class="process-step">2</span>
+                    <div class="process-text">
+                        <strong>선별</strong>
+                        크기와 상태를 꼼꼼히 검수
+                    </div>
+                </div>
+                <div class="process-item">
+                    <span class="process-step">3</span>
+                    <div class="process-text">
+                        <strong>손질</strong>
+                        내장 제거 후 깨끗이 세척
+                    </div>
+                </div>
+                <div class="process-item">
+                    <span class="process-step">4</span>
+                    <div class="process-text">
+                        <strong>IQF 급속냉동</strong>
+                        개별 급속동결로 신선도 유지
+                    </div>
+                </div>
+                <div class="process-item">
+                    <span class="process-step">5</span>
+                    <div class="process-text">
+                        <strong>포장</strong>
+                        900g 단위로 위생 포장
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 섹션 7: 레시피 -->
+        <section class="card-cream" data-section="6">
+            <p class="section-number">RECIPE</p>
+            <h2 class="section-title">이렇게 드세요,<br>더 맛있게!</h2>
+            <p class="section-desc">
+                손질된 상태로 배송되어<br>
+                바로 요리할 수 있습니다.
+            </p>
+            <div class="recipe-grid">
+                <div class="recipe-card">
+                    <div class="recipe-icon">🍲</div>
+                    <div class="recipe-name">오징어찌개</div>
+                </div>
+                <div class="recipe-card">
+                    <div class="recipe-icon">🥗</div>
+                    <div class="recipe-name">오징어무침</div>
+                </div>
+                <div class="recipe-card">
+                    <div class="recipe-icon">🧈</div>
+                    <div class="recipe-name">버터구이</div>
+                </div>
+                <div class="recipe-card">
+                    <div class="recipe-icon">🍳</div>
+                    <div class="recipe-name">오징어볶음</div>
+                </div>
+            </div>
+            <div class="quote-box">
+                💡 해동 팁: 흐르는 물에 5분,<br>
+                또는 냉장실에서 하룻밤 해동하세요.
+            </div>
+        </section>
+
+        <!-- 섹션 8: 상품 정보 및 CTA -->
+        <section class="card-light" data-section="7">
+            <p class="section-number">ORDER</p>
+            <h2 class="section-title">품질인증 오징어<br>지금 주문하세요</h2>
+            <img src="https://images.unsplash.com/photo-1551326844-4df70f78d0e9?w=600&q=80" alt="포장된 해산물" class="section-image-rounded">
+
+            <div class="info-table">
+                <div class="info-row">
+                    <div class="info-label">상품명</div>
+                    <div class="info-value">품질인증 오징어</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">용량</div>
+                    <div class="info-value">900g</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">원산지</div>
+                    <div class="info-value">국내산 (전남 여수시)</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">생산자</div>
+                    <div class="info-value">영어조합법인 서풍</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">보관방법</div>
+                    <div class="info-value">-18℃ 이하 냉동보관</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">유통기한</div>
+                    <div class="info-value">포장일로부터 2년</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">배송</div>
+                    <div class="info-value">자사배송 (월~금)</div>
+                </div>
+            </div>
+
+            <div class="hero-price" style="text-align: center; margin: 32px 0;">
+                <span class="price-original" style="color: #999;">정가 27,800원</span><br>
+                <span class="price-sale" style="color: var(--blue);">조합원가 25,000원</span>
+                <span class="price-discount">10%</span>
+            </div>
+
+            <a href="https://www.ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=58898" class="order-btn">주문하러 가기 →</a>
+        </section>
+
+        <!-- 푸터 -->
+        <footer class="footer">
+            <p>두레생협연합회 생활의 발견</p>
+            <p style="margin-top: 8px;">© 2026 Dure Coop. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Intersection Observer로 스크롤 위치 추적
+        const sections = document.querySelectorAll('section');
+        const dots = document.querySelectorAll('.dot');
+
+        const observerOptions = {
+            root: null,
+            rootMargin: '-40% 0px -40% 0px',
+            threshold: 0
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const index = entry.target.dataset.section;
+                    dots.forEach(dot => dot.classList.remove('active'));
+                    dots[index].classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => observer.observe(section));
+
+        // 닷 클릭 시 해당 섹션으로 스크롤
+        dots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                const index = dot.dataset.i;
+                sections[index].scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+</html>
