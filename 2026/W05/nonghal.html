@@ -462,25 +462,27 @@
         /* 스크롤 힌트 */
         .scroll-hint {
             position: absolute;
-            bottom: 30px;
+            bottom: 15px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 8px;
+            gap: 4px;
             animation: bounce 2s infinite;
+            opacity: 0.6;
+            font-size: 10px;
         }
 
         .scroll-hint span {
-            font-size: 11px;
-            color: #888;
+            font-size: 9px;
+            color: #aaa;
             letter-spacing: 1px;
         }
 
         .scroll-hint .arrow {
-            font-size: 20px;
-            color: var(--red);
+            font-size: 14px;
+            color: #aaa;
         }
 
         .card-dark .scroll-hint span {
