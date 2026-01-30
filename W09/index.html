@@ -7,10 +7,19 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansBold.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105@1.1/Cafe24Ssurround.css">
     <style>
+        :root {
+            --red: #c41e3a;
+            --gold: #ffd700;
+            --brown: #5a3d2b;
+        }
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+        html {
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
         }
         body {
             font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
@@ -19,316 +28,214 @@
             line-height: 1.6;
             overflow-x: hidden;
         }
-        .container {
-            max-width: 480px;
-            margin: 0 auto;
-            padding: 15px;
+
+        /* 카드 기본 스타일 */
+        .card {
+            min-height: 100vh;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
         }
 
-        /* 히어로 섹션 */
-        .hero-section {
-            border-radius: 16px;
-            overflow: hidden;
-            margin-bottom: 30px;
+        /* 도트 네비게이션 */
+        .dots {
+            position: fixed;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            z-index: 100;
         }
-        .hero-section img {
+        .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 3px;
+            background: rgba(0,0,0,0.15);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .dot.active {
+            height: 20px;
+            background: var(--red);
+        }
+
+        /* 카드 1: 히어로 */
+        .card-hero {
+            background: linear-gradient(135deg, #fff9f0 0%, #ffe5e5 100%);
+            padding: 0;
+        }
+        .card-hero img {
             width: 100%;
+            max-width: 480px;
             height: auto;
-            display: block;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        .scroll-hint {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            color: var(--red);
+            font-size: 0.9em;
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-10px); }
         }
 
-        /* 쿠폰 섹션 */
-        .coupon-section {
+        /* 카드 2: 쿠폰 */
+        .card-coupon {
             background-image: url('coupon-bg.jpg');
             background-size: cover;
             background-position: center;
-            border-radius: 14px;
-            padding: 25px 15px;
-            margin-bottom: 30px;
+        }
+        .coupon-inner {
+            background: rgba(255,255,255,0.95);
+            border-radius: 20px;
+            padding: 30px 25px;
+            max-width: 400px;
+            width: 100%;
             text-align: center;
-            color: #5a3d2b;
-            position: relative;
-            overflow: hidden;
-            min-height: 350px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
         }
         .envelope-container {
-            position: relative;
-            z-index: 10;
             cursor: pointer;
             transition: transform 0.3s;
         }
-        .envelope-container:hover { transform: scale(1.05); }
         .envelope-container:active { transform: scale(0.95); }
         .envelope-icon {
             font-size: 5em;
             display: block;
-            margin: 20px auto;
             animation: envelope-bounce 2s ease-in-out infinite;
-            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.2));
         }
         @keyframes envelope-bounce {
-            0%, 100% { transform: translateY(0) rotate(-5deg); }
-            50% { transform: translateY(-10px) rotate(5deg); }
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg) translateY(-10px); }
         }
         .envelope-text {
             font-family: 'Cafe24Ssurround', sans-serif;
-            font-size: 1em;
-            color: #8b4513;
-            background: rgba(255,255,255,0.9);
-            padding: 8px 20px;
-            border-radius: 25px;
-            display: inline-block;
-            animation: pulse-text 1.5s ease-in-out infinite;
+            color: var(--brown);
+            margin-top: 15px;
         }
-        @keyframes pulse-text {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-        .coupon-popup { display: none; position: relative; z-index: 20; }
-        .coupon-popup.show {
-            display: block;
-            animation: coupon-appear 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        }
-        @keyframes coupon-appear {
-            0% { opacity: 0; transform: scale(0) rotate(-180deg); }
-            50% { transform: scale(1.2) rotate(10deg); }
-            100% { opacity: 1; transform: scale(1) rotate(0deg); }
-        }
-        .poof-effect {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 5em;
-            opacity: 0;
-            pointer-events: none;
-        }
-        .poof-effect.show { animation: poof 0.8s ease-out forwards; }
-        @keyframes poof {
-            0% { opacity: 1; transform: translate(-50%, -50%) scale(0.5); }
-            50% { opacity: 1; transform: translate(-50%, -50%) scale(2); }
-            100% { opacity: 0; transform: translate(-50%, -50%) scale(3); }
-        }
-        .sparkles {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            pointer-events: none;
-            overflow: hidden;
-        }
-        .sparkle {
-            position: absolute;
-            font-size: 1.5em;
-            opacity: 0;
-        }
-        .sparkle.animate { animation: sparkle-fall 1s ease-out forwards; }
-        @keyframes sparkle-fall {
-            0% { opacity: 1; transform: translateY(0) scale(1); }
-            100% { opacity: 0; transform: translateY(100px) scale(0); }
-        }
+        .coupon-popup { display: none; }
+        .coupon-popup.show { display: block; animation: fadeIn 0.5s; }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
         .coupon-badge {
             display: inline-block;
-            background: #8b4513;
+            background: var(--brown);
             color: #fff;
             padding: 8px 20px;
             border-radius: 20px;
             font-weight: bold;
-            font-size: 0.9em;
+            font-size: 0.85em;
             margin-bottom: 15px;
         }
         .coupon-amount {
-            font-size: 2.4em;
+            font-size: 2.5em;
             font-weight: bold;
+            color: var(--red);
             margin: 10px 0;
-            color: #c41e3a;
-            animation: blink-glow 1.5s ease-in-out infinite;
-            white-space: nowrap;
+            animation: pulse 2s infinite;
         }
-        @keyframes blink-glow {
-            0%, 100% { text-shadow: 2px 2px 4px rgba(0,0,0,0.1), 0 0 15px rgba(196, 30, 58, 0.5); transform: scale(1); }
-            50% { text-shadow: 2px 2px 4px rgba(0,0,0,0.1), 0 0 30px rgba(196, 30, 58, 0.8), 0 0 50px rgba(255, 215, 0, 0.5); transform: scale(1.05); }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
-        .coupon-box {
+        .coupon-link {
             display: block;
-            background: linear-gradient(135deg, #fff9e6 0%, #ffe4b3 100%);
-            border: 3px solid #ffd700;
-            border-radius: 15px;
-            padding: 20px 15px;
-            margin: 20px auto;
-            max-width: 100%;
+            background: linear-gradient(135deg, var(--red) 0%, #8b0000 100%);
+            color: white;
             text-decoration: none;
-            color: #8b4513;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 5px 20px rgba(255,215,0,0.4);
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: transform 0.2s;
         }
-        .coupon-box:hover { transform: scale(1.03); box-shadow: 0 8px 30px rgba(255,215,0,0.6); }
-        .coupon-box .click-hint { display: block; margin-top: 10px; font-size: 0.85em; color: #996633; }
+        .coupon-link:active { transform: scale(0.95); }
         .coupon-details {
-            background: rgba(255,255,255,0.9);
-            border-radius: 12px;
-            padding: 15px;
             margin-top: 20px;
-            color: #5a3d2b;
+            font-size: 0.85em;
+            color: #666;
+            text-align: left;
         }
-        .coupon-details table { width: 100%; border-collapse: collapse; }
-        .coupon-details td { padding: 6px 0; text-align: left; font-size: 0.9em; }
-        .coupon-details td:first-child { font-weight: bold; width: 40%; }
-        .coupon-tip {
-            background: #fff3cd;
-            color: #856404;
-            padding: 12px;
-            border-radius: 10px;
-            margin-top: 20px;
-            font-size: 0.9em;
-        }
+        .coupon-details p { margin: 5px 0; }
 
-        /* 카테고리 섹션 타이틀 */
-        .category-section-title {
-            font-family: 'Cafe24Ssurround', sans-serif;
-            font-size: 1.2em;
-            color: #5a3d2b;
-            margin-bottom: 15px;
-            margin-top: 10px;
-            padding-left: 5px;
+        /* 카드 3~: 카테고리 */
+        .card-category {
+            background: linear-gradient(180deg, #fff9f0 0%, #fff 100%);
         }
-
-        /* 카테고리 버튼 - 가로 스크롤 */
-        .category-nav {
-            display: flex;
-            gap: 10px;
-            overflow-x: auto;
-            padding-bottom: 10px;
+        .category-header {
+            text-align: center;
             margin-bottom: 20px;
+        }
+        .category-icon { font-size: 3em; }
+        .category-title {
+            font-family: 'Cafe24Ssurround', sans-serif;
+            font-size: 1.5em;
+            color: var(--brown);
+            margin-top: 10px;
+        }
+        .category-subtitle {
+            color: var(--red);
+            font-size: 0.95em;
+            margin-top: 5px;
+        }
+
+        /* 상품 슬라이더 */
+        .products-slider {
+            width: 100%;
+            max-width: 400px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            display: flex;
+            gap: 15px;
+            padding: 10px 0;
             -webkit-overflow-scrolling: touch;
             scrollbar-width: none;
         }
-        .category-nav::-webkit-scrollbar { display: none; }
-        .category-btn {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-width: 100px;
-            padding: 15px 12px;
-            background: white;
-            border-radius: 14px;
-            text-decoration: none;
-            color: #333;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-            transition: all 0.3s;
-            cursor: pointer;
-            border: 2px solid transparent;
-            flex-shrink: 0;
-        }
-        .category-btn:hover, .category-btn.active {
-            border-color: #c41e3a;
-            background: #fff5f5;
-        }
-        .category-btn .icon { font-size: 2em; margin-bottom: 5px; }
-        .category-btn .label {
-            font-family: 'Cafe24Ssurround', sans-serif;
-            font-size: 0.85em;
-            color: #333;
-            text-align: center;
-            white-space: nowrap;
-        }
-        .category-btn .price-range {
-            font-size: 0.7em;
-            color: #c41e3a;
-            margin-top: 2px;
-            white-space: nowrap;
-        }
-
-        /* 카드 슬라이더 */
-        .card-slider-container {
-            display: none;
-            background: white;
-            border-radius: 16px;
-            padding: 20px 15px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            animation: fadeIn 0.3s ease;
-        }
-        .card-slider-container.active { display: block; }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .slider-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #f0f0f0;
-        }
-        .slider-header .title-area {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .slider-header .icon { font-size: 1.3em; }
-        .slider-header h3 { font-size: 1em; color: #333; }
-        .close-btn {
-            background: #f0f0f0;
-            border: none;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 1em;
-            transition: all 0.2s;
-        }
-        .close-btn:hover { background: #c41e3a; color: white; }
-
-        /* 카드 슬라이더 */
-        .card-slider {
-            position: relative;
-            overflow: hidden;
-            touch-action: pan-y pinch-zoom;
-        }
-        .cards-wrapper {
-            display: flex;
-            transition: transform 0.3s ease-out;
-            will-change: transform;
-        }
+        .products-slider::-webkit-scrollbar { display: none; }
         .product-card {
-            min-width: 100%;
-            padding: 10px;
-            flex-shrink: 0;
-        }
-        .card-inner {
-            background: #f9f9f9;
+            min-width: 280px;
+            scroll-snap-align: center;
+            background: white;
             border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            flex-shrink: 0;
         }
         .product-image {
             width: 100%;
-            height: 200px;
+            height: 180px;
             overflow: hidden;
-            background: #eee;
+            background: #f5f5f5;
         }
         .product-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
-        .product-info {
-            padding: 15px;
-        }
+        .product-info { padding: 15px; }
         .product-name {
             font-weight: bold;
-            font-size: 1.05em;
+            font-size: 1em;
             color: #333;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
-        .product-prices { margin-bottom: 15px; }
+        .product-prices { margin-bottom: 12px; }
         .price-member {
-            color: #c41e3a;
+            color: var(--red);
             font-weight: bold;
-            font-size: 1.2em;
+            font-size: 1.15em;
         }
         .price-original {
             color: #999;
@@ -340,537 +247,310 @@
             display: inline-block;
             background: #ff4757;
             color: white;
-            padding: 3px 8px;
+            padding: 2px 8px;
             border-radius: 10px;
             font-size: 0.75em;
             font-weight: bold;
-            margin-left: 8px;
+            margin-left: 5px;
         }
         .buy-btn {
             display: block;
-            background: linear-gradient(135deg, #c41e3a 0%, #8b0000 100%);
+            background: linear-gradient(135deg, var(--red) 0%, #8b0000 100%);
             color: white;
             text-decoration: none;
-            padding: 14px 20px;
+            padding: 12px;
             border-radius: 10px;
-            font-size: 1em;
             font-weight: bold;
             text-align: center;
-            transition: all 0.2s;
+            font-size: 0.95em;
         }
-        .buy-btn:hover { box-shadow: 0 4px 15px rgba(196, 30, 58, 0.4); }
-
-        /* 슬라이더 네비게이션 */
-        .slider-nav {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 15px;
+        .swipe-hint {
+            text-align: center;
+            color: #999;
+            font-size: 0.8em;
             margin-top: 15px;
         }
-        .nav-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: none;
-            background: #f0f0f0;
-            cursor: pointer;
-            font-size: 1.2em;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .nav-btn:hover { background: #c41e3a; color: white; }
-        .nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
-        .slider-dots {
-            display: flex;
-            gap: 8px;
-        }
-        .dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #ddd;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .dot.active { background: #c41e3a; transform: scale(1.2); }
-        .slide-counter {
-            font-size: 0.85em;
-            color: #888;
-        }
 
-        /* 안내 섹션 */
-        .info-section {
-            background: #f8f9fa;
-            border-radius: 14px;
-            padding: 20px 15px;
-            margin-bottom: 20px;
+        /* 카드: 안내 */
+        .card-info {
+            background: linear-gradient(135deg, #fff5f5 0%, #ffe5e5 100%);
         }
-        .info-section h3 { margin-bottom: 15px; color: #333; }
+        .info-box {
+            background: white;
+            border-radius: 20px;
+            padding: 30px 25px;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        .info-title {
+            font-family: 'Cafe24Ssurround', sans-serif;
+            font-size: 1.3em;
+            color: var(--brown);
+            margin-bottom: 20px;
+            text-align: center;
+        }
         .info-list { list-style: none; }
         .info-list li {
-            padding: 8px 0;
-            padding-left: 25px;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+            padding-left: 30px;
             position: relative;
         }
+        .info-list li:last-child { border-bottom: none; }
         .info-list li::before {
             content: '✓';
             position: absolute;
             left: 0;
-            color: #c41e3a;
+            color: var(--red);
             font-weight: bold;
         }
-
-        /* CTA 버튼 */
-        .cta-section { text-align: center; padding: 30px 20px; }
         .cta-button {
-            display: inline-block;
-            background: linear-gradient(135deg, #c41e3a 0%, #8b0000 100%);
+            display: block;
+            background: linear-gradient(135deg, var(--red) 0%, #8b0000 100%);
             color: white;
             text-decoration: none;
-            padding: 16px 40px;
-            border-radius: 25px;
-            font-size: 1em;
+            padding: 18px 30px;
+            border-radius: 30px;
             font-weight: bold;
-            box-shadow: 0 4px 15px rgba(196, 30, 58, 0.3);
-            transition: transform 0.2s, box-shadow 0.2s;
+            text-align: center;
+            margin-top: 25px;
+            font-size: 1.05em;
+            box-shadow: 0 4px 20px rgba(196, 30, 58, 0.3);
         }
-        .cta-button:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(196, 30, 58, 0.4); }
 
-        /* 푸터 */
-        .footer { text-align: center; padding: 30px; color: #888; font-size: 0.9em; }
-        .footer-highlight {
-            background: linear-gradient(135deg, #fff5f5 0%, #ffe5e5 100%);
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
-            color: #c41e3a;
-            font-weight: bold;
+        /* 카드: 푸터 */
+        .card-footer {
+            background: linear-gradient(180deg, #fff9f0 0%, #ffe5e5 100%);
+            text-align: center;
+        }
+        .footer-icon { font-size: 4em; margin-bottom: 20px; }
+        .footer-text {
+            font-family: 'Cafe24Ssurround', sans-serif;
+            font-size: 1.3em;
+            color: var(--brown);
+            line-height: 1.8;
+        }
+        .footer-sub {
+            margin-top: 20px;
+            color: #888;
+            font-size: 0.9em;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- 히어로 섹션 -->
-        <div class="hero-section">
-            <img src="hero.png" alt="두레 설 선물 - 2026 설 선물 기획전">
-        </div>
+    <!-- 도트 네비게이션 -->
+    <div class="dots">
+        <div class="dot active" data-i="0"></div>
+        <div class="dot" data-i="1"></div>
+        <div class="dot" data-i="2"></div>
+        <div class="dot" data-i="3"></div>
+        <div class="dot" data-i="4"></div>
+        <div class="dot" data-i="5"></div>
+        <div class="dot" data-i="6"></div>
+        <div class="dot" data-i="7"></div>
+        <div class="dot" data-i="8"></div>
+        <div class="dot" data-i="9"></div>
+        <div class="dot" data-i="10"></div>
+    </div>
 
-        <!-- 쿠폰 섹션 -->
-        <div class="coupon-section">
-            <div class="sparkles" id="sparkles"></div>
-            <div class="poof-effect" id="poof">💥</div>
+    <!-- 카드 0: 히어로 -->
+    <div class="card card-hero" data-i="0">
+        <img src="hero.png" alt="두레 설 선물 - 2026 설 선물 기획전">
+        <div class="scroll-hint">👆 위로 스와이프</div>
+    </div>
+
+    <!-- 카드 1: 쿠폰 -->
+    <div class="card card-coupon" data-i="1">
+        <div class="coupon-inner">
             <div class="envelope-container" id="envelope" onclick="openEnvelope()">
                 <span class="envelope-icon">🧧</span>
-                <div class="envelope-text">👆 복주머니를 터치하세요!</div>
+                <p class="envelope-text">복주머니를 터치하세요!</p>
             </div>
             <div class="coupon-popup" id="couponPopup">
-                <div class="coupon-badge">🎉 설 선물 전용 쿠폰 🎉</div>
-                <a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="coupon-box">
-                    <div class="coupon-amount">3,000원 할인</div>
-                    <p>지금 바로 쿠폰 받고<br>알뜰하게 주문하세요!</p>
-                    <span class="click-hint">👆 클릭하여 쿠폰 받기</span>
-                </a>
+                <div class="coupon-badge">🎉 설 선물 전용 쿠폰</div>
+                <div class="coupon-amount">3,000원 할인</div>
+                <p>지금 바로 쿠폰 받고<br>알뜰하게 주문하세요!</p>
+                <a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="coupon-link">👆 쿠폰 받으러 가기</a>
                 <div class="coupon-details">
-                    <table>
-                        <tr><td>사용 기간</td><td>2026.01.19 ~ 02.10</td></tr>
-                        <tr><td>사용 조건</td><td>30,000원 이상 구매 시</td></tr>
-                        <tr><td>최대 할인</td><td>3,000원</td></tr>
-                    </table>
-                </div>
-                <div class="coupon-tip">💡 <strong>Tip</strong>: 기획전 페이지에서 쿠폰을 먼저 다운받고 주문하세요!</div>
-            </div>
-        </div>
-
-        <!-- 가격대별 선물세트 -->
-        <div class="category-section-title">💵 가격대별 선물세트</div>
-        <div class="category-nav">
-            <div class="category-btn" onclick="showSlider('budget', this)">
-                <span class="icon">💰</span>
-                <span class="label">실속</span>
-                <span class="price-range">5만원 미만</span>
-            </div>
-            <div class="category-btn" onclick="showSlider('popular', this)">
-                <span class="icon">⭐</span>
-                <span class="label">인기</span>
-                <span class="price-range">5~10만원</span>
-            </div>
-            <div class="category-btn" onclick="showSlider('premium', this)">
-                <span class="icon">🏆</span>
-                <span class="label">정성</span>
-                <span class="price-range">10~20만원</span>
-            </div>
-            <div class="category-btn" onclick="showSlider('luxury', this)">
-                <span class="icon">👑</span>
-                <span class="label">프리미엄</span>
-                <span class="price-range">20만원 이상</span>
-            </div>
-        </div>
-
-        <!-- 품목별 선물세트 -->
-        <div class="category-section-title">🎁 품목별 선물세트</div>
-        <div class="category-nav">
-            <div class="category-btn" onclick="showSlider('fruit', this)">
-                <span class="icon">🍎</span>
-                <span class="label">농산</span>
-                <span class="price-range">사과,배,곶감</span>
-            </div>
-            <div class="category-btn" onclick="showSlider('meat', this)">
-                <span class="icon">🥩</span>
-                <span class="label">축산</span>
-                <span class="price-range">한우</span>
-            </div>
-            <div class="category-btn" onclick="showSlider('seafood', this)">
-                <span class="icon">🐟</span>
-                <span class="label">수산</span>
-                <span class="price-range">굴비,멸치</span>
-            </div>
-            <div class="category-btn" onclick="showSlider('health', this)">
-                <span class="icon">🍯</span>
-                <span class="label">건강식품</span>
-                <span class="price-range">홍삼,꿀</span>
-            </div>
-        </div>
-
-        <!-- 카드 슬라이더들 -->
-        <div class="card-slider-container" id="budget">
-            <div class="slider-header">
-                <div class="title-area"><span class="icon">💰</span><h3>5만원 미만 실속 선물세트</h3></div>
-                <button class="close-btn" onclick="hideSlider('budget')">✕</button>
-            </div>
-            <div class="card-slider" data-slider="budget">
-                <div class="cards-wrapper">
-                    <div class="product-card"><div class="card-inner"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/43680C.jpg" alt="제주한과 과즐세트"></div><div class="product-info"><div class="product-name">제주한과 과즐세트</div><div class="product-prices"><span class="price-member">20,700원</span><span class="price-original">23,000원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div></div>
-                    <div class="product-card"><div class="card-inner"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/54447C.jpg" alt="6년근 장수홍삼"></div><div class="product-info"><div class="product-name">6년근 장수홍삼100</div><div class="product-prices"><span class="price-member">39,400원</span><span class="price-original">43,800원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div></div>
-                    <div class="product-card"><div class="card-inner"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/21035C.jpg" alt="완도건어물세트"></div><div class="product-info"><div class="product-name">완도건어물세트 2호</div><div class="product-prices"><span class="price-member">42,300원</span><span class="price-original">47,000원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div></div>
-                    <div class="product-card"><div class="card-inner"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/50954C.png" alt="제주과일선물세트"></div><div class="product-info"><div class="product-name">두레 제주과일선물세트</div><div class="product-prices"><span class="price-member">44,100원</span><span class="price-original">49,000원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div></div>
-                    <div class="product-card"><div class="card-inner"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/54121C.jpg" alt="한라봉선물세트"></div><div class="product-info"><div class="product-name">한라봉 선물세트</div><div class="product-prices"><span class="price-member">41,400원</span><span class="price-original">46,000원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div></div>
+                    <p>📅 사용기간: 2026.01.19 ~ 02.10</p>
+                    <p>💰 사용조건: 30,000원 이상 구매 시</p>
                 </div>
             </div>
-            <div class="slider-nav">
-                <button class="nav-btn" onclick="prevSlide('budget')">◀</button>
-                <div class="slider-dots" id="dots-budget"></div>
-                <button class="nav-btn" onclick="nextSlide('budget')">▶</button>
-            </div>
         </div>
+    </div>
 
-        <div class="card-slider-container" id="popular">
-            <div class="slider-header">
-                <div class="title-area"><span class="icon">⭐</span><h3>5~10만원대 인기 선물세트</h3></div>
-                <button class="close-btn" onclick="hideSlider('popular')">✕</button>
-            </div>
-            <div class="card-slider" data-slider="popular">
-                <div class="cards-wrapper">
-                    <div class="product-card"><div class="card-inner"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/24737C.jpg" alt="호두말이선물세트"></div><div class="product-info"><div class="product-name">호두말이 선물세트 1호</div><div class="product-prices"><span class="price-member">53,100원</span><span class="price-original">59,000원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div></div>
-                    <div class="product-card"><div class="card-inner"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58845C.jpg" alt="녹용대보액"></div><div class="product-info"><div class="product-name">녹용대보액(30팩)</div><div class="product-prices"><span class="price-member">54,800원</span><span class="price-original">60,900원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div></div>
-                    <div class="product-card"><div class="card-inner"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/28875C.jpg" alt="남해바다멸치"></div><div class="product-info"><div class="product-name">남해바다 멸치 2호</div><div class="product-prices"><span class="price-member">62,500원</span><span class="price-original">69,500원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div></div>
-                    <div class="product-card"><div class="card-inner"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/1504C.jpg" alt="유과꾸러미1호"></div><div class="product-info"><div class="product-name">유과꾸러미 1호</div><div class="product-prices"><span class="price-member">64,800원</span><span class="price-original">72,000원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div></div>
-                    <div class="product-card"><div class="card-inner"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58089C.png" alt="침향단"></div><div class="product-info"><div class="product-name">침향단</div><div class="product-prices"><span class="price-member">72,900원</span><span class="price-original">81,000원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div></div>
-                </div>
-            </div>
-            <div class="slider-nav">
-                <button class="nav-btn" onclick="prevSlide('popular')">◀</button>
-                <div class="slider-dots" id="dots-popular"></div>
-                <button class="nav-btn" onclick="nextSlide('popular')">▶</button>
-            </div>
+    <!-- 카드 2: 실속 선물세트 -->
+    <div class="card card-category" data-i="2">
+        <div class="category-header">
+            <div class="category-icon">💰</div>
+            <h2 class="category-title">실속 선물세트</h2>
+            <p class="category-subtitle">5만원 미만</p>
         </div>
-
-        <div class="card-slider-container" id="premium">
-            <div class="slider-header">
-                <div class="title-area"><span class="icon">🏆</span><h3>10~20만원대 정성 선물세트</h3></div>
-                <button class="close-btn" onclick="hideSlider('premium')">✕</button>
-            </div>
-            <div class="card-slider" data-slider="premium">
-                <div class="cards-wrapper">
-                    <div class="product-card"><div class="card-inner"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/37852C.jpg" alt="민어굴비세트"></div><div class="product-info"><div class="product-name">민어굴비세트 1호</div><div class="product-prices"><span class="price-member">85,500원</span><span class="price-original">95,000원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div></div>
-                    <div class="product-card"><div class="card-inner"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/17756C.jpg" alt="녹용엑기스남성"></div><div class="product-info"><div class="product-name">녹용엑기스(남성/60팩)</div><div class="product-prices"><span class="price-member">128,600원</span><span class="price-original">143,000원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div></div>
-                    <div class="product-card"><div class="card-inner"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/54122C.jpg" alt="레드향선물세트"></div><div class="product-info"><div class="product-name">레드향 선물세트(대)</div><div class="product-prices"><span class="price-member">108,000원</span><span class="price-original">120,000원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div></div>
-                    <div class="product-card"><div class="card-inner"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/15634C.jpg" alt="한우정성정육세트2호"></div><div class="product-info"><div class="product-name">한우 정성정육세트 2호</div><div class="product-prices"><span class="price-member">171,000원</span><span class="price-original">190,000원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div></div>
-                    <div class="product-card"><div class="card-inner"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/1563C.jpg" alt="영광법성포굴비1호"></div><div class="product-info"><div class="product-name">영광법성포굴비 1호</div><div class="product-prices"><span class="price-member">97,200원</span><span class="price-original">108,000원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div></div>
-                </div>
-            </div>
-            <div class="slider-nav">
-                <button class="nav-btn" onclick="prevSlide('premium')">◀</button>
-                <div class="slider-dots" id="dots-premium"></div>
-                <button class="nav-btn" onclick="nextSlide('premium')">▶</button>
-            </div>
+        <div class="products-slider">
+            <div class="product-card"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/43680C.jpg" alt="제주한과 과즐세트"></div><div class="product-info"><div class="product-name">제주한과 과즐세트</div><div class="product-prices"><span class="price-member">20,700원</span><span class="price-original">23,000원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div>
+            <div class="product-card"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/54447C.jpg" alt="6년근 장수홍삼"></div><div class="product-info"><div class="product-name">6년근 장수홍삼100</div><div class="product-prices"><span class="price-member">39,400원</span><span class="price-original">43,800원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div>
+            <div class="product-card"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/21035C.jpg" alt="완도건어물세트"></div><div class="product-info"><div class="product-name">완도건어물세트 2호</div><div class="product-prices"><span class="price-member">42,300원</span><span class="price-original">47,000원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div>
+            <div class="product-card"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/54121C.jpg" alt="한라봉선물세트"></div><div class="product-info"><div class="product-name">한라봉 선물세트</div><div class="product-prices"><span class="price-member">41,400원</span><span class="price-original">46,000원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div>
         </div>
+        <p class="swipe-hint">← 좌우로 스와이프 →</p>
+    </div>
 
-        <div class="card-slider-container" id="luxury">
-            <div class="slider-header">
-                <div class="title-area"><span class="icon">👑</span><h3>20만원 이상 프리미엄 선물세트</h3></div>
-                <button class="close-btn" onclick="hideSlider('luxury')">✕</button>
-            </div>
-            <div class="card-slider" data-slider="luxury">
-                <div class="cards-wrapper">
-                    <div class="product-card"><div class="card-inner"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/28832C.jpg" alt="영광법성포굴비2호"></div><div class="product-info"><div class="product-name">영광법성포굴비 2호</div><div class="product-prices"><span class="price-member">256,500원</span><span class="price-original">285,000원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div></div>
-                    <div class="product-card"><div class="card-inner"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/25970C.jpg" alt="한우 으뜸등심세트"></div><div class="product-info"><div class="product-name">한우 으뜸등심세트(암소)</div><div class="product-prices"><span class="price-member">283,500원</span><span class="price-original">315,000원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div></div>
-                    <div class="product-card"><div class="card-inner"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/36429C.jpg" alt="한우 眞갈비세트1호"></div><div class="product-info"><div class="product-name">한우 眞갈비 세트 1호</div><div class="product-prices"><span class="price-member">265,500원</span><span class="price-original">295,000원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div></div>
-                    <div class="product-card"><div class="card-inner"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/24619C.jpg" alt="상주골곶감세트"></div><div class="product-info"><div class="product-name">상주 명품 곶감세트</div><div class="product-prices"><span class="price-member">225,000원</span><span class="price-original">250,000원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div></div>
-                </div>
-            </div>
-            <div class="slider-nav">
-                <button class="nav-btn" onclick="prevSlide('luxury')">◀</button>
-                <div class="slider-dots" id="dots-luxury"></div>
-                <button class="nav-btn" onclick="nextSlide('luxury')">▶</button>
-            </div>
+    <!-- 카드 3: 인기 선물세트 -->
+    <div class="card card-category" data-i="3">
+        <div class="category-header">
+            <div class="category-icon">⭐</div>
+            <h2 class="category-title">인기 선물세트</h2>
+            <p class="category-subtitle">5~10만원대</p>
         </div>
-
-        <div class="card-slider-container" id="fruit">
-            <div class="slider-header">
-                <div class="title-area"><span class="icon">🍎</span><h3>농산 선물세트</h3></div>
-                <button class="close-btn" onclick="hideSlider('fruit')">✕</button>
-            </div>
-            <div class="card-slider" data-slider="fruit">
-                <div class="cards-wrapper">
-                    <div class="product-card"><div class="card-inner"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58744C.jpg" alt="알찬 사과선물세트"></div><div class="product-info"><div class="product-name">알찬 사과선물세트(6과)</div><div class="product-prices"><span class="price-member">35,100원</span><span class="price-original">39,000원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div></div>
-                    <div class="product-card"><div class="card-inner"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58745C.jpg" alt="알찬 배선물세트"></div><div class="product-info"><div class="product-name">알찬 배 선물세트(6과)</div><div class="product-prices"><span class="price-member">29,900원</span><span class="price-original">33,300원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div></div>
-                    <div class="product-card"><div class="card-inner"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58746C.jpg" alt="알찬 사과배선물세트"></div><div class="product-info"><div class="product-name">알찬 사과배 선물세트(6과)</div><div class="product-prices"><span class="price-member">31,900원</span><span class="price-original">35,500원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div></div>
-                    <div class="product-card"><div class="card-inner"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58806C.jpg" alt="상주골 곶감모둠세트"></div><div class="product-info"><div class="product-name">상주골 곶감모둠세트</div><div class="product-prices"><span class="price-member">68,000원</span><span class="price-original">75,500원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div></div>
-                    <div class="product-card"><div class="card-inner"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/1451C.jpg" alt="사과2호"></div><div class="product-info"><div class="product-name">사과 2호 선물세트</div><div class="product-prices"><span class="price-member">75,600원</span><span class="price-original">84,000원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div></div>
-                </div>
-            </div>
-            <div class="slider-nav">
-                <button class="nav-btn" onclick="prevSlide('fruit')">◀</button>
-                <div class="slider-dots" id="dots-fruit"></div>
-                <button class="nav-btn" onclick="nextSlide('fruit')">▶</button>
-            </div>
+        <div class="products-slider">
+            <div class="product-card"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/24737C.jpg" alt="호두말이선물세트"></div><div class="product-info"><div class="product-name">호두말이 선물세트 1호</div><div class="product-prices"><span class="price-member">53,100원</span><span class="price-original">59,000원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div>
+            <div class="product-card"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58845C.jpg" alt="녹용대보액"></div><div class="product-info"><div class="product-name">녹용대보액(30팩)</div><div class="product-prices"><span class="price-member">54,800원</span><span class="price-original">60,900원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div>
+            <div class="product-card"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/28875C.jpg" alt="남해바다멸치"></div><div class="product-info"><div class="product-name">남해바다 멸치 2호</div><div class="product-prices"><span class="price-member">62,500원</span><span class="price-original">69,500원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div>
+            <div class="product-card"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/1504C.jpg" alt="유과꾸러미1호"></div><div class="product-info"><div class="product-name">유과꾸러미 1호</div><div class="product-prices"><span class="price-member">64,800원</span><span class="price-original">72,000원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div>
         </div>
+        <p class="swipe-hint">← 좌우로 스와이프 →</p>
+    </div>
 
-        <div class="card-slider-container" id="meat">
-            <div class="slider-header">
-                <div class="title-area"><span class="icon">🥩</span><h3>축산 선물세트</h3></div>
-                <button class="close-btn" onclick="hideSlider('meat')">✕</button>
-            </div>
-            <div class="card-slider" data-slider="meat">
-                <div class="cards-wrapper">
-                    <div class="product-card"><div class="card-inner"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/25970C.jpg" alt="한우 으뜸등심세트"></div><div class="product-info"><div class="product-name">한우 으뜸등심세트(암소)</div><div class="product-prices"><span class="price-member">283,500원</span><span class="price-original">315,000원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div></div>
-                    <div class="product-card"><div class="card-inner"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/36429C.jpg" alt="한우 眞갈비세트1호"></div><div class="product-info"><div class="product-name">한우 眞갈비 세트 1호</div><div class="product-prices"><span class="price-member">265,500원</span><span class="price-original">295,000원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div></div>
-                    <div class="product-card"><div class="card-inner"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/15634C.jpg" alt="한우정성정육세트2호"></div><div class="product-info"><div class="product-name">한우 정성정육세트 2호</div><div class="product-prices"><span class="price-member">171,000원</span><span class="price-original">190,000원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div></div>
-                    <div class="product-card"><div class="card-inner"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/25970C.jpg" alt="한우 정성정육세트1호"></div><div class="product-info"><div class="product-name">한우 정성정육세트 1호</div><div class="product-prices"><span class="price-member">99,000원</span><span class="price-original">110,000원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div></div>
-                    <div class="product-card"><div class="card-inner"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/36429C.jpg" alt="한우 眞갈비세트2호"></div><div class="product-info"><div class="product-name">한우 眞갈비 세트 2호</div><div class="product-prices"><span class="price-member">342,000원</span><span class="price-original">380,000원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div></div>
-                </div>
-            </div>
-            <div class="slider-nav">
-                <button class="nav-btn" onclick="prevSlide('meat')">◀</button>
-                <div class="slider-dots" id="dots-meat"></div>
-                <button class="nav-btn" onclick="nextSlide('meat')">▶</button>
-            </div>
+    <!-- 카드 4: 정성 선물세트 -->
+    <div class="card card-category" data-i="4">
+        <div class="category-header">
+            <div class="category-icon">🏆</div>
+            <h2 class="category-title">정성 선물세트</h2>
+            <p class="category-subtitle">10~20만원대</p>
         </div>
-
-        <div class="card-slider-container" id="seafood">
-            <div class="slider-header">
-                <div class="title-area"><span class="icon">🐟</span><h3>수산 선물세트</h3></div>
-                <button class="close-btn" onclick="hideSlider('seafood')">✕</button>
-            </div>
-            <div class="card-slider" data-slider="seafood">
-                <div class="cards-wrapper">
-                    <div class="product-card"><div class="card-inner"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/28832C.jpg" alt="영광법성포굴비2호"></div><div class="product-info"><div class="product-name">영광법성포굴비 2호</div><div class="product-prices"><span class="price-member">256,500원</span><span class="price-original">285,000원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div></div>
-                    <div class="product-card"><div class="card-inner"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/1563C.jpg" alt="영광법성포굴비1호"></div><div class="product-info"><div class="product-name">영광법성포굴비 1호</div><div class="product-prices"><span class="price-member">97,200원</span><span class="price-original">108,000원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div></div>
-                    <div class="product-card"><div class="card-inner"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/37852C.jpg" alt="민어굴비세트"></div><div class="product-info"><div class="product-name">민어굴비세트 1호</div><div class="product-prices"><span class="price-member">85,500원</span><span class="price-original">95,000원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div></div>
-                    <div class="product-card"><div class="card-inner"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/28875C.jpg" alt="남해바다멸치"></div><div class="product-info"><div class="product-name">남해바다 멸치 2호</div><div class="product-prices"><span class="price-member">62,500원</span><span class="price-original">69,500원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div></div>
-                    <div class="product-card"><div class="card-inner"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/21035C.jpg" alt="완도건어물세트"></div><div class="product-info"><div class="product-name">완도건어물세트 2호</div><div class="product-prices"><span class="price-member">42,300원</span><span class="price-original">47,000원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div></div>
-                </div>
-            </div>
-            <div class="slider-nav">
-                <button class="nav-btn" onclick="prevSlide('seafood')">◀</button>
-                <div class="slider-dots" id="dots-seafood"></div>
-                <button class="nav-btn" onclick="nextSlide('seafood')">▶</button>
-            </div>
+        <div class="products-slider">
+            <div class="product-card"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/37852C.jpg" alt="민어굴비세트"></div><div class="product-info"><div class="product-name">민어굴비세트 1호</div><div class="product-prices"><span class="price-member">85,500원</span><span class="price-original">95,000원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div>
+            <div class="product-card"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/17756C.jpg" alt="녹용엑기스남성"></div><div class="product-info"><div class="product-name">녹용엑기스(남성/60팩)</div><div class="product-prices"><span class="price-member">128,600원</span><span class="price-original">143,000원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div>
+            <div class="product-card"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/54122C.jpg" alt="레드향선물세트"></div><div class="product-info"><div class="product-name">레드향 선물세트(대)</div><div class="product-prices"><span class="price-member">108,000원</span><span class="price-original">120,000원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div>
+            <div class="product-card"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/1563C.jpg" alt="영광법성포굴비1호"></div><div class="product-info"><div class="product-name">영광법성포굴비 1호</div><div class="product-prices"><span class="price-member">97,200원</span><span class="price-original">108,000원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div>
         </div>
+        <p class="swipe-hint">← 좌우로 스와이프 →</p>
+    </div>
 
-        <div class="card-slider-container" id="health">
-            <div class="slider-header">
-                <div class="title-area"><span class="icon">🍯</span><h3>건강식품 선물세트</h3></div>
-                <button class="close-btn" onclick="hideSlider('health')">✕</button>
-            </div>
-            <div class="card-slider" data-slider="health">
-                <div class="cards-wrapper">
-                    <div class="product-card"><div class="card-inner"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/6116C.png" alt="6년근홍삼엑기스"></div><div class="product-info"><div class="product-name">6년근 홍삼엑기스(60팩)</div><div class="product-prices"><span class="price-member">130,900원</span><span class="price-original">145,500원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div></div>
-                    <div class="product-card"><div class="card-inner"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/9966C.png" alt="아카시아꿀세트"></div><div class="product-info"><div class="product-name">아카시아꿀 선물세트</div><div class="product-prices"><span class="price-member">68,400원</span><span class="price-original">76,000원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div></div>
-                    <div class="product-card"><div class="card-inner"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/3069C.jpg" alt="녹용엑기스여성"></div><div class="product-info"><div class="product-name">녹용엑기스(여성/60팩)</div><div class="product-prices"><span class="price-member">128,600원</span><span class="price-original">143,000원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div></div>
-                    <div class="product-card"><div class="card-inner"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/25927C.jpg" alt="잣선물세트"></div><div class="product-info"><div class="product-name">잣 선물세트</div><div class="product-prices"><span class="price-member">117,000원</span><span class="price-original">130,000원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div></div>
-                    <div class="product-card"><div class="card-inner"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/942C.jpg" alt="야생화꿀세트"></div><div class="product-info"><div class="product-name">야생화꿀 선물세트</div><div class="product-prices"><span class="price-member">64,800원</span><span class="price-original">72,000원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div></div>
-                </div>
-            </div>
-            <div class="slider-nav">
-                <button class="nav-btn" onclick="prevSlide('health')">◀</button>
-                <div class="slider-dots" id="dots-health"></div>
-                <button class="nav-btn" onclick="nextSlide('health')">▶</button>
-            </div>
+    <!-- 카드 5: 프리미엄 선물세트 -->
+    <div class="card card-category" data-i="5">
+        <div class="category-header">
+            <div class="category-icon">👑</div>
+            <h2 class="category-title">프리미엄 선물세트</h2>
+            <p class="category-subtitle">20만원 이상</p>
         </div>
+        <div class="products-slider">
+            <div class="product-card"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/28832C.jpg" alt="영광법성포굴비2호"></div><div class="product-info"><div class="product-name">영광법성포굴비 2호</div><div class="product-prices"><span class="price-member">256,500원</span><span class="price-original">285,000원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div>
+            <div class="product-card"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/25970C.jpg" alt="한우 으뜸등심세트"></div><div class="product-info"><div class="product-name">한우 으뜸등심세트(암소)</div><div class="product-prices"><span class="price-member">283,500원</span><span class="price-original">315,000원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div>
+            <div class="product-card"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/36429C.jpg" alt="한우 眞갈비세트1호"></div><div class="product-info"><div class="product-name">한우 眞갈비 세트 1호</div><div class="product-prices"><span class="price-member">265,500원</span><span class="price-original">295,000원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div>
+            <div class="product-card"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/24619C.jpg" alt="상주골곶감세트"></div><div class="product-info"><div class="product-name">상주 명품 곶감세트</div><div class="product-prices"><span class="price-member">225,000원</span><span class="price-original">250,000원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div>
+        </div>
+        <p class="swipe-hint">← 좌우로 스와이프 →</p>
+    </div>
 
-        <!-- 주문 안내 -->
-        <div class="info-section">
-            <h3>📅 주문 안내</h3>
+    <!-- 카드 6: 농산 선물세트 -->
+    <div class="card card-category" data-i="6">
+        <div class="category-header">
+            <div class="category-icon">🍎</div>
+            <h2 class="category-title">농산 선물세트</h2>
+            <p class="category-subtitle">사과, 배, 곶감</p>
+        </div>
+        <div class="products-slider">
+            <div class="product-card"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58744C.jpg" alt="알찬 사과선물세트"></div><div class="product-info"><div class="product-name">알찬 사과선물세트(6과)</div><div class="product-prices"><span class="price-member">35,100원</span><span class="price-original">39,000원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div>
+            <div class="product-card"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58745C.jpg" alt="알찬 배선물세트"></div><div class="product-info"><div class="product-name">알찬 배 선물세트(6과)</div><div class="product-prices"><span class="price-member">29,900원</span><span class="price-original">33,300원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div>
+            <div class="product-card"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58746C.jpg" alt="알찬 사과배선물세트"></div><div class="product-info"><div class="product-name">알찬 사과배 선물세트</div><div class="product-prices"><span class="price-member">31,900원</span><span class="price-original">35,500원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div>
+            <div class="product-card"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58806C.jpg" alt="상주골 곶감모둠세트"></div><div class="product-info"><div class="product-name">상주골 곶감모둠세트</div><div class="product-prices"><span class="price-member">68,000원</span><span class="price-original">75,500원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div>
+        </div>
+        <p class="swipe-hint">← 좌우로 스와이프 →</p>
+    </div>
+
+    <!-- 카드 7: 축산 선물세트 -->
+    <div class="card card-category" data-i="7">
+        <div class="category-header">
+            <div class="category-icon">🥩</div>
+            <h2 class="category-title">축산 선물세트</h2>
+            <p class="category-subtitle">한우</p>
+        </div>
+        <div class="products-slider">
+            <div class="product-card"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/25970C.jpg" alt="한우 으뜸등심세트"></div><div class="product-info"><div class="product-name">한우 으뜸등심세트(암소)</div><div class="product-prices"><span class="price-member">283,500원</span><span class="price-original">315,000원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div>
+            <div class="product-card"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/36429C.jpg" alt="한우 眞갈비세트1호"></div><div class="product-info"><div class="product-name">한우 眞갈비 세트 1호</div><div class="product-prices"><span class="price-member">265,500원</span><span class="price-original">295,000원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div>
+            <div class="product-card"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/15634C.jpg" alt="한우정성정육세트2호"></div><div class="product-info"><div class="product-name">한우 정성정육세트 2호</div><div class="product-prices"><span class="price-member">171,000원</span><span class="price-original">190,000원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div>
+        </div>
+        <p class="swipe-hint">← 좌우로 스와이프 →</p>
+    </div>
+
+    <!-- 카드 8: 수산 선물세트 -->
+    <div class="card card-category" data-i="8">
+        <div class="category-header">
+            <div class="category-icon">🐟</div>
+            <h2 class="category-title">수산 선물세트</h2>
+            <p class="category-subtitle">굴비, 멸치</p>
+        </div>
+        <div class="products-slider">
+            <div class="product-card"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/28832C.jpg" alt="영광법성포굴비2호"></div><div class="product-info"><div class="product-name">영광법성포굴비 2호</div><div class="product-prices"><span class="price-member">256,500원</span><span class="price-original">285,000원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div>
+            <div class="product-card"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/1563C.jpg" alt="영광법성포굴비1호"></div><div class="product-info"><div class="product-name">영광법성포굴비 1호</div><div class="product-prices"><span class="price-member">97,200원</span><span class="price-original">108,000원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div>
+            <div class="product-card"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/37852C.jpg" alt="민어굴비세트"></div><div class="product-info"><div class="product-name">민어굴비세트 1호</div><div class="product-prices"><span class="price-member">85,500원</span><span class="price-original">95,000원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div>
+            <div class="product-card"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/28875C.jpg" alt="남해바다멸치"></div><div class="product-info"><div class="product-name">남해바다 멸치 2호</div><div class="product-prices"><span class="price-member">62,500원</span><span class="price-original">69,500원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div>
+        </div>
+        <p class="swipe-hint">← 좌우로 스와이프 →</p>
+    </div>
+
+    <!-- 카드 9: 건강식품 -->
+    <div class="card card-category" data-i="9">
+        <div class="category-header">
+            <div class="category-icon">🍯</div>
+            <h2 class="category-title">건강식품 선물세트</h2>
+            <p class="category-subtitle">홍삼, 꿀, 견과류</p>
+        </div>
+        <div class="products-slider">
+            <div class="product-card"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/6116C.png" alt="6년근홍삼엑기스"></div><div class="product-info"><div class="product-name">6년근 홍삼엑기스(60팩)</div><div class="product-prices"><span class="price-member">130,900원</span><span class="price-original">145,500원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div>
+            <div class="product-card"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/9966C.png" alt="아카시아꿀세트"></div><div class="product-info"><div class="product-name">아카시아꿀 선물세트</div><div class="product-prices"><span class="price-member">68,400원</span><span class="price-original">76,000원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div>
+            <div class="product-card"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/3069C.jpg" alt="녹용엑기스여성"></div><div class="product-info"><div class="product-name">녹용엑기스(여성/60팩)</div><div class="product-prices"><span class="price-member">128,600원</span><span class="price-original">143,000원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div>
+            <div class="product-card"><div class="product-image"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/25927C.jpg" alt="잣선물세트"></div><div class="product-info"><div class="product-name">잣 선물세트</div><div class="product-prices"><span class="price-member">117,000원</span><span class="price-original">130,000원</span><span class="discount-badge">10%</span></div><a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="buy-btn">🛒 구매하기</a></div></div>
+        </div>
+        <p class="swipe-hint">← 좌우로 스와이프 →</p>
+    </div>
+
+    <!-- 카드 10: 안내/CTA -->
+    <div class="card card-info" data-i="10">
+        <div class="info-box">
+            <h3 class="info-title">📅 주문 안내</h3>
             <ul class="info-list">
-                <li><strong>기획전 기간</strong>: 2026.01.15(목) ~ 02.10(화) 오전 11시 30분</li>
-                <li><strong>쿠폰 사용기간</strong>: 2026.01.19 ~ 02.10</li>
-                <li>선물세트 배송일은 쇼핑몰을 확인해 주세요.</li>
+                <li><strong>기획전 기간</strong><br>2026.01.15(목) ~ 02.10(화)</li>
+                <li><strong>쿠폰 사용기간</strong><br>2026.01.19 ~ 02.10</li>
+                <li>선물세트 배송일은<br>쇼핑몰을 확인해 주세요.</li>
             </ul>
-        </div>
-
-        <!-- CTA -->
-        <div class="cta-section">
             <a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" target="_blank" class="cta-button">🛒 전체 선물세트 보러가기</a>
-        </div>
-
-        <!-- 푸터 -->
-        <div class="footer">
-            <div class="footer-highlight">🧧 이번 설, 두레생협의 건강한 먹거리로<br>사랑하는 분들께 마음을 전하세요.</div>
-            <p>두레생협연합회</p>
         </div>
     </div>
 
     <script>
-        // 슬라이더 상태 관리
-        const sliderState = {};
+        // 도트 네비게이션
+        const cards = document.querySelectorAll('.card');
+        const dots = document.querySelectorAll('.dot');
 
-        // 슬라이더 초기화
-        function initSlider(sliderId) {
-            const container = document.getElementById(sliderId);
-            const slider = container.querySelector('.card-slider');
-            const wrapper = slider.querySelector('.cards-wrapper');
-            const cards = wrapper.querySelectorAll('.product-card');
-            const dotsContainer = document.getElementById('dots-' + sliderId);
-
-            sliderState[sliderId] = { currentIndex: 0, totalCards: cards.length };
-
-            // 도트 생성
-            dotsContainer.innerHTML = '';
-            for (let i = 0; i < cards.length; i++) {
-                const dot = document.createElement('span');
-                dot.className = 'dot' + (i === 0 ? ' active' : '');
-                dot.onclick = () => goToSlide(sliderId, i);
-                dotsContainer.appendChild(dot);
-            }
-
-            // 터치 이벤트
-            let startX, startY, isDragging = false, currentX;
-
-            slider.addEventListener('touchstart', (e) => {
-                startX = e.touches[0].clientX;
-                startY = e.touches[0].clientY;
-                isDragging = true;
-                wrapper.style.transition = 'none';
-            }, { passive: true });
-
-            slider.addEventListener('touchmove', (e) => {
-                if (!isDragging) return;
-                currentX = e.touches[0].clientX;
-                const diffX = currentX - startX;
-                const diffY = e.touches[0].clientY - startY;
-
-                if (Math.abs(diffX) > Math.abs(diffY)) {
-                    const offset = -sliderState[sliderId].currentIndex * 100 + (diffX / slider.offsetWidth) * 100;
-                    wrapper.style.transform = `translateX(${offset}%)`;
-                }
-            }, { passive: true });
-
-            slider.addEventListener('touchend', (e) => {
-                if (!isDragging) return;
-                isDragging = false;
-                wrapper.style.transition = 'transform 0.3s ease-out';
-
-                const diffX = currentX - startX;
-                if (Math.abs(diffX) > 50) {
-                    if (diffX > 0 && sliderState[sliderId].currentIndex > 0) {
-                        prevSlide(sliderId);
-                    } else if (diffX < 0 && sliderState[sliderId].currentIndex < sliderState[sliderId].totalCards - 1) {
-                        nextSlide(sliderId);
-                    } else {
-                        updateSlider(sliderId);
-                    }
-                } else {
-                    updateSlider(sliderId);
+        // Intersection Observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const i = entry.target.dataset.i;
+                    dots.forEach((dot, idx) => {
+                        dot.classList.toggle('active', idx == i);
+                    });
                 }
             });
-        }
+        }, { threshold: 0.5 });
 
-        function updateSlider(sliderId) {
-            const container = document.getElementById(sliderId);
-            const wrapper = container.querySelector('.cards-wrapper');
-            const dots = container.querySelectorAll('.dot');
-            const index = sliderState[sliderId].currentIndex;
+        cards.forEach(card => observer.observe(card));
 
-            wrapper.style.transform = `translateX(-${index * 100}%)`;
-            dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
-        }
+        // 도트 클릭
+        dots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                const i = dot.dataset.i;
+                cards[i].scrollIntoView({ behavior: 'smooth' });
+            });
+        });
 
-        function prevSlide(sliderId) {
-            if (sliderState[sliderId].currentIndex > 0) {
-                sliderState[sliderId].currentIndex--;
-                updateSlider(sliderId);
-            }
-        }
-
-        function nextSlide(sliderId) {
-            if (sliderState[sliderId].currentIndex < sliderState[sliderId].totalCards - 1) {
-                sliderState[sliderId].currentIndex++;
-                updateSlider(sliderId);
-            }
-        }
-
-        function goToSlide(sliderId, index) {
-            sliderState[sliderId].currentIndex = index;
-            updateSlider(sliderId);
-        }
-
-        function showSlider(sliderId, btn) {
-            // 모든 슬라이더 숨기기
-            document.querySelectorAll('.card-slider-container').forEach(c => c.classList.remove('active'));
-            document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
-
-            // 선택된 슬라이더 표시
-            document.getElementById(sliderId).classList.add('active');
-            btn.classList.add('active');
-
-            // 슬라이더 초기화
-            if (!sliderState[sliderId]) {
-                initSlider(sliderId);
-            }
-
-            // 스크롤
-            setTimeout(() => {
-                document.getElementById(sliderId).scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 100);
-        }
-
-        function hideSlider(sliderId) {
-            document.getElementById(sliderId).classList.remove('active');
-            document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
-        }
-
-        // 쿠폰 관련 함수
+        // 쿠폰 열기
         function openEnvelope() {
-            const envelope = document.getElementById('envelope');
-            const couponPopup = document.getElementById('couponPopup');
-            const poof = document.getElementById('poof');
-            const sparkles = document.getElementById('sparkles');
-
-            envelope.style.display = 'none';
-            poof.classList.add('show');
-            createSparkles(sparkles);
-
-            setTimeout(() => couponPopup.classList.add('show'), 300);
-            setTimeout(() => poof.classList.remove('show'), 800);
-        }
-
-        function createSparkles(container) {
-            const emojis = ['✨', '⭐', '🌟', '💫', '🎊', '🎉', '💝', '🧧'];
-            for (let i = 0; i < 20; i++) {
-                const sparkle = document.createElement('span');
-                sparkle.className = 'sparkle';
-                sparkle.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-                sparkle.style.left = Math.random() * 100 + '%';
-                sparkle.style.top = Math.random() * 50 + '%';
-                sparkle.style.animationDelay = Math.random() * 0.5 + 's';
-                container.appendChild(sparkle);
-                setTimeout(() => sparkle.classList.add('animate'), 10);
-                setTimeout(() => sparkle.remove(), 1500);
-            }
+            document.getElementById('envelope').style.display = 'none';
+            document.getElementById('couponPopup').classList.add('show');
         }
     </script>
 </body>
