@@ -2,18 +2,10 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>품질인증 오징어 - 두레생협 생활의 발견</title>
-    <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>생활의 발견 - 품질인증 오징어</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Serif+KR:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --red: #c41230;
-            --blue: #1a4e6e;
-            --gold: #b8860b;
-            --cream: #fdfbf7;
-            --dark-blue: #0d2a3d;
-        }
-
         * {
             margin: 0;
             padding: 0;
@@ -22,740 +14,973 @@
 
         body {
             font-family: 'Noto Sans KR', sans-serif;
-            background: var(--cream);
-            color: #333;
+            background-color: #f8f6f3;
+            color: #2c2c2c;
             line-height: 1.8;
-            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
         }
 
         .container {
             max-width: 480px;
             margin: 0 auto;
             background: #fff;
-            position: relative;
-        }
-
-        /* 고정 헤더 */
-        .header {
-            position: fixed;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100%;
-            max-width: 480px;
-            z-index: 1000;
-            background: var(--blue);
-            text-align: center;
-            padding: 8px 0;
-        }
-
-        .header-top {
-            font-size: 11px;
-            color: rgba(255,255,255,0.9);
-            letter-spacing: 0.5px;
-        }
-
-        .header-title {
-            font-size: 14px;
-            font-weight: 700;
-            color: #fff;
-            margin-top: 2px;
-        }
-
-        /* 스크롤 인디케이터 */
-        .scroll-indicator {
-            position: fixed;
-            right: calc(50% - 230px);
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            z-index: 999;
-        }
-
-        .dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 4px;
-            background: rgba(26, 78, 110, 0.3);
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .dot.active {
-            height: 20px;
-            background: var(--blue);
-        }
-
-        /* 섹션 공통 */
-        section {
-            padding: 60px 24px;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .section-number {
-            font-family: 'Nanum Myeongjo', serif;
-            font-size: 12px;
-            color: var(--gold);
-            letter-spacing: 2px;
-            margin-bottom: 16px;
-        }
-
-        .section-title {
-            font-family: 'Nanum Myeongjo', serif;
-            font-size: 26px;
-            font-weight: 700;
-            line-height: 1.4;
-            margin-bottom: 20px;
-            color: #1a1a1a;
-            word-break: keep-all;
-        }
-
-        .section-desc {
-            font-size: 15px;
-            color: #555;
-            line-height: 1.9;
-            word-break: keep-all;
-        }
-
-        .highlight {
-            color: var(--blue);
-            font-weight: 700;
-        }
-
-        .highlight-gold {
-            color: var(--gold);
-            font-weight: 700;
-        }
-
-        /* 섹션 배경 */
-        .card-cream {
-            background: var(--cream);
-        }
-
-        .card-light {
-            background: #fff;
-        }
-
-        .card-dark {
-            background: linear-gradient(180deg, var(--dark-blue) 0%, var(--blue) 100%);
-            color: #fff;
-        }
-
-        .card-dark .section-title {
-            color: #fff;
-        }
-
-        .card-dark .section-desc {
-            color: rgba(255,255,255,0.85);
+            overflow: hidden;
         }
 
         /* 히어로 섹션 */
         .hero {
-            padding-top: 100px;
+            position: relative;
+            height: 100vh;
+            min-height: 600px;
+            background: linear-gradient(180deg, #1a2a4a 0%, #2d4a6b 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             text-align: center;
-            background: linear-gradient(180deg, var(--blue) 0%, var(--dark-blue) 100%);
-            color: #fff;
+            padding: 40px 30px;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="0.5"/></svg>');
+            background-size: 200px;
+            opacity: 0.5;
         }
 
         .hero-badge {
             display: inline-block;
-            background: var(--gold);
-            color: #fff;
+            padding: 8px 20px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 30px;
             font-size: 12px;
-            font-weight: 700;
-            padding: 6px 16px;
-            border-radius: 20px;
-            margin-bottom: 24px;
-            letter-spacing: 1px;
+            letter-spacing: 3px;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 1;
         }
 
-        .hero .section-title {
+        .hero-title {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 15px;
+            font-weight: 400;
+            color: rgba(255,255,255,0.7);
+            letter-spacing: 8px;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-main {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 42px;
+            font-weight: 700;
             color: #fff;
-            font-size: 32px;
-            margin-bottom: 12px;
+            line-height: 1.3;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
         }
 
         .hero-sub {
             font-size: 16px;
             color: rgba(255,255,255,0.8);
-            margin-bottom: 32px;
+            font-weight: 300;
+            line-height: 1.9;
+            position: relative;
+            z-index: 1;
         }
 
-        .hero-price {
-            margin-top: 24px;
-        }
-
-        .price-original {
-            font-size: 14px;
+        .hero-scroll {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
             color: rgba(255,255,255,0.5);
-            text-decoration: line-through;
-        }
-
-        .price-sale {
-            font-size: 36px;
-            font-weight: 700;
-            color: #fff;
-        }
-
-        .price-discount {
-            display: inline-block;
-            background: var(--red);
-            color: #fff;
-            font-size: 14px;
-            font-weight: 700;
-            padding: 4px 10px;
-            border-radius: 4px;
-            margin-left: 8px;
-        }
-
-        .scroll-hint {
-            margin-top: 40px;
+            font-size: 12px;
+            letter-spacing: 2px;
             animation: bounce 2s infinite;
         }
 
-        .scroll-hint span {
-            display: block;
-            font-size: 12px;
-            color: rgba(255,255,255,0.6);
-            margin-bottom: 8px;
-        }
-
-        .scroll-arrow {
-            width: 24px;
-            height: 24px;
-            border-right: 2px solid rgba(255,255,255,0.6);
-            border-bottom: 2px solid rgba(255,255,255,0.6);
-            transform: rotate(45deg);
-            margin: 0 auto;
-        }
-
         @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-10px); }
-            60% { transform: translateY(-5px); }
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
         }
 
-        /* 이미지 */
-        .section-image {
-            width: calc(100% + 48px);
-            margin: 24px -24px;
-            height: 240px;
-            object-fit: cover;
+        /* 인트로 섹션 */
+        .intro {
+            padding: 80px 30px;
+            background: #fff;
+            text-align: center;
         }
 
-        .image-full {
-            width: 100%;
-            margin: 24px 0;
-            border-radius: 8px;
-        }
-
-        .hero-image {
-            width: calc(100% + 48px);
-            margin: 32px -24px 0;
-            height: 280px;
-            object-fit: cover;
-        }
-
-        .section-image-rounded {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 12px;
-            margin: 24px 0;
-        }
-
-        /* 포인트 리스트 */
-        .point-list {
-            margin-top: 24px;
-        }
-
-        .point-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
+        .intro-label {
+            font-size: 11px;
+            letter-spacing: 4px;
+            color: #2d4a6b;
             margin-bottom: 20px;
-            padding: 16px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 8px;
+            font-weight: 500;
         }
 
-        .card-light .point-item,
-        .card-cream .point-item {
-            background: rgba(26, 78, 110, 0.05);
+        .intro-title {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 26px;
+            font-weight: 600;
+            color: #1a1a1a;
+            line-height: 1.6;
+            margin-bottom: 30px;
         }
 
-        .point-number {
-            flex-shrink: 0;
-            width: 28px;
-            height: 28px;
-            background: var(--gold);
-            color: #fff;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            font-weight: 700;
-        }
-
-        .point-text {
-            font-size: 15px;
-            line-height: 1.7;
-        }
-
-        .point-text strong {
-            display: block;
-            font-size: 16px;
-            margin-bottom: 4px;
-            color: var(--blue);
-        }
-
-        .card-dark .point-text strong {
-            color: var(--gold);
-        }
-
-        /* 프로세스 */
-        .process-list {
-            margin-top: 24px;
-        }
-
-        .process-item {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            padding: 16px 0;
-            border-bottom: 1px solid rgba(0,0,0,0.08);
-        }
-
-        .process-step {
-            flex-shrink: 0;
+        .intro-divider {
             width: 40px;
-            height: 40px;
-            background: var(--blue);
-            color: #fff;
-            border-radius: 50%;
+            height: 1px;
+            background: #2d4a6b;
+            margin: 0 auto 30px;
+        }
+
+        .intro-text {
+            font-size: 15px;
+            color: #666;
+            line-height: 2;
+            font-weight: 300;
+        }
+
+        /* 이미지 섹션 */
+        .full-image {
+            width: 100%;
+            display: block;
+        }
+
+        .full-image img {
+            width: 100%;
+            display: block;
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, #2d4a6b 0%, #1a2a4a 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: 'Nanum Myeongjo', serif;
-            font-size: 16px;
-            font-weight: 700;
+            color: rgba(255,255,255,0.5);
+            font-size: 14px;
         }
 
-        .process-text {
+        /* 스토리 섹션 */
+        .story {
+            padding: 70px 30px;
+            background: #f8f6f3;
+        }
+
+        .story-number {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 48px;
+            color: rgba(45, 74, 107, 0.15);
+            font-weight: 700;
+            margin-bottom: -10px;
+        }
+
+        .story-title {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 24px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .story-highlight {
+            color: #2d4a6b;
+        }
+
+        .story-text {
             font-size: 15px;
+            color: #555;
+            line-height: 2;
+            font-weight: 300;
         }
 
-        .process-text strong {
-            display: block;
-            font-weight: 700;
+        .story-white {
+            background: #fff;
+        }
+
+        /* 감성 인용 */
+        .quote-section {
+            padding: 80px 30px;
+            background: #2d4a6b;
+            text-align: center;
+        }
+
+        .quote-mark {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 60px;
+            color: rgba(255,255,255,0.2);
+            line-height: 1;
+            margin-bottom: 20px;
+        }
+
+        .quote-text {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 20px;
+            color: #fff;
+            line-height: 1.9;
+            font-weight: 400;
+        }
+
+        .quote-author {
+            margin-top: 30px;
+            font-size: 13px;
+            color: rgba(255,255,255,0.6);
+            letter-spacing: 2px;
+        }
+
+        /* 특징 카드 */
+        .features {
+            padding: 70px 30px;
+            background: #fff;
+        }
+
+        .features-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .features-label {
+            font-size: 11px;
+            letter-spacing: 4px;
+            color: #2d4a6b;
+            margin-bottom: 15px;
+        }
+
+        .features-title {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 26px;
+            font-weight: 600;
             color: #1a1a1a;
         }
 
-        /* 레시피 카드 */
-        .recipe-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-top: 24px;
+        .feature-card {
+            background: #f8f6f3;
+            border-radius: 16px;
+            padding: 35px 25px;
+            margin-bottom: 20px;
         }
 
-        .recipe-card {
-            background: #fff;
-            border-radius: 12px;
-            padding: 20px 16px;
-            text-align: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: #2d4a6b;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 20px;
         }
 
-        .recipe-icon {
-            font-size: 32px;
-            margin-bottom: 8px;
+        .feature-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 12px;
         }
 
-        .recipe-name {
+        .feature-desc {
             font-size: 14px;
-            font-weight: 700;
-            color: var(--blue);
+            color: #666;
+            line-height: 1.8;
+            font-weight: 300;
         }
 
-        /* 상품 정보 테이블 */
-        .info-table {
-            margin-top: 24px;
-            border-top: 2px solid var(--blue);
+        /* 프로세스 */
+        .process {
+            padding: 70px 30px;
+            background: linear-gradient(180deg, #f8f6f3 0%, #fff 100%);
+        }
+
+        .process-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .process-step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 25px;
+        }
+
+        .step-number {
+            width: 36px;
+            height: 36px;
+            background: #2d4a6b;
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 600;
+            flex-shrink: 0;
+            margin-right: 18px;
+        }
+
+        .step-content h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 5px;
+        }
+
+        .step-content p {
+            font-size: 13px;
+            color: #888;
+            font-weight: 300;
+        }
+
+        /* 신뢰 섹션 */
+        .trust {
+            padding: 70px 30px;
+            background: #1a2a4a;
+            text-align: center;
+        }
+
+        .trust-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 24px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 30px;
+            margin-bottom: 30px;
+        }
+
+        .trust-badge span {
+            color: #fff;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .trust-title {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 28px;
+            color: #fff;
+            font-weight: 600;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .trust-text {
+            font-size: 14px;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.9;
+            font-weight: 300;
+        }
+
+        /* 제품 정보 */
+        .product-info {
+            padding: 60px 30px;
+            background: #fff;
         }
 
         .info-row {
             display: flex;
+            justify-content: space-between;
+            padding: 18px 0;
             border-bottom: 1px solid #eee;
         }
 
         .info-label {
-            flex-shrink: 0;
-            width: 100px;
-            padding: 14px 12px;
-            background: #f8f8f8;
-            font-size: 13px;
-            font-weight: 500;
-            color: #666;
+            font-size: 14px;
+            color: #888;
         }
 
         .info-value {
-            flex: 1;
-            padding: 14px 12px;
             font-size: 14px;
-            color: #333;
+            color: #1a1a1a;
+            font-weight: 500;
+            text-align: right;
         }
 
-        /* 주문 버튼 */
-        .order-btn {
-            display: block;
-            width: 100%;
-            padding: 18px;
-            background: var(--blue);
-            color: #fff;
+        /* CTA */
+        .cta {
+            padding: 60px 30px 80px;
+            background: linear-gradient(180deg, #fff 0%, #f8f6f3 100%);
             text-align: center;
-            text-decoration: none;
-            font-size: 16px;
+        }
+
+        .cta-text {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 22px;
+            color: #1a1a1a;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+
+        .cta-price {
+            font-size: 32px;
             font-weight: 700;
-            border-radius: 8px;
-            margin-top: 24px;
+            color: #2d4a6b;
+            margin-bottom: 10px;
+        }
+
+        .cta-original {
+            font-size: 16px;
+            color: #999;
+            text-decoration: line-through;
+            margin-bottom: 5px;
+        }
+
+        .cta-unit {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 30px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 18px 50px;
+            background: #2d4a6b;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 15px;
+            font-weight: 500;
+            letter-spacing: 1px;
             transition: all 0.3s ease;
         }
 
-        .order-btn:hover {
-            background: var(--dark-blue);
+        .cta-button:hover {
+            background: #1a2a4a;
             transform: translateY(-2px);
-        }
-
-        .order-btn-light {
-            background: #fff;
-            color: var(--blue);
-            border: 2px solid var(--blue);
-        }
-
-        .order-btn-light:hover {
-            background: var(--blue);
-            color: #fff;
         }
 
         /* 푸터 */
         .footer {
+            padding: 40px 30px;
+            background: #1a1a1a;
             text-align: center;
-            padding: 40px 24px;
-            background: #f5f5f5;
+        }
+
+        .footer-logo {
+            font-size: 14px;
+            color: rgba(255,255,255,0.5);
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+        }
+
+        .footer-text {
             font-size: 12px;
-            color: #999;
+            color: rgba(255,255,255,0.3);
         }
 
-        /* 인용문 */
-        .quote-box {
-            background: rgba(255,255,255,0.1);
-            border-left: 3px solid var(--gold);
-            padding: 20px 24px;
-            margin: 24px 0;
-            font-family: 'Nanum Myeongjo', serif;
-            font-size: 18px;
-            line-height: 1.8;
+        /* 퀴즈 섹션 */
+        .quiz {
+            padding: 70px 30px;
+            background: linear-gradient(135deg, #f0f4f8 0%, #e8f0e8 100%);
         }
 
-        .card-light .quote-box,
-        .card-cream .quote-box {
-            background: rgba(26, 78, 110, 0.05);
+        .quiz-header {
+            text-align: center;
+            margin-bottom: 40px;
         }
 
-        @media (max-width: 480px) {
-            .scroll-indicator {
-                right: 12px;
-            }
+        .quiz-label {
+            font-size: 11px;
+            letter-spacing: 4px;
+            color: #2d4a6b;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .quiz-title {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 24px;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .quiz-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 30px 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .quiz-question {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .quiz-question em {
+            color: #2d4a6b;
+            font-style: normal;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .quiz-option {
+            padding: 16px 20px;
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            font-size: 15px;
+            color: #333;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+
+        .quiz-option:hover {
+            border-color: #2d4a6b;
+            background: #f0f4f8;
+        }
+
+        .quiz-option.selected {
+            border-color: #2d4a6b;
+            background: #e8f0f8;
+        }
+
+        .quiz-option.correct {
+            border-color: #28a745;
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .quiz-option.wrong {
+            border-color: #dc3545;
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .quiz-result {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            display: none;
+        }
+
+        .quiz-result.show {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .quiz-result.correct {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+        }
+
+        .quiz-result.wrong {
+            background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+        }
+
+        .quiz-result-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .quiz-result-text {
+            font-size: 15px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .quiz-result-desc {
+            font-size: 13px;
+            color: #555;
+            line-height: 1.7;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- 고정 헤더 -->
-        <header class="header">
-            <div class="header-top">생활의 발견 7주차</div>
-            <div class="header-title">품질인증 오징어 (900g)</div>
-        </header>
-
-        <!-- 스크롤 인디케이터 -->
-        <nav class="scroll-indicator">
-            <div class="dot active" data-i="0"></div>
-            <div class="dot" data-i="1"></div>
-            <div class="dot" data-i="2"></div>
-            <div class="dot" data-i="3"></div>
-            <div class="dot" data-i="4"></div>
-            <div class="dot" data-i="5"></div>
-            <div class="dot" data-i="6"></div>
-            <div class="dot" data-i="7"></div>
-        </nav>
-
-        <!-- 섹션 1: 히어로 -->
-        <section class="hero" data-section="0">
-            <span class="hero-badge">조합원 10% 할인</span>
-            <h1 class="section-title">여수 바다가 키운<br>쫄깃한 오징어</h1>
-            <p class="hero-sub">품질인증 오징어 900g</p>
-            <div class="hero-price">
-                <span class="price-original">27,800원</span><br>
-                <span class="price-sale">25,000원</span>
-                <span class="price-discount">10%</span>
-            </div>
-            <div class="scroll-hint">
-                <span>아래로 스크롤</span>
-                <div class="scroll-arrow"></div>
-            </div>
-            <img src="https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?w=600&q=80" alt="신선한 오징어" class="hero-image">
-        </section>
-
-        <!-- 섹션 2: 차별점 질문 -->
-        <section class="card-cream" data-section="1">
-            <p class="section-number">QUESTION</p>
-            <h2 class="section-title">마트에서 파는<br>냉동 오징어와<br>뭐가 다른가요?</h2>
-            <p class="section-desc">
-                똑같이 생긴 냉동 오징어,<br>
-                하지만 <span class="highlight">냉동 방식</span>이 다르면<br>
-                <span class="highlight">맛과 식감</span>이 완전히 달라집니다.
+        <!-- 히어로 -->
+        <section class="hero">
+            <span class="hero-badge">2026 WEEK 07</span>
+            <p class="hero-title">생활의 발견</p>
+            <h1 class="hero-main">
+                바다의<br>
+                쫄깃함을<br>
+                그대로
+            </h1>
+            <p class="hero-sub">
+                잡은 그 순간의 신선함<br>
+                IQF 급속냉동으로<br>
+                식탁까지 온전히
             </p>
-            <a href="https://www.ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=58898" class="order-btn order-btn-light">주문하러 가기 →</a>
+            <div class="hero-scroll">SCROLL</div>
         </section>
 
-        <!-- 섹션 3: IQF 설명 -->
-        <section class="card-light" data-section="2">
-            <p class="section-number">ANSWER 01</p>
-            <h2 class="section-title">IQF 개별급속동결,<br>그 차이를 아시나요?</h2>
-            <p class="section-desc">
-                일반 냉동은 오징어를 한꺼번에 얼립니다.<br>
-                이 과정에서 세포가 파괴되고,<br>
-                해동 후 <span class="highlight-gold">물이 빠지며 식감이 흐물흐물</span>해지죠.
+        <!-- 인트로 -->
+        <section class="intro">
+            <p class="intro-label">QUALITY SQUID</p>
+            <h2 class="intro-title">
+                냉동 오징어,<br>
+                다 같은 줄 아셨나요?
+            </h2>
+            <div class="intro-divider"></div>
+            <p class="intro-text">
+                마트에서 집어든 냉동 오징어,<br>
+                해동하면 물이 줄줄 빠지고<br>
+                질겨서 씹히지도 않던 경험.<br><br>
+                그건 오징어의 문제가 아닙니다.<br>
+                어떻게 얼렸느냐의 문제입니다.
             </p>
-            <div class="quote-box">
-                "IQF는 낱개로 급속 냉동합니다.<br>
-                세포 손상 없이 <strong>갓 잡은 신선함</strong>을<br>
-                그대로 간직합니다."
-            </div>
-            <p class="section-desc">
-                해동해도 <span class="highlight">쫄깃한 식감</span>이 살아있는 이유,<br>
-                바로 IQF 방식 덕분입니다.
+        </section>
+
+        <!-- 이미지 1 -->
+        <div class="full-image">
+            <img src="seo1.gif" alt="서풍 소개">
+        </div>
+
+        <!-- 스토리 1 -->
+        <section class="story">
+            <p class="story-number">01</p>
+            <h3 class="story-title">
+                IQF,<br>
+                <span class="story-highlight">개별급속냉동</span>의 비밀
+            </h3>
+            <p class="story-text">
+                일반 냉동은 천천히 얼립니다.<br>
+                그 사이 세포가 터지고, 육즙이 빠져나갑니다.<br><br>
+                IQF는 다릅니다.<br>
+                영하 40도에서 순식간에 얼려<br>
+                세포막을 그대로 보존합니다.<br><br>
+                그래서 해동해도<br>
+                <strong>쫄깃함이 살아있습니다.</strong>
             </p>
-            <img src="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=600&q=80" alt="오징어 요리" class="section-image-rounded">
         </section>
 
-        <!-- 섹션 4: 두레생협 차별성 -->
-        <section class="card-dark" data-section="3">
-            <p class="section-number">WHY DURE</p>
-            <h2 class="section-title">두레생협 오징어가<br>특별한 4가지 이유</h2>
-            <div class="point-list">
-                <div class="point-item">
-                    <span class="point-number">1</span>
-                    <div class="point-text">
-                        <strong>청정 여수 앞바다</strong>
-                        전남 여수시 근해에서 어획한<br>국내산 오징어만 사용합니다.
-                    </div>
-                </div>
-                <div class="point-item">
-                    <span class="point-number">2</span>
-                    <div class="point-text">
-                        <strong>품질인증 마크</strong>
-                        두레생협의 엄격한 품질 기준을<br>통과한 인증 상품입니다.
-                    </div>
-                </div>
-                <div class="point-item">
-                    <span class="point-number">3</span>
-                    <div class="point-text">
-                        <strong>수산물이력제</strong>
-                        어획부터 유통까지 전 과정을<br>투명하게 추적할 수 있습니다.
-                    </div>
-                </div>
-                <div class="point-item">
-                    <span class="point-number">4</span>
-                    <div class="point-text">
-                        <strong>믿을 수 있는 생산자</strong>
-                        영어조합법인 서풍이<br>정성껏 가공합니다.
-                    </div>
-                </div>
-            </div>
-        </section>
+        <!-- 이미지 2 -->
+        <div class="full-image">
+            <img src="seo2.jpg" alt="서풍 이야기">
+        </div>
 
-        <!-- 섹션 5: 생산자 소개 -->
-        <section class="card-cream" data-section="4">
-            <p class="section-number">PRODUCER</p>
-            <h2 class="section-title">영어조합법인 서풍,<br>바다를 잇는 사람들</h2>
-            <p class="section-desc">
-                전남 여수에서 수산물을 가공하는<br>
-                <span class="highlight">영어조합법인 서풍</span>.<br><br>
-                두레생협과 함께 굴비, 오징어 등<br>
-                다양한 수산물을 조합원에게 전합니다.<br><br>
-                <span class="highlight-gold">"바다의 신선함을 식탁까지"</span><br>
-                서풍의 변함없는 약속입니다.
+        <!-- 감성 인용 -->
+        <section class="quote-section">
+            <p class="quote-mark">"</p>
+            <p class="quote-text">
+                좋은 오징어는<br>
+                해동해도 물이 안 빠집니다<br>
+                그게 진짜 신선한 겁니다
             </p>
-            <a href="https://www.ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=58898" class="order-btn">주문하러 가기 →</a>
+            <p class="quote-author">- 영어조합법인 서풍 -</p>
         </section>
 
-        <!-- 섹션 6: 가공 과정 -->
-        <section class="card-light" data-section="5">
-            <p class="section-number">PROCESS</p>
-            <h2 class="section-title">신선함을 지키는<br>5단계 공정</h2>
-            <img src="https://images.unsplash.com/photo-1579631542720-3a87824fff86?w=600&q=80" alt="수산물 가공" class="section-image-rounded">
-            <div class="process-list">
-                <div class="process-item">
-                    <span class="process-step">1</span>
-                    <div class="process-text">
-                        <strong>어획</strong>
-                        여수 근해에서 싱싱한 오징어 포획
-                    </div>
-                </div>
-                <div class="process-item">
-                    <span class="process-step">2</span>
-                    <div class="process-text">
-                        <strong>선별</strong>
-                        크기와 상태를 꼼꼼히 검수
-                    </div>
-                </div>
-                <div class="process-item">
-                    <span class="process-step">3</span>
-                    <div class="process-text">
-                        <strong>손질</strong>
-                        내장 제거 후 깨끗이 세척
-                    </div>
-                </div>
-                <div class="process-item">
-                    <span class="process-step">4</span>
-                    <div class="process-text">
-                        <strong>IQF 급속냉동</strong>
-                        개별 급속동결로 신선도 유지
-                    </div>
-                </div>
-                <div class="process-item">
-                    <span class="process-step">5</span>
-                    <div class="process-text">
-                        <strong>포장</strong>
-                        900g 단위로 위생 포장
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 섹션 7: 레시피 -->
-        <section class="card-cream" data-section="6">
-            <p class="section-number">RECIPE</p>
-            <h2 class="section-title">이렇게 드세요,<br>더 맛있게!</h2>
-            <p class="section-desc">
-                손질된 상태로 배송되어<br>
-                바로 요리할 수 있습니다.
+        <!-- 스토리 2 -->
+        <section class="story story-white">
+            <p class="story-number">02</p>
+            <h3 class="story-title">
+                50년 수산 외길,<br>
+                <span class="story-highlight">서풍의 눈</span>
+            </h3>
+            <p class="story-text">
+                영광 법성포에서<br>
+                2대째 수산업을 이어온 서풍.<br><br>
+                새벽 경매장에서 직접 고르고,<br>
+                가장 신선할 때 바로 손질합니다.<br><br>
+                50년이 만든 '선별의 눈'으로<br>
+                오직 최상급만 골라냅니다.<br><br>
+                위탁이 아닌, <strong>직접 수매</strong>.<br>
+                그것이 서풍의 원칙입니다.
             </p>
-            <div class="recipe-grid">
-                <div class="recipe-card">
-                    <div class="recipe-icon">🍲</div>
-                    <div class="recipe-name">오징어찌개</div>
-                </div>
-                <div class="recipe-card">
-                    <div class="recipe-icon">🥗</div>
-                    <div class="recipe-name">오징어무침</div>
-                </div>
-                <div class="recipe-card">
-                    <div class="recipe-icon">🧈</div>
-                    <div class="recipe-name">버터구이</div>
-                </div>
-                <div class="recipe-card">
-                    <div class="recipe-icon">🍳</div>
-                    <div class="recipe-name">오징어볶음</div>
-                </div>
+        </section>
+
+        <!-- 특징 섹션 -->
+        <section class="features">
+            <div class="features-header">
+                <p class="features-label">WHY DIFFERENT</p>
+                <h3 class="features-title">이 오징어가 다른 이유</h3>
             </div>
-            <div class="quote-box">
-                💡 해동 팁: 흐르는 물에 5분,<br>
-                또는 냉장실에서 하룻밤 해동하세요.
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <span style="color: #fff;">01</span>
+                </div>
+                <h4 class="feature-title">해동해도 쫄깃합니다</h4>
+                <p class="feature-desc">
+                    IQF 개별급속냉동으로 세포막 손상 없이 얼려, 해동 후에도 갓 잡은 오징어처럼 탱탱하고 쫄깃한 식감을 유지합니다.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <span style="color: #fff;">02</span>
+                </div>
+                <h4 class="feature-title">드립이 거의 없습니다</h4>
+                <p class="feature-desc">
+                    급속냉동으로 육즙을 꽉 가두어 해동 시 물 빠짐이 거의 없습니다. 오징어 본연의 감칠맛을 온전히 즐기실 수 있습니다.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <span style="color: #fff;">03</span>
+                </div>
+                <h4 class="feature-title">품질인증 안심 수산물</h4>
+                <p class="feature-desc">
+                    수산물이력제와 품질인증을 통과한 안심 수산물입니다. 어디서 잡혔는지, 어떻게 가공됐는지 투명하게 확인할 수 있습니다.
+                </p>
             </div>
         </section>
 
-        <!-- 섹션 8: 상품 정보 및 CTA -->
-        <section class="card-light" data-section="7">
-            <p class="section-number">ORDER</p>
-            <h2 class="section-title">품질인증 오징어<br>지금 주문하세요</h2>
-            <img src="https://images.unsplash.com/photo-1551326844-4df70f78d0e9?w=600&q=80" alt="포장된 해산물" class="section-image-rounded">
+        <!-- 이미지 3 -->
+        <div class="full-image">
+            <img src="seo3.gif" alt="IQF 급속냉동">
+        </div>
 
-            <div class="info-table">
-                <div class="info-row">
-                    <div class="info-label">상품명</div>
-                    <div class="info-value">품질인증 오징어</div>
-                </div>
-                <div class="info-row">
-                    <div class="info-label">용량</div>
-                    <div class="info-value">900g</div>
-                </div>
-                <div class="info-row">
-                    <div class="info-label">원산지</div>
-                    <div class="info-value">국내산 (전남 여수시)</div>
-                </div>
-                <div class="info-row">
-                    <div class="info-label">생산자</div>
-                    <div class="info-value">영어조합법인 서풍</div>
-                </div>
-                <div class="info-row">
-                    <div class="info-label">보관방법</div>
-                    <div class="info-value">-18℃ 이하 냉동보관</div>
-                </div>
-                <div class="info-row">
-                    <div class="info-label">유통기한</div>
-                    <div class="info-value">포장일로부터 2년</div>
-                </div>
-                <div class="info-row">
-                    <div class="info-label">배송</div>
-                    <div class="info-value">자사배송 (월~금)</div>
+        <!-- 프로세스 -->
+        <section class="process">
+            <div class="process-header">
+                <p class="features-label">FROM SEA TO TABLE</p>
+                <h3 class="features-title">바다에서 식탁까지</h3>
+            </div>
+
+            <div class="process-step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h4>어획</h4>
+                    <p>국내 청정해역에서 갓 잡은 싱싱한 오징어</p>
                 </div>
             </div>
 
-            <div class="hero-price" style="text-align: center; margin: 32px 0;">
-                <span class="price-original" style="color: #999;">정가 27,800원</span><br>
-                <span class="price-sale" style="color: var(--blue);">조합원가 25,000원</span>
-                <span class="price-discount">10%</span>
+            <div class="process-step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h4>선별</h4>
+                    <p>50년 경력의 눈으로 최상급만 직접 선별</p>
+                </div>
             </div>
 
-            <a href="https://www.ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=58898" class="order-btn">주문하러 가기 →</a>
+            <div class="process-step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h4>손질</h4>
+                    <p>신선할 때 바로 세척하고 정성껏 손질</p>
+                </div>
+            </div>
+
+            <div class="process-step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h4>IQF 급속냉동</h4>
+                    <p>개별 급속냉동으로 신선함을 그대로 보존</p>
+                </div>
+            </div>
+
+            <div class="process-step">
+                <div class="step-number">5</div>
+                <div class="step-content">
+                    <h4>포장 & 배송</h4>
+                    <p>냉동 상태 그대로 안전하게 배송</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 이미지 4 -->
+        <div class="full-image">
+            <img src="seo4.jpg" alt="품질인증 오징어">
+        </div>
+
+        <!-- 신뢰 섹션 -->
+        <section class="trust">
+            <div class="trust-badge">
+                <span>품질인증 + 수산물이력제</span>
+            </div>
+            <h3 class="trust-title">
+                믿을 수 있는<br>
+                안심 수산물
+            </h3>
+            <p class="trust-text">
+                품질인증과 수산물이력제를 통해<br>
+                원산지부터 가공까지 투명하게 관리합니다.<br>
+                조합원 여러분께 가장 안전한 수산물을 공급합니다.
+            </p>
+        </section>
+
+        <!-- 활용법 섹션 -->
+        <section class="story story-white">
+            <p class="story-number">TIP</p>
+            <h3 class="story-title">
+                이렇게<br>
+                <span class="story-highlight">드세요</span>
+            </h3>
+            <p class="story-text">
+                <strong>오징어볶음</strong><br>
+                쫄깃한 식감이 살아있어 더 맛있습니다.<br><br>
+                <strong>오징어무침</strong><br>
+                데쳐서 초고추장에 찍어 드세요.<br><br>
+                <strong>버터구이</strong><br>
+                버터에 구우면 고소함이 배가됩니다.<br><br>
+                <strong>해물탕/찌개</strong><br>
+                시원한 국물 요리에 넣어도 좋습니다.
+            </p>
+        </section>
+
+        <!-- 제품 정보 -->
+        <section class="product-info">
+            <div class="info-row">
+                <span class="info-label">상품명</span>
+                <span class="info-value">품질인증 오징어</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">중량</span>
+                <span class="info-value">900g</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">원산지</span>
+                <span class="info-value">국내산</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">생산자</span>
+                <span class="info-value">영어조합법인 서풍</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">보관방법</span>
+                <span class="info-value">-18℃ 이하 냉동보관</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">소비기한</span>
+                <span class="info-value">포장일로부터 2년</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">주의사항</span>
+                <span class="info-value">해동 후 재냉동 금지</span>
+            </div>
+        </section>
+
+        <!-- 퀴즈 -->
+        <section class="quiz">
+            <div class="quiz-header">
+                <p class="quiz-label">QUIZ TIME</p>
+                <h3 class="quiz-title">오늘 배운 내용 퀴즈!</h3>
+            </div>
+
+            <!-- 퀴즈 1 -->
+            <div class="quiz-card" id="quiz1">
+                <p class="quiz-question">Q1. <em>IQF</em>는 무엇의 약자일까요?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(1, this, false)">Instant Quick Freeze</div>
+                    <div class="quiz-option" onclick="checkAnswer(1, this, true)">Individual Quick Frozen (개별급속냉동)</div>
+                    <div class="quiz-option" onclick="checkAnswer(1, this, false)">International Quality Food</div>
+                </div>
+                <div class="quiz-result" id="result1">
+                    <div class="quiz-result-icon"></div>
+                    <p class="quiz-result-text"></p>
+                    <p class="quiz-result-desc">IQF(Individual Quick Frozen)는 개별급속냉동 방식으로, 영하 40도에서 순식간에 얼려 세포막을 보존합니다.</p>
+                </div>
+            </div>
+
+            <!-- 퀴즈 2 -->
+            <div class="quiz-card" id="quiz2">
+                <p class="quiz-question">Q2. 서풍은 몇 년째 수산업을 이어오고 있을까요?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(2, this, false)">30년</div>
+                    <div class="quiz-option" onclick="checkAnswer(2, this, true)">50년</div>
+                    <div class="quiz-option" onclick="checkAnswer(2, this, false)">70년</div>
+                </div>
+                <div class="quiz-result" id="result2">
+                    <div class="quiz-result-icon"></div>
+                    <p class="quiz-result-text"></p>
+                    <p class="quiz-result-desc">영어조합법인 서풍은 2대째 50년간 수산 외길을 걸어온 영광 법성포의 수산 전문 기업입니다.</p>
+                </div>
+            </div>
+
+            <!-- 퀴즈 3 -->
+            <div class="quiz-card" id="quiz3">
+                <p class="quiz-question">Q3. IQF 급속냉동의 가장 큰 장점은?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(3, this, false)">오래 보관할 수 있다</div>
+                    <div class="quiz-option" onclick="checkAnswer(3, this, false)">가격이 저렴하다</div>
+                    <div class="quiz-option" onclick="checkAnswer(3, this, true)">해동해도 쫄깃함이 유지된다</div>
+                </div>
+                <div class="quiz-result" id="result3">
+                    <div class="quiz-result-icon"></div>
+                    <p class="quiz-result-text"></p>
+                    <p class="quiz-result-desc">IQF는 세포막 손상 없이 얼려서 해동 후에도 드립(육즙 손실)이 거의 없고, 쫄깃한 식감이 그대로 유지됩니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta">
+            <p class="cta-text">
+                바다의 신선함을<br>
+                그대로 담은 한 봉지
+            </p>
+            <p class="cta-original">27,800원</p>
+            <p class="cta-price">25,000원</p>
+            <p class="cta-unit">900g / 조합원가</p>
+            <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=58898&returnPlanNo=0" class="cta-button">
+                자세히 보기
+            </a>
         </section>
 
         <!-- 푸터 -->
         <footer class="footer">
-            <p>두레생협연합회 생활의 발견</p>
-            <p style="margin-top: 8px;">© 2026 Dure Coop. All rights reserved.</p>
+            <p class="footer-logo">DURE COOP</p>
+            <p class="footer-text">두레생협 생활의 발견 2026 W07</p>
         </footer>
     </div>
-
     <script>
-        // Intersection Observer로 스크롤 위치 추적
-        const sections = document.querySelectorAll('section');
-        const dots = document.querySelectorAll('.dot');
+        function checkAnswer(quizNum, element, isCorrect) {
+            const quizCard = document.getElementById('quiz' + quizNum);
+            const result = document.getElementById('result' + quizNum);
+            const options = quizCard.querySelectorAll('.quiz-option');
 
-        const observerOptions = {
-            root: null,
-            rootMargin: '-40% 0px -40% 0px',
-            threshold: 0
-        };
+            // 이미 답변했으면 무시
+            if (result.classList.contains('show')) return;
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const index = entry.target.dataset.section;
-                    dots.forEach(dot => dot.classList.remove('active'));
-                    dots[index].classList.add('active');
-                }
+            // 모든 옵션 비활성화 스타일
+            options.forEach(opt => {
+                opt.style.pointerEvents = 'none';
             });
-        }, observerOptions);
 
-        sections.forEach(section => observer.observe(section));
+            // 선택한 답변 표시
+            element.classList.add('selected');
 
-        // 닷 클릭 시 해당 섹션으로 스크롤
-        dots.forEach(dot => {
-            dot.addEventListener('click', () => {
-                const index = dot.dataset.i;
-                sections[index].scrollIntoView({ behavior: 'smooth' });
-            });
-        });
+            if (isCorrect) {
+                element.classList.add('correct');
+                result.classList.add('correct');
+                result.querySelector('.quiz-result-icon').textContent = '🎉';
+                result.querySelector('.quiz-result-text').textContent = '정답입니다!';
+            } else {
+                element.classList.add('wrong');
+                result.classList.add('wrong');
+                result.querySelector('.quiz-result-icon').textContent = '😅';
+                result.querySelector('.quiz-result-text').textContent = '아쉬워요!';
+
+                // 정답 표시
+                options.forEach(opt => {
+                    if (opt.onclick.toString().includes('true')) {
+                        opt.classList.add('correct');
+                    }
+                });
+            }
+
+            result.classList.add('show');
+        }
     </script>
 </body>
 </html>
