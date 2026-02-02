@@ -10,12 +10,8 @@
         :root {
             --green: #4a6741;
             --green-dark: #3a5331;
-            --green-light: #e8f0e4;
             --red: #c41230;
-            --red-light: #fef2f2;
             --gold: #d4a853;
-            --cream: #faf6ef;
-            --paper: #f8f4ed;
             --text: #2d2d2d;
             --text-light: #555;
         }
@@ -24,34 +20,28 @@
         html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
         body {
             font-family: 'Noto Sans KR', sans-serif;
-            background: var(--cream);
             color: var(--text);
             -webkit-font-smoothing: antialiased;
         }
 
-        /* 헤더 - 좌측정렬 + 우측 접속자 */
+        /* 헤더 */
         .header {
             position: fixed;
             top: 0; left: 0; right: 0;
             z-index: 1000;
             padding: 10px 16px;
-            background: linear-gradient(135deg, var(--red) 0%, #a01025 100%);
+            background:
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100" height="100" filter="url(%23n)" opacity="0.08"/></svg>'),
+                linear-gradient(135deg, %23c41230 0%, %23a01025 100%);
+            background-color: var(--red);
             color: #fff;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .header-left {
-            text-align: left;
-        }
-
-        .header-sub {
-            font-size: 10px;
-            letter-spacing: 1.5px;
-            opacity: 0.9;
-        }
-
+        .header-left { text-align: left; }
+        .header-sub { font-size: 10px; letter-spacing: 1.5px; opacity: 0.9; }
         .header-title {
             font-family: 'Nanum Myeongjo', serif;
             font-size: 14px;
@@ -63,28 +53,25 @@
             display: flex;
             align-items: center;
             gap: 6px;
-            background: rgba(255,255,255,0.15);
+            background: rgba(255,255,255,0.2);
             padding: 6px 12px;
             border-radius: 16px;
         }
 
         .live-dot {
-            width: 7px;
-            height: 7px;
+            width: 8px;
+            height: 8px;
             background: #4CAF50;
             border-radius: 50%;
-            animation: pulse 2s infinite;
+            animation: pulse 1.5s infinite;
         }
 
         @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(0.9); }
         }
 
-        .visitor-count {
-            font-size: 12px;
-            font-weight: 500;
-        }
+        .visitor-count { font-size: 12px; font-weight: 600; }
 
         /* 스크롤 인디케이터 */
         .dots {
@@ -126,36 +113,53 @@
             position: relative;
         }
 
-        /* 명절 종이 질감 배경 */
-        .bg-paper {
+        /* 종이 질감 배경들 */
+        .bg-cream-paper {
             background:
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="400" height="400" filter="url(%23n)" opacity="0.03"/></svg>'),
-                linear-gradient(180deg, #fdf9f3 0%, #f8f2e8 100%);
-            background-color: var(--paper);
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><filter id="paper"><feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="5" result="noise"/><feDiffuseLighting in="noise" lighting-color="%23faf6ef" surfaceScale="2"><feDistantLight azimuth="45" elevation="60"/></feDiffuseLighting></filter><rect width="200" height="200" filter="url(%23paper)"/></svg>'),
+                linear-gradient(180deg, #fdf9f3 0%, #f5efe5 100%);
+            background-color: #f8f4ec;
         }
 
-        .bg-red {
-            background: linear-gradient(170deg, var(--red) 0%, #a01025 100%);
+        .bg-kraft-paper {
+            background:
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><filter id="kraft"><feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="4" result="noise"/><feDiffuseLighting in="noise" lighting-color="%23e8dfd0" surfaceScale="1.5"><feDistantLight azimuth="45" elevation="55"/></feDiffuseLighting></filter><rect width="200" height="200" filter="url(%23kraft)"/></svg>'),
+                linear-gradient(180deg, #f0e6d8 0%, #e5d9c8 100%);
+            background-color: #ebe1d3;
+        }
+
+        .bg-red-paper {
+            background:
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><filter id="redp"><feTurbulence type="fractalNoise" baseFrequency="0.06" numOctaves="4" result="noise"/><feDiffuseLighting in="noise" lighting-color="%23b8102a" surfaceScale="1"><feDistantLight azimuth="45" elevation="60"/></feDiffuseLighting></filter><rect width="200" height="200" filter="url(%23redp)"/></svg>'),
+                linear-gradient(170deg, #c41230 0%, #a01025 100%);
+            background-color: #b8102a;
             color: #fff;
         }
 
-        .bg-gold {
+        .bg-green-paper {
             background:
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="400" height="400" filter="url(%23n)" opacity="0.04"/></svg>'),
-                linear-gradient(180deg, #f5ebe0 0%, #ede4d8 100%);
-            background-color: #f0e6da;
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><filter id="greenp"><feTurbulence type="fractalNoise" baseFrequency="0.06" numOctaves="4" result="noise"/><feDiffuseLighting in="noise" lighting-color="%23425d3a" surfaceScale="1"><feDistantLight azimuth="45" elevation="60"/></feDiffuseLighting></filter><rect width="200" height="200" filter="url(%23greenp)"/></svg>'),
+                linear-gradient(170deg, #4a6741 0%, #3a5331 100%);
+            background-color: #4a6741;
+            color: #fff;
         }
 
-        .bg-green {
-            background: linear-gradient(170deg, var(--green) 0%, var(--green-dark) 100%);
-            color: #fff;
+        .bg-gold-paper {
+            background:
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><filter id="goldp"><feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="4" result="noise"/><feDiffuseLighting in="noise" lighting-color="%23f5e6c8" surfaceScale="1.5"><feDistantLight azimuth="45" elevation="55"/></feDiffuseLighting></filter><rect width="200" height="200" filter="url(%23goldp)"/></svg>'),
+                linear-gradient(180deg, #faf0dc 0%, #f0e2c8 100%);
+            background-color: #f5e8d0;
+        }
+
+        .bg-pink-paper {
+            background:
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><filter id="pinkp"><feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="4" result="noise"/><feDiffuseLighting in="noise" lighting-color="%23fce8e8" surfaceScale="1.5"><feDistantLight azimuth="45" elevation="55"/></feDiffuseLighting></filter><rect width="200" height="200" filter="url(%23pinkp)"/></svg>'),
+                linear-gradient(180deg, #fdf2f2 0%, #f8e6e6 100%);
+            background-color: #fceaea;
         }
 
         /* 명절 장식 */
-        .seol-deco {
-            font-size: 28px;
-            margin-bottom: 12px;
-        }
+        .seol-deco { font-size: 32px; margin-bottom: 12px; }
 
         /* 타이포그래피 */
         .label {
@@ -166,8 +170,8 @@
             margin-bottom: 12px;
         }
 
-        .bg-red .label,
-        .bg-green .label { color: rgba(255,255,255,0.7); }
+        .bg-red-paper .label,
+        .bg-green-paper .label { color: rgba(255,255,255,0.7); }
 
         .title {
             font-family: 'Nanum Myeongjo', serif;
@@ -178,8 +182,8 @@
             margin-bottom: 16px;
         }
 
-        .bg-red .title,
-        .bg-green .title { color: #fff; }
+        .bg-red-paper .title,
+        .bg-green-paper .title { color: #fff; }
 
         /* 색연필 강조 */
         .hl-red {
@@ -188,7 +192,7 @@
         }
 
         .hl-gold {
-            background: linear-gradient(180deg, transparent 50%, rgba(212,168,83,0.3) 50%);
+            background: linear-gradient(180deg, transparent 50%, rgba(212,168,83,0.35) 50%);
             padding: 0 4px;
         }
 
@@ -203,8 +207,8 @@
             line-height: 1.8;
         }
 
-        .bg-red .desc,
-        .bg-green .desc { color: rgba(255,255,255,0.9); }
+        .bg-red-paper .desc,
+        .bg-green-paper .desc { color: rgba(255,255,255,0.9); }
 
         /* 이미지 */
         .img-frame {
@@ -212,7 +216,7 @@
             margin: 20px auto;
             border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
             background: #fff;
             padding: 10px;
             border: 2px solid var(--gold);
@@ -230,7 +234,8 @@
             margin: 20px auto;
             border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+            border: 3px solid rgba(255,255,255,0.3);
         }
 
         .video-frame video { width: 100%; display: block; }
@@ -254,28 +259,29 @@
         }
 
         .btn:active { transform: scale(0.97); }
-        .btn-gold { background: var(--gold); box-shadow: 0 4px 15px rgba(212,168,83,0.3); }
+        .btn-gold { background: var(--gold); box-shadow: 0 4px 15px rgba(212,168,83,0.4); }
         .btn-green { background: var(--green); box-shadow: 0 4px 15px rgba(74,103,65,0.3); }
-        .btn-outline { background: transparent; border: 2px solid #fff; box-shadow: none; }
+        .btn-outline { background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.5); box-shadow: none; }
         .btn-large { width: 100%; max-width: 300px; justify-content: center; }
 
         /* 태그 */
-        .tag {
-            display: inline-block;
-            padding: 10px 20px;
-            background: var(--red);
+        .seol-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: linear-gradient(135deg, var(--gold) 0%, #c9973d 100%);
             color: #fff;
-            border-radius: 25px;
+            padding: 10px 18px;
+            border-radius: 20px;
             font-size: 14px;
             font-weight: 600;
             margin-bottom: 16px;
+            box-shadow: 0 3px 10px rgba(212,168,83,0.3);
         }
-
-        .tag-gold { background: var(--gold); }
 
         /* 한정 수량 박스 */
         .limit-box {
-            background: #fff;
+            background: rgba(255,255,255,0.9);
             border: 2px dashed var(--red);
             border-radius: 14px;
             padding: 14px 20px;
@@ -287,12 +293,12 @@
 
         /* 구성 설명 */
         .kit-box {
-            background: #fff;
+            background: rgba(255,255,255,0.95);
             border-radius: 20px;
             padding: 28px 24px;
             margin: 24px auto;
             max-width: 320px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
             border: 1px solid rgba(212,168,83,0.3);
         }
 
@@ -322,7 +328,7 @@
         .kit-multiply { font-size: 28px; color: var(--gold); font-weight: 300; }
 
         .kit-result {
-            background: var(--red-light);
+            background: linear-gradient(135deg, #fff5f5 0%, #ffebeb 100%);
             border-radius: 14px;
             padding: 16px;
             text-align: center;
@@ -379,9 +385,10 @@
         }
 
         .feature-item {
-            background: rgba(255,255,255,0.12);
+            background: rgba(255,255,255,0.15);
             border-radius: 14px;
             padding: 18px 14px;
+            backdrop-filter: blur(5px);
         }
 
         .feature-icon { font-size: 28px; margin-bottom: 10px; }
@@ -389,15 +396,21 @@
 
         /* 응원 메시지 섹션 */
         .cheer-section {
-            background: linear-gradient(180deg, #fdf2f2 0%, #f8e8e8 100%);
             min-height: 100vh;
             padding: 0;
             display: flex;
             flex-direction: column;
+            background:
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><filter id="cheerp"><feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="4" result="noise"/><feDiffuseLighting in="noise" lighting-color="%23e8f0e4" surfaceScale="1.5"><feDistantLight azimuth="45" elevation="55"/></feDiffuseLighting></filter><rect width="200" height="200" filter="url(%23cheerp)"/></svg>'),
+                linear-gradient(180deg, #eef4ea 0%, #e0ead8 100%);
+            background-color: #e8f0e4;
         }
 
         .cheer-header {
-            background: var(--green);
+            background:
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100" height="100" filter="url(%23n)" opacity="0.08"/></svg>'),
+                linear-gradient(135deg, %234a6741 0%, %233a5331 100%);
+            background-color: var(--green);
             padding: 20px;
             text-align: center;
             color: #fff;
@@ -443,6 +456,7 @@
             padding: 12px 14px;
             font-size: 14px;
             line-height: 1.6;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
         }
 
         .msg-producer {
@@ -459,7 +473,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 12px;
+            font-size: 14px;
             color: #fff;
             flex-shrink: 0;
         }
@@ -470,6 +484,7 @@
             padding: 12px 14px;
             font-size: 14px;
             line-height: 1.6;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
         }
 
         .msg-time {
@@ -479,12 +494,12 @@
             text-align: right;
         }
 
-        /* 입력창 - 키보드 고려 */
+        /* 입력창 */
         .cheer-input-wrap {
-            background: #fff;
+            background: rgba(255,255,255,0.95);
             padding: 12px 14px;
             padding-bottom: calc(12px + env(safe-area-inset-bottom));
-            border-top: 1px solid #e0e0e0;
+            border-top: 1px solid rgba(0,0,0,0.1);
             flex-shrink: 0;
             position: sticky;
             bottom: 0;
@@ -498,8 +513,8 @@
 
         .cheer-input input {
             flex: 1;
-            border: 1px solid #e5e5e5;
-            background: #f5f5f5;
+            border: 1px solid #ddd;
+            background: #fff;
             padding: 14px 16px;
             border-radius: 24px;
             font-size: 15px;
@@ -508,15 +523,14 @@
 
         .cheer-input input:focus {
             border-color: var(--green);
-            background: #fff;
         }
 
         .cheer-input button {
             background: var(--gold);
             color: #fff;
             border: none;
-            border-radius: 8px;
-            padding: 14px 18px;
+            border-radius: 12px;
+            padding: 14px 20px;
             font-size: 14px;
             font-weight: 600;
             cursor: pointer;
@@ -538,11 +552,14 @@
         /* 푸터 */
         .footer {
             padding: 24px;
-            background: var(--red);
+            background:
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100" height="100" filter="url(%23n)" opacity="0.08"/></svg>'),
+                linear-gradient(135deg, %23c41230 0%, %23a01025 100%);
+            background-color: var(--red);
             text-align: center;
         }
 
-        .footer p { font-size: 11px; color: rgba(255,255,255,0.6); }
+        .footer p { font-size: 11px; color: rgba(255,255,255,0.7); }
 
         /* 감사 팝업 */
         .thank-popup {
@@ -584,18 +601,10 @@
             margin-bottom: 20px;
         }
 
-        /* 명절 분위기 요소 */
-        .seol-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: linear-gradient(135deg, var(--gold) 0%, #c9973d 100%);
-            color: #fff;
-            padding: 8px 16px;
-            border-radius: 20px;
+        /* 로딩 상태 */
+        .loading {
+            color: rgba(0,0,0,0.4);
             font-size: 13px;
-            font-weight: 600;
-            margin-bottom: 16px;
         }
     </style>
 </head>
@@ -607,7 +616,7 @@
         </div>
         <div class="header-visitors">
             <span class="live-dot"></span>
-            <span class="visitor-count"><span id="visitorCount">0</span>명</span>
+            <span class="visitor-count" id="visitorDisplay">접속중</span>
         </div>
     </header>
 
@@ -621,7 +630,7 @@
     </div>
 
     <!-- 1: 인트로 -->
-    <section class="card bg-paper" data-i="0">
+    <section class="card bg-cream-paper" data-i="0">
         <p class="seol-deco">🧧</p>
         <span class="seol-badge">🎁 설맞이 증정</span>
         <h1 class="title">
@@ -644,7 +653,7 @@
     </section>
 
     <!-- 2: 영상 -->
-    <section class="card bg-gold" data-i="1">
+    <section class="card bg-kraft-paper" data-i="1">
         <p class="label">ONLINE MANAGER</p>
         <h2 class="title">
             오랜만에 인사드리는<br>
@@ -663,7 +672,7 @@
     </section>
 
     <!-- 3: 구성품 설명 -->
-    <section class="card bg-paper" data-i="2">
+    <section class="card bg-gold-paper" data-i="2">
         <p class="label">SAMPLE KIT</p>
         <h2 class="title">
             <span class="hl-gold">쉽게</span> 알려드릴게요
@@ -708,11 +717,11 @@
                 </div>
             </div>
         </div>
-        <a href="https://ecoop.or.kr" class="btn">🛒 쇼핑몰 바로가기</a>
+        <a href="https://ecoop.or.kr" class="btn btn-gold">🛒 쇼핑몰 바로가기</a>
     </section>
 
     <!-- 4: 특징 -->
-    <section class="card bg-green" data-i="3">
+    <section class="card bg-green-paper" data-i="3">
         <p class="label">WHY PULBITGOUN</p>
         <h2 class="title">
             아직 안 써보셨으면<br>
@@ -749,22 +758,22 @@
     <!-- 5: 응원 메시지 -->
     <section class="cheer-section" data-i="4" style="scroll-snap-align: start;">
         <div class="cheer-header">
-            <span class="tag" style="background:rgba(255,255,255,0.2); font-size:12px;">💬 의견 남기기</span>
+            <span style="background:rgba(255,255,255,0.2); padding:6px 14px; border-radius:15px; font-size:12px;">💬 의견 남기기</span>
             <h2>풀빛고운 생산자에게<br>한마디 남겨주세요</h2>
         </div>
         <div class="cheer-messages" id="cheerMessages">
-            <p class="cheer-empty">첫 번째 의견을 남겨주세요! 🌿</p>
+            <p class="cheer-empty loading">메시지를 불러오는 중...</p>
         </div>
         <div class="cheer-input-wrap">
             <div class="cheer-input">
                 <input type="text" id="cheerInput" placeholder="의견을 입력해 주세요" maxlength="100">
-                <button onclick="submitCheer()">전송</button>
+                <button onclick="submitCheer()" id="submitBtn">전송</button>
             </div>
         </div>
     </section>
 
     <!-- 6: CTA -->
-    <section class="card bg-paper" data-i="5">
+    <section class="card bg-cream-paper" data-i="5">
         <p class="seol-deco">🧧</p>
         <span class="seol-badge">🎁 설맞이 증정</span>
         <h2 class="title">
@@ -798,11 +807,12 @@
         </div>
     </div>
 
-    <!-- Firebase -->
+    <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
     <script>
-        // Firebase 설정
+        // Firebase 초기화
         const firebaseConfig = {
             apiKey: "AIzaSyDrb6CvMBn9jSfDeuwWseJywFHLbChNr4U",
             authDomain: "durunioncoop.firebaseapp.com",
@@ -811,26 +821,44 @@
             messagingSenderId: "439719435906",
             appId: "1:439719435906:web:3d1d841ad6e80939eb5e9b"
         };
+
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
-        // 실시간 방문자 수
-        const visitorRef = db.collection('visitors').doc('w06-gift-2026');
-        visitorRef.get().then((doc) => {
+        // ========== 실시간 방문자 수 ==========
+        const visitorDocRef = db.collection('visitors').doc('w06-gift-2026');
+
+        // 방문자 수 증가
+        visitorDocRef.get().then((doc) => {
             if (doc.exists) {
-                visitorRef.update({ count: firebase.firestore.FieldValue.increment(1) });
+                visitorDocRef.update({
+                    count: firebase.firestore.FieldValue.increment(1),
+                    lastVisit: firebase.firestore.FieldValue.serverTimestamp()
+                });
             } else {
-                visitorRef.set({ count: 1 });
+                visitorDocRef.set({
+                    count: 1,
+                    lastVisit: firebase.firestore.FieldValue.serverTimestamp()
+                });
             }
+        }).catch((error) => {
+            console.log('Visitor count error:', error);
         });
 
-        visitorRef.onSnapshot((doc) => {
-            if (doc.exists) {
-                document.getElementById('visitorCount').textContent = doc.data().count.toLocaleString();
+        // 실시간 방문자 수 리스너
+        visitorDocRef.onSnapshot((doc) => {
+            const display = document.getElementById('visitorDisplay');
+            if (doc.exists && doc.data().count) {
+                display.textContent = doc.data().count.toLocaleString() + '명';
+            } else {
+                display.textContent = '1명';
             }
+        }, (error) => {
+            console.log('Visitor snapshot error:', error);
+            document.getElementById('visitorDisplay').textContent = '접속중';
         });
 
-        // 따뜻한 문구들
+        // ========== 따뜻한 문구 ==========
         const warmMessages = [
             "새해 복 많이 받으세요! 🧧",
             "올해도 건강하고 아름답게! 💕",
@@ -842,7 +870,6 @@
             "사랑하는 분께 선물하세요 💝"
         ];
 
-        // 생산자 답변 문구
         const replyMessages = [
             "감사합니다~ 💚 새해 복 많이 받으세요!",
             "소중한 의견 감사해요~ 🌿",
@@ -854,22 +881,23 @@
             "조합원님 덕분에 힘이 납니다!"
         ];
 
-        // 따뜻한 문구 표시
         function showWarmText() {
             const warm1 = document.getElementById('warmText1');
             const warm2 = document.getElementById('warmText2');
-            if (warm1) warm1.textContent = warmMessages[Math.floor(Math.random() * warmMessages.length)];
+            const msg = warmMessages[Math.floor(Math.random() * warmMessages.length)];
+            if (warm1) warm1.textContent = msg;
             if (warm2) warm2.textContent = warmMessages[Math.floor(Math.random() * warmMessages.length)];
         }
         showWarmText();
         setInterval(showWarmText, 5000);
 
-        // 메시지 컬렉션
+        // ========== 메시지 기능 ==========
         const messagesRef = db.collection('pulbitgoun-messages');
 
-        // 메시지 로드
-        messagesRef.orderBy('timestamp', 'desc').limit(30).onSnapshot((snapshot) => {
+        // 메시지 실시간 로드
+        messagesRef.orderBy('timestamp', 'desc').limit(50).onSnapshot((snapshot) => {
             const container = document.getElementById('cheerMessages');
+
             if (snapshot.empty) {
                 container.innerHTML = '<p class="cheer-empty">첫 번째 의견을 남겨주세요! 🌿</p>';
                 return;
@@ -881,6 +909,7 @@
             messages.reverse();
 
             messages.forEach((msg, idx) => {
+                // 사용자 메시지
                 const userBubble = document.createElement('div');
                 userBubble.className = 'msg-bubble msg-user';
                 userBubble.innerHTML = `
@@ -889,6 +918,7 @@
                 `;
                 container.appendChild(userBubble);
 
+                // 생산자 답변
                 const replyBubble = document.createElement('div');
                 replyBubble.className = 'msg-bubble msg-producer';
                 replyBubble.innerHTML = `
@@ -901,21 +931,36 @@
             });
 
             container.scrollTop = container.scrollHeight;
+        }, (error) => {
+            console.log('Messages error:', error);
+            document.getElementById('cheerMessages').innerHTML = '<p class="cheer-empty">첫 번째 의견을 남겨주세요! 🌿</p>';
         });
 
         // 메시지 전송
         function submitCheer() {
             const input = document.getElementById('cheerInput');
+            const btn = document.getElementById('submitBtn');
             const text = input.value.trim();
+
             if (!text) return;
+
+            btn.disabled = true;
+            btn.textContent = '전송중...';
 
             messagesRef.add({
                 text: text,
                 timestamp: firebase.firestore.FieldValue.serverTimestamp()
             }).then(() => {
                 input.value = '';
-                input.blur(); // 키보드 닫기
+                input.blur();
+                btn.disabled = false;
+                btn.textContent = '전송';
                 showThankPopup();
+            }).catch((error) => {
+                console.log('Submit error:', error);
+                alert('전송에 실패했습니다. 다시 시도해 주세요.');
+                btn.disabled = false;
+                btn.textContent = '전송';
             });
         }
 
@@ -941,12 +986,16 @@
 
         // 시간 포맷
         function formatTime(timestamp) {
-            if (!timestamp) return '';
-            const date = timestamp.toDate();
-            const hours = date.getHours();
-            const minutes = date.getMinutes().toString().padStart(2, '0');
-            const ampm = hours >= 12 ? '오후' : '오전';
-            return `${ampm} ${hours % 12 || 12}:${minutes}`;
+            if (!timestamp) return '방금';
+            try {
+                const date = timestamp.toDate();
+                const hours = date.getHours();
+                const minutes = date.getMinutes().toString().padStart(2, '0');
+                const ampm = hours >= 12 ? '오후' : '오전';
+                return `${ampm} ${hours % 12 || 12}:${minutes}`;
+            } catch (e) {
+                return '방금';
+            }
         }
 
         // HTML 이스케이프
@@ -956,7 +1005,7 @@
             return div.innerHTML;
         }
 
-        // 스크롤 인디케이터
+        // ========== 스크롤 인디케이터 ==========
         const cards = document.querySelectorAll('[data-i]');
         const dots = document.querySelectorAll('.dot');
 
