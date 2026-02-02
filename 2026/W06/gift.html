@@ -3,16 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>10만원 이상 구매 시 풀빛고운 샘플키트 증정!</title>
+    <title>두레생협 설맞이 증정행사 1탄</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --red: #c41230;
-            --blue: #1a4a6e;
-            --gold: #b8860b;
-            --green: #2e7d32;
-            --cream: #fdfbf7;
+            --primary: #3d6b4f;
+            --primary-dark: #2d5240;
+            --primary-light: #e8f0eb;
+            --accent: #8b7355;
+            --warm: #f9f6f2;
+            --text: #333;
+            --text-light: #666;
+            --white: #fff;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -24,8 +27,11 @@
 
         body {
             font-family: 'Noto Sans KR', sans-serif;
-            background: var(--cream);
-            color: #222;
+            background: var(--warm);
+            color: var(--text);
+            font-size: 15px;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
         }
 
         /* 헤더 */
@@ -33,410 +39,369 @@
             position: fixed;
             top: 0; left: 0; right: 0;
             z-index: 1000;
-            padding: 12px 20px;
-            background: var(--green);
-            color: #fff;
+            padding: 10px 20px;
+            background: var(--primary);
+            color: var(--white);
             text-align: center;
         }
 
-        .header-top {
-            font-size: 11px;
-            letter-spacing: 1px;
-            opacity: 0.8;
+        .header-sub {
+            font-size: 10px;
+            letter-spacing: 1.5px;
+            opacity: 0.85;
+            font-weight: 400;
         }
 
         .header-title {
-            font-size: 14px;
-            font-weight: 700;
+            font-family: 'Noto Serif KR', serif;
+            font-size: 13px;
+            font-weight: 500;
+            margin-top: 2px;
         }
 
         /* 스크롤 인디케이터 */
         .dots {
             position: fixed;
-            right: 12px;
+            right: 10px;
             top: 50%;
             transform: translateY(-50%);
             z-index: 1000;
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 5px;
         }
 
         .dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 3px;
-            background: rgba(0,0,0,0.15);
+            width: 5px;
+            height: 5px;
+            border-radius: 2.5px;
+            background: rgba(61,107,79,0.25);
             transition: all 0.3s;
             cursor: pointer;
         }
 
         .dot.active {
-            height: 20px;
-            background: var(--green);
+            height: 16px;
+            background: var(--primary);
         }
 
         /* 카드 공통 */
         .card {
             min-height: 100vh;
+            min-height: 100dvh;
             scroll-snap-align: start;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 70px 24px 30px;
+            padding: 65px 20px 30px;
             text-align: center;
         }
 
-        .question {
-            font-size: 14px;
-            color: #888;
-            margin-bottom: 10px;
+        /* 타이포그래피 */
+        .label {
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: var(--primary);
+            font-weight: 500;
+            margin-bottom: 8px;
+            text-transform: uppercase;
         }
 
-        .big-title {
-            font-family: 'Nanum Myeongjo', serif;
-            font-size: 26px;
-            font-weight: 800;
-            line-height: 1.45;
-            color: #111;
-            margin-bottom: 16px;
-        }
-
-        .hl {
-            color: var(--green);
-        }
-
-        .hl-gold {
-            background: linear-gradient(transparent 55%, rgba(184,134,11,0.25) 55%);
-        }
-
-        .sub-text {
-            font-size: 14px;
-            color: #666;
-            line-height: 1.75;
-        }
-
-        /* 이미지 */
-        .img-box {
-            width: 100%;
-            max-width: 320px;
-            margin: 20px auto;
-            border-radius: 14px;
-            overflow: hidden;
-            box-shadow: 0 8px 28px rgba(0,0,0,0.12);
-        }
-
-        .img-box img {
-            width: 100%;
-            display: block;
-        }
-
-        /* 비디오 - 모바일 최적화 */
-        .video-box {
-            width: 100%;
-            max-width: 320px;
-            margin: 20px auto;
-            border-radius: 14px;
-            overflow: hidden;
-            box-shadow: 0 8px 28px rgba(0,0,0,0.12);
-            background: #000;
-        }
-
-        .video-box video {
-            width: 100%;
-            height: auto;
-            display: block;
-            object-fit: contain;
-            max-height: 400px;
-        }
-
-        /* 주문 버튼 */
-        .order-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 14px 28px;
-            background: var(--green);
-            color: #fff;
-            text-decoration: none;
-            border-radius: 30px;
-            font-size: 14px;
+        .title {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 22px;
             font-weight: 600;
-            margin-top: 20px;
-            box-shadow: 0 4px 15px rgba(46,125,50,0.3);
-            transition: transform 0.2s;
-        }
-
-        .order-btn:active {
-            transform: scale(0.97);
-        }
-
-        .order-btn-dark {
-            background: #111;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-
-        .order-btn-white {
-            background: #fff;
-            color: var(--green);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-        }
-
-        /* 카드 배경 */
-        .card-light { background: #fff; }
-        .card-cream { background: var(--cream); }
-        .card-green {
-            background: linear-gradient(180deg, var(--green) 0%, #1b5e20 100%);
-            color: #fff;
-        }
-        .card-green .question { color: rgba(255,255,255,0.6); }
-        .card-green .big-title { color: #fff; }
-        .card-green .hl { color: #a5d6a7; }
-
-        /* 세일 태그 */
-        .sale-tag {
-            display: inline-block;
-            background: var(--green);
-            color: #fff;
-            padding: 8px 18px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 700;
-            margin-bottom: 20px;
-        }
-
-        .limit-tag {
-            display: inline-block;
-            background: #ff5252;
-            color: #fff;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 700;
-            margin-top: 12px;
-        }
-
-        /* 메모리 박스 */
-        .memory-box {
-            background: #fff;
-            border-radius: 12px;
-            padding: 18px;
-            margin-top: 16px;
-            border-left: 4px solid var(--green);
-            text-align: left;
-            max-width: 320px;
-        }
-
-        .memory-box p {
-            font-family: 'Nanum Myeongjo', serif;
-            font-size: 14px;
-            color: #777;
-            line-height: 1.8;
-        }
-
-        /* 답변 박스 */
-        .answer-box {
-            background: var(--cream);
-            border-radius: 12px;
-            padding: 16px 18px;
-            margin-top: 16px;
-            text-align: left;
-            max-width: 320px;
-        }
-
-        .card-cream .answer-box {
-            background: #fff;
-        }
-
-        .answer-box p {
-            font-size: 14px;
-            color: #555;
-            line-height: 1.7;
-        }
-
-        .answer-box strong {
-            color: var(--green);
-        }
-
-        /* 구성품 박스 */
-        .diff-box {
-            background: rgba(255,255,255,0.1);
-            border-radius: 12px;
-            padding: 18px;
-            margin-top: 20px;
-            text-align: left;
-            max-width: 320px;
-        }
-
-        .diff-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
+            line-height: 1.5;
+            color: var(--text);
             margin-bottom: 12px;
         }
 
-        .diff-item:last-child { margin-bottom: 0; }
+        .title .em {
+            color: var(--primary);
+        }
 
-        .diff-icon {
-            font-size: 18px;
-            width: 32px;
-            height: 32px;
+        .title .accent {
+            color: var(--accent);
+        }
+
+        .desc {
+            font-size: 13px;
+            color: var(--text-light);
+            line-height: 1.75;
+            font-weight: 400;
+        }
+
+        /* 이미지 - 작고 선명하게 */
+        .img-frame {
+            width: 200px;
+            height: 200px;
+            margin: 16px auto;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            background: var(--white);
+            padding: 8px;
+        }
+
+        .img-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .img-wide {
+            width: 260px;
+            height: 180px;
+        }
+
+        /* 비디오 */
+        .video-frame {
+            width: 240px;
+            margin: 16px auto;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            background: #000;
+        }
+
+        .video-frame video {
+            width: 100%;
+            display: block;
+        }
+
+        /* 버튼 */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 12px 28px;
+            background: var(--primary);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 13px;
+            font-weight: 500;
+            margin-top: 16px;
+            transition: all 0.2s;
+            border: none;
+        }
+
+        .btn:active {
+            transform: scale(0.97);
+            background: var(--primary-dark);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 1.5px solid var(--primary);
+        }
+
+        .btn-dark {
+            background: var(--text);
+        }
+
+        .btn-large {
+            width: 100%;
+            max-width: 260px;
+            padding: 14px 20px;
+            font-size: 14px;
+            border-radius: 10px;
+        }
+
+        /* 태그 */
+        .tag {
+            display: inline-block;
+            padding: 6px 12px;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 15px;
+            font-size: 11px;
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+
+        .tag-warm {
+            background: var(--accent);
+        }
+
+        .tag-alert {
+            background: #d35400;
+        }
+
+        /* 정보 카드 */
+        .info-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 14px;
+            max-width: 280px;
+            width: 100%;
+            text-align: left;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+        }
+
+        .info-card-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 7px 0;
+            border-bottom: 1px solid #f0ebe5;
+            font-size: 12px;
+            color: var(--text);
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-dot {
+            width: 18px;
+            height: 18px;
+            border-radius: 4px;
+            flex-shrink: 0;
+        }
+
+        /* 인용 */
+        .quote-box {
+            background: var(--white);
+            border-radius: 10px;
+            padding: 14px 16px;
+            margin-top: 12px;
+            max-width: 260px;
+            border-left: 3px solid var(--primary);
+        }
+
+        .quote-box p {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 13px;
+            color: var(--text-light);
+            line-height: 1.8;
+            font-style: italic;
+        }
+
+        /* 특징 박스 (어두운 배경용) */
+        .feature-box {
+            background: rgba(255,255,255,0.12);
+            border-radius: 10px;
+            padding: 14px;
+            margin-top: 14px;
+            max-width: 280px;
+            width: 100%;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+            text-align: left;
+        }
+
+        .feature-icon {
+            width: 28px;
+            height: 28px;
             background: rgba(255,255,255,0.15);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 13px;
+            flex-shrink: 0;
         }
 
-        .diff-text {
-            font-size: 13px;
+        .feature-text {
+            font-size: 12px;
             color: rgba(255,255,255,0.9);
-            line-height: 1.5;
-        }
-
-        /* 제품 리스트 박스 */
-        .product-list-box {
-            background: #fff;
-            border-radius: 12px;
-            padding: 20px 18px;
-            margin-top: 16px;
-            max-width: 320px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-        }
-
-        .product-list-title {
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--green);
-            margin-bottom: 14px;
-            text-align: center;
-        }
-
-        .product-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 8px 0;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .product-item:last-child {
-            border-bottom: none;
-        }
-
-        .product-color {
-            width: 24px;
-            height: 24px;
-            border-radius: 6px;
-        }
-
-        .product-name {
-            font-size: 13px;
-            color: #333;
+            line-height: 1.4;
         }
 
         /* 가격 박스 */
-        .price-box {
-            background: var(--green);
-            border-radius: 14px;
-            padding: 20px 28px;
-            color: #fff;
-            margin-top: 16px;
+        .price-card {
+            background: var(--primary);
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-top: 14px;
+            color: var(--white);
+            text-align: center;
         }
 
         .price-label {
-            font-size: 13px;
-            opacity: 0.8;
+            font-size: 11px;
+            opacity: 0.85;
         }
 
-        .discount-row {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 6px;
+        .price-value {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 26px;
+            font-weight: 600;
+            margin-top: 4px;
         }
 
-        .discount-badge {
-            background: #fff;
-            color: var(--green);
-            padding: 4px 12px;
-            border-radius: 12px;
+        .price-value span {
             font-size: 14px;
-            font-weight: 900;
+            font-weight: 400;
         }
 
-        .final-price {
-            font-size: 28px;
-            font-weight: 900;
-        }
-
-        .final-price span { font-size: 14px; }
-
-        .order-btn-big {
-            display: block;
-            width: 100%;
-            max-width: 280px;
-            padding: 16px 0;
-            background: #111;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 700;
-            margin-top: 16px;
-        }
-
-        .tags {
+        /* 뱃지 그룹 */
+        .badge-group {
             display: flex;
             gap: 6px;
-            margin-top: 14px;
             flex-wrap: wrap;
             justify-content: center;
+            margin-top: 12px;
         }
 
-        .tag {
-            padding: 6px 10px;
-            background: #e8f5e9;
+        .badge {
+            padding: 5px 10px;
+            background: var(--primary-light);
             border-radius: 12px;
-            font-size: 11px;
-            color: var(--green);
+            font-size: 10px;
+            color: var(--primary);
+            font-weight: 500;
         }
+
+        /* 카드 배경 */
+        .card-warm { background: var(--warm); }
+        .card-white { background: var(--white); }
+        .card-green {
+            background: linear-gradient(170deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: var(--white);
+        }
+        .card-green .label { color: rgba(255,255,255,0.7); }
+        .card-green .title { color: var(--white); }
+        .card-green .title .em { color: #a8d5ba; }
+        .card-green .desc { color: rgba(255,255,255,0.8); }
 
         /* 푸터 */
         .footer {
-            padding: 25px;
-            background: #1b5e20;
+            padding: 20px;
+            background: var(--primary-dark);
             text-align: center;
         }
 
         .footer p {
-            font-size: 11px;
-            color: rgba(255,255,255,0.5);
-        }
-
-        /* 생산자 인용 */
-        .producer-quote {
-            background: #e8f5e9;
-            border-radius: 12px;
-            padding: 16px 18px;
-            margin-top: 16px;
-            max-width: 320px;
-        }
-
-        .producer-quote p {
-            font-family: 'Nanum Myeongjo', serif;
-            font-size: 14px;
-            color: #555;
-            line-height: 1.8;
+            font-size: 10px;
+            color: rgba(255,255,255,0.4);
+            letter-spacing: 0.5px;
         }
     </style>
 </head>
 <body>
     <header class="header">
-        <p class="header-top">6주차 특별 이벤트 · 1.27(월)~2.2(일)</p>
-        <p class="header-title">10만원 이상 구매 시 증정!</p>
+        <p class="header-sub">26년 설 1주 전</p>
+        <p class="header-title">두레생협 증정행사 1탄</p>
     </header>
 
     <div class="dots" id="dots">
@@ -449,173 +414,155 @@
     </div>
 
     <!-- 1: 인트로 -->
-    <section class="card card-cream" data-i="0">
-        <span class="sale-tag">SPECIAL GIFT</span>
-        <h1 class="big-title">
-            10만원 이상 구매하면<br>
-            <span class="hl">풀빛고운 샘플키트</span><br>
-            드려요!
+    <section class="card card-warm" data-i="0">
+        <span class="tag">SPECIAL GIFT</span>
+        <h1 class="title">
+            10만원 이상 구매하시면<br>
+            <span class="em">풀빛고운 샘플키트</span><br>
+            드립니다
         </h1>
-        <div class="img-box">
+        <div class="img-frame">
             <img src="KakaoTalk_20260202_130053935_01.jpg" alt="풀빛고운 기초 5종 샘플키트">
         </div>
-        <div class="memory-box">
-            <p>기초 5종 샘플키트 <strong style="color:var(--green);">× 3박스</strong><br>
-            비건 인증 · 천연 인증 화장품<br>
-            여행 갈 때 딱 좋아요!</p>
-        </div>
-        <span class="limit-tag">선착순 3,000명 한정</span>
-        <a href="https://ecoop.or.kr" class="order-btn">
-            🎁 지금 주문하기
-        </a>
+        <p class="desc">
+            비건 · 천연 인증 기초화장품<br>
+            <strong>기초 5종 × 3박스</strong> 증정
+        </p>
+        <span class="tag tag-alert" style="margin-top:12px;">선착순 3,000명</span>
+        <a href="https://ecoop.or.kr" class="btn">주문하기</a>
     </section>
 
     <!-- 2: 영상 -->
-    <section class="card card-light" data-i="1">
-        <p class="question">온라인점장이 직접 소개합니다</p>
-        <h2 class="big-title">
-            어떤 제품인지<br>
-            <span class="hl">영상으로 확인하세요</span>
+    <section class="card card-white" data-i="1">
+        <p class="label">PRODUCT VIDEO</p>
+        <h2 class="title">
+            온라인점장이<br>
+            <span class="em">직접 소개</span>합니다
         </h2>
-        <div class="video-box">
+        <div class="video-frame">
             <video controls playsinline preload="metadata" poster="KakaoTalk_20260202_130053935_01.jpg">
                 <source src="GIFT.mp4" type="video/mp4">
             </video>
         </div>
-        <p class="sub-text">
-            온라인점장이 직접 사용해 보고<br>
-            추천드리는 샘플키트입니다
+        <p class="desc">
+            직접 사용해 보고 추천드리는<br>
+            믿을 수 있는 샘플키트예요
         </p>
-        <a href="https://ecoop.or.kr" class="order-btn order-btn-dark">
-            🎁 지금 주문하기
-        </a>
+        <a href="https://ecoop.or.kr" class="btn btn-dark">주문하기</a>
     </section>
 
     <!-- 3: 구성품 -->
-    <section class="card card-cream" data-i="2">
-        <p class="question">샘플키트 구성</p>
-        <h2 class="big-title">
-            <span class="hl-gold">5종 풀세트</span>를<br>
-            <span class="hl">3박스</span>나 드려요
+    <section class="card card-warm" data-i="2">
+        <p class="label">SAMPLE KIT</p>
+        <h2 class="title">
+            <span class="accent">5종 풀세트</span>를<br>
+            <span class="em">3박스</span> 드려요
         </h2>
-        <div class="img-box">
-            <img src="KakaoTalk_20260202_130053935_02.jpg" alt="풀빛고운 샘플키트 구성품">
+        <div class="img-frame img-wide">
+            <img src="KakaoTalk_20260202_130053935_02.jpg" alt="샘플키트 구성">
         </div>
-        <div class="product-list-box">
-            <p class="product-list-title">1박스 구성 (× 3박스)</p>
-            <div class="product-item">
-                <span class="product-color" style="background: linear-gradient(135deg, #4caf50, #2e7d32);"></span>
-                <span class="product-name">시카동백 크림</span>
+        <div class="info-card">
+            <p class="info-card-title">1박스 구성 (× 3)</p>
+            <div class="info-item">
+                <span class="info-dot" style="background:#4a7c59;"></span>
+                시카동백 크림
             </div>
-            <div class="product-item">
-                <span class="product-color" style="background: linear-gradient(135deg, #66bb6a, #43a047);"></span>
-                <span class="product-name">시카동백 로션</span>
+            <div class="info-item">
+                <span class="info-dot" style="background:#6b9b7a;"></span>
+                시카동백 로션
             </div>
-            <div class="product-item">
-                <span class="product-color" style="background: linear-gradient(135deg, #f5f5f5, #e0e0e0);"></span>
-                <span class="product-name">시카 히알루론 토너</span>
+            <div class="info-item">
+                <span class="info-dot" style="background:#e8e8e8;"></span>
+                시카 히알루론 토너
             </div>
-            <div class="product-item">
-                <span class="product-color" style="background: linear-gradient(135deg, #fafafa, #eeeeee);"></span>
-                <span class="product-name">시카 릴렉스 아이크림</span>
+            <div class="info-item">
+                <span class="info-dot" style="background:#f5f5f5;"></span>
+                시카 릴렉스 아이크림
             </div>
-            <div class="product-item">
-                <span class="product-color" style="background: linear-gradient(135deg, #8d6e63, #5d4037);"></span>
-                <span class="product-name">시카 비타민 에센스</span>
+            <div class="info-item">
+                <span class="info-dot" style="background:#6d5344;"></span>
+                시카 비타민 에센스
             </div>
         </div>
-        <a href="https://ecoop.or.kr" class="order-btn">
-            🎁 지금 주문하기
-        </a>
+        <a href="https://ecoop.or.kr" class="btn">주문하기</a>
     </section>
 
     <!-- 4: 특징 -->
     <section class="card card-green" data-i="3">
-        <p class="question">왜 풀빛고운인가요?</p>
-        <h2 class="big-title">
-            <span class="hl">믿을 수 있는</span><br>
-            화장품이에요
+        <p class="label">WHY PULBITGOUN</p>
+        <h2 class="title">
+            <span class="em">믿을 수 있는</span><br>
+            생협 화장품
         </h2>
-        <div class="diff-box">
-            <div class="diff-item">
-                <span class="diff-icon">🌱</span>
-                <p class="diff-text"><strong style="color:#fff;">비건 인증</strong> 화장품<br>동물실험 NO</p>
+        <div class="feature-box">
+            <div class="feature-item">
+                <span class="feature-icon">🌱</span>
+                <p class="feature-text"><strong>비건 인증</strong> · 동물실험 NO</p>
             </div>
-            <div class="diff-item">
-                <span class="diff-icon">🍃</span>
-                <p class="diff-text"><strong style="color:#fff;">천연 인증</strong> 획득<br>안심 성분만 사용</p>
+            <div class="feature-item">
+                <span class="feature-icon">🍃</span>
+                <p class="feature-text"><strong>천연 인증</strong> · 안심 성분</p>
             </div>
-            <div class="diff-item">
-                <span class="diff-icon">⏳</span>
-                <p class="diff-text"><strong style="color:#fff;">항노화</strong> 기능성<br>피부 탄력 케어</p>
+            <div class="feature-item">
+                <span class="feature-icon">✨</span>
+                <p class="feature-text"><strong>항노화 기능성</strong> · 탄력 케어</p>
             </div>
-            <div class="diff-item">
-                <span class="diff-icon">✈️</span>
-                <p class="diff-text"><strong style="color:#fff;">여행용</strong>으로 딱!<br>2ml × 5ea 휴대 사이즈</p>
+            <div class="feature-item">
+                <span class="feature-icon">✈️</span>
+                <p class="feature-text"><strong>여행용 사이즈</strong> · 2ml × 5ea</p>
             </div>
         </div>
-        <a href="https://ecoop.or.kr" class="order-btn order-btn-white">
-            🎁 지금 주문하기
-        </a>
+        <a href="https://ecoop.or.kr" class="btn btn-outline" style="border-color:#fff; color:#fff;">주문하기</a>
     </section>
 
     <!-- 5: 생산자 -->
-    <section class="card card-light" data-i="4">
-        <p class="question">두레생협 생산자</p>
-        <h2 class="big-title">
-            <span class="hl-gold">풀빛고운</span>을<br>
-            소개합니다
+    <section class="card card-white" data-i="4">
+        <p class="label">PRODUCER</p>
+        <h2 class="title">
+            두레 생산자<br>
+            <span class="em">풀빛고운</span>
         </h2>
-        <div class="img-box">
+        <div class="img-frame">
             <img src="KakaoTalk_20260202_130053935_01.jpg" alt="풀빛고운">
         </div>
-        <div class="producer-quote">
+        <div class="quote-box">
             <p>
-                "사용해 보시고,<br>
-                마음에 드시면<br>
-                <strong style="color:var(--green);">풀빛고운 화장품</strong>도<br>
+                "사용해 보시고 마음에 드시면<br>
+                풀빛고운 화장품도<br>
                 많이 이용 부탁드립니다."
             </p>
         </div>
-        <p class="sub-text" style="margin-top:12px;">
-            유통기한 <strong style="color:#111;">2028년 2월</strong>까지 넉넉!
+        <p class="desc" style="margin-top:10px;">
+            유통기한 <strong>2028년 2월</strong>까지 넉넉
         </p>
-        <a href="https://ecoop.or.kr" class="order-btn order-btn-dark">
-            🎁 지금 주문하기
-        </a>
+        <a href="https://ecoop.or.kr" class="btn btn-dark">주문하기</a>
     </section>
 
     <!-- 6: CTA -->
-    <section class="card card-cream" data-i="5">
-        <p class="question">놓치지 마세요!</p>
-        <h2 class="big-title">
+    <section class="card card-warm" data-i="5">
+        <span class="tag tag-warm">설맞이 증정</span>
+        <h2 class="title">
             10만원 이상 구매 시<br>
-            <span class="hl">무료 증정</span>
+            <span class="em">무료 증정</span>
         </h2>
-        <div class="img-box">
-            <img src="KakaoTalk_20260202_130053935_02.jpg" alt="풀빛고운 샘플키트">
+        <div class="img-frame">
+            <img src="KakaoTalk_20260202_130053935_02.jpg" alt="샘플키트">
         </div>
-        <div class="price-box">
+        <div class="price-card">
             <p class="price-label">풀빛고운 기초 5종 × 3박스</p>
-            <div class="discount-row">
-                <span class="discount-badge">100%</span>
-                <span class="final-price">무료<span> 증정</span></span>
-            </div>
+            <p class="price-value">무료 <span>증정</span></p>
         </div>
-        <span class="limit-tag">선착순 3,000명 · 소진 시 종료</span>
-        <a href="https://ecoop.or.kr" class="order-btn-big">
-            🎁 지금 주문하러 가기
-        </a>
-        <div class="tags">
-            <span class="tag">비건 인증</span>
-            <span class="tag">천연 인증</span>
-            <span class="tag">항노화</span>
-            <span class="tag">여행용</span>
+        <span class="tag tag-alert" style="margin-top:12px;">선착순 3,000명 한정</span>
+        <a href="https://ecoop.or.kr" class="btn btn-large btn-dark">지금 주문하러 가기</a>
+        <div class="badge-group">
+            <span class="badge">비건 인증</span>
+            <span class="badge">천연 인증</span>
+            <span class="badge">항노화</span>
         </div>
     </section>
 
     <footer class="footer">
-        <p>두레생협 생활의 발견 · 2026 W06 증정 이벤트</p>
+        <p>두레생협 생활의 발견 · 2026 W06</p>
     </footer>
 
     <script>
