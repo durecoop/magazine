@@ -11,13 +11,13 @@
             --green: #4a6741;
             --green-dark: #3a5331;
             --green-light: #e8f0e4;
+            --red: #c41230;
+            --red-light: #fef2f2;
+            --gold: #d4a853;
             --cream: #faf6ef;
-            --paper: #f5efe6;
+            --paper: #f8f4ed;
             --text: #2d2d2d;
             --text-light: #555;
-            --pencil-green: #5d8a4a;
-            --pencil-orange: #e07b39;
-            --pencil-pink: #d4648a;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -29,23 +29,61 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* 헤더 */
+        /* 헤더 - 좌측정렬 + 우측 접속자 */
         .header {
             position: fixed;
             top: 0; left: 0; right: 0;
             z-index: 1000;
-            padding: 12px 20px;
-            background: var(--green);
+            padding: 10px 16px;
+            background: linear-gradient(135deg, var(--red) 0%, #a01025 100%);
             color: #fff;
-            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .header-sub { font-size: 11px; letter-spacing: 2px; opacity: 0.9; }
+        .header-left {
+            text-align: left;
+        }
+
+        .header-sub {
+            font-size: 10px;
+            letter-spacing: 1.5px;
+            opacity: 0.9;
+        }
+
         .header-title {
             font-family: 'Nanum Myeongjo', serif;
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 700;
             margin-top: 2px;
+        }
+
+        .header-visitors {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255,255,255,0.15);
+            padding: 6px 12px;
+            border-radius: 16px;
+        }
+
+        .live-dot {
+            width: 7px;
+            height: 7px;
+            background: #4CAF50;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .visitor-count {
+            font-size: 12px;
+            font-weight: 500;
         }
 
         /* 스크롤 인디케이터 */
@@ -64,14 +102,14 @@
             width: 6px;
             height: 6px;
             border-radius: 3px;
-            background: rgba(74,103,65,0.3);
+            background: rgba(196,18,48,0.3);
             cursor: pointer;
             transition: all 0.3s;
         }
 
         .dot.active {
             height: 20px;
-            background: var(--green);
+            background: var(--red);
         }
 
         /* 카드 공통 */
@@ -83,24 +121,29 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 70px 24px 35px;
+            padding: 65px 24px 35px;
             text-align: center;
             position: relative;
         }
 
-        /* 종이 질감 배경 */
+        /* 명절 종이 질감 배경 */
         .bg-paper {
             background:
                 url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="400" height="400" filter="url(%23n)" opacity="0.03"/></svg>'),
-                linear-gradient(180deg, #faf6ef 0%, #f5efe6 100%);
+                linear-gradient(180deg, #fdf9f3 0%, #f8f2e8 100%);
             background-color: var(--paper);
         }
 
-        .bg-kraft {
+        .bg-red {
+            background: linear-gradient(170deg, var(--red) 0%, #a01025 100%);
+            color: #fff;
+        }
+
+        .bg-gold {
             background:
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="400" height="400" filter="url(%23n)" opacity="0.05"/></svg>'),
-                linear-gradient(180deg, #e8dfd2 0%, #d9cfc0 100%);
-            background-color: #e0d6c8;
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="400" height="400" filter="url(%23n)" opacity="0.04"/></svg>'),
+                linear-gradient(180deg, #f5ebe0 0%, #ede4d8 100%);
+            background-color: #f0e6da;
         }
 
         .bg-green {
@@ -108,41 +151,49 @@
             color: #fff;
         }
 
-        /* 타이포그래피 - 큼직하게 */
+        /* 명절 장식 */
+        .seol-deco {
+            font-size: 28px;
+            margin-bottom: 12px;
+        }
+
+        /* 타이포그래피 */
         .label {
-            font-size: 12px;
+            font-size: 11px;
             letter-spacing: 3px;
-            color: var(--green);
+            color: var(--red);
             font-weight: 500;
             margin-bottom: 12px;
         }
 
+        .bg-red .label,
         .bg-green .label { color: rgba(255,255,255,0.7); }
 
         .title {
             font-family: 'Nanum Myeongjo', serif;
-            font-size: 30px;
+            font-size: 28px;
             font-weight: 800;
             line-height: 1.45;
             color: var(--text);
             margin-bottom: 16px;
         }
 
+        .bg-red .title,
         .bg-green .title { color: #fff; }
 
         /* 색연필 강조 */
+        .hl-red {
+            background: linear-gradient(180deg, transparent 50%, rgba(196,18,48,0.2) 50%);
+            padding: 0 4px;
+        }
+
+        .hl-gold {
+            background: linear-gradient(180deg, transparent 50%, rgba(212,168,83,0.3) 50%);
+            padding: 0 4px;
+        }
+
         .hl-green {
-            background: linear-gradient(180deg, transparent 50%, rgba(93,138,74,0.3) 50%);
-            padding: 0 4px;
-        }
-
-        .hl-orange {
-            background: linear-gradient(180deg, transparent 50%, rgba(224,123,57,0.3) 50%);
-            padding: 0 4px;
-        }
-
-        .hl-pink {
-            background: linear-gradient(180deg, transparent 50%, rgba(212,100,138,0.25) 50%);
+            background: linear-gradient(180deg, transparent 50%, rgba(74,103,65,0.25) 50%);
             padding: 0 4px;
         }
 
@@ -152,17 +203,19 @@
             line-height: 1.8;
         }
 
+        .bg-red .desc,
         .bg-green .desc { color: rgba(255,255,255,0.9); }
 
         /* 이미지 */
         .img-frame {
-            width: 200px;
+            width: 180px;
             margin: 20px auto;
             border-radius: 16px;
             overflow: hidden;
             box-shadow: 0 8px 30px rgba(0,0,0,0.1);
             background: #fff;
             padding: 10px;
+            border: 2px solid var(--gold);
         }
 
         .img-frame img {
@@ -188,7 +241,7 @@
             align-items: center;
             gap: 8px;
             padding: 16px 36px;
-            background: var(--green);
+            background: var(--red);
             color: #fff;
             text-decoration: none;
             border-radius: 30px;
@@ -197,18 +250,20 @@
             margin-top: 20px;
             border: none;
             cursor: pointer;
+            box-shadow: 0 4px 15px rgba(196,18,48,0.3);
         }
 
         .btn:active { transform: scale(0.97); }
-        .btn-dark { background: #2d2d2d; }
-        .btn-outline { background: transparent; border: 2px solid #fff; }
+        .btn-gold { background: var(--gold); box-shadow: 0 4px 15px rgba(212,168,83,0.3); }
+        .btn-green { background: var(--green); box-shadow: 0 4px 15px rgba(74,103,65,0.3); }
+        .btn-outline { background: transparent; border: 2px solid #fff; box-shadow: none; }
         .btn-large { width: 100%; max-width: 300px; justify-content: center; }
 
         /* 태그 */
         .tag {
             display: inline-block;
             padding: 10px 20px;
-            background: var(--green);
+            background: var(--red);
             color: #fff;
             border-radius: 25px;
             font-size: 14px;
@@ -216,7 +271,19 @@
             margin-bottom: 16px;
         }
 
-        .tag-alert { background: #d35400; }
+        .tag-gold { background: var(--gold); }
+
+        /* 한정 수량 박스 */
+        .limit-box {
+            background: #fff;
+            border: 2px dashed var(--red);
+            border-radius: 14px;
+            padding: 14px 20px;
+            margin-top: 16px;
+            font-size: 15px;
+            color: var(--red);
+            font-weight: 600;
+        }
 
         /* 구성 설명 */
         .kit-box {
@@ -226,6 +293,7 @@
             margin: 24px auto;
             max-width: 320px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border: 1px solid rgba(212,168,83,0.3);
         }
 
         .kit-visual {
@@ -237,7 +305,7 @@
         }
 
         .kit-num {
-            background: var(--green);
+            background: var(--red);
             color: #fff;
             width: 70px;
             height: 70px;
@@ -251,10 +319,10 @@
         .kit-num strong { font-size: 32px; font-weight: 800; line-height: 1; }
         .kit-num span { font-size: 13px; margin-top: 2px; }
 
-        .kit-multiply { font-size: 28px; color: var(--pencil-orange); font-weight: 300; }
+        .kit-multiply { font-size: 28px; color: var(--gold); font-weight: 300; }
 
         .kit-result {
-            background: var(--green-light);
+            background: var(--red-light);
             border-radius: 14px;
             padding: 16px;
             text-align: center;
@@ -264,7 +332,7 @@
         .kit-result strong {
             display: block;
             font-size: 26px;
-            color: var(--green);
+            color: var(--red);
             margin-top: 4px;
         }
 
@@ -296,16 +364,22 @@
         }
 
         /* 특징 그리드 */
+        .feature-intro {
+            font-size: 15px;
+            color: rgba(255,255,255,0.85);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
         .feature-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 14px;
-            margin-top: 24px;
             max-width: 320px;
         }
 
         .feature-item {
-            background: rgba(255,255,255,0.15);
+            background: rgba(255,255,255,0.12);
             border-radius: 14px;
             padding: 18px 14px;
         }
@@ -315,7 +389,7 @@
 
         /* 응원 메시지 섹션 */
         .cheer-section {
-            background: #d4e4cf;
+            background: linear-gradient(180deg, #fdf2f2 0%, #f8e8e8 100%);
             min-height: 100vh;
             padding: 0;
             display: flex;
@@ -324,34 +398,35 @@
 
         .cheer-header {
             background: var(--green);
-            padding: 24px 20px;
+            padding: 20px;
             text-align: center;
             color: #fff;
+            flex-shrink: 0;
         }
 
         .cheer-header h2 {
             font-family: 'Nanum Myeongjo', serif;
-            font-size: 22px;
-            margin-top: 10px;
+            font-size: 20px;
+            margin-top: 8px;
         }
 
         .cheer-messages {
             flex: 1;
             overflow-y: auto;
-            padding: 20px;
-            background: #d4e4cf;
+            padding: 16px;
+            min-height: 200px;
         }
 
         .cheer-empty {
             text-align: center;
             color: rgba(0,0,0,0.4);
-            padding: 50px 20px;
-            font-size: 16px;
+            padding: 40px 20px;
+            font-size: 15px;
         }
 
         .msg-bubble {
             max-width: 85%;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
             animation: fadeIn 0.3s ease;
         }
 
@@ -360,33 +435,31 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .msg-user {
-            margin-left: auto;
-        }
+        .msg-user { margin-left: auto; }
 
         .msg-user .msg-content {
             background: #fff9c4;
             border-radius: 16px 16px 4px 16px;
-            padding: 14px 16px;
-            font-size: 15px;
+            padding: 12px 14px;
+            font-size: 14px;
             line-height: 1.6;
         }
 
         .msg-producer {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             align-items: flex-start;
         }
 
         .msg-avatar {
-            width: 36px;
-            height: 36px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             background: var(--green);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 14px;
+            font-size: 12px;
             color: #fff;
             flex-shrink: 0;
         }
@@ -394,70 +467,82 @@
         .msg-producer .msg-content {
             background: #fff;
             border-radius: 16px 16px 16px 4px;
-            padding: 14px 16px;
-            font-size: 15px;
+            padding: 12px 14px;
+            font-size: 14px;
             line-height: 1.6;
         }
 
         .msg-time {
-            font-size: 11px;
+            font-size: 10px;
             color: rgba(0,0,0,0.4);
             margin-top: 4px;
             text-align: right;
         }
 
-        .cheer-input {
+        /* 입력창 - 키보드 고려 */
+        .cheer-input-wrap {
             background: #fff;
-            padding: 12px 16px;
-            display: flex;
-            gap: 12px;
-            align-items: center;
+            padding: 12px 14px;
+            padding-bottom: calc(12px + env(safe-area-inset-bottom));
             border-top: 1px solid #e0e0e0;
+            flex-shrink: 0;
+            position: sticky;
+            bottom: 0;
+        }
+
+        .cheer-input {
+            display: flex;
+            gap: 10px;
+            align-items: center;
         }
 
         .cheer-input input {
             flex: 1;
             border: 1px solid #e5e5e5;
             background: #f5f5f5;
-            padding: 14px 18px;
+            padding: 14px 16px;
             border-radius: 24px;
             font-size: 15px;
             outline: none;
         }
 
-        .cheer-input button {
-            background: #ffe066;
-            color: #333;
-            border: none;
-            border-radius: 8px;
-            padding: 14px 20px;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
+        .cheer-input input:focus {
+            border-color: var(--green);
+            background: #fff;
         }
 
-        /* 따뜻한 문구 애니메이션 */
+        .cheer-input button {
+            background: var(--gold);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 14px 18px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        /* 따뜻한 문구 */
         .warm-text {
-            font-size: 15px;
+            font-size: 14px;
             color: var(--text-light);
-            min-height: 50px;
-            margin: 16px 0;
+            min-height: 24px;
+            margin: 12px 0;
             opacity: 0;
             animation: warmFade 0.5s ease forwards;
         }
 
-        @keyframes warmFade {
-            to { opacity: 1; }
-        }
+        @keyframes warmFade { to { opacity: 1; } }
 
         /* 푸터 */
         .footer {
             padding: 24px;
-            background: var(--green-dark);
+            background: var(--red);
             text-align: center;
         }
 
-        .footer p { font-size: 11px; color: rgba(255,255,255,0.5); }
+        .footer p { font-size: 11px; color: rgba(255,255,255,0.6); }
 
         /* 감사 팝업 */
         .thank-popup {
@@ -498,12 +583,32 @@
             line-height: 1.6;
             margin-bottom: 20px;
         }
+
+        /* 명절 분위기 요소 */
+        .seol-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: linear-gradient(135deg, var(--gold) 0%, #c9973d 100%);
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
     </style>
 </head>
 <body>
     <header class="header">
-        <p class="header-sub">26년 설 1주 전</p>
-        <p class="header-title">두레생협 증정행사 1탄</p>
+        <div class="header-left">
+            <p class="header-sub">🧧 26년 설 1주 전</p>
+            <p class="header-title">두레생협 증정행사 1탄</p>
+        </div>
+        <div class="header-visitors">
+            <span class="live-dot"></span>
+            <span class="visitor-count"><span id="visitorCount">0</span>명</span>
+        </div>
     </header>
 
     <div class="dots" id="dots">
@@ -517,30 +622,33 @@
 
     <!-- 1: 인트로 -->
     <section class="card bg-paper" data-i="0">
-        <span class="tag">SPECIAL GIFT</span>
+        <p class="seol-deco">🧧</p>
+        <span class="seol-badge">🎁 설맞이 증정</span>
         <h1 class="title">
-            10만원 이상 구매하면<br>
-            <span class="hl-green">샘플키트 3박스</span><br>
-            드려요!
+            풀빛고운 화장품으로<br>
+            <span class="hl-red">예쁜 얼굴</span>로<br>
+            명절 보내세요!
         </h1>
         <div class="img-frame">
             <img src="gift_kit.jpg" alt="풀빛고운 기초 5종 샘플키트">
         </div>
         <p class="desc">
-            풀빛고운 기초화장품<br>
-            <span class="hl-orange">비건 · 천연 인증</span>
+            10만원 이상 구매 시<br>
+            <span class="hl-gold">샘플키트 3박스</span> 증정
         </p>
+        <div class="limit-box">
+            😢 3,000개 밖에 준비 못했어요!
+        </div>
         <div class="warm-text" id="warmText1"></div>
-        <span class="tag tag-alert">선착순 3,000명</span>
-        <a href="https://ecoop.or.kr" class="btn">주문하기</a>
+        <a href="https://ecoop.or.kr" class="btn">🛒 쇼핑몰 바로가기</a>
     </section>
 
     <!-- 2: 영상 -->
-    <section class="card bg-kraft" data-i="1">
+    <section class="card bg-gold" data-i="1">
         <p class="label">ONLINE MANAGER</p>
         <h2 class="title">
             오랜만에 인사드리는<br>
-            <span class="hl-pink">온라인점장</span>입니다
+            <span class="hl-green">온라인점장</span>입니다
         </h2>
         <div class="video-frame">
             <video autoplay loop muted playsinline preload="auto">
@@ -549,16 +657,16 @@
         </div>
         <p class="desc">
             풀빛고운 화장품으로 이뻐져서<br>
-            소개 드립니다
+            소개 드립니다 ☺️
         </p>
-        <a href="https://ecoop.or.kr" class="btn btn-dark">주문하기</a>
+        <a href="https://ecoop.or.kr" class="btn btn-green">🛒 쇼핑몰 바로가기</a>
     </section>
 
     <!-- 3: 구성품 설명 -->
     <section class="card bg-paper" data-i="2">
         <p class="label">SAMPLE KIT</p>
         <h2 class="title">
-            <span class="hl-green">쉽게</span> 알려드릴게요
+            <span class="hl-gold">쉽게</span> 알려드릴게요
         </h2>
         <div class="kit-box">
             <div class="kit-visual">
@@ -600,16 +708,20 @@
                 </div>
             </div>
         </div>
-        <a href="https://ecoop.or.kr" class="btn">주문하기</a>
+        <a href="https://ecoop.or.kr" class="btn">🛒 쇼핑몰 바로가기</a>
     </section>
 
     <!-- 4: 특징 -->
     <section class="card bg-green" data-i="3">
         <p class="label">WHY PULBITGOUN</p>
         <h2 class="title">
-            믿을 수 있는<br>
-            <span style="color:#c9e4b8;">생협 화장품</span>
+            아직 안 써보셨으면<br>
+            <span style="color:#c9e4b8;">이런 특징이 있어요</span>
         </h2>
+        <p class="feature-intro">
+            풀빛고운 화장품은<br>
+            믿을 수 있는 생협 화장품이에요
+        </p>
         <div class="feature-grid">
             <div class="feature-item">
                 <p class="feature-icon">🌱</p>
@@ -628,47 +740,52 @@
                 <p class="feature-text"><strong>여행용</strong><br>휴대 간편</p>
             </div>
         </div>
-        <p class="desc" style="margin-top:24px;">
-            유통기한 <span class="hl-orange">2028년 2월</span>까지 넉넉!
+        <p class="desc" style="margin-top:20px;">
+            유통기한 <span class="hl-gold">2028년 2월</span>까지 넉넉!
         </p>
-        <a href="https://ecoop.or.kr" class="btn btn-outline">주문하기</a>
+        <a href="https://ecoop.or.kr" class="btn btn-outline">🛒 쇼핑몰 바로가기</a>
     </section>
 
     <!-- 5: 응원 메시지 -->
     <section class="cheer-section" data-i="4" style="scroll-snap-align: start;">
         <div class="cheer-header">
-            <span class="tag" style="background:rgba(255,255,255,0.2);">💬 의견 남기기</span>
+            <span class="tag" style="background:rgba(255,255,255,0.2); font-size:12px;">💬 의견 남기기</span>
             <h2>풀빛고운 생산자에게<br>한마디 남겨주세요</h2>
         </div>
         <div class="cheer-messages" id="cheerMessages">
             <p class="cheer-empty">첫 번째 의견을 남겨주세요! 🌿</p>
         </div>
-        <div class="cheer-input">
-            <input type="text" id="cheerInput" placeholder="의견을 입력해 주세요" maxlength="100">
-            <button onclick="submitCheer()">전송</button>
+        <div class="cheer-input-wrap">
+            <div class="cheer-input">
+                <input type="text" id="cheerInput" placeholder="의견을 입력해 주세요" maxlength="100">
+                <button onclick="submitCheer()">전송</button>
+            </div>
         </div>
     </section>
 
     <!-- 6: CTA -->
     <section class="card bg-paper" data-i="5">
-        <span class="tag" style="background:var(--pencil-orange);">설맞이 증정</span>
+        <p class="seol-deco">🧧</p>
+        <span class="seol-badge">🎁 설맞이 증정</span>
         <h2 class="title">
             10만원 이상 구매 시<br>
-            <span class="hl-green">무료 증정</span>
+            <span class="hl-red">무료 증정</span>
         </h2>
         <div class="img-frame">
             <img src="gift_product.jpg" alt="샘플키트">
         </div>
-        <p class="desc" style="margin-bottom:20px;">
-            <span class="hl-pink">3박스 × 5종</span> = 총 15개!
+        <p class="desc" style="margin-bottom:16px;">
+            <span class="hl-gold">3박스 × 5종</span> = 총 15개!
         </p>
-        <span class="tag tag-alert">선착순 3,000명 한정</span>
-        <a href="https://ecoop.or.kr" class="btn btn-large btn-dark">지금 주문하러 가기</a>
+        <div class="limit-box">
+            😢 3,000개 밖에 준비 못했어요!
+        </div>
+        <a href="https://ecoop.or.kr" class="btn btn-large">🛒 쇼핑몰 바로가기</a>
         <div class="warm-text" id="warmText2"></div>
     </section>
 
     <footer class="footer">
-        <p>두레생협 생활의 발견 · 2026 W06</p>
+        <p>🧧 두레생협 생활의 발견 · 2026 W06 · 새해 복 많이 받으세요!</p>
     </footer>
 
     <!-- 감사 팝업 -->
@@ -677,7 +794,7 @@
             <p style="font-size:40px; margin-bottom:12px;">🌿</p>
             <h3>풀빛고운</h3>
             <p id="thankMessage">감사합니다!</p>
-            <button class="btn" onclick="closeThankPopup()">확인</button>
+            <button class="btn btn-green" onclick="closeThankPopup()">확인</button>
         </div>
     </div>
 
@@ -697,40 +814,52 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
+        // 실시간 방문자 수
+        const visitorRef = db.collection('visitors').doc('w06-gift-2026');
+        visitorRef.get().then((doc) => {
+            if (doc.exists) {
+                visitorRef.update({ count: firebase.firestore.FieldValue.increment(1) });
+            } else {
+                visitorRef.set({ count: 1 });
+            }
+        });
+
+        visitorRef.onSnapshot((doc) => {
+            if (doc.exists) {
+                document.getElementById('visitorCount').textContent = doc.data().count.toLocaleString();
+            }
+        });
+
         // 따뜻한 문구들
         const warmMessages = [
-            "오늘도 건강하고 아름다운 하루 되세요 🌸",
-            "피부에 좋은 것만 드리고 싶어요 💚",
-            "자연의 힘을 담았습니다 🌿",
-            "조합원님의 피부를 응원해요 ✨",
-            "건강한 아름다움을 선물합니다 🎁",
-            "믿을 수 있는 생협 화장품이에요 💕",
-            "설 명절, 따뜻하게 보내세요 🧧",
-            "소중한 분께 선물하기 좋아요 🎀"
+            "새해 복 많이 받으세요! 🧧",
+            "올해도 건강하고 아름답게! 💕",
+            "피부에 좋은 것만 드려요 🌿",
+            "명절 선물로도 좋아요 🎁",
+            "가족과 함께 써보세요 👨‍👩‍👧",
+            "따뜻한 설 연휴 보내세요 ❤️",
+            "행복한 명절 되세요! 🏠",
+            "사랑하는 분께 선물하세요 💝"
         ];
 
         // 생산자 답변 문구
         const replyMessages = [
-            "감사합니다~ 💚 더 좋은 제품으로 보답할게요!",
+            "감사합니다~ 💚 새해 복 많이 받으세요!",
             "소중한 의견 감사해요~ 🌿",
-            "조합원님 덕분에 힘이 납니다!",
+            "명절에도 건강한 피부 응원해요!",
             "좋은 성분만 담을게요~ 감사합니다 ✨",
             "따뜻한 말씀 정말 감사드려요 🙏",
-            "피부 건강 응원할게요~ 💕",
-            "자연 그대로의 좋은 것만 드릴게요!",
-            "감사합니다~ 행복한 설 되세요 🧧"
+            "올해도 좋은 제품으로 보답할게요!",
+            "행복한 설 연휴 보내세요~ 🧧",
+            "조합원님 덕분에 힘이 납니다!"
         ];
 
         // 따뜻한 문구 표시
         function showWarmText() {
             const warm1 = document.getElementById('warmText1');
             const warm2 = document.getElementById('warmText2');
-            if (warm1) {
-                warm1.textContent = warmMessages[Math.floor(Math.random() * warmMessages.length)];
-            }
-            if (warm2) {
-                warm2.textContent = warmMessages[Math.floor(Math.random() * warmMessages.length)];
-            }
+            if (warm1) warm1.textContent = warmMessages[Math.floor(Math.random() * warmMessages.length)];
+            if (warm2) warm2.textContent = warmMessages[Math.floor(Math.random() * warmMessages.length)];
         }
         showWarmText();
         setInterval(showWarmText, 5000);
@@ -752,7 +881,6 @@
             messages.reverse();
 
             messages.forEach((msg, idx) => {
-                // 사용자 메시지
                 const userBubble = document.createElement('div');
                 userBubble.className = 'msg-bubble msg-user';
                 userBubble.innerHTML = `
@@ -761,7 +889,6 @@
                 `;
                 container.appendChild(userBubble);
 
-                // 생산자 답변
                 const replyBubble = document.createElement('div');
                 replyBubble.className = 'msg-bubble msg-producer';
                 replyBubble.innerHTML = `
@@ -787,13 +914,17 @@
                 timestamp: firebase.firestore.FieldValue.serverTimestamp()
             }).then(() => {
                 input.value = '';
+                input.blur(); // 키보드 닫기
                 showThankPopup();
             });
         }
 
         // 엔터키 전송
         document.getElementById('cheerInput').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') submitCheer();
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                submitCheer();
+            }
         });
 
         // 감사 팝업
