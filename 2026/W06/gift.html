@@ -289,95 +289,6 @@
             box-shadow: 0 3px 10px rgba(212,168,83,0.3);
         }
 
-        /* 한정 수량 박스 */
-        .limit-box {
-            background: rgba(255,255,255,0.9);
-            border: 2px dashed var(--red);
-            border-radius: 14px;
-            padding: 14px 20px;
-            margin-top: 16px;
-            font-size: 15px;
-            color: var(--red);
-            font-weight: 600;
-        }
-
-        /* 구성 설명 */
-        .kit-box {
-            background: rgba(255,255,255,0.95);
-            border-radius: 20px;
-            padding: 28px 24px;
-            margin: 24px auto;
-            max-width: 320px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            border: 1px solid rgba(212,168,83,0.3);
-        }
-
-        .kit-visual {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 16px;
-            margin-bottom: 20px;
-        }
-
-        .kit-num {
-            background: var(--red);
-            color: #fff;
-            width: 70px;
-            height: 70px;
-            border-radius: 16px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .kit-num strong { font-size: 32px; font-weight: 800; line-height: 1; }
-        .kit-num span { font-size: 13px; margin-top: 2px; }
-
-        .kit-multiply { font-size: 28px; color: var(--gold); font-weight: 300; }
-
-        .kit-result {
-            background: linear-gradient(135deg, #fff5f5 0%, #ffebeb 100%);
-            border-radius: 14px;
-            padding: 16px;
-            text-align: center;
-        }
-
-        .kit-result p { font-size: 14px; color: var(--text-light); }
-        .kit-result strong {
-            display: block;
-            font-size: 26px;
-            color: var(--red);
-            margin-top: 4px;
-        }
-
-        .kit-list {
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px dashed #ddd;
-        }
-
-        .kit-list-title {
-            font-size: 14px;
-            color: var(--text-light);
-            margin-bottom: 14px;
-        }
-
-        .kit-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 8px 0;
-            font-size: 15px;
-        }
-
-        .kit-dot {
-            width: 22px;
-            height: 22px;
-            border-radius: 6px;
-            flex-shrink: 0;
-        }
 
         /* 특징 그리드 */
         .feature-intro {
@@ -401,8 +312,8 @@
             backdrop-filter: blur(5px);
         }
 
-        .feature-icon { font-size: 28px; margin-bottom: 10px; }
-        .feature-text { font-size: 14px; color: rgba(255,255,255,0.95); line-height: 1.5; }
+        .feature-icon { font-size: 28px; margin-bottom: 8px; }
+        .feature-text { font-size: 14px; color: rgba(255,255,255,0.95); font-weight: 500; }
 
         /* 응원 메시지 섹션 */
         .cheer-section {
@@ -547,17 +458,6 @@
             flex-shrink: 0;
         }
 
-        /* 따뜻한 문구 */
-        .warm-text {
-            font-size: 14px;
-            color: var(--text-light);
-            min-height: 24px;
-            margin: 12px 0;
-            opacity: 0;
-            animation: warmFade 0.5s ease forwards;
-        }
-
-        @keyframes warmFade { to { opacity: 1; } }
 
         /* 푸터 */
         .footer {
@@ -618,6 +518,69 @@
             font-size: 13px;
         }
 
+        /* 상세 정보 박스 */
+        .detail-box {
+            background: #fff;
+            border-radius: 16px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 300px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            text-align: left;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 14px;
+        }
+
+        .detail-row:last-child { border-bottom: none; }
+
+        .detail-label {
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .detail-value {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .detail-value.highlight {
+            color: var(--red);
+        }
+
+        .kit-list-simple {
+            background: rgba(74,103,65,0.08);
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin: 16px auto;
+            max-width: 300px;
+            text-align: center;
+        }
+
+        .kit-list-simple .kit-list-title {
+            font-size: 13px;
+            color: var(--green);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .kit-list-simple p {
+            font-size: 13px;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        .footer-note {
+            font-size: 12px;
+            color: var(--text-light);
+            margin-top: 16px;
+        }
+
         /* 히어로 섹션 */
         .hero {
             min-height: 100vh;
@@ -630,97 +593,44 @@
             text-align: center;
             padding: 65px 24px 35px;
             background:
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><filter id="hero"><feTurbulence type="fractalNoise" baseFrequency="0.06" numOctaves="4" result="noise"/><feDiffuseLighting in="noise" lighting-color="%23a01025" surfaceScale="1"><feDistantLight azimuth="45" elevation="60"/></feDiffuseLighting></filter><rect width="200" height="200" filter="url(%23hero)"/></svg>'),
-                linear-gradient(170deg, #c41230 0%, #8a0d20 100%);
-            background-color: #b8102a;
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><filter id="hero"><feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="5" result="noise"/><feDiffuseLighting in="noise" lighting-color="%23425d3a" surfaceScale="2"><feDistantLight azimuth="45" elevation="60"/></feDiffuseLighting></filter><rect width="200" height="200" filter="url(%23hero)"/></svg>'),
+                linear-gradient(170deg, #4a6741 0%, #3a5331 100%);
+            background-color: #4a6741;
             color: #fff;
             position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '🧧';
-            position: absolute;
-            font-size: 200px;
-            opacity: 0.1;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        .hero-badge {
-            background: rgba(255,255,255,0.2);
-            border: 1px solid rgba(255,255,255,0.3);
-            padding: 8px 20px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 500;
-            margin-bottom: 24px;
-            backdrop-filter: blur(5px);
         }
 
         .hero-title {
             font-family: 'Nanum Myeongjo', serif;
-            font-size: 42px;
+            font-size: 36px;
             font-weight: 800;
-            line-height: 1.3;
-            margin-bottom: 16px;
-            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            line-height: 1.4;
+            margin-bottom: 20px;
         }
 
         .hero-title .big {
-            font-size: 56px;
+            font-size: 48px;
             display: block;
-            color: #ffd700;
-            text-shadow: 0 4px 20px rgba(255,215,0,0.4);
+            margin-top: 8px;
         }
 
         .hero-sub {
-            font-size: 18px;
-            opacity: 0.9;
-            line-height: 1.7;
-            margin-bottom: 30px;
-        }
-
-        .hero-condition {
-            background: rgba(255,255,255,0.15);
-            border-radius: 16px;
-            padding: 20px 28px;
-            backdrop-filter: blur(5px);
-            margin-bottom: 24px;
-        }
-
-        .hero-condition p {
-            font-size: 15px;
-            opacity: 0.9;
-        }
-
-        .hero-condition strong {
-            display: block;
-            font-size: 24px;
-            margin-top: 6px;
-            color: #ffd700;
+            font-size: 16px;
+            opacity: 0.85;
+            line-height: 1.6;
         }
 
         .scroll-hint {
             position: absolute;
-            bottom: 30px;
+            bottom: 40px;
             left: 50%;
             transform: translateX(-50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
             animation: bounce 2s infinite;
         }
 
-        .scroll-hint span {
-            font-size: 12px;
-            opacity: 0.7;
-        }
-
         .scroll-hint .arrow {
-            font-size: 20px;
+            font-size: 24px;
+            opacity: 0.6;
         }
 
         @keyframes bounce {
@@ -748,60 +658,42 @@
         <div class="dot" data-i="3"></div>
         <div class="dot" data-i="4"></div>
         <div class="dot" data-i="5"></div>
-        <div class="dot" data-i="6"></div>
     </div>
 
     <!-- 1페이지: 후킹 - 관심 유발 -->
     <section class="hero" data-i="0">
-        <div class="hero-badge">🎁 두레생협 설맞이 증정행사 1탄</div>
         <h1 class="hero-title">
             명절 맞이<br>
-            <span class="big">예뻐지셔요!</span>
+            <span class="big">예뻐지세요</span>
         </h1>
         <p class="hero-sub">
-            화장품을 드려요!<br>
-            <strong>풀빛고운 샘플키트 3박스</strong>
+            조합원님께 작은 선물 준비했어요
         </p>
-        <div class="hero-condition">
-            <p>🛒 10만원 이상 구매 시</p>
-            <strong>무료 증정</strong>
-        </div>
-        <a href="https://ecoop.or.kr" class="btn" style="background:#ffd700; color:#8a0d20;">지금 쇼핑하기 →</a>
         <div class="scroll-hint">
-            <span>자세히 보기</span>
             <span class="arrow">↓</span>
         </div>
     </section>
 
-    <!-- 2페이지: 제품 소개 - 무엇을 드리는지 -->
+    <!-- 2페이지: 제품 소개 -->
     <section class="card bg-cream-paper" data-i="1">
-        <p class="seol-deco">🧧</p>
-        <span class="seol-badge">🎁 설맞이 증정</span>
         <h1 class="title">
-            풀빛고운 화장품으로<br>
-            <span class="hl-red">예쁜 얼굴</span>로<br>
-            명절 보내세요!
+            생협 화장품<br>
+            <span class="hl-green">풀빛고운</span>
         </h1>
-        <div class="img-frame">
+        <div class="img-frame" style="width:220px;">
             <img src="gift_kit.jpg" alt="풀빛고운 기초 5종 샘플키트">
         </div>
         <p class="desc">
-            10만원 이상 구매 시<br>
-            <span class="hl-gold">샘플키트 3박스</span> 증정
+            기초 5종 샘플키트를<br>
+            준비했습니다
         </p>
-        <div class="limit-box">
-            😢 3,000개 밖에 준비 못했어요!
-        </div>
-        <div class="warm-text" id="warmText1"></div>
-        <a href="https://ecoop.or.kr" class="btn">🛒 쇼핑몰 바로가기</a>
     </section>
 
-    <!-- 3페이지: 신뢰 구축 - 온라인점장 영상 -->
+    <!-- 3페이지: 온라인점장 영상 -->
     <section class="card bg-kraft-paper" data-i="2">
-        <p class="label">ONLINE MANAGER</p>
         <h2 class="title">
-            오랜만에 인사드리는<br>
-            <span class="hl-green">온라인점장</span>입니다
+            <span class="hl-green">온라인점장</span>이<br>
+            직접 써봤어요
         </h2>
         <div class="video-frame">
             <video autoplay loop muted playsinline preload="auto">
@@ -809,101 +701,40 @@
             </video>
         </div>
         <p class="desc">
-            풀빛고운 화장품으로 이뻐져서<br>
-            소개 드립니다 ☺️
+            피부가 좋아져서 소개드려요
         </p>
-        <a href="https://ecoop.or.kr" class="btn btn-green">🛒 쇼핑몰 바로가기</a>
     </section>
 
-    <!-- 4페이지: 상세 정보 - 구성품 설명 -->
-    <section class="card bg-gold-paper" data-i="3">
-        <p class="label">SAMPLE KIT</p>
-        <h2 class="title">
-            <span class="hl-gold">쉽게</span> 알려드릴게요
+    <!-- 4페이지: 제품 특징 -->
+    <section class="card bg-green-paper" data-i="3">
+        <h2 class="title" style="margin-bottom:24px;">
+            믿을 수 있는<br>
+            생협 화장품
         </h2>
-        <div class="kit-box">
-            <div class="kit-visual">
-                <div class="kit-num">
-                    <strong>3</strong>
-                    <span>박스</span>
-                </div>
-                <span class="kit-multiply">×</span>
-                <div class="kit-num">
-                    <strong>5</strong>
-                    <span>종류</span>
-                </div>
-            </div>
-            <div class="kit-result">
-                <p>총</p>
-                <strong>15개 증정!</strong>
-            </div>
-            <div class="kit-list">
-                <p class="kit-list-title">📦 1박스에 들어있는 5종</p>
-                <div class="kit-item">
-                    <span class="kit-dot" style="background:#4a7c59;"></span>
-                    시카동백 크림
-                </div>
-                <div class="kit-item">
-                    <span class="kit-dot" style="background:#6b9b7a;"></span>
-                    시카동백 로션
-                </div>
-                <div class="kit-item">
-                    <span class="kit-dot" style="background:#e0e0e0;"></span>
-                    시카 히알루론 토너
-                </div>
-                <div class="kit-item">
-                    <span class="kit-dot" style="background:#f0f0f0; border:1px solid #ddd;"></span>
-                    시카 릴렉스 아이크림
-                </div>
-                <div class="kit-item">
-                    <span class="kit-dot" style="background:#6d5344;"></span>
-                    시카 비타민 에센스
-                </div>
-            </div>
-        </div>
-        <a href="https://ecoop.or.kr" class="btn btn-gold">🛒 쇼핑몰 바로가기</a>
-    </section>
-
-    <!-- 5페이지: 가치 전달 - 제품 특징/장점 -->
-    <section class="card bg-green-paper" data-i="4">
-        <p class="label">WHY PULBITGOUN</p>
-        <h2 class="title">
-            아직 안 써보셨으면<br>
-            <span style="color:#c9e4b8;">이런 특징이 있어요</span>
-        </h2>
-        <p class="feature-intro">
-            풀빛고운 화장품은<br>
-            믿을 수 있는 생협 화장품이에요
-        </p>
         <div class="feature-grid">
             <div class="feature-item">
                 <p class="feature-icon">🌱</p>
-                <p class="feature-text"><strong>비건 인증</strong><br>동물실험 NO</p>
+                <p class="feature-text">비건 인증</p>
             </div>
             <div class="feature-item">
                 <p class="feature-icon">🍃</p>
-                <p class="feature-text"><strong>천연 인증</strong><br>안심 성분</p>
+                <p class="feature-text">천연 성분</p>
             </div>
             <div class="feature-item">
                 <p class="feature-icon">✨</p>
-                <p class="feature-text"><strong>항노화</strong><br>탄력 케어</p>
+                <p class="feature-text">항노화</p>
             </div>
             <div class="feature-item">
                 <p class="feature-icon">✈️</p>
-                <p class="feature-text"><strong>여행용</strong><br>휴대 간편</p>
+                <p class="feature-text">휴대 간편</p>
             </div>
         </div>
-        <p class="desc" style="margin-top:20px;">
-            유통기한 <span class="hl-gold">2028년 2월</span>까지 넉넉!
-        </p>
-        <a href="https://ecoop.or.kr" class="btn btn-outline">🛒 쇼핑몰 바로가기</a>
     </section>
 
-    <!-- 6페이지: 참여 유도 - 의견 남기기 -->
-    <section class="cheer-section" data-i="5" style="scroll-snap-align: start;">
+    <!-- 5페이지: 의견 남기기 -->
+    <section class="cheer-section" data-i="4" style="scroll-snap-align: start;">
         <div class="cheer-header">
-            <span style="background:rgba(255,255,255,0.2); padding:6px 14px; border-radius:15px; font-size:12px;">💬 의견 남기기</span>
-            <h2>풀빛고운 생산자에게<br>한마디 남겨주세요</h2>
+            <h2>생산자에게<br>한마디 남겨주세요</h2>
         </div>
         <div class="cheer-messages" id="cheerMessages">
             <p class="cheer-empty loading">메시지를 불러오는 중...</p>
@@ -916,25 +747,48 @@
         </div>
     </section>
 
-    <!-- 7페이지: 행동 유도 (CTA) - 구매로 연결 -->
-    <section class="card bg-cream-paper" data-i="6">
-        <p class="seol-deco">🧧</p>
-        <span class="seol-badge">🎁 설맞이 증정</span>
+    <!-- 6페이지: 상세 정보 및 CTA (마지막) -->
+    <section class="card bg-cream-paper" data-i="5">
+        <span class="seol-badge">🎁 증정 안내</span>
         <h2 class="title">
-            10만원 이상 구매 시<br>
-            <span class="hl-red">무료 증정</span>
+            <span class="hl-red">10만원</span> 이상 구매 시<br>
+            샘플키트 증정
         </h2>
-        <div class="img-frame">
+        <div class="img-frame" style="width:200px;">
             <img src="gift_product.jpg" alt="샘플키트">
         </div>
-        <p class="desc" style="margin-bottom:16px;">
-            <span class="hl-gold">3박스 × 5종</span> = 총 15개!
-        </p>
-        <div class="limit-box">
-            😢 3,000개 밖에 준비 못했어요!
+
+        <!-- 상세 정보 박스 -->
+        <div class="detail-box">
+            <div class="detail-row">
+                <span class="detail-label">증정품</span>
+                <span class="detail-value">풀빛고운 기초 5종 샘플키트</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">수량</span>
+                <span class="detail-value">3박스 (총 15개)</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">조건</span>
+                <span class="detail-value">10만원 이상 구매</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">유통기한</span>
+                <span class="detail-value">2028년 2월</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">한정수량</span>
+                <span class="detail-value highlight">3,000개</span>
+            </div>
         </div>
-        <a href="https://ecoop.or.kr" class="btn btn-large">🛒 쇼핑몰 바로가기</a>
-        <div class="warm-text" id="warmText2"></div>
+
+        <div class="kit-list-simple">
+            <p class="kit-list-title">📦 1박스 구성 (5종)</p>
+            <p>시카동백 크림 · 로션 · 토너 · 아이크림 · 에센스</p>
+        </div>
+
+        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="btn btn-large">🛒 쇼핑몰 바로가기</a>
+        <p class="footer-note">소진 시 조기 마감될 수 있습니다</p>
     </section>
 
     <footer class="footer">
@@ -1010,38 +864,15 @@
             document.getElementById('visitorDisplay').textContent = '오프라인';
         }
 
-        // ========== 따뜻한 문구 ==========
-        const warmMessages = [
-            "새해 복 많이 받으세요! 🧧",
-            "올해도 건강하고 아름답게! 💕",
-            "피부에 좋은 것만 드려요 🌿",
-            "명절 선물로도 좋아요 🎁",
-            "가족과 함께 써보세요 👨‍👩‍👧",
-            "따뜻한 설 연휴 보내세요 ❤️",
-            "행복한 명절 되세요! 🏠",
-            "사랑하는 분께 선물하세요 💝"
-        ];
-
+        // ========== 답변 메시지 ==========
         const replyMessages = [
-            "감사합니다~ 💚 새해 복 많이 받으세요!",
-            "소중한 의견 감사해요~ 🌿",
-            "명절에도 건강한 피부 응원해요!",
-            "좋은 성분만 담을게요~ 감사합니다 ✨",
-            "따뜻한 말씀 정말 감사드려요 🙏",
+            "감사합니다~ 새해 복 많이 받으세요!",
+            "소중한 의견 감사해요~",
+            "좋은 성분만 담을게요~ 감사합니다",
+            "따뜻한 말씀 정말 감사드려요",
             "올해도 좋은 제품으로 보답할게요!",
-            "행복한 설 연휴 보내세요~ 🧧",
             "조합원님 덕분에 힘이 납니다!"
         ];
-
-        function showWarmText() {
-            const warm1 = document.getElementById('warmText1');
-            const warm2 = document.getElementById('warmText2');
-            const msg = warmMessages[Math.floor(Math.random() * warmMessages.length)];
-            if (warm1) warm1.textContent = msg;
-            if (warm2) warm2.textContent = warmMessages[Math.floor(Math.random() * warmMessages.length)];
-        }
-        showWarmText();
-        setInterval(showWarmText, 5000);
 
         // ========== 메시지 기능 ==========
         let messagesRef;
