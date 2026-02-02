@@ -5,28 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>두레생협 설맞이 증정행사 1탄</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #3d6b4f;
-            --primary-dark: #2d5240;
-            --accent: #8b7355;
+            --green: #4a6741;
+            --green-dark: #3a5331;
+            --green-light: #e8f0e4;
+            --cream: #faf6ef;
+            --paper: #f5efe6;
             --text: #2d2d2d;
             --text-light: #555;
-            --white: #fff;
+            --pencil-green: #5d8a4a;
+            --pencil-orange: #e07b39;
+            --pencil-pink: #d4648a;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        html {
-            scroll-snap-type: y mandatory;
-            scroll-behavior: smooth;
-        }
-
+        html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
         body {
             font-family: 'Noto Sans KR', sans-serif;
+            background: var(--cream);
             color: var(--text);
-            line-height: 1.6;
             -webkit-font-smoothing: antialiased;
         }
 
@@ -36,21 +35,16 @@
             top: 0; left: 0; right: 0;
             z-index: 1000;
             padding: 12px 20px;
-            background: var(--primary);
-            color: var(--white);
+            background: var(--green);
+            color: #fff;
             text-align: center;
         }
 
-        .header-sub {
-            font-size: 11px;
-            letter-spacing: 2px;
-            opacity: 0.9;
-        }
-
+        .header-sub { font-size: 11px; letter-spacing: 2px; opacity: 0.9; }
         .header-title {
-            font-family: 'Noto Serif KR', serif;
-            font-size: 15px;
-            font-weight: 600;
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 16px;
+            font-weight: 700;
             margin-top: 2px;
         }
 
@@ -70,14 +64,14 @@
             width: 6px;
             height: 6px;
             border-radius: 3px;
-            background: rgba(61,107,79,0.3);
-            transition: all 0.3s;
+            background: rgba(74,103,65,0.3);
             cursor: pointer;
+            transition: all 0.3s;
         }
 
         .dot.active {
-            height: 18px;
-            background: var(--primary);
+            height: 20px;
+            background: var(--green);
         }
 
         /* 카드 공통 */
@@ -91,392 +85,418 @@
             align-items: center;
             padding: 70px 24px 35px;
             text-align: center;
+            position: relative;
         }
 
-        /* 배경 텍스처 */
+        /* 종이 질감 배경 */
         .bg-paper {
             background:
-                linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 100%),
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect fill="%23f5f0e8" width="100" height="100"/><circle fill="%23ebe5d9" cx="25" cy="25" r="2"/><circle fill="%23ebe5d9" cx="75" cy="75" r="2"/><circle fill="%23ebe5d9" cx="50" cy="50" r="1.5"/></svg>');
-            background-color: #faf7f2;
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="400" height="400" filter="url(%23n)" opacity="0.03"/></svg>'),
+                linear-gradient(180deg, #faf6ef 0%, #f5efe6 100%);
+            background-color: var(--paper);
         }
 
-        .bg-wood {
+        .bg-kraft {
             background:
-                linear-gradient(180deg, rgba(139,115,85,0.95) 0%, rgba(100,80,60,0.98) 100%),
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect fill="%238b7355" width="200" height="200"/><line stroke="%237a6548" stroke-width="1" x1="0" y1="20" x2="200" y2="20"/><line stroke="%237a6548" stroke-width="1" x1="0" y1="60" x2="200" y2="60"/><line stroke="%237a6548" stroke-width="1" x1="0" y1="100" x2="200" y2="100"/><line stroke="%237a6548" stroke-width="1" x1="0" y1="140" x2="200" y2="140"/><line stroke="%237a6548" stroke-width="1" x1="0" y1="180" x2="200" y2="180"/></svg>');
-            background-color: #8b7355;
-            color: var(--white);
-        }
-
-        .bg-cream {
-            background: linear-gradient(170deg, #fdfbf7 0%, #f5f0e8 100%);
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="400" height="400" filter="url(%23n)" opacity="0.05"/></svg>'),
+                linear-gradient(180deg, #e8dfd2 0%, #d9cfc0 100%);
+            background-color: #e0d6c8;
         }
 
         .bg-green {
-            background: linear-gradient(170deg, var(--primary) 0%, var(--primary-dark) 100%);
-            color: var(--white);
+            background: linear-gradient(170deg, var(--green) 0%, var(--green-dark) 100%);
+            color: #fff;
         }
 
-        .bg-white {
-            background: #fff;
-        }
-
-        /* 타이포 - 큼지막하게 */
+        /* 타이포그래피 - 큼직하게 */
         .label {
-            font-size: 11px;
+            font-size: 12px;
             letter-spacing: 3px;
-            color: var(--primary);
+            color: var(--green);
             font-weight: 500;
-            margin-bottom: 10px;
-            text-transform: uppercase;
+            margin-bottom: 12px;
         }
 
-        .bg-wood .label,
-        .bg-green .label {
-            color: rgba(255,255,255,0.7);
-        }
+        .bg-green .label { color: rgba(255,255,255,0.7); }
 
         .title {
-            font-family: 'Noto Serif KR', serif;
-            font-size: 28px;
-            font-weight: 700;
-            line-height: 1.4;
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 30px;
+            font-weight: 800;
+            line-height: 1.45;
             color: var(--text);
             margin-bottom: 16px;
         }
 
-        .bg-wood .title,
-        .bg-green .title {
-            color: var(--white);
+        .bg-green .title { color: #fff; }
+
+        /* 색연필 강조 */
+        .hl-green {
+            background: linear-gradient(180deg, transparent 50%, rgba(93,138,74,0.3) 50%);
+            padding: 0 4px;
         }
 
-        .title .em {
-            color: var(--primary);
+        .hl-orange {
+            background: linear-gradient(180deg, transparent 50%, rgba(224,123,57,0.3) 50%);
+            padding: 0 4px;
         }
 
-        .bg-wood .title .em {
-            color: #c9e4b8;
-        }
-
-        .bg-green .title .em {
-            color: #a8d5ba;
+        .hl-pink {
+            background: linear-gradient(180deg, transparent 50%, rgba(212,100,138,0.25) 50%);
+            padding: 0 4px;
         }
 
         .desc {
-            font-size: 16px;
+            font-size: 17px;
             color: var(--text-light);
             line-height: 1.8;
         }
 
-        .bg-wood .desc,
-        .bg-green .desc {
-            color: rgba(255,255,255,0.85);
-        }
+        .bg-green .desc { color: rgba(255,255,255,0.9); }
 
         /* 이미지 */
         .img-frame {
-            width: 220px;
-            height: 220px;
+            width: 200px;
             margin: 20px auto;
             border-radius: 16px;
             overflow: hidden;
             box-shadow: 0 8px 30px rgba(0,0,0,0.1);
-            background: var(--white);
+            background: #fff;
             padding: 10px;
         }
 
         .img-frame img {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
             border-radius: 10px;
         }
 
         /* 비디오 */
         .video-frame {
             width: 100%;
-            max-width: 340px;
+            max-width: 320px;
             margin: 20px auto;
             border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
-            background: #000;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
         }
 
-        .video-frame video {
-            width: 100%;
-            display: block;
-        }
+        .video-frame video { width: 100%; display: block; }
 
         /* 버튼 */
         .btn {
             display: inline-flex;
             align-items: center;
-            justify-content: center;
             gap: 8px;
-            padding: 14px 32px;
-            background: var(--primary);
-            color: var(--white);
+            padding: 16px 36px;
+            background: var(--green);
+            color: #fff;
             text-decoration: none;
             border-radius: 30px;
-            font-size: 15px;
+            font-size: 16px;
             font-weight: 600;
             margin-top: 20px;
-            transition: all 0.2s;
             border: none;
+            cursor: pointer;
         }
 
-        .btn:active {
-            transform: scale(0.97);
-        }
-
-        .btn-dark {
-            background: #2d2d2d;
-        }
-
-        .btn-white {
-            background: var(--white);
-            color: var(--primary);
-        }
-
-        .btn-large {
-            width: 100%;
-            max-width: 300px;
-            padding: 16px 20px;
-            font-size: 16px;
-            border-radius: 12px;
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 2px solid var(--white);
-            color: var(--white);
-        }
+        .btn:active { transform: scale(0.97); }
+        .btn-dark { background: #2d2d2d; }
+        .btn-outline { background: transparent; border: 2px solid #fff; }
+        .btn-large { width: 100%; max-width: 300px; justify-content: center; }
 
         /* 태그 */
         .tag {
             display: inline-block;
-            padding: 8px 16px;
-            background: var(--primary);
-            color: var(--white);
-            border-radius: 20px;
-            font-size: 13px;
+            padding: 10px 20px;
+            background: var(--green);
+            color: #fff;
+            border-radius: 25px;
+            font-size: 14px;
             font-weight: 600;
             margin-bottom: 16px;
         }
 
-        .tag-alert {
-            background: #d35400;
-        }
+        .tag-alert { background: #d35400; }
 
-        /* 구성 설명 박스 */
-        .kit-explain {
-            background: var(--white);
-            border-radius: 16px;
-            padding: 24px 20px;
-            margin: 20px auto;
+        /* 구성 설명 */
+        .kit-box {
+            background: #fff;
+            border-radius: 20px;
+            padding: 28px 24px;
+            margin: 24px auto;
             max-width: 320px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.06);
         }
 
-        .kit-row {
+        .kit-visual {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
-            margin-bottom: 16px;
+            gap: 16px;
+            margin-bottom: 20px;
         }
 
-        .kit-box {
-            background: var(--primary);
-            color: var(--white);
-            padding: 12px 16px;
-            border-radius: 12px;
+        .kit-num {
+            background: var(--green);
+            color: #fff;
+            width: 70px;
+            height: 70px;
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .kit-num strong { font-size: 32px; font-weight: 800; line-height: 1; }
+        .kit-num span { font-size: 13px; margin-top: 2px; }
+
+        .kit-multiply { font-size: 28px; color: var(--pencil-orange); font-weight: 300; }
+
+        .kit-result {
+            background: var(--green-light);
+            border-radius: 14px;
+            padding: 16px;
             text-align: center;
         }
 
-        .kit-box-num {
-            font-size: 28px;
-            font-weight: 700;
-            line-height: 1;
-        }
-
-        .kit-box-label {
-            font-size: 12px;
-            margin-top: 4px;
-            opacity: 0.9;
-        }
-
-        .kit-plus {
-            font-size: 24px;
-            color: var(--accent);
-            font-weight: 300;
-        }
-
-        .kit-total {
-            background: #f5f0e8;
-            border-radius: 10px;
-            padding: 14px;
-            text-align: center;
-        }
-
-        .kit-total-text {
-            font-size: 15px;
-            color: var(--text-light);
-        }
-
-        .kit-total-num {
-            font-size: 22px;
-            font-weight: 700;
-            color: var(--primary);
+        .kit-result p { font-size: 14px; color: var(--text-light); }
+        .kit-result strong {
+            display: block;
+            font-size: 26px;
+            color: var(--green);
             margin-top: 4px;
         }
 
-        /* 구성품 리스트 */
-        .product-list {
-            margin-top: 16px;
-            padding-top: 16px;
-            border-top: 1px solid #eee;
+        .kit-list {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px dashed #ddd;
         }
 
-        .product-list-title {
-            font-size: 13px;
+        .kit-list-title {
+            font-size: 14px;
             color: var(--text-light);
-            margin-bottom: 12px;
+            margin-bottom: 14px;
         }
 
-        .product-item {
+        .kit-item {
             display: flex;
             align-items: center;
-            gap: 10px;
-            padding: 6px 0;
-            font-size: 14px;
-            color: var(--text);
+            gap: 12px;
+            padding: 8px 0;
+            font-size: 15px;
         }
 
-        .product-dot {
-            width: 20px;
-            height: 20px;
-            border-radius: 5px;
+        .kit-dot {
+            width: 22px;
+            height: 22px;
+            border-radius: 6px;
             flex-shrink: 0;
         }
 
-        /* 특징 박스 */
+        /* 특징 그리드 */
         .feature-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-top: 20px;
+            gap: 14px;
+            margin-top: 24px;
             max-width: 320px;
         }
 
         .feature-item {
-            background: rgba(255,255,255,0.12);
-            border-radius: 12px;
-            padding: 16px 12px;
-            text-align: center;
+            background: rgba(255,255,255,0.15);
+            border-radius: 14px;
+            padding: 18px 14px;
         }
 
-        .feature-icon {
-            font-size: 24px;
-            margin-bottom: 8px;
+        .feature-icon { font-size: 28px; margin-bottom: 10px; }
+        .feature-text { font-size: 14px; color: rgba(255,255,255,0.95); line-height: 1.5; }
+
+        /* 응원 메시지 섹션 */
+        .cheer-section {
+            background: #d4e4cf;
+            min-height: 100vh;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
         }
 
-        .feature-text {
-            font-size: 13px;
-            color: rgba(255,255,255,0.9);
-            line-height: 1.4;
-        }
-
-        /* 의견 남기기 */
-        .feedback-box {
-            background: var(--white);
-            border-radius: 16px;
+        .cheer-header {
+            background: var(--green);
             padding: 24px 20px;
-            margin-top: 20px;
-            max-width: 320px;
             text-align: center;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            color: #fff;
         }
 
-        .feedback-title {
-            font-size: 15px;
-            font-weight: 600;
-            color: var(--text);
-            margin-bottom: 8px;
+        .cheer-header h2 {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 22px;
+            margin-top: 10px;
         }
 
-        .feedback-desc {
-            font-size: 13px;
-            color: var(--text-light);
+        .cheer-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background: #d4e4cf;
+        }
+
+        .cheer-empty {
+            text-align: center;
+            color: rgba(0,0,0,0.4);
+            padding: 50px 20px;
+            font-size: 16px;
+        }
+
+        .msg-bubble {
+            max-width: 85%;
             margin-bottom: 16px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .msg-user {
+            margin-left: auto;
+        }
+
+        .msg-user .msg-content {
+            background: #fff9c4;
+            border-radius: 16px 16px 4px 16px;
+            padding: 14px 16px;
+            font-size: 15px;
             line-height: 1.6;
         }
 
-        .feedback-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 12px 24px;
-            background: #f5f0e8;
-            color: var(--accent);
-            text-decoration: none;
-            border-radius: 25px;
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        /* 가격 박스 */
-        .price-card {
-            background: var(--primary);
-            border-radius: 16px;
-            padding: 20px 24px;
-            margin-top: 20px;
-            color: var(--white);
-            text-align: center;
-        }
-
-        .price-label {
-            font-size: 13px;
-            opacity: 0.9;
-        }
-
-        .price-value {
-            font-family: 'Noto Serif KR', serif;
-            font-size: 32px;
-            font-weight: 700;
-            margin-top: 6px;
-        }
-
-        /* 뱃지 그룹 */
-        .badge-group {
+        .msg-producer {
             display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin-top: 16px;
+            gap: 10px;
+            align-items: flex-start;
         }
 
-        .badge {
-            padding: 6px 12px;
-            background: rgba(61,107,79,0.1);
-            border-radius: 15px;
-            font-size: 12px;
-            color: var(--primary);
-            font-weight: 500;
+        .msg-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: #fff;
+            flex-shrink: 0;
+        }
+
+        .msg-producer .msg-content {
+            background: #fff;
+            border-radius: 16px 16px 16px 4px;
+            padding: 14px 16px;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .msg-time {
+            font-size: 11px;
+            color: rgba(0,0,0,0.4);
+            margin-top: 4px;
+            text-align: right;
+        }
+
+        .cheer-input {
+            background: #fff;
+            padding: 12px 16px;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .cheer-input input {
+            flex: 1;
+            border: 1px solid #e5e5e5;
+            background: #f5f5f5;
+            padding: 14px 18px;
+            border-radius: 24px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .cheer-input button {
+            background: #ffe066;
+            color: #333;
+            border: none;
+            border-radius: 8px;
+            padding: 14px 20px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* 따뜻한 문구 애니메이션 */
+        .warm-text {
+            font-size: 15px;
+            color: var(--text-light);
+            min-height: 50px;
+            margin: 16px 0;
+            opacity: 0;
+            animation: warmFade 0.5s ease forwards;
+        }
+
+        @keyframes warmFade {
+            to { opacity: 1; }
         }
 
         /* 푸터 */
         .footer {
             padding: 24px;
-            background: var(--primary-dark);
+            background: var(--green-dark);
             text-align: center;
         }
 
-        .footer p {
-            font-size: 11px;
-            color: rgba(255,255,255,0.5);
+        .footer p { font-size: 11px; color: rgba(255,255,255,0.5); }
+
+        /* 감사 팝업 */
+        .thank-popup {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .thank-popup-inner {
+            background: #fff;
+            border-radius: 24px;
+            padding: 32px 24px;
+            text-align: center;
+            max-width: 300px;
+            margin: 20px;
+            animation: popIn 0.3s ease;
+        }
+
+        @keyframes popIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .thank-popup h3 {
+            font-family: 'Nanum Myeongjo', serif;
+            color: var(--green);
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+
+        .thank-popup p {
+            font-size: 16px;
+            color: var(--text);
+            line-height: 1.6;
+            margin-bottom: 20px;
         }
     </style>
 </head>
@@ -500,7 +520,7 @@
         <span class="tag">SPECIAL GIFT</span>
         <h1 class="title">
             10만원 이상 구매하면<br>
-            <span class="em">샘플키트 3박스</span><br>
+            <span class="hl-green">샘플키트 3박스</span><br>
             드려요!
         </h1>
         <div class="img-frame">
@@ -508,18 +528,19 @@
         </div>
         <p class="desc">
             풀빛고운 기초화장품<br>
-            <strong>비건 · 천연 인증</strong>
+            <span class="hl-orange">비건 · 천연 인증</span>
         </p>
-        <span class="tag tag-alert" style="margin-top:16px;">선착순 3,000명</span>
+        <div class="warm-text" id="warmText1"></div>
+        <span class="tag tag-alert">선착순 3,000명</span>
         <a href="https://ecoop.or.kr" class="btn">주문하기</a>
     </section>
 
     <!-- 2: 영상 -->
-    <section class="card bg-white" data-i="1">
+    <section class="card bg-kraft" data-i="1">
         <p class="label">ONLINE MANAGER</p>
         <h2 class="title">
             오랜만에 인사드리는<br>
-            <span class="em">온라인점장</span>입니다
+            <span class="hl-pink">온라인점장</span>입니다
         </h2>
         <div class="video-frame">
             <video autoplay loop muted playsinline preload="auto">
@@ -534,47 +555,47 @@
     </section>
 
     <!-- 3: 구성품 설명 -->
-    <section class="card bg-cream" data-i="2">
+    <section class="card bg-paper" data-i="2">
         <p class="label">SAMPLE KIT</p>
         <h2 class="title">
-            이렇게 구성되어 있어요
+            <span class="hl-green">쉽게</span> 알려드릴게요
         </h2>
-        <div class="kit-explain">
-            <div class="kit-row">
-                <div class="kit-box">
-                    <p class="kit-box-num">3</p>
-                    <p class="kit-box-label">박스</p>
+        <div class="kit-box">
+            <div class="kit-visual">
+                <div class="kit-num">
+                    <strong>3</strong>
+                    <span>박스</span>
                 </div>
-                <span class="kit-plus">×</span>
-                <div class="kit-box">
-                    <p class="kit-box-num">5</p>
-                    <p class="kit-box-label">종류</p>
+                <span class="kit-multiply">×</span>
+                <div class="kit-num">
+                    <strong>5</strong>
+                    <span>종류</span>
                 </div>
             </div>
-            <div class="kit-total">
-                <p class="kit-total-text">총</p>
-                <p class="kit-total-num">15개 증정!</p>
+            <div class="kit-result">
+                <p>총</p>
+                <strong>15개 증정!</strong>
             </div>
-            <div class="product-list">
-                <p class="product-list-title">1박스에 들어있는 5종</p>
-                <div class="product-item">
-                    <span class="product-dot" style="background:#4a7c59;"></span>
+            <div class="kit-list">
+                <p class="kit-list-title">📦 1박스에 들어있는 5종</p>
+                <div class="kit-item">
+                    <span class="kit-dot" style="background:#4a7c59;"></span>
                     시카동백 크림
                 </div>
-                <div class="product-item">
-                    <span class="product-dot" style="background:#6b9b7a;"></span>
+                <div class="kit-item">
+                    <span class="kit-dot" style="background:#6b9b7a;"></span>
                     시카동백 로션
                 </div>
-                <div class="product-item">
-                    <span class="product-dot" style="background:#e0e0e0;"></span>
+                <div class="kit-item">
+                    <span class="kit-dot" style="background:#e0e0e0;"></span>
                     시카 히알루론 토너
                 </div>
-                <div class="product-item">
-                    <span class="product-dot" style="background:#f0f0f0;"></span>
+                <div class="kit-item">
+                    <span class="kit-dot" style="background:#f0f0f0; border:1px solid #ddd;"></span>
                     시카 릴렉스 아이크림
                 </div>
-                <div class="product-item">
-                    <span class="product-dot" style="background:#6d5344;"></span>
+                <div class="kit-item">
+                    <span class="kit-dot" style="background:#6d5344;"></span>
                     시카 비타민 에센스
                 </div>
             </div>
@@ -583,11 +604,11 @@
     </section>
 
     <!-- 4: 특징 -->
-    <section class="card bg-wood" data-i="3">
+    <section class="card bg-green" data-i="3">
         <p class="label">WHY PULBITGOUN</p>
         <h2 class="title">
-            <span class="em">믿을 수 있는</span><br>
-            생협 화장품
+            믿을 수 있는<br>
+            <span style="color:#c9e4b8;">생협 화장품</span>
         </h2>
         <div class="feature-grid">
             <div class="feature-item">
@@ -607,67 +628,205 @@
                 <p class="feature-text"><strong>여행용</strong><br>휴대 간편</p>
             </div>
         </div>
-        <p class="desc" style="margin-top:20px;">
-            유통기한 <strong>2028년 2월</strong>까지 넉넉!
+        <p class="desc" style="margin-top:24px;">
+            유통기한 <span class="hl-orange">2028년 2월</span>까지 넉넉!
         </p>
         <a href="https://ecoop.or.kr" class="btn btn-outline">주문하기</a>
     </section>
 
-    <!-- 5: 생산자 + 의견 남기기 -->
-    <section class="card bg-paper" data-i="4">
-        <p class="label">PRODUCER</p>
-        <h2 class="title">
-            두레 생산자<br>
-            <span class="em">풀빛고운</span>
-        </h2>
-        <div class="img-frame">
-            <img src="gift_product.jpg" alt="풀빛고운 샘플키트">
+    <!-- 5: 응원 메시지 -->
+    <section class="cheer-section" data-i="4" style="scroll-snap-align: start;">
+        <div class="cheer-header">
+            <span class="tag" style="background:rgba(255,255,255,0.2);">💬 의견 남기기</span>
+            <h2>풀빛고운 생산자에게<br>한마디 남겨주세요</h2>
         </div>
-        <p class="desc">
-            사용해 보시고 마음에 드시면<br>
-            풀빛고운 화장품도 이용해 주세요
-        </p>
-        <div class="feedback-box">
-            <p class="feedback-title">풀빛고운에게 의견 남기기</p>
-            <p class="feedback-desc">
-                사용 후기나 제품 의견을<br>
-                생산자에게 직접 전달해 주세요
-            </p>
-            <a href="https://ecoop.or.kr" class="feedback-btn">
-                ✍️ 의견 남기기
-            </a>
+        <div class="cheer-messages" id="cheerMessages">
+            <p class="cheer-empty">첫 번째 의견을 남겨주세요! 🌿</p>
+        </div>
+        <div class="cheer-input">
+            <input type="text" id="cheerInput" placeholder="의견을 입력해 주세요" maxlength="100">
+            <button onclick="submitCheer()">전송</button>
         </div>
     </section>
 
     <!-- 6: CTA -->
-    <section class="card bg-cream" data-i="5">
-        <span class="tag" style="background:var(--accent);">설맞이 증정</span>
+    <section class="card bg-paper" data-i="5">
+        <span class="tag" style="background:var(--pencil-orange);">설맞이 증정</span>
         <h2 class="title">
             10만원 이상 구매 시<br>
-            <span class="em">무료 증정</span>
+            <span class="hl-green">무료 증정</span>
         </h2>
         <div class="img-frame">
-            <img src="gift_kit.jpg" alt="샘플키트">
+            <img src="gift_product.jpg" alt="샘플키트">
         </div>
-        <div class="price-card">
-            <p class="price-label">풀빛고운 샘플키트 3박스 (15개)</p>
-            <p class="price-value">무료 증정</p>
-        </div>
-        <span class="tag tag-alert" style="margin-top:16px;">선착순 3,000명 한정</span>
+        <p class="desc" style="margin-bottom:20px;">
+            <span class="hl-pink">3박스 × 5종</span> = 총 15개!
+        </p>
+        <span class="tag tag-alert">선착순 3,000명 한정</span>
         <a href="https://ecoop.or.kr" class="btn btn-large btn-dark">지금 주문하러 가기</a>
-        <div class="badge-group">
-            <span class="badge">비건 인증</span>
-            <span class="badge">천연 인증</span>
-            <span class="badge">항노화</span>
-        </div>
+        <div class="warm-text" id="warmText2"></div>
     </section>
 
     <footer class="footer">
         <p>두레생협 생활의 발견 · 2026 W06</p>
     </footer>
 
+    <!-- 감사 팝업 -->
+    <div class="thank-popup" id="thankPopup">
+        <div class="thank-popup-inner">
+            <p style="font-size:40px; margin-bottom:12px;">🌿</p>
+            <h3>풀빛고운</h3>
+            <p id="thankMessage">감사합니다!</p>
+            <button class="btn" onclick="closeThankPopup()">확인</button>
+        </div>
+    </div>
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
     <script>
-        const cards = document.querySelectorAll('.card');
+        // Firebase 설정
+        const firebaseConfig = {
+            apiKey: "AIzaSyDrb6CvMBn9jSfDeuwWseJywFHLbChNr4U",
+            authDomain: "durunioncoop.firebaseapp.com",
+            projectId: "durunioncoop",
+            storageBucket: "durunioncoop.firebasestorage.app",
+            messagingSenderId: "439719435906",
+            appId: "1:439719435906:web:3d1d841ad6e80939eb5e9b"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // 따뜻한 문구들
+        const warmMessages = [
+            "오늘도 건강하고 아름다운 하루 되세요 🌸",
+            "피부에 좋은 것만 드리고 싶어요 💚",
+            "자연의 힘을 담았습니다 🌿",
+            "조합원님의 피부를 응원해요 ✨",
+            "건강한 아름다움을 선물합니다 🎁",
+            "믿을 수 있는 생협 화장품이에요 💕",
+            "설 명절, 따뜻하게 보내세요 🧧",
+            "소중한 분께 선물하기 좋아요 🎀"
+        ];
+
+        // 생산자 답변 문구
+        const replyMessages = [
+            "감사합니다~ 💚 더 좋은 제품으로 보답할게요!",
+            "소중한 의견 감사해요~ 🌿",
+            "조합원님 덕분에 힘이 납니다!",
+            "좋은 성분만 담을게요~ 감사합니다 ✨",
+            "따뜻한 말씀 정말 감사드려요 🙏",
+            "피부 건강 응원할게요~ 💕",
+            "자연 그대로의 좋은 것만 드릴게요!",
+            "감사합니다~ 행복한 설 되세요 🧧"
+        ];
+
+        // 따뜻한 문구 표시
+        function showWarmText() {
+            const warm1 = document.getElementById('warmText1');
+            const warm2 = document.getElementById('warmText2');
+            if (warm1) {
+                warm1.textContent = warmMessages[Math.floor(Math.random() * warmMessages.length)];
+            }
+            if (warm2) {
+                warm2.textContent = warmMessages[Math.floor(Math.random() * warmMessages.length)];
+            }
+        }
+        showWarmText();
+        setInterval(showWarmText, 5000);
+
+        // 메시지 컬렉션
+        const messagesRef = db.collection('pulbitgoun-messages');
+
+        // 메시지 로드
+        messagesRef.orderBy('timestamp', 'desc').limit(30).onSnapshot((snapshot) => {
+            const container = document.getElementById('cheerMessages');
+            if (snapshot.empty) {
+                container.innerHTML = '<p class="cheer-empty">첫 번째 의견을 남겨주세요! 🌿</p>';
+                return;
+            }
+
+            container.innerHTML = '';
+            const messages = [];
+            snapshot.forEach(doc => messages.push({ id: doc.id, ...doc.data() }));
+            messages.reverse();
+
+            messages.forEach((msg, idx) => {
+                // 사용자 메시지
+                const userBubble = document.createElement('div');
+                userBubble.className = 'msg-bubble msg-user';
+                userBubble.innerHTML = `
+                    <div class="msg-content">${escapeHtml(msg.text)}</div>
+                    <div class="msg-time">${formatTime(msg.timestamp)}</div>
+                `;
+                container.appendChild(userBubble);
+
+                // 생산자 답변
+                const replyBubble = document.createElement('div');
+                replyBubble.className = 'msg-bubble msg-producer';
+                replyBubble.innerHTML = `
+                    <div class="msg-avatar">🌿</div>
+                    <div>
+                        <div class="msg-content">${replyMessages[idx % replyMessages.length]}</div>
+                    </div>
+                `;
+                container.appendChild(replyBubble);
+            });
+
+            container.scrollTop = container.scrollHeight;
+        });
+
+        // 메시지 전송
+        function submitCheer() {
+            const input = document.getElementById('cheerInput');
+            const text = input.value.trim();
+            if (!text) return;
+
+            messagesRef.add({
+                text: text,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            }).then(() => {
+                input.value = '';
+                showThankPopup();
+            });
+        }
+
+        // 엔터키 전송
+        document.getElementById('cheerInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') submitCheer();
+        });
+
+        // 감사 팝업
+        function showThankPopup() {
+            const popup = document.getElementById('thankPopup');
+            const msg = document.getElementById('thankMessage');
+            msg.textContent = replyMessages[Math.floor(Math.random() * replyMessages.length)];
+            popup.style.display = 'flex';
+        }
+
+        function closeThankPopup() {
+            document.getElementById('thankPopup').style.display = 'none';
+        }
+
+        // 시간 포맷
+        function formatTime(timestamp) {
+            if (!timestamp) return '';
+            const date = timestamp.toDate();
+            const hours = date.getHours();
+            const minutes = date.getMinutes().toString().padStart(2, '0');
+            const ampm = hours >= 12 ? '오후' : '오전';
+            return `${ampm} ${hours % 12 || 12}:${minutes}`;
+        }
+
+        // HTML 이스케이프
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // 스크롤 인디케이터
+        const cards = document.querySelectorAll('[data-i]');
         const dots = document.querySelectorAll('.dot');
 
         const obs = new IntersectionObserver((entries) => {
