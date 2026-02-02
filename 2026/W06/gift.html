@@ -31,22 +31,22 @@
             z-index: 1000;
             padding: 12px 16px;
             background:
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><filter id="hp"><feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="5" result="noise"/><feDiffuseLighting in="noise" lighting-color="%23f8f4ec" surfaceScale="2"><feDistantLight azimuth="45" elevation="60"/></feDiffuseLighting></filter><rect width="200" height="200" filter="url(%23hp)"/></svg>'),
-                linear-gradient(180deg, #fdf9f3 0%, #f5efe5 100%);
-            background-color: #f8f4ec;
-            color: var(--text);
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><filter id="hp"><feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="5" result="noise"/><feDiffuseLighting in="noise" lighting-color="%23425d3a" surfaceScale="2"><feDistantLight azimuth="45" elevation="60"/></feDiffuseLighting></filter><rect width="200" height="200" filter="url(%23hp)"/></svg>'),
+                linear-gradient(135deg, #4a6741 0%, #3a5331 100%);
+            background-color: #4a6741;
+            color: #fff;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid rgba(196,18,48,0.15);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+            border-bottom: 2px solid rgba(212,168,83,0.5);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.15);
         }
 
         .header-left { text-align: left; }
         .header-sub {
             font-size: 10px;
             letter-spacing: 1.5px;
-            color: var(--red);
+            color: rgba(255,255,255,0.8);
             font-weight: 500;
         }
         .header-title {
@@ -54,18 +54,18 @@
             font-size: 14px;
             font-weight: 700;
             margin-top: 2px;
-            color: var(--text);
+            color: #fff;
         }
 
         .header-visitors {
             display: flex;
             align-items: center;
             gap: 6px;
-            background: linear-gradient(135deg, var(--red) 0%, #a01025 100%);
+            background: linear-gradient(135deg, var(--gold) 0%, #c9973d 100%);
             padding: 6px 12px;
             border-radius: 16px;
             color: #fff;
-            box-shadow: 0 2px 8px rgba(196,18,48,0.25);
+            box-shadow: 0 2px 8px rgba(212,168,83,0.4);
         }
 
         .live-dot {
@@ -617,6 +617,116 @@
             color: rgba(0,0,0,0.4);
             font-size: 13px;
         }
+
+        /* 히어로 섹션 */
+        .hero {
+            min-height: 100vh;
+            min-height: 100dvh;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 65px 24px 35px;
+            background:
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><filter id="hero"><feTurbulence type="fractalNoise" baseFrequency="0.06" numOctaves="4" result="noise"/><feDiffuseLighting in="noise" lighting-color="%23a01025" surfaceScale="1"><feDistantLight azimuth="45" elevation="60"/></feDiffuseLighting></filter><rect width="200" height="200" filter="url(%23hero)"/></svg>'),
+                linear-gradient(170deg, #c41230 0%, #8a0d20 100%);
+            background-color: #b8102a;
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '🧧';
+            position: absolute;
+            font-size: 200px;
+            opacity: 0.1;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .hero-badge {
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 24px;
+            backdrop-filter: blur(5px);
+        }
+
+        .hero-title {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 42px;
+            font-weight: 800;
+            line-height: 1.3;
+            margin-bottom: 16px;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .hero-title .big {
+            font-size: 56px;
+            display: block;
+            color: #ffd700;
+            text-shadow: 0 4px 20px rgba(255,215,0,0.4);
+        }
+
+        .hero-sub {
+            font-size: 18px;
+            opacity: 0.9;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+
+        .hero-condition {
+            background: rgba(255,255,255,0.15);
+            border-radius: 16px;
+            padding: 20px 28px;
+            backdrop-filter: blur(5px);
+            margin-bottom: 24px;
+        }
+
+        .hero-condition p {
+            font-size: 15px;
+            opacity: 0.9;
+        }
+
+        .hero-condition strong {
+            display: block;
+            font-size: 24px;
+            margin-top: 6px;
+            color: #ffd700;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-hint span {
+            font-size: 12px;
+            opacity: 0.7;
+        }
+
+        .scroll-hint .arrow {
+            font-size: 20px;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(8px); }
+        }
     </style>
 </head>
 <body>
@@ -638,10 +748,33 @@
         <div class="dot" data-i="3"></div>
         <div class="dot" data-i="4"></div>
         <div class="dot" data-i="5"></div>
+        <div class="dot" data-i="6"></div>
     </div>
 
+    <!-- 0: 히어로 -->
+    <section class="hero" data-i="0">
+        <div class="hero-badge">🎁 두레생협 설맞이 증정행사 1탄</div>
+        <h1 class="hero-title">
+            10만원 사면<br>
+            <span class="big">공짜!</span>
+        </h1>
+        <p class="hero-sub">
+            풀빛고운 기초 5종 샘플키트<br>
+            <strong>3박스 (15개)</strong> 증정
+        </p>
+        <div class="hero-condition">
+            <p>🛒 조건</p>
+            <strong>10만원 이상 구매</strong>
+        </div>
+        <a href="https://ecoop.or.kr" class="btn" style="background:#ffd700; color:#8a0d20;">지금 쇼핑하기 →</a>
+        <div class="scroll-hint">
+            <span>아래로 스크롤</span>
+            <span class="arrow">↓</span>
+        </div>
+    </section>
+
     <!-- 1: 인트로 -->
-    <section class="card bg-cream-paper" data-i="0">
+    <section class="card bg-cream-paper" data-i="1">
         <p class="seol-deco">🧧</p>
         <span class="seol-badge">🎁 설맞이 증정</span>
         <h1 class="title">
@@ -664,7 +797,7 @@
     </section>
 
     <!-- 2: 영상 -->
-    <section class="card bg-kraft-paper" data-i="1">
+    <section class="card bg-kraft-paper" data-i="2">
         <p class="label">ONLINE MANAGER</p>
         <h2 class="title">
             오랜만에 인사드리는<br>
@@ -683,7 +816,7 @@
     </section>
 
     <!-- 3: 구성품 설명 -->
-    <section class="card bg-gold-paper" data-i="2">
+    <section class="card bg-gold-paper" data-i="3">
         <p class="label">SAMPLE KIT</p>
         <h2 class="title">
             <span class="hl-gold">쉽게</span> 알려드릴게요
@@ -732,7 +865,7 @@
     </section>
 
     <!-- 4: 특징 -->
-    <section class="card bg-green-paper" data-i="3">
+    <section class="card bg-green-paper" data-i="4">
         <p class="label">WHY PULBITGOUN</p>
         <h2 class="title">
             아직 안 써보셨으면<br>
@@ -767,7 +900,7 @@
     </section>
 
     <!-- 5: 응원 메시지 -->
-    <section class="cheer-section" data-i="4" style="scroll-snap-align: start;">
+    <section class="cheer-section" data-i="5" style="scroll-snap-align: start;">
         <div class="cheer-header">
             <span style="background:rgba(255,255,255,0.2); padding:6px 14px; border-radius:15px; font-size:12px;">💬 의견 남기기</span>
             <h2>풀빛고운 생산자에게<br>한마디 남겨주세요</h2>
@@ -784,7 +917,7 @@
     </section>
 
     <!-- 6: CTA -->
-    <section class="card bg-cream-paper" data-i="5">
+    <section class="card bg-cream-paper" data-i="6">
         <p class="seol-deco">🧧</p>
         <span class="seol-badge">🎁 설맞이 증정</span>
         <h2 class="title">
@@ -833,41 +966,49 @@
             appId: "1:439719435906:web:3d1d841ad6e80939eb5e9b"
         };
 
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
+        let db;
+        let firebaseReady = false;
+
+        try {
+            firebase.initializeApp(firebaseConfig);
+            db = firebase.firestore();
+            firebaseReady = true;
+            console.log('Firebase 연결 성공');
+        } catch (e) {
+            console.error('Firebase 초기화 실패:', e);
+        }
 
         // ========== 실시간 방문자 수 ==========
-        const visitorDocRef = db.collection('visitors').doc('w06-gift-2026');
+        if (firebaseReady) {
+            const visitorDocRef = db.collection('visitors').doc('w06-gift-2026');
 
-        // 방문자 수 증가
-        visitorDocRef.get().then((doc) => {
-            if (doc.exists) {
-                visitorDocRef.update({
-                    count: firebase.firestore.FieldValue.increment(1),
-                    lastVisit: firebase.firestore.FieldValue.serverTimestamp()
-                });
-            } else {
-                visitorDocRef.set({
-                    count: 1,
-                    lastVisit: firebase.firestore.FieldValue.serverTimestamp()
-                });
-            }
-        }).catch((error) => {
-            console.log('Visitor count error:', error);
-        });
+            // 방문자 수 증가 (set with merge로 변경)
+            visitorDocRef.set({
+                count: firebase.firestore.FieldValue.increment(1),
+                lastVisit: firebase.firestore.FieldValue.serverTimestamp()
+            }, { merge: true }).then(() => {
+                console.log('방문자 수 증가 성공');
+            }).catch((error) => {
+                console.error('방문자 수 증가 실패:', error.code, error.message);
+                document.getElementById('visitorDisplay').textContent = '🔥';
+            });
 
-        // 실시간 방문자 수 리스너
-        visitorDocRef.onSnapshot((doc) => {
-            const display = document.getElementById('visitorDisplay');
-            if (doc.exists && doc.data().count) {
-                display.textContent = doc.data().count.toLocaleString() + '명';
-            } else {
-                display.textContent = '1명';
-            }
-        }, (error) => {
-            console.log('Visitor snapshot error:', error);
-            document.getElementById('visitorDisplay').textContent = '접속중';
-        });
+            // 실시간 방문자 수 리스너
+            visitorDocRef.onSnapshot((doc) => {
+                const display = document.getElementById('visitorDisplay');
+                if (doc.exists && doc.data().count) {
+                    display.textContent = doc.data().count.toLocaleString() + '명';
+                    console.log('현재 방문자:', doc.data().count);
+                } else {
+                    display.textContent = '1명';
+                }
+            }, (error) => {
+                console.error('방문자 리스너 에러:', error.code, error.message);
+                document.getElementById('visitorDisplay').textContent = '🔥';
+            });
+        } else {
+            document.getElementById('visitorDisplay').textContent = '오프라인';
+        }
 
         // ========== 따뜻한 문구 ==========
         const warmMessages = [
@@ -903,49 +1044,54 @@
         setInterval(showWarmText, 5000);
 
         // ========== 메시지 기능 ==========
-        const messagesRef = db.collection('pulbitgoun-messages');
+        let messagesRef;
+        if (firebaseReady) {
+            messagesRef = db.collection('pulbitgoun-messages');
 
-        // 메시지 실시간 로드
-        messagesRef.orderBy('timestamp', 'desc').limit(50).onSnapshot((snapshot) => {
-            const container = document.getElementById('cheerMessages');
+            // 메시지 실시간 로드
+            messagesRef.orderBy('timestamp', 'desc').limit(50).onSnapshot((snapshot) => {
+                const container = document.getElementById('cheerMessages');
 
-            if (snapshot.empty) {
-                container.innerHTML = '<p class="cheer-empty">첫 번째 의견을 남겨주세요! 🌿</p>';
-                return;
-            }
+                if (snapshot.empty) {
+                    container.innerHTML = '<p class="cheer-empty">첫 번째 의견을 남겨주세요! 🌿</p>';
+                    return;
+                }
 
-            container.innerHTML = '';
-            const messages = [];
-            snapshot.forEach(doc => messages.push({ id: doc.id, ...doc.data() }));
-            messages.reverse();
+                container.innerHTML = '';
+                const messages = [];
+                snapshot.forEach(doc => messages.push({ id: doc.id, ...doc.data() }));
+                messages.reverse();
 
-            messages.forEach((msg, idx) => {
-                // 사용자 메시지
-                const userBubble = document.createElement('div');
-                userBubble.className = 'msg-bubble msg-user';
-                userBubble.innerHTML = `
-                    <div class="msg-content">${escapeHtml(msg.text)}</div>
-                    <div class="msg-time">${formatTime(msg.timestamp)}</div>
-                `;
-                container.appendChild(userBubble);
+                messages.forEach((msg, idx) => {
+                    // 사용자 메시지
+                    const userBubble = document.createElement('div');
+                    userBubble.className = 'msg-bubble msg-user';
+                    userBubble.innerHTML = `
+                        <div class="msg-content">${escapeHtml(msg.text)}</div>
+                        <div class="msg-time">${formatTime(msg.timestamp)}</div>
+                    `;
+                    container.appendChild(userBubble);
 
-                // 생산자 답변
-                const replyBubble = document.createElement('div');
-                replyBubble.className = 'msg-bubble msg-producer';
-                replyBubble.innerHTML = `
-                    <div class="msg-avatar">🌿</div>
-                    <div>
-                        <div class="msg-content">${replyMessages[idx % replyMessages.length]}</div>
-                    </div>
-                `;
-                container.appendChild(replyBubble);
+                    // 생산자 답변
+                    const replyBubble = document.createElement('div');
+                    replyBubble.className = 'msg-bubble msg-producer';
+                    replyBubble.innerHTML = `
+                        <div class="msg-avatar">🌿</div>
+                        <div>
+                            <div class="msg-content">${replyMessages[idx % replyMessages.length]}</div>
+                        </div>
+                    `;
+                    container.appendChild(replyBubble);
+                });
+
+                container.scrollTop = container.scrollHeight;
+            }, (error) => {
+                console.error('메시지 로드 에러:', error.code, error.message);
+                document.getElementById('cheerMessages').innerHTML = '<p class="cheer-empty">첫 번째 의견을 남겨주세요! 🌿</p>';
             });
-
-            container.scrollTop = container.scrollHeight;
-        }, (error) => {
-            console.log('Messages error:', error);
+        } else {
             document.getElementById('cheerMessages').innerHTML = '<p class="cheer-empty">첫 번째 의견을 남겨주세요! 🌿</p>';
-        });
+        }
 
         // 메시지 전송
         function submitCheer() {
@@ -954,6 +1100,11 @@
             const text = input.value.trim();
 
             if (!text) return;
+
+            if (!firebaseReady || !messagesRef) {
+                alert('Firebase 연결이 필요합니다. 페이지를 새로고침해 주세요.');
+                return;
+            }
 
             btn.disabled = true;
             btn.textContent = '전송중...';
@@ -967,9 +1118,10 @@
                 btn.disabled = false;
                 btn.textContent = '전송';
                 showThankPopup();
+                console.log('메시지 전송 성공');
             }).catch((error) => {
-                console.log('Submit error:', error);
-                alert('전송에 실패했습니다. 다시 시도해 주세요.');
+                console.error('메시지 전송 실패:', error.code, error.message);
+                alert('전송 실패: ' + error.message + '\n\nFirestore 규칙을 확인해 주세요.');
                 btn.disabled = false;
                 btn.textContent = '전송';
             });
