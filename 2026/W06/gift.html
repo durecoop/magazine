@@ -158,11 +158,12 @@
 
         /* 비디오 */
         .video-frame {
-            width: 240px;
-            margin: 16px auto;
-            border-radius: 12px;
+            width: 100%;
+            max-width: 320px;
+            margin: 20px auto;
+            border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 6px 25px rgba(0,0,0,0.12);
             background: #000;
         }
 
@@ -434,19 +435,19 @@
 
     <!-- 2: 영상 -->
     <section class="card card-white" data-i="1">
-        <p class="label">PRODUCT VIDEO</p>
+        <p class="label">ONLINE MANAGER</p>
         <h2 class="title">
-            온라인점장이<br>
-            <span class="em">직접 소개</span>합니다
+            오랜만에 인사드리는<br>
+            <span class="em">온라인점장</span>입니다
         </h2>
         <div class="video-frame">
-            <video controls playsinline preload="metadata" poster="gift_kit.jpg">
+            <video autoplay loop muted playsinline preload="auto">
                 <source src="GIFT.mp4" type="video/mp4">
             </video>
         </div>
         <p class="desc">
-            직접 사용해 보고 추천드리는<br>
-            믿을 수 있는 샘플키트예요
+            풀빛고운 화장품으로 이뻐져서<br>
+            소개 드립니다
         </p>
         <a href="https://ecoop.or.kr" class="btn btn-dark">주문하기</a>
     </section>
