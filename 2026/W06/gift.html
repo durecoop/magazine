@@ -10,11 +10,9 @@
         :root {
             --primary: #3d6b4f;
             --primary-dark: #2d5240;
-            --primary-light: #e8f0eb;
             --accent: #8b7355;
-            --warm: #f9f6f2;
-            --text: #333;
-            --text-light: #666;
+            --text: #2d2d2d;
+            --text-light: #555;
             --white: #fff;
         }
 
@@ -27,9 +25,7 @@
 
         body {
             font-family: 'Noto Sans KR', sans-serif;
-            background: var(--warm);
             color: var(--text);
-            font-size: 15px;
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
         }
@@ -39,49 +35,48 @@
             position: fixed;
             top: 0; left: 0; right: 0;
             z-index: 1000;
-            padding: 10px 20px;
+            padding: 12px 20px;
             background: var(--primary);
             color: var(--white);
             text-align: center;
         }
 
         .header-sub {
-            font-size: 10px;
-            letter-spacing: 1.5px;
-            opacity: 0.85;
-            font-weight: 400;
+            font-size: 11px;
+            letter-spacing: 2px;
+            opacity: 0.9;
         }
 
         .header-title {
             font-family: 'Noto Serif KR', serif;
-            font-size: 13px;
-            font-weight: 500;
+            font-size: 15px;
+            font-weight: 600;
             margin-top: 2px;
         }
 
         /* 스크롤 인디케이터 */
         .dots {
             position: fixed;
-            right: 10px;
+            right: 12px;
             top: 50%;
             transform: translateY(-50%);
             z-index: 1000;
             display: flex;
             flex-direction: column;
-            gap: 5px;
+            gap: 6px;
         }
 
         .dot {
-            width: 5px;
-            height: 5px;
-            border-radius: 2.5px;
-            background: rgba(61,107,79,0.25);
+            width: 6px;
+            height: 6px;
+            border-radius: 3px;
+            background: rgba(61,107,79,0.3);
             transition: all 0.3s;
             cursor: pointer;
         }
 
         .dot.active {
-            height: 16px;
+            height: 18px;
             background: var(--primary);
         }
 
@@ -94,76 +89,118 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 65px 20px 30px;
+            padding: 70px 24px 35px;
             text-align: center;
         }
 
-        /* 타이포그래피 */
+        /* 배경 텍스처 */
+        .bg-paper {
+            background:
+                linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 100%),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect fill="%23f5f0e8" width="100" height="100"/><circle fill="%23ebe5d9" cx="25" cy="25" r="2"/><circle fill="%23ebe5d9" cx="75" cy="75" r="2"/><circle fill="%23ebe5d9" cx="50" cy="50" r="1.5"/></svg>');
+            background-color: #faf7f2;
+        }
+
+        .bg-wood {
+            background:
+                linear-gradient(180deg, rgba(139,115,85,0.95) 0%, rgba(100,80,60,0.98) 100%),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect fill="%238b7355" width="200" height="200"/><line stroke="%237a6548" stroke-width="1" x1="0" y1="20" x2="200" y2="20"/><line stroke="%237a6548" stroke-width="1" x1="0" y1="60" x2="200" y2="60"/><line stroke="%237a6548" stroke-width="1" x1="0" y1="100" x2="200" y2="100"/><line stroke="%237a6548" stroke-width="1" x1="0" y1="140" x2="200" y2="140"/><line stroke="%237a6548" stroke-width="1" x1="0" y1="180" x2="200" y2="180"/></svg>');
+            background-color: #8b7355;
+            color: var(--white);
+        }
+
+        .bg-cream {
+            background: linear-gradient(170deg, #fdfbf7 0%, #f5f0e8 100%);
+        }
+
+        .bg-green {
+            background: linear-gradient(170deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: var(--white);
+        }
+
+        .bg-white {
+            background: #fff;
+        }
+
+        /* 타이포 - 큼지막하게 */
         .label {
-            font-size: 10px;
-            letter-spacing: 2px;
+            font-size: 11px;
+            letter-spacing: 3px;
             color: var(--primary);
             font-weight: 500;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             text-transform: uppercase;
+        }
+
+        .bg-wood .label,
+        .bg-green .label {
+            color: rgba(255,255,255,0.7);
         }
 
         .title {
             font-family: 'Noto Serif KR', serif;
-            font-size: 22px;
-            font-weight: 600;
-            line-height: 1.5;
+            font-size: 28px;
+            font-weight: 700;
+            line-height: 1.4;
             color: var(--text);
-            margin-bottom: 12px;
+            margin-bottom: 16px;
+        }
+
+        .bg-wood .title,
+        .bg-green .title {
+            color: var(--white);
         }
 
         .title .em {
             color: var(--primary);
         }
 
-        .title .accent {
-            color: var(--accent);
+        .bg-wood .title .em {
+            color: #c9e4b8;
+        }
+
+        .bg-green .title .em {
+            color: #a8d5ba;
         }
 
         .desc {
-            font-size: 13px;
+            font-size: 16px;
             color: var(--text-light);
-            line-height: 1.75;
-            font-weight: 400;
+            line-height: 1.8;
         }
 
-        /* 이미지 - 작고 선명하게 */
+        .bg-wood .desc,
+        .bg-green .desc {
+            color: rgba(255,255,255,0.85);
+        }
+
+        /* 이미지 */
         .img-frame {
-            width: 200px;
-            height: 200px;
-            margin: 16px auto;
-            border-radius: 12px;
+            width: 220px;
+            height: 220px;
+            margin: 20px auto;
+            border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
             background: var(--white);
-            padding: 8px;
+            padding: 10px;
         }
 
         .img-frame img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 8px;
-        }
-
-        .img-wide {
-            width: 260px;
-            height: 180px;
+            border-radius: 10px;
         }
 
         /* 비디오 */
         .video-frame {
             width: 100%;
-            max-width: 320px;
+            max-width: 340px;
             margin: 20px auto;
             border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 6px 25px rgba(0,0,0,0.12);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
             background: #000;
         }
 
@@ -177,225 +214,269 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
-            padding: 12px 28px;
+            gap: 8px;
+            padding: 14px 32px;
             background: var(--primary);
             color: var(--white);
             text-decoration: none;
-            border-radius: 25px;
-            font-size: 13px;
-            font-weight: 500;
-            margin-top: 16px;
+            border-radius: 30px;
+            font-size: 15px;
+            font-weight: 600;
+            margin-top: 20px;
             transition: all 0.2s;
             border: none;
         }
 
         .btn:active {
             transform: scale(0.97);
-            background: var(--primary-dark);
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: var(--primary);
-            border: 1.5px solid var(--primary);
         }
 
         .btn-dark {
-            background: var(--text);
+            background: #2d2d2d;
+        }
+
+        .btn-white {
+            background: var(--white);
+            color: var(--primary);
         }
 
         .btn-large {
             width: 100%;
-            max-width: 260px;
-            padding: 14px 20px;
-            font-size: 14px;
-            border-radius: 10px;
+            max-width: 300px;
+            padding: 16px 20px;
+            font-size: 16px;
+            border-radius: 12px;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--white);
+            color: var(--white);
         }
 
         /* 태그 */
         .tag {
             display: inline-block;
-            padding: 6px 12px;
+            padding: 8px 16px;
             background: var(--primary);
             color: var(--white);
-            border-radius: 15px;
-            font-size: 11px;
-            font-weight: 500;
-            margin-bottom: 12px;
-        }
-
-        .tag-warm {
-            background: var(--accent);
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 16px;
         }
 
         .tag-alert {
             background: #d35400;
         }
 
-        /* 정보 카드 */
-        .info-card {
+        /* 구성 설명 박스 */
+        .kit-explain {
             background: var(--white);
-            border-radius: 12px;
-            padding: 16px;
-            margin-top: 14px;
-            max-width: 280px;
-            width: 100%;
-            text-align: left;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+            border-radius: 16px;
+            padding: 24px 20px;
+            margin: 20px auto;
+            max-width: 320px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
         }
 
-        .info-card-title {
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--primary);
-            margin-bottom: 10px;
-            text-align: center;
-        }
-
-        .info-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 7px 0;
-            border-bottom: 1px solid #f0ebe5;
-            font-size: 12px;
-            color: var(--text);
-        }
-
-        .info-item:last-child {
-            border-bottom: none;
-        }
-
-        .info-dot {
-            width: 18px;
-            height: 18px;
-            border-radius: 4px;
-            flex-shrink: 0;
-        }
-
-        /* 인용 */
-        .quote-box {
-            background: var(--white);
-            border-radius: 10px;
-            padding: 14px 16px;
-            margin-top: 12px;
-            max-width: 260px;
-            border-left: 3px solid var(--primary);
-        }
-
-        .quote-box p {
-            font-family: 'Noto Serif KR', serif;
-            font-size: 13px;
-            color: var(--text-light);
-            line-height: 1.8;
-            font-style: italic;
-        }
-
-        /* 특징 박스 (어두운 배경용) */
-        .feature-box {
-            background: rgba(255,255,255,0.12);
-            border-radius: 10px;
-            padding: 14px;
-            margin-top: 14px;
-            max-width: 280px;
-            width: 100%;
-        }
-
-        .feature-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 8px 0;
-            text-align: left;
-        }
-
-        .feature-icon {
-            width: 28px;
-            height: 28px;
-            background: rgba(255,255,255,0.15);
-            border-radius: 50%;
+        .kit-row {
             display: flex;
             align-items: center;
             justify-content: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .kit-box {
+            background: var(--primary);
+            color: var(--white);
+            padding: 12px 16px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .kit-box-num {
+            font-size: 28px;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .kit-box-label {
+            font-size: 12px;
+            margin-top: 4px;
+            opacity: 0.9;
+        }
+
+        .kit-plus {
+            font-size: 24px;
+            color: var(--accent);
+            font-weight: 300;
+        }
+
+        .kit-total {
+            background: #f5f0e8;
+            border-radius: 10px;
+            padding: 14px;
+            text-align: center;
+        }
+
+        .kit-total-text {
+            font-size: 15px;
+            color: var(--text-light);
+        }
+
+        .kit-total-num {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-top: 4px;
+        }
+
+        /* 구성품 리스트 */
+        .product-list {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #eee;
+        }
+
+        .product-list-title {
             font-size: 13px;
+            color: var(--text-light);
+            margin-bottom: 12px;
+        }
+
+        .product-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 0;
+            font-size: 14px;
+            color: var(--text);
+        }
+
+        .product-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 5px;
             flex-shrink: 0;
         }
 
+        /* 특징 박스 */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 20px;
+            max-width: 320px;
+        }
+
+        .feature-item {
+            background: rgba(255,255,255,0.12);
+            border-radius: 12px;
+            padding: 16px 12px;
+            text-align: center;
+        }
+
+        .feature-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
         .feature-text {
-            font-size: 12px;
+            font-size: 13px;
             color: rgba(255,255,255,0.9);
             line-height: 1.4;
+        }
+
+        /* 의견 남기기 */
+        .feedback-box {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 24px 20px;
+            margin-top: 20px;
+            max-width: 320px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+
+        .feedback-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+
+        .feedback-desc {
+            font-size: 13px;
+            color: var(--text-light);
+            margin-bottom: 16px;
+            line-height: 1.6;
+        }
+
+        .feedback-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 12px 24px;
+            background: #f5f0e8;
+            color: var(--accent);
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
         }
 
         /* 가격 박스 */
         .price-card {
             background: var(--primary);
-            border-radius: 12px;
-            padding: 16px 20px;
-            margin-top: 14px;
+            border-radius: 16px;
+            padding: 20px 24px;
+            margin-top: 20px;
             color: var(--white);
             text-align: center;
         }
 
         .price-label {
-            font-size: 11px;
-            opacity: 0.85;
+            font-size: 13px;
+            opacity: 0.9;
         }
 
         .price-value {
             font-family: 'Noto Serif KR', serif;
-            font-size: 26px;
-            font-weight: 600;
-            margin-top: 4px;
-        }
-
-        .price-value span {
-            font-size: 14px;
-            font-weight: 400;
+            font-size: 32px;
+            font-weight: 700;
+            margin-top: 6px;
         }
 
         /* 뱃지 그룹 */
         .badge-group {
             display: flex;
-            gap: 6px;
+            gap: 8px;
             flex-wrap: wrap;
             justify-content: center;
-            margin-top: 12px;
+            margin-top: 16px;
         }
 
         .badge {
-            padding: 5px 10px;
-            background: var(--primary-light);
-            border-radius: 12px;
-            font-size: 10px;
+            padding: 6px 12px;
+            background: rgba(61,107,79,0.1);
+            border-radius: 15px;
+            font-size: 12px;
             color: var(--primary);
             font-weight: 500;
         }
 
-        /* 카드 배경 */
-        .card-warm { background: var(--warm); }
-        .card-white { background: var(--white); }
-        .card-green {
-            background: linear-gradient(170deg, var(--primary) 0%, var(--primary-dark) 100%);
-            color: var(--white);
-        }
-        .card-green .label { color: rgba(255,255,255,0.7); }
-        .card-green .title { color: var(--white); }
-        .card-green .title .em { color: #a8d5ba; }
-        .card-green .desc { color: rgba(255,255,255,0.8); }
-
         /* 푸터 */
         .footer {
-            padding: 20px;
+            padding: 24px;
             background: var(--primary-dark);
             text-align: center;
         }
 
         .footer p {
-            font-size: 10px;
-            color: rgba(255,255,255,0.4);
-            letter-spacing: 0.5px;
+            font-size: 11px;
+            color: rgba(255,255,255,0.5);
         }
     </style>
 </head>
@@ -415,26 +496,26 @@
     </div>
 
     <!-- 1: 인트로 -->
-    <section class="card card-warm" data-i="0">
+    <section class="card bg-paper" data-i="0">
         <span class="tag">SPECIAL GIFT</span>
         <h1 class="title">
-            10만원 이상 구매하시면<br>
-            <span class="em">풀빛고운 샘플키트</span><br>
-            드립니다
+            10만원 이상 구매하면<br>
+            <span class="em">샘플키트 3박스</span><br>
+            드려요!
         </h1>
         <div class="img-frame">
             <img src="gift_kit.jpg" alt="풀빛고운 기초 5종 샘플키트">
         </div>
         <p class="desc">
-            비건 · 천연 인증 기초화장품<br>
-            <strong>기초 5종 × 3박스</strong> 증정
+            풀빛고운 기초화장품<br>
+            <strong>비건 · 천연 인증</strong>
         </p>
-        <span class="tag tag-alert" style="margin-top:12px;">선착순 3,000명</span>
+        <span class="tag tag-alert" style="margin-top:16px;">선착순 3,000명</span>
         <a href="https://ecoop.or.kr" class="btn">주문하기</a>
     </section>
 
     <!-- 2: 영상 -->
-    <section class="card card-white" data-i="1">
+    <section class="card bg-white" data-i="1">
         <p class="label">ONLINE MANAGER</p>
         <h2 class="title">
             오랜만에 인사드리는<br>
@@ -452,108 +533,127 @@
         <a href="https://ecoop.or.kr" class="btn btn-dark">주문하기</a>
     </section>
 
-    <!-- 3: 구성품 -->
-    <section class="card card-warm" data-i="2">
+    <!-- 3: 구성품 설명 -->
+    <section class="card bg-cream" data-i="2">
         <p class="label">SAMPLE KIT</p>
         <h2 class="title">
-            <span class="accent">5종 풀세트</span>를<br>
-            <span class="em">3박스</span> 드려요
+            이렇게 구성되어 있어요
         </h2>
-        <div class="img-frame img-wide">
-            <img src="gift_product.jpg" alt="샘플키트 구성">
-        </div>
-        <div class="info-card">
-            <p class="info-card-title">1박스 구성 (× 3)</p>
-            <div class="info-item">
-                <span class="info-dot" style="background:#4a7c59;"></span>
-                시카동백 크림
+        <div class="kit-explain">
+            <div class="kit-row">
+                <div class="kit-box">
+                    <p class="kit-box-num">3</p>
+                    <p class="kit-box-label">박스</p>
+                </div>
+                <span class="kit-plus">×</span>
+                <div class="kit-box">
+                    <p class="kit-box-num">5</p>
+                    <p class="kit-box-label">종류</p>
+                </div>
             </div>
-            <div class="info-item">
-                <span class="info-dot" style="background:#6b9b7a;"></span>
-                시카동백 로션
+            <div class="kit-total">
+                <p class="kit-total-text">총</p>
+                <p class="kit-total-num">15개 증정!</p>
             </div>
-            <div class="info-item">
-                <span class="info-dot" style="background:#e8e8e8;"></span>
-                시카 히알루론 토너
-            </div>
-            <div class="info-item">
-                <span class="info-dot" style="background:#f5f5f5;"></span>
-                시카 릴렉스 아이크림
-            </div>
-            <div class="info-item">
-                <span class="info-dot" style="background:#6d5344;"></span>
-                시카 비타민 에센스
+            <div class="product-list">
+                <p class="product-list-title">1박스에 들어있는 5종</p>
+                <div class="product-item">
+                    <span class="product-dot" style="background:#4a7c59;"></span>
+                    시카동백 크림
+                </div>
+                <div class="product-item">
+                    <span class="product-dot" style="background:#6b9b7a;"></span>
+                    시카동백 로션
+                </div>
+                <div class="product-item">
+                    <span class="product-dot" style="background:#e0e0e0;"></span>
+                    시카 히알루론 토너
+                </div>
+                <div class="product-item">
+                    <span class="product-dot" style="background:#f0f0f0;"></span>
+                    시카 릴렉스 아이크림
+                </div>
+                <div class="product-item">
+                    <span class="product-dot" style="background:#6d5344;"></span>
+                    시카 비타민 에센스
+                </div>
             </div>
         </div>
         <a href="https://ecoop.or.kr" class="btn">주문하기</a>
     </section>
 
     <!-- 4: 특징 -->
-    <section class="card card-green" data-i="3">
+    <section class="card bg-wood" data-i="3">
         <p class="label">WHY PULBITGOUN</p>
         <h2 class="title">
             <span class="em">믿을 수 있는</span><br>
             생협 화장품
         </h2>
-        <div class="feature-box">
+        <div class="feature-grid">
             <div class="feature-item">
-                <span class="feature-icon">🌱</span>
-                <p class="feature-text"><strong>비건 인증</strong> · 동물실험 NO</p>
+                <p class="feature-icon">🌱</p>
+                <p class="feature-text"><strong>비건 인증</strong><br>동물실험 NO</p>
             </div>
             <div class="feature-item">
-                <span class="feature-icon">🍃</span>
-                <p class="feature-text"><strong>천연 인증</strong> · 안심 성분</p>
+                <p class="feature-icon">🍃</p>
+                <p class="feature-text"><strong>천연 인증</strong><br>안심 성분</p>
             </div>
             <div class="feature-item">
-                <span class="feature-icon">✨</span>
-                <p class="feature-text"><strong>항노화 기능성</strong> · 탄력 케어</p>
+                <p class="feature-icon">✨</p>
+                <p class="feature-text"><strong>항노화</strong><br>탄력 케어</p>
             </div>
             <div class="feature-item">
-                <span class="feature-icon">✈️</span>
-                <p class="feature-text"><strong>여행용 사이즈</strong> · 2ml × 5ea</p>
+                <p class="feature-icon">✈️</p>
+                <p class="feature-text"><strong>여행용</strong><br>휴대 간편</p>
             </div>
         </div>
-        <a href="https://ecoop.or.kr" class="btn btn-outline" style="border-color:#fff; color:#fff;">주문하기</a>
+        <p class="desc" style="margin-top:20px;">
+            유통기한 <strong>2028년 2월</strong>까지 넉넉!
+        </p>
+        <a href="https://ecoop.or.kr" class="btn btn-outline">주문하기</a>
     </section>
 
-    <!-- 5: 생산자 -->
-    <section class="card card-white" data-i="4">
+    <!-- 5: 생산자 + 의견 남기기 -->
+    <section class="card bg-paper" data-i="4">
         <p class="label">PRODUCER</p>
         <h2 class="title">
             두레 생산자<br>
             <span class="em">풀빛고운</span>
         </h2>
         <div class="img-frame">
-            <img src="gift_kit.jpg" alt="풀빛고운">
+            <img src="gift_product.jpg" alt="풀빛고운 샘플키트">
         </div>
-        <div class="quote-box">
-            <p>
-                "사용해 보시고 마음에 드시면<br>
-                풀빛고운 화장품도<br>
-                많이 이용 부탁드립니다."
-            </p>
-        </div>
-        <p class="desc" style="margin-top:10px;">
-            유통기한 <strong>2028년 2월</strong>까지 넉넉
+        <p class="desc">
+            사용해 보시고 마음에 드시면<br>
+            풀빛고운 화장품도 이용해 주세요
         </p>
-        <a href="https://ecoop.or.kr" class="btn btn-dark">주문하기</a>
+        <div class="feedback-box">
+            <p class="feedback-title">풀빛고운에게 의견 남기기</p>
+            <p class="feedback-desc">
+                사용 후기나 제품 의견을<br>
+                생산자에게 직접 전달해 주세요
+            </p>
+            <a href="https://ecoop.or.kr" class="feedback-btn">
+                ✍️ 의견 남기기
+            </a>
+        </div>
     </section>
 
     <!-- 6: CTA -->
-    <section class="card card-warm" data-i="5">
-        <span class="tag tag-warm">설맞이 증정</span>
+    <section class="card bg-cream" data-i="5">
+        <span class="tag" style="background:var(--accent);">설맞이 증정</span>
         <h2 class="title">
             10만원 이상 구매 시<br>
             <span class="em">무료 증정</span>
         </h2>
         <div class="img-frame">
-            <img src="gift_product.jpg" alt="샘플키트">
+            <img src="gift_kit.jpg" alt="샘플키트">
         </div>
         <div class="price-card">
-            <p class="price-label">풀빛고운 기초 5종 × 3박스</p>
-            <p class="price-value">무료 <span>증정</span></p>
+            <p class="price-label">풀빛고운 샘플키트 3박스 (15개)</p>
+            <p class="price-value">무료 증정</p>
         </div>
-        <span class="tag tag-alert" style="margin-top:12px;">선착순 3,000명 한정</span>
+        <span class="tag tag-alert" style="margin-top:16px;">선착순 3,000명 한정</span>
         <a href="https://ecoop.or.kr" class="btn btn-large btn-dark">지금 주문하러 가기</a>
         <div class="badge-group">
             <span class="badge">비건 인증</span>
