@@ -8,10 +8,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
+            --red: #c41230;
+            --blue: #1a4a6e;
+            --gold: #b8860b;
             --green: #2e7d32;
-            --green-light: #43a047;
-            --green-bg: #e8f5e9;
-            --pink: #e91e63;
             --cream: #fdfbf7;
         }
 
@@ -34,7 +34,7 @@
             top: 0; left: 0; right: 0;
             z-index: 1000;
             padding: 12px 20px;
-            background: linear-gradient(135deg, var(--green-light) 0%, var(--green) 100%);
+            background: var(--green);
             color: #fff;
             text-align: center;
         }
@@ -42,7 +42,7 @@
         .header-top {
             font-size: 11px;
             letter-spacing: 1px;
-            opacity: 0.9;
+            opacity: 0.8;
         }
 
         .header-title {
@@ -88,21 +88,10 @@
             text-align: center;
         }
 
-        .badge {
-            display: inline-block;
-            padding: 10px 20px;
-            background: linear-gradient(135deg, var(--green-light) 0%, var(--green) 100%);
-            border-radius: 25px;
-            font-size: 12px;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(46, 125, 50, 0.3);
-        }
-
-        .badge-pink {
-            background: linear-gradient(135deg, #ec407a 0%, var(--pink) 100%);
-            box-shadow: 0 4px 15px rgba(233, 30, 99, 0.3);
+        .question {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 10px;
         }
 
         .big-title {
@@ -118,59 +107,64 @@
             color: var(--green);
         }
 
-        .hl-pink {
-            color: var(--pink);
+        .hl-gold {
+            background: linear-gradient(transparent 55%, rgba(184,134,11,0.25) 55%);
         }
 
         .sub-text {
             font-size: 14px;
             color: #666;
-            line-height: 1.8;
+            line-height: 1.75;
         }
 
-        /* 이미지/비디오 */
+        /* 이미지 */
         .img-box {
             width: 100%;
-            max-width: 300px;
+            max-width: 320px;
             margin: 20px auto;
-            border-radius: 16px;
+            border-radius: 14px;
             overflow: hidden;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+            box-shadow: 0 8px 28px rgba(0,0,0,0.12);
         }
 
-        .img-box img,
-        .img-box video {
+        .img-box img {
             width: 100%;
             display: block;
         }
 
-        .img-row {
-            display: flex;
-            gap: 10px;
+        /* 비디오 - 모바일 최적화 */
+        .video-box {
+            width: 100%;
             max-width: 320px;
-            margin: 16px auto;
+            margin: 20px auto;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 8px 28px rgba(0,0,0,0.12);
+            background: #000;
         }
 
-        .img-row img {
-            flex: 1;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        .video-box video {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: contain;
+            max-height: 400px;
         }
 
-        /* 버튼 */
+        /* 주문 버튼 */
         .order-btn {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 16px 32px;
+            padding: 14px 28px;
             background: var(--green);
             color: #fff;
             text-decoration: none;
             border-radius: 30px;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 600;
             margin-top: 20px;
-            box-shadow: 0 4px 15px rgba(46, 125, 50, 0.3);
+            box-shadow: 0 4px 15px rgba(46,125,50,0.3);
             transition: transform 0.2s;
         }
 
@@ -183,248 +177,231 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
-        /* 카드 1: 인트로 */
-        .card-1 {
-            background: linear-gradient(135deg, var(--green-bg) 0%, #c8e6c9 100%);
-        }
-
-        .gift-icon {
-            font-size: 60px;
-            margin-bottom: 10px;
-        }
-
-        .condition-box {
-            display: inline-block;
-            padding: 14px 24px;
+        .order-btn-white {
             background: #fff;
-            border-radius: 14px;
-            font-size: 18px;
-            font-weight: 700;
             color: var(--green);
-            margin: 16px 0;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+
+        /* 카드 배경 */
+        .card-light { background: #fff; }
+        .card-cream { background: var(--cream); }
+        .card-green {
+            background: linear-gradient(180deg, var(--green) 0%, #1b5e20 100%);
+            color: #fff;
+        }
+        .card-green .question { color: rgba(255,255,255,0.6); }
+        .card-green .big-title { color: #fff; }
+        .card-green .hl { color: #a5d6a7; }
+
+        /* 세일 태그 */
+        .sale-tag {
+            display: inline-block;
+            background: var(--green);
+            color: #fff;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 20px;
         }
 
         .limit-tag {
             display: inline-block;
-            padding: 10px 18px;
-            background: #ff6b6b;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 700;
+            background: #ff5252;
             color: #fff;
-            margin-top: 10px;
-        }
-
-        /* 카드 2: 영상 */
-        .card-2 {
-            background: #fff;
-        }
-
-        /* 카드 3: 구성품 */
-        .card-3 {
-            background: var(--cream);
-        }
-
-        .gift-list-box {
-            background: #fff;
-            border-radius: 16px;
-            padding: 24px 20px;
-            max-width: 300px;
-            text-align: left;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            margin-top: 20px;
-        }
-
-        .gift-list-box h4 {
-            font-size: 15px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
             font-weight: 700;
-            color: var(--green);
-            margin-bottom: 15px;
-            text-align: center;
+            margin-top: 12px;
         }
 
-        .gift-item {
+        /* 메모리 박스 */
+        .memory-box {
+            background: #fff;
+            border-radius: 12px;
+            padding: 18px;
+            margin-top: 16px;
+            border-left: 4px solid var(--green);
+            text-align: left;
+            max-width: 320px;
+        }
+
+        .memory-box p {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 14px;
+            color: #777;
+            line-height: 1.8;
+        }
+
+        /* 답변 박스 */
+        .answer-box {
+            background: var(--cream);
+            border-radius: 12px;
+            padding: 16px 18px;
+            margin-top: 16px;
+            text-align: left;
+            max-width: 320px;
+        }
+
+        .card-cream .answer-box {
+            background: #fff;
+        }
+
+        .answer-box p {
+            font-size: 14px;
+            color: #555;
+            line-height: 1.7;
+        }
+
+        .answer-box strong {
+            color: var(--green);
+        }
+
+        /* 구성품 박스 */
+        .diff-box {
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 18px;
+            margin-top: 20px;
+            text-align: left;
+            max-width: 320px;
+        }
+
+        .diff-item {
             display: flex;
             align-items: center;
             gap: 12px;
-            padding: 10px 0;
-            border-bottom: 1px solid #f0f0f0;
+            margin-bottom: 12px;
         }
 
-        .gift-item:last-child {
-            border-bottom: none;
-        }
+        .diff-item:last-child { margin-bottom: 0; }
 
-        .gift-item-icon {
-            width: 36px;
-            height: 36px;
-            background: var(--green-bg);
+        .diff-icon {
+            font-size: 18px;
+            width: 32px;
+            height: 32px;
+            background: rgba(255,255,255,0.15);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 16px;
         }
 
-        .gift-item-name {
-            font-size: 14px;
-            color: #333;
-            font-weight: 500;
-        }
-
-        /* 카드 4: 특징 */
-        .card-4 {
-            background: linear-gradient(180deg, var(--green) 0%, #1b5e20 100%);
-            color: #fff;
-        }
-
-        .card-4 .big-title {
-            color: #fff;
-        }
-
-        .card-4 .hl {
-            color: #a5d6a7;
-        }
-
-        .feature-box {
-            background: rgba(255,255,255,0.1);
-            border-radius: 14px;
-            padding: 20px;
-            max-width: 300px;
-            margin-top: 20px;
-        }
-
-        .feature-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 14px;
-            text-align: left;
-        }
-
-        .feature-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .feature-icon {
-            font-size: 22px;
-        }
-
-        .feature-text {
-            font-size: 14px;
-            color: rgba(255,255,255,0.95);
+        .diff-text {
+            font-size: 13px;
+            color: rgba(255,255,255,0.9);
             line-height: 1.5;
         }
 
-        .feature-text strong {
-            color: #fff;
-        }
-
-        /* 카드 5: 생산자 */
-        .card-5 {
+        /* 제품 리스트 박스 */
+        .product-list-box {
             background: #fff;
+            border-radius: 12px;
+            padding: 20px 18px;
+            margin-top: 16px;
+            max-width: 320px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
         }
 
-        .producer-box {
-            background: var(--green-bg);
+        .product-list-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--green);
+            margin-bottom: 14px;
+            text-align: center;
+        }
+
+        .product-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .product-item:last-child {
+            border-bottom: none;
+        }
+
+        .product-color {
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+        }
+
+        .product-name {
+            font-size: 13px;
+            color: #333;
+        }
+
+        /* 가격 박스 */
+        .price-box {
+            background: var(--green);
             border-radius: 14px;
-            padding: 18px;
-            max-width: 300px;
+            padding: 20px 28px;
+            color: #fff;
             margin-top: 16px;
         }
 
-        .producer-box p {
-            font-family: 'Nanum Myeongjo', serif;
-            font-size: 14px;
-            color: #555;
-            line-height: 1.8;
-        }
-
-        /* 카드 6: CTA */
-        .card-6 {
-            background: linear-gradient(135deg, var(--green-bg) 0%, #c8e6c9 100%);
-        }
-
-        .final-box {
-            background: #fff;
-            border-radius: 20px;
-            padding: 30px 24px;
-            max-width: 320px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
-        }
-
-        .final-title {
-            font-family: 'Nanum Myeongjo', serif;
-            font-size: 20px;
-            font-weight: 800;
-            color: #111;
-            margin-bottom: 8px;
-        }
-
-        .final-sub {
+        .price-label {
             font-size: 13px;
-            color: #888;
-            margin-bottom: 16px;
+            opacity: 0.8;
         }
 
-        .final-price-row {
+        .discount-row {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
-            margin-bottom: 8px;
+            margin-top: 6px;
         }
 
-        .free-badge {
-            background: var(--pink);
-            color: #fff;
-            padding: 6px 14px;
-            border-radius: 12px;
-            font-size: 13px;
-            font-weight: 800;
-        }
-
-        .free-text {
-            font-size: 24px;
-            font-weight: 900;
+        .discount-badge {
+            background: #fff;
             color: var(--green);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 900;
         }
 
-        .final-note {
-            font-size: 12px;
-            color: #888;
-            margin-bottom: 20px;
+        .final-price {
+            font-size: 28px;
+            font-weight: 900;
         }
+
+        .final-price span { font-size: 14px; }
 
         .order-btn-big {
             display: block;
             width: 100%;
+            max-width: 280px;
             padding: 16px 0;
-            background: var(--green);
+            background: #111;
             color: #fff;
             text-decoration: none;
-            border-radius: 14px;
+            border-radius: 12px;
             font-size: 16px;
             font-weight: 700;
-            box-shadow: 0 4px 15px rgba(46, 125, 50, 0.3);
+            margin-top: 16px;
         }
 
         .tags {
             display: flex;
             gap: 6px;
-            margin-top: 16px;
+            margin-top: 14px;
             flex-wrap: wrap;
             justify-content: center;
         }
 
         .tag {
-            padding: 6px 12px;
-            background: rgba(46, 125, 50, 0.1);
+            padding: 6px 10px;
+            background: #e8f5e9;
             border-radius: 12px;
             font-size: 11px;
             color: var(--green);
-            font-weight: 500;
         }
 
         /* 푸터 */
@@ -438,11 +415,27 @@
             font-size: 11px;
             color: rgba(255,255,255,0.5);
         }
+
+        /* 생산자 인용 */
+        .producer-quote {
+            background: #e8f5e9;
+            border-radius: 12px;
+            padding: 16px 18px;
+            margin-top: 16px;
+            max-width: 320px;
+        }
+
+        .producer-quote p {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 14px;
+            color: #555;
+            line-height: 1.8;
+        }
     </style>
 </head>
 <body>
     <header class="header">
-        <p class="header-top">6주차 특별 이벤트 (1.27~2.2)</p>
+        <p class="header-top">6주차 특별 이벤트 · 1.27(월)~2.2(일)</p>
         <p class="header-title">10만원 이상 구매 시 증정!</p>
     </header>
 
@@ -456,19 +449,21 @@
     </div>
 
     <!-- 1: 인트로 -->
-    <section class="card card-1" data-i="0">
-        <span class="gift-icon">🎁</span>
-        <span class="badge">SPECIAL GIFT EVENT</span>
+    <section class="card card-cream" data-i="0">
+        <span class="sale-tag">SPECIAL GIFT</span>
         <h1 class="big-title">
             10만원 이상 구매하면<br>
             <span class="hl">풀빛고운 샘플키트</span><br>
             드려요!
         </h1>
-        <p class="condition-box">기초 5종 × 3박스</p>
-        <p class="sub-text">
-            비건 인증 · 천연 인증<br>
-            항노화 기능성 화장품
-        </p>
+        <div class="img-box">
+            <img src="KakaoTalk_20260202_130053935_01.jpg" alt="풀빛고운 기초 5종 샘플키트">
+        </div>
+        <div class="memory-box">
+            <p>기초 5종 샘플키트 <strong style="color:var(--green);">× 3박스</strong><br>
+            비건 인증 · 천연 인증 화장품<br>
+            여행 갈 때 딱 좋아요!</p>
+        </div>
         <span class="limit-tag">선착순 3,000명 한정</span>
         <a href="https://ecoop.or.kr" class="order-btn">
             🎁 지금 주문하기
@@ -476,14 +471,14 @@
     </section>
 
     <!-- 2: 영상 -->
-    <section class="card card-2" data-i="1">
-        <span class="badge">온라인점장이 직접 소개</span>
+    <section class="card card-light" data-i="1">
+        <p class="question">온라인점장이 직접 소개합니다</p>
         <h2 class="big-title">
             어떤 제품인지<br>
             <span class="hl">영상으로 확인하세요</span>
         </h2>
-        <div class="img-box">
-            <video controls playsinline poster="KakaoTalk_20260202_130053935_01.jpg">
+        <div class="video-box">
+            <video controls playsinline preload="metadata" poster="KakaoTalk_20260202_130053935_01.jpg">
                 <source src="GIFT.mp4" type="video/mp4">
             </video>
         </div>
@@ -497,82 +492,84 @@
     </section>
 
     <!-- 3: 구성품 -->
-    <section class="card card-3" data-i="2">
-        <span class="badge-pink badge">샘플키트 구성</span>
+    <section class="card card-cream" data-i="2">
+        <p class="question">샘플키트 구성</p>
         <h2 class="big-title">
-            <span class="hl-pink">5종</span> 풀세트를<br>
+            <span class="hl-gold">5종 풀세트</span>를<br>
             <span class="hl">3박스</span>나 드려요
         </h2>
-        <div class="img-row">
-            <img src="KakaoTalk_20260202_130053935_01.jpg" alt="샘플키트 1">
-            <img src="KakaoTalk_20260202_130053935_02.jpg" alt="샘플키트 2">
+        <div class="img-box">
+            <img src="KakaoTalk_20260202_130053935_02.jpg" alt="풀빛고운 샘플키트 구성품">
         </div>
-        <div class="gift-list-box">
-            <h4>1박스 구성 (×3)</h4>
-            <div class="gift-item">
-                <span class="gift-item-icon">💧</span>
-                <span class="gift-item-name">시카 히알루론 토너</span>
+        <div class="product-list-box">
+            <p class="product-list-title">1박스 구성 (× 3박스)</p>
+            <div class="product-item">
+                <span class="product-color" style="background: linear-gradient(135deg, #4caf50, #2e7d32);"></span>
+                <span class="product-name">시카동백 크림</span>
             </div>
-            <div class="gift-item">
-                <span class="gift-item-icon">✨</span>
-                <span class="gift-item-name">시카 비타민 에센스</span>
+            <div class="product-item">
+                <span class="product-color" style="background: linear-gradient(135deg, #66bb6a, #43a047);"></span>
+                <span class="product-name">시카동백 로션</span>
             </div>
-            <div class="gift-item">
-                <span class="gift-item-icon">👁️</span>
-                <span class="gift-item-name">시카 릴렉스 아이크림</span>
+            <div class="product-item">
+                <span class="product-color" style="background: linear-gradient(135deg, #f5f5f5, #e0e0e0);"></span>
+                <span class="product-name">시카 히알루론 토너</span>
             </div>
-            <div class="gift-item">
-                <span class="gift-item-icon">🧴</span>
-                <span class="gift-item-name">시카동백 로션</span>
+            <div class="product-item">
+                <span class="product-color" style="background: linear-gradient(135deg, #fafafa, #eeeeee);"></span>
+                <span class="product-name">시카 릴렉스 아이크림</span>
             </div>
-            <div class="gift-item">
-                <span class="gift-item-icon">🫧</span>
-                <span class="gift-item-name">시카동백 크림</span>
+            <div class="product-item">
+                <span class="product-color" style="background: linear-gradient(135deg, #8d6e63, #5d4037);"></span>
+                <span class="product-name">시카 비타민 에센스</span>
             </div>
         </div>
+        <a href="https://ecoop.or.kr" class="order-btn">
+            🎁 지금 주문하기
+        </a>
     </section>
 
     <!-- 4: 특징 -->
-    <section class="card card-4" data-i="3">
-        <span class="badge" style="background:rgba(255,255,255,0.2);">왜 풀빛고운인가요?</span>
+    <section class="card card-green" data-i="3">
+        <p class="question">왜 풀빛고운인가요?</p>
         <h2 class="big-title">
             <span class="hl">믿을 수 있는</span><br>
             화장품이에요
         </h2>
-        <div class="feature-box">
-            <div class="feature-item">
-                <span class="feature-icon">🌱</span>
-                <p class="feature-text"><strong>비건 인증</strong> 화장품<br>동물실험 NO</p>
+        <div class="diff-box">
+            <div class="diff-item">
+                <span class="diff-icon">🌱</span>
+                <p class="diff-text"><strong style="color:#fff;">비건 인증</strong> 화장품<br>동물실험 NO</p>
             </div>
-            <div class="feature-item">
-                <span class="feature-icon">🍃</span>
-                <p class="feature-text"><strong>천연 인증</strong> 획득<br>안심 성분만 사용</p>
+            <div class="diff-item">
+                <span class="diff-icon">🍃</span>
+                <p class="diff-text"><strong style="color:#fff;">천연 인증</strong> 획득<br>안심 성분만 사용</p>
             </div>
-            <div class="feature-item">
-                <span class="feature-icon">⏳</span>
-                <p class="feature-text"><strong>항노화</strong> 기능성<br>피부 탄력 케어</p>
+            <div class="diff-item">
+                <span class="diff-icon">⏳</span>
+                <p class="diff-text"><strong style="color:#fff;">항노화</strong> 기능성<br>피부 탄력 케어</p>
             </div>
-            <div class="feature-item">
-                <span class="feature-icon">✈️</span>
-                <p class="feature-text"><strong>여행용</strong>으로 딱!<br>휴대하기 좋은 사이즈</p>
+            <div class="diff-item">
+                <span class="diff-icon">✈️</span>
+                <p class="diff-text"><strong style="color:#fff;">여행용</strong>으로 딱!<br>2ml × 5ea 휴대 사이즈</p>
             </div>
         </div>
-        <a href="https://ecoop.or.kr" class="order-btn" style="background:#fff; color:var(--green);">
+        <a href="https://ecoop.or.kr" class="order-btn order-btn-white">
             🎁 지금 주문하기
         </a>
     </section>
 
     <!-- 5: 생산자 -->
-    <section class="card card-5" data-i="4">
-        <span class="badge">두레생협 생산자</span>
+    <section class="card card-light" data-i="4">
+        <p class="question">두레생협 생산자</p>
         <h2 class="big-title">
-            <span class="hl">풀빛고운</span>을<br>
+            <span class="hl-gold">풀빛고운</span>을<br>
             소개합니다
         </h2>
         <div class="img-box">
             <img src="KakaoTalk_20260202_130053935_01.jpg" alt="풀빛고운">
         </div>
-        <div class="producer-box">
+        <div class="producer-quote">
             <p>
                 "사용해 보시고,<br>
                 마음에 드시면<br>
@@ -580,37 +577,45 @@
                 많이 이용 부탁드립니다."
             </p>
         </div>
-        <p class="sub-text" style="margin-top:16px;">
-            유통기한 <strong style="color:#111;">2028년 2월</strong>까지<br>
-            넉넉하게 사용하세요!
+        <p class="sub-text" style="margin-top:12px;">
+            유통기한 <strong style="color:#111;">2028년 2월</strong>까지 넉넉!
         </p>
+        <a href="https://ecoop.or.kr" class="order-btn order-btn-dark">
+            🎁 지금 주문하기
+        </a>
     </section>
 
     <!-- 6: CTA -->
-    <section class="card card-6" data-i="5">
-        <span class="badge">놓치지 마세요!</span>
-        <div class="final-box">
-            <p class="final-title">풀빛고운 기초 5종<br>샘플키트 3박스</p>
-            <p class="final-sub">10만원 이상 구매 시</p>
-            <div class="final-price-row">
-                <span class="free-badge">100%</span>
-                <span class="free-text">무료 증정</span>
-            </div>
-            <p class="final-note">선착순 3,000명 · 소진 시 종료</p>
-            <a href="https://ecoop.or.kr" class="order-btn-big">
-                🎁 지금 주문하러 가기
-            </a>
+    <section class="card card-cream" data-i="5">
+        <p class="question">놓치지 마세요!</p>
+        <h2 class="big-title">
+            10만원 이상 구매 시<br>
+            <span class="hl">무료 증정</span>
+        </h2>
+        <div class="img-box">
+            <img src="KakaoTalk_20260202_130053935_02.jpg" alt="풀빛고운 샘플키트">
         </div>
+        <div class="price-box">
+            <p class="price-label">풀빛고운 기초 5종 × 3박스</p>
+            <div class="discount-row">
+                <span class="discount-badge">100%</span>
+                <span class="final-price">무료<span> 증정</span></span>
+            </div>
+        </div>
+        <span class="limit-tag">선착순 3,000명 · 소진 시 종료</span>
+        <a href="https://ecoop.or.kr" class="order-btn-big">
+            🎁 지금 주문하러 가기
+        </a>
         <div class="tags">
             <span class="tag">비건 인증</span>
             <span class="tag">천연 인증</span>
             <span class="tag">항노화</span>
-            <span class="tag">여행용 추천</span>
+            <span class="tag">여행용</span>
         </div>
     </section>
 
     <footer class="footer">
-        <p>두레생협 · 6주차 증정 이벤트</p>
+        <p>두레생협 생활의 발견 · 2026 W06 증정 이벤트</p>
     </footer>
 
     <script>
