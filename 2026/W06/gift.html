@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>10만원 이상 구매 시 풀빛고운 샘플키트 증정!</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --green: #2e7d32;
+            --green-light: #43a047;
+            --green-bg: #e8f5e9;
+            --pink: #e91e63;
+            --cream: #fdfbf7;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html {
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: var(--cream);
+            color: #222;
+        }
+
+        /* 헤더 */
+        .header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, var(--green-light) 0%, var(--green) 100%);
+            color: #fff;
+            text-align: center;
+        }
+
+        .header-top {
+            font-size: 11px;
+            letter-spacing: 1px;
+            opacity: 0.9;
+        }
+
+        .header-title {
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        /* 스크롤 인디케이터 */
+        .dots {
+            position: fixed;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 3px;
+            background: rgba(0,0,0,0.15);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .dot.active {
+            height: 20px;
+            background: var(--green);
+        }
+
+        /* 카드 공통 */
+        .card {
+            min-height: 100vh;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 70px 24px 30px;
+            text-align: center;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, var(--green-light) 0%, var(--green) 100%);
+            border-radius: 25px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(46, 125, 50, 0.3);
+        }
+
+        .badge-pink {
+            background: linear-gradient(135deg, #ec407a 0%, var(--pink) 100%);
+            box-shadow: 0 4px 15px rgba(233, 30, 99, 0.3);
+        }
+
+        .big-title {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 26px;
+            font-weight: 800;
+            line-height: 1.45;
+            color: #111;
+            margin-bottom: 16px;
+        }
+
+        .hl {
+            color: var(--green);
+        }
+
+        .hl-pink {
+            color: var(--pink);
+        }
+
+        .sub-text {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        /* 이미지/비디오 */
+        .img-box {
+            width: 100%;
+            max-width: 300px;
+            margin: 20px auto;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+
+        .img-box img,
+        .img-box video {
+            width: 100%;
+            display: block;
+        }
+
+        .img-row {
+            display: flex;
+            gap: 10px;
+            max-width: 320px;
+            margin: 16px auto;
+        }
+
+        .img-row img {
+            flex: 1;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        /* 버튼 */
+        .order-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 32px;
+            background: var(--green);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 15px;
+            font-weight: 600;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(46, 125, 50, 0.3);
+            transition: transform 0.2s;
+        }
+
+        .order-btn:active {
+            transform: scale(0.97);
+        }
+
+        .order-btn-dark {
+            background: #111;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        /* 카드 1: 인트로 */
+        .card-1 {
+            background: linear-gradient(135deg, var(--green-bg) 0%, #c8e6c9 100%);
+        }
+
+        .gift-icon {
+            font-size: 60px;
+            margin-bottom: 10px;
+        }
+
+        .condition-box {
+            display: inline-block;
+            padding: 14px 24px;
+            background: #fff;
+            border-radius: 14px;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--green);
+            margin: 16px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .limit-tag {
+            display: inline-block;
+            padding: 10px 18px;
+            background: #ff6b6b;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            color: #fff;
+            margin-top: 10px;
+        }
+
+        /* 카드 2: 영상 */
+        .card-2 {
+            background: #fff;
+        }
+
+        /* 카드 3: 구성품 */
+        .card-3 {
+            background: var(--cream);
+        }
+
+        .gift-list-box {
+            background: #fff;
+            border-radius: 16px;
+            padding: 24px 20px;
+            max-width: 300px;
+            text-align: left;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            margin-top: 20px;
+        }
+
+        .gift-list-box h4 {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--green);
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .gift-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .gift-item:last-child {
+            border-bottom: none;
+        }
+
+        .gift-item-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--green-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .gift-item-name {
+            font-size: 14px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        /* 카드 4: 특징 */
+        .card-4 {
+            background: linear-gradient(180deg, var(--green) 0%, #1b5e20 100%);
+            color: #fff;
+        }
+
+        .card-4 .big-title {
+            color: #fff;
+        }
+
+        .card-4 .hl {
+            color: #a5d6a7;
+        }
+
+        .feature-box {
+            background: rgba(255,255,255,0.1);
+            border-radius: 14px;
+            padding: 20px;
+            max-width: 300px;
+            margin-top: 20px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+            text-align: left;
+        }
+
+        .feature-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .feature-icon {
+            font-size: 22px;
+        }
+
+        .feature-text {
+            font-size: 14px;
+            color: rgba(255,255,255,0.95);
+            line-height: 1.5;
+        }
+
+        .feature-text strong {
+            color: #fff;
+        }
+
+        /* 카드 5: 생산자 */
+        .card-5 {
+            background: #fff;
+        }
+
+        .producer-box {
+            background: var(--green-bg);
+            border-radius: 14px;
+            padding: 18px;
+            max-width: 300px;
+            margin-top: 16px;
+        }
+
+        .producer-box p {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 14px;
+            color: #555;
+            line-height: 1.8;
+        }
+
+        /* 카드 6: CTA */
+        .card-6 {
+            background: linear-gradient(135deg, var(--green-bg) 0%, #c8e6c9 100%);
+        }
+
+        .final-box {
+            background: #fff;
+            border-radius: 20px;
+            padding: 30px 24px;
+            max-width: 320px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+        }
+
+        .final-title {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 20px;
+            font-weight: 800;
+            color: #111;
+            margin-bottom: 8px;
+        }
+
+        .final-sub {
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 16px;
+        }
+
+        .final-price-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .free-badge {
+            background: var(--pink);
+            color: #fff;
+            padding: 6px 14px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .free-text {
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--green);
+        }
+
+        .final-note {
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 20px;
+        }
+
+        .order-btn-big {
+            display: block;
+            width: 100%;
+            padding: 16px 0;
+            background: var(--green);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(46, 125, 50, 0.3);
+        }
+
+        .tags {
+            display: flex;
+            gap: 6px;
+            margin-top: 16px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .tag {
+            padding: 6px 12px;
+            background: rgba(46, 125, 50, 0.1);
+            border-radius: 12px;
+            font-size: 11px;
+            color: var(--green);
+            font-weight: 500;
+        }
+
+        /* 푸터 */
+        .footer {
+            padding: 25px;
+            background: #1b5e20;
+            text-align: center;
+        }
+
+        .footer p {
+            font-size: 11px;
+            color: rgba(255,255,255,0.5);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <p class="header-top">6주차 특별 이벤트 (1.27~2.2)</p>
+        <p class="header-title">10만원 이상 구매 시 증정!</p>
+    </header>
+
+    <div class="dots" id="dots">
+        <div class="dot active" data-i="0"></div>
+        <div class="dot" data-i="1"></div>
+        <div class="dot" data-i="2"></div>
+        <div class="dot" data-i="3"></div>
+        <div class="dot" data-i="4"></div>
+        <div class="dot" data-i="5"></div>
+    </div>
+
+    <!-- 1: 인트로 -->
+    <section class="card card-1" data-i="0">
+        <span class="gift-icon">🎁</span>
+        <span class="badge">SPECIAL GIFT EVENT</span>
+        <h1 class="big-title">
+            10만원 이상 구매하면<br>
+            <span class="hl">풀빛고운 샘플키트</span><br>
+            드려요!
+        </h1>
+        <p class="condition-box">기초 5종 × 3박스</p>
+        <p class="sub-text">
+            비건 인증 · 천연 인증<br>
+            항노화 기능성 화장품
+        </p>
+        <span class="limit-tag">선착순 3,000명 한정</span>
+        <a href="https://ecoop.or.kr" class="order-btn">
+            🎁 지금 주문하기
+        </a>
+    </section>
+
+    <!-- 2: 영상 -->
+    <section class="card card-2" data-i="1">
+        <span class="badge">온라인점장이 직접 소개</span>
+        <h2 class="big-title">
+            어떤 제품인지<br>
+            <span class="hl">영상으로 확인하세요</span>
+        </h2>
+        <div class="img-box">
+            <video controls playsinline poster="KakaoTalk_20260202_130053935_01.jpg">
+                <source src="GIFT.mp4" type="video/mp4">
+            </video>
+        </div>
+        <p class="sub-text">
+            온라인점장이 직접 사용해 보고<br>
+            추천드리는 샘플키트입니다
+        </p>
+        <a href="https://ecoop.or.kr" class="order-btn order-btn-dark">
+            🎁 지금 주문하기
+        </a>
+    </section>
+
+    <!-- 3: 구성품 -->
+    <section class="card card-3" data-i="2">
+        <span class="badge-pink badge">샘플키트 구성</span>
+        <h2 class="big-title">
+            <span class="hl-pink">5종</span> 풀세트를<br>
+            <span class="hl">3박스</span>나 드려요
+        </h2>
+        <div class="img-row">
+            <img src="KakaoTalk_20260202_130053935_01.jpg" alt="샘플키트 1">
+            <img src="KakaoTalk_20260202_130053935_02.jpg" alt="샘플키트 2">
+        </div>
+        <div class="gift-list-box">
+            <h4>1박스 구성 (×3)</h4>
+            <div class="gift-item">
+                <span class="gift-item-icon">💧</span>
+                <span class="gift-item-name">시카 히알루론 토너</span>
+            </div>
+            <div class="gift-item">
+                <span class="gift-item-icon">✨</span>
+                <span class="gift-item-name">시카 비타민 에센스</span>
+            </div>
+            <div class="gift-item">
+                <span class="gift-item-icon">👁️</span>
+                <span class="gift-item-name">시카 릴렉스 아이크림</span>
+            </div>
+            <div class="gift-item">
+                <span class="gift-item-icon">🧴</span>
+                <span class="gift-item-name">시카동백 로션</span>
+            </div>
+            <div class="gift-item">
+                <span class="gift-item-icon">🫧</span>
+                <span class="gift-item-name">시카동백 크림</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4: 특징 -->
+    <section class="card card-4" data-i="3">
+        <span class="badge" style="background:rgba(255,255,255,0.2);">왜 풀빛고운인가요?</span>
+        <h2 class="big-title">
+            <span class="hl">믿을 수 있는</span><br>
+            화장품이에요
+        </h2>
+        <div class="feature-box">
+            <div class="feature-item">
+                <span class="feature-icon">🌱</span>
+                <p class="feature-text"><strong>비건 인증</strong> 화장품<br>동물실험 NO</p>
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon">🍃</span>
+                <p class="feature-text"><strong>천연 인증</strong> 획득<br>안심 성분만 사용</p>
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon">⏳</span>
+                <p class="feature-text"><strong>항노화</strong> 기능성<br>피부 탄력 케어</p>
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon">✈️</span>
+                <p class="feature-text"><strong>여행용</strong>으로 딱!<br>휴대하기 좋은 사이즈</p>
+            </div>
+        </div>
+        <a href="https://ecoop.or.kr" class="order-btn" style="background:#fff; color:var(--green);">
+            🎁 지금 주문하기
+        </a>
+    </section>
+
+    <!-- 5: 생산자 -->
+    <section class="card card-5" data-i="4">
+        <span class="badge">두레생협 생산자</span>
+        <h2 class="big-title">
+            <span class="hl">풀빛고운</span>을<br>
+            소개합니다
+        </h2>
+        <div class="img-box">
+            <img src="KakaoTalk_20260202_130053935_01.jpg" alt="풀빛고운">
+        </div>
+        <div class="producer-box">
+            <p>
+                "사용해 보시고,<br>
+                마음에 드시면<br>
+                <strong style="color:var(--green);">풀빛고운 화장품</strong>도<br>
+                많이 이용 부탁드립니다."
+            </p>
+        </div>
+        <p class="sub-text" style="margin-top:16px;">
+            유통기한 <strong style="color:#111;">2028년 2월</strong>까지<br>
+            넉넉하게 사용하세요!
+        </p>
+    </section>
+
+    <!-- 6: CTA -->
+    <section class="card card-6" data-i="5">
+        <span class="badge">놓치지 마세요!</span>
+        <div class="final-box">
+            <p class="final-title">풀빛고운 기초 5종<br>샘플키트 3박스</p>
+            <p class="final-sub">10만원 이상 구매 시</p>
+            <div class="final-price-row">
+                <span class="free-badge">100%</span>
+                <span class="free-text">무료 증정</span>
+            </div>
+            <p class="final-note">선착순 3,000명 · 소진 시 종료</p>
+            <a href="https://ecoop.or.kr" class="order-btn-big">
+                🎁 지금 주문하러 가기
+            </a>
+        </div>
+        <div class="tags">
+            <span class="tag">비건 인증</span>
+            <span class="tag">천연 인증</span>
+            <span class="tag">항노화</span>
+            <span class="tag">여행용 추천</span>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>두레생협 · 6주차 증정 이벤트</p>
+    </footer>
+
+    <script>
+        const cards = document.querySelectorAll('.card');
+        const dots = document.querySelectorAll('.dot');
+
+        const obs = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    const i = e.target.dataset.i;
+                    dots.forEach((d, idx) => d.classList.toggle('active', idx == i));
+                }
+            });
+        }, { threshold: 0.5 });
+
+        cards.forEach(c => obs.observe(c));
+        dots.forEach(d => d.onclick = () => cards[d.dataset.i].scrollIntoView({ behavior: 'smooth' }));
+    </script>
+</body>
+</html>
