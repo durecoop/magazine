@@ -25,6 +25,32 @@
             -webkit-font-smoothing: antialiased;
         }
 
+        /* 색연필 하이라이트 효과 */
+        .hl-yellow {
+            background: linear-gradient(180deg, transparent 50%, rgba(255, 230, 0, 0.5) 50%, rgba(255, 230, 0, 0.5) 85%, transparent 85%);
+            padding: 0 4px;
+        }
+
+        .hl-green {
+            background: linear-gradient(180deg, transparent 50%, rgba(144, 238, 144, 0.5) 50%, rgba(144, 238, 144, 0.5) 85%, transparent 85%);
+            padding: 0 4px;
+        }
+
+        .hl-orange {
+            background: linear-gradient(180deg, transparent 50%, rgba(255, 183, 77, 0.5) 50%, rgba(255, 183, 77, 0.5) 85%, transparent 85%);
+            padding: 0 4px;
+        }
+
+        .hl-pink {
+            background: linear-gradient(180deg, transparent 50%, rgba(255, 182, 193, 0.5) 50%, rgba(255, 182, 193, 0.5) 85%, transparent 85%);
+            padding: 0 4px;
+        }
+
+        .hl-blue {
+            background: linear-gradient(180deg, transparent 50%, rgba(135, 206, 250, 0.5) 50%, rgba(135, 206, 250, 0.5) 85%, transparent 85%);
+            padding: 0 4px;
+        }
+
         /* 고정 헤더 */
         .header {
             position: fixed;
@@ -137,13 +163,6 @@
             color: #fff;
             font-size: 12px;
             z-index: 100;
-            opacity: 1;
-            transition: opacity 0.3s ease;
-        }
-
-        .nav-hint.hidden {
-            opacity: 0;
-            pointer-events: none;
         }
 
         .nav-arrow {
@@ -239,7 +258,7 @@
             padding: 15px 30px;
             background: rgba(255,255,255,0.3);
             border-radius: 40px;
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 700;
             color: #fff;
             position: relative;
@@ -368,7 +387,7 @@
         }
 
         .product-image-large {
-            height: 45%;
+            height: 40%;
             background-size: cover;
             background-position: center;
             position: relative;
@@ -412,79 +431,79 @@
 
         .product-content-large {
             flex: 1;
-            padding: 25px;
+            padding: 20px 25px;
             background: #fff;
             display: flex;
             flex-direction: column;
         }
 
         .product-name-large {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 700;
             color: #1a1a1a;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .product-origin-large {
-            font-size: 14px;
+            font-size: 13px;
             color: #FF6B35;
             font-weight: 600;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .product-desc-large {
-            font-size: 15px;
+            font-size: 14px;
             color: #666;
-            line-height: 1.7;
-            margin-bottom: 20px;
+            line-height: 1.6;
+            margin-bottom: 15px;
         }
 
         .review-box {
             background: #FFF9F0;
             border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 20px;
+            padding: 12px;
+            margin-bottom: 15px;
         }
 
         .review-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .review-stars {
             color: #FFB800;
-            font-size: 16px;
+            font-size: 14px;
         }
 
         .review-score {
             font-weight: 700;
             color: #333;
             margin-left: 5px;
-            font-size: 16px;
+            font-size: 14px;
         }
 
         .review-count {
-            font-size: 13px;
+            font-size: 12px;
             color: #888;
         }
 
         .review-text {
-            font-size: 14px;
+            font-size: 13px;
             color: #555;
-            line-height: 1.6;
+            line-height: 1.5;
             font-style: italic;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .review-recommend {
             display: inline-block;
             background: #FF6B35;
             color: #fff;
-            padding: 5px 12px;
+            padding: 4px 10px;
             border-radius: 12px;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
         }
 
@@ -492,7 +511,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-top: 20px;
+            padding-top: 15px;
             border-top: 1px solid #eee;
             margin-top: auto;
         }
@@ -503,22 +522,22 @@
         }
 
         .price-original-large {
-            font-size: 16px;
+            font-size: 14px;
             color: #999;
             text-decoration: line-through;
         }
 
         .price-sale-large {
-            font-size: 28px;
+            font-size: 26px;
             font-weight: 900;
             color: #FF3B30;
         }
 
         .price-quantity-large {
-            font-size: 13px;
+            font-size: 12px;
             color: #888;
             background: #f0f0f0;
-            padding: 8px 16px;
+            padding: 6px 12px;
             border-radius: 20px;
         }
 
@@ -531,7 +550,7 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 40px 30px;
+            padding: 40px 25px;
         }
 
         .event-badge {
@@ -547,18 +566,33 @@
 
         .event-title {
             font-family: 'Noto Serif KR', serif;
-            font-size: 28px;
+            font-size: 26px;
             color: #fff;
             font-weight: 600;
             line-height: 1.5;
             margin-bottom: 20px;
         }
 
+        .event-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 20px;
+            overflow: hidden;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .event-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
         .event-desc {
-            font-size: 16px;
+            font-size: 15px;
             color: rgba(255,255,255,0.9);
             line-height: 1.8;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
         .event-highlight {
@@ -566,7 +600,7 @@
             padding: 15px 35px;
             background: rgba(255,255,255,0.25);
             border-radius: 40px;
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 700;
             color: #fff;
         }
@@ -580,22 +614,22 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 40px 30px;
+            padding: 30px 25px;
         }
 
         .cta-text {
             font-family: 'Noto Serif KR', serif;
-            font-size: 24px;
+            font-size: 22px;
             color: #1a1a1a;
-            line-height: 1.7;
-            margin-bottom: 30px;
+            line-height: 1.6;
+            margin-bottom: 25px;
         }
 
         .cta-benefits {
             background: #FFF9F0;
             border-radius: 16px;
-            padding: 25px;
-            margin-bottom: 30px;
+            padding: 20px;
+            margin-bottom: 25px;
             text-align: left;
             width: 100%;
         }
@@ -604,14 +638,14 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            margin: 12px 0;
-            font-size: 15px;
+            margin: 10px 0;
+            font-size: 14px;
             color: #333;
         }
 
         .cta-button {
             display: inline-block;
-            padding: 18px 50px;
+            padding: 16px 45px;
             background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
             color: #fff;
             text-decoration: none;
@@ -623,12 +657,12 @@
         }
 
         .cta-note {
-            margin-top: 20px;
-            font-size: 14px;
+            margin-top: 15px;
+            font-size: 13px;
             color: #888;
         }
 
-        /* 스크롤 힌트 (첫 페이지용) */
+        /* 스와이프 힌트 */
         .swipe-hint {
             position: absolute;
             bottom: 80px;
@@ -696,7 +730,7 @@
                     <p class="hero-sub">
                         제주에서 정성껏 키워 보내주신<br>
                         싱싱한 제철 농산물을<br>
-                        특별한 가격으로 만나보세요
+                        <span class="hl-yellow">특별한 가격</span>으로 만나보세요
                     </p>
                     <div class="hero-discount">최대 25% 할인</div>
                     <div class="swipe-hint">
@@ -714,15 +748,15 @@
                     <p class="intro-label">JEJU FRESH</p>
                     <h2 class="intro-title">
                         생산자와 함께하는<br>
-                        가치 소비
+                        <span class="hl-green">가치 소비</span>
                     </h2>
                     <div class="intro-divider"></div>
                     <p class="intro-text">
                         제주 생산자분들이<br>
                         조합원을 믿고 보내주신 농산물입니다.<br><br>
                         생협은 생산자와 소비자가<br>
-                        <strong>함께 살아가는 공동체</strong>입니다.<br><br>
-                        품질은 그대로, 가격만 내렸습니다.<br>
+                        <strong class="hl-orange">함께 살아가는 공동체</strong>입니다.<br><br>
+                        <span class="hl-yellow">품질은 그대로, 가격만 내렸습니다.</span><br>
                         조합원의 선택이 생산자의 힘이 됩니다.
                     </p>
                 </div>
@@ -733,10 +767,10 @@
                 <div class="producer-slide">
                     <div class="producer-image" style="background-image: url('https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/27665C.png');"></div>
                     <div class="producer-info">
-                        <h3 class="producer-name">🍊 강석종 생산자 부부</h3>
+                        <h3 class="producer-name">🍊 <span class="hl-orange">강석종 생산자 부부</span></h3>
                         <p class="producer-quote">
                             "비가림 재배로 병충해 없이 키워<br>
-                            더 달콤하고 과즙이 풍부합니다.<br>
+                            더 <span class="hl-yellow">달콤</span>하고 <span class="hl-blue">과즙이 풍부</span>합니다.<br>
                             왁스 처리 없이 자연 그대로입니다."
                         </p>
                     </div>
@@ -754,7 +788,7 @@
                     </div>
                     <div class="product-content-large">
                         <h4 class="product-name-large">양배추 (1kg)</h4>
-                        <p class="product-origin-large">🏝️ 제주산 무농약</p>
+                        <p class="product-origin-large">🏝️ 제주산 <span class="hl-green">무농약</span></p>
                         <p class="product-desc-large">차가운 물에 담가 사용하면 식감이 더욱 아삭! 겉잎은 떼어내고 신선하게 보관하세요.</p>
                         <div class="review-box">
                             <div class="review-header">
@@ -770,7 +804,7 @@
                         <div class="price-box-large">
                             <div class="price-info-large">
                                 <span class="price-original-large">4,100원</span>
-                                <span class="price-sale-large">3,034원</span>
+                                <span class="price-sale-large"><span class="hl-yellow">3,600원</span></span>
                             </div>
                             <span class="price-quantity-large">한정 500개</span>
                         </div>
@@ -789,7 +823,7 @@
                     </div>
                     <div class="product-content-large">
                         <h4 class="product-name-large">강석종 감귤 (1.8kg)</h4>
-                        <p class="product-origin-large">🏝️ 제주 올레팜 · 무농약</p>
+                        <p class="product-origin-large">🏝️ 제주 올레팜 · <span class="hl-green">무농약</span></p>
                         <p class="product-desc-large">비가림 재배로 병충해와 산성비를 막아 과육이 부드럽고 과즙이 풍부해요.</p>
                         <div class="review-box">
                             <div class="review-header">
@@ -805,7 +839,7 @@
                         <div class="price-box-large">
                             <div class="price-info-large">
                                 <span class="price-original-large">19,900원</span>
-                                <span class="price-sale-large">13,604원</span>
+                                <span class="price-sale-large"><span class="hl-yellow">15,800원</span></span>
                             </div>
                             <span class="price-quantity-large">한정 500개</span>
                         </div>
@@ -824,8 +858,8 @@
                     </div>
                     <div class="product-content-large">
                         <h4 class="product-name-large">레드향 (1kg)</h4>
-                        <p class="product-origin-large">🏝️ 제주산 · 프리미엄</p>
-                        <p class="product-desc-large">한라봉 × 온주밀감의 완벽한 만남! 톡톡 터지는 식감과 높은 당도, 껍질이 얇아 먹기 편해요.</p>
+                        <p class="product-origin-large">🏝️ 제주산 · <span class="hl-pink">프리미엄</span></p>
+                        <p class="product-desc-large">한라봉 × 온주밀감의 완벽한 만남! <span class="hl-orange">톡톡 터지는 식감</span>과 높은 당도!</p>
                         <div class="review-box">
                             <div class="review-header">
                                 <div>
@@ -839,7 +873,7 @@
                         <div class="price-box-large">
                             <div class="price-info-large">
                                 <span class="price-original-large">14,900원</span>
-                                <span class="price-sale-large">9,324원</span>
+                                <span class="price-sale-large"><span class="hl-yellow">11,100원</span></span>
                             </div>
                             <span class="price-quantity-large">한정 300개</span>
                         </div>
@@ -858,8 +892,8 @@
                     </div>
                     <div class="product-content-large">
                         <h4 class="product-name-large">무우 (1kg)</h4>
-                        <p class="product-origin-large">🏝️ 제주산 무농약</p>
-                        <p class="product-desc-large">화학농약 없이 안전하게 재배. 녹색 부위는 당도가 높아 생채로, 중간은 깍두기, 끝은 육수용으로!</p>
+                        <p class="product-origin-large">🏝️ 제주산 <span class="hl-green">무농약</span></p>
+                        <p class="product-desc-large">녹색 부위는 <span class="hl-yellow">당도가 높아</span> 생채로, 중간은 깍두기, 끝은 육수용으로!</p>
                         <div class="review-box">
                             <div class="review-header">
                                 <div>
@@ -874,7 +908,7 @@
                         <div class="price-box-large">
                             <div class="price-info-large">
                                 <span class="price-original-large">2,800원</span>
-                                <span class="price-sale-large">1,850원</span>
+                                <span class="price-sale-large"><span class="hl-yellow">2,200원</span></span>
                             </div>
                             <span class="price-quantity-large">한정 1,000개</span>
                         </div>
@@ -893,8 +927,8 @@
                     </div>
                     <div class="product-content-large">
                         <h4 class="product-name-large">브로콜리 (250g)</h4>
-                        <p class="product-origin-large">🏝️ 제주산 무농약 · 슈퍼푸드</p>
-                        <p class="product-desc-large">타임지 선정 세계 10대 슈퍼푸드! 비타민C가 풍부해 면역력 향상에 좋아요.</p>
+                        <p class="product-origin-large">🏝️ 제주산 <span class="hl-green">무농약</span> · 슈퍼푸드</p>
+                        <p class="product-desc-large">타임지 선정 <span class="hl-blue">세계 10대 슈퍼푸드</span>! 비타민C가 풍부해 면역력 향상에 좋아요.</p>
                         <div class="review-box">
                             <div class="review-header">
                                 <div>
@@ -909,7 +943,7 @@
                         <div class="price-box-large">
                             <div class="price-info-large">
                                 <span class="price-original-large">3,500원</span>
-                                <span class="price-sale-large">2,590원</span>
+                                <span class="price-sale-large"><span class="hl-yellow">3,100원</span></span>
                             </div>
                             <span class="price-quantity-large">한정 500개</span>
                         </div>
@@ -917,17 +951,20 @@
                 </div>
             </div>
 
-            <!-- 슬라이드 9: 이벤트 -->
+            <!-- 슬라이드 9: 이벤트 (풀빛고운) -->
             <div class="slide">
                 <div class="event-slide">
                     <span class="event-badge">SPECIAL EVENT</span>
                     <h3 class="event-title">
-                        이번 주 10만원 이상 구매 시<br>
+                        이번 주 <span class="hl-yellow">10만원 이상</span> 구매 시<br>
                         풀빛고운 화장품 샘플 증정!
                     </h3>
+                    <div class="event-image">
+                        <img src="../W06/gift_kit.jpg" alt="풀빛고운 기초 5종 샘플키트">
+                    </div>
                     <p class="event-desc">
                         두레생협 대표 친환경 화장품<br>
-                        풀빛고운 기초 샘플 3종을 드립니다
+                        <span class="hl-green">풀빛고운 기초 5종 샘플키트</span>
                     </p>
                     <div class="event-highlight">🎁 샘플 3박스 증정</div>
                 </div>
@@ -937,15 +974,15 @@
             <div class="slide">
                 <div class="cta-slide">
                     <p class="cta-text">
-                        조합원의 선택이<br>
+                        <span class="hl-orange">조합원의 선택</span>이<br>
                         제주 농가를 살립니다
                     </p>
                     <div class="cta-benefits">
-                        <div class="cta-benefit">✅ 생산자와 함께하는 가치 소비</div>
-                        <div class="cta-benefit">✅ 제주 직송 신선한 제철 농산물</div>
-                        <div class="cta-benefit">✅ 무농약·친환경 안심 먹거리</div>
-                        <div class="cta-benefit">✅ 최대 25% 특별 할인</div>
-                        <div class="cta-benefit">🎁 10만원 이상 구매 시 샘플 증정</div>
+                        <div class="cta-benefit">✅ 생산자와 함께하는 <span class="hl-green">가치 소비</span></div>
+                        <div class="cta-benefit">✅ 제주 직송 <span class="hl-blue">신선한 제철 농산물</span></div>
+                        <div class="cta-benefit">✅ <span class="hl-green">무농약·친환경</span> 안심 먹거리</div>
+                        <div class="cta-benefit">✅ <span class="hl-yellow">최대 25% 특별 할인</span></div>
+                        <div class="cta-benefit">🎁 <span class="hl-pink">10만원 이상</span> 구매 시 샘플 증정</div>
                     </div>
                     <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1633#book3" class="cta-button">
                         지금 바로 주문하기
@@ -1029,7 +1066,6 @@
             const diffY = touchStartY - touchEndY;
             const diffX = touchStartX - touchEndX;
 
-            // 세로 또는 가로 스와이프 모두 지원
             if (Math.abs(diffY) > 50 || Math.abs(diffX) > 50) {
                 if (diffY > 50 || diffX > 50) {
                     nextSlide();
