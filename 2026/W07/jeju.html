@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>생활의 발견 - 제주 생산자 응원 프로젝트</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Serif+KR:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Noto+Serif+KR:wght@600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,42 +12,28 @@
             box-sizing: border-box;
         }
 
-        html, body {
-            height: 100%;
-            overflow: hidden;
-        }
-
         body {
             font-family: 'Noto Sans KR', sans-serif;
-            background-color: #000;
-            color: #2c2c2c;
-            line-height: 1.8;
-            -webkit-font-smoothing: antialiased;
+            background: #f5f5f5;
+            color: #1a1a1a;
+            line-height: 1.6;
         }
 
-        /* 색연필 하이라이트 효과 */
+        /* 색연필 하이라이트 */
         .hl-yellow {
-            background: linear-gradient(180deg, transparent 50%, rgba(255, 230, 0, 0.5) 50%, rgba(255, 230, 0, 0.5) 85%, transparent 85%);
+            background: linear-gradient(180deg, transparent 40%, rgba(255, 230, 0, 0.5) 40%, rgba(255, 230, 0, 0.5) 90%, transparent 90%);
             padding: 0 4px;
         }
-
         .hl-green {
-            background: linear-gradient(180deg, transparent 50%, rgba(144, 238, 144, 0.5) 50%, rgba(144, 238, 144, 0.5) 85%, transparent 85%);
+            background: linear-gradient(180deg, transparent 40%, rgba(144, 238, 144, 0.5) 40%, rgba(144, 238, 144, 0.5) 90%, transparent 90%);
             padding: 0 4px;
         }
-
         .hl-orange {
-            background: linear-gradient(180deg, transparent 50%, rgba(255, 183, 77, 0.5) 50%, rgba(255, 183, 77, 0.5) 85%, transparent 85%);
+            background: linear-gradient(180deg, transparent 40%, rgba(255, 183, 77, 0.5) 40%, rgba(255, 183, 77, 0.5) 90%, transparent 90%);
             padding: 0 4px;
         }
-
         .hl-pink {
-            background: linear-gradient(180deg, transparent 50%, rgba(255, 182, 193, 0.5) 50%, rgba(255, 182, 193, 0.5) 85%, transparent 85%);
-            padding: 0 4px;
-        }
-
-        .hl-blue {
-            background: linear-gradient(180deg, transparent 50%, rgba(135, 206, 250, 0.5) 50%, rgba(135, 206, 250, 0.5) 85%, transparent 85%);
+            background: linear-gradient(180deg, transparent 40%, rgba(255, 182, 193, 0.5) 40%, rgba(255, 182, 193, 0.5) 90%, transparent 90%);
             padding: 0 4px;
         }
 
@@ -57,339 +43,153 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 56px;
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(10px);
+            height: 60px;
+            background: rgba(255,255,255,0.98);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 16px;
+            padding: 0 20px;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
         }
 
         .header-logo {
-            display: flex;
-            align-items: center;
-            gap: 8px;
             text-decoration: none;
             color: #1a1a1a;
         }
 
         .header-logo span {
-            font-weight: 700;
-            font-size: 15px;
+            font-weight: 900;
+            font-size: 18px;
         }
 
         .header-logo small {
-            font-size: 12px;
+            display: block;
+            font-size: 11px;
             color: #FF6B35;
-            font-weight: 500;
+            font-weight: 600;
         }
 
         .header-order {
-            display: inline-block;
-            padding: 10px 20px;
+            padding: 12px 24px;
             background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
             color: #fff;
             text-decoration: none;
-            border-radius: 25px;
-            font-size: 14px;
-            font-weight: 600;
-            box-shadow: 0 2px 8px rgba(255, 107, 53, 0.4);
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 700;
         }
 
-        /* 슬라이드 컨테이너 */
-        .slide-container {
+        /* 컨테이너 */
+        .container {
             max-width: 480px;
             margin: 0 auto;
-            height: 100vh;
-            overflow: hidden;
-            position: relative;
-            padding-top: 56px;
-        }
-
-        .slides-wrapper {
-            height: 100%;
-            transition: transform 0.4s ease;
-        }
-
-        .slide {
-            height: calc(100vh - 56px);
-            width: 100%;
-            overflow-y: auto;
+            padding-top: 60px;
             background: #fff;
-            scroll-behavior: smooth;
         }
 
-        /* 슬라이드 인디케이터 */
-        .slide-indicator {
-            position: fixed;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            z-index: 100;
-        }
-
-        .indicator-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.4);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .indicator-dot.active {
-            background: #FF6B35;
-            transform: scale(1.3);
-        }
-
-        /* 네비게이션 힌트 */
-        .nav-hint {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            background: rgba(0,0,0,0.6);
-            padding: 10px 20px;
-            border-radius: 25px;
+        /* 히어로 */
+        .hero {
+            background: linear-gradient(180deg, #FF6B35 0%, #F7931E 100%);
+            padding: 60px 30px;
+            text-align: center;
             color: #fff;
-            font-size: 12px;
-            z-index: 100;
-        }
-
-        .nav-arrow {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            cursor: pointer;
-            padding: 5px;
-        }
-
-        .nav-arrow:hover {
-            color: #FF6B35;
-        }
-
-        .page-counter {
-            font-weight: 600;
-            min-width: 50px;
-            text-align: center;
-        }
-
-        /* 히어로 섹션 */
-        .hero-slide {
-            height: 100%;
-            background: linear-gradient(180deg, #FF6B35 0%, #F7931E 50%, #FFB347 100%);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 40px 30px;
-            position: relative;
-        }
-
-        .hero-slide::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></svg>');
-            background-size: 200px;
-            opacity: 0.5;
         }
 
         .hero-badge {
             display: inline-block;
-            padding: 8px 20px;
+            padding: 10px 20px;
             background: rgba(255,255,255,0.25);
             border-radius: 30px;
-            font-size: 12px;
-            letter-spacing: 3px;
-            color: #fff;
+            font-size: 14px;
+            letter-spacing: 2px;
             margin-bottom: 30px;
-            position: relative;
-            z-index: 1;
         }
 
-        .hero-title {
+        .hero h1 {
             font-family: 'Noto Serif KR', serif;
-            font-size: 15px;
-            font-weight: 400;
-            color: rgba(255,255,255,0.9);
-            letter-spacing: 8px;
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-main {
-            font-family: 'Noto Serif KR', serif;
-            font-size: 38px;
+            font-size: 42px;
             font-weight: 700;
-            color: #fff;
-            line-height: 1.3;
-            margin-bottom: 30px;
-            position: relative;
-            z-index: 1;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.15);
+            line-height: 1.2;
+            margin-bottom: 20px;
         }
 
-        .hero-sub {
-            font-size: 16px;
-            color: rgba(255,255,255,0.95);
-            font-weight: 400;
-            line-height: 1.9;
-            position: relative;
-            z-index: 1;
+        .hero p {
+            font-size: 20px;
+            opacity: 0.95;
+            margin-bottom: 30px;
         }
 
         .hero-discount {
-            margin-top: 30px;
-            padding: 15px 30px;
+            display: inline-block;
+            padding: 15px 35px;
             background: rgba(255,255,255,0.3);
             border-radius: 40px;
-            font-size: 20px;
-            font-weight: 700;
-            color: #fff;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* 인트로 슬라이드 */
-        .intro-slide {
-            height: 100%;
-            background: #fff;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 40px 30px;
-        }
-
-        .intro-label {
-            font-size: 11px;
-            letter-spacing: 4px;
-            color: #FF6B35;
-            margin-bottom: 20px;
-            font-weight: 500;
-        }
-
-        .intro-title {
-            font-family: 'Noto Serif KR', serif;
             font-size: 24px;
-            font-weight: 600;
-            color: #1a1a1a;
-            line-height: 1.6;
+            font-weight: 900;
+        }
+
+        /* 섹션 공통 */
+        section {
+            padding: 50px 25px;
+        }
+
+        .section-title {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 28px;
+            font-weight: 700;
+            text-align: center;
             margin-bottom: 30px;
+            line-height: 1.4;
         }
 
-        .intro-divider {
-            width: 40px;
-            height: 2px;
-            background: linear-gradient(90deg, #FF6B35, #FFB347);
-            margin: 0 auto 30px;
+        /* 생산자 */
+        .producer {
+            background: #f8f6f3;
         }
 
-        .intro-text {
-            font-size: 15px;
-            color: #666;
-            line-height: 2;
-            font-weight: 300;
-        }
-
-        /* 인용 슬라이드 */
-        .quote-slide {
-            height: 100%;
-            background: linear-gradient(135deg, #2D5016 0%, #4A7C23 100%);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 40px 30px;
-        }
-
-        .quote-mark {
-            font-family: 'Noto Serif KR', serif;
-            font-size: 60px;
-            color: rgba(255,255,255,0.2);
-            line-height: 1;
+        .producer-img {
+            width: 100%;
+            height: 280px;
+            border-radius: 20px;
+            object-fit: cover;
+            object-position: center 30%;
             margin-bottom: 20px;
-        }
-
-        .quote-text {
-            font-family: 'Noto Serif KR', serif;
-            font-size: 20px;
-            color: #fff;
-            line-height: 1.9;
-            font-weight: 400;
-        }
-
-        .quote-author {
-            margin-top: 30px;
-            font-size: 13px;
-            color: rgba(255,255,255,0.7);
-            letter-spacing: 2px;
-        }
-
-        /* 생산자 슬라이드 */
-        .producer-slide {
-            height: 100%;
-            background: #fff;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .producer-image {
-            flex: 1;
-            min-height: 300px;
-            background-size: cover;
-            background-position: center 30%;
-        }
-
-        .producer-info {
-            padding: 30px;
-            text-align: center;
         }
 
         .producer-name {
-            font-family: 'Noto Serif KR', serif;
-            font-size: 22px;
-            font-weight: 600;
-            color: #1a1a1a;
+            font-size: 24px;
+            font-weight: 700;
+            text-align: center;
             margin-bottom: 15px;
         }
 
         .producer-quote {
-            font-size: 15px;
-            color: #666;
-            line-height: 1.8;
-            font-style: italic;
+            font-size: 18px;
+            text-align: center;
+            color: #555;
+            line-height: 1.7;
         }
 
-        /* 상품 슬라이드 */
-        .product-slide {
-            height: 100%;
-            background: #f8f6f3;
-            display: flex;
-            flex-direction: column;
+        /* 상품 카드 */
+        .product-card {
+            background: #fff;
+            border-radius: 24px;
+            overflow: hidden;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
         }
 
-        .product-image-large {
-            height: 40%;
-            background-size: cover;
-            background-position: center;
+        .product-card a {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .product-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
             position: relative;
         }
 
@@ -402,294 +202,168 @@
             justify-content: space-between;
         }
 
-        .badge-eco {
-            background: #34C759;
-            color: #fff;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 600;
-        }
-
-        .badge-discount {
-            background: #FF3B30;
-            color: #fff;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 13px;
+        .badge {
+            padding: 10px 18px;
+            border-radius: 25px;
+            font-size: 15px;
             font-weight: 700;
         }
 
-        .badge-best {
-            background: linear-gradient(135deg, #FFD700, #FFA500);
-            color: #333;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 700;
+        .badge-eco { background: #34C759; color: #fff; }
+        .badge-discount { background: #FF3B30; color: #fff; }
+        .badge-best { background: linear-gradient(135deg, #FFD700, #FFA500); color: #333; }
+
+        .product-content {
+            padding: 25px;
         }
 
-        .product-content-large {
-            flex: 1;
-            padding: 20px 25px;
-            background: #fff;
-            display: flex;
-            flex-direction: column;
+        .product-name {
+            font-size: 26px;
+            font-weight: 900;
+            margin-bottom: 8px;
         }
 
-        .product-name-large {
-            font-size: 22px;
-            font-weight: 700;
-            color: #1a1a1a;
-            margin-bottom: 6px;
-        }
-
-        .product-origin-large {
-            font-size: 13px;
+        .product-origin {
+            font-size: 16px;
             color: #FF6B35;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-
-        .product-desc-large {
-            font-size: 14px;
-            color: #666;
-            line-height: 1.6;
-            margin-bottom: 15px;
-        }
-
-        .review-box {
-            background: #FFF9F0;
-            border-radius: 12px;
-            padding: 12px;
-            margin-bottom: 15px;
-        }
-
-        .review-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
-        }
-
-        .review-stars {
-            color: #FFB800;
-            font-size: 14px;
-        }
-
-        .review-score {
             font-weight: 700;
-            color: #333;
-            margin-left: 5px;
-            font-size: 14px;
+            margin-bottom: 15px;
         }
 
-        .review-count {
-            font-size: 12px;
-            color: #888;
+        .product-review {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            font-size: 16px;
         }
 
-        .review-text {
-            font-size: 13px;
-            color: #555;
-            line-height: 1.5;
-            font-style: italic;
-            margin-bottom: 8px;
-        }
+        .stars { color: #FFB800; }
 
-        .review-recommend {
-            display: inline-block;
-            background: #FF6B35;
-            color: #fff;
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 11px;
-            font-weight: 600;
-        }
-
-        .price-box-large {
+        .price-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-top: 15px;
-            border-top: 1px solid #eee;
-            margin-top: auto;
+            padding-top: 20px;
+            border-top: 2px solid #f0f0f0;
         }
 
-        .price-info-large {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .price-original-large {
-            font-size: 14px;
+        .price-original {
+            font-size: 18px;
             color: #999;
             text-decoration: line-through;
         }
 
-        .price-sale-large {
-            font-size: 26px;
+        .price-sale {
+            font-size: 32px;
             font-weight: 900;
             color: #FF3B30;
         }
 
-        .price-quantity-large {
-            font-size: 12px;
+        .price-quantity {
+            font-size: 14px;
             color: #888;
-            background: #f0f0f0;
-            padding: 6px 12px;
+            background: #f5f5f5;
+            padding: 8px 15px;
             border-radius: 20px;
         }
 
-        /* 이벤트 슬라이드 */
-        .event-slide {
-            height: 100%;
+        /* 이벤트 */
+        .event {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
             text-align: center;
-            padding: 40px 25px;
-        }
-
-        .event-badge {
-            display: inline-block;
-            padding: 10px 25px;
-            background: rgba(255,255,255,0.2);
-            border-radius: 30px;
-            font-size: 13px;
             color: #fff;
-            margin-bottom: 25px;
-            letter-spacing: 2px;
         }
 
-        .event-title {
+        .event h2 {
             font-family: 'Noto Serif KR', serif;
-            font-size: 26px;
-            color: #fff;
-            font-weight: 600;
-            line-height: 1.5;
-            margin-bottom: 20px;
+            font-size: 30px;
+            font-weight: 700;
+            line-height: 1.4;
+            margin-bottom: 25px;
         }
 
-        .event-image {
-            width: 200px;
-            height: 200px;
+        .event-img {
+            width: 180px;
+            height: 180px;
             border-radius: 20px;
-            overflow: hidden;
-            margin: 20px 0;
+            object-fit: cover;
+            margin: 0 auto 25px;
+            display: block;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
 
-        .event-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .event-desc {
-            font-size: 15px;
-            color: rgba(255,255,255,0.9);
-            line-height: 1.8;
-            margin-bottom: 20px;
-        }
-
-        .event-highlight {
+        .event-gift {
             display: inline-block;
-            padding: 15px 35px;
+            padding: 18px 40px;
             background: rgba(255,255,255,0.25);
             border-radius: 40px;
-            font-size: 18px;
-            font-weight: 700;
-            color: #fff;
-        }
-
-        /* CTA 슬라이드 */
-        .cta-slide {
-            height: 100%;
-            background: linear-gradient(180deg, #fff 0%, #f8f6f3 100%);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 30px 25px;
-        }
-
-        .cta-text {
-            font-family: 'Noto Serif KR', serif;
             font-size: 22px;
-            color: #1a1a1a;
-            line-height: 1.6;
-            margin-bottom: 25px;
+            font-weight: 900;
         }
 
-        .cta-benefits {
-            background: #FFF9F0;
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 25px;
+        /* CTA */
+        .cta {
+            background: #fff;
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 28px;
+            margin-bottom: 30px;
+            line-height: 1.4;
+        }
+
+        .cta-list {
             text-align: left;
-            width: 100%;
+            background: #FFF9F0;
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 30px;
         }
 
-        .cta-benefit {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin: 10px 0;
-            font-size: 14px;
-            color: #333;
+        .cta-list li {
+            list-style: none;
+            font-size: 18px;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .cta-list li:last-child {
+            border-bottom: none;
         }
 
         .cta-button {
-            display: inline-block;
-            padding: 16px 45px;
+            display: block;
+            padding: 22px;
             background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
             color: #fff;
             text-decoration: none;
             border-radius: 50px;
-            font-size: 16px;
-            font-weight: 600;
-            letter-spacing: 1px;
-            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+            font-size: 22px;
+            font-weight: 900;
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
         }
 
         .cta-note {
-            margin-top: 15px;
-            font-size: 13px;
+            margin-top: 20px;
+            font-size: 16px;
             color: #888;
         }
 
-        /* 스와이프 힌트 */
-        .swipe-hint {
-            position: absolute;
-            bottom: 80px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: rgba(255,255,255,0.8);
-            font-size: 13px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            animation: fadeInOut 2s infinite;
-            z-index: 1;
+        /* 푸터 */
+        .footer {
+            background: #1a1a1a;
+            padding: 30px;
+            text-align: center;
+            color: rgba(255,255,255,0.4);
+            font-size: 14px;
         }
 
-        .swipe-hint svg {
-            animation: swipeAnim 1.5s infinite;
-        }
-
-        @keyframes swipeAnim {
-            0%, 100% { transform: translateX(0); }
-            50% { transform: translateX(10px); }
-        }
-
-        @keyframes fadeInOut {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 1; }
+        /* 이미지 래퍼 */
+        .img-wrap {
+            position: relative;
         }
     </style>
 </head>
@@ -700,409 +374,227 @@
             <span>두레생협</span>
             <small>생활의 발견</small>
         </a>
-        <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1633#book3" class="header-order">주문하기</a>
+        <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1633#book2" class="header-order">주문하기</a>
     </header>
 
-    <!-- 슬라이드 인디케이터 -->
-    <div class="slide-indicator" id="slideIndicator"></div>
+    <div class="container">
+        <!-- 히어로 -->
+        <section class="hero">
+            <span class="hero-badge">2026 WEEK 07</span>
+            <h1>제주 생산자<br>응원 프로젝트</h1>
+            <p><span class="hl-yellow">제주 제철 농산물</span><br>특별 할인</p>
+            <div class="hero-discount">최대 25% 할인</div>
+        </section>
 
-    <!-- 네비게이션 힌트 -->
-    <div class="nav-hint" id="navHint">
-        <div class="nav-arrow" onclick="prevSlide()">◀ 이전</div>
-        <div class="page-counter"><span id="currentPage">1</span> / <span id="totalPages">10</span></div>
-        <div class="nav-arrow" onclick="nextSlide()">다음 ▶</div>
+        <!-- 생산자 -->
+        <section class="producer">
+            <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/27665C.png" alt="강석종 생산자" class="producer-img">
+            <h3 class="producer-name">🍊 <span class="hl-orange">강석종 생산자 부부</span></h3>
+            <p class="producer-quote">
+                "조합원을 믿고 보내드립니다"<br>
+                <span class="hl-green">왁스 없이</span> 자연 그대로
+            </p>
+        </section>
+
+        <!-- 상품 목록 -->
+        <section>
+            <h2 class="section-title"><span class="hl-yellow">제주 제철 농산물</span></h2>
+
+            <!-- 양배추 -->
+            <div class="product-card">
+                <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1633#book2">
+                    <div class="img-wrap">
+                        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/20772C.jpg" alt="양배추" class="product-img">
+                        <div class="product-badges">
+                            <span class="badge badge-best">🏆 BEST</span>
+                            <span class="badge badge-discount">12%</span>
+                        </div>
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-name">양배추 (1kg)</h3>
+                        <p class="product-origin">🏝️ 제주 <span class="hl-green">무농약</span></p>
+                        <div class="product-review">
+                            <span class="stars">★★★★★</span>
+                            <span>4.7점</span>
+                            <span style="color:#FF6B35">91% 추천</span>
+                        </div>
+                        <div class="price-row">
+                            <div>
+                                <span class="price-original">4,100원</span>
+                                <span class="price-sale"><span class="hl-yellow">3,600원</span></span>
+                            </div>
+                            <span class="price-quantity">한정 500개</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- 감귤 -->
+            <div class="product-card">
+                <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1633#book2">
+                    <div class="img-wrap">
+                        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/27665A.jpg" alt="강석종 감귤" class="product-img">
+                        <div class="product-badges">
+                            <span class="badge badge-eco">비가림재배</span>
+                            <span class="badge badge-discount">21%</span>
+                        </div>
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-name">강석종 감귤 (1.8kg)</h3>
+                        <p class="product-origin">🏝️ 제주 올레팜 <span class="hl-green">무농약</span></p>
+                        <div class="product-review">
+                            <span class="stars">★★★★★</span>
+                            <span>5.0점</span>
+                            <span style="color:#FF6B35">100% 추천</span>
+                        </div>
+                        <div class="price-row">
+                            <div>
+                                <span class="price-original">19,900원</span>
+                                <span class="price-sale"><span class="hl-yellow">15,800원</span></span>
+                            </div>
+                            <span class="price-quantity">한정 500개</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- 레드향 -->
+            <div class="product-card">
+                <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1633#book2">
+                    <div class="img-wrap">
+                        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56605C.jpg" alt="레드향" class="product-img">
+                        <div class="product-badges">
+                            <span class="badge badge-eco">왁싱NO</span>
+                            <span class="badge badge-discount">25%</span>
+                        </div>
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-name">레드향 (1kg)</h3>
+                        <p class="product-origin">🏝️ 제주 <span class="hl-pink">프리미엄</span></p>
+                        <div class="product-review">
+                            <span style="background:#007AFF;color:#fff;padding:5px 12px;border-radius:15px;font-size:14px;font-weight:700;">NEW</span>
+                        </div>
+                        <div class="price-row">
+                            <div>
+                                <span class="price-original">14,900원</span>
+                                <span class="price-sale"><span class="hl-yellow">11,100원</span></span>
+                            </div>
+                            <span class="price-quantity">한정 300개</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- 무우 -->
+            <div class="product-card">
+                <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1633#book2">
+                    <div class="img-wrap">
+                        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/50542C.jpg" alt="무우" class="product-img">
+                        <div class="product-badges">
+                            <span class="badge badge-eco">무농약</span>
+                            <span class="badge badge-discount">21%</span>
+                        </div>
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-name">무우 (1kg)</h3>
+                        <p class="product-origin">🏝️ 제주 <span class="hl-green">무농약</span></p>
+                        <div class="product-review">
+                            <span class="stars">★★★☆☆</span>
+                            <span>3.4점</span>
+                        </div>
+                        <div class="price-row">
+                            <div>
+                                <span class="price-original">2,800원</span>
+                                <span class="price-sale"><span class="hl-yellow">2,200원</span></span>
+                            </div>
+                            <span class="price-quantity">한정 1,000개</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- 브로콜리 -->
+            <div class="product-card">
+                <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1633#book2">
+                    <div class="img-wrap">
+                        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/20728C.jpg" alt="브로콜리" class="product-img">
+                        <div class="product-badges">
+                            <span class="badge badge-eco">무농약</span>
+                            <span class="badge badge-discount">11%</span>
+                        </div>
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-name">브로콜리 (250g)</h3>
+                        <p class="product-origin">🏝️ 제주 <span class="hl-green">무농약</span> 슈퍼푸드</p>
+                        <div class="product-review">
+                            <span class="stars">★★★★☆</span>
+                            <span>3.9점</span>
+                        </div>
+                        <div class="price-row">
+                            <div>
+                                <span class="price-original">3,500원</span>
+                                <span class="price-sale"><span class="hl-yellow">3,100원</span></span>
+                            </div>
+                            <span class="price-quantity">한정 500개</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- 레몬 -->
+            <div class="product-card">
+                <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1633#book2">
+                    <div class="img-wrap">
+                        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/34031C.jpg" alt="레몬" class="product-img">
+                        <div class="product-badges">
+                            <span class="badge badge-eco">무농약</span>
+                            <span class="badge badge-discount">12%</span>
+                        </div>
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-name">레몬 (500g)</h3>
+                        <p class="product-origin">🏝️ 제주 외도동 <span class="hl-green">무농약</span></p>
+                        <div class="product-review">
+                            <span class="stars">★★★☆☆</span>
+                            <span>2.7점</span>
+                        </div>
+                        <div class="price-row">
+                            <div>
+                                <span class="price-original">9,500원</span>
+                                <span class="price-sale"><span class="hl-yellow">8,400원</span></span>
+                            </div>
+                            <span class="price-quantity">한정 300개</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- 이벤트 -->
+        <section class="event">
+            <h2><span class="hl-yellow">10만원 이상</span> 구매 시<br>풀빛고운 샘플 증정!</h2>
+            <img src="../W06/gift_kit.jpg" alt="풀빛고운 샘플키트" class="event-img">
+            <div class="event-gift">🎁 3박스 증정</div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta">
+            <h2><span class="hl-orange">조합원의 선택</span>이<br>제주 농가를 살립니다</h2>
+            <ul class="cta-list">
+                <li>✅ <span class="hl-green">무농약·친환경</span> 안심 먹거리</li>
+                <li>✅ <span class="hl-yellow">최대 25%</span> 특별 할인</li>
+                <li>🎁 <span class="hl-pink">10만원 이상</span> 샘플 증정</li>
+            </ul>
+            <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1633#book2" class="cta-button">
+                지금 바로 주문하기
+            </a>
+            <p class="cta-note">한정 수량 소진 시 조기 마감</p>
+        </section>
+
+        <!-- 푸터 -->
+        <footer class="footer">
+            두레생협 생활의 발견 2026 W07
+        </footer>
     </div>
-
-    <!-- 슬라이드 컨테이너 -->
-    <div class="slide-container" id="slideContainer">
-        <div class="slides-wrapper" id="slidesWrapper">
-
-            <!-- 슬라이드 1: 히어로 -->
-            <div class="slide">
-                <div class="hero-slide">
-                    <span class="hero-badge">2026 WEEK 07</span>
-                    <p class="hero-title">생활의 발견</p>
-                    <h1 class="hero-main">
-                        제주 생산자<br>
-                        응원<br>
-                        프로젝트
-                    </h1>
-                    <p class="hero-sub">
-                        제주에서 정성껏 키워 보내주신<br>
-                        싱싱한 제철 농산물을<br>
-                        <span class="hl-yellow">특별한 가격</span>으로 만나보세요
-                    </p>
-                    <div class="hero-discount">최대 25% 할인</div>
-                    <div class="swipe-hint">
-                        <span>옆으로 넘기세요</span>
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M5 12h14M12 5l7 7-7 7"/>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 슬라이드 2: 인트로 -->
-            <div class="slide">
-                <div class="intro-slide">
-                    <p class="intro-label">JEJU FRESH</p>
-                    <h2 class="intro-title">
-                        생산자와 함께하는<br>
-                        <span class="hl-green">가치 소비</span>
-                    </h2>
-                    <div class="intro-divider"></div>
-                    <p class="intro-text">
-                        제주 생산자분들이<br>
-                        조합원을 믿고 보내주신 농산물입니다.<br><br>
-                        생협은 생산자와 소비자가<br>
-                        <strong class="hl-orange">함께 살아가는 공동체</strong>입니다.<br><br>
-                        <span class="hl-yellow">품질은 그대로, 가격만 내렸습니다.</span><br>
-                        조합원의 선택이 생산자의 힘이 됩니다.
-                    </p>
-                </div>
-            </div>
-
-            <!-- 슬라이드 3: 생산자 -->
-            <div class="slide">
-                <div class="producer-slide">
-                    <div class="producer-image" style="background-image: url('https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/27665C.png');"></div>
-                    <div class="producer-info">
-                        <h3 class="producer-name">🍊 <span class="hl-orange">강석종 생산자 부부</span></h3>
-                        <p class="producer-quote">
-                            "비가림 재배로 병충해 없이 키워<br>
-                            더 <span class="hl-yellow">달콤</span>하고 <span class="hl-blue">과즙이 풍부</span>합니다.<br>
-                            왁스 처리 없이 자연 그대로입니다."
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 슬라이드 4: 양배추 -->
-            <div class="slide">
-                <div class="product-slide">
-                    <div class="product-image-large" style="background-image: url('https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/20772C.jpg')">
-                        <div class="product-badges">
-                            <span class="badge-best">🏆 BEST</span>
-                            <span class="badge-discount">12% 할인</span>
-                        </div>
-                    </div>
-                    <div class="product-content-large">
-                        <h4 class="product-name-large">양배추 (1kg)</h4>
-                        <p class="product-origin-large">🏝️ 제주산 <span class="hl-green">무농약</span></p>
-                        <p class="product-desc-large">차가운 물에 담가 사용하면 식감이 더욱 아삭! 겉잎은 떼어내고 신선하게 보관하세요.</p>
-                        <div class="review-box">
-                            <div class="review-header">
-                                <div>
-                                    <span class="review-stars">★★★★★</span>
-                                    <span class="review-score">4.7</span>
-                                </div>
-                                <span class="review-count">후기 70건</span>
-                            </div>
-                            <p class="review-text">"무농약이라 안심하고 먹어요. 아삭하고 신선해서 샐러드로 최고!"</p>
-                            <span class="review-recommend">91% 추천</span>
-                        </div>
-                        <div class="price-box-large">
-                            <div class="price-info-large">
-                                <span class="price-original-large">4,100원</span>
-                                <span class="price-sale-large"><span class="hl-yellow">3,600원</span></span>
-                            </div>
-                            <span class="price-quantity-large">한정 500개</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 슬라이드 5: 강석종 감귤 -->
-            <div class="slide">
-                <div class="product-slide">
-                    <div class="product-image-large" style="background-image: url('https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/27665A.jpg')">
-                        <div class="product-badges">
-                            <span class="badge-eco">비가림재배</span>
-                            <span class="badge-discount">21% 할인</span>
-                        </div>
-                    </div>
-                    <div class="product-content-large">
-                        <h4 class="product-name-large">강석종 감귤 (1.8kg)</h4>
-                        <p class="product-origin-large">🏝️ 제주 올레팜 · <span class="hl-green">무농약</span></p>
-                        <p class="product-desc-large">비가림 재배로 병충해와 산성비를 막아 과육이 부드럽고 과즙이 풍부해요.</p>
-                        <div class="review-box">
-                            <div class="review-header">
-                                <div>
-                                    <span class="review-stars">★★★★★</span>
-                                    <span class="review-score">5.0</span>
-                                </div>
-                                <span class="review-count">후기 4건</span>
-                            </div>
-                            <p class="review-text">"왁스 처리 없이 자연 그대로! 노지 감귤보다 부드럽고 즙이 많아요."</p>
-                            <span class="review-recommend">100% 추천</span>
-                        </div>
-                        <div class="price-box-large">
-                            <div class="price-info-large">
-                                <span class="price-original-large">19,900원</span>
-                                <span class="price-sale-large"><span class="hl-yellow">15,800원</span></span>
-                            </div>
-                            <span class="price-quantity-large">한정 500개</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 슬라이드 6: 레드향 -->
-            <div class="slide">
-                <div class="product-slide">
-                    <div class="product-image-large" style="background-image: url('https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56605C.jpg')">
-                        <div class="product-badges">
-                            <span class="badge-eco">왁싱NO</span>
-                            <span class="badge-discount">25% 할인</span>
-                        </div>
-                    </div>
-                    <div class="product-content-large">
-                        <h4 class="product-name-large">레드향 (1kg)</h4>
-                        <p class="product-origin-large">🏝️ 제주산 · <span class="hl-pink">프리미엄</span></p>
-                        <p class="product-desc-large">한라봉 × 온주밀감의 완벽한 만남! <span class="hl-orange">톡톡 터지는 식감</span>과 높은 당도!</p>
-                        <div class="review-box">
-                            <div class="review-header">
-                                <div>
-                                    <span class="review-stars">☆☆☆☆☆</span>
-                                    <span style="background: #007AFF; color: #fff; padding: 3px 10px; border-radius: 10px; font-size: 12px; font-weight: 600; margin-left: 5px;">NEW</span>
-                                </div>
-                                <span class="review-count">첫 후기를 남겨주세요!</span>
-                            </div>
-                            <p class="review-text">"강제착색·왁싱 없이 안전하게 재배. 개당 200g 이상 선별하여 공급합니다."</p>
-                        </div>
-                        <div class="price-box-large">
-                            <div class="price-info-large">
-                                <span class="price-original-large">14,900원</span>
-                                <span class="price-sale-large"><span class="hl-yellow">11,100원</span></span>
-                            </div>
-                            <span class="price-quantity-large">한정 300개</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 슬라이드 7: 무우 -->
-            <div class="slide">
-                <div class="product-slide">
-                    <div class="product-image-large" style="background-image: url('https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/50542C.jpg')">
-                        <div class="product-badges">
-                            <span class="badge-eco">무농약</span>
-                            <span class="badge-discount">21% 할인</span>
-                        </div>
-                    </div>
-                    <div class="product-content-large">
-                        <h4 class="product-name-large">무우 (1kg)</h4>
-                        <p class="product-origin-large">🏝️ 제주산 <span class="hl-green">무농약</span></p>
-                        <p class="product-desc-large">녹색 부위는 <span class="hl-yellow">당도가 높아</span> 생채로, 중간은 깍두기, 끝은 육수용으로!</p>
-                        <div class="review-box">
-                            <div class="review-header">
-                                <div>
-                                    <span class="review-stars">★★★☆☆</span>
-                                    <span class="review-score">3.4</span>
-                                </div>
-                                <span class="review-count">후기 10건</span>
-                            </div>
-                            <p class="review-text">"아삭한 식감이 살아있어요. 소화 촉진에 좋은 디아스타아제가 풍부해서 좋아요!"</p>
-                            <span class="review-recommend">60% 추천</span>
-                        </div>
-                        <div class="price-box-large">
-                            <div class="price-info-large">
-                                <span class="price-original-large">2,800원</span>
-                                <span class="price-sale-large"><span class="hl-yellow">2,200원</span></span>
-                            </div>
-                            <span class="price-quantity-large">한정 1,000개</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 슬라이드 8: 브로콜리 -->
-            <div class="slide">
-                <div class="product-slide">
-                    <div class="product-image-large" style="background-image: url('https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/20728C.jpg')">
-                        <div class="product-badges">
-                            <span class="badge-eco">무농약</span>
-                            <span class="badge-discount">11% 할인</span>
-                        </div>
-                    </div>
-                    <div class="product-content-large">
-                        <h4 class="product-name-large">브로콜리 (250g)</h4>
-                        <p class="product-origin-large">🏝️ 제주산 <span class="hl-green">무농약</span> · 슈퍼푸드</p>
-                        <p class="product-desc-large">타임지 선정 <span class="hl-blue">세계 10대 슈퍼푸드</span>! 비타민C가 풍부해 면역력 향상에 좋아요.</p>
-                        <div class="review-box">
-                            <div class="review-header">
-                                <div>
-                                    <span class="review-stars">★★★★☆</span>
-                                    <span class="review-score">3.9</span>
-                                </div>
-                                <span class="review-count">후기 27건</span>
-                            </div>
-                            <p class="review-text">"줄기에 더 많은 영양분이 있대요. 눈 건강과 변비 예방에도 좋다니 자주 먹어요!"</p>
-                            <span class="review-recommend">67% 추천</span>
-                        </div>
-                        <div class="price-box-large">
-                            <div class="price-info-large">
-                                <span class="price-original-large">3,500원</span>
-                                <span class="price-sale-large"><span class="hl-yellow">3,100원</span></span>
-                            </div>
-                            <span class="price-quantity-large">한정 500개</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 슬라이드 9: 이벤트 (풀빛고운) -->
-            <div class="slide">
-                <div class="event-slide">
-                    <span class="event-badge">SPECIAL EVENT</span>
-                    <h3 class="event-title">
-                        이번 주 <span class="hl-yellow">10만원 이상</span> 구매 시<br>
-                        풀빛고운 화장품 샘플 증정!
-                    </h3>
-                    <div class="event-image">
-                        <img src="../W06/gift_kit.jpg" alt="풀빛고운 기초 5종 샘플키트">
-                    </div>
-                    <p class="event-desc">
-                        두레생협 대표 친환경 화장품<br>
-                        <span class="hl-green">풀빛고운 기초 5종 샘플키트</span>
-                    </p>
-                    <div class="event-highlight">🎁 샘플 3박스 증정</div>
-                </div>
-            </div>
-
-            <!-- 슬라이드 10: CTA -->
-            <div class="slide">
-                <div class="cta-slide">
-                    <p class="cta-text">
-                        <span class="hl-orange">조합원의 선택</span>이<br>
-                        제주 농가를 살립니다
-                    </p>
-                    <div class="cta-benefits">
-                        <div class="cta-benefit">✅ 생산자와 함께하는 <span class="hl-green">가치 소비</span></div>
-                        <div class="cta-benefit">✅ 제주 직송 <span class="hl-blue">신선한 제철 농산물</span></div>
-                        <div class="cta-benefit">✅ <span class="hl-green">무농약·친환경</span> 안심 먹거리</div>
-                        <div class="cta-benefit">✅ <span class="hl-yellow">최대 25% 특별 할인</span></div>
-                        <div class="cta-benefit">🎁 <span class="hl-pink">10만원 이상</span> 구매 시 샘플 증정</div>
-                    </div>
-                    <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1633#book3" class="cta-button">
-                        지금 바로 주문하기
-                    </a>
-                    <p class="cta-note">한정 수량 소진 시 조기 마감됩니다</p>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <script>
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.slide');
-        const totalSlides = slides.length;
-        const slidesWrapper = document.getElementById('slidesWrapper');
-        const indicator = document.getElementById('slideIndicator');
-
-        // 인디케이터 생성
-        for (let i = 0; i < totalSlides; i++) {
-            const dot = document.createElement('div');
-            dot.className = 'indicator-dot' + (i === 0 ? ' active' : '');
-            dot.onclick = () => goToSlide(i);
-            indicator.appendChild(dot);
-        }
-
-        // 페이지 카운터 업데이트
-        document.getElementById('totalPages').textContent = totalSlides;
-
-        function updateSlide() {
-            slidesWrapper.style.transform = `translateY(-${currentSlide * (100 / totalSlides)}%)`;
-
-            // 인디케이터 업데이트
-            document.querySelectorAll('.indicator-dot').forEach((dot, i) => {
-                dot.classList.toggle('active', i === currentSlide);
-            });
-
-            // 페이지 카운터 업데이트
-            document.getElementById('currentPage').textContent = currentSlide + 1;
-        }
-
-        function nextSlide() {
-            if (currentSlide < totalSlides - 1) {
-                currentSlide++;
-                updateSlide();
-            }
-        }
-
-        function prevSlide() {
-            if (currentSlide > 0) {
-                currentSlide--;
-                updateSlide();
-            }
-        }
-
-        function goToSlide(index) {
-            currentSlide = index;
-            updateSlide();
-        }
-
-        // 터치 스와이프 지원
-        let touchStartY = 0;
-        let touchStartX = 0;
-        let touchEndY = 0;
-        let touchEndX = 0;
-
-        const container = document.getElementById('slideContainer');
-
-        container.addEventListener('touchstart', (e) => {
-            touchStartY = e.changedTouches[0].screenY;
-            touchStartX = e.changedTouches[0].screenX;
-        }, false);
-
-        container.addEventListener('touchend', (e) => {
-            touchEndY = e.changedTouches[0].screenY;
-            touchEndX = e.changedTouches[0].screenX;
-            handleSwipe();
-        }, false);
-
-        function handleSwipe() {
-            const diffY = touchStartY - touchEndY;
-            const diffX = touchStartX - touchEndX;
-
-            if (Math.abs(diffY) > 50 || Math.abs(diffX) > 50) {
-                if (diffY > 50 || diffX > 50) {
-                    nextSlide();
-                } else if (diffY < -50 || diffX < -50) {
-                    prevSlide();
-                }
-            }
-        }
-
-        // 키보드 지원
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
-                nextSlide();
-            } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
-                prevSlide();
-            }
-        });
-
-        // 마우스 휠 지원
-        let wheelTimeout;
-        container.addEventListener('wheel', (e) => {
-            e.preventDefault();
-            clearTimeout(wheelTimeout);
-            wheelTimeout = setTimeout(() => {
-                if (e.deltaY > 0) {
-                    nextSlide();
-                } else {
-                    prevSlide();
-                }
-            }, 50);
-        }, { passive: false });
-
-        // 슬라이드 높이 설정
-        slidesWrapper.style.height = `${totalSlides * 100}%`;
-        slides.forEach(slide => {
-            slide.style.height = `${100 / totalSlides}%`;
-        });
-    </script>
 </body>
 </html>
