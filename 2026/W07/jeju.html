@@ -17,6 +17,7 @@
             background: #f5f5f5;
             color: #1a1a1a;
             line-height: 1.6;
+            overflow: hidden;
         }
 
         /* 색연필 하이라이트 */
@@ -86,12 +87,26 @@
             margin: 0 auto;
             padding-top: 60px;
             background: #fff;
+            height: calc(100vh - 60px);
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* 슬라이드 */
+        .slide {
+            min-height: calc(100vh - 60px);
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         /* 히어로 */
         .hero {
             background: linear-gradient(180deg, #FF6B35 0%, #F7931E 100%);
-            padding: 60px 30px;
+            padding: 40px 30px;
             text-align: center;
             color: #fff;
         }
@@ -131,7 +146,7 @@
 
         /* 섹션 공통 */
         section {
-            padding: 50px 25px;
+            padding: 30px 25px;
         }
 
         .section-title {
@@ -379,7 +394,7 @@
 
     <div class="container">
         <!-- 히어로 -->
-        <section class="hero">
+        <section class="hero slide">
             <span class="hero-badge">2026 WEEK 07</span>
             <h1>제주 생산자<br>응원 프로젝트</h1>
             <p><span class="hl-yellow">제주 제철 농산물</span><br>특별 할인</p>
@@ -387,7 +402,7 @@
         </section>
 
         <!-- 생산자 -->
-        <section class="producer">
+        <section class="producer slide">
             <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/27665C.png" alt="강석종 생산자" class="producer-img">
             <h3 class="producer-name">🍊 <span class="hl-orange">강석종 생산자 부부</span></h3>
             <p class="producer-quote">
@@ -396,11 +411,9 @@
             </p>
         </section>
 
-        <!-- 상품 목록 -->
-        <section>
+        <!-- 양배추 -->
+        <section class="slide" style="padding: 30px 25px; background: #fff;">
             <h2 class="section-title"><span class="hl-yellow">제주 제철 농산물</span></h2>
-
-            <!-- 양배추 -->
             <div class="product-card">
                 <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1633#book2">
                     <div class="img-wrap">
@@ -413,6 +426,7 @@
                     <div class="product-content">
                         <h3 class="product-name">양배추 (1kg)</h3>
                         <p class="product-origin">🏝️ 제주 <span class="hl-green">무농약</span></p>
+                        <p style="font-size: 14px; color: #888; margin-bottom: 10px;">🎸 <span class="hl-pink">장기하 닮은</span> 생산자</p>
                         <div class="product-review">
                             <span class="stars">★★★★★</span>
                             <span>4.7점</span>
@@ -428,8 +442,10 @@
                     </div>
                 </a>
             </div>
+        </section>
 
-            <!-- 감귤 -->
+        <!-- 감귤 -->
+        <section class="slide" style="padding: 30px 25px; background: #fff;">
             <div class="product-card">
                 <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1633#book2">
                     <div class="img-wrap">
@@ -457,8 +473,10 @@
                     </div>
                 </a>
             </div>
+        </section>
 
-            <!-- 레드향 -->
+        <!-- 레드향 -->
+        <section class="slide" style="padding: 30px 25px; background: #fff;">
             <div class="product-card">
                 <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1633#book2">
                     <div class="img-wrap">
@@ -484,8 +502,10 @@
                     </div>
                 </a>
             </div>
+        </section>
 
-            <!-- 무우 -->
+        <!-- 무우 -->
+        <section class="slide" style="padding: 30px 25px; background: #fff;">
             <div class="product-card">
                 <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1633#book2">
                     <div class="img-wrap">
@@ -512,8 +532,10 @@
                     </div>
                 </a>
             </div>
+        </section>
 
-            <!-- 브로콜리 -->
+        <!-- 브로콜리 -->
+        <section class="slide" style="padding: 30px 25px; background: #fff;">
             <div class="product-card">
                 <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1633#book2">
                     <div class="img-wrap">
@@ -540,8 +562,10 @@
                     </div>
                 </a>
             </div>
+        </section>
 
-            <!-- 레몬 -->
+        <!-- 레몬 -->
+        <section class="slide" style="padding: 30px 25px; background: #fff;">
             <div class="product-card">
                 <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1633#book2">
                     <div class="img-wrap">
@@ -571,14 +595,14 @@
         </section>
 
         <!-- 이벤트 -->
-        <section class="event">
+        <section class="event slide">
             <h2><span class="hl-yellow">10만원 이상</span> 구매 시<br>풀빛고운 샘플 증정!</h2>
             <img src="../W06/gift_kit.jpg" alt="풀빛고운 샘플키트" class="event-img">
-            <div class="event-gift">🎁 3박스 증정</div>
+            <div class="event-gift">🎁 3박스 (낱개 15개)</div>
         </section>
 
         <!-- CTA -->
-        <section class="cta">
+        <section class="cta slide">
             <h2><span class="hl-orange">조합원의 선택</span>이<br>제주 농가를 살립니다</h2>
             <ul class="cta-list">
                 <li>✅ <span class="hl-green">무농약·친환경</span> 안심 먹거리</li>
