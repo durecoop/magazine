@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>생활의 발견 - 제주 생산자 응원 프로젝트</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Noto+Serif+KR:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Gowun+Batang:wght@400;700&family=Jua&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -13,29 +13,30 @@
         }
 
         body {
-            font-family: 'Noto Sans KR', sans-serif;
-            background: #f5f5f5;
-            color: #1a1a1a;
-            line-height: 1.6;
+            font-family: 'Gowun Dodum', sans-serif;
+            background: #faf8f5;
+            color: #3d3d3d;
+            line-height: 1.7;
             overflow: hidden;
+            letter-spacing: -0.02em;
         }
 
-        /* 색연필 하이라이트 */
+        /* 색연필 하이라이트 - 자연스러운 톤 */
         .hl-yellow {
-            background: linear-gradient(180deg, transparent 40%, rgba(255, 230, 0, 0.5) 40%, rgba(255, 230, 0, 0.5) 90%, transparent 90%);
-            padding: 0 4px;
+            background: linear-gradient(180deg, transparent 45%, rgba(232, 197, 71, 0.4) 45%, rgba(232, 197, 71, 0.4) 85%, transparent 85%);
+            padding: 0 3px;
         }
         .hl-green {
-            background: linear-gradient(180deg, transparent 40%, rgba(144, 238, 144, 0.5) 40%, rgba(144, 238, 144, 0.5) 90%, transparent 90%);
-            padding: 0 4px;
+            background: linear-gradient(180deg, transparent 45%, rgba(74, 124, 78, 0.3) 45%, rgba(74, 124, 78, 0.3) 85%, transparent 85%);
+            padding: 0 3px;
         }
         .hl-orange {
-            background: linear-gradient(180deg, transparent 40%, rgba(255, 183, 77, 0.5) 40%, rgba(255, 183, 77, 0.5) 90%, transparent 90%);
-            padding: 0 4px;
+            background: linear-gradient(180deg, transparent 45%, rgba(224, 123, 57, 0.35) 45%, rgba(224, 123, 57, 0.35) 85%, transparent 85%);
+            padding: 0 3px;
         }
         .hl-pink {
-            background: linear-gradient(180deg, transparent 40%, rgba(255, 182, 193, 0.5) 40%, rgba(255, 182, 193, 0.5) 90%, transparent 90%);
-            padding: 0 4px;
+            background: linear-gradient(180deg, transparent 45%, rgba(199, 90, 58, 0.25) 45%, rgba(199, 90, 58, 0.25) 85%, transparent 85%);
+            padding: 0 3px;
         }
 
         /* 고정 헤더 */
@@ -45,40 +46,45 @@
             left: 0;
             right: 0;
             height: 60px;
-            background: rgba(255,255,255,0.98);
+            background: rgba(255,252,247,0.98);
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 0 20px;
             z-index: 1000;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(139,109,76,0.1);
+            border-bottom: 1px solid rgba(139,109,76,0.1);
         }
 
         .header-logo {
             text-decoration: none;
-            color: #1a1a1a;
+            color: #5a4a3a;
         }
 
         .header-logo span {
-            font-weight: 900;
-            font-size: 18px;
+            font-family: 'Gowun Batang', serif;
+            font-weight: 700;
+            font-size: 20px;
+            color: #4a7c4e;
         }
 
         .header-logo small {
             display: block;
             font-size: 11px;
-            color: #FF6B35;
-            font-weight: 600;
+            color: #e07b39;
+            font-weight: 400;
+            letter-spacing: 0.5px;
         }
 
         .header-order {
             padding: 12px 24px;
-            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            background: #4a7c4e;
             color: #fff;
             text-decoration: none;
-            border-radius: 30px;
-            font-size: 16px;
-            font-weight: 700;
+            border-radius: 25px;
+            font-size: 15px;
+            font-family: 'Jua', sans-serif;
+            letter-spacing: 0.5px;
         }
 
         /* 컨테이너 */
@@ -86,7 +92,7 @@
             max-width: 480px;
             margin: 0 auto;
             padding-top: 60px;
-            background: #fff;
+            background: #fffcf7;
             height: calc(100vh - 60px);
             overflow-y: scroll;
             scroll-snap-type: y mandatory;
@@ -105,7 +111,7 @@
 
         /* 히어로 */
         .hero {
-            background: linear-gradient(180deg, #FF6B35 0%, #F7931E 100%);
+            background: linear-gradient(180deg, #e07b39 0%, #d4a574 100%);
             padding: 40px 30px;
             text-align: center;
             color: #fff;
@@ -113,35 +119,38 @@
 
         .hero-badge {
             display: inline-block;
-            padding: 10px 20px;
-            background: rgba(255,255,255,0.25);
-            border-radius: 30px;
-            font-size: 14px;
-            letter-spacing: 2px;
-            margin-bottom: 30px;
+            padding: 8px 18px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 20px;
+            font-size: 13px;
+            letter-spacing: 1px;
+            margin-bottom: 25px;
+            font-family: 'Gowun Dodum', sans-serif;
         }
 
         .hero h1 {
-            font-family: 'Noto Serif KR', serif;
-            font-size: 42px;
+            font-family: 'Gowun Batang', serif;
+            font-size: 38px;
             font-weight: 700;
-            line-height: 1.2;
+            line-height: 1.3;
             margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
         .hero p {
             font-size: 20px;
             opacity: 0.95;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
+            font-family: 'Gowun Dodum', sans-serif;
         }
 
         .hero-discount {
             display: inline-block;
-            padding: 15px 35px;
-            background: rgba(255,255,255,0.3);
-            border-radius: 40px;
-            font-size: 24px;
-            font-weight: 900;
+            padding: 14px 30px;
+            background: rgba(255,255,255,0.25);
+            border-radius: 30px;
+            font-size: 22px;
+            font-family: 'Jua', sans-serif;
         }
 
         /* 섹션 공통 */
@@ -150,49 +159,56 @@
         }
 
         .section-title {
-            font-family: 'Noto Serif KR', serif;
-            font-size: 28px;
+            font-family: 'Gowun Batang', serif;
+            font-size: 26px;
             font-weight: 700;
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             line-height: 1.4;
+            color: #4a4a4a;
         }
 
         /* 생산자 */
         .producer {
-            background: #f8f6f3;
+            background: linear-gradient(180deg, #f5f1eb 0%, #ebe5db 100%);
         }
 
         .producer-img {
             width: 100%;
-            height: 280px;
-            border-radius: 20px;
+            height: 260px;
+            border-radius: 16px;
             object-fit: cover;
             object-position: center 30%;
             margin-bottom: 20px;
+            border: 3px solid rgba(255,255,255,0.8);
+            box-shadow: 0 4px 15px rgba(139,109,76,0.15);
         }
 
         .producer-name {
+            font-family: 'Gowun Batang', serif;
             font-size: 24px;
             font-weight: 700;
             text-align: center;
             margin-bottom: 15px;
+            color: #5a4a3a;
         }
 
         .producer-quote {
+            font-family: 'Gowun Dodum', sans-serif;
             font-size: 18px;
             text-align: center;
-            color: #555;
-            line-height: 1.7;
+            color: #6a5a4a;
+            line-height: 1.8;
         }
 
         /* 상품 카드 */
         .product-card {
-            background: #fff;
-            border-radius: 24px;
+            background: #fffcf7;
+            border-radius: 16px;
             overflow: hidden;
-            margin-bottom: 25px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(139,109,76,0.12);
+            border: 1px solid rgba(139,109,76,0.08);
         }
 
         .product-card a {
@@ -203,146 +219,155 @@
 
         .product-img {
             width: 100%;
-            height: 220px;
+            height: 200px;
             object-fit: cover;
             position: relative;
         }
 
         .product-badges {
             position: absolute;
-            top: 15px;
-            left: 15px;
-            right: 15px;
+            top: 12px;
+            left: 12px;
+            right: 12px;
             display: flex;
             justify-content: space-between;
         }
 
         .badge {
-            padding: 10px 18px;
-            border-radius: 25px;
-            font-size: 15px;
-            font-weight: 700;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-family: 'Jua', sans-serif;
         }
 
-        .badge-eco { background: #34C759; color: #fff; }
-        .badge-discount { background: #FF3B30; color: #fff; }
-        .badge-best { background: linear-gradient(135deg, #FFD700, #FFA500); color: #333; }
+        .badge-eco { background: #4a7c4e; color: #fff; }
+        .badge-discount { background: #c75a3a; color: #fff; }
+        .badge-best { background: #e8c547; color: #5a4a3a; }
 
         .product-content {
-            padding: 25px;
+            padding: 20px;
         }
 
         .product-name {
-            font-size: 26px;
-            font-weight: 900;
+            font-family: 'Gowun Batang', serif;
+            font-size: 24px;
+            font-weight: 700;
             margin-bottom: 8px;
+            color: #3d3d3d;
         }
 
         .product-origin {
-            font-size: 16px;
-            color: #FF6B35;
-            font-weight: 700;
-            margin-bottom: 15px;
+            font-family: 'Gowun Dodum', sans-serif;
+            font-size: 15px;
+            color: #e07b39;
+            margin-bottom: 12px;
         }
 
         .product-review {
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 20px;
-            font-size: 16px;
+            gap: 8px;
+            margin-bottom: 15px;
+            font-size: 15px;
+            font-family: 'Gowun Dodum', sans-serif;
         }
 
-        .stars { color: #FFB800; }
+        .stars { color: #e8c547; }
 
         .price-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-top: 20px;
-            border-top: 2px solid #f0f0f0;
+            padding-top: 15px;
+            border-top: 1px dashed rgba(139,109,76,0.2);
         }
 
         .price-original {
-            font-size: 18px;
-            color: #999;
+            font-size: 16px;
+            color: #aaa;
             text-decoration: line-through;
         }
 
         .price-sale {
-            font-size: 32px;
-            font-weight: 900;
-            color: #FF3B30;
+            font-family: 'Jua', sans-serif;
+            font-size: 28px;
+            color: #c75a3a;
         }
 
         .price-quantity {
-            font-size: 14px;
-            color: #888;
-            background: #f5f5f5;
-            padding: 8px 15px;
-            border-radius: 20px;
+            font-size: 13px;
+            color: #7a6a5a;
+            background: #f5f1eb;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-family: 'Gowun Dodum', sans-serif;
         }
 
         /* 이벤트 */
         .event {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #4a7c4e 0%, #6a9a6e 100%);
             text-align: center;
             color: #fff;
         }
 
         .event h2 {
-            font-family: 'Noto Serif KR', serif;
-            font-size: 30px;
+            font-family: 'Gowun Batang', serif;
+            font-size: 28px;
             font-weight: 700;
-            line-height: 1.4;
+            line-height: 1.5;
             margin-bottom: 25px;
         }
 
         .event-img {
-            width: 180px;
-            height: 180px;
-            border-radius: 20px;
+            width: 160px;
+            height: 160px;
+            border-radius: 16px;
             object-fit: cover;
             margin: 0 auto 25px;
             display: block;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            border: 3px solid rgba(255,255,255,0.3);
         }
 
         .event-gift {
             display: inline-block;
-            padding: 18px 40px;
-            background: rgba(255,255,255,0.25);
-            border-radius: 40px;
-            font-size: 22px;
-            font-weight: 900;
+            padding: 14px 30px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 25px;
+            font-size: 20px;
+            font-family: 'Jua', sans-serif;
         }
 
         /* CTA */
         .cta {
-            background: #fff;
+            background: #fffcf7;
             text-align: center;
         }
 
         .cta h2 {
-            font-family: 'Noto Serif KR', serif;
-            font-size: 28px;
-            margin-bottom: 30px;
-            line-height: 1.4;
+            font-family: 'Gowun Batang', serif;
+            font-size: 26px;
+            margin-bottom: 25px;
+            line-height: 1.5;
+            color: #4a4a4a;
         }
 
         .cta-list {
             text-align: left;
-            background: #FFF9F0;
-            border-radius: 20px;
-            padding: 25px;
-            margin-bottom: 30px;
+            background: #f5f1eb;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(139,109,76,0.1);
         }
 
         .cta-list li {
             list-style: none;
-            font-size: 18px;
-            padding: 12px 0;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
+            font-size: 17px;
+            padding: 10px 0;
+            border-bottom: 1px dashed rgba(139,109,76,0.15);
+            font-family: 'Gowun Dodum', sans-serif;
+            color: #5a4a3a;
         }
 
         .cta-list li:last-child {
@@ -351,29 +376,32 @@
 
         .cta-button {
             display: block;
-            padding: 22px;
-            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            padding: 18px;
+            background: #4a7c4e;
             color: #fff;
             text-decoration: none;
-            border-radius: 50px;
-            font-size: 22px;
-            font-weight: 900;
-            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
+            border-radius: 30px;
+            font-size: 20px;
+            font-family: 'Jua', sans-serif;
+            box-shadow: 0 4px 15px rgba(74,124,78,0.3);
+            letter-spacing: 0.5px;
         }
 
         .cta-note {
-            margin-top: 20px;
-            font-size: 16px;
-            color: #888;
+            margin-top: 15px;
+            font-size: 14px;
+            color: #9a8a7a;
+            font-family: 'Gowun Dodum', sans-serif;
         }
 
         /* 푸터 */
         .footer {
-            background: #1a1a1a;
-            padding: 30px;
+            background: #5a4a3a;
+            padding: 25px;
             text-align: center;
-            color: rgba(255,255,255,0.4);
-            font-size: 14px;
+            color: rgba(255,255,255,0.5);
+            font-size: 13px;
+            font-family: 'Gowun Dodum', sans-serif;
         }
 
         /* 이미지 래퍼 */
@@ -412,7 +440,7 @@
         </section>
 
         <!-- 양배추 -->
-        <section class="slide" style="padding: 30px 25px; background: #fff;">
+        <section class="slide" style="padding: 30px 25px; background: #fffcf7;">
             <h2 class="section-title"><span class="hl-yellow">제주 제철 농산물</span></h2>
             <div class="product-card">
                 <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1633#book2">
@@ -426,11 +454,11 @@
                     <div class="product-content">
                         <h3 class="product-name">양배추 (1kg)</h3>
                         <p class="product-origin">🏝️ 제주 <span class="hl-green">무농약</span></p>
-                        <p style="font-size: 14px; color: #888; margin-bottom: 10px;">🎸 <span class="hl-pink">장기하 닮은</span> 생산자</p>
+                        <p style="font-size: 14px; color: #7a6a5a; margin-bottom: 10px; font-family: 'Gowun Dodum', sans-serif;">🎸 <span class="hl-pink">장기하 닮은</span> 생산자</p>
                         <div class="product-review">
                             <span class="stars">★★★★★</span>
                             <span>4.7점</span>
-                            <span style="color:#FF6B35">91% 추천</span>
+                            <span style="color:#e07b39">91% 추천</span>
                         </div>
                         <div class="price-row">
                             <div>
@@ -445,7 +473,7 @@
         </section>
 
         <!-- 감귤 -->
-        <section class="slide" style="padding: 30px 25px; background: #fff;">
+        <section class="slide" style="padding: 30px 25px; background: #fffcf7;">
             <div class="product-card">
                 <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1633#book2">
                     <div class="img-wrap">
@@ -461,7 +489,7 @@
                         <div class="product-review">
                             <span class="stars">★★★★★</span>
                             <span>5.0점</span>
-                            <span style="color:#FF6B35">100% 추천</span>
+                            <span style="color:#e07b39">100% 추천</span>
                         </div>
                         <div class="price-row">
                             <div>
@@ -476,7 +504,7 @@
         </section>
 
         <!-- 레드향 -->
-        <section class="slide" style="padding: 30px 25px; background: #fff;">
+        <section class="slide" style="padding: 30px 25px; background: #fffcf7;">
             <div class="product-card">
                 <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1633#book2">
                     <div class="img-wrap">
@@ -490,7 +518,7 @@
                         <h3 class="product-name">레드향 (1kg)</h3>
                         <p class="product-origin">🏝️ 제주 <span class="hl-pink">프리미엄</span></p>
                         <div class="product-review">
-                            <span style="background:#007AFF;color:#fff;padding:5px 12px;border-radius:15px;font-size:14px;font-weight:700;">NEW</span>
+                            <span style="background:#4a7c4e;color:#fff;padding:5px 12px;border-radius:12px;font-size:13px;font-family:'Jua',sans-serif;">NEW</span>
                         </div>
                         <div class="price-row">
                             <div>
@@ -505,7 +533,7 @@
         </section>
 
         <!-- 무우 -->
-        <section class="slide" style="padding: 30px 25px; background: #fff;">
+        <section class="slide" style="padding: 30px 25px; background: #fffcf7;">
             <div class="product-card">
                 <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1633#book2">
                     <div class="img-wrap">
@@ -535,7 +563,7 @@
         </section>
 
         <!-- 브로콜리 -->
-        <section class="slide" style="padding: 30px 25px; background: #fff;">
+        <section class="slide" style="padding: 30px 25px; background: #fffcf7;">
             <div class="product-card">
                 <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1633#book2">
                     <div class="img-wrap">
@@ -565,7 +593,7 @@
         </section>
 
         <!-- 레몬 -->
-        <section class="slide" style="padding: 30px 25px; background: #fff;">
+        <section class="slide" style="padding: 30px 25px; background: #fffcf7;">
             <div class="product-card">
                 <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1633#book2">
                     <div class="img-wrap">
