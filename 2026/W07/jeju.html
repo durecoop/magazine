@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>제주 생산자 응원 프로젝트 - 두레생협</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card {
+            width: 400px;
+            height: 500px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            position: relative;
+        }
+
+        /* 카드 1: 메인 커버 */
+        .card-cover {
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 50%, #FFB347 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 30px;
+        }
+
+        .card-cover .emoji {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        .card-cover h1 {
+            font-size: 32px;
+            font-weight: 900;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .card-cover .subtitle {
+            font-size: 18px;
+            font-weight: 500;
+            line-height: 1.6;
+            opacity: 0.95;
+        }
+
+        .card-cover .badge {
+            margin-top: 25px;
+            background: rgba(255,255,255,0.25);
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .card-cover .dure-logo {
+            position: absolute;
+            bottom: 20px;
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        /* 카드 2: 스토리 */
+        .card-story {
+            background: linear-gradient(180deg, #2D5016 0%, #4A7C23 100%);
+            color: white;
+            padding: 35px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .card-story h2 {
+            font-size: 24px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-story p {
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .card-story .highlight {
+            background: rgba(255,255,255,0.15);
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+            border-left: 4px solid #FFD700;
+        }
+
+        .card-story .highlight p {
+            margin: 0;
+            font-weight: 500;
+        }
+
+        /* 상품 카드 공통 */
+        .card-product {
+            background: white;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-product .product-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .card-product .discount-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #FF3B30;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .card-product .eco-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: #34C759;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-weight: 600;
+            font-size: 12px;
+        }
+
+        .card-product .product-info {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-product h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+        }
+
+        .card-product .origin {
+            font-size: 13px;
+            color: #FF6B35;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .card-product .description {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        /* 후기 섹션 */
+        .card-product .review-box {
+            background: #FFF9F0;
+            border-radius: 10px;
+            padding: 12px;
+            margin-top: 12px;
+        }
+
+        .card-product .review-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .card-product .review-rating {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .card-product .review-rating .stars {
+            color: #FFB800;
+            font-size: 14px;
+        }
+
+        .card-product .review-rating .score {
+            font-size: 14px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .card-product .review-count {
+            font-size: 11px;
+            color: #888;
+        }
+
+        .card-product .review-text {
+            font-size: 12px;
+            color: #555;
+            line-height: 1.5;
+            font-style: italic;
+        }
+
+        .card-product .recommend-badge {
+            display: inline-block;
+            background: #FF6B35;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .card-product .price-box {
+            margin-top: auto;
+            padding-top: 12px;
+            border-top: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .card-product .price-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-product .original-price {
+            font-size: 13px;
+            color: #999;
+            text-decoration: line-through;
+        }
+
+        .card-product .sale-price {
+            font-size: 22px;
+            font-weight: 900;
+            color: #FF3B30;
+        }
+
+        .card-product .quantity {
+            font-size: 11px;
+            color: #888;
+            background: #f0f0f0;
+            padding: 5px 10px;
+            border-radius: 15px;
+        }
+
+        /* 카드: 마무리 */
+        .card-closing {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 35px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .card-closing h2 {
+            font-size: 26px;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .card-closing .benefits {
+            background: rgba(255,255,255,0.15);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            width: 100%;
+        }
+
+        .card-closing .benefit-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 12px 0;
+            font-size: 15px;
+        }
+
+        .card-closing .cta {
+            margin-top: 20px;
+            background: white;
+            color: #764ba2;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        /* 생산자 카드 */
+        .card-producer {
+            background: white;
+        }
+
+        .card-producer .producer-image {
+            height: 250px;
+            background-size: cover;
+            background-position: center top;
+        }
+
+        .card-producer .producer-info {
+            padding: 25px;
+            text-align: center;
+        }
+
+        .card-producer h3 {
+            font-size: 20px;
+            color: #1a1a1a;
+            margin-bottom: 15px;
+        }
+
+        .card-producer .quote {
+            font-size: 15px;
+            color: #666;
+            line-height: 1.7;
+            font-style: italic;
+        }
+
+        .card-producer .quote::before {
+            content: '"';
+            font-size: 30px;
+            color: #FF6B35;
+            line-height: 0;
+            vertical-align: middle;
+        }
+
+        /* BEST 배지 */
+        .best-badge {
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #333;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-weight: 700;
+            font-size: 12px;
+            z-index: 10;
+        }
+
+        /* 신상품 배지 */
+        .new-badge {
+            background: #007AFF;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="card-container">
+
+        <!-- 카드 1: 메인 커버 -->
+        <div class="card card-cover">
+            <div class="emoji">🍊🥬🍋</div>
+            <h1>제주 생산자<br>응원 프로젝트</h1>
+            <p class="subtitle">
+                제주에서 정성껏 키워 보내주신<br>
+                싱싱한 제철 농산물을<br>
+                특별한 가격으로 만나보세요
+            </p>
+            <div class="badge">최대 25% 할인</div>
+            <div class="dure-logo">두레생협연합회</div>
+        </div>
+
+        <!-- 카드 2: 스토리 -->
+        <div class="card card-story">
+            <h2>🤝 함께하는 이유</h2>
+            <p>
+                제주 생산자분들이 조합원을 믿고<br>
+                정성껏 키워 보내주신 농산물입니다.
+            </p>
+            <p>
+                생협은 생산자와 소비자가<br>
+                <strong>함께 살아가는 공동체</strong>입니다.
+            </p>
+            <div class="highlight">
+                <p>
+                    🌱 품질은 그대로<br>
+                    💚 가격만 내렸습니다<br>
+                    🤗 조합원의 선택이 생산자의 힘이 됩니다
+                </p>
+            </div>
+        </div>
+
+        <!-- 카드 3: 무우 -->
+        <div class="card card-product">
+            <div class="product-image" style="background-image: url('https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/50542C.jpg')">
+                <span class="eco-badge">무농약</span>
+                <span class="discount-badge">21% 할인</span>
+            </div>
+            <div class="product-info">
+                <h3>무우 (1kg)</h3>
+                <p class="origin">🏝️ 제주산 무농약</p>
+                <p class="description">
+                    화학농약 없이 안전하게 재배. 녹색 부위는 당도가 높아 생채로, 중간은 깍두기, 끝은 육수용으로!
+                </p>
+                <div class="review-box">
+                    <div class="review-header">
+                        <div class="review-rating">
+                            <span class="stars">★★★☆☆</span>
+                            <span class="score">3.4</span>
+                        </div>
+                        <span class="review-count">후기 10건</span>
+                    </div>
+                    <p class="review-text">"아삭한 식감이 살아있어요. 소화 촉진에 좋은 디아스타아제가 풍부해서 좋아요!"</p>
+                    <span class="recommend-badge">60% 추천</span>
+                </div>
+                <div class="price-box">
+                    <div class="price-info">
+                        <span class="original-price">2,800원</span>
+                        <span class="sale-price">1,850원</span>
+                    </div>
+                    <span class="quantity">한정 1,000개</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 카드 4: 양배추 (BEST) -->
+        <div class="card card-product">
+            <div class="product-image" style="background-image: url('https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/20772C.jpg')">
+                <span class="best-badge">🏆 BEST</span>
+                <span class="eco-badge">무농약</span>
+                <span class="discount-badge">12% 할인</span>
+            </div>
+            <div class="product-info">
+                <h3>양배추 (1kg)</h3>
+                <p class="origin">🏝️ 제주산 무농약</p>
+                <p class="description">
+                    차가운 물에 담가 사용하면 식감이 더욱 아삭! 겉잎은 떼어내고 신선하게 보관하세요.
+                </p>
+                <div class="review-box">
+                    <div class="review-header">
+                        <div class="review-rating">
+                            <span class="stars">★★★★★</span>
+                            <span class="score">4.7</span>
+                        </div>
+                        <span class="review-count">후기 70건</span>
+                    </div>
+                    <p class="review-text">"무농약이라 안심하고 먹어요. 아삭하고 신선해서 샐러드로 최고!"</p>
+                    <span class="recommend-badge">91% 추천</span>
+                </div>
+                <div class="price-box">
+                    <div class="price-info">
+                        <span class="original-price">4,100원</span>
+                        <span class="sale-price">3,034원</span>
+                    </div>
+                    <span class="quantity">한정 500개</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 카드 5: 브로콜리 -->
+        <div class="card card-product">
+            <div class="product-image" style="background-image: url('https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/20728C.jpg')">
+                <span class="eco-badge">무농약</span>
+                <span class="discount-badge">11% 할인</span>
+            </div>
+            <div class="product-info">
+                <h3>브로콜리 (250g)</h3>
+                <p class="origin">🏝️ 제주산 무농약 · 슈퍼푸드</p>
+                <p class="description">
+                    타임지 선정 세계 10대 슈퍼푸드! 비타민C가 풍부해 면역력 향상에 좋아요.
+                </p>
+                <div class="review-box">
+                    <div class="review-header">
+                        <div class="review-rating">
+                            <span class="stars">★★★★☆</span>
+                            <span class="score">3.9</span>
+                        </div>
+                        <span class="review-count">후기 27건</span>
+                    </div>
+                    <p class="review-text">"줄기에 더 많은 영양분이 있대요. 눈 건강과 변비 예방에도 좋다니 자주 먹어요!"</p>
+                    <span class="recommend-badge">67% 추천</span>
+                </div>
+                <div class="price-box">
+                    <div class="price-info">
+                        <span class="original-price">3,500원</span>
+                        <span class="sale-price">2,590원</span>
+                    </div>
+                    <span class="quantity">한정 500개</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 카드 6: 생산자 (강석종) -->
+        <div class="card card-producer">
+            <div class="producer-image" style="background-image: url('https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/27665C.png')"></div>
+            <div class="producer-info">
+                <h3>🍊 강석종 생산자 부부</h3>
+                <p class="quote">
+                    조합원 여러분을 믿고
+                    정성껏 키운 감귤입니다.
+                    비가림 재배로 더 달콤하고
+                    과즙이 풍부해요.
+                </p>
+            </div>
+        </div>
+
+        <!-- 카드 7: 강석종 감귤 -->
+        <div class="card card-product">
+            <div class="product-image" style="background-image: url('https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/27665A.jpg')">
+                <span class="eco-badge">비가림재배</span>
+                <span class="discount-badge">21% 할인</span>
+            </div>
+            <div class="product-info">
+                <h3>강석종 감귤 (1.8kg)</h3>
+                <p class="origin">🏝️ 제주 올레팜 · 무농약</p>
+                <p class="description">
+                    비가림 재배로 병충해와 산성비를 막아 과육이 부드럽고 과즙이 풍부해요.
+                </p>
+                <div class="review-box">
+                    <div class="review-header">
+                        <div class="review-rating">
+                            <span class="stars">★★★★★</span>
+                            <span class="score">5.0</span>
+                        </div>
+                        <span class="review-count">후기 4건</span>
+                    </div>
+                    <p class="review-text">"왁스 처리 없이 자연 그대로! 노지 감귤보다 부드럽고 즙이 많아요. 강추!"</p>
+                    <span class="recommend-badge">100% 추천</span>
+                </div>
+                <div class="price-box">
+                    <div class="price-info">
+                        <span class="original-price">19,900원</span>
+                        <span class="sale-price">13,604원</span>
+                    </div>
+                    <span class="quantity">한정 500개</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 카드 8: 레드향 -->
+        <div class="card card-product">
+            <div class="product-image" style="background-image: url('https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56605C.jpg')">
+                <span class="eco-badge">왁싱NO</span>
+                <span class="discount-badge">25% 할인</span>
+            </div>
+            <div class="product-info">
+                <h3>레드향 (1kg)</h3>
+                <p class="origin">🏝️ 제주산 · 프리미엄</p>
+                <p class="description">
+                    한라봉 × 온주밀감의 완벽한 만남! 톡톡 터지는 식감과 높은 당도, 껍질이 얇아 먹기 편해요.
+                </p>
+                <div class="review-box">
+                    <div class="review-header">
+                        <div class="review-rating">
+                            <span class="stars">☆☆☆☆☆</span>
+                            <span class="new-badge">NEW</span>
+                        </div>
+                        <span class="review-count">첫 후기를 남겨주세요!</span>
+                    </div>
+                    <p class="review-text">"강제착색·왁싱 없이 안전하게 재배. 개당 200g 이상 선별하여 공급합니다."</p>
+                </div>
+                <div class="price-box">
+                    <div class="price-info">
+                        <span class="original-price">14,900원</span>
+                        <span class="sale-price">9,324원</span>
+                    </div>
+                    <span class="quantity">한정 300개</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 카드 9: 레몬 -->
+        <div class="card card-product">
+            <div class="product-image" style="background-image: url('https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/34031C.jpg')">
+                <span class="eco-badge">무농약</span>
+                <span class="discount-badge">12% 할인</span>
+            </div>
+            <div class="product-info">
+                <h3>레몬 (500g)</h3>
+                <p class="origin">🏝️ 제주 외도동 · 무농약</p>
+                <p class="description">
+                    화학농약·제초제 없이 재배. 수확 후에도 왁스 처리 없이 비타민C와 구연산이 풍부!
+                </p>
+                <div class="review-box">
+                    <div class="review-header">
+                        <div class="review-rating">
+                            <span class="stars">★★★☆☆</span>
+                            <span class="score">2.7</span>
+                        </div>
+                        <span class="review-count">후기 3건</span>
+                    </div>
+                    <p class="review-text">"국내산 무농약 레몬이라 껍질째 사용 가능해요. 레몬청 만들기 좋아요!"</p>
+                    <span class="recommend-badge">33% 추천</span>
+                </div>
+                <div class="price-box">
+                    <div class="price-info">
+                        <span class="original-price">9,500원</span>
+                        <span class="sale-price">7,030원</span>
+                    </div>
+                    <span class="quantity">한정 300개</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 카드 10: 마무리 -->
+        <div class="card card-closing">
+            <h2>조합원의 선택이<br>제주 농가를 살립니다</h2>
+            <div class="benefits">
+                <div class="benefit-item">✅ 생산자와 함께하는 가치 소비</div>
+                <div class="benefit-item">✅ 제주 직송 신선한 제철 농산물</div>
+                <div class="benefit-item">✅ 무농약·친환경 안심 먹거리</div>
+                <div class="benefit-item">✅ 최대 25% 특별 할인</div>
+            </div>
+            <p>한정 수량 소진 시 조기 마감됩니다</p>
+            <div class="cta">지금 바로 응원하기 →</div>
+        </div>
+
+    </div>
+</body>
+</html>
