@@ -40,36 +40,40 @@
             left: 0;
             right: 0;
             height: 56px;
-            background: var(--white);
+            background: #5a8c5a;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 20px;
+            padding: 0 15px;
             z-index: 1000;
-            border-bottom: 1px solid var(--beige-light);
         }
 
         .header-logo {
             text-decoration: none;
-            color: var(--brown-dark);
+            display: flex;
+            align-items: center;
         }
 
-        .header-logo span {
-            font-weight: 700;
-            font-size: 18px;
+        .header-logo img {
+            height: 36px;
         }
 
-        .header-logo small {
-            display: block;
-            font-size: 11px;
-            color: var(--brown-light);
-            font-weight: 400;
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-label {
+            font-size: 12px;
+            color: rgba(255,255,255,0.8);
+            letter-spacing: 1px;
         }
 
         .header-order {
             padding: 10px 22px;
-            background: var(--brown-dark);
-            color: var(--white);
+            background: rgba(255,255,255,0.2);
+            color: #fff;
             text-decoration: none;
             border-radius: 3px;
             font-size: 14px;
@@ -365,11 +369,13 @@
 </head>
 <body>
     <header class="header">
-        <a href="https://ecoop.or.kr" class="header-logo">
-            <span>두레생협</span>
-            <small>생활의 발견</small>
+        <a href="https://ecoop.or.kr/DureShop/" class="header-logo">
+            <img src="LOGO.png" alt="두레생협">
         </a>
-        <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1635#book2" class="header-order">설날 장보기</a>
+        <div class="header-right">
+            <span class="header-label">생활의 발견</span>
+            <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1635#book2" class="header-order">설날 장보기</a>
+        </div>
     </header>
 
     <div class="container">
