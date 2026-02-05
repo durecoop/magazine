@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>생활의 발견 - 유기농 해바라기씨유 증정</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Serif+KR:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>생활의 발견 - 명절 증정 이벤트</title>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,698 +12,425 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --brown-dark: #4a3f35;
+            --brown: #6b5d52;
+            --brown-light: #8b7d72;
+            --beige: #c4b5a5;
+            --beige-light: #e8e0d5;
+            --cream: #f7f4f0;
+            --white: #fdfcfa;
+        }
+
         body {
-            font-family: 'Noto Sans KR', sans-serif;
-            background-color: #f8f6f3;
-            color: #2c2c2c;
-            line-height: 1.8;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        .container {
-            max-width: 480px;
-            margin: 0 auto;
-            background: #fff;
+            font-family: 'Gowun Batang', serif;
+            background: var(--cream);
+            color: var(--brown-dark);
+            line-height: 1.9;
             overflow: hidden;
+            letter-spacing: -0.01em;
         }
 
-        /* 히어로 섹션 */
-        .hero {
-            position: relative;
-            height: 100vh;
-            min-height: 600px;
-            background: linear-gradient(180deg, #e8a83e 0%, #f5c563 100%);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 40px 30px;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
+        /* 고정 헤더 */
+        .header {
+            position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></svg>');
-            background-size: 200px;
-            opacity: 0.5;
+            height: 56px;
+            background: var(--white);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            z-index: 1000;
+            border-bottom: 1px solid var(--beige-light);
         }
 
-        .hero-badge {
-            display: inline-block;
-            padding: 8px 20px;
-            background: rgba(255,255,255,0.25);
-            border-radius: 30px;
+        .header-logo {
+            text-decoration: none;
+            color: var(--brown-dark);
+        }
+
+        .header-logo span {
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .header-logo small {
+            display: block;
+            font-size: 11px;
+            color: var(--brown-light);
+            font-weight: 400;
+        }
+
+        .header-order {
+            padding: 10px 22px;
+            background: var(--brown-dark);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 3px;
+            font-size: 14px;
+        }
+
+        /* 컨테이너 */
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            padding-top: 56px;
+            background: var(--white);
+            height: calc(100vh - 56px);
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* 슬라이드 */
+        .slide {
+            min-height: calc(100vh - 56px);
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 40px 30px;
+        }
+
+        /* 히어로 */
+        .hero {
+            background: var(--brown-dark);
+            color: var(--cream);
+            text-align: center;
+        }
+
+        .hero-label {
             font-size: 12px;
             letter-spacing: 3px;
-            color: #fff;
-            margin-bottom: 30px;
-            backdrop-filter: blur(10px);
-            position: relative;
-            z-index: 1;
-            font-weight: 600;
-        }
-
-        .hero-title {
-            font-family: 'Noto Serif KR', serif;
-            font-size: 15px;
-            font-weight: 400;
-            color: rgba(255,255,255,0.9);
-            letter-spacing: 8px;
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-main {
-            font-family: 'Noto Serif KR', serif;
-            font-size: 42px;
-            font-weight: 700;
-            color: #fff;
-            line-height: 1.3;
-            margin-bottom: 30px;
-            position: relative;
-            z-index: 1;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .hero-sub {
-            font-size: 16px;
-            color: rgba(255,255,255,0.95);
-            font-weight: 400;
-            line-height: 1.9;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-scroll {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: rgba(255,255,255,0.7);
-            font-size: 12px;
-            letter-spacing: 2px;
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(10px); }
-        }
-
-        /* 인트로 섹션 */
-        .intro {
-            padding: 80px 30px;
-            background: #fff;
-            text-align: center;
-        }
-
-        .intro-label {
-            font-size: 11px;
-            letter-spacing: 4px;
-            color: #e8a83e;
-            margin-bottom: 20px;
-            font-weight: 500;
-        }
-
-        .intro-title {
-            font-family: 'Noto Serif KR', serif;
-            font-size: 26px;
-            font-weight: 600;
-            color: #1a1a1a;
-            line-height: 1.6;
+            color: var(--beige);
             margin-bottom: 30px;
         }
 
-        .intro-divider {
-            width: 40px;
-            height: 1px;
-            background: #e8a83e;
-            margin: 0 auto 30px;
-        }
-
-        .intro-text {
-            font-size: 15px;
-            color: #666;
-            line-height: 2;
-            font-weight: 300;
-        }
-
-        /* 이벤트 하이라이트 */
-        .event-highlight {
-            padding: 60px 30px;
-            background: linear-gradient(135deg, #fff9e6 0%, #fff 100%);
-            text-align: center;
-        }
-
-        .event-badge {
-            display: inline-block;
-            padding: 12px 30px;
-            background: linear-gradient(135deg, #e8a83e 0%, #f5c563 100%);
-            border-radius: 50px;
-            color: #fff;
-            font-size: 14px;
-            font-weight: 700;
-            letter-spacing: 2px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 15px rgba(232, 168, 62, 0.3);
-        }
-
-        .event-title {
-            font-family: 'Noto Serif KR', serif;
+        .hero h1 {
             font-size: 32px;
             font-weight: 700;
-            color: #1a1a1a;
             line-height: 1.4;
-            margin-bottom: 20px;
-        }
-
-        .event-title span {
-            color: #e8a83e;
-        }
-
-        .event-desc {
-            font-size: 15px;
-            color: #666;
-            line-height: 1.9;
-        }
-
-        /* 이미지 섹션 */
-        .full-image {
-            width: 100%;
-            display: block;
-        }
-
-        .full-image img {
-            width: 100%;
-            display: block;
-        }
-
-        /* 이미지 플레이스홀더 */
-        .image-placeholder {
-            width: 100%;
-            height: 300px;
-            background: linear-gradient(135deg, #f5c563 0%, #e8a83e 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            font-size: 18px;
-            font-weight: 500;
-        }
-
-        /* 스토리 섹션 */
-        .story {
-            padding: 70px 30px;
-            background: #f8f6f3;
-        }
-
-        .story-white {
-            background: #fff;
-        }
-
-        .story-number {
-            font-family: 'Noto Serif KR', serif;
-            font-size: 48px;
-            color: rgba(232, 168, 62, 0.2);
-            font-weight: 700;
-            margin-bottom: -10px;
-        }
-
-        .story-title {
-            font-family: 'Noto Serif KR', serif;
-            font-size: 24px;
-            font-weight: 600;
-            color: #1a1a1a;
             margin-bottom: 25px;
-            line-height: 1.5;
         }
 
-        .story-highlight {
-            color: #e8a83e;
+        .hero-desc {
+            font-size: 16px;
+            color: var(--beige-light);
+            line-height: 1.9;
+            margin-bottom: 30px;
+        }
+
+        .hero-highlight {
+            display: inline-block;
+            padding: 12px 28px;
+            border: 1px solid var(--beige);
+            font-size: 15px;
+            color: var(--beige-light);
+        }
+
+        /* 스토리 */
+        .story {
+            background: var(--cream);
+            text-align: center;
+        }
+
+        .story-label {
+            font-size: 12px;
+            letter-spacing: 3px;
+            color: var(--brown-light);
+            margin-bottom: 25px;
+        }
+
+        .story h2 {
+            font-size: 24px;
+            font-weight: 700;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: var(--brown-dark);
         }
 
         .story-text {
-            font-size: 15px;
-            color: #555;
+            font-size: 16px;
+            color: var(--brown);
             line-height: 2;
-            font-weight: 300;
         }
 
-        /* 감성 인용 */
-        .quote-section {
-            padding: 80px 30px;
-            background: linear-gradient(135deg, #e8a83e 0%, #d4942f 100%);
+        /* 상품 카드 */
+        .product {
+            background: var(--white);
             text-align: center;
         }
 
-        .quote-mark {
-            font-family: 'Noto Serif KR', serif;
-            font-size: 60px;
-            color: rgba(255,255,255,0.3);
-            line-height: 1;
-            margin-bottom: 20px;
+        .product-img {
+            width: 200px;
+            height: 200px;
+            object-fit: contain;
+            margin: 0 auto 30px;
+            display: block;
         }
 
-        .quote-text {
-            font-family: 'Noto Serif KR', serif;
-            font-size: 20px;
-            color: #fff;
-            line-height: 1.9;
-            font-weight: 400;
-        }
-
-        .quote-author {
-            margin-top: 30px;
-            font-size: 13px;
-            color: rgba(255,255,255,0.7);
-            letter-spacing: 2px;
-        }
-
-        /* 특징 카드 */
-        .features {
-            padding: 70px 30px;
-            background: #fff;
-        }
-
-        .features-header {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-
-        .features-label {
-            font-size: 11px;
-            letter-spacing: 4px;
-            color: #e8a83e;
-            margin-bottom: 15px;
-        }
-
-        .features-title {
-            font-family: 'Noto Serif KR', serif;
-            font-size: 26px;
-            font-weight: 600;
-            color: #1a1a1a;
-        }
-
-        .feature-card {
-            background: #f8f6f3;
-            border-radius: 16px;
-            padding: 35px 25px;
-            margin-bottom: 20px;
-        }
-
-        .feature-icon {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, #e8a83e 0%, #f5c563 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-            font-size: 20px;
-        }
-
-        .feature-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: #1a1a1a;
-            margin-bottom: 12px;
-        }
-
-        .feature-desc {
-            font-size: 14px;
-            color: #666;
-            line-height: 1.8;
-            font-weight: 300;
-        }
-
-        /* 이벤트 조건 */
-        .event-condition {
-            padding: 60px 30px;
-            background: #1a1a1a;
-            text-align: center;
-        }
-
-        .condition-title {
-            font-family: 'Noto Serif KR', serif;
-            font-size: 24px;
-            color: #fff;
-            margin-bottom: 30px;
-        }
-
-        .condition-box {
-            background: rgba(255,255,255,0.05);
-            border-radius: 16px;
-            padding: 30px 25px;
-            margin-bottom: 15px;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .condition-label {
+        .product-label {
             font-size: 12px;
-            color: #e8a83e;
+            color: var(--brown-light);
             letter-spacing: 2px;
             margin-bottom: 10px;
         }
 
-        .condition-value {
-            font-size: 20px;
-            color: #fff;
-            font-weight: 600;
+        .product-name {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--brown-dark);
         }
 
-        .condition-note {
+        .product-desc {
+            font-size: 15px;
+            color: var(--brown);
+            line-height: 1.9;
+            margin-bottom: 25px;
+        }
+
+        .product-meta {
+            font-size: 14px;
+            color: var(--brown-light);
+            padding: 15px 0;
+            border-top: 1px solid var(--beige-light);
+            border-bottom: 1px solid var(--beige-light);
+        }
+
+        /* 인용 */
+        .quote {
+            background: var(--beige-light);
+            text-align: center;
+        }
+
+        .quote-mark {
+            font-size: 50px;
+            color: var(--beige);
+            margin-bottom: 15px;
+        }
+
+        .quote-text {
+            font-size: 18px;
+            color: var(--brown);
+            line-height: 2;
+            font-style: italic;
+        }
+
+        .quote-author {
             margin-top: 25px;
             font-size: 13px;
-            color: rgba(255,255,255,0.5);
-            line-height: 1.8;
+            color: var(--brown-light);
+            letter-spacing: 2px;
         }
 
-        /* 제품 정보 */
-        .product-info {
-            padding: 60px 30px;
-            background: #fff;
-        }
-
-        .info-header {
+        /* 이벤트 */
+        .event {
+            background: var(--cream);
             text-align: center;
+        }
+
+        .event h2 {
+            font-size: 24px;
+            font-weight: 700;
+            line-height: 1.6;
             margin-bottom: 30px;
+            color: var(--brown-dark);
         }
 
-        .info-header h3 {
-            font-family: 'Noto Serif KR', serif;
-            font-size: 22px;
-            color: #1a1a1a;
+        .event-box {
+            background: var(--white);
+            padding: 25px;
+            margin-bottom: 15px;
+            border: 1px solid var(--beige-light);
         }
 
-        .info-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 18px 0;
-            border-bottom: 1px solid #eee;
+        .event-box-label {
+            font-size: 12px;
+            letter-spacing: 2px;
+            color: var(--brown-light);
+            margin-bottom: 8px;
         }
 
-        .info-label {
-            font-size: 14px;
-            color: #888;
+        .event-box-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--brown-dark);
         }
 
-        .info-value {
-            font-size: 14px;
-            color: #1a1a1a;
-            font-weight: 500;
-            text-align: right;
+        .event-note {
+            margin-top: 20px;
+            font-size: 13px;
+            color: var(--brown-light);
+            line-height: 1.8;
         }
 
         /* CTA */
         .cta {
-            padding: 60px 30px 80px;
-            background: linear-gradient(180deg, #fff 0%, #fff9e6 100%);
+            background: var(--white);
             text-align: center;
         }
 
-        .cta-text {
-            font-family: 'Noto Serif KR', serif;
+        .cta h2 {
             font-size: 22px;
-            color: #1a1a1a;
-            line-height: 1.7;
-            margin-bottom: 30px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            line-height: 1.6;
+            color: var(--brown-dark);
         }
 
-        .cta-gift {
-            display: inline-block;
-            padding: 15px 30px;
-            background: linear-gradient(135deg, #e8a83e 0%, #f5c563 100%);
-            border-radius: 12px;
-            color: #fff;
-            font-size: 18px;
-            font-weight: 700;
+        .cta-desc {
+            font-size: 15px;
+            color: var(--brown);
+            line-height: 2;
             margin-bottom: 30px;
-            box-shadow: 0 4px 20px rgba(232, 168, 62, 0.3);
         }
 
         .cta-button {
-            display: inline-block;
-            padding: 18px 50px;
-            background: #1a1a1a;
-            color: #fff;
+            display: block;
+            padding: 18px;
+            background: var(--brown-dark);
+            color: var(--cream);
             text-decoration: none;
-            border-radius: 50px;
-            font-size: 15px;
-            font-weight: 500;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
+            font-size: 16px;
+            margin-bottom: 15px;
         }
 
-        .cta-button:hover {
-            background: #333;
-            transform: translateY(-2px);
+        .cta-note {
+            font-size: 13px;
+            color: var(--brown-light);
         }
 
         /* 푸터 */
         .footer {
-            padding: 40px 30px;
-            background: #1a1a1a;
+            background: var(--brown-dark);
+            padding: 25px;
             text-align: center;
-        }
-
-        .footer-logo {
-            font-size: 14px;
-            color: rgba(255,255,255,0.5);
-            letter-spacing: 3px;
-            margin-bottom: 15px;
-        }
-
-        .footer-text {
+            color: var(--beige);
             font-size: 12px;
-            color: rgba(255,255,255,0.3);
+            min-height: auto;
         }
     </style>
 </head>
 <body>
+    <header class="header">
+        <a href="https://ecoop.or.kr" class="header-logo">
+            <span>두레생협</span>
+            <small>생활의 발견</small>
+        </a>
+        <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=58220&returnPlanNo=0" class="header-order">주문하기</a>
+    </header>
+
     <div class="container">
         <!-- 히어로 -->
-        <section class="hero">
-            <span class="hero-badge">EVENT</span>
-            <p class="hero-title">생활의 발견</p>
-            <h1 class="hero-main">
-                유기농<br>
-                해바라기씨유<br>
-                증정
-            </h1>
-            <p class="hero-sub">
-                명절, 뭐가 필요하실지<br>
-                두레가 고민했습니다
-            </p>
-            <div class="hero-scroll">SCROLL</div>
-        </section>
-
-        <!-- 인트로 -->
-        <section class="intro">
-            <p class="intro-label">COOP ITALIA</p>
-            <h2 class="intro-title">
-                명절 음식 준비,<br>
-                좋은 기름이 필수입니다
-            </h2>
-            <div class="intro-divider"></div>
-            <p class="intro-text">
+        <section class="hero slide">
+            <p class="hero-label">명절 특별 증정</p>
+            <h1>명절엔<br>기름 쓸 일이<br>많잖아요</h1>
+            <p class="hero-desc">
                 전, 튀김, 볶음...<br>
-                명절엔 기름 쓸 일이 참 많죠.<br><br>
-                어떤 기름을 쓰느냐에 따라<br>
-                음식 맛과 가족 건강이 달라집니다.<br><br>
-                이탈리아 협동조합과 함께 만든<br>
-                유기농 해바라기씨유를 드립니다.
+                좋은 기름으로 준비하시라고<br>
+                두레가 마음을 담았습니다.
             </p>
+            <span class="hero-highlight">10만원 이상 주문 시 증정</span>
         </section>
 
-        <!-- 이벤트 하이라이트 -->
-        <section class="event-highlight">
-            <div class="event-badge">명절 특별 증정</div>
-            <h2 class="event-title">
-                10만원 이상 주문 시<br>
-                <span>유기농 해바라기씨유</span> 증정!
-            </h2>
-            <p class="event-desc">
-                11,700원 상당의 프리미엄 오일<br>
-                두레가 명절 선물로 드립니다
+        <!-- 상품 -->
+        <section class="product slide">
+            <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58220C.png" alt="유기농 해바라기씨유" class="product-img">
+            <p class="product-label">COOP ITALIA · 유기농</p>
+            <h3 class="product-name">유기농 해바라기씨유</h3>
+            <p class="product-desc">
+                100% 이탈리아산 해바라기씨<br>
+                유기농 인증 프리미엄 오일<br>
+                750ml · 11,700원 상당
             </p>
+            <p class="product-meta">이탈리아 협동조합 COOP ITALIA 생산</p>
         </section>
-
-        <!-- 이미지 플레이스홀더 -->
-        <div class="image-placeholder">
-            해바라기유 이미지
-        </div>
 
         <!-- 스토리 1 -->
-        <section class="story">
-            <p class="story-number">01</p>
-            <h3 class="story-title">
-                왜<br>
-                <span class="story-highlight">해바라기유</span>일까요?
-            </h3>
+        <section class="story slide">
+            <p class="story-label">WHY SUNFLOWER OIL</p>
+            <h2>왜 해바라기씨유일까요?</h2>
             <p class="story-text">
-                해바라기유는 올레산과 리놀레산이<br>
-                풍부하게 함유되어 있습니다.<br><br>
-                발연점이 높아 튀김, 볶음 등<br>
-                다양한 요리에 적합하고<br>
-                담백한 맛으로 재료 본연의<br>
-                풍미를 살려줍니다.<br><br>
-                건강을 생각하는 가정의<br>
-                현명한 선택입니다.
+                발연점이 높아<br>
+                전, 튀김, 볶음에 적합합니다.<br><br>
+                담백한 맛으로<br>
+                재료 본연의 풍미를 살려줍니다.<br><br>
+                명절 요리에 안성맞춤입니다.
             </p>
         </section>
 
-        <!-- 감성 인용 -->
-        <section class="quote-section">
+        <!-- 인용 -->
+        <section class="quote slide">
             <p class="quote-mark">"</p>
             <p class="quote-text">
-                명절엔 기름 쓸 일이 많잖아요<br>
-                좋은 기름으로 준비하시라고<br>
-                두레가 마음을 담았습니다
+                협동조합이<br>
+                협동조합을 만났습니다.
             </p>
-            <p class="quote-author">- 두레생협 -</p>
+            <p class="quote-author">두레생협 × COOP ITALIA</p>
         </section>
 
         <!-- 스토리 2 -->
-        <section class="story story-white">
-            <p class="story-number">02</p>
-            <h3 class="story-title">
-                이탈리아 협동조합<br>
-                <span class="story-highlight">COOP ITALIA</span>와 함께
-            </h3>
+        <section class="story slide">
+            <p class="story-label">COOP ITALIA</p>
+            <h2>이탈리아 협동조합과<br>함께 만들었습니다</h2>
             <p class="story-text">
                 시중의 저가 식용유와 다릅니다.<br><br>
-                100% 이탈리아산 해바라기씨만 엄선,<br>
-                유기농 인증을 받은 프리미엄 오일입니다.<br><br>
                 세계적인 협동조합 COOP ITALIA의<br>
                 엄격한 생산 기준을 통과했습니다.<br><br>
-                <strong>협동조합이 협동조합을 만났습니다.</strong>
+                조합원 가족의 건강을 위해<br>
+                두레생협이 직접 엄선했습니다.
             </p>
-        </section>
-
-        <!-- 특징 -->
-        <section class="features">
-            <div class="features-header">
-                <p class="features-label">SPECIAL POINT</p>
-                <h3 class="features-title">이런 점이 특별해요</h3>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <span style="color: #fff;">01</span>
-                </div>
-                <h4 class="feature-title">100% 이탈리아산 유기농</h4>
-                <p class="feature-desc">
-                    이탈리아에서 재배한 유기농 해바라기씨만 사용합니다. 유기농 인증을 받은 프리미엄 원료입니다.
-                </p>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <span style="color: #fff;">02</span>
-                </div>
-                <h4 class="feature-title">명절 요리에 딱!</h4>
-                <p class="feature-desc">
-                    발연점이 높아 전, 튀김, 볶음 등 고온 조리에 적합합니다. 명절 음식 준비에 안성맞춤이에요.
-                </p>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <span style="color: #fff;">03</span>
-                </div>
-                <h4 class="feature-title">섬세한 풍미</h4>
-                <p class="feature-desc">
-                    담백하고 섬세한 맛이 재료 본연의 풍미를 살려줍니다. COOP의 엄격한 품질 기준을 통과했습니다.
-                </p>
-            </div>
         </section>
 
         <!-- 이벤트 조건 -->
-        <section class="event-condition">
-            <h3 class="condition-title">이벤트 참여 방법</h3>
+        <section class="event slide">
+            <h2>이벤트 참여 방법</h2>
 
-            <div class="condition-box">
-                <p class="condition-label">기간</p>
-                <p class="condition-value">2026년 2월 9일 ~ 15일</p>
+            <div class="event-box">
+                <p class="event-box-label">기간</p>
+                <p class="event-box-value">2월 9일 ~ 15일</p>
             </div>
 
-            <div class="condition-box">
-                <p class="condition-label">대상</p>
-                <p class="condition-value">두레생협 조합원</p>
+            <div class="event-box">
+                <p class="event-box-label">조건</p>
+                <p class="event-box-value">10만원 이상 주문</p>
             </div>
 
-            <div class="condition-box">
-                <p class="condition-label">조건</p>
-                <p class="condition-value">10만원 이상 주문 시 자동 증정</p>
+            <div class="event-box">
+                <p class="event-box-label">증정품</p>
+                <p class="event-box-value">해바라기씨유 750ml</p>
             </div>
 
-            <p class="condition-note">
-                * 11,700원 상당의 프리미엄 오일<br>
-                * 1인 1회 한정<br>
-                * 재고 소진 시 조기 종료될 수 있습니다
+            <p class="event-note">
+                11,700원 상당 · 1인 1회 한정<br>
+                재고 소진 시 조기 종료
             </p>
-        </section>
-
-        <!-- 제품 정보 -->
-        <section class="product-info">
-            <div class="info-header">
-                <h3>증정품 정보</h3>
-            </div>
-            <div class="info-row">
-                <span class="info-label">상품명</span>
-                <span class="info-value">유기농 해바라기씨유</span>
-            </div>
-            <div class="info-row">
-                <span class="info-label">용량</span>
-                <span class="info-value">750ml</span>
-            </div>
-            <div class="info-row">
-                <span class="info-label">원재료</span>
-                <span class="info-value">유기농 해바라기유 100%</span>
-            </div>
-            <div class="info-row">
-                <span class="info-label">원산지</span>
-                <span class="info-value">이탈리아</span>
-            </div>
-            <div class="info-row">
-                <span class="info-label">생산자</span>
-                <span class="info-value">COOP ITALIA</span>
-            </div>
-            <div class="info-row">
-                <span class="info-label">조합원가</span>
-                <span class="info-value">11,700원</span>
-            </div>
-            <div class="info-row">
-                <span class="info-label">보관방법</span>
-                <span class="info-value">직사광선을 피해 서늘한 곳</span>
-            </div>
         </section>
 
         <!-- CTA -->
-        <section class="cta">
-            <p class="cta-text">
-                명절 준비의 시작,<br>
-                좋은 기름부터
+        <section class="cta slide">
+            <h2>명절 준비의 시작,<br>좋은 기름부터</h2>
+            <p class="cta-desc">
+                1만원이 넘는 프리미엄 오일이라<br>
+                그냥 드릴 수 없었습니다.<br><br>
+                10만원 이상 주문해주시는 분께<br>
+                감사의 마음을 담아 드립니다.
             </p>
-            <div class="cta-gift">유기농 해바라기씨유 750ml 증정</div>
-            <br><br>
             <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=58220&returnPlanNo=0" class="cta-button">
-                상품 보러가기
+                주문하기
             </a>
+            <p class="cta-note">두레생협 조합원 대상</p>
         </section>
 
         <!-- 푸터 -->
         <footer class="footer">
-            <p class="footer-logo">DURE COOP</p>
-            <p class="footer-text">두레생협 생활의 발견 2026 W07</p>
+            두레생협 생활의 발견<br>
+            2026 W07
         </footer>
     </div>
 </body>
