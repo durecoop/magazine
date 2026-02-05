@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>생활의 발견 - 명절 증정 이벤트</title>
+    <title>생활의 발견 - 설날 감사 증정</title>
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -20,6 +20,8 @@
             --beige-light: #e8e0d5;
             --cream: #f7f4f0;
             --white: #fdfcfa;
+            --gold: #b8963e;
+            --gold-light: #d4b86a;
         }
 
         body {
@@ -110,22 +112,30 @@
             position: relative;
         }
 
+        .hero-year {
+            font-size: 13px;
+            letter-spacing: 5px;
+            color: var(--gold-light);
+            margin-bottom: 15px;
+        }
+
         .hero-label {
-            font-size: 12px;
-            letter-spacing: 3px;
-            color: var(--beige);
-            margin-bottom: 30px;
+            font-size: 28px;
+            color: var(--gold);
+            margin-bottom: 25px;
+            font-weight: 700;
         }
 
         .hero h1 {
-            font-size: 32px;
+            font-size: 28px;
             font-weight: 700;
-            line-height: 1.4;
+            line-height: 1.5;
             margin-bottom: 25px;
+            color: var(--cream);
         }
 
         .hero-desc {
-            font-size: 16px;
+            font-size: 15px;
             color: var(--beige-light);
             line-height: 1.9;
             margin-bottom: 30px;
@@ -134,9 +144,10 @@
         .hero-highlight {
             display: inline-block;
             padding: 12px 28px;
-            border: 1px solid var(--beige);
-            font-size: 15px;
-            color: var(--beige-light);
+            border: 1px solid var(--gold);
+            font-size: 14px;
+            color: var(--gold-light);
+            letter-spacing: 1px;
         }
 
         .scroll-hint {
@@ -294,7 +305,7 @@
 
         /* CTA */
         .cta {
-            background: var(--white);
+            background: var(--brown-dark);
             text-align: center;
         }
 
@@ -303,12 +314,12 @@
             font-weight: 700;
             margin-bottom: 25px;
             line-height: 1.6;
-            color: var(--brown-dark);
+            color: var(--cream);
         }
 
         .cta-desc {
             font-size: 15px;
-            color: var(--brown);
+            color: var(--beige-light);
             line-height: 2;
             margin-bottom: 30px;
         }
@@ -316,8 +327,8 @@
         .cta-button {
             display: block;
             padding: 18px;
-            background: var(--brown-dark);
-            color: var(--cream);
+            background: var(--gold);
+            color: var(--white);
             text-decoration: none;
             font-size: 16px;
             margin-bottom: 15px;
@@ -325,7 +336,7 @@
 
         .cta-note {
             font-size: 13px;
-            color: var(--brown-light);
+            color: var(--beige);
         }
 
         /* 푸터 */
@@ -337,6 +348,18 @@
             font-size: 12px;
             min-height: auto;
             scroll-snap-align: end;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* 링크 스타일 */
+        a.slide-link {
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: calc(100vh - 56px);
+            padding: 40px 30px;
         }
     </style>
 </head>
@@ -346,14 +369,15 @@
             <span>두레생협</span>
             <small>생활의 발견</small>
         </a>
-        <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=58220&returnPlanNo=0" class="header-order">주문하기</a>
+        <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1635#book2" class="header-order">설날 장보기</a>
     </header>
 
     <div class="container">
         <!-- 히어로 -->
         <section class="hero slide">
-            <p class="hero-label">조합원님께 드리는 선물</p>
-            <h1>명절 준비,<br>뭐가 필요하실까<br>고민했습니다</h1>
+            <p class="hero-year">2026 LUNAR NEW YEAR</p>
+            <p class="hero-label">새해 복 많이 받으세요</p>
+            <h1>설날 준비,<br>뭐가 필요하실까<br>고민했습니다</h1>
             <p class="hero-desc">
                 전 부치고, 튀김 하고, 나물 볶고...<br>
                 기름 쓸 일 참 많은 명절이잖아요.<br>
@@ -364,7 +388,7 @@
         </section>
 
         <!-- 상품 -->
-        <section class="product slide">
+        <section class="product slide" style="cursor:pointer;" onclick="location.href='https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1635#book2'">
             <img src="58220C.png" alt="유기농 해바라기씨유" class="product-img">
             <p class="product-label">유기농 · 750ml</p>
             <h3 class="product-name">유기농 해바라기씨유</h3>
@@ -379,13 +403,13 @@
         <!-- 스토리 1 -->
         <section class="story slide">
             <p class="story-label">왜 이 기름일까요</p>
-            <h2>명절 음식,<br>어떤 기름으로<br>만드세요?</h2>
+            <h2>설날 음식,<br>기름이 맛을<br>좌우합니다</h2>
             <p class="story-text">
                 발연점이 높아야<br>
                 전이 바삭하고, 튀김이 담백합니다.<br><br>
                 해바라기씨유는<br>
                 고온에도 산패되지 않아<br>
-                명절 요리에 딱 맞습니다.
+                설 음식에 딱 맞습니다.
             </p>
         </section>
 
@@ -416,11 +440,11 @@
 
         <!-- 이벤트 조건 -->
         <section class="event slide">
-            <h2>이벤트 참여 방법</h2>
+            <h2>설날 감사 증정</h2>
 
             <div class="event-box">
                 <p class="event-box-label">기간</p>
-                <p class="event-box-value">2월 9일 ~ 15일</p>
+                <p class="event-box-value">설날 주간 한정</p>
             </div>
 
             <div class="event-box">
@@ -441,16 +465,15 @@
 
         <!-- CTA -->
         <section class="cta slide">
-            <h2>함께해주셔서<br>감사합니다</h2>
+            <h2>올 설날,<br>가족과 함께<br>건강한 식탁 되세요</h2>
             <p class="cta-desc">
                 조합원님이 두레를 믿고<br>
                 주문해주시기에<br>
                 저희도 좋은 것으로 보답하고 싶었습니다.<br><br>
-                올 명절,<br>
-                가족과 함께 건강한 식탁 되세요.
+                새해에도 늘 건강하시길 바랍니다.
             </p>
-            <a href="https://ecoop.or.kr" class="cta-button">
-                두레생협 둘러보기
+            <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1635#book2" class="cta-button">
+                설날 장보기
             </a>
             <p class="cta-note">10만원 이상 주문 시 자동 증정</p>
         </section>
@@ -458,7 +481,7 @@
         <!-- 푸터 -->
         <footer class="footer">
             두레생협 생활의 발견<br>
-            2026 W07
+            2026 설날
         </footer>
     </div>
 </body>
