@@ -38,14 +38,15 @@
             -webkit-text-size-adjust: 100%;
         }
 
-        /* ============ 헤더 (고딕 통일) ============ */
+        /* ============ 헤더 (본문 톤 통일) ============ */
         .header {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             height: 56px;
-            background: var(--green);
+            background: var(--brown-dark);
+            border-bottom: 1px solid rgba(184,150,62,0.25);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -61,7 +62,8 @@
         }
 
         .header-logo img {
-            height: 36px;
+            height: 34px;
+            border-radius: 4px;
         }
 
         .header-right {
@@ -72,17 +74,18 @@
 
         .header-label {
             font-size: 12px;
-            color: rgba(255,255,255,0.85);
+            color: var(--beige);
             font-weight: 500;
+            letter-spacing: 1px;
         }
 
         .header-order {
-            padding: 10px 22px;
-            background: rgba(255,255,255,0.2);
+            padding: 9px 20px;
+            background: var(--gold);
             color: #fff;
             text-decoration: none;
             border-radius: 6px;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 700;
             font-family: 'Noto Sans KR', '맑은 고딕', 'Malgun Gothic', sans-serif;
         }
@@ -329,64 +332,53 @@
             font-size: 10px;
         }
 
-        /* ============ 왜 두레생협? ============ */
+        /* ============ 왜 두레생협? (감성) ============ */
         .why {
-            background: var(--white);
+            background: var(--cream);
             text-align: center;
         }
 
         .why h2 {
-            font-size: 24px;
+            font-size: 23px;
             font-weight: 900;
-            line-height: 1.5;
-            margin-bottom: 8px;
+            line-height: 1.6;
+            margin-bottom: 28px;
             color: var(--brown-dark);
         }
 
-        .why-sub {
-            font-size: 16px;
-            color: var(--brown-light);
+        .why-story {
+            font-size: 17px;
+            color: var(--brown);
+            line-height: 2.1;
+            text-align: left;
             margin-bottom: 28px;
             font-weight: 400;
+            word-break: keep-all;
         }
 
-        .why-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            text-align: left;
-        }
-
-        .why-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 14px;
-            padding: 18px 16px;
-            background: var(--cream);
-            border-radius: 12px;
-            border-left: 4px solid var(--green);
-        }
-
-        .why-item-icon {
-            font-size: 30px;
-            flex-shrink: 0;
-            line-height: 1;
-            margin-top: 2px;
-        }
-
-        .why-item-text {
-            font-size: 16px;
-            line-height: 1.7;
+        .why-story strong {
+            font-weight: 700;
             color: var(--brown-dark);
         }
 
-        .why-item-text strong {
-            font-weight: 700;
-            color: var(--green);
-            display: block;
-            font-size: 17px;
-            margin-bottom: 2px;
+        .why-divider {
+            width: 40px;
+            height: 2px;
+            background: var(--beige);
+            margin: 0 auto 28px;
+        }
+
+        .why-quote {
+            font-size: 16px;
+            color: var(--brown-light);
+            line-height: 1.9;
+            font-style: italic;
+            padding: 20px 24px;
+            background: var(--white);
+            border-radius: 12px;
+            border-left: 3px solid var(--gold);
+            text-align: left;
+            word-break: keep-all;
         }
 
         /* ============ 토요배송 안내 ============ */
@@ -797,31 +789,30 @@
 
         <!-- 2. 왜 두레생협 온라인? -->
         <section class="why slide">
-            <h2 class="anim">새해 장보기,<br>왜 두레생협 온라인일까요?</h2>
-            <p class="why-sub anim anim-delay-1">조합원님이 선택하셔야 하는 이유</p>
-            <ul class="why-list">
-                <li class="why-item anim-left anim-delay-2">
-                    <span class="why-item-icon">🛡️</span>
-                    <div class="why-item-text">
-                        <strong>안전한 먹거리</strong>
-                        화학첨가물·합성보존료 없이<br>생산자가 직접 만듭니다
-                    </div>
-                </li>
-                <li class="why-item anim-left anim-delay-3">
-                    <span class="why-item-icon">🚚</span>
-                    <div class="why-item-text">
-                        <strong>집에서 편하게 받으세요</strong>
-                        시장 갈 필요 없이<br>문 앞까지 신선하게 배송
-                    </div>
-                </li>
-                <li class="why-item anim-left anim-delay-4">
-                    <span class="why-item-icon">🤝</span>
-                    <div class="why-item-text">
-                        <strong>믿을 수 있는 생산자</strong>
-                        30년 넘게 함께한<br>검증된 생산자의 정직한 식품
-                    </div>
-                </li>
-            </ul>
+            <h2 class="anim">솔직히 말씀드릴게요.<br>왜 두레생협 온라인인지.</h2>
+
+            <p class="why-story anim anim-delay-1">
+                마트에 가면 더 쌀 수 있습니다.<br>
+                종류도 더 많을 겁니다.<br><br>
+                그런데 <strong>뒷면의 성분표</strong>를 보신 적 있으신가요?<br>
+                읽기 어려운 이름들이 빼곡합니다.
+            </p>
+
+            <p class="why-story anim anim-delay-2">
+                두레생협의 먹거리는<br>
+                <strong>생산자의 이름과 얼굴</strong>이 있습니다.<br><br>
+                누가 키웠는지, 어떻게 만들었는지,<br>
+                숨기는 것 없이 다 알려드립니다.<br>
+                그게 30년 동안 지켜온 약속입니다.
+            </p>
+
+            <div class="why-divider anim anim-delay-3"></div>
+
+            <p class="why-quote anim anim-delay-4">
+                "명절이라 바쁘신 거 압니다.<br>
+                시장까지 나가실 필요 없도록<br>
+                문 앞까지 정성껏 보내드리겠습니다."
+            </p>
         </section>
 
         <!-- 3. 토요배송 안내 -->
