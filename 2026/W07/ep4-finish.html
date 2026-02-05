@@ -3,101 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>이번 설, 이것만은 EP.4 - 마무리 장보기</title>
+    <title>이번 설, 이것만은 EP.4 - 선물 & 보너스</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
-        * { margin:0; padding:0; box-sizing:border-box; }
-        :root {
-            --dark: #3a3230; --brown: #5c4f4a; --brown-light: #8b7d72;
-            --beige: #c4b5a5; --beige-light: #e8e0d5; --cream: #f7f4f0;
-            --white: #fdfcfa; --gold: #b8963e; --gold-light: #d4b86a;
-            --green: #3d6041; --red: #c0392b;
-        }
-        html, body {
-            font-family: 'Noto Sans KR', '맑은 고딕', sans-serif;
-            background: var(--cream); color: var(--dark);
-            line-height: 1.8; overflow: hidden; letter-spacing: -0.02em;
-            -webkit-text-size-adjust: 100%;
-        }
-        .header {
-            position: fixed; top: 0; left: 0; right: 0; height: 56px;
-            background: linear-gradient(170deg, #4a3528, #3a3230);
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 0 15px; z-index: 1000;
-        }
-        .header-logo { text-decoration: none; display: flex; align-items: center; }
-        .header-logo img { height: 34px; border-radius: 4px; }
-        .header-right { display: flex; align-items: center; gap: 12px; }
-        .header-label { font-size: 11px; color: var(--beige); font-weight: 500; letter-spacing: 1px; }
-        .header-order { padding: 9px 20px; background: var(--gold); color: #fff; text-decoration: none; border-radius: 6px; font-size: 14px; font-weight: 700; }
-        .container { max-width: 480px; margin: 0 auto; padding-top: 56px; background: var(--white); height: 100vh; overflow-y: scroll; scroll-snap-type: y mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
-        .container::-webkit-scrollbar { display: none; }
-        .slide { min-height: calc(100vh - 56px); scroll-snap-align: start; scroll-snap-stop: always; display: flex; flex-direction: column; justify-content: center; padding: 36px 28px; overflow: hidden; }
-        .anim { opacity:0; transform:translateY(40px); transition: opacity .7s ease, transform .7s ease; }
-        .anim.visible { opacity:1; transform:translateY(0); }
-        .anim-scale { opacity:0; transform:scale(.7); transition: opacity .6s ease, transform .6s cubic-bezier(.34,1.56,.64,1); }
-        .anim-scale.visible { opacity:1; transform:scale(1); }
-        .d1{transition-delay:.15s} .d2{transition-delay:.3s} .d3{transition-delay:.45s} .d4{transition-delay:.6s} .d5{transition-delay:.75s}
+        *{margin:0;padding:0;box-sizing:border-box}
+        :root{--dark:#3a3230;--brown:#5c4f4a;--brown-light:#8b7d72;--beige:#c4b5a5;--beige-light:#e8e0d5;--cream:#f7f4f0;--white:#fdfcfa;--gold:#b8963e;--gold-light:#d4b86a;--green:#3d6041;--red:#c0392b}
+        html,body{font-family:'Noto Sans KR','맑은 고딕',sans-serif;background:var(--cream);color:var(--dark);line-height:1.8;overflow:hidden;letter-spacing:-.02em;-webkit-text-size-adjust:100%}
+        .header{position:fixed;top:0;left:0;right:0;height:56px;background:linear-gradient(170deg,#4a3528,#3a3230);display:flex;justify-content:space-between;align-items:center;padding:0 15px;z-index:1000}
+        .header-logo{text-decoration:none;display:flex;align-items:center}.header-logo img{height:34px;border-radius:4px}
+        .header-right{display:flex;align-items:center;gap:12px}
+        .header-label{font-size:11px;color:var(--beige);font-weight:500;letter-spacing:1px}
+        .header-order{padding:9px 20px;background:var(--gold);color:#fff;text-decoration:none;border-radius:6px;font-size:14px;font-weight:700}
+        .container{max-width:480px;margin:0 auto;padding-top:56px;background:var(--white);height:100vh;overflow-y:scroll;scroll-snap-type:y mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+        .container::-webkit-scrollbar{display:none}
+        .slide{min-height:calc(100vh - 56px);scroll-snap-align:start;scroll-snap-stop:always;display:flex;flex-direction:column;justify-content:center;padding:36px 28px;overflow:hidden}
+        .anim{opacity:0;transform:translateY(40px);transition:opacity .7s ease,transform .7s ease}.anim.visible{opacity:1;transform:translateY(0)}
+        .anim-scale{opacity:0;transform:scale(.7);transition:opacity .6s ease,transform .6s cubic-bezier(.34,1.56,.64,1)}.anim-scale.visible{opacity:1;transform:scale(1)}
+        .d1{transition-delay:.15s}.d2{transition-delay:.3s}.d3{transition-delay:.45s}.d4{transition-delay:.6s}.d5{transition-delay:.75s}
         @keyframes shimmer{0%{background-position:-200% center}100%{background-position:200% center}}
         @keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(10px)}}
         @keyframes btn-glow{0%,100%{box-shadow:0 4px 16px rgba(184,150,62,.3)}50%{box-shadow:0 4px 30px rgba(184,150,62,.6)}}
         @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
         @keyframes glow-pulse{0%,100%{box-shadow:0 0 20px rgba(184,150,62,.3)}50%{box-shadow:0 0 40px rgba(184,150,62,.6)}}
         @keyframes sparkle{0%,100%{opacity:1}50%{opacity:.4}}
-        @keyframes shake{0%,100%{transform:rotate(0deg)}25%{transform:rotate(-8deg)}75%{transform:rotate(8deg)}}
+        @keyframes shake{0%,100%{transform:rotate(0)}25%{transform:rotate(-8deg)}75%{transform:rotate(8deg)}}
 
-        .cover { background: linear-gradient(170deg, #4a3528, #3a3230); color: var(--cream); text-align: center; position: relative; }
-        .series-badge { display: inline-block; padding: 6px 18px; border: 1.5px solid var(--gold); border-radius: 20px; font-size: 12px; font-weight: 700; color: var(--gold-light); letter-spacing: 2px; margin-bottom: 16px; }
-        .cover-ep { font-size: 14px; color: var(--beige); margin-bottom: 8px; font-weight: 500; }
-        .cover h1 { font-size: 30px; font-weight: 900; margin-bottom: 16px; background: linear-gradient(90deg, var(--gold-light), #fff5cc, var(--gold), #fff5cc, var(--gold-light)); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: shimmer 3s linear infinite; }
-        .cover-desc { font-size: 17px; color: var(--beige-light); line-height: 1.9; margin-bottom: 24px; }
-        .cover-icon { font-size: 48px; margin-bottom: 14px; }
-        .scroll-hint { position: absolute; bottom: 24px; left: 50%; font-size: 12px; color: var(--beige); letter-spacing: 2px; animation: bounce 2s infinite; }
-        .scroll-hint::after { content: ' ▼'; font-size: 10px; }
+        .cover{background:linear-gradient(170deg,#4a3528,#3a3230);color:var(--cream);text-align:center;position:relative}
+        .series-badge{display:inline-block;padding:6px 18px;border:1.5px solid var(--gold);border-radius:20px;font-size:12px;font-weight:700;color:var(--gold-light);letter-spacing:2px;margin-bottom:16px}
+        .cover-ep{font-size:14px;color:var(--beige);margin-bottom:8px;font-weight:500}
+        .cover h1{font-size:28px;font-weight:900;margin-bottom:16px;background:linear-gradient(90deg,var(--gold-light),#fff5cc,var(--gold),#fff5cc,var(--gold-light));background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 3s linear infinite}
+        .cover-desc{font-size:17px;color:var(--beige-light);line-height:1.9;margin-bottom:24px}
+        .cover-icon{font-size:48px;margin-bottom:14px}
+        .scroll-hint{position:absolute;bottom:24px;left:50%;font-size:12px;color:var(--beige);letter-spacing:2px;animation:bounce 2s infinite}
+        .scroll-hint::after{content:' ▼';font-size:10px}
 
-        .story { background: var(--cream); text-align: center; }
-        .story h2 { font-size: 24px; font-weight: 900; line-height: 1.6; margin-bottom: 20px; }
-        .story-text { font-size: 17px; color: var(--brown); line-height: 2; word-break: keep-all; }
-        .story-text strong { font-weight: 700; color: var(--dark); }
+        .story{background:var(--cream);text-align:center}
+        .story h2{font-size:23px;font-weight:900;line-height:1.6;margin-bottom:20px}
+        .story-text{font-size:17px;color:var(--brown);line-height:2.1;word-break:keep-all}
+        .story-text strong{font-weight:700;color:var(--dark)}
 
-        .product { background: var(--white); text-align: center; }
-        .product-link { text-decoration: none; color: inherit; display: block; }
-        .product-img { width: 200px; height: 200px; object-fit: contain; margin: 0 auto 18px; display: block; }
-        .product-badge { display: inline-block; background: var(--green); color: #fff; padding: 5px 14px; border-radius: 14px; font-size: 13px; font-weight: 700; margin-bottom: 10px; }
-        .product-name { font-size: 24px; font-weight: 900; margin-bottom: 10px; }
-        .product-desc { font-size: 16px; color: var(--brown); line-height: 1.8; margin-bottom: 18px; word-break: keep-all; }
-        .product-desc strong { font-weight: 700; color: var(--dark); }
-        .product-price { display: flex; justify-content: center; align-items: baseline; gap: 10px; padding-top: 14px; border-top: 2px solid var(--beige-light); }
-        .price-sale { font-size: 28px; font-weight: 900; }
-        .price-unit { font-size: 14px; color: var(--brown-light); }
-        .product-cta { display: inline-block; margin-top: 14px; padding: 12px 32px; background: var(--green); color: #fff; border-radius: 10px; font-size: 16px; font-weight: 700; }
+        .product{background:var(--white);text-align:center}
+        .product.alt{background:var(--cream)}
+        .product-link{text-decoration:none;color:inherit;display:block}
+        .product-img{width:190px;height:190px;object-fit:contain;margin:0 auto 16px;display:block}
+        .product-badge{display:inline-block;background:var(--green);color:#fff;padding:5px 14px;border-radius:14px;font-size:13px;font-weight:700;margin-bottom:10px}
+        .product-name{font-size:24px;font-weight:900;margin-bottom:8px}
+        .product-wit{font-size:15px;color:var(--brown-light);margin-bottom:10px;font-style:italic}
+        .product-desc{font-size:16px;color:var(--brown);line-height:1.8;margin-bottom:16px;word-break:keep-all}
+        .product-desc strong{font-weight:700;color:var(--dark)}
+        .product-price{display:flex;justify-content:center;align-items:baseline;gap:10px;padding-top:14px;border-top:2px solid var(--beige-light)}
+        .price-sale{font-size:28px;font-weight:900}
+        .price-unit{font-size:14px;color:var(--brown-light)}
+        .product-cta{display:inline-block;margin-top:14px;padding:12px 32px;background:var(--green);color:#fff;border-radius:10px;font-size:16px;font-weight:700}
 
         /* 해바라기유 강조 */
-        .gift { background: linear-gradient(160deg, #fff8e1, #ffeaa7); text-align: center; position: relative; overflow: hidden; }
-        .gift::before { content: '✨'; position: absolute; top: 15%; left: 10%; font-size: 22px; animation: sparkle 2s ease-in-out infinite; }
-        .gift::after { content: '✨'; position: absolute; top: 20%; right: 12%; font-size: 16px; animation: sparkle 2s ease-in-out infinite .5s; }
-        .gift-icon { font-size: 40px; margin-bottom: 8px; display: inline-block; animation: shake 1.5s ease-in-out infinite; }
-        .gift-img { width: 160px; height: 160px; object-fit: contain; margin: 0 auto 16px; display: block; background: #fff; border-radius: 18px; padding: 12px; animation: float 3s ease-in-out infinite, glow-pulse 3s ease-in-out infinite; }
-        .gift-condition { display: inline-block; background: var(--dark); color: var(--gold-light); font-size: 18px; font-weight: 900; padding: 12px 24px; border-radius: 10px; margin-bottom: 14px; border: 2px solid var(--gold); }
-        .gift h2 { font-size: 22px; font-weight: 900; line-height: 1.5; margin-bottom: 10px; }
-        .gift-text { font-size: 16px; color: var(--brown); line-height: 1.8; }
-        .gift-value { display: inline-block; font-weight: 900; color: var(--red); font-size: 20px; }
+        .gift{background:linear-gradient(160deg,#fff8e1,#ffeaa7);text-align:center;position:relative;overflow:hidden}
+        .gift::before{content:'✨';position:absolute;top:12%;left:8%;font-size:22px;animation:sparkle 2s ease-in-out infinite}
+        .gift::after{content:'✨';position:absolute;top:18%;right:10%;font-size:16px;animation:sparkle 2s ease-in-out infinite .5s}
+        .gift-icon{font-size:40px;margin-bottom:8px;display:inline-block;animation:shake 1.5s ease-in-out infinite}
+        .gift-img{width:160px;height:160px;object-fit:contain;margin:0 auto 16px;display:block;background:#fff;border-radius:18px;padding:12px;animation:float 3s ease-in-out infinite,glow-pulse 3s ease-in-out infinite}
+        .gift-condition{display:inline-block;background:var(--dark);color:var(--gold-light);font-size:18px;font-weight:900;padding:12px 24px;border-radius:10px;margin-bottom:14px;border:2px solid var(--gold)}
+        .gift h2{font-size:22px;font-weight:900;line-height:1.5;margin-bottom:10px}
+        .gift-text{font-size:16px;color:var(--brown);line-height:1.8}
+        .gift-value{display:inline-block;font-weight:900;color:var(--red);font-size:20px}
 
-        /* 마무리 CTA (설 인사) */
-        .finale { background: linear-gradient(170deg, #4a3528, #3a3230); text-align: center; position: relative; overflow: hidden; }
-        .finale-icon { font-size: 52px; margin-bottom: 14px; display: inline-block; animation: shake 2s ease-in-out infinite; }
-        .finale-greeting { font-size: 32px; font-weight: 900; margin-bottom: 20px; background: linear-gradient(90deg, var(--gold-light), #fff5cc, var(--gold), #fff5cc, var(--gold-light)); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: shimmer 3s linear infinite; }
-        .finale h2 { font-size: 20px; font-weight: 700; line-height: 1.8; color: var(--cream); margin-bottom: 20px; }
-        .finale h2 strong { color: var(--gold); font-weight: 900; }
-        .finale-desc { font-size: 16px; color: var(--beige-light); line-height: 2; margin-bottom: 28px; }
-        .finale-desc strong { color: var(--gold-light); font-weight: 700; }
-        .finale-button { display: block; padding: 20px; background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: #fff; text-decoration: none; font-size: 20px; font-weight: 900; border-radius: 14px; margin-bottom: 14px; animation: btn-glow 2.5s ease-in-out infinite; }
-        .finale-note { font-size: 13px; color: var(--beige); }
-        .finale-series { margin-top: 20px; padding-top: 16px; border-top: 1px solid rgba(184,150,62,.2); }
-        .finale-series a { display: inline-block; color: var(--beige); text-decoration: none; font-size: 13px; margin: 4px 8px; }
-        .finale-series a:hover { color: var(--gold-light); }
+        /* 식혜 */
+        .drink{background:var(--cream);text-align:center}
 
-        .footer { background: linear-gradient(170deg, #3a3230, #4a3528); padding: 25px; text-align: center; color: var(--beige); font-size: 13px; min-height: auto; scroll-snap-align: end; border-top: 1px solid rgba(184,150,62,.15); }
+        /* 마무리 */
+        .finale{background:linear-gradient(170deg,#4a3528,#3a3230);text-align:center;position:relative;overflow:hidden}
+        .finale-icon{font-size:52px;margin-bottom:14px;display:inline-block;animation:shake 2s ease-in-out infinite}
+        .finale-greeting{font-size:32px;font-weight:900;margin-bottom:20px;background:linear-gradient(90deg,var(--gold-light),#fff5cc,var(--gold),#fff5cc,var(--gold-light));background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 3s linear infinite}
+        .finale h2{font-size:20px;font-weight:700;line-height:1.8;color:var(--cream);margin-bottom:20px}
+        .finale h2 strong{color:var(--gold);font-weight:900}
+        .finale-desc{font-size:16px;color:var(--beige-light);line-height:2;margin-bottom:28px}
+        .finale-desc strong{color:var(--gold-light);font-weight:700}
+        .finale-button{display:block;padding:20px;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#fff;text-decoration:none;font-size:20px;font-weight:900;border-radius:14px;margin-bottom:14px;animation:btn-glow 2.5s ease-in-out infinite}
+        .finale-note{font-size:13px;color:var(--beige)}
+        .finale-series{margin-top:20px;padding-top:16px;border-top:1px solid rgba(184,150,62,.2)}
+        .finale-series a{display:inline-block;color:var(--beige);text-decoration:none;font-size:13px;margin:4px 8px}
+
+        .footer{background:linear-gradient(170deg,#3a3230,#4a3528);padding:25px;text-align:center;color:var(--beige);font-size:13px;min-height:auto;scroll-snap-align:end;border-top:1px solid rgba(184,150,62,.15)}
     </style>
 </head>
 <body>
@@ -111,61 +97,84 @@
 
     <div class="container" id="container">
         <section class="cover slide">
-            <div class="cover-icon anim">🛒</div>
+            <div class="cover-icon anim">🎁</div>
             <span class="series-badge anim d1">이번 설, 이것만은</span>
             <p class="cover-ep anim d2">EP.4 · 마지막 편</p>
-            <h1 class="anim d3">마무리 장보기</h1>
+            <h1 class="anim d3">선물 & 보너스</h1>
             <p class="cover-desc anim d4">
-                이것저것 담다 보면<br>
-                꼭 하나 빠뜨리죠.<br>
-                마지막 체크리스트입니다.
+                장보기 마무리.<br>
+                선물도 챙기고,<br>
+                공짜도 챙기세요.
             </p>
             <span class="scroll-hint">아래로 넘기세요</span>
         </section>
 
         <section class="story slide">
-            <h2 class="anim">혹시<br>이건 담으셨나요?</h2>
+            <h2 class="anim">이왕 사는 거,<br>제대로 챙기세요.</h2>
             <p class="story-text anim d1">
-                <strong>김치만두</strong> 하나 더,<br>
-                선물용 <strong>법성포굴비</strong>,<br>
-                그리고 장바구니 10만원 넘기면<br>
-                <strong>해바라기씨유가 공짜</strong>입니다.
+                부모님께 <strong>굴비</strong> 한 세트,<br>
+                아이들에게 <strong>식혜</strong> 한 잔,<br>
+                그리고 10만원 넘기면<br>
+                <strong>이탈리아 기름이 공짜.</strong><br><br>
+                마무리가 중요합니다.
             </p>
-        </section>
-
-        <!-- 김치손만두 -->
-        <section class="product slide">
-            <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=36723&returnPlanNo=0" class="product-link">
-                <img src="36723C.png" alt="김치손만두" class="product-img anim-scale">
-                <span class="product-badge anim d1">🥟 하나 더 담으세요</span>
-                <h3 class="product-name anim d2">김치손만두</h3>
-                <p class="product-desc anim d3">
-                    고기만두 담으셨으면<br>
-                    <strong>김치만두도 하나 더.</strong><br>
-                    아이들은 찐 만두, 어른들은 군만두.
-                </p>
-                <div class="product-price anim d4">
-                    <span class="price-sale">5,800원</span>
-                    <span class="price-unit">/ 1팩</span>
-                </div>
-                <span class="product-cta anim d5">주문하기 →</span>
-            </a>
         </section>
 
         <!-- 영광법성포굴비 -->
         <section class="product slide">
             <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=58927&returnPlanNo=0" class="product-link">
                 <img src="58927C.jpg" alt="영광법성포굴비" class="product-img anim-scale">
-                <span class="product-badge anim d1">🎁 선물의 품격</span>
+                <span class="product-badge anim d1">🎁 선물의 정석</span>
                 <h3 class="product-name anim d2">영광법성포굴비</h3>
+                <p class="product-wit anim d2">"부모님 선물 뭐 하지? → 답: 굴비"</p>
                 <p class="product-desc anim d3">
-                    부모님께, 은사님께.<br>
-                    <strong>설날 선물은 역시 굴비.</strong><br>
-                    1.1kg, 10미 한 세트.
+                    매년 고민하지만 <strong>정답은 정해져 있습니다.</strong><br>
+                    1.1kg, 10미 한 세트.<br>
+                    받으시면 진짜 좋아하십니다.
                 </p>
                 <div class="product-price anim d4">
                     <span class="price-sale">101,700원</span>
                     <span class="price-unit">/ 10미</span>
+                </div>
+                <span class="product-cta anim d5">주문하기 →</span>
+            </a>
+        </section>
+
+        <!-- 전통식혜 -->
+        <section class="product alt slide">
+            <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=42634&returnPlanNo=0" class="product-link">
+                <img src="42634C.png" alt="전통식혜" class="product-img anim-scale">
+                <span class="product-badge anim d1">🍵 명절의 마침표</span>
+                <h3 class="product-name anim d2">전통식혜</h3>
+                <p class="product-wit anim d2">"고기 먹고, 전 먹고, 마지막엔 식혜"</p>
+                <p class="product-desc anim d3">
+                    배부른 명절 식사 후<br>
+                    <strong>달달한 식혜 한 잔</strong>이면<br>
+                    속이 편안해집니다. 아이들도 좋아해요.
+                </p>
+                <div class="product-price anim d4">
+                    <span class="price-sale">4,000원</span>
+                    <span class="price-unit">/ 1000ml</span>
+                </div>
+                <span class="product-cta anim d5">주문하기 →</span>
+            </a>
+        </section>
+
+        <!-- 사골곰탕 (해장 보험) -->
+        <section class="product slide">
+            <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=20316&returnPlanNo=0" class="product-link">
+                <img src="20316C.png" alt="사골곰탕" class="product-img anim-scale">
+                <span class="product-badge anim d1">🦴 해장 보험</span>
+                <h3 class="product-name anim d2">사골곰탕</h3>
+                <p class="product-wit anim d2">"형제들 모이면 술판은 필수, 해장도 필수"</p>
+                <p class="product-desc anim d3">
+                    명절 = 가족 모임 = 한 잔.<br>
+                    <strong>다음 날 아침, 이게 없으면 큰일.</strong><br>
+                    미리 냉동실에 넣어두세요.
+                </p>
+                <div class="product-price anim d4">
+                    <span class="price-sale">5,000원</span>
+                    <span class="price-unit">/ 1팩</span>
                 </div>
                 <span class="product-cta anim d5">주문하기 →</span>
             </a>
@@ -176,12 +185,16 @@
             <div class="gift-icon anim-scale">🎁</div>
             <img src="58220C.png" alt="유기농 해바라기씨유" class="gift-img anim-scale d1">
             <div class="gift-condition anim d2">
-                🛒 10만원 이상 → 무료 증정!
+                🛒 10만원 이상 주문 → 무료!
             </div>
-            <h2 class="anim d3">장바구니 10만원 채우셨다면<br>이건 두레가 드립니다</h2>
+            <h2 class="anim d3">장바구니가 10만원 넘었다면<br>이건 두레가 드립니다</h2>
             <p class="gift-text anim d4">
                 이탈리아 COOP 유기농 해바라기씨유 750ml<br>
-                <span class="gift-value">11,700원 상당 무료</span>
+                <span class="gift-value">11,700원 상당 공짜</span>
+            </p>
+            <p class="story-text anim d5" style="font-size:15px;color:var(--brown-light);margin-top:16px">
+                EP.1~4 다 담으면 10만원 훌쩍 넘습니다.<br>
+                <strong>기름은 자동으로 따라옵니다.</strong>
             </p>
         </section>
 
@@ -204,28 +217,24 @@
                 설날 장보기 시작하기
             </a>
             <p class="finale-note anim d5">
-                두레생협 온라인 · 10만원 이상 시 해바라기씨유 증정
+                두레생협 온라인 · 10만원 이상 시 해바라기씨유 증정 · 토요배송
             </p>
             <div class="finale-series anim d5">
                 <a href="ep1-charye.html">EP.1 차례상</a>
                 <a href="ep2-family.html">EP.2 가족식탁</a>
-                <a href="ep3-soup.html">EP.3 국물</a>
-                <a href="ep4-finish.html"><strong>EP.4 마무리</strong></a>
+                <a href="ep3-soup.html">EP.3 빠뜨림방지</a>
+                <a href="ep4-finish.html"><strong>EP.4 선물&보너스</strong></a>
             </div>
         </section>
 
-        <footer class="footer">
-            두레생협 · 이번 설, 이것만은 EP.4
-        </footer>
+        <footer class="footer">두레생협 · 이번 설, 이것만은 EP.1~4 완결</footer>
     </div>
 
     <script>
-        const c = document.getElementById('container');
-        const o = new IntersectionObserver(e => {
-            e.forEach(x => x.isIntersecting ? x.target.classList.add('visible') : x.target.classList.remove('visible'));
-        }, { root: c, threshold: .15 });
-        document.querySelectorAll('.anim,.anim-scale').forEach(el => o.observe(el));
-        setTimeout(() => document.querySelectorAll('.cover .anim,.cover .anim-scale').forEach(el => el.classList.add('visible')), 200);
+        const c=document.getElementById('container');
+        const o=new IntersectionObserver(e=>{e.forEach(x=>x.isIntersecting?x.target.classList.add('visible'):x.target.classList.remove('visible'))},{root:c,threshold:.15});
+        document.querySelectorAll('.anim,.anim-scale').forEach(el=>o.observe(el));
+        setTimeout(()=>document.querySelectorAll('.cover .anim,.cover .anim-scale').forEach(el=>el.classList.add('visible')),200);
     </script>
 </body>
 </html>

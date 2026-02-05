@@ -3,79 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>이번 설, 이것만은 EP.3 - 따끈한 국물</title>
+    <title>이번 설, 이것만은 EP.3 - 빠뜨리면 후회할 것</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
-        * { margin:0; padding:0; box-sizing:border-box; }
-        :root {
-            --dark: #3a3230; --brown: #5c4f4a; --brown-light: #8b7d72;
-            --beige: #c4b5a5; --beige-light: #e8e0d5; --cream: #f7f4f0;
-            --white: #fdfcfa; --gold: #b8963e; --gold-light: #d4b86a;
-            --green: #3d6041; --red: #c0392b;
-        }
-        html, body {
-            font-family: 'Noto Sans KR', '맑은 고딕', sans-serif;
-            background: var(--cream); color: var(--dark);
-            line-height: 1.8; overflow: hidden; letter-spacing: -0.02em;
-            -webkit-text-size-adjust: 100%;
-        }
-        .header {
-            position: fixed; top: 0; left: 0; right: 0; height: 56px;
-            background: linear-gradient(170deg, #4a3528, #3a3230);
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 0 15px; z-index: 1000;
-        }
-        .header-logo { text-decoration: none; display: flex; align-items: center; }
-        .header-logo img { height: 34px; border-radius: 4px; }
-        .header-right { display: flex; align-items: center; gap: 12px; }
-        .header-label { font-size: 11px; color: var(--beige); font-weight: 500; letter-spacing: 1px; }
-        .header-order { padding: 9px 20px; background: var(--gold); color: #fff; text-decoration: none; border-radius: 6px; font-size: 14px; font-weight: 700; }
-        .container { max-width: 480px; margin: 0 auto; padding-top: 56px; background: var(--white); height: 100vh; overflow-y: scroll; scroll-snap-type: y mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
-        .container::-webkit-scrollbar { display: none; }
-        .slide { min-height: calc(100vh - 56px); scroll-snap-align: start; scroll-snap-stop: always; display: flex; flex-direction: column; justify-content: center; padding: 36px 28px; overflow: hidden; }
-        .anim { opacity:0; transform:translateY(40px); transition: opacity .7s ease, transform .7s ease; }
-        .anim.visible { opacity:1; transform:translateY(0); }
-        .anim-scale { opacity:0; transform:scale(.7); transition: opacity .6s ease, transform .6s cubic-bezier(.34,1.56,.64,1); }
-        .anim-scale.visible { opacity:1; transform:scale(1); }
-        .d1{transition-delay:.15s} .d2{transition-delay:.3s} .d3{transition-delay:.45s} .d4{transition-delay:.6s} .d5{transition-delay:.75s}
+        *{margin:0;padding:0;box-sizing:border-box}
+        :root{--dark:#3a3230;--brown:#5c4f4a;--brown-light:#8b7d72;--beige:#c4b5a5;--beige-light:#e8e0d5;--cream:#f7f4f0;--white:#fdfcfa;--gold:#b8963e;--gold-light:#d4b86a;--green:#3d6041;--red:#c0392b}
+        html,body{font-family:'Noto Sans KR','맑은 고딕',sans-serif;background:var(--cream);color:var(--dark);line-height:1.8;overflow:hidden;letter-spacing:-.02em;-webkit-text-size-adjust:100%}
+        .header{position:fixed;top:0;left:0;right:0;height:56px;background:linear-gradient(170deg,#4a3528,#3a3230);display:flex;justify-content:space-between;align-items:center;padding:0 15px;z-index:1000}
+        .header-logo{text-decoration:none;display:flex;align-items:center}.header-logo img{height:34px;border-radius:4px}
+        .header-right{display:flex;align-items:center;gap:12px}
+        .header-label{font-size:11px;color:var(--beige);font-weight:500;letter-spacing:1px}
+        .header-order{padding:9px 20px;background:var(--gold);color:#fff;text-decoration:none;border-radius:6px;font-size:14px;font-weight:700}
+        .container{max-width:480px;margin:0 auto;padding-top:56px;background:var(--white);height:100vh;overflow-y:scroll;scroll-snap-type:y mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+        .container::-webkit-scrollbar{display:none}
+        .slide{min-height:calc(100vh - 56px);scroll-snap-align:start;scroll-snap-stop:always;display:flex;flex-direction:column;justify-content:center;padding:36px 28px;overflow:hidden}
+        .anim{opacity:0;transform:translateY(40px);transition:opacity .7s ease,transform .7s ease}.anim.visible{opacity:1;transform:translateY(0)}
+        .anim-scale{opacity:0;transform:scale(.7);transition:opacity .6s ease,transform .6s cubic-bezier(.34,1.56,.64,1)}.anim-scale.visible{opacity:1;transform:scale(1)}
+        .d1{transition-delay:.15s}.d2{transition-delay:.3s}.d3{transition-delay:.45s}.d4{transition-delay:.6s}.d5{transition-delay:.75s}
         @keyframes shimmer{0%{background-position:-200% center}100%{background-position:200% center}}
         @keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(10px)}}
         @keyframes btn-glow{0%,100%{box-shadow:0 4px 16px rgba(184,150,62,.3)}50%{box-shadow:0 4px 30px rgba(184,150,62,.6)}}
 
-        .cover { background: linear-gradient(170deg, #4a3528, #3a3230); color: var(--cream); text-align: center; position: relative; }
-        .series-badge { display: inline-block; padding: 6px 18px; border: 1.5px solid var(--gold); border-radius: 20px; font-size: 12px; font-weight: 700; color: var(--gold-light); letter-spacing: 2px; margin-bottom: 16px; }
-        .cover-ep { font-size: 14px; color: var(--beige); margin-bottom: 8px; font-weight: 500; }
-        .cover h1 { font-size: 30px; font-weight: 900; margin-bottom: 16px; background: linear-gradient(90deg, var(--gold-light), #fff5cc, var(--gold), #fff5cc, var(--gold-light)); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: shimmer 3s linear infinite; }
-        .cover-desc { font-size: 17px; color: var(--beige-light); line-height: 1.9; margin-bottom: 24px; }
-        .cover-icon { font-size: 48px; margin-bottom: 14px; }
-        .scroll-hint { position: absolute; bottom: 24px; left: 50%; font-size: 12px; color: var(--beige); letter-spacing: 2px; animation: bounce 2s infinite; }
-        .scroll-hint::after { content: ' ▼'; font-size: 10px; }
+        .cover{background:linear-gradient(170deg,#4a3528,#3a3230);color:var(--cream);text-align:center;position:relative}
+        .series-badge{display:inline-block;padding:6px 18px;border:1.5px solid var(--gold);border-radius:20px;font-size:12px;font-weight:700;color:var(--gold-light);letter-spacing:2px;margin-bottom:16px}
+        .cover-ep{font-size:14px;color:var(--beige);margin-bottom:8px;font-weight:500}
+        .cover h1{font-size:28px;font-weight:900;margin-bottom:16px;background:linear-gradient(90deg,var(--gold-light),#fff5cc,var(--gold),#fff5cc,var(--gold-light));background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 3s linear infinite}
+        .cover-desc{font-size:17px;color:var(--beige-light);line-height:1.9;margin-bottom:24px}
+        .cover-icon{font-size:48px;margin-bottom:14px}
+        .scroll-hint{position:absolute;bottom:24px;left:50%;font-size:12px;color:var(--beige);letter-spacing:2px;animation:bounce 2s infinite}
+        .scroll-hint::after{content:' ▼';font-size:10px}
 
-        .story { background: var(--cream); text-align: center; }
-        .story h2 { font-size: 24px; font-weight: 900; line-height: 1.6; margin-bottom: 20px; }
-        .story-text { font-size: 17px; color: var(--brown); line-height: 2; word-break: keep-all; }
-        .story-text strong { font-weight: 700; color: var(--dark); }
+        .story{background:var(--cream);text-align:center}
+        .story h2{font-size:23px;font-weight:900;line-height:1.6;margin-bottom:20px}
+        .story-text{font-size:17px;color:var(--brown);line-height:2.1;word-break:keep-all}
+        .story-text strong{font-weight:700;color:var(--dark)}
 
-        .product { background: var(--white); text-align: center; }
-        .product-link { text-decoration: none; color: inherit; display: block; }
-        .product-img { width: 200px; height: 200px; object-fit: contain; margin: 0 auto 18px; display: block; }
-        .product-badge { display: inline-block; background: var(--green); color: #fff; padding: 5px 14px; border-radius: 14px; font-size: 13px; font-weight: 700; margin-bottom: 10px; }
-        .product-name { font-size: 24px; font-weight: 900; margin-bottom: 10px; }
-        .product-desc { font-size: 16px; color: var(--brown); line-height: 1.8; margin-bottom: 18px; word-break: keep-all; }
-        .product-desc strong { font-weight: 700; color: var(--dark); }
-        .product-price { display: flex; justify-content: center; align-items: baseline; gap: 10px; padding-top: 14px; border-top: 2px solid var(--beige-light); }
-        .price-sale { font-size: 28px; font-weight: 900; }
-        .price-unit { font-size: 14px; color: var(--brown-light); }
-        .product-cta { display: inline-block; margin-top: 14px; padding: 12px 32px; background: var(--green); color: #fff; border-radius: 10px; font-size: 16px; font-weight: 700; }
+        .product{background:var(--white);text-align:center}
+        .product.alt{background:var(--cream)}
+        .product-link{text-decoration:none;color:inherit;display:block}
+        .product-img{width:190px;height:190px;object-fit:contain;margin:0 auto 16px;display:block}
+        .product-badge{display:inline-block;background:var(--green);color:#fff;padding:5px 14px;border-radius:14px;font-size:13px;font-weight:700;margin-bottom:10px}
+        .product-badge.warn{background:var(--red)}
+        .product-name{font-size:24px;font-weight:900;margin-bottom:8px}
+        .product-wit{font-size:15px;color:var(--brown-light);margin-bottom:10px;font-style:italic}
+        .product-desc{font-size:16px;color:var(--brown);line-height:1.8;margin-bottom:16px;word-break:keep-all}
+        .product-desc strong{font-weight:700;color:var(--dark)}
+        .product-price{display:flex;justify-content:center;align-items:baseline;gap:10px;padding-top:14px;border-top:2px solid var(--beige-light)}
+        .price-sale{font-size:28px;font-weight:900}
+        .price-unit{font-size:14px;color:var(--brown-light)}
+        .product-cta{display:inline-block;margin-top:14px;padding:12px 32px;background:var(--green);color:#fff;border-radius:10px;font-size:16px;font-weight:700}
 
-        .cta { background: linear-gradient(170deg, #4a3528, #3a3230); text-align: center; }
-        .cta h2 { font-size: 22px; font-weight: 700; line-height: 1.7; color: var(--cream); margin-bottom: 20px; }
-        .cta h2 strong { color: var(--gold); font-weight: 900; }
-        .cta-desc { font-size: 16px; color: var(--beige-light); line-height: 2; margin-bottom: 28px; }
-        .cta-button { display: block; padding: 20px; background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: #fff; text-decoration: none; font-size: 20px; font-weight: 900; border-radius: 14px; margin-bottom: 12px; animation: btn-glow 2.5s ease-in-out infinite; }
-        .cta-next { font-size: 14px; color: var(--beige); margin-top: 8px; }
-        .cta-next a { color: var(--gold-light); text-decoration: underline; }
-        .footer { background: linear-gradient(170deg, #3a3230, #4a3528); padding: 25px; text-align: center; color: var(--beige); font-size: 13px; min-height: auto; scroll-snap-align: end; border-top: 1px solid rgba(184,150,62,.15); }
+        .cta{background:linear-gradient(170deg,#4a3528,#3a3230);text-align:center}
+        .cta h2{font-size:22px;font-weight:700;line-height:1.7;color:var(--cream);margin-bottom:20px}
+        .cta h2 strong{color:var(--gold);font-weight:900}
+        .cta-desc{font-size:16px;color:var(--beige-light);line-height:2;margin-bottom:28px}
+        .cta-button{display:block;padding:20px;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#fff;text-decoration:none;font-size:20px;font-weight:900;border-radius:14px;margin-bottom:12px;animation:btn-glow 2.5s ease-in-out infinite}
+        .cta-next{font-size:14px;color:var(--beige);margin-top:8px}
+        .cta-next a{color:var(--gold-light);text-decoration:underline}
+        .footer{background:linear-gradient(170deg,#3a3230,#4a3528);padding:25px;text-align:center;color:var(--beige);font-size:13px;min-height:auto;scroll-snap-align:end;border-top:1px solid rgba(184,150,62,.15)}
     </style>
 </head>
 <body>
@@ -89,61 +74,64 @@
 
     <div class="container" id="container">
         <section class="cover slide">
-            <div class="cover-icon anim">🍲</div>
+            <div class="cover-icon anim">⚠️</div>
             <span class="series-badge anim d1">이번 설, 이것만은</span>
             <p class="cover-ep anim d2">EP.3</p>
-            <h1 class="anim d3">따끈한 국물</h1>
+            <h1 class="anim d3">빠뜨리면<br>후회할 것들</h1>
             <p class="cover-desc anim d4">
-                명절 아침, 추운 저녁,<br>
-                해장이 필요한 다음 날.<br>
-                국물이 답입니다.
+                고기랑 전만 사면 끝일까요?<br>
+                아닙니다.<br>
+                이것들이 없으면 난감합니다.
             </p>
             <span class="scroll-hint">아래로 넘기세요</span>
         </section>
 
         <section class="story slide">
-            <h2 class="anim">명절에 국물은<br>빠질 수 없잖아요.</h2>
+            <h2 class="anim">명절 당일 아침,<br>마트 뛰어가는 이유</h2>
             <p class="story-text anim d1">
-                떡국 끓일 <strong>사골 육수</strong>,<br>
-                해장용 <strong>도가니탕</strong>,<br>
-                나물 무칠 <strong>싱싱한 시금치</strong>.<br><br>
-                이 셋이면 국물 걱정 끝입니다.
+                <strong>"계란 다 떨어졌어!"</strong><br>
+                <strong>"기름이 없네?"</strong><br>
+                <strong>"시금치 안 샀잖아!"</strong><br><br>
+                매년 반복되는 명절 아침.<br>
+                올해는 미리 챙기세요.
             </p>
         </section>
 
-        <!-- 사골곰탕 -->
+        <!-- 원삼유정란 -->
         <section class="product slide">
-            <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=20316&returnPlanNo=0" class="product-link">
-                <img src="20316C.png" alt="사골곰탕" class="product-img anim-scale">
-                <span class="product-badge anim d1">🦴 떡국의 기본</span>
-                <h3 class="product-name anim d2">사골곰탕</h3>
+            <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=21166&returnPlanNo=0" class="product-link">
+                <img src="21166C.png" alt="원삼유정란" class="product-img anim-scale">
+                <span class="product-badge warn anim d1">🥚 1순위 빠뜨리는 것</span>
+                <h3 class="product-name anim d2">원삼유정란 15구</h3>
+                <p class="product-wit anim d2">"계란은 언제나 부족합니다"</p>
                 <p class="product-desc anim d3">
-                    <strong>물 붓고 끓이기만 하면</strong> 진한 육수.<br>
-                    떡국떡 넣으면 그게 설날입니다.<br>
-                    이것 하나면 국물 베이스 끝.
+                    전 부치려면 계란, 떡국에도 계란,<br>
+                    아침밥에도 계란.<br>
+                    <strong>15개로는 부족합니다. 두 판 사세요.</strong>
                 </p>
                 <div class="product-price anim d4">
-                    <span class="price-sale">5,000원</span>
-                    <span class="price-unit">/ 1팩</span>
+                    <span class="price-sale">5,800원</span>
+                    <span class="price-unit">/ 15구</span>
                 </div>
                 <span class="product-cta anim d5">주문하기 →</span>
             </a>
         </section>
 
-        <!-- 사골우족도가니탕 -->
-        <section class="product slide">
-            <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=21052&returnPlanNo=0" class="product-link">
-                <img src="21052C.png" alt="사골우족도가니탕" class="product-img anim-scale">
-                <span class="product-badge anim d1">🫕 해장은 이걸로</span>
-                <h3 class="product-name anim d2">사골우족도가니탕</h3>
+        <!-- 발아들기름 -->
+        <section class="product alt slide">
+            <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=20710&returnPlanNo=0" class="product-link">
+                <img src="20710C.png" alt="발아들기름" class="product-img anim-scale">
+                <span class="product-badge warn anim d1">🫒 2순위 빠뜨리는 것</span>
+                <h3 class="product-name anim d2">발아들기름</h3>
+                <p class="product-wit anim d2">"전 부치려면 기름이 필요합니다 (당연한 이야기)"</p>
                 <p class="product-desc anim d3">
-                    명절 다음 날 아침,<br>
-                    <strong>뜨끈한 도가니탕 한 그릇이면</strong><br>
-                    세상 다시 살 만합니다.
+                    나물 무칠 때, 전 부칠 때, 잡채 볶을 때.<br>
+                    <strong>들기름 하나면 다 해결.</strong><br>
+                    명절엔 평소보다 두 배 씁니다.
                 </p>
                 <div class="product-price anim d4">
-                    <span class="price-sale">7,400원</span>
-                    <span class="price-unit">/ 1팩</span>
+                    <span class="price-sale">26,000원</span>
+                    <span class="price-unit">/ 300ml</span>
                 </div>
                 <span class="product-cta anim d5">주문하기 →</span>
             </a>
@@ -153,12 +141,13 @@
         <section class="product slide">
             <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=41342&returnPlanNo=0" class="product-link">
                 <img src="41342C.jpg" alt="겨울노지시금치" class="product-img anim-scale">
-                <span class="product-badge anim d1">🌿 나물의 기본</span>
+                <span class="product-badge anim d1">🌿 나물 없는 명절?</span>
                 <h3 class="product-name anim d2">겨울노지시금치</h3>
+                <p class="product-wit anim d2">"고기만 먹으면 배탈 납니다"</p>
                 <p class="product-desc anim d3">
-                    겨울 찬바람에 <strong>잎이 두껍고 달아요.</strong><br>
-                    데쳐서 나물, 국에 넣어도 좋고.<br>
-                    명절 반찬 한 가지는 이걸로.
+                    겨울 해남산, <strong>잎이 두껍고 달아요.</strong><br>
+                    데쳐서 참기름에 무치면<br>
+                    고기보다 먼저 없어지는 나물.
                 </p>
                 <div class="product-price anim d4">
                     <span class="price-sale">3,150원</span>
@@ -168,36 +157,68 @@
             </a>
         </section>
 
-        <section class="cta slide">
-            <h2 class="anim">
-                국물 + 나물,<br>
-                <strong>15,550원이면 충분합니다.</strong>
-            </h2>
-            <p class="cta-desc anim d1">
-                사골곰탕으로 떡국 끓이고,<br>
-                도가니탕으로 해장하고,<br>
-                시금치로 나물 무치면 완벽.
-            </p>
-            <a href="https://ecoop.or.kr/DureShop/recommend.do" class="cta-button anim d2">
-                설날 장보기
+        <!-- 부추 -->
+        <section class="product alt slide">
+            <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=16653&returnPlanNo=0" class="product-link">
+                <img src="16653C.png" alt="부추" class="product-img anim-scale">
+                <span class="product-badge anim d1">🧅 잊기 쉬운 조연</span>
+                <h3 class="product-name anim d2">부추</h3>
+                <p class="product-wit anim d2">"부침개에 부추 빠지면 그냥 밀가루입니다"</p>
+                <p class="product-desc anim d3">
+                    전에도 넣고, 만두에도 넣고,<br>
+                    <strong>양념장에도 송송.</strong><br>
+                    없으면 갑자기 허전해지는 존재.
+                </p>
+                <div class="product-price anim d4">
+                    <span class="price-sale">3,300원</span>
+                    <span class="price-unit">/ 180g</span>
+                </div>
+                <span class="product-cta anim d5">주문하기 →</span>
             </a>
-            <p class="cta-next anim d3">
-                다음 편: <a href="ep4-finish.html">EP.4 마무리 장보기</a> →
-            </p>
         </section>
 
-        <footer class="footer">
-            두레생협 · 이번 설, 이것만은 EP.3
-        </footer>
+        <!-- 사골우족도가니탕 -->
+        <section class="product slide">
+            <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=21052&returnPlanNo=0" class="product-link">
+                <img src="21052C.png" alt="사골우족도가니탕" class="product-img anim-scale">
+                <span class="product-badge anim d1">🫕 다음 날 보험</span>
+                <h3 class="product-name anim d2">사골우족도가니탕</h3>
+                <p class="product-wit anim d2">"설 다음 날이 진짜 전쟁입니다"</p>
+                <p class="product-desc anim d3">
+                    명절 다음 날 아침.<br>
+                    <strong>해장은 도가니탕이 정답.</strong><br>
+                    이걸 안 사놓으면 후회합니다.
+                </p>
+                <div class="product-price anim d4">
+                    <span class="price-sale">7,400원</span>
+                    <span class="price-unit">/ 1팩</span>
+                </div>
+                <span class="product-cta anim d5">주문하기 →</span>
+            </a>
+        </section>
+
+        <section class="cta slide">
+            <h2 class="anim">
+                명절 당일 마트 안 가려면<br>
+                <strong>이 다섯 개 먼저 담으세요.</strong>
+            </h2>
+            <p class="cta-desc anim d1">
+                계란 · 들기름 · 시금치 · 부추 · 도가니탕<br><br>
+                메인 음식만큼 중요한 것들입니다.<br>
+                빠뜨리지 마세요.
+            </p>
+            <a href="https://ecoop.or.kr/DureShop/recommend.do" class="cta-button anim d2">설날 장보기</a>
+            <p class="cta-next anim d3">마지막 편: <a href="ep4-finish.html">EP.4 선물 & 보너스 →</a></p>
+        </section>
+
+        <footer class="footer">두레생협 · 이번 설, 이것만은 EP.3</footer>
     </div>
 
     <script>
-        const c = document.getElementById('container');
-        const o = new IntersectionObserver(e => {
-            e.forEach(x => x.isIntersecting ? x.target.classList.add('visible') : x.target.classList.remove('visible'));
-        }, { root: c, threshold: .15 });
-        document.querySelectorAll('.anim,.anim-scale').forEach(el => o.observe(el));
-        setTimeout(() => document.querySelectorAll('.cover .anim,.cover .anim-scale').forEach(el => el.classList.add('visible')), 200);
+        const c=document.getElementById('container');
+        const o=new IntersectionObserver(e=>{e.forEach(x=>x.isIntersecting?x.target.classList.add('visible'):x.target.classList.remove('visible'))},{root:c,threshold:.15});
+        document.querySelectorAll('.anim,.anim-scale').forEach(el=>o.observe(el));
+        setTimeout(()=>document.querySelectorAll('.cover .anim,.cover .anim-scale').forEach(el=>el.classList.add('visible')),200);
     </script>
 </body>
 </html>
