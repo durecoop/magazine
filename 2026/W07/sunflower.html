@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>생활의 발견 - 설날 장보기</title>
-    <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -13,8 +13,8 @@
         }
 
         :root {
-            --brown-dark: #4a3f35;
-            --brown: #6b5d52;
+            --brown-dark: #3a3230;
+            --brown: #5c4f4a;
             --brown-light: #8b7d72;
             --beige: #c4b5a5;
             --beige-light: #e8e0d5;
@@ -23,15 +23,19 @@
             --gold: #b8963e;
             --gold-light: #d4b86a;
             --green: #3d6041;
+            --red-accent: #c0392b;
+            --highlight-bg: #fff8e1;
+            --highlight-border: #f0d680;
         }
 
         body {
-            font-family: 'Gowun Batang', serif;
+            font-family: 'Noto Sans KR', '맑은 고딕', sans-serif;
             background: var(--cream);
             color: var(--brown-dark);
-            line-height: 1.9;
+            line-height: 1.8;
             overflow: hidden;
-            letter-spacing: -0.01em;
+            letter-spacing: -0.02em;
+            -webkit-text-size-adjust: 100%;
         }
 
         .header {
@@ -67,7 +71,7 @@
         .header-label {
             font-size: 12px;
             color: rgba(255,255,255,0.8);
-            letter-spacing: 1px;
+            font-weight: 500;
         }
 
         .header-order {
@@ -75,8 +79,9 @@
             background: rgba(255,255,255,0.2);
             color: #fff;
             text-decoration: none;
-            border-radius: 3px;
-            font-size: 14px;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: 700;
         }
 
         .container {
@@ -103,44 +108,51 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 40px 30px;
+            padding: 36px 28px;
         }
 
-        /* 히어로 */
+        /* ============ 히어로 ============ */
         .hero {
-            background: var(--brown-dark);
+            background: linear-gradient(170deg, #4a3528 0%, #3a3230 100%);
             color: var(--cream);
             text-align: center;
             position: relative;
         }
 
+        .hero-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
         .hero-year {
             font-size: 13px;
-            letter-spacing: 5px;
+            letter-spacing: 4px;
             color: var(--gold-light);
-            margin-bottom: 15px;
+            margin-bottom: 12px;
+            font-weight: 500;
         }
 
         .hero-greeting {
-            font-size: 28px;
+            font-size: 32px;
             color: var(--gold);
-            margin-bottom: 20px;
-            font-weight: 700;
+            margin-bottom: 18px;
+            font-weight: 900;
         }
 
         .hero h1 {
-            font-size: 26px;
+            font-size: 24px;
             font-weight: 700;
             line-height: 1.5;
-            margin-bottom: 25px;
+            margin-bottom: 24px;
             color: var(--cream);
         }
 
         .hero-desc {
-            font-size: 15px;
+            font-size: 17px;
             color: var(--beige-light);
             line-height: 1.9;
-            margin-bottom: 30px;
+            margin-bottom: 28px;
+            font-weight: 400;
         }
 
         .hero-badges {
@@ -151,31 +163,50 @@
         }
 
         .hero-badge {
-            display: inline-block;
-            padding: 10px 24px;
-            border: 1px solid var(--gold);
-            font-size: 13px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: rgba(184,150,62,0.15);
+            border: 2px solid var(--gold);
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 700;
             color: var(--gold-light);
-            letter-spacing: 1px;
         }
 
         .hero-badge-sub {
-            display: inline-block;
-            padding: 8px 20px;
-            border: 1px solid var(--beige);
-            font-size: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.08);
+            border: 1.5px solid var(--beige);
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
             color: var(--beige);
         }
 
         .scroll-hint {
             position: absolute;
-            bottom: 30px;
+            bottom: 24px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            font-size: 11px;
             color: var(--beige);
             letter-spacing: 2px;
+            font-weight: 500;
             animation: bounce 2s infinite;
+        }
+
+        .scroll-hint::after {
+            content: '▼';
+            font-size: 10px;
         }
 
         @keyframes bounce {
@@ -183,70 +214,178 @@
             50% { transform: translateX(-50%) translateY(8px); }
         }
 
-        /* 토요배송 안내 */
+        /* ============ 왜 두레생협? ============ */
+        .why {
+            background: var(--white);
+            text-align: center;
+        }
+
+        .why h2 {
+            font-size: 24px;
+            font-weight: 900;
+            line-height: 1.5;
+            margin-bottom: 8px;
+            color: var(--brown-dark);
+        }
+
+        .why-sub {
+            font-size: 16px;
+            color: var(--brown-light);
+            margin-bottom: 28px;
+            font-weight: 400;
+        }
+
+        .why-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            text-align: left;
+        }
+
+        .why-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 18px 16px;
+            background: var(--cream);
+            border-radius: 12px;
+            border-left: 4px solid var(--green);
+        }
+
+        .why-item-icon {
+            font-size: 28px;
+            flex-shrink: 0;
+            line-height: 1;
+            margin-top: 2px;
+        }
+
+        .why-item-text {
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--brown-dark);
+        }
+
+        .why-item-text strong {
+            font-weight: 700;
+            color: var(--green);
+            display: block;
+            font-size: 17px;
+            margin-bottom: 2px;
+        }
+
+        /* ============ 토요배송 안내 ============ */
         .notice {
             background: var(--cream);
             text-align: center;
         }
 
+        .notice-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
         .notice h2 {
-            font-size: 24px;
-            font-weight: 700;
-            line-height: 1.6;
-            margin-bottom: 25px;
+            font-size: 26px;
+            font-weight: 900;
+            line-height: 1.5;
+            margin-bottom: 20px;
             color: var(--brown-dark);
         }
 
         .notice-text {
-            font-size: 16px;
+            font-size: 18px;
             color: var(--brown);
-            line-height: 2;
-            margin-bottom: 25px;
+            line-height: 1.9;
+            margin-bottom: 24px;
+            font-weight: 400;
+        }
+
+        .notice-highlight {
+            display: inline-block;
+            background: var(--highlight-bg);
+            border: 2px solid var(--highlight-border);
+            border-radius: 10px;
+            padding: 16px 22px;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--brown-dark);
+            margin-bottom: 20px;
         }
 
         .notice-exclude {
-            font-size: 13px;
+            font-size: 14px;
             color: var(--brown-light);
-            padding: 15px;
+            padding: 14px 18px;
             background: var(--white);
+            border-radius: 8px;
             border: 1px solid var(--beige-light);
+            font-weight: 400;
         }
 
-        /* 증정 이벤트 */
+        /* ============ 증정 이벤트 ============ */
         .gift {
-            background: var(--beige-light);
+            background: var(--highlight-bg);
             text-align: center;
         }
 
+        .gift-icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
         .gift-img {
-            width: 140px;
-            height: 140px;
+            width: 160px;
+            height: 160px;
             object-fit: contain;
-            margin: 0 auto 25px;
+            margin: 0 auto 20px;
             display: block;
+            background: #fff;
+            border-radius: 16px;
+            padding: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
         }
 
         .gift h2 {
-            font-size: 22px;
-            font-weight: 700;
-            line-height: 1.6;
-            margin-bottom: 15px;
+            font-size: 24px;
+            font-weight: 900;
+            line-height: 1.5;
+            margin-bottom: 14px;
             color: var(--brown-dark);
         }
 
-        .gift-text {
+        .gift-highlight {
+            display: inline-block;
+            background: var(--red-accent);
+            color: #fff;
             font-size: 15px;
+            font-weight: 700;
+            padding: 8px 18px;
+            border-radius: 20px;
+            margin-bottom: 16px;
+        }
+
+        .gift-text {
+            font-size: 17px;
             color: var(--brown);
-            line-height: 1.9;
+            line-height: 1.8;
+            font-weight: 400;
+        }
+
+        .gift-value {
+            font-weight: 700;
+            color: var(--brown-dark);
+            font-size: 19px;
         }
 
         .gift-note {
-            margin-top: 20px;
-            font-size: 13px;
+            margin-top: 18px;
+            font-size: 14px;
             color: var(--brown-light);
+            font-weight: 400;
         }
 
-        /* 상품 카드 */
+        /* ============ 상품 카드 ============ */
         .product {
             background: var(--white);
             text-align: center;
@@ -259,32 +398,46 @@
         }
 
         .product-img {
-            width: 180px;
-            height: 180px;
+            width: 200px;
+            height: 200px;
             object-fit: contain;
-            margin: 0 auto 25px;
+            margin: 0 auto 20px;
             display: block;
         }
 
         .product-label {
-            font-size: 12px;
-            color: var(--brown-light);
-            letter-spacing: 2px;
-            margin-bottom: 8px;
+            font-size: 13px;
+            color: var(--white);
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .product-label span {
+            display: inline-block;
+            background: var(--green);
+            padding: 4px 12px;
+            border-radius: 12px;
         }
 
         .product-name {
-            font-size: 22px;
-            font-weight: 700;
+            font-size: 24px;
+            font-weight: 900;
             margin-bottom: 12px;
             color: var(--brown-dark);
         }
 
         .product-desc {
-            font-size: 15px;
+            font-size: 16px;
             color: var(--brown);
-            line-height: 1.9;
+            line-height: 1.8;
             margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        .product-desc strong {
+            font-weight: 700;
+            color: var(--brown-dark);
         }
 
         .product-price {
@@ -292,64 +445,99 @@
             justify-content: center;
             align-items: baseline;
             gap: 10px;
-            padding-top: 15px;
-            border-top: 1px solid var(--beige-light);
+            padding-top: 16px;
+            border-top: 2px solid var(--beige-light);
         }
 
         .price-sale {
-            font-size: 24px;
-            font-weight: 700;
+            font-size: 28px;
+            font-weight: 900;
             color: var(--brown-dark);
         }
 
         .price-unit {
-            font-size: 13px;
+            font-size: 15px;
             color: var(--brown-light);
+            font-weight: 400;
         }
 
-        /* CTA */
+        .product-cta {
+            display: inline-block;
+            margin-top: 16px;
+            padding: 10px 28px;
+            background: var(--green);
+            color: #fff;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        /* ============ CTA / 마무리 ============ */
         .cta {
-            background: var(--brown-dark);
+            background: linear-gradient(170deg, #4a3528 0%, #3a3230 100%);
             text-align: center;
+        }
+
+        .cta-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .cta-greeting {
+            font-size: 30px;
+            font-weight: 900;
+            color: var(--gold);
+            margin-bottom: 24px;
         }
 
         .cta h2 {
             font-size: 22px;
             font-weight: 700;
-            margin-bottom: 25px;
-            line-height: 1.6;
+            margin-bottom: 24px;
+            line-height: 1.7;
             color: var(--cream);
         }
 
         .cta-desc {
-            font-size: 15px;
+            font-size: 17px;
             color: var(--beige-light);
             line-height: 2;
-            margin-bottom: 30px;
+            margin-bottom: 32px;
+            font-weight: 400;
+        }
+
+        .cta-desc strong {
+            color: var(--gold-light);
+            font-weight: 700;
         }
 
         .cta-button {
             display: block;
-            padding: 18px;
+            padding: 20px;
             background: var(--gold);
-            color: var(--white);
+            color: #fff;
             text-decoration: none;
-            font-size: 16px;
-            margin-bottom: 15px;
+            font-size: 20px;
+            font-weight: 900;
+            border-radius: 12px;
+            margin-bottom: 14px;
+            box-shadow: 0 4px 16px rgba(184,150,62,0.3);
         }
 
         .cta-note {
-            font-size: 13px;
+            font-size: 14px;
             color: var(--beige);
+            font-weight: 400;
         }
 
-        /* 푸터 */
+        /* ============ 푸터 ============ */
         .footer {
             background: var(--brown-dark);
             padding: 25px;
             text-align: center;
             color: var(--beige);
-            font-size: 12px;
+            font-size: 13px;
+            font-weight: 400;
             min-height: auto;
             scroll-snap-align: end;
             border-top: 1px solid rgba(255,255,255,0.1);
@@ -370,158 +558,212 @@
     <div class="container">
         <!-- 1. 히어로 -->
         <section class="hero slide">
-            <p class="hero-year">2026 LUNAR NEW YEAR</p>
+            <div class="hero-icon">🧧</div>
+            <p class="hero-year">2026 설날</p>
             <p class="hero-greeting">새해 복 많이 받으세요</p>
             <h1>설날 장보기,<br>두레가 준비했습니다</h1>
             <p class="hero-desc">
-                조합원님의 명절이<br>
-                조금 더 편안하고 풍성하도록<br>
-                정성껏 골랐습니다.
+                조합원님의 새해 첫 식탁,<br>
+                안전하고 건강한 먹거리로<br>
+                정성껏 채워드립니다.
             </p>
             <div class="hero-badges">
-                <span class="hero-badge">10만원 이상 주문 시 해바라기씨유 증정</span>
-                <span class="hero-badge-sub">명절 토요배송 실시</span>
+                <span class="hero-badge">🎁 10만원 이상 → 해바라기씨유 증정</span>
+                <span class="hero-badge-sub">🚚 명절 토요배송 실시</span>
             </div>
-            <span class="scroll-hint">SCROLL</span>
+            <span class="scroll-hint">아래로 넘기세요</span>
         </section>
 
-        <!-- 2. 토요배송 안내 -->
+        <!-- 2. 왜 두레생협 온라인? -->
+        <section class="why slide">
+            <h2>새해 장보기,<br>왜 두레생협 온라인일까요?</h2>
+            <p class="why-sub">조합원님이 선택하셔야 하는 이유</p>
+            <ul class="why-list">
+                <li class="why-item">
+                    <span class="why-item-icon">🛡️</span>
+                    <div class="why-item-text">
+                        <strong>안전한 먹거리</strong>
+                        화학첨가물·합성보존료 없이<br>생산자가 직접 만듭니다
+                    </div>
+                </li>
+                <li class="why-item">
+                    <span class="why-item-icon">🚚</span>
+                    <div class="why-item-text">
+                        <strong>집에서 편하게 받으세요</strong>
+                        시장 갈 필요 없이<br>문 앞까지 신선하게 배송
+                    </div>
+                </li>
+                <li class="why-item">
+                    <span class="why-item-icon">🤝</span>
+                    <div class="why-item-text">
+                        <strong>믿을 수 있는 생산자</strong>
+                        30년 넘게 함께한<br>검증된 생산자의 정직한 식품
+                    </div>
+                </li>
+                <li class="why-item">
+                    <span class="why-item-icon">💰</span>
+                    <div class="why-item-text">
+                        <strong>조합원 전용 혜택</strong>
+                        10만원 이상 주문 시<br>해바라기씨유(11,700원) 증정
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <!-- 3. 토요배송 안내 -->
         <section class="notice slide">
-            <h2>명절이니까,<br>토요일에도 배송합니다</h2>
+            <div class="notice-icon">🚚</div>
+            <h2>명절이라<br>토요일에도 배송합니다</h2>
             <p class="notice-text">
                 설 준비, 시간이 부족하시죠?<br>
-                평일에 못 받으셨더라도 괜찮습니다.<br><br>
-                명절 기간 한정으로<br>
-                토요배송을 실시합니다.
+                평일에 못 받으셨어도 괜찮습니다.
             </p>
+            <div class="notice-highlight">
+                📦 명절 기간 토요배송 실시!
+            </div>
             <p class="notice-exclude">
-                원주 · 팔당 · 춘천 · 고양 지역 제외
+                ※ 원주 · 팔당 · 춘천 · 고양 지역은 제외됩니다
             </p>
         </section>
 
-        <!-- 3. 해바라기유 증정 -->
+        <!-- 4. 해바라기유 증정 -->
         <section class="gift slide">
+            <div class="gift-icon">🎁</div>
             <img src="58220C.png" alt="유기농 해바라기씨유" class="gift-img">
-            <h2>10만원 이상 주문 시<br>해바라기씨유 증정</h2>
+            <span class="gift-highlight">10만원 이상 주문 시 무료 증정</span>
+            <h2>이탈리아 협동조합의<br>유기농 해바라기씨유</h2>
             <p class="gift-text">
-                이탈리아 협동조합 COOP ITALIA의<br>
+                COOP ITALIA와 협동하여 만든<br>
                 유기농 해바라기씨유 750ml<br>
-                11,700원 상당을 드립니다.
+                <span class="gift-value">11,700원 상당을 드립니다</span>
             </p>
             <p class="gift-note">
                 두레생협 온라인 전용 · 1인 1회 한정
             </p>
         </section>
 
-        <!-- 4. 모듬전세트 -->
+        <!-- 5. 모듬전세트 -->
         <section class="product slide">
             <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=58118&returnPlanNo=0" class="product-link">
                 <img src="58118C.png" alt="모듬전세트" class="product-img">
-                <p class="product-label">BEST · 명절 필수</p>
+                <p class="product-label"><span>🏆 명절 인기 1위</span></p>
                 <h3 class="product-name">모듬전세트</h3>
                 <p class="product-desc">
-                    동그랑땡, 동태전, 깻잎전 한 세트.<br>
-                    데우기만 하면 차례상 완성.<br>
-                    명절 준비가 한결 편해집니다.
+                    동그랑땡, 동태전, 깻잎전 한 세트<br>
+                    <strong>데우기만 하면 차례상 완성!</strong><br>
+                    명절 준비가 한결 편해집니다
                 </p>
                 <div class="product-price">
                     <span class="price-sale">17,500원</span>
-                    <span class="price-unit">500g</span>
+                    <span class="price-unit">/ 500g</span>
                 </div>
+                <span class="product-cta">바로 주문하기 →</span>
             </a>
         </section>
 
-        <!-- 5. 포기김치 -->
+        <!-- 6. 포기김치 -->
         <section class="product slide">
             <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=32424&returnPlanNo=0" class="product-link">
                 <img src="32424C.png" alt="포기김치" class="product-img">
-                <p class="product-label">인기 · 국산 100%</p>
+                <p class="product-label"><span>👨‍👩‍👧‍👦 손님상 필수</span></p>
                 <h3 class="product-name">포기김치 2kg</h3>
                 <p class="product-desc">
-                    국산 배추에 화학조미료 없이 담갔습니다.<br>
-                    새우젓, 멸치액젓으로 깊은 맛.<br>
-                    명절 손님상에 빠질 수 없지요.
+                    <strong>국산 배추 100%</strong>, 화학조미료 無<br>
+                    새우젓·멸치액젓으로 깊은 맛<br>
+                    명절 손님상에 빠질 수 없지요
                 </p>
                 <div class="product-price">
                     <span class="price-sale">14,000원</span>
-                    <span class="price-unit">2kg</span>
+                    <span class="price-unit">/ 2kg</span>
                 </div>
+                <span class="product-cta">바로 주문하기 →</span>
             </a>
         </section>
 
-        <!-- 6. 유기농 떡국떡 -->
+        <!-- 7. 유기농 떡국떡 -->
         <section class="product slide">
             <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=44754&returnPlanNo=0" class="product-link">
                 <img src="44754C.png" alt="유기농 떡국떡" class="product-img">
-                <p class="product-label">유기농 · 설날 필수</p>
+                <p class="product-label"><span>🍚 설날 필수품</span></p>
                 <h3 class="product-name">유기농 떡국떡</h3>
                 <p class="product-desc">
-                    설날 아침, 떡국 한 그릇.<br>
-                    유기농 멥쌀로 쫄깃하게 빚었습니다.<br>
-                    나이 한 살 더 먹는 맛이 다릅니다.
+                    설날 아침, 떡국 한 그릇<br>
+                    <strong>유기농 멥쌀로 쫄깃하게</strong> 빚었습니다<br>
+                    올해도 건강하게 나이 한 살!
                 </p>
                 <div class="product-price">
                     <span class="price-sale">5,300원</span>
-                    <span class="price-unit">500g</span>
+                    <span class="price-unit">/ 500g</span>
                 </div>
+                <span class="product-cta">바로 주문하기 →</span>
             </a>
         </section>
 
-        <!-- 7. 동태전 -->
+        <!-- 8. 동태전 -->
         <section class="product slide">
             <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=20378&returnPlanNo=0" class="product-link">
                 <img src="20378C.png" alt="동태전" class="product-img">
-                <p class="product-label">수제 · 차례상</p>
+                <p class="product-label"><span>🍳 수제 · 차례상</span></p>
                 <h3 class="product-name">동태전 300g</h3>
                 <p class="product-desc">
-                    집에서 부치는 방식 그대로 만들었습니다.<br>
-                    화학첨가물 없이, 무항생제 유정란으로.<br>
-                    차례상에도 반찬에도 좋습니다.
+                    <strong>집에서 부치는 그 맛</strong> 그대로<br>
+                    화학첨가물 없이, 무항생제 유정란<br>
+                    차례상에도 반찬에도 좋습니다
                 </p>
                 <div class="product-price">
                     <span class="price-sale">9,600원</span>
-                    <span class="price-unit">300g</span>
+                    <span class="price-unit">/ 300g</span>
                 </div>
+                <span class="product-cta">바로 주문하기 →</span>
             </a>
         </section>
 
-        <!-- 8. 겨울노지시금치 -->
+        <!-- 9. 겨울노지시금치 -->
         <section class="product slide">
             <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=41342&returnPlanNo=0" class="product-link">
                 <img src="41342C.jpg" alt="겨울노지시금치" class="product-img">
-                <p class="product-label">무농약 · 해남산</p>
+                <p class="product-label"><span>🌿 무농약 · 해남산</span></p>
                 <h3 class="product-name">겨울노지시금치</h3>
                 <p class="product-desc">
-                    겨울 찬바람 맞고 자라<br>
-                    잎이 두껍고 당도가 높습니다.<br>
-                    명절 나물 반찬에 제격입니다.
+                    겨울 찬바람에 <strong>잎이 두껍고 당도 높은</strong><br>
+                    해남 노지 시금치<br>
+                    명절 나물 반찬에 딱입니다
                 </p>
                 <div class="product-price">
                     <span class="price-sale">3,150원</span>
-                    <span class="price-unit">250g</span>
+                    <span class="price-unit">/ 250g</span>
                 </div>
+                <span class="product-cta">바로 주문하기 →</span>
             </a>
         </section>
 
-        <!-- 9. CTA -->
+        <!-- 10. CTA / 마무리 인사 -->
         <section class="cta slide">
-            <h2>올 설날,<br>가족과 함께<br>건강한 식탁 되세요</h2>
+            <div class="cta-icon">🧧</div>
+            <p class="cta-greeting">새해 복 많이 받으세요</p>
+            <h2>
+                두레생협은<br>
+                조합원님이 어떤 것을<br>
+                필요로 하시는지<br>
+                <strong style="color:var(--gold);">늘 고민하고 있습니다</strong>
+            </h2>
             <p class="cta-desc">
-                조합원님이 두레를 믿고<br>
-                주문해주시기에<br>
-                좋은 것으로 보답하고 싶었습니다.<br><br>
-                새해에도 늘 건강하시길 바랍니다.
+                올해도 <strong>건강하고 안전한 먹거리</strong>로<br>
+                가족의 식탁을 지켜드리겠습니다.<br><br>
+                미리 새해 인사 드립니다.<br>
+                <strong>조합원님, 복 많이 받으세요.</strong>
             </p>
             <a href="https://ecoop.or.kr/DureShop/recommend.do" class="cta-button">
-                주문하기
+                설날 장보기 주문하기
             </a>
-            <p class="cta-note">두레생협 온라인에서만 주문 · 10만원 이상 시 해바라기씨유 증정</p>
+            <p class="cta-note">
+                두레생협 온라인 전용 · 10만원 이상 시 해바라기씨유 증정
+            </p>
         </section>
 
         <!-- 푸터 -->
         <footer class="footer">
-            두레생협 생활의 발견<br>
-            2026 설날
+            두레생협 생활의 발견 · 2026 설날
         </footer>
     </div>
 </body>
