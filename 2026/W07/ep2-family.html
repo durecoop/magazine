@@ -9,57 +9,75 @@
         *{margin:0;padding:0;box-sizing:border-box}
         :root{--dark:#3a3230;--brown:#5c4f4a;--brown-light:#8b7d72;--beige:#c4b5a5;--beige-light:#e8e0d5;--cream:#f7f4f0;--white:#fdfcfa;--gold:#b8963e;--gold-light:#d4b86a;--green:#3d6041;--red:#c0392b}
         html,body{font-family:'Noto Sans KR','맑은 고딕',sans-serif;background:var(--cream);color:var(--dark);line-height:1.8;overflow:hidden;letter-spacing:-.02em;-webkit-text-size-adjust:100%}
+
         .header{position:fixed;top:0;left:0;right:0;height:56px;background:linear-gradient(170deg,#4a3528,#3a3230);display:flex;justify-content:space-between;align-items:center;padding:0 15px;z-index:1000}
-        .header-logo{text-decoration:none;display:flex;align-items:center}.header-logo img{height:34px;border-radius:4px}
-        .header-right{display:flex;align-items:center;gap:12px}
+        .header-logo{text-decoration:none;display:flex;align-items:center}
+        .header-logo img{height:34px;border-radius:4px}
+        .header-right{display:flex;align-items:center;gap:10px}
         .header-label{font-size:11px;color:var(--beige);font-weight:500;letter-spacing:1px}
-        .header-order{padding:9px 20px;background:var(--gold);color:#fff;text-decoration:none;border-radius:6px;font-size:14px;font-weight:700}
-        .container{max-width:480px;margin:0 auto;padding-top:56px;background:var(--white);height:100vh;overflow-y:scroll;scroll-snap-type:y mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+        .header-order{padding:8px 18px;background:var(--gold);color:#fff;text-decoration:none;border-radius:6px;font-size:13px;font-weight:700}
+
+        .promo-bar{position:fixed;bottom:0;left:0;right:0;z-index:999;background:var(--dark);border-top:1px solid rgba(184,150,62,.3);padding:10px 0;text-align:center}
+        .promo-bar-inner{max-width:480px;margin:0 auto;display:flex;justify-content:center;align-items:center;gap:16px;font-size:12px;color:var(--beige);font-weight:500}
+        .promo-bar-inner span{display:flex;align-items:center;gap:4px}
+        .promo-bar-inner .gold{color:var(--gold-light);font-weight:700}
+
+        .container{max-width:480px;margin:0 auto;padding-top:56px;padding-bottom:42px;background:var(--white);height:100vh;overflow-y:scroll;scroll-snap-type:y mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}
         .container::-webkit-scrollbar{display:none}
-        .slide{min-height:calc(100vh - 56px);scroll-snap-align:start;scroll-snap-stop:always;display:flex;flex-direction:column;justify-content:center;padding:36px 28px;overflow:hidden}
-        .anim{opacity:0;transform:translateY(40px);transition:opacity .7s ease,transform .7s ease}.anim.visible{opacity:1;transform:translateY(0)}
-        .anim-scale{opacity:0;transform:scale(.7);transition:opacity .6s ease,transform .6s cubic-bezier(.34,1.56,.64,1)}.anim-scale.visible{opacity:1;transform:scale(1)}
-        .d1{transition-delay:.15s}.d2{transition-delay:.3s}.d3{transition-delay:.45s}.d4{transition-delay:.6s}.d5{transition-delay:.75s}
+        .slide{min-height:calc(100vh - 98px);scroll-snap-align:start;scroll-snap-stop:always;display:flex;flex-direction:column;justify-content:center;padding:32px 28px;overflow:hidden}
+
+        .anim{opacity:0;transform:translateY(35px);transition:opacity .7s ease,transform .7s ease}.anim.visible{opacity:1;transform:translateY(0)}
+        .anim-scale{opacity:0;transform:scale(.75);transition:opacity .6s ease,transform .6s cubic-bezier(.34,1.56,.64,1)}.anim-scale.visible{opacity:1;transform:scale(1)}
+        .d1{transition-delay:.12s}.d2{transition-delay:.24s}.d3{transition-delay:.36s}.d4{transition-delay:.48s}.d5{transition-delay:.6s}
+
         @keyframes shimmer{0%{background-position:-200% center}100%{background-position:200% center}}
         @keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(10px)}}
-        @keyframes btn-glow{0%,100%{box-shadow:0 4px 16px rgba(184,150,62,.3)}50%{box-shadow:0 4px 30px rgba(184,150,62,.6)}}
+        @keyframes btn-glow{0%,100%{box-shadow:0 4px 16px rgba(184,150,62,.3)}50%{box-shadow:0 4px 30px rgba(184,150,62,.5)}}
 
+        /* 커버 */
         .cover{background:linear-gradient(170deg,#4a3528,#3a3230);color:var(--cream);text-align:center;position:relative}
-        .series-badge{display:inline-block;padding:6px 18px;border:1.5px solid var(--gold);border-radius:20px;font-size:12px;font-weight:700;color:var(--gold-light);letter-spacing:2px;margin-bottom:16px}
-        .cover-ep{font-size:14px;color:var(--beige);margin-bottom:8px;font-weight:500}
-        .cover h1{font-size:30px;font-weight:900;margin-bottom:16px;background:linear-gradient(90deg,var(--gold-light),#fff5cc,var(--gold),#fff5cc,var(--gold-light));background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 3s linear infinite}
-        .cover-desc{font-size:17px;color:var(--beige-light);line-height:1.9;margin-bottom:24px}
-        .cover-icon{font-size:48px;margin-bottom:14px}
-        .scroll-hint{position:absolute;bottom:24px;left:50%;font-size:12px;color:var(--beige);letter-spacing:2px;animation:bounce 2s infinite}
-        .scroll-hint::after{content:' ▼';font-size:10px}
+        .series-badge{display:inline-block;padding:6px 18px;border:1.5px solid var(--gold);border-radius:20px;font-size:11px;font-weight:700;color:var(--gold-light);letter-spacing:2px;margin-bottom:14px}
+        .cover-ep{font-size:14px;color:var(--beige);margin-bottom:6px;font-weight:500}
+        .cover h1{font-size:30px;font-weight:900;margin-bottom:14px;background:linear-gradient(90deg,var(--gold-light),#fff5cc,var(--gold),#fff5cc,var(--gold-light));background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 3s linear infinite}
+        .cover-desc{font-size:16px;color:var(--beige-light);line-height:1.9}
+        .cover-icon{font-size:44px;margin-bottom:12px}
+        .scroll-hint{position:absolute;bottom:20px;left:50%;font-size:11px;color:var(--beige);letter-spacing:2px;animation:bounce 2s infinite}
+        .scroll-hint::after{content:' ▼';font-size:9px}
 
+        /* 이야기 */
         .story{background:var(--cream);text-align:center}
-        .story h2{font-size:23px;font-weight:900;line-height:1.6;margin-bottom:20px}
-        .story-text{font-size:17px;color:var(--brown);line-height:2.1;word-break:keep-all}
+        .story h2{font-size:22px;font-weight:900;line-height:1.6;margin-bottom:18px}
+        .story-text{font-size:16px;color:var(--brown);line-height:2.1;word-break:keep-all}
         .story-text strong{font-weight:700;color:var(--dark)}
 
+        /* 상품 카드 */
         .product{background:var(--white);text-align:center}
         .product.alt{background:var(--cream)}
         .product-link{text-decoration:none;color:inherit;display:block}
-        .product-img{width:190px;height:190px;object-fit:contain;margin:0 auto 16px;display:block}
-        .product-badge{display:inline-block;background:var(--green);color:#fff;padding:5px 14px;border-radius:14px;font-size:13px;font-weight:700;margin-bottom:10px}
-        .product-name{font-size:24px;font-weight:900;margin-bottom:8px}
-        .product-wit{font-size:15px;color:var(--brown-light);margin-bottom:10px;font-style:italic}
-        .product-desc{font-size:16px;color:var(--brown);line-height:1.8;margin-bottom:16px;word-break:keep-all}
+        .product-img{width:180px;height:180px;object-fit:contain;margin:0 auto 14px;display:block}
+        .product-badge{display:inline-block;background:var(--green);color:#fff;padding:4px 12px;border-radius:12px;font-size:12px;font-weight:700;margin-bottom:8px}
+        .product-name{font-size:22px;font-weight:900;margin-bottom:6px}
+        .product-wit{font-size:14px;color:var(--brown-light);margin-bottom:8px;font-style:italic}
+        .product-desc{font-size:15px;color:var(--brown);line-height:1.8;margin-bottom:14px;word-break:keep-all}
         .product-desc strong{font-weight:700;color:var(--dark)}
-        .product-price{display:flex;justify-content:center;align-items:baseline;gap:10px;padding-top:14px;border-top:2px solid var(--beige-light)}
-        .price-sale{font-size:28px;font-weight:900}
-        .price-unit{font-size:14px;color:var(--brown-light)}
-        .product-cta{display:inline-block;margin-top:14px;padding:12px 32px;background:var(--green);color:#fff;border-radius:10px;font-size:16px;font-weight:700}
 
+        .product-pricing{padding-top:14px;border-top:1px solid var(--beige-light)}
+        .price-row{display:flex;justify-content:center;align-items:center;gap:10px;margin-bottom:4px}
+        .price-original{font-size:14px;color:var(--brown-light);text-decoration:line-through}
+        .price-sale{font-size:26px;font-weight:900;color:var(--dark)}
+        .price-unit{font-size:13px;color:var(--brown-light);margin-left:2px}
+        .price-discount{display:inline-block;background:var(--red);color:#fff;font-size:13px;font-weight:900;padding:3px 10px;border-radius:10px}
+
+        .product-cta{display:inline-block;margin-top:12px;padding:11px 30px;background:var(--dark);color:#fff;border-radius:8px;font-size:15px;font-weight:700}
+
+        /* CTA */
         .cta{background:linear-gradient(170deg,#4a3528,#3a3230);text-align:center}
-        .cta h2{font-size:22px;font-weight:700;line-height:1.7;color:var(--cream);margin-bottom:20px}
+        .cta h2{font-size:22px;font-weight:700;line-height:1.7;color:var(--cream);margin-bottom:18px}
         .cta h2 strong{color:var(--gold);font-weight:900}
-        .cta-desc{font-size:16px;color:var(--beige-light);line-height:2;margin-bottom:28px}
-        .cta-button{display:block;padding:20px;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#fff;text-decoration:none;font-size:20px;font-weight:900;border-radius:14px;margin-bottom:12px;animation:btn-glow 2.5s ease-in-out infinite}
-        .cta-next{font-size:14px;color:var(--beige);margin-top:8px}
-        .cta-next a{color:var(--gold-light);text-decoration:underline}
-        .footer{background:linear-gradient(170deg,#3a3230,#4a3528);padding:25px;text-align:center;color:var(--beige);font-size:13px;min-height:auto;scroll-snap-align:end;border-top:1px solid rgba(184,150,62,.15)}
+        .cta-desc{font-size:15px;color:var(--beige-light);line-height:2;margin-bottom:24px}
+        .cta-button{display:block;padding:18px;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#fff;text-decoration:none;font-size:18px;font-weight:900;border-radius:12px;animation:btn-glow 2.5s ease-in-out infinite}
+
+        .footer{background:linear-gradient(170deg,#3a3230,#4a3528);padding:20px;text-align:center;color:var(--beige);font-size:12px;min-height:auto;scroll-snap-align:end;border-top:1px solid rgba(184,150,62,.15)}
     </style>
 </head>
 <body>
@@ -71,17 +89,20 @@
         </div>
     </header>
 
+    <div class="promo-bar">
+        <div class="promo-bar-inner">
+            <span>🎁 <span class="gold">10만원 이상 → 해바라기씨유</span></span>
+            <span>🚚 <span class="gold">토요배송</span></span>
+        </div>
+    </div>
+
     <div class="container" id="container">
         <section class="cover slide">
             <div class="cover-icon anim">👨‍👩‍👧‍👦</div>
             <span class="series-badge anim d1">이번 설, 이것만은</span>
             <p class="cover-ep anim d2">EP.2</p>
             <h1 class="anim d3">온 가족 식탁</h1>
-            <p class="cover-desc anim d4">
-                오랜만에 모인 식구들.<br>
-                넉넉하게 차려야<br>
-                마음도 넉넉해집니다.
-            </p>
+            <p class="cover-desc anim d4">오랜만에 모인 식구들.<br>넉넉하게 차려야<br>마음도 넉넉해집니다.</p>
             <span class="scroll-hint">아래로 넘기세요</span>
         </section>
 
@@ -96,145 +117,124 @@
             </p>
         </section>
 
-        <!-- 돼지LA갈비 -->
         <section class="product slide">
             <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=458&returnPlanNo=0" class="product-link">
                 <img src="458C.jpg" alt="돼지LA갈비" class="product-img anim-scale">
                 <span class="product-badge anim d1">🔥 주인공 등장</span>
                 <h3 class="product-name anim d2">돼지LA갈비</h3>
                 <p class="product-wit anim d2">"이게 나오면 대화가 멈춥니다"</p>
-                <p class="product-desc anim d3">
-                    구우면 끝. 양념도 필요 없는 맛.<br>
-                    <strong>1kg이면 넉넉할 줄 알았는데</strong><br>
-                    항상 부족합니다. 두 팩 추천.
-                </p>
-                <div class="product-price anim d4">
-                    <span class="price-sale">18,000원</span>
-                    <span class="price-unit">/ 1kg</span>
+                <p class="product-desc anim d3">구우면 끝. 양념도 필요 없는 맛.<br><strong>1kg이면 넉넉할 줄 알았는데</strong><br>항상 부족합니다. 두 팩 추천.</p>
+                <div class="product-pricing anim d4">
+                    <div class="price-row">
+                        <span class="price-original">20,000원</span>
+                        <span class="price-discount">10%</span>
+                    </div>
+                    <div class="price-row"><span class="price-sale">18,000원</span><span class="price-unit">/ 1kg</span></div>
                 </div>
                 <span class="product-cta anim d5">주문하기 →</span>
             </a>
         </section>
 
-        <!-- 한우불고기 -->
         <section class="product alt slide">
             <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=56776&returnPlanNo=0" class="product-link">
                 <img src="56776C.png" alt="한우불고기" class="product-img anim-scale">
                 <span class="product-badge anim d1">🥩 어른들의 선택</span>
                 <h3 class="product-name anim d2">한우불고기</h3>
                 <p class="product-wit anim d2">"설날엔 이 정도는 해야죠"</p>
-                <p class="product-desc anim d3">
-                    <strong>암소 한우</strong> 불고기감.<br>
-                    볶아도, 구워도, 전골 넣어도.<br>
-                    어떻게 해도 실패가 없습니다.
-                </p>
-                <div class="product-price anim d4">
-                    <span class="price-sale">16,500원</span>
-                    <span class="price-unit">/ 300g</span>
+                <p class="product-desc anim d3"><strong>암소 한우</strong> 불고기감.<br>볶아도, 구워도, 전골 넣어도.<br>어떻게 해도 실패가 없습니다.</p>
+                <div class="product-pricing anim d4">
+                    <div class="price-row">
+                        <span class="price-original">18,400원</span>
+                        <span class="price-discount">10%</span>
+                    </div>
+                    <div class="price-row"><span class="price-sale">16,500원</span><span class="price-unit">/ 300g</span></div>
                 </div>
                 <span class="product-cta anim d5">주문하기 →</span>
             </a>
         </section>
 
-        <!-- 한우사태 -->
         <section class="product slide">
             <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=56775&returnPlanNo=0" class="product-link">
                 <img src="56775C.png" alt="한우사태" class="product-img anim-scale">
                 <span class="product-badge anim d1">👩‍🍳 만능 부위</span>
                 <h3 class="product-name anim d2">한우사태</h3>
                 <p class="product-wit anim d2">"장조림, 수육, 편육... 이게 다 됩니다"</p>
-                <p class="product-desc anim d3">
-                    미리 삶아두면 <strong>며칠 내내 반찬.</strong><br>
-                    장조림 만들어놓으면<br>
-                    명절 내내 밥도둑입니다.
-                </p>
-                <div class="product-price anim d4">
-                    <span class="price-sale">16,900원</span>
-                    <span class="price-unit">/ 300g</span>
+                <p class="product-desc anim d3">미리 삶아두면 <strong>며칠 내내 반찬.</strong><br>장조림 만들어놓으면<br>명절 내내 밥도둑입니다.</p>
+                <div class="product-pricing anim d4">
+                    <div class="price-row">
+                        <span class="price-original">18,800원</span>
+                        <span class="price-discount">10%</span>
+                    </div>
+                    <div class="price-row"><span class="price-sale">16,900원</span><span class="price-unit">/ 300g</span></div>
                 </div>
                 <span class="product-cta anim d5">주문하기 →</span>
             </a>
         </section>
 
-        <!-- 포기김치 -->
         <section class="product alt slide">
             <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=32424&returnPlanNo=0" class="product-link">
                 <img src="32424C.png" alt="포기김치" class="product-img anim-scale">
                 <span class="product-badge anim d1">🥬 진짜 필수</span>
-                <h3 class="product-name anim d2">포기김치 2kg</h3>
+                <h3 class="product-name anim d2">포기김치</h3>
                 <p class="product-wit anim d2">"고기만 있으면 뭐합니까, 김치가 있어야지"</p>
-                <p class="product-desc anim d3">
-                    <strong>국산 배추 100%.</strong> 화학조미료 없이.<br>
-                    사람 많은 명절엔 2kg도<br>
-                    순식간에 사라집니다.
-                </p>
-                <div class="product-price anim d4">
-                    <span class="price-sale">14,000원</span>
-                    <span class="price-unit">/ 2kg</span>
+                <p class="product-desc anim d3"><strong>국산 배추 100%.</strong> 화학조미료 없이.<br>사람 많은 명절엔 2kg도<br>순식간에 사라집니다.</p>
+                <div class="product-pricing anim d4">
+                    <div class="price-row">
+                        <span class="price-original">16,500원</span>
+                        <span class="price-discount">15%</span>
+                    </div>
+                    <div class="price-row"><span class="price-sale">14,000원</span><span class="price-unit">/ 2kg</span></div>
                 </div>
                 <span class="product-cta anim d5">주문하기 →</span>
             </a>
         </section>
 
-        <!-- 고기손만두 -->
         <section class="product slide">
             <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=35418&returnPlanNo=0" class="product-link">
                 <img src="35418C.png" alt="고기손만두" class="product-img anim-scale">
                 <span class="product-badge anim d1">🥟 아이들 최애</span>
                 <h3 class="product-name anim d2">고기손만두</h3>
                 <p class="product-wit anim d2">"조카 3명이면 두 팩은 기본입니다"</p>
-                <p class="product-desc anim d3">
-                    하나씩 빚은 <strong>수제 손만두.</strong><br>
-                    찐 만두, 군만두, 만둣국까지.<br>
-                    아이들은 밥 대신 이걸 먹습니다.
-                </p>
-                <div class="product-price anim d4">
-                    <span class="price-sale">5,800원</span>
-                    <span class="price-unit">/ 1팩</span>
+                <p class="product-desc anim d3">하나씩 빚은 <strong>수제 손만두.</strong><br>찐 만두, 군만두, 만둣국까지.<br>아이들은 밥 대신 이걸 먹습니다.</p>
+                <div class="product-pricing anim d4">
+                    <div class="price-row">
+                        <span class="price-original">6,400원</span>
+                        <span class="price-discount">9%</span>
+                    </div>
+                    <div class="price-row"><span class="price-sale">5,800원</span><span class="price-unit">/ 1팩</span></div>
                 </div>
                 <span class="product-cta anim d5">주문하기 →</span>
             </a>
         </section>
 
-        <!-- 김치손만두 -->
         <section class="product alt slide">
             <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=36723&returnPlanNo=0" class="product-link">
                 <img src="36723C.png" alt="김치손만두" class="product-img anim-scale">
                 <span class="product-badge anim d1">🌶️ 어른들은 이쪽</span>
                 <h3 class="product-name anim d2">김치손만두</h3>
                 <p class="product-wit anim d2">"고기만두 vs 김치만두, 결론: 둘 다"</p>
-                <p class="product-desc anim d3">
-                    <strong>매콤한 김치 속</strong>이 꽉 찬 만두.<br>
-                    아이들이 고기만두 가져가면<br>
-                    어른들은 이걸로 소주 한 잔.
-                </p>
-                <div class="product-price anim d4">
-                    <span class="price-sale">5,800원</span>
-                    <span class="price-unit">/ 1팩</span>
+                <p class="product-desc anim d3"><strong>매콤한 김치 속</strong>이 꽉 찬 만두.<br>아이들이 고기만두 가져가면<br>어른들은 이걸로 소주 한 잔.</p>
+                <div class="product-pricing anim d4">
+                    <div class="price-row">
+                        <span class="price-original">6,400원</span>
+                        <span class="price-discount">9%</span>
+                    </div>
+                    <div class="price-row"><span class="price-sale">5,800원</span><span class="price-unit">/ 1팩</span></div>
                 </div>
                 <span class="product-cta anim d5">주문하기 →</span>
             </a>
         </section>
 
         <section class="cta slide">
-            <h2 class="anim">
-                가족이 모이는 식탁,<br>
-                <strong>넉넉함이 최고의 대접.</strong>
-            </h2>
-            <p class="cta-desc anim d1">
-                갈비 + 불고기 + 사태 + 김치<br>
-                + 고기만두 + 김치만두<br><br>
-                부족한 것보다<br>
-                남는 게 낫습니다.
-            </p>
+            <h2 class="anim">가족이 모이는 식탁,<br><strong>넉넉함이 최고의 대접.</strong></h2>
+            <p class="cta-desc anim d1">갈비 + 불고기 + 사태 + 김치<br>+ 고기만두 + 김치만두<br><br>부족한 것보다 남는 게 낫습니다.</p>
             <a href="https://ecoop.or.kr/DureShop/recommend.do" class="cta-button anim d2">설날 장보기</a>
-            <p class="cta-next anim d3">다음 편: <a href="ep3-soup.html">EP.3 빠뜨리면 후회할 것 →</a></p>
         </section>
 
         <footer class="footer">두레생협 · 이번 설, 이것만은 EP.2</footer>
     </div>
 
-    <script>
+        <script>
         const c=document.getElementById('container');
         const o=new IntersectionObserver(e=>{e.forEach(x=>x.isIntersecting?x.target.classList.add('visible'):x.target.classList.remove('visible'))},{root:c,threshold:.15});
         document.querySelectorAll('.anim,.anim-scale').forEach(el=>o.observe(el));

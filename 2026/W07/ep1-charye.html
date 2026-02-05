@@ -9,57 +9,75 @@
         *{margin:0;padding:0;box-sizing:border-box}
         :root{--dark:#3a3230;--brown:#5c4f4a;--brown-light:#8b7d72;--beige:#c4b5a5;--beige-light:#e8e0d5;--cream:#f7f4f0;--white:#fdfcfa;--gold:#b8963e;--gold-light:#d4b86a;--green:#3d6041;--red:#c0392b}
         html,body{font-family:'Noto Sans KR','맑은 고딕',sans-serif;background:var(--cream);color:var(--dark);line-height:1.8;overflow:hidden;letter-spacing:-.02em;-webkit-text-size-adjust:100%}
+
         .header{position:fixed;top:0;left:0;right:0;height:56px;background:linear-gradient(170deg,#4a3528,#3a3230);display:flex;justify-content:space-between;align-items:center;padding:0 15px;z-index:1000}
-        .header-logo{text-decoration:none;display:flex;align-items:center}.header-logo img{height:34px;border-radius:4px}
-        .header-right{display:flex;align-items:center;gap:12px}
+        .header-logo{text-decoration:none;display:flex;align-items:center}
+        .header-logo img{height:34px;border-radius:4px}
+        .header-right{display:flex;align-items:center;gap:10px}
         .header-label{font-size:11px;color:var(--beige);font-weight:500;letter-spacing:1px}
-        .header-order{padding:9px 20px;background:var(--gold);color:#fff;text-decoration:none;border-radius:6px;font-size:14px;font-weight:700}
-        .container{max-width:480px;margin:0 auto;padding-top:56px;background:var(--white);height:100vh;overflow-y:scroll;scroll-snap-type:y mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+        .header-order{padding:8px 18px;background:var(--gold);color:#fff;text-decoration:none;border-radius:6px;font-size:13px;font-weight:700}
+
+        .promo-bar{position:fixed;bottom:0;left:0;right:0;z-index:999;background:var(--dark);border-top:1px solid rgba(184,150,62,.3);padding:10px 0;text-align:center}
+        .promo-bar-inner{max-width:480px;margin:0 auto;display:flex;justify-content:center;align-items:center;gap:16px;font-size:12px;color:var(--beige);font-weight:500}
+        .promo-bar-inner span{display:flex;align-items:center;gap:4px}
+        .promo-bar-inner .gold{color:var(--gold-light);font-weight:700}
+
+        .container{max-width:480px;margin:0 auto;padding-top:56px;padding-bottom:42px;background:var(--white);height:100vh;overflow-y:scroll;scroll-snap-type:y mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}
         .container::-webkit-scrollbar{display:none}
-        .slide{min-height:calc(100vh - 56px);scroll-snap-align:start;scroll-snap-stop:always;display:flex;flex-direction:column;justify-content:center;padding:36px 28px;overflow:hidden}
-        .anim{opacity:0;transform:translateY(40px);transition:opacity .7s ease,transform .7s ease}.anim.visible{opacity:1;transform:translateY(0)}
-        .anim-scale{opacity:0;transform:scale(.7);transition:opacity .6s ease,transform .6s cubic-bezier(.34,1.56,.64,1)}.anim-scale.visible{opacity:1;transform:scale(1)}
-        .d1{transition-delay:.15s}.d2{transition-delay:.3s}.d3{transition-delay:.45s}.d4{transition-delay:.6s}.d5{transition-delay:.75s}
+        .slide{min-height:calc(100vh - 98px);scroll-snap-align:start;scroll-snap-stop:always;display:flex;flex-direction:column;justify-content:center;padding:32px 28px;overflow:hidden}
+
+        .anim{opacity:0;transform:translateY(35px);transition:opacity .7s ease,transform .7s ease}.anim.visible{opacity:1;transform:translateY(0)}
+        .anim-scale{opacity:0;transform:scale(.75);transition:opacity .6s ease,transform .6s cubic-bezier(.34,1.56,.64,1)}.anim-scale.visible{opacity:1;transform:scale(1)}
+        .d1{transition-delay:.12s}.d2{transition-delay:.24s}.d3{transition-delay:.36s}.d4{transition-delay:.48s}.d5{transition-delay:.6s}
+
         @keyframes shimmer{0%{background-position:-200% center}100%{background-position:200% center}}
         @keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(10px)}}
-        @keyframes btn-glow{0%,100%{box-shadow:0 4px 16px rgba(184,150,62,.3)}50%{box-shadow:0 4px 30px rgba(184,150,62,.6)}}
+        @keyframes btn-glow{0%,100%{box-shadow:0 4px 16px rgba(184,150,62,.3)}50%{box-shadow:0 4px 30px rgba(184,150,62,.5)}}
 
+        /* 커버 */
         .cover{background:linear-gradient(170deg,#4a3528,#3a3230);color:var(--cream);text-align:center;position:relative}
-        .series-badge{display:inline-block;padding:6px 18px;border:1.5px solid var(--gold);border-radius:20px;font-size:12px;font-weight:700;color:var(--gold-light);letter-spacing:2px;margin-bottom:16px}
-        .cover-ep{font-size:14px;color:var(--beige);margin-bottom:8px;font-weight:500}
-        .cover h1{font-size:30px;font-weight:900;margin-bottom:16px;background:linear-gradient(90deg,var(--gold-light),#fff5cc,var(--gold),#fff5cc,var(--gold-light));background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 3s linear infinite}
-        .cover-desc{font-size:17px;color:var(--beige-light);line-height:1.9;margin-bottom:24px}
-        .cover-icon{font-size:48px;margin-bottom:14px}
-        .scroll-hint{position:absolute;bottom:24px;left:50%;font-size:12px;color:var(--beige);letter-spacing:2px;animation:bounce 2s infinite}
-        .scroll-hint::after{content:' ▼';font-size:10px}
+        .series-badge{display:inline-block;padding:6px 18px;border:1.5px solid var(--gold);border-radius:20px;font-size:11px;font-weight:700;color:var(--gold-light);letter-spacing:2px;margin-bottom:14px}
+        .cover-ep{font-size:14px;color:var(--beige);margin-bottom:6px;font-weight:500}
+        .cover h1{font-size:30px;font-weight:900;margin-bottom:14px;background:linear-gradient(90deg,var(--gold-light),#fff5cc,var(--gold),#fff5cc,var(--gold-light));background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 3s linear infinite}
+        .cover-desc{font-size:16px;color:var(--beige-light);line-height:1.9}
+        .cover-icon{font-size:44px;margin-bottom:12px}
+        .scroll-hint{position:absolute;bottom:20px;left:50%;font-size:11px;color:var(--beige);letter-spacing:2px;animation:bounce 2s infinite}
+        .scroll-hint::after{content:' ▼';font-size:9px}
 
+        /* 이야기 */
         .story{background:var(--cream);text-align:center}
-        .story h2{font-size:23px;font-weight:900;line-height:1.6;margin-bottom:20px}
-        .story-text{font-size:17px;color:var(--brown);line-height:2.1;word-break:keep-all}
+        .story h2{font-size:22px;font-weight:900;line-height:1.6;margin-bottom:18px}
+        .story-text{font-size:16px;color:var(--brown);line-height:2.1;word-break:keep-all}
         .story-text strong{font-weight:700;color:var(--dark)}
 
+        /* 상품 카드 */
         .product{background:var(--white);text-align:center}
         .product.alt{background:var(--cream)}
         .product-link{text-decoration:none;color:inherit;display:block}
-        .product-img{width:190px;height:190px;object-fit:contain;margin:0 auto 16px;display:block}
-        .product-badge{display:inline-block;background:var(--green);color:#fff;padding:5px 14px;border-radius:14px;font-size:13px;font-weight:700;margin-bottom:10px}
-        .product-name{font-size:24px;font-weight:900;margin-bottom:8px}
-        .product-wit{font-size:15px;color:var(--brown-light);margin-bottom:10px;font-style:italic}
-        .product-desc{font-size:16px;color:var(--brown);line-height:1.8;margin-bottom:16px;word-break:keep-all}
+        .product-img{width:180px;height:180px;object-fit:contain;margin:0 auto 14px;display:block}
+        .product-badge{display:inline-block;background:var(--green);color:#fff;padding:4px 12px;border-radius:12px;font-size:12px;font-weight:700;margin-bottom:8px}
+        .product-name{font-size:22px;font-weight:900;margin-bottom:6px}
+        .product-wit{font-size:14px;color:var(--brown-light);margin-bottom:8px;font-style:italic}
+        .product-desc{font-size:15px;color:var(--brown);line-height:1.8;margin-bottom:14px;word-break:keep-all}
         .product-desc strong{font-weight:700;color:var(--dark)}
-        .product-price{display:flex;justify-content:center;align-items:baseline;gap:10px;padding-top:14px;border-top:2px solid var(--beige-light)}
-        .price-sale{font-size:28px;font-weight:900}
-        .price-unit{font-size:14px;color:var(--brown-light)}
-        .product-cta{display:inline-block;margin-top:14px;padding:12px 32px;background:var(--green);color:#fff;border-radius:10px;font-size:16px;font-weight:700}
 
+        .product-pricing{padding-top:14px;border-top:1px solid var(--beige-light)}
+        .price-row{display:flex;justify-content:center;align-items:center;gap:10px;margin-bottom:4px}
+        .price-original{font-size:14px;color:var(--brown-light);text-decoration:line-through}
+        .price-sale{font-size:26px;font-weight:900;color:var(--dark)}
+        .price-unit{font-size:13px;color:var(--brown-light);margin-left:2px}
+        .price-discount{display:inline-block;background:var(--red);color:#fff;font-size:13px;font-weight:900;padding:3px 10px;border-radius:10px}
+
+        .product-cta{display:inline-block;margin-top:12px;padding:11px 30px;background:var(--dark);color:#fff;border-radius:8px;font-size:15px;font-weight:700}
+
+        /* CTA */
         .cta{background:linear-gradient(170deg,#4a3528,#3a3230);text-align:center}
-        .cta h2{font-size:22px;font-weight:700;line-height:1.7;color:var(--cream);margin-bottom:20px}
+        .cta h2{font-size:22px;font-weight:700;line-height:1.7;color:var(--cream);margin-bottom:18px}
         .cta h2 strong{color:var(--gold);font-weight:900}
-        .cta-desc{font-size:16px;color:var(--beige-light);line-height:2;margin-bottom:28px}
-        .cta-button{display:block;padding:20px;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#fff;text-decoration:none;font-size:20px;font-weight:900;border-radius:14px;margin-bottom:12px;animation:btn-glow 2.5s ease-in-out infinite}
-        .cta-next{font-size:14px;color:var(--beige);margin-top:8px}
-        .cta-next a{color:var(--gold-light);text-decoration:underline}
-        .footer{background:linear-gradient(170deg,#3a3230,#4a3528);padding:25px;text-align:center;color:var(--beige);font-size:13px;min-height:auto;scroll-snap-align:end;border-top:1px solid rgba(184,150,62,.15)}
+        .cta-desc{font-size:15px;color:var(--beige-light);line-height:2;margin-bottom:24px}
+        .cta-button{display:block;padding:18px;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#fff;text-decoration:none;font-size:18px;font-weight:900;border-radius:12px;animation:btn-glow 2.5s ease-in-out infinite}
+
+        .footer{background:linear-gradient(170deg,#3a3230,#4a3528);padding:20px;text-align:center;color:var(--beige);font-size:12px;min-height:auto;scroll-snap-align:end;border-top:1px solid rgba(184,150,62,.15)}
     </style>
 </head>
 <body>
@@ -71,161 +89,141 @@
         </div>
     </header>
 
+    <div class="promo-bar">
+        <div class="promo-bar-inner">
+            <span>🎁 <span class="gold">10만원 이상 → 해바라기씨유</span></span>
+            <span>🚚 <span class="gold">토요배송</span></span>
+        </div>
+    </div>
+
     <div class="container" id="container">
         <section class="cover slide">
             <div class="cover-icon anim">🙏</div>
             <span class="series-badge anim d1">이번 설, 이것만은</span>
             <p class="cover-ep anim d2">EP.1</p>
             <h1 class="anim d3">차례상 한 상</h1>
-            <p class="cover-desc anim d4">
-                거창할 필요 없습니다.<br>
-                정성이 담기면 그게 차례상입니다.
-            </p>
+            <p class="cover-desc anim d4">거창할 필요 없습니다.<br>정성이 담기면 그게 차례상입니다.</p>
             <span class="scroll-hint">아래로 넘기세요</span>
         </section>
 
         <section class="story slide">
             <h2 class="anim">"엄마, 올해 차례상<br>뭐 준비해?"</h2>
             <p class="story-text anim d1">
-                매년 같은 질문에<br>
-                매년 같은 고민.<br><br>
+                매년 같은 질문에 매년 같은 고민.<br><br>
                 <strong>떡국, 전, 잡채, 나물, 묵.</strong><br>
                 이 다섯이면 됩니다.<br>
                 두레가 하나씩 골랐습니다.
             </p>
         </section>
 
-        <!-- 유기농 떡국떡 -->
         <section class="product slide">
             <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=44754&returnPlanNo=0" class="product-link">
                 <img src="44754C.png" alt="유기농 떡국떡" class="product-img anim-scale">
                 <span class="product-badge anim d1">🍚 첫 번째</span>
                 <h3 class="product-name anim d2">유기농 떡국떡</h3>
                 <p class="product-wit anim d2">"이거 없으면 설날이 아닙니다"</p>
-                <p class="product-desc anim d3">
-                    <strong>유기농 멥쌀</strong>로 빚은 떡국떡.<br>
-                    한 살 더 먹는 맛이 다릅니다.
-                </p>
-                <div class="product-price anim d4">
-                    <span class="price-sale">5,300원</span>
-                    <span class="price-unit">/ 500g</span>
+                <p class="product-desc anim d3"><strong>유기농 멥쌀</strong>로 빚은 떡국떡.<br>한 살 더 먹는 맛이 다릅니다.</p>
+                <div class="product-pricing anim d4">
+                    <div class="price-row">
+                        <span class="price-original">5,900원</span>
+                        <span class="price-discount">10%</span>
+                    </div>
+                    <div class="price-row"><span class="price-sale">5,300원</span><span class="price-unit">/ 500g</span></div>
                 </div>
                 <span class="product-cta anim d5">주문하기 →</span>
             </a>
         </section>
 
-        <!-- 사골곰탕 -->
         <section class="product alt slide">
             <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=20316&returnPlanNo=0" class="product-link">
                 <img src="20316C.png" alt="사골곰탕" class="product-img anim-scale">
                 <span class="product-badge anim d1">🦴 두 번째</span>
                 <h3 class="product-name anim d2">사골곰탕</h3>
                 <p class="product-wit anim d2">"떡국 육수, 이거 하나면 끝"</p>
-                <p class="product-desc anim d3">
-                    사골 우려낸 진한 국물.<br>
-                    <strong>떡국떡 넣고 끓이면 그게 설날.</strong><br>
-                    다시 뭐 넣고 할 필요 없습니다.
-                </p>
-                <div class="product-price anim d4">
-                    <span class="price-sale">5,000원</span>
-                    <span class="price-unit">/ 1팩</span>
+                <p class="product-desc anim d3">진한 사골 국물에 <strong>떡국떡만 넣으면 설날.</strong><br>다시 뭐 넣고 할 필요 없습니다.</p>
+                <div class="product-pricing anim d4">
+                    <div class="price-row">
+                        <span class="price-original">6,100원</span>
+                        <span class="price-discount">18%</span>
+                    </div>
+                    <div class="price-row"><span class="price-sale">5,000원</span><span class="price-unit">/ 1팩</span></div>
                 </div>
                 <span class="product-cta anim d5">주문하기 →</span>
             </a>
         </section>
 
-        <!-- 모듬전세트 -->
         <section class="product slide">
             <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=58118&returnPlanNo=0" class="product-link">
                 <img src="58118C.png" alt="모듬전세트" class="product-img anim-scale">
                 <span class="product-badge anim d1">🏆 세 번째</span>
                 <h3 class="product-name anim d2">모듬전세트</h3>
                 <p class="product-wit anim d2">"기름 튀는 부엌에서 해방되세요"</p>
-                <p class="product-desc anim d3">
-                    동그랑땡, 동태전, 깻잎전 한 세트.<br>
-                    <strong>데우기만 하면 전 완성.</strong><br>
-                    아낀 시간에 가족과 함께하세요.
-                </p>
-                <div class="product-price anim d4">
-                    <span class="price-sale">17,500원</span>
-                    <span class="price-unit">/ 500g</span>
+                <p class="product-desc anim d3">동그랑땡, 동태전, 깻잎전 한 세트.<br><strong>데우기만 하면 전 완성.</strong></p>
+                <div class="product-pricing anim d4">
+                    <div class="price-row"><span class="price-sale">17,500원</span><span class="price-unit">/ 500g</span></div>
                 </div>
                 <span class="product-cta anim d5">주문하기 →</span>
             </a>
         </section>
 
-        <!-- 자른당면 -->
         <section class="product alt slide">
             <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=14731&returnPlanNo=0" class="product-link">
                 <img src="14731C.jpg" alt="자른당면" class="product-img anim-scale">
                 <span class="product-badge anim d1">🍜 네 번째</span>
                 <h3 class="product-name anim d2">자른당면</h3>
                 <p class="product-wit anim d2">"잡채 빠진 명절은 명절이 아닙니다"</p>
-                <p class="product-desc anim d3">
-                    <strong>미리 잘라놔서 편합니다.</strong><br>
-                    당근 시금치 볶아서 버무리면 끝.<br>
-                    아이들이 밥보다 먼저 찾는 그것.
-                </p>
-                <div class="product-price anim d4">
-                    <span class="price-sale">6,000원</span>
-                    <span class="price-unit">/ 1팩</span>
+                <p class="product-desc anim d3"><strong>미리 잘라놔서 편합니다.</strong><br>아이들이 밥보다 먼저 찾는 그것.</p>
+                <div class="product-pricing anim d4">
+                    <div class="price-row">
+                        <span class="price-original">6,300원</span>
+                        <span class="price-discount">5%</span>
+                    </div>
+                    <div class="price-row"><span class="price-sale">6,000원</span><span class="price-unit">/ 1팩</span></div>
                 </div>
                 <span class="product-cta anim d5">주문하기 →</span>
             </a>
         </section>
 
-        <!-- 도토리묵 -->
         <section class="product slide">
             <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=4136&returnPlanNo=0" class="product-link">
                 <img src="4136C.jpg" alt="도토리묵" class="product-img anim-scale">
                 <span class="product-badge anim d1">🟫 다섯 번째</span>
                 <h3 class="product-name anim d2">도토리묵</h3>
-                <p class="product-wit anim d2">"차례상에 묵 빠지면 어머니가 서운해합니다"</p>
-                <p class="product-desc anim d3">
-                    <strong>도토리 100%</strong>로 만든 진짜 묵.<br>
-                    썰어서 양념장 끼얹으면<br>
-                    반찬 하나 뚝딱.
-                </p>
-                <div class="product-price anim d4">
-                    <span class="price-sale">4,400원</span>
-                    <span class="price-unit">/ 420g</span>
+                <p class="product-wit anim d2">"묵 빠지면 어머니가 서운해합니다"</p>
+                <p class="product-desc anim d3"><strong>도토리 100%</strong> 진짜 묵.<br>썰어서 양념장 끼얹으면 반찬 뚝딱.</p>
+                <div class="product-pricing anim d4">
+                    <div class="price-row">
+                        <span class="price-original">4,600원</span>
+                        <span class="price-discount">4%</span>
+                    </div>
+                    <div class="price-row"><span class="price-sale">4,400원</span><span class="price-unit">/ 420g</span></div>
                 </div>
                 <span class="product-cta anim d5">주문하기 →</span>
             </a>
         </section>
 
-        <!-- 동태전 -->
         <section class="product alt slide">
             <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=20378&returnPlanNo=0" class="product-link">
                 <img src="20378C.png" alt="동태전" class="product-img anim-scale">
                 <span class="product-badge anim d1">🍳 보너스</span>
                 <h3 class="product-name anim d2">동태전</h3>
                 <p class="product-wit anim d2">"전은 아무리 많아도 남지 않습니다"</p>
-                <p class="product-desc anim d3">
-                    무항생제 유정란으로 입힌 <strong>수제 동태전.</strong><br>
-                    모듬전에 이것까지 더하면<br>
-                    올해 전 걱정은 끝입니다.
-                </p>
-                <div class="product-price anim d4">
-                    <span class="price-sale">9,600원</span>
-                    <span class="price-unit">/ 300g</span>
+                <p class="product-desc anim d3">무항생제 유정란으로 입힌 <strong>수제 동태전.</strong><br>모듬전에 더하면 올해 전 걱정 끝.</p>
+                <div class="product-pricing anim d4">
+                    <div class="price-row">
+                        <span class="price-original">9,900원</span>
+                        <span class="price-discount">3%</span>
+                    </div>
+                    <div class="price-row"><span class="price-sale">9,600원</span><span class="price-unit">/ 300g</span></div>
                 </div>
                 <span class="product-cta anim d5">주문하기 →</span>
             </a>
         </section>
 
         <section class="cta slide">
-            <h2 class="anim">
-                차례상 완전정복<br>
-                <strong>전부 합쳐 47,800원</strong>
-            </h2>
-            <p class="cta-desc anim d1">
-                떡국떡 + 사골곰탕 + 모듬전<br>
-                + 당면 + 도토리묵 + 동태전<br><br>
-                이 여섯이면 차례상 완성입니다.
-            </p>
+            <h2 class="anim">차례상 완전정복<br><strong>전부 합쳐 47,800원</strong></h2>
+            <p class="cta-desc anim d1">떡국떡 + 사골곰탕 + 모듬전<br>+ 당면 + 도토리묵 + 동태전<br><br>이 여섯이면 차례상 완성입니다.</p>
             <a href="https://ecoop.or.kr/DureShop/recommend.do" class="cta-button anim d2">설날 장보기</a>
-            <p class="cta-next anim d3">다음 편: <a href="ep2-family.html">EP.2 온 가족 식탁 →</a></p>
         </section>
 
         <footer class="footer">두레생협 · 이번 설, 이것만은 EP.1</footer>
