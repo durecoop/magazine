@@ -79,10 +79,16 @@
             margin: 0 auto;
             padding-top: 56px;
             background: var(--white);
-            height: calc(100vh - 56px);
+            height: 100vh;
             overflow-y: scroll;
             scroll-snap-type: y mandatory;
             -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .container::-webkit-scrollbar {
+            display: none;
         }
 
         /* 슬라이드 */
@@ -101,6 +107,7 @@
             background: var(--brown-dark);
             color: var(--cream);
             text-align: center;
+            position: relative;
         }
 
         .hero-label {
@@ -130,6 +137,22 @@
             border: 1px solid var(--beige);
             font-size: 15px;
             color: var(--beige-light);
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            color: var(--beige);
+            letter-spacing: 2px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(8px); }
         }
 
         /* 스토리 */
@@ -313,6 +336,7 @@
             color: var(--beige);
             font-size: 12px;
             min-height: auto;
+            scroll-snap-align: end;
         }
     </style>
 </head>
@@ -336,6 +360,7 @@
                 두레가 마음을 담았습니다.
             </p>
             <span class="hero-highlight">10만원 이상 주문 시 증정</span>
+            <span class="scroll-hint">SCROLL</span>
         </section>
 
         <!-- 상품 -->
