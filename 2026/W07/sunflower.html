@@ -28,8 +28,8 @@
             --highlight-border: #f0d680;
         }
 
-        body {
-            font-family: 'Noto Sans KR', '맑은 고딕', sans-serif;
+        html, body {
+            font-family: 'Noto Sans KR', '맑은 고딕', 'Malgun Gothic', sans-serif;
             background: var(--cream);
             color: var(--brown-dark);
             line-height: 1.8;
@@ -38,6 +38,7 @@
             -webkit-text-size-adjust: 100%;
         }
 
+        /* ============ 헤더 (고딕 통일) ============ */
         .header {
             position: fixed;
             top: 0;
@@ -50,6 +51,7 @@
             align-items: center;
             padding: 0 15px;
             z-index: 1000;
+            font-family: 'Noto Sans KR', '맑은 고딕', 'Malgun Gothic', sans-serif;
         }
 
         .header-logo {
@@ -70,7 +72,7 @@
 
         .header-label {
             font-size: 12px;
-            color: rgba(255,255,255,0.8);
+            color: rgba(255,255,255,0.85);
             font-weight: 500;
         }
 
@@ -82,6 +84,7 @@
             border-radius: 6px;
             font-size: 15px;
             font-weight: 700;
+            font-family: 'Noto Sans KR', '맑은 고딕', 'Malgun Gothic', sans-serif;
         }
 
         .container {
@@ -109,6 +112,116 @@
             flex-direction: column;
             justify-content: center;
             padding: 36px 28px;
+            overflow: hidden;
+        }
+
+        /* ============ 스크롤 애니메이션 기본 ============ */
+        .anim {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .anim.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .anim-delay-1 { transition-delay: 0.15s; }
+        .anim-delay-2 { transition-delay: 0.3s; }
+        .anim-delay-3 { transition-delay: 0.45s; }
+        .anim-delay-4 { transition-delay: 0.6s; }
+        .anim-delay-5 { transition-delay: 0.75s; }
+        .anim-delay-6 { transition-delay: 0.9s; }
+
+        .anim-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .anim-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .anim-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .anim-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .anim-scale {
+            opacity: 0;
+            transform: scale(0.7);
+            transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .anim-scale.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* ============ 키프레임 애니메이션들 ============ */
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        @keyframes glow-pulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(184,150,62,0.3); }
+            50% { box-shadow: 0 0 40px rgba(184,150,62,0.6), 0 0 60px rgba(184,150,62,0.2); }
+        }
+
+        @keyframes badge-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-8deg); }
+            75% { transform: rotate(8deg); }
+        }
+
+        @keyframes truck-drive {
+            0% { transform: translateX(-30px); opacity: 0; }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        @keyframes slide-price {
+            0% { opacity: 0; transform: translateY(20px) scale(0.8); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        @keyframes btn-glow {
+            0%, 100% { box-shadow: 0 4px 16px rgba(184,150,62,0.3); }
+            50% { box-shadow: 0 4px 30px rgba(184,150,62,0.6), 0 0 50px rgba(184,150,62,0.15); }
+        }
+
+        @keyframes confetti-fall {
+            0% { transform: translateY(-10px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(15px) rotate(20deg); opacity: 0.6; }
         }
 
         /* ============ 히어로 ============ */
@@ -120,8 +233,9 @@
         }
 
         .hero-icon {
-            font-size: 48px;
+            font-size: 52px;
             margin-bottom: 16px;
+            animation: shake 2s ease-in-out infinite;
         }
 
         .hero-year {
@@ -133,10 +247,15 @@
         }
 
         .hero-greeting {
-            font-size: 32px;
-            color: var(--gold);
-            margin-bottom: 18px;
+            font-size: 34px;
             font-weight: 900;
+            margin-bottom: 18px;
+            background: linear-gradient(90deg, var(--gold-light), #fff5cc, var(--gold), #fff5cc, var(--gold-light));
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 3s linear infinite;
         }
 
         .hero h1 {
@@ -173,6 +292,7 @@
             font-size: 15px;
             font-weight: 700;
             color: var(--gold-light);
+            animation: badge-pulse 2.5s ease-in-out infinite;
         }
 
         .hero-badge-sub {
@@ -197,7 +317,7 @@
             flex-direction: column;
             align-items: center;
             gap: 4px;
-            font-size: 11px;
+            font-size: 12px;
             color: var(--beige);
             letter-spacing: 2px;
             font-weight: 500;
@@ -207,11 +327,6 @@
         .scroll-hint::after {
             content: '▼';
             font-size: 10px;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(8px); }
         }
 
         /* ============ 왜 두레생협? ============ */
@@ -254,7 +369,7 @@
         }
 
         .why-item-icon {
-            font-size: 28px;
+            font-size: 30px;
             flex-shrink: 0;
             line-height: 1;
             margin-top: 2px;
@@ -281,8 +396,13 @@
         }
 
         .notice-icon {
-            font-size: 48px;
+            font-size: 52px;
             margin-bottom: 16px;
+            display: inline-block;
+        }
+
+        .notice-icon.visible {
+            animation: truck-drive 0.8s ease-out forwards;
         }
 
         .notice h2 {
@@ -311,6 +431,7 @@
             font-weight: 700;
             color: var(--brown-dark);
             margin-bottom: 20px;
+            animation: badge-pulse 2s ease-in-out infinite;
         }
 
         .notice-exclude {
@@ -323,46 +444,100 @@
             font-weight: 400;
         }
 
-        /* ============ 증정 이벤트 ============ */
+        /* ============ 해바라기유 (강조!) ============ */
         .gift {
-            background: var(--highlight-bg);
+            background: linear-gradient(160deg, #fff8e1 0%, #fff3cd 40%, #ffeaa7 100%);
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gift::before {
+            content: '✨';
+            position: absolute;
+            top: 15%;
+            left: 10%;
+            font-size: 24px;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+
+        .gift::after {
+            content: '✨';
+            position: absolute;
+            top: 20%;
+            right: 12%;
+            font-size: 18px;
+            animation: sparkle 2s ease-in-out infinite 0.5s;
+        }
+
+        .gift-sparkle-3 {
+            position: absolute;
+            bottom: 18%;
+            left: 15%;
+            font-size: 20px;
+            animation: sparkle 2s ease-in-out infinite 1s;
+        }
+
+        .gift-sparkle-4 {
+            position: absolute;
+            bottom: 25%;
+            right: 10%;
+            font-size: 16px;
+            animation: sparkle 2s ease-in-out infinite 1.5s;
         }
 
         .gift-icon {
-            font-size: 40px;
-            margin-bottom: 10px;
+            font-size: 44px;
+            margin-bottom: 8px;
+            display: inline-block;
+            animation: shake 1.5s ease-in-out infinite;
+        }
+
+        .gift-top-badge {
+            display: inline-block;
+            background: var(--red-accent);
+            color: #fff;
+            font-size: 13px;
+            font-weight: 900;
+            padding: 6px 16px;
+            border-radius: 20px;
+            margin-bottom: 14px;
+            letter-spacing: 1px;
+            animation: badge-pulse 2s ease-in-out infinite;
         }
 
         .gift-img {
-            width: 160px;
-            height: 160px;
+            width: 180px;
+            height: 180px;
             object-fit: contain;
             margin: 0 auto 20px;
             display: block;
             background: #fff;
-            border-radius: 16px;
-            padding: 12px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            border-radius: 20px;
+            padding: 14px;
+            animation: float 3s ease-in-out infinite, glow-pulse 3s ease-in-out infinite;
+        }
+
+        .gift-condition {
+            display: inline-block;
+            background: var(--brown-dark);
+            color: var(--gold-light);
+            font-size: 20px;
+            font-weight: 900;
+            padding: 14px 28px;
+            border-radius: 12px;
+            margin-bottom: 18px;
+            border: 2px solid var(--gold);
+            position: relative;
+            z-index: 1;
         }
 
         .gift h2 {
             font-size: 24px;
             font-weight: 900;
             line-height: 1.5;
-            margin-bottom: 14px;
+            margin-bottom: 12px;
             color: var(--brown-dark);
-        }
-
-        .gift-highlight {
-            display: inline-block;
-            background: var(--red-accent);
-            color: #fff;
-            font-size: 15px;
-            font-weight: 700;
-            padding: 8px 18px;
-            border-radius: 20px;
-            margin-bottom: 16px;
         }
 
         .gift-text {
@@ -373,9 +548,14 @@
         }
 
         .gift-value {
-            font-weight: 700;
-            color: var(--brown-dark);
-            font-size: 19px;
+            display: inline-block;
+            font-weight: 900;
+            color: var(--red-accent);
+            font-size: 22px;
+            margin-top: 4px;
+            padding: 2px 8px;
+            background: rgba(192,57,43,0.08);
+            border-radius: 6px;
         }
 
         .gift-note {
@@ -403,6 +583,11 @@
             object-fit: contain;
             margin: 0 auto 20px;
             display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .product-img.visible {
+            animation: slide-price 0.6s ease-out forwards;
         }
 
         .product-label {
@@ -416,8 +601,8 @@
         .product-label span {
             display: inline-block;
             background: var(--green);
-            padding: 4px 12px;
-            border-radius: 12px;
+            padding: 5px 14px;
+            border-radius: 14px;
         }
 
         .product-name {
@@ -464,38 +649,68 @@
         .product-cta {
             display: inline-block;
             margin-top: 16px;
-            padding: 10px 28px;
+            padding: 12px 32px;
             background: var(--green);
             color: #fff;
-            border-radius: 8px;
-            font-size: 15px;
+            border-radius: 10px;
+            font-size: 16px;
             font-weight: 700;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .product-cta:active {
+            transform: scale(0.96);
         }
 
         /* ============ CTA / 마무리 ============ */
         .cta {
             background: linear-gradient(170deg, #4a3528 0%, #3a3230 100%);
             text-align: center;
+            position: relative;
+            overflow: hidden;
         }
 
+        .cta-confetti {
+            position: absolute;
+            font-size: 20px;
+            animation: confetti-fall 3s ease-in-out infinite;
+        }
+
+        .cta-confetti:nth-child(1) { top: 5%; left: 10%; animation-delay: 0s; }
+        .cta-confetti:nth-child(2) { top: 8%; right: 15%; animation-delay: 0.5s; font-size: 16px; }
+        .cta-confetti:nth-child(3) { top: 3%; left: 50%; animation-delay: 1s; font-size: 14px; }
+        .cta-confetti:nth-child(4) { top: 10%; right: 8%; animation-delay: 1.5s; font-size: 18px; }
+
         .cta-icon {
-            font-size: 48px;
+            font-size: 52px;
             margin-bottom: 16px;
+            display: inline-block;
+            animation: shake 2s ease-in-out infinite;
         }
 
         .cta-greeting {
-            font-size: 30px;
+            font-size: 32px;
             font-weight: 900;
-            color: var(--gold);
             margin-bottom: 24px;
+            background: linear-gradient(90deg, var(--gold-light), #fff5cc, var(--gold), #fff5cc, var(--gold-light));
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 3s linear infinite;
         }
 
         .cta h2 {
-            font-size: 22px;
+            font-size: 21px;
             font-weight: 700;
             margin-bottom: 24px;
             line-height: 1.7;
             color: var(--cream);
+        }
+
+        .cta h2 strong {
+            color: var(--gold);
+            font-weight: 900;
         }
 
         .cta-desc {
@@ -514,14 +729,19 @@
         .cta-button {
             display: block;
             padding: 20px;
-            background: var(--gold);
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
             color: #fff;
             text-decoration: none;
             font-size: 20px;
             font-weight: 900;
-            border-radius: 12px;
+            border-radius: 14px;
             margin-bottom: 14px;
-            box-shadow: 0 4px 16px rgba(184,150,62,0.3);
+            animation: btn-glow 2.5s ease-in-out infinite;
+            transition: transform 0.2s;
+        }
+
+        .cta-button:active {
+            transform: scale(0.97);
         }
 
         .cta-note {
@@ -541,6 +761,7 @@
             min-height: auto;
             scroll-snap-align: end;
             border-top: 1px solid rgba(255,255,255,0.1);
+            font-family: 'Noto Sans KR', '맑은 고딕', 'Malgun Gothic', sans-serif;
         }
     </style>
 </head>
@@ -555,19 +776,19 @@
         </div>
     </header>
 
-    <div class="container">
+    <div class="container" id="container">
         <!-- 1. 히어로 -->
         <section class="hero slide">
-            <div class="hero-icon">🧧</div>
-            <p class="hero-year">2026 설날</p>
-            <p class="hero-greeting">새해 복 많이 받으세요</p>
-            <h1>설날 장보기,<br>두레가 준비했습니다</h1>
-            <p class="hero-desc">
+            <div class="hero-icon anim">🧧</div>
+            <p class="hero-year anim anim-delay-1">2026 설날</p>
+            <p class="hero-greeting anim anim-delay-2">새해 복 많이 받으세요</p>
+            <h1 class="anim anim-delay-3">설날 장보기,<br>두레가 준비했습니다</h1>
+            <p class="hero-desc anim anim-delay-4">
                 조합원님의 새해 첫 식탁,<br>
                 안전하고 건강한 먹거리로<br>
                 정성껏 채워드립니다.
             </p>
-            <div class="hero-badges">
+            <div class="hero-badges anim anim-delay-5">
                 <span class="hero-badge">🎁 10만원 이상 → 해바라기씨유 증정</span>
                 <span class="hero-badge-sub">🚚 명절 토요배송 실시</span>
             </div>
@@ -576,35 +797,28 @@
 
         <!-- 2. 왜 두레생협 온라인? -->
         <section class="why slide">
-            <h2>새해 장보기,<br>왜 두레생협 온라인일까요?</h2>
-            <p class="why-sub">조합원님이 선택하셔야 하는 이유</p>
+            <h2 class="anim">새해 장보기,<br>왜 두레생협 온라인일까요?</h2>
+            <p class="why-sub anim anim-delay-1">조합원님이 선택하셔야 하는 이유</p>
             <ul class="why-list">
-                <li class="why-item">
+                <li class="why-item anim-left anim-delay-2">
                     <span class="why-item-icon">🛡️</span>
                     <div class="why-item-text">
                         <strong>안전한 먹거리</strong>
                         화학첨가물·합성보존료 없이<br>생산자가 직접 만듭니다
                     </div>
                 </li>
-                <li class="why-item">
+                <li class="why-item anim-left anim-delay-3">
                     <span class="why-item-icon">🚚</span>
                     <div class="why-item-text">
                         <strong>집에서 편하게 받으세요</strong>
                         시장 갈 필요 없이<br>문 앞까지 신선하게 배송
                     </div>
                 </li>
-                <li class="why-item">
+                <li class="why-item anim-left anim-delay-4">
                     <span class="why-item-icon">🤝</span>
                     <div class="why-item-text">
                         <strong>믿을 수 있는 생산자</strong>
                         30년 넘게 함께한<br>검증된 생산자의 정직한 식품
-                    </div>
-                </li>
-                <li class="why-item">
-                    <span class="why-item-icon">💰</span>
-                    <div class="why-item-text">
-                        <strong>조합원 전용 혜택</strong>
-                        10만원 이상 주문 시<br>해바라기씨유(11,700원) 증정
                     </div>
                 </li>
             </ul>
@@ -612,32 +826,37 @@
 
         <!-- 3. 토요배송 안내 -->
         <section class="notice slide">
-            <div class="notice-icon">🚚</div>
-            <h2>명절이라<br>토요일에도 배송합니다</h2>
-            <p class="notice-text">
+            <div class="notice-icon anim-left">🚚</div>
+            <h2 class="anim anim-delay-1">명절이라<br>토요일에도 배송합니다</h2>
+            <p class="notice-text anim anim-delay-2">
                 설 준비, 시간이 부족하시죠?<br>
                 평일에 못 받으셨어도 괜찮습니다.
             </p>
-            <div class="notice-highlight">
+            <div class="notice-highlight anim-scale anim-delay-3">
                 📦 명절 기간 토요배송 실시!
             </div>
-            <p class="notice-exclude">
+            <p class="notice-exclude anim anim-delay-4">
                 ※ 원주 · 팔당 · 춘천 · 고양 지역은 제외됩니다
             </p>
         </section>
 
-        <!-- 4. 해바라기유 증정 -->
+        <!-- 4. 해바라기유 증정 (강조!) -->
         <section class="gift slide">
-            <div class="gift-icon">🎁</div>
-            <img src="58220C.png" alt="유기농 해바라기씨유" class="gift-img">
-            <span class="gift-highlight">10만원 이상 주문 시 무료 증정</span>
-            <h2>이탈리아 협동조합의<br>유기농 해바라기씨유</h2>
-            <p class="gift-text">
+            <span class="gift-sparkle-3">✨</span>
+            <span class="gift-sparkle-4">✨</span>
+            <div class="gift-icon anim-scale">🎁</div>
+            <span class="gift-top-badge anim anim-delay-1">이번 주 특별 증정</span>
+            <img src="58220C.png" alt="유기농 해바라기씨유" class="gift-img anim-scale anim-delay-2">
+            <div class="gift-condition anim-scale anim-delay-3">
+                🛒 10만원 이상 주문 시 증정!
+            </div>
+            <h2 class="anim anim-delay-4">이탈리아 협동조합<br>유기농 해바라기씨유</h2>
+            <p class="gift-text anim anim-delay-5">
                 COOP ITALIA와 협동하여 만든<br>
-                유기농 해바라기씨유 750ml<br>
-                <span class="gift-value">11,700원 상당을 드립니다</span>
+                유기농 해바라기씨유 <strong>750ml</strong><br>
+                <span class="gift-value">11,700원 상당 무료 증정</span>
             </p>
-            <p class="gift-note">
+            <p class="gift-note anim anim-delay-6">
                 두레생협 온라인 전용 · 1인 1회 한정
             </p>
         </section>
@@ -645,118 +864,122 @@
         <!-- 5. 모듬전세트 -->
         <section class="product slide">
             <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=58118&returnPlanNo=0" class="product-link">
-                <img src="58118C.png" alt="모듬전세트" class="product-img">
-                <p class="product-label"><span>🏆 명절 인기 1위</span></p>
-                <h3 class="product-name">모듬전세트</h3>
-                <p class="product-desc">
+                <img src="58118C.png" alt="모듬전세트" class="product-img anim-scale">
+                <p class="product-label anim anim-delay-1"><span>🏆 명절 인기 1위</span></p>
+                <h3 class="product-name anim anim-delay-2">모듬전세트</h3>
+                <p class="product-desc anim anim-delay-3">
                     동그랑땡, 동태전, 깻잎전 한 세트<br>
                     <strong>데우기만 하면 차례상 완성!</strong><br>
                     명절 준비가 한결 편해집니다
                 </p>
-                <div class="product-price">
+                <div class="product-price anim anim-delay-4">
                     <span class="price-sale">17,500원</span>
                     <span class="price-unit">/ 500g</span>
                 </div>
-                <span class="product-cta">바로 주문하기 →</span>
+                <span class="product-cta anim anim-delay-5">바로 주문하기 →</span>
             </a>
         </section>
 
         <!-- 6. 포기김치 -->
         <section class="product slide">
             <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=32424&returnPlanNo=0" class="product-link">
-                <img src="32424C.png" alt="포기김치" class="product-img">
-                <p class="product-label"><span>👨‍👩‍👧‍👦 손님상 필수</span></p>
-                <h3 class="product-name">포기김치 2kg</h3>
-                <p class="product-desc">
+                <img src="32424C.png" alt="포기김치" class="product-img anim-scale">
+                <p class="product-label anim anim-delay-1"><span>👨‍👩‍👧‍👦 손님상 필수</span></p>
+                <h3 class="product-name anim anim-delay-2">포기김치 2kg</h3>
+                <p class="product-desc anim anim-delay-3">
                     <strong>국산 배추 100%</strong>, 화학조미료 無<br>
                     새우젓·멸치액젓으로 깊은 맛<br>
                     명절 손님상에 빠질 수 없지요
                 </p>
-                <div class="product-price">
+                <div class="product-price anim anim-delay-4">
                     <span class="price-sale">14,000원</span>
                     <span class="price-unit">/ 2kg</span>
                 </div>
-                <span class="product-cta">바로 주문하기 →</span>
+                <span class="product-cta anim anim-delay-5">바로 주문하기 →</span>
             </a>
         </section>
 
         <!-- 7. 유기농 떡국떡 -->
         <section class="product slide">
             <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=44754&returnPlanNo=0" class="product-link">
-                <img src="44754C.png" alt="유기농 떡국떡" class="product-img">
-                <p class="product-label"><span>🍚 설날 필수품</span></p>
-                <h3 class="product-name">유기농 떡국떡</h3>
-                <p class="product-desc">
+                <img src="44754C.png" alt="유기농 떡국떡" class="product-img anim-scale">
+                <p class="product-label anim anim-delay-1"><span>🍚 설날 필수품</span></p>
+                <h3 class="product-name anim anim-delay-2">유기농 떡국떡</h3>
+                <p class="product-desc anim anim-delay-3">
                     설날 아침, 떡국 한 그릇<br>
                     <strong>유기농 멥쌀로 쫄깃하게</strong> 빚었습니다<br>
                     올해도 건강하게 나이 한 살!
                 </p>
-                <div class="product-price">
+                <div class="product-price anim anim-delay-4">
                     <span class="price-sale">5,300원</span>
                     <span class="price-unit">/ 500g</span>
                 </div>
-                <span class="product-cta">바로 주문하기 →</span>
+                <span class="product-cta anim anim-delay-5">바로 주문하기 →</span>
             </a>
         </section>
 
         <!-- 8. 동태전 -->
         <section class="product slide">
             <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=20378&returnPlanNo=0" class="product-link">
-                <img src="20378C.png" alt="동태전" class="product-img">
-                <p class="product-label"><span>🍳 수제 · 차례상</span></p>
-                <h3 class="product-name">동태전 300g</h3>
-                <p class="product-desc">
+                <img src="20378C.png" alt="동태전" class="product-img anim-scale">
+                <p class="product-label anim anim-delay-1"><span>🍳 수제 · 차례상</span></p>
+                <h3 class="product-name anim anim-delay-2">동태전 300g</h3>
+                <p class="product-desc anim anim-delay-3">
                     <strong>집에서 부치는 그 맛</strong> 그대로<br>
                     화학첨가물 없이, 무항생제 유정란<br>
                     차례상에도 반찬에도 좋습니다
                 </p>
-                <div class="product-price">
+                <div class="product-price anim anim-delay-4">
                     <span class="price-sale">9,600원</span>
                     <span class="price-unit">/ 300g</span>
                 </div>
-                <span class="product-cta">바로 주문하기 →</span>
+                <span class="product-cta anim anim-delay-5">바로 주문하기 →</span>
             </a>
         </section>
 
         <!-- 9. 겨울노지시금치 -->
         <section class="product slide">
             <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=41342&returnPlanNo=0" class="product-link">
-                <img src="41342C.jpg" alt="겨울노지시금치" class="product-img">
-                <p class="product-label"><span>🌿 무농약 · 해남산</span></p>
-                <h3 class="product-name">겨울노지시금치</h3>
-                <p class="product-desc">
+                <img src="41342C.jpg" alt="겨울노지시금치" class="product-img anim-scale">
+                <p class="product-label anim anim-delay-1"><span>🌿 무농약 · 해남산</span></p>
+                <h3 class="product-name anim anim-delay-2">겨울노지시금치</h3>
+                <p class="product-desc anim anim-delay-3">
                     겨울 찬바람에 <strong>잎이 두껍고 당도 높은</strong><br>
                     해남 노지 시금치<br>
                     명절 나물 반찬에 딱입니다
                 </p>
-                <div class="product-price">
+                <div class="product-price anim anim-delay-4">
                     <span class="price-sale">3,150원</span>
                     <span class="price-unit">/ 250g</span>
                 </div>
-                <span class="product-cta">바로 주문하기 →</span>
+                <span class="product-cta anim anim-delay-5">바로 주문하기 →</span>
             </a>
         </section>
 
         <!-- 10. CTA / 마무리 인사 -->
         <section class="cta slide">
-            <div class="cta-icon">🧧</div>
-            <p class="cta-greeting">새해 복 많이 받으세요</p>
-            <h2>
+            <span class="cta-confetti">🧧</span>
+            <span class="cta-confetti">✨</span>
+            <span class="cta-confetti">🎊</span>
+            <span class="cta-confetti">🧧</span>
+            <div class="cta-icon anim-scale">🧧</div>
+            <p class="cta-greeting anim anim-delay-1">새해 복 많이 받으세요</p>
+            <h2 class="anim anim-delay-2">
                 두레생협은<br>
                 조합원님이 어떤 것을<br>
                 필요로 하시는지<br>
-                <strong style="color:var(--gold);">늘 고민하고 있습니다</strong>
+                <strong>늘 고민하고 있습니다</strong>
             </h2>
-            <p class="cta-desc">
+            <p class="cta-desc anim anim-delay-3">
                 올해도 <strong>건강하고 안전한 먹거리</strong>로<br>
                 가족의 식탁을 지켜드리겠습니다.<br><br>
                 미리 새해 인사 드립니다.<br>
                 <strong>조합원님, 복 많이 받으세요.</strong>
             </p>
-            <a href="https://ecoop.or.kr/DureShop/recommend.do" class="cta-button">
+            <a href="https://ecoop.or.kr/DureShop/recommend.do" class="cta-button anim anim-delay-4">
                 설날 장보기 주문하기
             </a>
-            <p class="cta-note">
+            <p class="cta-note anim anim-delay-5">
                 두레생협 온라인 전용 · 10만원 이상 시 해바라기씨유 증정
             </p>
         </section>
@@ -766,5 +989,36 @@
             두레생협 생활의 발견 · 2026 설날
         </footer>
     </div>
+
+    <script>
+        // 스크롤 시 요소 등장 애니메이션 (Intersection Observer)
+        const container = document.getElementById('container');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                } else {
+                    // 슬라이드 밖으로 나가면 리셋 → 다시 들어올 때 재생
+                    entry.target.classList.remove('visible');
+                }
+            });
+        }, {
+            root: container,
+            threshold: 0.15
+        });
+
+        // 모든 애니메이션 대상 요소 관찰
+        document.querySelectorAll('.anim, .anim-left, .anim-right, .anim-scale').forEach(el => {
+            observer.observe(el);
+        });
+
+        // 첫 슬라이드는 바로 보여주기
+        setTimeout(() => {
+            document.querySelectorAll('.hero .anim, .hero .anim-scale').forEach(el => {
+                el.classList.add('visible');
+            });
+        }, 200);
+    </script>
 </body>
 </html>
