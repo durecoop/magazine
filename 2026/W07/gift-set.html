@@ -97,6 +97,30 @@
         .intro-urgent-title{font-size:15px;color:#ffcccc;margin-bottom:6px}
         .intro-urgent-time{font-size:28px;font-weight:900;color:#fff}
         .intro-urgent-sub{font-size:16px;color:#ffaaaa;margin-top:6px}
+
+        /* 버튼 그룹 */
+        .intro-buttons{display:flex;flex-direction:column;gap:14px;width:100%;max-width:300px}
+        .intro-start{display:block;width:100%;padding:20px;background:#fff;color:var(--green);font-size:22px;font-weight:900;border-radius:50px;cursor:pointer;border:none;box-shadow:0 8px 30px rgba(0,0,0,.2)}
+        .intro-start:active{transform:scale(.97)}
+        .intro-auto{display:block;width:100%;padding:18px;background:linear-gradient(135deg,#f39c12,#e67e22);color:#fff;font-size:20px;font-weight:900;border-radius:50px;cursor:pointer;border:none;box-shadow:0 6px 25px rgba(0,0,0,.2)}
+        .intro-auto:active{transform:scale(.97)}
+
+        /* 랜덤 결과 화면 */
+        .random-result{min-height:calc(100vh - 100px);display:none;flex-direction:column;padding:24px}
+        .random-result.active{display:flex}
+        .random-title{text-align:center;font-size:24px;font-weight:900;margin-bottom:20px;color:var(--dark)}
+        .random-title span{color:var(--green)}
+        .random-grid{display:flex;flex-direction:column;gap:16px}
+        .random-card{background:var(--white);border-radius:16px;padding:16px;display:flex;gap:14px;align-items:center;border:2px solid var(--beige-light);text-decoration:none;color:inherit}
+        .random-card:active{transform:scale(.98)}
+        .random-card-img{width:90px;height:90px;object-fit:contain;border-radius:10px;background:var(--cream);padding:6px;flex-shrink:0}
+        .random-card-info{flex:1;text-align:left}
+        .random-card-tag{display:inline-block;background:var(--green);color:#fff;font-size:12px;font-weight:700;padding:3px 8px;border-radius:10px;margin-bottom:6px}
+        .random-card-name{font-size:18px;font-weight:900;margin-bottom:4px}
+        .random-card-why{font-size:14px;color:var(--brown-light);margin-bottom:6px}
+        .random-card-price{font-size:20px;font-weight:900;color:var(--green)}
+        .random-more{display:block;padding:18px;background:linear-gradient(135deg,#c0392b,#e74c3c);color:#fff;text-decoration:none;font-size:20px;font-weight:900;border-radius:14px;text-align:center;margin-top:16px}
+        .random-retry{display:block;padding:14px;background:var(--cream);color:var(--brown);text-decoration:none;font-size:17px;font-weight:700;border-radius:12px;text-align:center;margin-top:10px;border:2px solid var(--beige)}
     </style>
 </head>
 <body>
@@ -127,8 +151,25 @@
             <div class="intro-icon">🎁</div>
             <h1>설 선물,<br>뭘 드릴지<br>고민이세요?</h1>
             <p class="intro-desc">3가지 질문에 답하시면<br>딱 맞는 선물을 추천해드려요</p>
-            <button class="intro-start" onclick="startQuiz()">지금 바로 시작 →</button>
+            <div class="intro-buttons">
+                <button class="intro-start" onclick="startQuiz()">직접 고르기 →</button>
+                <button class="intro-auto" onclick="autoRecommend()">🎲 알아서 추천해줘!</button>
+            </div>
             <p class="intro-note">🕐 30초면 끝나요!</p>
+        </div>
+
+        <!-- 알아서 추천 결과 -->
+        <div class="random-result" id="randomResult">
+            <div class="deadline-banner" style="margin:-24px -24px 20px;border-radius:0 0 16px 16px">
+                <p class="deadline-banner-title">⏰ 설 택배 마감까지</p>
+                <p class="deadline-banner-time">D-4 화요일 오전 11:30</p>
+            </div>
+            <h2 class="random-title">🎲 두레가 추천하는<br><span>BEST 선물 3</span></h2>
+            <div class="random-grid" id="randomGrid">
+                <!-- JS로 채워짐 -->
+            </div>
+            <a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" class="random-more">🚨 전체 선물세트 보기 →</a>
+            <a href="javascript:retryRandom()" class="random-retry">🔄 다시 추천받기</a>
         </div>
 
         <!-- 질문 1: 누구에게? -->
@@ -390,6 +431,45 @@
         function retry() {
             answers = {};
             document.getElementById('result').classList.remove('active');
+            document.getElementById('intro').style.display = 'flex';
+        }
+
+        // 알아서 추천 BEST 상품 목록
+        const bestProducts = [
+            {tag:'🏆 판매1위',name:'사과배 혼합세트',why:'누구에게나 실패 없는 선물',img:'58746C',goodsNo:'58746',price:'64,800원'},
+            {tag:'👴👵 부모님 최애',name:'영광 법성포 굴비',why:'어른들이 제일 좋아하심',img:'28832C',goodsNo:'28832',price:'97,200원'},
+            {tag:'🥩 고기 좋아하면',name:'한우 정육세트',why:'받으면 진짜 기뻐하심',img:'15634C',goodsNo:'15634',price:'85,500원'},
+            {tag:'🍯 건강 선물',name:'아카시아꿀 세트',why:'오래오래 건강하세요',img:'9966C',goodsNo:'9966',price:'68,400원'},
+            {tag:'🍂 전통의 맛',name:'상주골 곶감세트',why:'어른 입맛에 딱!',img:'24619C',goodsNo:'24619',price:'127,500원'},
+            {tag:'💪 건강 최고',name:'녹용대보액',why:'귀한 분께 귀한 선물',img:'58845C',goodsNo:'58845',price:'225,000원'},
+            {tag:'🍎 실속 선물',name:'알찬 사과세트',why:'부담없이 드리기 좋아요',img:'58744C',goodsNo:'58744',price:'35,100원'},
+            {tag:'🍐 시원한 선물',name:'알찬 배 선물세트',why:'크고 달아서 좋아하심',img:'58745C',goodsNo:'58745',price:'29,900원'}
+        ];
+
+        function autoRecommend() {
+            document.getElementById('intro').style.display = 'none';
+            document.getElementById('randomResult').classList.add('active');
+
+            // 랜덤으로 3개 선택
+            const shuffled = [...bestProducts].sort(() => Math.random() - 0.5);
+            const selected = shuffled.slice(0, 3);
+
+            const grid = document.getElementById('randomGrid');
+            grid.innerHTML = selected.map(p => `
+                <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=06&returnNo=${p.goodsNo}&returnPlanNo=76" class="random-card">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/${p.img}.jpg" alt="${p.name}" class="random-card-img">
+                    <div class="random-card-info">
+                        <span class="random-card-tag">${p.tag}</span>
+                        <p class="random-card-name">${p.name}</p>
+                        <p class="random-card-why">${p.why}</p>
+                        <p class="random-card-price">${p.price}</p>
+                    </div>
+                </a>
+            `).join('');
+        }
+
+        function retryRandom() {
+            document.getElementById('randomResult').classList.remove('active');
             document.getElementById('intro').style.display = 'flex';
         }
     </script>
