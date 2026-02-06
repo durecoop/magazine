@@ -3,111 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>두레생협 설 선물세트</title>
+    <title>두레생협 설 선물 고르기</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
-        :root{--dark:#3a3230;--brown:#5c4f4a;--brown-light:#8b7d72;--beige:#c4b5a5;--beige-light:#e8e0d5;--cream:#f7f4f0;--white:#fdfcfa;--gold:#b8963e;--gold-light:#d4b86a;--green:#3d6041;--red:#c0392b}
-        html,body{font-family:'Noto Sans KR','맑은 고딕',sans-serif;background:var(--cream);color:var(--dark);line-height:2.0;overflow:hidden;letter-spacing:-.01em;-webkit-text-size-adjust:100%}
+        :root{--dark:#3a3230;--brown:#5c4f4a;--brown-light:#8b7d72;--beige:#c4b5a5;--beige-light:#e8e0d5;--cream:#f7f4f0;--white:#fdfcfa;--gold:#b8963e;--gold-light:#d4b86a;--green:#2d5a3d;--red:#c0392b;--blue:#2c5282}
+        html,body{font-family:'Noto Sans KR','맑은 고딕',sans-serif;background:var(--cream);color:var(--dark);line-height:1.9;overflow-x:hidden;letter-spacing:-.01em;-webkit-text-size-adjust:100%}
 
-        .header{position:fixed;top:0;left:0;right:0;height:60px;background:linear-gradient(170deg,#4a3528,#3a3230);display:flex;justify-content:space-between;align-items:center;padding:0 18px;z-index:1000}
+        .header{position:fixed;top:0;left:0;right:0;height:60px;background:linear-gradient(135deg,#2d5a3d,#1e4a2d);display:flex;justify-content:space-between;align-items:center;padding:0 18px;z-index:1000}
         .header-logo{text-decoration:none;display:flex;align-items:center}
         .header-logo img{height:38px;border-radius:4px}
         .header-right{display:flex;align-items:center;gap:12px}
-        .header-label{font-size:15px;color:var(--beige);font-weight:500;letter-spacing:1px}
-        .header-order{padding:10px 20px;background:var(--gold);color:#fff;text-decoration:none;border-radius:6px;font-size:17px;font-weight:700}
+        .header-label{font-size:15px;color:#a8d5a2;font-weight:500}
+        .header-order{padding:10px 20px;background:#fff;color:var(--green);text-decoration:none;border-radius:6px;font-size:17px;font-weight:700}
 
-        .promo-bar{position:fixed;bottom:0;left:0;right:0;z-index:999;background:var(--dark);border-top:1px solid rgba(184,150,62,.3);padding:12px 0;text-align:center}
-        .promo-bar-inner{max-width:480px;margin:0 auto;display:flex;justify-content:center;align-items:center;gap:16px;font-size:16px;color:var(--beige);font-weight:500}
-        .promo-bar-inner span{display:flex;align-items:center;gap:4px}
-        .promo-bar-inner .gold{color:var(--gold-light);font-weight:700}
+        .container{max-width:480px;margin:0 auto;padding-top:60px;background:var(--white);min-height:100vh}
 
-        .container{max-width:480px;margin:0 auto;padding-top:60px;padding-bottom:48px;background:var(--white);height:100vh;overflow-y:scroll;scroll-snap-type:y mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}
-        .container::-webkit-scrollbar{display:none}
-        .slide{min-height:calc(100vh - 108px);scroll-snap-align:start;scroll-snap-stop:always;display:flex;flex-direction:column;justify-content:center;padding:36px 24px;overflow:hidden}
+        /* 인트로 화면 */
+        .intro{min-height:calc(100vh - 60px);background:linear-gradient(160deg,#2d5a3d,#1e4a2d);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:40px 30px;color:#fff}
+        .intro-icon{font-size:80px;margin-bottom:20px;animation:bounce 2s infinite}
+        .intro h1{font-size:36px;font-weight:900;margin-bottom:16px;line-height:1.4}
+        .intro-desc{font-size:20px;color:#a8d5a2;line-height:1.9;margin-bottom:32px}
+        .intro-start{display:inline-block;padding:20px 50px;background:#fff;color:var(--green);font-size:24px;font-weight:900;border-radius:50px;cursor:pointer;border:none;box-shadow:0 8px 30px rgba(0,0,0,.2)}
+        .intro-start:active{transform:scale(.97)}
+        .intro-note{margin-top:24px;font-size:16px;color:#7ab87a}
 
-        .anim{opacity:0;transform:translateY(35px);transition:opacity .7s ease,transform .7s ease}.anim.visible{opacity:1;transform:translateY(0)}
-        .anim-scale{opacity:0;transform:scale(.75);transition:opacity .6s ease,transform .6s cubic-bezier(.34,1.56,.64,1)}.anim-scale.visible{opacity:1;transform:scale(1)}
-        .d1{transition-delay:.12s}.d2{transition-delay:.24s}.d3{transition-delay:.36s}.d4{transition-delay:.48s}.d5{transition-delay:.6s}
+        /* 질문 화면들 */
+        .screen{min-height:calc(100vh - 60px);display:none;flex-direction:column;justify-content:center;padding:40px 24px;text-align:center}
+        .screen.active{display:flex}
 
-        @keyframes shimmer{0%{background-position:-200% center}100%{background-position:200% center}}
-        @keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(10px)}}
-        @keyframes btn-glow{0%,100%{box-shadow:0 4px 16px rgba(184,150,62,.3)}50%{box-shadow:0 4px 30px rgba(184,150,62,.5)}}
-        @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-        @keyframes sparkle{0%,100%{opacity:1}50%{opacity:.4}}
+        .progress{display:flex;justify-content:center;gap:10px;margin-bottom:30px}
+        .progress-dot{width:14px;height:14px;border-radius:50%;background:var(--beige-light)}
+        .progress-dot.done{background:var(--green)}
+        .progress-dot.current{background:var(--gold);transform:scale(1.3)}
 
-        /* 커버 */
-        .cover{background:linear-gradient(170deg,#4a3528,#3a3230);color:var(--cream);text-align:center;position:relative}
-        .series-badge{display:inline-block;padding:8px 20px;border:1.5px solid var(--gold);border-radius:20px;font-size:15px;font-weight:700;color:var(--gold-light);letter-spacing:2px;margin-bottom:16px}
-        .cover h1{font-size:38px;font-weight:900;margin-bottom:16px;background:linear-gradient(90deg,var(--gold-light),#fff5cc,var(--gold),#fff5cc,var(--gold-light));background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 3s linear infinite}
-        .cover-desc{font-size:20px;color:var(--beige-light);line-height:2.0}
-        .cover-icon{font-size:56px;margin-bottom:14px}
-        .scroll-hint{position:absolute;bottom:20px;left:50%;font-size:15px;color:var(--beige);letter-spacing:2px;animation:bounce 2s infinite}
-        .scroll-hint::after{content:' ▼';font-size:11px}
+        .question-icon{font-size:70px;margin-bottom:20px}
+        .question{font-size:30px;font-weight:900;line-height:1.5;margin-bottom:12px;color:var(--dark)}
+        .question-sub{font-size:18px;color:var(--brown-light);margin-bottom:30px}
 
-        /* 이야기 */
-        .story{background:var(--cream);text-align:center}
-        .story h2{font-size:30px;font-weight:900;line-height:1.7;margin-bottom:20px}
-        .story-text{font-size:20px;color:var(--brown);line-height:2.2;word-break:keep-all}
-        .story-text strong{font-weight:700;color:var(--dark);background:linear-gradient(transparent 55%,#fff3a8 55%,#fff3a8 90%,transparent 90%);padding:0 2px}
+        .choices{display:flex;flex-direction:column;gap:14px}
+        .choice{padding:22px 24px;background:var(--cream);border:3px solid var(--beige-light);border-radius:16px;font-size:22px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:16px;transition:all .2s}
+        .choice:active{transform:scale(.98)}
+        .choice:hover{border-color:var(--green);background:#f0f7f0}
+        .choice-emoji{font-size:36px}
+        .choice-text{text-align:left;flex:1}
+        .choice-desc{font-size:16px;color:var(--brown-light);font-weight:500;margin-top:4px}
 
-        /* 쿠폰 */
-        .coupon{background:linear-gradient(160deg,#fff8e1,#ffeaa7);text-align:center;position:relative;overflow:hidden}
-        .coupon::before{content:'✨';position:absolute;top:12%;left:8%;font-size:24px;animation:sparkle 2s ease-in-out infinite}
-        .coupon::after{content:'✨';position:absolute;top:18%;right:10%;font-size:18px;animation:sparkle 2s ease-in-out infinite .5s}
-        .coupon-icon{font-size:56px;margin-bottom:12px;display:inline-block;animation:float 2s ease-in-out infinite}
-        .coupon-badge{display:inline-block;background:var(--red);color:#fff;font-size:24px;font-weight:900;padding:14px 28px;border-radius:12px;margin-bottom:16px}
-        .coupon h2{font-size:28px;font-weight:900;line-height:1.6;margin-bottom:12px}
-        .coupon-text{font-size:20px;color:var(--brown);line-height:1.9}
-        .coupon-note{font-size:17px;color:var(--brown-light);margin-top:14px}
+        /* 결과 화면 */
+        .result{min-height:calc(100vh - 60px);display:none;flex-direction:column;padding:30px 24px;text-align:center}
+        .result.active{display:flex}
 
-        /* 상품 카드 - 이미지 + 위트 */
-        .gift-card{text-align:center}
-        .gift-card.cream{background:var(--cream)}
-        .gift-card.white{background:var(--white)}
-        .gift-card.warm{background:linear-gradient(160deg,#fff5eb,#ffe4cc)}
-        .gift-card.cool{background:linear-gradient(160deg,#f0f7ff,#e1efff)}
-        .gift-card.gold{background:linear-gradient(160deg,#fffbeb,#fff3c4)}
+        .result-header{background:linear-gradient(135deg,#2d5a3d,#1e4a2d);margin:-30px -24px 24px;padding:30px 24px;color:#fff;border-radius:0 0 30px 30px}
+        .result-icon{font-size:60px;margin-bottom:12px}
+        .result-title{font-size:26px;font-weight:900;margin-bottom:8px}
+        .result-who{font-size:18px;color:#a8d5a2}
 
-        .gift-card-link{text-decoration:none;color:inherit;display:block}
-        .gift-img{width:180px;height:180px;object-fit:contain;margin:0 auto 14px;display:block;border-radius:16px;background:var(--white);padding:10px;box-shadow:0 4px 20px rgba(0,0,0,.08)}
-        .gift-tag{display:inline-block;background:var(--dark);color:var(--gold-light);font-size:15px;font-weight:700;padding:6px 14px;border-radius:20px;margin-bottom:10px}
-        .gift-who{font-size:17px;color:var(--brown-light);margin-bottom:6px}
-        .gift-name{font-size:30px;font-weight:900;margin-bottom:8px;color:var(--dark)}
-        .gift-quote{font-size:19px;color:var(--brown);line-height:1.8;margin-bottom:12px;word-break:keep-all}
-        .gift-quote strong{font-weight:700;color:var(--dark);background:linear-gradient(transparent 55%,#b8e6c8 55%,#b8e6c8 90%,transparent 90%);padding:0 2px}
-        .gift-reason{font-size:17px;color:var(--brown-light);font-style:italic;margin-bottom:16px;background:linear-gradient(transparent 55%,#ffd4a8 55%,#ffd4a8 90%,transparent 90%);display:inline-block;padding:0 6px}
+        .result-card{background:var(--white);border-radius:20px;padding:24px;margin-bottom:20px;box-shadow:0 4px 20px rgba(0,0,0,.08);border:2px solid var(--beige-light)}
+        .result-img{width:160px;height:160px;object-fit:contain;margin:0 auto 16px;display:block;border-radius:12px;background:var(--cream);padding:10px}
+        .result-tag{display:inline-block;background:var(--green);color:#fff;font-size:15px;font-weight:700;padding:6px 14px;border-radius:20px;margin-bottom:10px}
+        .result-name{font-size:26px;font-weight:900;margin-bottom:8px}
+        .result-why{font-size:18px;color:var(--brown);line-height:1.7;margin-bottom:16px;background:linear-gradient(transparent 60%,#d4edda 60%);display:inline}
+        .result-price{font-size:32px;font-weight:900;color:var(--green)}
+        .result-original{font-size:17px;color:var(--brown-light);text-decoration:line-through;margin-right:8px}
 
-        .gift-price-box{background:var(--white);border-radius:14px;padding:14px 20px;margin-bottom:14px;border:2px solid var(--beige-light)}
-        .gift-card.white .gift-price-box{background:var(--cream)}
-        .gift-price-row{display:flex;justify-content:center;align-items:center;gap:10px;margin-bottom:4px}
-        .gift-price-original{font-size:17px;color:var(--brown-light);text-decoration:line-through}
-        .gift-price-discount{display:inline-block;background:var(--red);color:#fff;font-size:15px;font-weight:900;padding:4px 10px;border-radius:8px}
-        .gift-price-sale{font-size:34px;font-weight:900;color:var(--dark)}
+        .result-cta{display:block;padding:20px;background:linear-gradient(135deg,#2d5a3d,#1e4a2d);color:#fff;text-decoration:none;font-size:22px;font-weight:900;border-radius:14px;margin-bottom:16px}
+        .result-retry{display:block;padding:16px;background:var(--cream);color:var(--brown);text-decoration:none;font-size:18px;font-weight:700;border-radius:12px;border:2px solid var(--beige)}
 
-        .gift-cta{display:inline-block;padding:14px 40px;background:var(--dark);color:#fff;border-radius:10px;font-size:19px;font-weight:700}
+        .coupon-banner{background:linear-gradient(135deg,#fff3c4,#ffeaa7);border-radius:16px;padding:20px;margin-bottom:20px;border:2px dashed var(--gold)}
+        .coupon-banner-text{font-size:20px;font-weight:700;color:var(--dark)}
+        .coupon-banner-big{font-size:28px;font-weight:900;color:var(--red)}
 
-        /* 받는 사람별 추천 */
-        .recommend{background:var(--cream);text-align:center}
-        .recommend h2{font-size:28px;font-weight:900;margin-bottom:24px}
-        .recommend-list{display:flex;flex-direction:column;gap:14px}
-        .recommend-item{background:var(--white);border-radius:14px;padding:20px;text-decoration:none;color:inherit;display:flex;align-items:center;gap:16px;border:1px solid var(--beige-light)}
-        .recommend-emoji{font-size:44px;flex-shrink:0}
-        .recommend-info{text-align:left;flex:1}
-        .recommend-who{font-size:16px;color:var(--brown-light);margin-bottom:2px}
-        .recommend-what{font-size:20px;font-weight:700}
-        .recommend-arrow{font-size:24px;color:var(--beige)}
-
-        /* CTA */
-        .cta{background:linear-gradient(170deg,#4a3528,#3a3230);text-align:center}
-        .cta-icon{font-size:60px;margin-bottom:16px}
-        .cta h2{font-size:28px;font-weight:700;line-height:1.7;color:var(--cream);margin-bottom:20px}
-        .cta h2 strong{color:var(--gold);font-weight:900}
-        .cta-desc{font-size:19px;color:var(--beige-light);line-height:2.1;margin-bottom:26px}
-        .cta-button{display:block;padding:20px;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#fff;text-decoration:none;font-size:22px;font-weight:900;border-radius:12px;animation:btn-glow 2.5s ease-in-out infinite}
-        .cta-note{font-size:16px;color:var(--beige);margin-top:16px}
-
-        .footer{background:linear-gradient(170deg,#3a3230,#4a3528);padding:22px;text-align:center;color:var(--beige);font-size:16px;min-height:auto;scroll-snap-align:end;border-top:1px solid rgba(184,150,62,.15)}
+        @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
+        @keyframes pop{0%{transform:scale(0);opacity:0}50%{transform:scale(1.1)}100%{transform:scale(1);opacity:1}}
+        .pop{animation:pop .4s ease-out}
     </style>
 </head>
 <body>
@@ -115,229 +83,273 @@
         <a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" class="header-logo"><img src="LOGO.png" alt="두레생협"></a>
         <div class="header-right">
             <span class="header-label">설 선물</span>
-            <a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" class="header-order">주문하기</a>
+            <a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" class="header-order">전체보기</a>
         </div>
     </header>
 
-    <div class="promo-bar">
-        <div class="promo-bar-inner">
-            <span>🎫 <span class="gold">3,000원 쿠폰</span></span>
-            <span>🚚 <span class="gold">설 전 배송</span></span>
+    <div class="container">
+        <!-- 인트로 -->
+        <div class="intro" id="intro">
+            <div class="intro-icon">🎁</div>
+            <h1>설 선물,<br>뭘 드릴지<br>고민이세요?</h1>
+            <p class="intro-desc">3가지 질문에 답하시면<br>딱 맞는 선물을 추천해드려요</p>
+            <button class="intro-start" onclick="startQuiz()">시작하기</button>
+            <p class="intro-note">🕐 30초면 끝나요!</p>
+        </div>
+
+        <!-- 질문 1: 누구에게? -->
+        <div class="screen" id="q1">
+            <div class="progress">
+                <span class="progress-dot current"></span>
+                <span class="progress-dot"></span>
+                <span class="progress-dot"></span>
+            </div>
+            <div class="question-icon">👤</div>
+            <h2 class="question">누구에게<br>드리는 선물인가요?</h2>
+            <p class="question-sub">받으실 분을 선택해주세요</p>
+            <div class="choices">
+                <div class="choice" onclick="answer(1,'parents')">
+                    <span class="choice-emoji">👴👵</span>
+                    <div class="choice-text">부모님<div class="choice-desc">우리 엄마, 아빠께</div></div>
+                </div>
+                <div class="choice" onclick="answer(1,'inlaws')">
+                    <span class="choice-emoji">🏠</span>
+                    <div class="choice-text">시댁 · 처가<div class="choice-desc">시부모님, 장인·장모님께</div></div>
+                </div>
+                <div class="choice" onclick="answer(1,'relatives')">
+                    <span class="choice-emoji">👨‍👩‍👧‍👦</span>
+                    <div class="choice-text">형제 · 친척<div class="choice-desc">형, 누나, 삼촌, 이모께</div></div>
+                </div>
+                <div class="choice" onclick="answer(1,'work')">
+                    <span class="choice-emoji">🏢</span>
+                    <div class="choice-text">직장 · 거래처<div class="choice-desc">회사 선물, 비즈니스</div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 질문 2: 예산 -->
+        <div class="screen" id="q2">
+            <div class="progress">
+                <span class="progress-dot done"></span>
+                <span class="progress-dot current"></span>
+                <span class="progress-dot"></span>
+            </div>
+            <div class="question-icon">💰</div>
+            <h2 class="question">예산은<br>어느 정도인가요?</h2>
+            <p class="question-sub">부담 없이 선택하세요</p>
+            <div class="choices">
+                <div class="choice" onclick="answer(2,'under5')">
+                    <span class="choice-emoji">💵</span>
+                    <div class="choice-text">5만원 미만<div class="choice-desc">실속있게</div></div>
+                </div>
+                <div class="choice" onclick="answer(2,'5to10')">
+                    <span class="choice-emoji">💵💵</span>
+                    <div class="choice-text">5 ~ 10만원<div class="choice-desc">가장 인기있는 가격대</div></div>
+                </div>
+                <div class="choice" onclick="answer(2,'10to20')">
+                    <span class="choice-emoji">💵💵💵</span>
+                    <div class="choice-text">10 ~ 20만원<div class="choice-desc">정성을 담아서</div></div>
+                </div>
+                <div class="choice" onclick="answer(2,'over20')">
+                    <span class="choice-emoji">👑</span>
+                    <div class="choice-text">20만원 이상<div class="choice-desc">특별한 분께</div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 질문 3: 취향 -->
+        <div class="screen" id="q3">
+            <div class="progress">
+                <span class="progress-dot done"></span>
+                <span class="progress-dot done"></span>
+                <span class="progress-dot current"></span>
+            </div>
+            <div class="question-icon">🎯</div>
+            <h2 class="question">어떤 걸<br>좋아하시나요?</h2>
+            <p class="question-sub">받으실 분 취향을 골라주세요</p>
+            <div class="choices">
+                <div class="choice" onclick="answer(3,'fruit')">
+                    <span class="choice-emoji">🍎</span>
+                    <div class="choice-text">과일<div class="choice-desc">사과, 배 - 실패 없는 선택</div></div>
+                </div>
+                <div class="choice" onclick="answer(3,'meat')">
+                    <span class="choice-emoji">🥩</span>
+                    <div class="choice-text">고기<div class="choice-desc">한우 - 누구나 좋아함</div></div>
+                </div>
+                <div class="choice" onclick="answer(3,'seafood')">
+                    <span class="choice-emoji">🐟</span>
+                    <div class="choice-text">수산물<div class="choice-desc">굴비 - 어른들 최애</div></div>
+                </div>
+                <div class="choice" onclick="answer(3,'health')">
+                    <span class="choice-emoji">🍯</span>
+                    <div class="choice-text">건강식품<div class="choice-desc">꿀, 홍삼 - 건강 챙기기</div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 결과 화면 -->
+        <div class="result" id="result">
+            <div class="result-header">
+                <div class="result-icon pop" id="resultIcon">🎁</div>
+                <h2 class="result-title" id="resultTitle">추천 선물</h2>
+                <p class="result-who" id="resultWho">부모님께 드리기 좋은</p>
+            </div>
+
+            <div class="coupon-banner">
+                <p class="coupon-banner-text">🎫 선물세트 주문하면</p>
+                <p class="coupon-banner-big">3,000원 할인!</p>
+            </div>
+
+            <div class="result-card">
+                <img id="resultImg" src="" alt="추천 상품" class="result-img">
+                <span class="result-tag" id="resultTag">BEST</span>
+                <h3 class="result-name" id="resultName">상품명</h3>
+                <p><span class="result-why" id="resultWhy">추천 이유</span></p>
+                <p style="margin-top:16px">
+                    <span class="result-original" id="resultOriginal">100,000원</span>
+                    <span class="result-price" id="resultPrice">90,000원</span>
+                </p>
+            </div>
+
+            <a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" class="result-cta">이 선물 주문하기 →</a>
+            <a href="javascript:retry()" class="result-retry">🔄 다시 선택하기</a>
         </div>
     </div>
 
-    <div class="container" id="container">
-        <section class="cover slide">
-            <div class="cover-icon anim">🎁</div>
-            <span class="series-badge anim d1">2026 설</span>
-            <h1 class="anim d2">선물 뭐 하지?</h1>
-            <p class="cover-desc anim d3">고민 끝.<br>두레가 골라드립니다.</p>
-            <span class="scroll-hint">아래로 넘기세요</span>
-        </section>
-
-        <section class="story slide">
-            <h2 class="anim">"매년 같은 고민,<br>올해도 또..."</h2>
-            <p class="story-text anim d1">
-                부모님께는 뭘 드리지?<br>
-                사돈댁에는?<br>
-                시누이네는?<br><br>
-                <strong>받는 분별로 정리했습니다.</strong><br>
-                이제 고르기만 하세요.
-            </p>
-        </section>
-
-        <section class="coupon slide">
-            <div class="coupon-icon anim-scale">🎫</div>
-            <div class="coupon-badge anim d1">3,000원 할인</div>
-            <h2 class="anim d2">선물세트 전용 쿠폰</h2>
-            <p class="coupon-text anim d3">
-                주문할 때<br>
-                <strong>자동으로 3,000원 빠집니다</strong>
-            </p>
-            <p class="coupon-note anim d4">~2/10까지 · 선착순 5,000명</p>
-        </section>
-
-        <section class="gift-card warm slide">
-            <a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" class="gift-card-link">
-                <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58744C.jpg" alt="사과 선물세트" class="gift-img anim-scale">
-                <span class="gift-tag anim d1">🍎 인기 1위</span>
-                <p class="gift-who anim d1">누구에게나</p>
-                <h3 class="gift-name anim d2">사과 선물세트</h3>
-                <p class="gift-quote anim d3">
-                    선물 고민될 때<br>
-                    <strong>사과는 언제나 정답입니다</strong>
-                </p>
-                <p class="gift-reason anim d3">"아, 사과 좋지~" 100% 듣습니다</p>
-                <div class="gift-price-box anim d4">
-                    <div class="gift-price-row">
-                        <span class="gift-price-original">39,000원</span>
-                        <span class="gift-price-discount">10%</span>
-                    </div>
-                    <span class="gift-price-sale">35,100원</span>
-                </div>
-                <span class="gift-cta anim d5">주문하기 →</span>
-            </a>
-        </section>
-
-        <section class="gift-card cool slide">
-            <a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" class="gift-card-link">
-                <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58745C.jpg" alt="배 선물세트" class="gift-img anim-scale">
-                <span class="gift-tag anim d1">🍐 시원한 선택</span>
-                <p class="gift-who anim d1">어른들께</p>
-                <h3 class="gift-name anim d2">배 선물세트</h3>
-                <p class="gift-quote anim d3">
-                    크고 시원한 배<br>
-                    <strong>어른들이 특히 좋아하십니다</strong>
-                </p>
-                <p class="gift-reason anim d3">명절 후식으로 깎아드리면 효도 완료</p>
-                <div class="gift-price-box anim d4">
-                    <div class="gift-price-row">
-                        <span class="gift-price-original">33,300원</span>
-                        <span class="gift-price-discount">10%</span>
-                    </div>
-                    <span class="gift-price-sale">29,900원</span>
-                </div>
-                <span class="gift-cta anim d5">주문하기 →</span>
-            </a>
-        </section>
-
-        <section class="gift-card cream slide">
-            <a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" class="gift-card-link">
-                <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/28832C.jpg" alt="영광 법성포 굴비" class="gift-img anim-scale">
-                <span class="gift-tag anim d1">🐟 명품</span>
-                <p class="gift-who anim d1">부모님께</p>
-                <h3 class="gift-name anim d2">영광 법성포 굴비</h3>
-                <p class="gift-quote anim d3">
-                    부모님 선물 뭐 하지?<br>
-                    <strong>→ 굴비요. 끝.</strong>
-                </p>
-                <p class="gift-reason anim d3">드리면 "우리 아들/딸 효자네~" 확정</p>
-                <div class="gift-price-box anim d4">
-                    <div class="gift-price-row">
-                        <span class="gift-price-original">108,000원</span>
-                        <span class="gift-price-discount">10%</span>
-                    </div>
-                    <span class="gift-price-sale">97,200원</span>
-                </div>
-                <span class="gift-cta anim d5">주문하기 →</span>
-            </a>
-        </section>
-
-        <section class="gift-card white slide">
-            <a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" class="gift-card-link">
-                <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/15634C.jpg" alt="한우 정육세트" class="gift-img anim-scale">
-                <span class="gift-tag anim d1">🥩 프리미엄</span>
-                <p class="gift-who anim d1">고기 좋아하시는 분께</p>
-                <h3 class="gift-name anim d2">한우 정육세트</h3>
-                <p class="gift-quote anim d3">
-                    설날엔 역시 한우<br>
-                    <strong>이건 진짜 좋아하십니다</strong>
-                </p>
-                <p class="gift-reason anim d3">받자마자 냉동실 직행, 아끼며 드심</p>
-                <div class="gift-price-box anim d4">
-                    <div class="gift-price-row">
-                        <span class="gift-price-original">190,000원</span>
-                        <span class="gift-price-discount">10%</span>
-                    </div>
-                    <span class="gift-price-sale">171,000원</span>
-                </div>
-                <span class="gift-cta anim d5">주문하기 →</span>
-            </a>
-        </section>
-
-        <section class="gift-card gold slide">
-            <a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" class="gift-card-link">
-                <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/24619C.jpg" alt="상주골 곶감세트" class="gift-img anim-scale">
-                <span class="gift-tag anim d1">🍂 어른들 취향</span>
-                <p class="gift-who anim d1">연세 있으신 분께</p>
-                <h3 class="gift-name anim d2">상주골 곶감세트</h3>
-                <p class="gift-quote anim d3">
-                    달고 쫀득한 전통 간식<br>
-                    <strong>어른들 입맛에 딱입니다</strong>
-                </p>
-                <p class="gift-reason anim d3">"요즘 이런 곶감 없어" 칭찬 들음</p>
-                <div class="gift-price-box anim d4">
-                    <div class="gift-price-row">
-                        <span class="gift-price-original">150,000원</span>
-                        <span class="gift-price-discount">15%</span>
-                    </div>
-                    <span class="gift-price-sale">127,500원</span>
-                </div>
-                <span class="gift-cta anim d5">주문하기 →</span>
-            </a>
-        </section>
-
-        <section class="gift-card warm slide">
-            <a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" class="gift-card-link">
-                <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58835C.jpg" alt="아카시아꿀 세트" class="gift-img anim-scale">
-                <span class="gift-tag anim d1">🍯 건강 선물</span>
-                <p class="gift-who anim d1">건강 챙기시는 분께</p>
-                <h3 class="gift-name anim d2">아카시아꿀 세트</h3>
-                <p class="gift-quote anim d3">
-                    건강 생각하는 마음까지<br>
-                    <strong>꿀로 전하세요</strong>
-                </p>
-                <p class="gift-reason anim d3">매일 아침 한 숟갈, 오래 드실 수 있음</p>
-                <div class="gift-price-box anim d4">
-                    <div class="gift-price-row">
-                        <span class="gift-price-original">76,000원</span>
-                        <span class="gift-price-discount">10%</span>
-                    </div>
-                    <span class="gift-price-sale">68,400원</span>
-                </div>
-                <span class="gift-cta anim d5">주문하기 →</span>
-            </a>
-        </section>
-
-        <section class="recommend slide">
-            <h2 class="anim">한눈에 보는<br>받는 분별 추천</h2>
-            <div class="recommend-list">
-                <a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" class="recommend-item anim d1">
-                    <span class="recommend-emoji">👴👵</span>
-                    <div class="recommend-info">
-                        <p class="recommend-who">부모님께</p>
-                        <p class="recommend-what">굴비 · 한우 · 곶감</p>
-                    </div>
-                    <span class="recommend-arrow">→</span>
-                </a>
-                <a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" class="recommend-item anim d2">
-                    <span class="recommend-emoji">👨‍👩‍👧</span>
-                    <div class="recommend-info">
-                        <p class="recommend-who">형제·친척께</p>
-                        <p class="recommend-what">사과 · 배 · 꿀</p>
-                    </div>
-                    <span class="recommend-arrow">→</span>
-                </a>
-                <a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" class="recommend-item anim d3">
-                    <span class="recommend-emoji">🏢</span>
-                    <div class="recommend-info">
-                        <p class="recommend-who">직장·거래처</p>
-                        <p class="recommend-what">사과 · 한우</p>
-                    </div>
-                    <span class="recommend-arrow">→</span>
-                </a>
-            </div>
-        </section>
-
-        <section class="cta slide">
-            <div class="cta-icon anim-scale">🧧</div>
-            <h2 class="anim d1">선물 고민,<br><strong>이제 끝내세요.</strong></h2>
-            <p class="cta-desc anim d2">
-                두레생협이 엄선한 선물세트<br>
-                <strong>3,000원 쿠폰</strong>까지 챙기세요!
-            </p>
-            <a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" class="cta-button anim d3">선물세트 전체보기</a>
-            <p class="cta-note anim d4">설 전 배송 · 선물 포장 무료</p>
-        </section>
-
-        <footer class="footer">두레생협 · 2026 설 선물세트</footer>
-    </div>
-
     <script>
-        const c=document.getElementById('container');
-        const o=new IntersectionObserver(e=>{e.forEach(x=>x.isIntersecting?x.target.classList.add('visible'):x.target.classList.remove('visible'))},{root:c,threshold:.15});
-        document.querySelectorAll('.anim,.anim-scale').forEach(el=>o.observe(el));
-        setTimeout(()=>document.querySelectorAll('.cover .anim,.cover .anim-scale').forEach(el=>el.classList.add('visible')),200);
+        let answers = {};
+
+        function startQuiz() {
+            document.getElementById('intro').style.display = 'none';
+            document.getElementById('q1').classList.add('active');
+        }
+
+        function answer(q, val) {
+            answers['q'+q] = val;
+            document.getElementById('q'+q).classList.remove('active');
+
+            if(q < 3) {
+                document.getElementById('q'+(q+1)).classList.add('active');
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            document.getElementById('result').classList.add('active');
+
+            // 결과 데이터
+            const products = {
+                // 부모님
+                'parents_under5_fruit': {icon:'🍎',tag:'실속 선물',name:'알찬 사과세트 (6과)',why:'부모님 드리기 딱 좋은 크기!',img:'58744C',orig:'39,000원',price:'35,100원'},
+                'parents_under5_meat': {icon:'🥩',tag:'인기',name:'한우 불고기',why:'구워드리면 효도 완료',img:'56776C',orig:'18,400원',price:'16,500원'},
+                'parents_under5_seafood': {icon:'🐟',tag:'어른 취향',name:'반건조 생선세트',why:'굽기만 하면 반찬 완성',img:'58898C',orig:'45,000원',price:'40,500원'},
+                'parents_under5_health': {icon:'🍯',tag:'건강',name:'아카시아꿀',why:'매일 아침 건강하게',img:'58835C',orig:'38,000원',price:'34,200원'},
+
+                'parents_5to10_fruit': {icon:'🍎',tag:'BEST',name:'사과배 혼합세트',why:'사과도 배도 드시게!',img:'58746C',orig:'72,000원',price:'64,800원'},
+                'parents_5to10_meat': {icon:'🥩',tag:'프리미엄',name:'한우 정육세트 1호',why:'특별한 날 드시라고',img:'15634C',orig:'95,000원',price:'85,500원'},
+                'parents_5to10_seafood': {icon:'🐟',tag:'명품',name:'영광 법성포 굴비',why:'부모님이 제일 좋아하심',img:'28832C',orig:'108,000원',price:'97,200원'},
+                'parents_5to10_health': {icon:'🍯',tag:'건강',name:'아카시아꿀 선물세트',why:'오래오래 건강하세요',img:'58835C',orig:'76,000원',price:'68,400원'},
+
+                'parents_10to20_fruit': {icon:'🍎',tag:'프리미엄',name:'프리미엄 사과세트',why:'크고 달아서 좋아하심',img:'58744C',orig:'150,000원',price:'135,000원'},
+                'parents_10to20_meat': {icon:'🥩',tag:'최고급',name:'한우 정육세트 2호',why:'이건 진짜 좋아하십니다',img:'15634C',orig:'190,000원',price:'171,000원'},
+                'parents_10to20_seafood': {icon:'🐟',tag:'명품',name:'법성포 굴비세트 특',why:'효도 제대로 하는 선물',img:'28832C',orig:'180,000원',price:'162,000원'},
+                'parents_10to20_health': {icon:'🍯',tag:'프리미엄',name:'상주골 곶감세트',why:'어른들 입맛에 딱!',img:'24619C',orig:'150,000원',price:'127,500원'},
+
+                'parents_over20_fruit': {icon:'🍎',tag:'VIP',name:'프리미엄 사과배세트',why:'최고급으로 효도하세요',img:'58746C',orig:'250,000원',price:'225,000원'},
+                'parents_over20_meat': {icon:'🥩',tag:'최고급',name:'한우 프리미엄세트',why:'이 정도면 감동하심',img:'15634C',orig:'300,000원',price:'270,000원'},
+                'parents_over20_seafood': {icon:'🐟',tag:'VIP',name:'굴비 프리미엄세트',why:'최고의 효도 선물',img:'28832C',orig:'280,000원',price:'252,000원'},
+                'parents_over20_health': {icon:'🍯',tag:'VIP',name:'녹용대보액',why:'건강이 최고의 선물',img:'58845C',orig:'250,000원',price:'225,000원'},
+
+                // 시댁/처가
+                'inlaws_under5_fruit': {icon:'🍎',tag:'무난한',name:'알찬 사과세트',why:'실패 없는 선택입니다',img:'58744C',orig:'39,000원',price:'35,100원'},
+                'inlaws_under5_meat': {icon:'🥩',tag:'인기',name:'한우 불고기',why:'누구나 좋아하는 맛',img:'56776C',orig:'18,400원',price:'16,500원'},
+                'inlaws_under5_seafood': {icon:'🐟',tag:'정성',name:'반건조 생선세트',why:'정성 담은 선물',img:'58898C',orig:'45,000원',price:'40,500원'},
+                'inlaws_under5_health': {icon:'🍯',tag:'건강',name:'아카시아꿀',why:'건강 생각하는 마음',img:'58835C',orig:'38,000원',price:'34,200원'},
+
+                'inlaws_5to10_fruit': {icon:'🍎',tag:'인기',name:'사과배 혼합세트',why:'어디 내놔도 좋은 선물',img:'58746C',orig:'72,000원',price:'64,800원'},
+                'inlaws_5to10_meat': {icon:'🥩',tag:'BEST',name:'한우 정육세트',why:'고급스러워 보여요',img:'15634C',orig:'95,000원',price:'85,500원'},
+                'inlaws_5to10_seafood': {icon:'🐟',tag:'명품',name:'영광 굴비세트',why:'어른들께 인기 최고',img:'28832C',orig:'108,000원',price:'97,200원'},
+                'inlaws_5to10_health': {icon:'🍯',tag:'건강',name:'꿀 선물세트',why:'건강 챙기는 마음 전달',img:'58835C',orig:'76,000원',price:'68,400원'},
+
+                'inlaws_10to20_fruit': {icon:'🍎',tag:'프리미엄',name:'프리미엄 과일세트',why:'격식 차린 선물로 딱',img:'58744C',orig:'150,000원',price:'135,000원'},
+                'inlaws_10to20_meat': {icon:'🥩',tag:'고급',name:'한우 정육세트 2호',why:'품격있는 선물입니다',img:'15634C',orig:'190,000원',price:'171,000원'},
+                'inlaws_10to20_seafood': {icon:'🐟',tag:'명품',name:'법성포 굴비 특세트',why:'제대로 된 선물',img:'28832C',orig:'180,000원',price:'162,000원'},
+                'inlaws_10to20_health': {icon:'🍯',tag:'정성',name:'곶감 선물세트',why:'전통의 맛으로 정성을',img:'24619C',orig:'150,000원',price:'127,500원'},
+
+                'inlaws_over20_fruit': {icon:'🍎',tag:'VIP',name:'프리미엄 과일세트',why:'최고급 과일만 담았어요',img:'58746C',orig:'250,000원',price:'225,000원'},
+                'inlaws_over20_meat': {icon:'🥩',tag:'VIP',name:'한우 프리미엄',why:'이 정도면 완벽합니다',img:'15634C',orig:'300,000원',price:'270,000원'},
+                'inlaws_over20_seafood': {icon:'🐟',tag:'VIP',name:'굴비 프리미엄',why:'최고의 정성을 담아',img:'28832C',orig:'280,000원',price:'252,000원'},
+                'inlaws_over20_health': {icon:'🍯',tag:'VIP',name:'녹용대보액',why:'귀한 분께 귀한 선물',img:'58845C',orig:'250,000원',price:'225,000원'},
+
+                // 형제/친척 - 기본값으로 사용
+                'relatives_under5_fruit': {icon:'🍎',tag:'실속',name:'알찬 사과세트',why:'부담없이 드리기 좋아요',img:'58744C',orig:'39,000원',price:'35,100원'},
+                'relatives_under5_meat': {icon:'🥩',tag:'인기',name:'한우 불고기',why:'맛있게 드세요~',img:'56776C',orig:'18,400원',price:'16,500원'},
+                'relatives_under5_seafood': {icon:'🐟',tag:'실속',name:'반건조 생선',why:'반찬으로 딱이에요',img:'58898C',orig:'45,000원',price:'40,500원'},
+                'relatives_under5_health': {icon:'🍯',tag:'건강',name:'아카시아꿀',why:'건강하게 드세요',img:'58835C',orig:'38,000원',price:'34,200원'},
+
+                'relatives_5to10_fruit': {icon:'🍎',tag:'BEST',name:'사과배 혼합세트',why:'이 가격에 이 구성!',img:'58746C',orig:'72,000원',price:'64,800원'},
+                'relatives_5to10_meat': {icon:'🥩',tag:'인기',name:'한우 정육세트',why:'다들 좋아하는 선물',img:'15634C',orig:'95,000원',price:'85,500원'},
+                'relatives_5to10_seafood': {icon:'🐟',tag:'인기',name:'굴비세트',why:'명절 선물의 정석',img:'28832C',orig:'108,000원',price:'97,200원'},
+                'relatives_5to10_health': {icon:'🍯',tag:'건강',name:'꿀 선물세트',why:'달콤한 마음 전해요',img:'58835C',orig:'76,000원',price:'68,400원'},
+
+                'relatives_10to20_fruit': {icon:'🍎',tag:'프리미엄',name:'프리미엄 과일',why:'좋은 거로 챙겨드려요',img:'58744C',orig:'150,000원',price:'135,000원'},
+                'relatives_10to20_meat': {icon:'🥩',tag:'고급',name:'한우 정육세트 2호',why:'맛있는 고기 드세요',img:'15634C',orig:'190,000원',price:'171,000원'},
+                'relatives_10to20_seafood': {icon:'🐟',tag:'명품',name:'법성포 굴비 특',why:'진짜 맛있는 굴비예요',img:'28832C',orig:'180,000원',price:'162,000원'},
+                'relatives_10to20_health': {icon:'🍯',tag:'건강',name:'곶감세트',why:'몸에 좋은 간식',img:'24619C',orig:'150,000원',price:'127,500원'},
+
+                'relatives_over20_fruit': {icon:'🍎',tag:'VIP',name:'프리미엄 과일세트',why:'특별히 챙겨드려요',img:'58746C',orig:'250,000원',price:'225,000원'},
+                'relatives_over20_meat': {icon:'🥩',tag:'VIP',name:'한우 프리미엄',why:'최고급으로 드려요',img:'15634C',orig:'300,000원',price:'270,000원'},
+                'relatives_over20_seafood': {icon:'🐟',tag:'VIP',name:'굴비 프리미엄',why:'귀한 분께 귀한 선물',img:'28832C',orig:'280,000원',price:'252,000원'},
+                'relatives_over20_health': {icon:'🍯',tag:'VIP',name:'녹용대보액',why:'건강이 최고예요',img:'58845C',orig:'250,000원',price:'225,000원'},
+
+                // 직장/거래처
+                'work_under5_fruit': {icon:'🍎',tag:'실속',name:'알찬 사과세트',why:'깔끔하고 무난해요',img:'58744C',orig:'39,000원',price:'35,100원'},
+                'work_under5_meat': {icon:'🥩',tag:'실용',name:'한우 불고기',why:'실용적인 선물',img:'56776C',orig:'18,400원',price:'16,500원'},
+                'work_under5_seafood': {icon:'🐟',tag:'실속',name:'반건조 생선',why:'부담없는 가격대',img:'58898C',orig:'45,000원',price:'40,500원'},
+                'work_under5_health': {icon:'🍯',tag:'건강',name:'아카시아꿀',why:'건강 챙기세요~',img:'58835C',orig:'38,000원',price:'34,200원'},
+
+                'work_5to10_fruit': {icon:'🍎',tag:'BEST',name:'사과배 혼합세트',why:'비즈니스 선물로 딱',img:'58746C',orig:'72,000원',price:'64,800원'},
+                'work_5to10_meat': {icon:'🥩',tag:'인기',name:'한우 정육세트',why:'품격있는 선물',img:'15634C',orig:'95,000원',price:'85,500원'},
+                'work_5to10_seafood': {icon:'🐟',tag:'고급',name:'굴비세트',why:'격식있는 선물',img:'28832C',orig:'108,000원',price:'97,200원'},
+                'work_5to10_health': {icon:'🍯',tag:'세련',name:'올리브유 세트',why:'센스있는 선물',img:'58835C',orig:'76,000원',price:'68,400원'},
+
+                'work_10to20_fruit': {icon:'🍎',tag:'프리미엄',name:'프리미엄 과일',why:'VIP 고객님께',img:'58744C',orig:'150,000원',price:'135,000원'},
+                'work_10to20_meat': {icon:'🥩',tag:'고급',name:'한우 정육세트 2호',why:'중요한 분께',img:'15634C',orig:'190,000원',price:'171,000원'},
+                'work_10to20_seafood': {icon:'🐟',tag:'명품',name:'법성포 굴비 특',why:'격이 다른 선물',img:'28832C',orig:'180,000원',price:'162,000원'},
+                'work_10to20_health': {icon:'🍯',tag:'프리미엄',name:'곶감세트',why:'품격있는 선택',img:'24619C',orig:'150,000원',price:'127,500원'},
+
+                'work_over20_fruit': {icon:'🍎',tag:'VIP',name:'프리미엄 과일세트',why:'최고급 비즈니스 선물',img:'58746C',orig:'250,000원',price:'225,000원'},
+                'work_over20_meat': {icon:'🥩',tag:'VIP',name:'한우 프리미엄',why:'VIP를 위한 선물',img:'15634C',orig:'300,000원',price:'270,000원'},
+                'work_over20_seafood': {icon:'🐟',tag:'VIP',name:'굴비 프리미엄',why:'최고의 비즈니스 선물',img:'28832C',orig:'280,000원',price:'252,000원'},
+                'work_over20_health': {icon:'🍯',tag:'VIP',name:'녹용대보액',why:'특별한 분께',img:'58845C',orig:'250,000원',price:'225,000원'}
+            };
+
+            const whoLabels = {
+                'parents': '부모님께 드리기 좋은',
+                'inlaws': '시댁/처가에 드리기 좋은',
+                'relatives': '형제/친척께 드리기 좋은',
+                'work': '직장/거래처에 드리기 좋은'
+            };
+
+            const key = answers.q1 + '_' + answers.q2 + '_' + answers.q3;
+            const product = products[key] || products['parents_5to10_fruit'];
+
+            document.getElementById('resultIcon').textContent = product.icon;
+            document.getElementById('resultWho').textContent = whoLabels[answers.q1];
+            document.getElementById('resultImg').src = 'https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/' + product.img + '.jpg';
+            document.getElementById('resultTag').textContent = product.tag;
+            document.getElementById('resultName').textContent = product.name;
+            document.getElementById('resultWhy').textContent = product.why;
+            document.getElementById('resultOriginal').textContent = product.orig;
+            document.getElementById('resultPrice').textContent = product.price;
+        }
+
+        function retry() {
+            answers = {};
+            document.getElementById('result').classList.remove('active');
+            document.getElementById('intro').style.display = 'flex';
+        }
     </script>
 </body>
 </html>
