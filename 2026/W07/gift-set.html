@@ -35,8 +35,6 @@
         @keyframes btn-glow{0%,100%{box-shadow:0 4px 16px rgba(184,150,62,.3)}50%{box-shadow:0 4px 30px rgba(184,150,62,.5)}}
         @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
         @keyframes sparkle{0%,100%{opacity:1}50%{opacity:.4}}
-        @keyframes wiggle{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
-        @keyframes pop{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
 
         /* 커버 */
         .cover{background:linear-gradient(170deg,#4a3528,#3a3230);color:var(--cream);text-align:center;position:relative}
@@ -63,7 +61,7 @@
         .coupon-text{font-size:20px;color:var(--brown);line-height:1.9}
         .coupon-note{font-size:17px;color:var(--brown-light);margin-top:14px}
 
-        /* 위트있는 상품 카드 */
+        /* 상품 카드 - 이미지 + 위트 */
         .gift-card{text-align:center}
         .gift-card.cream{background:var(--cream)}
         .gift-card.white{background:var(--white)}
@@ -72,22 +70,22 @@
         .gift-card.gold{background:linear-gradient(160deg,#fffbeb,#fff3c4)}
 
         .gift-card-link{text-decoration:none;color:inherit;display:block}
-        .gift-emoji{font-size:80px;margin-bottom:16px;display:inline-block;animation:wiggle 2s ease-in-out infinite}
-        .gift-tag{display:inline-block;background:var(--dark);color:var(--gold-light);font-size:15px;font-weight:700;padding:6px 14px;border-radius:20px;margin-bottom:12px}
-        .gift-who{font-size:17px;color:var(--brown-light);margin-bottom:8px}
-        .gift-name{font-size:32px;font-weight:900;margin-bottom:10px;color:var(--dark)}
-        .gift-quote{font-size:20px;color:var(--brown);line-height:1.8;margin-bottom:16px;word-break:keep-all}
+        .gift-img{width:180px;height:180px;object-fit:contain;margin:0 auto 14px;display:block;border-radius:16px;background:var(--white);padding:10px;box-shadow:0 4px 20px rgba(0,0,0,.08)}
+        .gift-tag{display:inline-block;background:var(--dark);color:var(--gold-light);font-size:15px;font-weight:700;padding:6px 14px;border-radius:20px;margin-bottom:10px}
+        .gift-who{font-size:17px;color:var(--brown-light);margin-bottom:6px}
+        .gift-name{font-size:30px;font-weight:900;margin-bottom:8px;color:var(--dark)}
+        .gift-quote{font-size:19px;color:var(--brown);line-height:1.8;margin-bottom:12px;word-break:keep-all}
         .gift-quote strong{font-weight:700;color:var(--dark);background:linear-gradient(transparent 55%,#b8e6c8 55%,#b8e6c8 90%,transparent 90%);padding:0 2px}
-        .gift-reason{font-size:18px;color:var(--brown-light);font-style:italic;margin-bottom:20px;background:linear-gradient(transparent 55%,#ffd4a8 55%,#ffd4a8 90%,transparent 90%);display:inline-block;padding:0 6px}
+        .gift-reason{font-size:17px;color:var(--brown-light);font-style:italic;margin-bottom:16px;background:linear-gradient(transparent 55%,#ffd4a8 55%,#ffd4a8 90%,transparent 90%);display:inline-block;padding:0 6px}
 
-        .gift-price-box{background:var(--white);border-radius:16px;padding:18px 24px;margin-bottom:16px;border:2px solid var(--beige-light)}
+        .gift-price-box{background:var(--white);border-radius:14px;padding:14px 20px;margin-bottom:14px;border:2px solid var(--beige-light)}
         .gift-card.white .gift-price-box{background:var(--cream)}
-        .gift-price-row{display:flex;justify-content:center;align-items:center;gap:12px;margin-bottom:4px}
-        .gift-price-original{font-size:18px;color:var(--brown-light);text-decoration:line-through}
-        .gift-price-discount{display:inline-block;background:var(--red);color:#fff;font-size:16px;font-weight:900;padding:4px 10px;border-radius:8px}
-        .gift-price-sale{font-size:38px;font-weight:900;color:var(--dark)}
+        .gift-price-row{display:flex;justify-content:center;align-items:center;gap:10px;margin-bottom:4px}
+        .gift-price-original{font-size:17px;color:var(--brown-light);text-decoration:line-through}
+        .gift-price-discount{display:inline-block;background:var(--red);color:#fff;font-size:15px;font-weight:900;padding:4px 10px;border-radius:8px}
+        .gift-price-sale{font-size:34px;font-weight:900;color:var(--dark)}
 
-        .gift-cta{display:inline-block;padding:16px 44px;background:var(--dark);color:#fff;border-radius:10px;font-size:20px;font-weight:700}
+        .gift-cta{display:inline-block;padding:14px 40px;background:var(--dark);color:#fff;border-radius:10px;font-size:19px;font-weight:700}
 
         /* 받는 사람별 추천 */
         .recommend{background:var(--cream);text-align:center}
@@ -114,7 +112,7 @@
 </head>
 <body>
     <header class="header">
-        <a href="https://ecoop.or.kr/DureShop/" class="header-logo"><img src="LOGO.png" alt="두레생협"></a>
+        <a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" class="header-logo"><img src="LOGO.png" alt="두레생협"></a>
         <div class="header-right">
             <span class="header-label">설 선물</span>
             <a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" class="header-order">주문하기</a>
@@ -160,9 +158,9 @@
         </section>
 
         <section class="gift-card warm slide">
-            <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=59025&returnPlanNo=0" class="gift-card-link">
-                <div class="gift-emoji anim-scale">🍎</div>
-                <span class="gift-tag anim d1">인기 1위</span>
+            <a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" class="gift-card-link">
+                <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58744C.jpg" alt="사과 선물세트" class="gift-img anim-scale">
+                <span class="gift-tag anim d1">🍎 인기 1위</span>
                 <p class="gift-who anim d1">누구에게나</p>
                 <h3 class="gift-name anim d2">사과 선물세트</h3>
                 <p class="gift-quote anim d3">
@@ -182,9 +180,9 @@
         </section>
 
         <section class="gift-card cool slide">
-            <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=59026&returnPlanNo=0" class="gift-card-link">
-                <div class="gift-emoji anim-scale">🍐</div>
-                <span class="gift-tag anim d1">시원한 선택</span>
+            <a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" class="gift-card-link">
+                <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58745C.jpg" alt="배 선물세트" class="gift-img anim-scale">
+                <span class="gift-tag anim d1">🍐 시원한 선택</span>
                 <p class="gift-who anim d1">어른들께</p>
                 <h3 class="gift-name anim d2">배 선물세트</h3>
                 <p class="gift-quote anim d3">
@@ -204,9 +202,9 @@
         </section>
 
         <section class="gift-card cream slide">
-            <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=58927&returnPlanNo=0" class="gift-card-link">
-                <div class="gift-emoji anim-scale">🐟</div>
-                <span class="gift-tag anim d1">명품</span>
+            <a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" class="gift-card-link">
+                <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/28832C.jpg" alt="영광 법성포 굴비" class="gift-img anim-scale">
+                <span class="gift-tag anim d1">🐟 명품</span>
                 <p class="gift-who anim d1">부모님께</p>
                 <h3 class="gift-name anim d2">영광 법성포 굴비</h3>
                 <p class="gift-quote anim d3">
@@ -226,9 +224,9 @@
         </section>
 
         <section class="gift-card white slide">
-            <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=58816&returnPlanNo=0" class="gift-card-link">
-                <div class="gift-emoji anim-scale">🥩</div>
-                <span class="gift-tag anim d1">프리미엄</span>
+            <a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" class="gift-card-link">
+                <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/15634C.jpg" alt="한우 정육세트" class="gift-img anim-scale">
+                <span class="gift-tag anim d1">🥩 프리미엄</span>
                 <p class="gift-who anim d1">고기 좋아하시는 분께</p>
                 <h3 class="gift-name anim d2">한우 정육세트</h3>
                 <p class="gift-quote anim d3">
@@ -248,9 +246,9 @@
         </section>
 
         <section class="gift-card gold slide">
-            <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=58939&returnPlanNo=0" class="gift-card-link">
-                <div class="gift-emoji anim-scale">🍂</div>
-                <span class="gift-tag anim d1">어른들 취향</span>
+            <a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" class="gift-card-link">
+                <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/24619C.jpg" alt="상주골 곶감세트" class="gift-img anim-scale">
+                <span class="gift-tag anim d1">🍂 어른들 취향</span>
                 <p class="gift-who anim d1">연세 있으신 분께</p>
                 <h3 class="gift-name anim d2">상주골 곶감세트</h3>
                 <p class="gift-quote anim d3">
@@ -270,9 +268,9 @@
         </section>
 
         <section class="gift-card warm slide">
-            <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=58935&returnPlanNo=0" class="gift-card-link">
-                <div class="gift-emoji anim-scale">🍯</div>
-                <span class="gift-tag anim d1">건강 선물</span>
+            <a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" class="gift-card-link">
+                <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58835C.jpg" alt="아카시아꿀 세트" class="gift-img anim-scale">
+                <span class="gift-tag anim d1">🍯 건강 선물</span>
                 <p class="gift-who anim d1">건강 챙기시는 분께</p>
                 <h3 class="gift-name anim d2">아카시아꿀 세트</h3>
                 <p class="gift-quote anim d3">
