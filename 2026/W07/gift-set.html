@@ -17,7 +17,6 @@
         .header-label{font-size:15px;color:#a8d5a2;font-weight:500}
         .header-order{padding:10px 20px;background:#fff;color:var(--green);text-decoration:none;border-radius:6px;font-size:17px;font-weight:700}
 
-        .container{max-width:480px;margin:0 auto;padding-top:60px;background:var(--white);min-height:100vh}
 
         /* 인트로 화면 */
         .intro{min-height:calc(100vh - 60px);background:linear-gradient(160deg,#2d5a3d,#1e4a2d);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:40px 30px;color:#fff}
@@ -73,9 +72,31 @@
         .coupon-banner-text{font-size:20px;font-weight:700;color:var(--dark)}
         .coupon-banner-big{font-size:28px;font-weight:900;color:var(--red)}
 
+        .deadline-banner{background:linear-gradient(135deg,#c0392b,#e74c3c);border-radius:16px;padding:18px;margin-bottom:16px;color:#fff;text-align:center}
+        .deadline-banner-title{font-size:16px;margin-bottom:4px}
+        .deadline-banner-time{font-size:24px;font-weight:900}
+
+        .result-cta{display:block;padding:20px;background:linear-gradient(135deg,#c0392b,#e74c3c);color:#fff;text-decoration:none;font-size:22px;font-weight:900;border-radius:14px;margin-bottom:16px;animation:pulse 2s infinite}
+
         @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
         @keyframes pop{0%{transform:scale(0);opacity:0}50%{transform:scale(1.1)}100%{transform:scale(1);opacity:1}}
+        @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+        @keyframes blink{0%,100%{opacity:1}50%{opacity:.6}}
         .pop{animation:pop .4s ease-out}
+
+        /* 마감 임박 배너 */
+        .deadline-bar{position:fixed;top:60px;left:0;right:0;z-index:999;background:linear-gradient(90deg,#c0392b,#e74c3c);padding:10px 0;text-align:center}
+        .deadline-bar-inner{max-width:480px;margin:0 auto;display:flex;justify-content:center;align-items:center;gap:8px;font-size:17px;color:#fff;font-weight:700}
+        .deadline-bar-inner .urgent{background:#fff;color:#c0392b;padding:3px 10px;border-radius:6px;font-weight:900;animation:pulse 1s infinite}
+        .deadline-time{font-size:20px;font-weight:900;animation:blink 1.5s infinite}
+
+        .container{max-width:480px;margin:0 auto;padding-top:100px;background:var(--white);min-height:100vh}
+
+        /* 인트로 마감 강조 */
+        .intro-urgent{background:rgba(255,255,255,.15);border-radius:16px;padding:16px 24px;margin-bottom:24px;border:2px solid rgba(255,255,255,.3)}
+        .intro-urgent-title{font-size:15px;color:#ffcccc;margin-bottom:6px}
+        .intro-urgent-time{font-size:28px;font-weight:900;color:#fff}
+        .intro-urgent-sub{font-size:16px;color:#ffaaaa;margin-top:6px}
     </style>
 </head>
 <body>
@@ -87,13 +108,26 @@
         </div>
     </header>
 
+    <div class="deadline-bar">
+        <div class="deadline-bar-inner">
+            <span class="urgent">⏰ D-4</span>
+            <span>설 택배 마감</span>
+            <span class="deadline-time">화요일 11:30</span>
+        </div>
+    </div>
+
     <div class="container">
         <!-- 인트로 -->
         <div class="intro" id="intro">
+            <div class="intro-urgent">
+                <p class="intro-urgent-title">🚨 설 선물 택배 마감까지</p>
+                <p class="intro-urgent-time">D-4 (화요일 오전 11:30)</p>
+                <p class="intro-urgent-sub">지금 주문해야 설 전에 도착해요!</p>
+            </div>
             <div class="intro-icon">🎁</div>
             <h1>설 선물,<br>뭘 드릴지<br>고민이세요?</h1>
             <p class="intro-desc">3가지 질문에 답하시면<br>딱 맞는 선물을 추천해드려요</p>
-            <button class="intro-start" onclick="startQuiz()">시작하기</button>
+            <button class="intro-start" onclick="startQuiz()">지금 바로 시작 →</button>
             <p class="intro-note">🕐 30초면 끝나요!</p>
         </div>
 
@@ -195,6 +229,11 @@
                 <p class="result-who" id="resultWho">부모님께 드리기 좋은</p>
             </div>
 
+            <div class="deadline-banner">
+                <p class="deadline-banner-title">⏰ 설 택배 마감까지</p>
+                <p class="deadline-banner-time">D-4 화요일 오전 11:30</p>
+            </div>
+
             <div class="coupon-banner">
                 <p class="coupon-banner-text">🎫 선물세트 주문하면</p>
                 <p class="coupon-banner-big">3,000원 할인!</p>
@@ -211,7 +250,7 @@
                 </p>
             </div>
 
-            <a href="#" id="resultCta" class="result-cta">이 선물 주문하기 →</a>
+            <a href="#" id="resultCta" class="result-cta">🚨 지금 바로 주문하기 →</a>
             <a href="javascript:retry()" class="result-retry">🔄 다시 선택하기</a>
         </div>
     </div>
