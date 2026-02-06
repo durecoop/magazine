@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>두레생협 설 선물 - 한눈에 보기</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        :root{--dark:#3a3230;--brown:#5c4f4a;--brown-light:#8b7d72;--beige:#c4b5a5;--beige-light:#e8e0d5;--cream:#f7f4f0;--white:#fdfcfa;--green:#2d5a3d;--red:#c0392b}
+        html{font-size:clamp(14px, 4vw, 18px)}
+        body{font-family:'Noto Sans KR',sans-serif;background:var(--cream);color:var(--dark);line-height:1.8}
+
+        .header{position:fixed;top:0;left:0;right:0;height:60px;background:linear-gradient(135deg,#2d5a3d,#1e4a2d);display:flex;justify-content:space-between;align-items:center;padding:0 18px;z-index:1000}
+        .header-logo img{height:38px;border-radius:4px}
+        .header-order{padding:10px 20px;background:#fff;color:var(--green);text-decoration:none;border-radius:6px;font-size:17px;font-weight:700}
+
+        .deadline-bar{position:fixed;top:60px;left:0;right:0;z-index:999;background:linear-gradient(90deg,#c0392b,#e74c3c);padding:10px 0;text-align:center}
+        .deadline-bar-inner{display:flex;justify-content:center;align-items:center;gap:8px;font-size:17px;color:#fff;font-weight:700}
+        .deadline-bar-inner .urgent{background:#fff;color:#c0392b;padding:3px 10px;border-radius:6px;font-weight:900}
+
+        .container{max-width:480px;margin:0 auto;padding:110px 16px 40px;background:var(--white);min-height:100vh}
+
+        .page-header{text-align:center;padding:20px 0 30px}
+        .page-header-sub{font-size:clamp(12px,3.5vw,14px);color:var(--brown-light);letter-spacing:2px;margin-bottom:8px}
+        .page-header h1{font-size:clamp(24px,7vw,30px);font-weight:900;color:var(--dark);line-height:1.4}
+        .page-header-desc{font-size:clamp(14px,4vw,16px);color:var(--brown);margin-top:12px}
+
+        .category-tabs{display:flex;gap:8px;overflow-x:auto;padding:0 0 16px;margin-bottom:20px;-webkit-overflow-scrolling:touch}
+        .category-tabs::-webkit-scrollbar{display:none}
+        .tab{flex-shrink:0;padding:12px 20px;background:var(--beige-light);border-radius:25px;font-size:clamp(14px,4vw,16px);font-weight:700;cursor:pointer;border:none;color:var(--brown)}
+        .tab.active{background:var(--green);color:#fff}
+
+        .product-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+        .product-card{background:var(--white);border-radius:16px;padding:14px;border:2px solid var(--beige-light);text-decoration:none;color:inherit;display:block}
+        .product-card:active{transform:scale(.98)}
+        .product-card-img{width:100%;aspect-ratio:1;object-fit:contain;border-radius:10px;background:var(--cream);margin-bottom:10px}
+        .product-card-tag{display:inline-block;background:var(--green);color:#fff;font-size:11px;font-weight:700;padding:3px 8px;border-radius:8px;margin-bottom:6px}
+        .product-card-name{font-size:clamp(14px,4vw,16px);font-weight:900;margin-bottom:4px;line-height:1.4}
+        .product-card-price{font-size:clamp(16px,4.5vw,18px);font-weight:900;color:var(--green)}
+        .product-card-orig{font-size:12px;color:var(--brown-light);text-decoration:line-through}
+
+        .category-section{display:none}
+        .category-section.active{display:block}
+
+        .section-title{font-size:clamp(18px,5vw,22px);font-weight:900;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+
+        .cta-bottom{position:fixed;bottom:0;left:0;right:0;padding:16px;background:linear-gradient(transparent,var(--white) 20%)}
+        .cta-btn{display:block;max-width:480px;margin:0 auto;padding:18px;background:linear-gradient(135deg,#c0392b,#e74c3c);color:#fff;text-decoration:none;font-size:clamp(16px,4.5vw,18px);font-weight:900;border-radius:14px;text-align:center}
+
+        .empty-space{height:80px}
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" class="header-logo"><img src="LOGO.png" alt="두레생협"></a>
+        <a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" class="header-order">전체보기</a>
+    </header>
+
+    <div class="deadline-bar">
+        <div class="deadline-bar-inner">
+            <span class="urgent">D-3</span>
+            <span>설 택배 마감 월요일 11:30</span>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="page-header">
+            <p class="page-header-sub">━━ 2026 설 선물세트 ━━</p>
+            <h1>뭘 좋아하실까?<br>한눈에 골라보세요!</h1>
+            <p class="page-header-desc">카테고리별로 쉽게 찾아보세요 👀</p>
+        </div>
+
+        <div class="category-tabs">
+            <button class="tab active" onclick="showCategory('fruit')">🍎 과일</button>
+            <button class="tab" onclick="showCategory('meat')">🥩 축산</button>
+            <button class="tab" onclick="showCategory('seafood')">🐟 수산</button>
+            <button class="tab" onclick="showCategory('health')">💪 건강</button>
+        </div>
+
+        <!-- 과일 -->
+        <div class="category-section active" id="fruit">
+            <h2 class="section-title">🍎 달콤한 과일</h2>
+            <div class="product-grid">
+                <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=06&returnNo=58744&returnPlanNo=76" class="product-card">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58744C.jpg" class="product-card-img">
+                    <span class="product-card-tag">실속</span>
+                    <p class="product-card-name">알찬 사과세트</p>
+                    <p class="product-card-orig">39,000원</p>
+                    <p class="product-card-price">35,100원</p>
+                </a>
+                <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=06&returnNo=58745&returnPlanNo=76" class="product-card">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58745C.jpg" class="product-card-img">
+                    <span class="product-card-tag">인기</span>
+                    <p class="product-card-name">알찬 배 세트</p>
+                    <p class="product-card-orig">33,300원</p>
+                    <p class="product-card-price">29,900원</p>
+                </a>
+                <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=06&returnNo=58746&returnPlanNo=76" class="product-card">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58746C.jpg" class="product-card-img">
+                    <span class="product-card-tag" style="background:#c0392b">BEST</span>
+                    <p class="product-card-name">사과배 혼합세트</p>
+                    <p class="product-card-orig">35,500원</p>
+                    <p class="product-card-price">31,900원</p>
+                </a>
+                <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=06&returnNo=24619&returnPlanNo=76" class="product-card">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/24619C.jpg" class="product-card-img">
+                    <span class="product-card-tag">프리미엄</span>
+                    <p class="product-card-name">상주골 곶감세트</p>
+                    <p class="product-card-orig">150,000원</p>
+                    <p class="product-card-price">127,500원</p>
+                </a>
+            </div>
+        </div>
+
+        <!-- 축산 -->
+        <div class="category-section" id="meat">
+            <h2 class="section-title">🥩 맛있는 고기</h2>
+            <div class="product-grid">
+                <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=06&returnNo=15634&returnPlanNo=76" class="product-card">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/15634C.jpg" class="product-card-img">
+                    <span class="product-card-tag" style="background:#c0392b">BEST</span>
+                    <p class="product-card-name">한우 정육세트2호</p>
+                    <p class="product-card-orig">190,000원</p>
+                    <p class="product-card-price">171,000원</p>
+                </a>
+                <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=06&returnNo=56776&returnPlanNo=76" class="product-card">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56776C.jpg" class="product-card-img">
+                    <span class="product-card-tag">실속</span>
+                    <p class="product-card-name">한우 불고기</p>
+                    <p class="product-card-orig">18,400원</p>
+                    <p class="product-card-price">16,500원</p>
+                </a>
+            </div>
+        </div>
+
+        <!-- 수산 -->
+        <div class="category-section" id="seafood">
+            <h2 class="section-title">🐟 바다의 맛</h2>
+            <div class="product-grid">
+                <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=06&returnNo=1563&returnPlanNo=76" class="product-card">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/1563C.jpg" class="product-card-img">
+                    <span class="product-card-tag" style="background:#c0392b">BEST</span>
+                    <p class="product-card-name">영광법성포 굴비1호</p>
+                    <p class="product-card-orig">108,000원</p>
+                    <p class="product-card-price">97,200원</p>
+                </a>
+                <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=06&returnNo=28832&returnPlanNo=76" class="product-card">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/28832C.jpg" class="product-card-img">
+                    <span class="product-card-tag">프리미엄</span>
+                    <p class="product-card-name">영광법성포 굴비2호</p>
+                    <p class="product-card-orig">285,000원</p>
+                    <p class="product-card-price">256,500원</p>
+                </a>
+                <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=06&returnNo=58898&returnPlanNo=76" class="product-card">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58898C.jpg" class="product-card-img">
+                    <span class="product-card-tag">실속</span>
+                    <p class="product-card-name">반건조 생선세트</p>
+                    <p class="product-card-orig">45,000원</p>
+                    <p class="product-card-price">40,500원</p>
+                </a>
+            </div>
+        </div>
+
+        <!-- 건강 -->
+        <div class="category-section" id="health">
+            <h2 class="section-title">💪 건강식품</h2>
+            <div class="product-grid">
+                <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=06&returnNo=9966&returnPlanNo=76" class="product-card">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/9966C.jpg" class="product-card-img">
+                    <span class="product-card-tag" style="background:#c0392b">BEST</span>
+                    <p class="product-card-name">아카시아꿀 세트</p>
+                    <p class="product-card-orig">76,000원</p>
+                    <p class="product-card-price">68,400원</p>
+                </a>
+                <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=06&returnNo=58845&returnPlanNo=76" class="product-card">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58845C.jpg" class="product-card-img">
+                    <span class="product-card-tag">프리미엄</span>
+                    <p class="product-card-name">녹용대보액</p>
+                    <p class="product-card-orig">64,500원</p>
+                    <p class="product-card-price">54,800원</p>
+                </a>
+            </div>
+        </div>
+
+        <div class="empty-space"></div>
+    </div>
+
+    <div class="cta-bottom">
+        <a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" class="cta-btn">🎁 전체 선물세트 보러가기</a>
+    </div>
+
+    <script>
+        function showCategory(cat) {
+            document.querySelectorAll('.category-section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.getElementById(cat).classList.add('active');
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>

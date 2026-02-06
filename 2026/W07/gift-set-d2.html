@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>두레생협 설 선물 - 예산별 추천</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        :root{--dark:#3a3230;--brown:#5c4f4a;--brown-light:#8b7d72;--beige:#c4b5a5;--beige-light:#e8e0d5;--cream:#f7f4f0;--white:#fdfcfa;--green:#2d5a3d;--red:#c0392b}
+        html{font-size:clamp(14px, 4vw, 18px)}
+        body{font-family:'Noto Sans KR',sans-serif;background:var(--cream);color:var(--dark);line-height:1.8}
+
+        .header{position:fixed;top:0;left:0;right:0;height:60px;background:linear-gradient(135deg,#2d5a3d,#1e4a2d);display:flex;justify-content:space-between;align-items:center;padding:0 18px;z-index:1000}
+        .header-logo img{height:38px;border-radius:4px}
+        .header-order{padding:10px 20px;background:#fff;color:var(--green);text-decoration:none;border-radius:6px;font-size:17px;font-weight:700}
+
+        .deadline-bar{position:fixed;top:60px;left:0;right:0;z-index:999;background:linear-gradient(90deg,#c0392b,#e74c3c);padding:10px 0;text-align:center}
+        .deadline-bar-inner{display:flex;justify-content:center;align-items:center;gap:8px;font-size:17px;color:#fff;font-weight:700}
+        .deadline-bar-inner .urgent{background:#fff;color:#c0392b;padding:3px 10px;border-radius:6px;font-weight:900;animation:pulse 1s infinite}
+
+        @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+
+        .container{max-width:480px;margin:0 auto;padding:110px 16px 40px;background:var(--white);min-height:100vh}
+
+        .page-header{text-align:center;padding:20px 0 30px}
+        .page-header-sub{font-size:clamp(12px,3.5vw,14px);color:var(--brown-light);letter-spacing:2px;margin-bottom:8px}
+        .page-header h1{font-size:clamp(24px,7vw,30px);font-weight:900;color:var(--dark);line-height:1.4}
+        .page-header-desc{font-size:clamp(14px,4vw,16px);color:var(--brown);margin-top:12px}
+
+        .budget-section{margin-bottom:32px}
+        .budget-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding:14px 18px;background:linear-gradient(135deg,#2d5a3d,#1e4a2d);border-radius:14px;color:#fff}
+        .budget-title{font-size:clamp(18px,5vw,22px);font-weight:900}
+        .budget-icon{font-size:clamp(28px,8vw,36px)}
+
+        .budget-products{display:flex;flex-direction:column;gap:12px}
+        .product-row{display:flex;gap:12px;align-items:center;background:var(--white);border-radius:14px;padding:12px;border:2px solid var(--beige-light);text-decoration:none;color:inherit}
+        .product-row:active{transform:scale(.98)}
+        .product-row-img{width:clamp(70px,20vw,85px);height:clamp(70px,20vw,85px);object-fit:contain;border-radius:10px;background:var(--cream);flex-shrink:0}
+        .product-row-info{flex:1}
+        .product-row-tag{display:inline-block;background:var(--green);color:#fff;font-size:11px;font-weight:700;padding:2px 8px;border-radius:8px;margin-bottom:4px}
+        .product-row-name{font-size:clamp(15px,4.5vw,17px);font-weight:900;margin-bottom:2px}
+        .product-row-desc{font-size:clamp(12px,3.5vw,14px);color:var(--brown-light);margin-bottom:4px}
+        .product-row-price{font-size:clamp(17px,5vw,20px);font-weight:900;color:var(--green)}
+
+        .divider{height:2px;background:var(--beige-light);margin:24px 0}
+
+        .tip-box{background:linear-gradient(135deg,#fff3c4,#ffeaa7);border-radius:14px;padding:16px;margin-top:24px;text-align:center}
+        .tip-box-title{font-size:clamp(14px,4vw,16px);font-weight:700;color:var(--dark);margin-bottom:6px}
+        .tip-box-text{font-size:clamp(12px,3.5vw,14px);color:var(--brown)}
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" class="header-logo"><img src="LOGO.png" alt="두레생협"></a>
+        <a href="https://ecoop.or.kr/DureShop/plan/planGiftView.do?returnTypeGb=A&returnNo=76" class="header-order">전체보기</a>
+    </header>
+
+    <div class="deadline-bar">
+        <div class="deadline-bar-inner">
+            <span class="urgent">D-2</span>
+            <span>설 택배 마감 일요일 11:30</span>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="page-header">
+            <p class="page-header-sub">━━ 2026 설 선물세트 ━━</p>
+            <h1>예산 정하셨어요?<br>딱 맞게 골라드려요!</h1>
+            <p class="page-header-desc">가격대별 추천 선물 💰</p>
+        </div>
+
+        <!-- 5만원 미만 -->
+        <div class="budget-section">
+            <div class="budget-header">
+                <span class="budget-title">🌱 5만원 미만</span>
+                <span class="budget-icon">💵</span>
+            </div>
+            <div class="budget-products">
+                <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=06&returnNo=58745&returnPlanNo=76" class="product-row">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58745C.jpg" class="product-row-img">
+                    <div class="product-row-info">
+                        <span class="product-row-tag">추천</span>
+                        <p class="product-row-name">알찬 배 선물세트</p>
+                        <p class="product-row-desc">달콤하고 시원해요</p>
+                        <p class="product-row-price">29,900원</p>
+                    </div>
+                </a>
+                <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=06&returnNo=58746&returnPlanNo=76" class="product-row">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58746C.jpg" class="product-row-img">
+                    <div class="product-row-info">
+                        <span class="product-row-tag" style="background:#c0392b">BEST</span>
+                        <p class="product-row-name">사과배 혼합세트</p>
+                        <p class="product-row-desc">사과도 배도 한번에!</p>
+                        <p class="product-row-price">31,900원</p>
+                    </div>
+                </a>
+                <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=06&returnNo=58744&returnPlanNo=76" class="product-row">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58744C.jpg" class="product-row-img">
+                    <div class="product-row-info">
+                        <span class="product-row-tag">실속</span>
+                        <p class="product-row-name">알찬 사과세트</p>
+                        <p class="product-row-desc">아삭아삭 달아요</p>
+                        <p class="product-row-price">35,100원</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- 5~10만원 -->
+        <div class="budget-section">
+            <div class="budget-header">
+                <span class="budget-title">🌿 5 ~ 10만원</span>
+                <span class="budget-icon">💵💵</span>
+            </div>
+            <div class="budget-products">
+                <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=06&returnNo=9966&returnPlanNo=76" class="product-row">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/9966C.jpg" class="product-row-img">
+                    <div class="product-row-info">
+                        <span class="product-row-tag" style="background:#c0392b">BEST</span>
+                        <p class="product-row-name">아카시아꿀 세트</p>
+                        <p class="product-row-desc">건강 선물 1등</p>
+                        <p class="product-row-price">68,400원</p>
+                    </div>
+                </a>
+                <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=06&returnNo=58845&returnPlanNo=76" class="product-row">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58845C.jpg" class="product-row-img">
+                    <div class="product-row-info">
+                        <span class="product-row-tag">건강</span>
+                        <p class="product-row-name">녹용대보액</p>
+                        <p class="product-row-desc">귀한 분께 귀한 선물</p>
+                        <p class="product-row-price">54,800원</p>
+                    </div>
+                </a>
+                <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=06&returnNo=1563&returnPlanNo=76" class="product-row">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/1563C.jpg" class="product-row-img">
+                    <div class="product-row-info">
+                        <span class="product-row-tag">인기</span>
+                        <p class="product-row-name">영광법성포 굴비1호</p>
+                        <p class="product-row-desc">어른들 최애!</p>
+                        <p class="product-row-price">97,200원</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- 10~20만원 -->
+        <div class="budget-section">
+            <div class="budget-header">
+                <span class="budget-title">🌳 10 ~ 20만원</span>
+                <span class="budget-icon">💵💵💵</span>
+            </div>
+            <div class="budget-products">
+                <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=06&returnNo=24619&returnPlanNo=76" class="product-row">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/24619C.jpg" class="product-row-img">
+                    <div class="product-row-info">
+                        <span class="product-row-tag">프리미엄</span>
+                        <p class="product-row-name">상주골 곶감세트</p>
+                        <p class="product-row-desc">어른 입맛에 딱!</p>
+                        <p class="product-row-price">127,500원</p>
+                    </div>
+                </a>
+                <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=06&returnNo=15634&returnPlanNo=76" class="product-row">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/15634C.jpg" class="product-row-img">
+                    <div class="product-row-info">
+                        <span class="product-row-tag" style="background:#c0392b">BEST</span>
+                        <p class="product-row-name">한우 정육세트2호</p>
+                        <p class="product-row-desc">이건 진짜 기뻐하심!</p>
+                        <p class="product-row-price">171,000원</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- 20만원 이상 -->
+        <div class="budget-section">
+            <div class="budget-header" style="background:linear-gradient(135deg,#b8963e,#d4b86a)">
+                <span class="budget-title">✨ 20만원 이상</span>
+                <span class="budget-icon">👑</span>
+            </div>
+            <div class="budget-products">
+                <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=06&returnNo=28832&returnPlanNo=76" class="product-row">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/28832C.jpg" class="product-row-img">
+                    <div class="product-row-info">
+                        <span class="product-row-tag" style="background:#b8963e">VIP</span>
+                        <p class="product-row-name">영광법성포 굴비2호</p>
+                        <p class="product-row-desc">최고의 효도 선물</p>
+                        <p class="product-row-price">256,500원</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="tip-box">
+            <p class="tip-box-title">💡 선물 고르기 팁!</p>
+            <p class="tip-box-text">부모님께는 건강식품, 시댁에는 과일이 인기예요~</p>
+        </div>
+    </div>
+</body>
+</html>
