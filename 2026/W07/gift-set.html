@@ -121,6 +121,19 @@
         .random-card-price{font-size:20px;font-weight:900;color:var(--green)}
         .random-more{display:block;padding:18px;background:linear-gradient(135deg,#c0392b,#e74c3c);color:#fff;text-decoration:none;font-size:20px;font-weight:900;border-radius:14px;text-align:center;margin-top:16px}
         .random-retry{display:block;padding:14px;background:var(--cream);color:var(--brown);text-decoration:none;font-size:17px;font-weight:700;border-radius:12px;text-align:center;margin-top:10px;border:2px solid var(--beige)}
+
+        /* 다른 추천 팝업 */
+        .suggest-popup{position:fixed;bottom:-200px;left:50%;transform:translateX(-50%);width:calc(100% - 32px);max-width:400px;background:linear-gradient(135deg,#2d5a3d,#1e4a2d);border-radius:20px 20px 0 0;padding:24px;text-align:center;color:#fff;box-shadow:0 -4px 30px rgba(0,0,0,.3);transition:bottom .5s ease;z-index:1001}
+        .suggest-popup.show{bottom:0}
+        .suggest-popup-icon{font-size:50px;margin-bottom:12px;animation:bounce 2s infinite}
+        .suggest-popup-text{font-size:20px;font-weight:700;line-height:1.6;margin-bottom:20px}
+        .suggest-popup-btns{display:flex;gap:12px}
+        .suggest-popup-btn{flex:1;padding:16px;border-radius:12px;font-size:18px;font-weight:900;border:none;cursor:pointer}
+        .suggest-popup-btn.yes{background:#fff;color:var(--green)}
+        .suggest-popup-btn.no{background:rgba(255,255,255,.2);color:#fff}
+        .suggest-popup-btn:active{transform:scale(.97)}
+        .popup-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);opacity:0;visibility:hidden;transition:all .3s;z-index:1000}
+        .popup-overlay.show{opacity:1;visibility:visible}
     </style>
 </head>
 <body>
@@ -450,9 +463,19 @@
             document.getElementById('intro').style.display = 'none';
             document.getElementById('randomResult').classList.add('active');
 
+            // 타이틀 초기화
+            document.querySelector('.random-title').innerHTML = '🎲 두레가 추천하는<br><span>BEST 선물 3</span>';
+
+            // 이전 타이머 초기화
+            clearTimeout(suggestTimer);
+            shownProducts = [];
+
             // 랜덤으로 3개 선택
             const shuffled = [...bestProducts].sort(() => Math.random() - 0.5);
             const selected = shuffled.slice(0, 3);
+
+            // 보여준 상품 기록
+            selected.forEach(p => shownProducts.push(p.goodsNo));
 
             const grid = document.getElementById('randomGrid');
             grid.innerHTML = selected.map(p => `
@@ -466,12 +489,87 @@
                     </div>
                 </a>
             `).join('');
+
+            // 8초 후 다른 추천 팝업 표시
+            suggestTimer = setTimeout(showSuggestPopup, 8000);
         }
 
         function retryRandom() {
+            clearTimeout(suggestTimer);
+            hideSuggestPopup();
             document.getElementById('randomResult').classList.remove('active');
             document.getElementById('intro').style.display = 'flex';
         }
+
+        // 다른 추천 팝업 관련
+        let suggestTimer = null;
+        let shownProducts = [];
+
+        function showSuggestPopup() {
+            document.getElementById('suggestPopup').classList.add('show');
+            document.getElementById('popupOverlay').classList.add('show');
+        }
+
+        function hideSuggestPopup() {
+            document.getElementById('suggestPopup').classList.remove('show');
+            document.getElementById('popupOverlay').classList.remove('show');
+        }
+
+        function suggestNo() {
+            hideSuggestPopup();
+        }
+
+        function suggestYes() {
+            hideSuggestPopup();
+
+            // 이미 보여준 상품 제외하고 새로운 3개 추천
+            const remaining = bestProducts.filter(p => !shownProducts.includes(p.goodsNo));
+
+            let newSelection;
+            if (remaining.length >= 3) {
+                const shuffled = [...remaining].sort(() => Math.random() - 0.5);
+                newSelection = shuffled.slice(0, 3);
+            } else {
+                // 남은 상품이 3개 미만이면 전체에서 다시 선택
+                shownProducts = [];
+                const shuffled = [...bestProducts].sort(() => Math.random() - 0.5);
+                newSelection = shuffled.slice(0, 3);
+            }
+
+            // 보여준 상품 기록
+            newSelection.forEach(p => shownProducts.push(p.goodsNo));
+
+            // 새 상품으로 업데이트
+            const grid = document.getElementById('randomGrid');
+            grid.innerHTML = newSelection.map(p => `
+                <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=06&returnNo=${p.goodsNo}&returnPlanNo=76" class="random-card">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/${p.img}.jpg" alt="${p.name}" class="random-card-img">
+                    <div class="random-card-info">
+                        <span class="random-card-tag">${p.tag}</span>
+                        <p class="random-card-name">${p.name}</p>
+                        <p class="random-card-why">${p.why}</p>
+                        <p class="random-card-price">${p.price}</p>
+                    </div>
+                </a>
+            `).join('');
+
+            // 타이틀 변경
+            document.querySelector('.random-title').innerHTML = '🎁 새로운 추천!<br><span>이건 어떠세요?</span>';
+
+            // 다시 타이머 시작
+            suggestTimer = setTimeout(showSuggestPopup, 8000);
+        }
     </script>
+
+    <!-- 다른 추천 팝업 -->
+    <div class="popup-overlay" id="popupOverlay" onclick="suggestNo()"></div>
+    <div class="suggest-popup" id="suggestPopup">
+        <div class="suggest-popup-icon">🤔</div>
+        <p class="suggest-popup-text">맘에 안 드시나요?<br>다른 선물 추천해 드릴까요?</p>
+        <div class="suggest-popup-btns">
+            <button class="suggest-popup-btn yes" onclick="suggestYes()">👍 네, 다른거요!</button>
+            <button class="suggest-popup-btn no" onclick="suggestNo()">괜찮아요</button>
+        </div>
+    </div>
 </body>
 </html>
