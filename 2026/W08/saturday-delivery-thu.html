@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>내일까지 주문하면 토요일에! - 두레생협</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Serif+KR:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        html,body{font-family:'Noto Sans KR',sans-serif;background:#1a1a1a;height:100%;overflow:hidden}
+
+        .header{position:fixed;top:0;left:0;right:0;height:60px;background:linear-gradient(135deg,#2d5a3d,#1e4a2d);display:flex;justify-content:space-between;align-items:center;padding:0 18px;z-index:1000}
+        .header-logo img{height:38px;border-radius:4px}
+        .header-right{display:flex;align-items:center;gap:12px}
+        .header-label{font-size:15px;color:#a8d5a2;font-weight:500}
+        .header-order{padding:10px 20px;background:#fff;color:#2d5a3d;text-decoration:none;border-radius:6px;font-size:17px;font-weight:700}
+
+        .deadline-bar{position:fixed;top:60px;left:0;right:0;z-index:999;background:linear-gradient(90deg,#e74c3c,#c0392b);padding:12px 0;text-align:center}
+        .deadline-bar-inner{display:flex;justify-content:center;align-items:center;gap:10px;font-size:clamp(14px,4vw,17px);color:#fff;font-weight:700}
+        .deadline-bar-inner .badge{background:#fff;color:#c0392b;padding:4px 12px;border-radius:6px;font-weight:900;animation:pulse 1s infinite}
+
+        .card-container{height:100vh;overflow-y:scroll;scroll-snap-type:y mandatory;-webkit-overflow-scrolling:touch;padding-top:110px}
+        .card{min-height:calc(100vh - 110px);scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:40px 20px;text-align:center;position:relative}
+
+        /* 카드 1: 메인 */
+        .card-1{background:linear-gradient(160deg,#2d5a3d,#1e4a2d)}
+        .card-1 .slogan-sub{font-size:clamp(13px,4vw,16px);color:rgba(255,255,255,.6);letter-spacing:3px;margin-bottom:16px}
+        .card-1 .clock{font-size:60px;margin-bottom:20px}
+        .card-1 h1{font-family:'Noto Serif KR',serif;font-size:clamp(32px,10vw,46px);font-weight:700;color:#fff;line-height:1.3}
+        .card-1 .highlight{color:#f39c12}
+        .card-1 .slogan-line{width:60px;height:4px;background:rgba(255,255,255,.3);margin:24px auto}
+        .card-1 .slogan-desc{font-size:clamp(16px,5vw,20px);color:rgba(255,255,255,.8);line-height:1.8}
+        .card-1 .deadline-box{margin-top:28px;padding:16px 28px;background:rgba(231,76,60,.9);border-radius:16px}
+        .card-1 .deadline-box p{font-size:clamp(14px,4vw,16px);color:#fff}
+        .card-1 .deadline-box strong{font-size:clamp(20px,6vw,26px);display:block;margin-top:4px}
+        .card-1 .scroll-hint{position:absolute;bottom:30px;color:rgba(255,255,255,.5);font-size:14px;animation:bounce 2s infinite}
+
+        /* 카드 2: 왜 토요배송? */
+        .card-2{background:linear-gradient(160deg,#fff,#f8f6f3)}
+        .card-2 .intro-icon{font-size:50px;margin-bottom:16px}
+        .card-2 .intro-label{font-size:11px;letter-spacing:4px;color:#2d5a3d;margin-bottom:16px;font-weight:500}
+        .card-2 h2{font-family:'Noto Serif KR',serif;font-size:clamp(24px,7vw,32px);font-weight:600;color:#1a1a1a;line-height:1.5;margin-bottom:24px}
+        .card-2 .intro-divider{width:40px;height:2px;background:#2d5a3d;margin:0 auto 24px}
+        .card-2 .intro-text{font-size:clamp(15px,4.5vw,18px);color:#555;line-height:2;font-weight:300}
+        .card-2 .benefit-list{margin-top:30px;text-align:left;max-width:320px}
+        .card-2 .benefit-item{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #eee}
+        .card-2 .benefit-item:last-child{border-bottom:none}
+        .card-2 .benefit-icon{font-size:24px}
+        .card-2 .benefit-text{font-size:15px;color:#333}
+
+        /* 카드 3: 감성 인용 */
+        .card-3{background:#2d5a3d}
+        .card-3 .quote-mark{font-family:'Noto Serif KR',serif;font-size:60px;color:rgba(255,255,255,.2);line-height:1;margin-bottom:20px}
+        .card-3 .quote-text{font-family:'Noto Serif KR',serif;font-size:clamp(18px,5.5vw,24px);color:#fff;line-height:1.9;font-weight:400}
+        .card-3 .quote-author{margin-top:30px;font-size:13px;color:rgba(255,255,255,.6);letter-spacing:2px}
+
+        /* 추천 상품 카드 */
+        .card-products{background:linear-gradient(160deg,#f8f6f3,#fff);padding:30px 16px}
+        .card-products .section-icon{font-size:40px;margin-bottom:12px}
+        .card-products .section-label{font-size:11px;letter-spacing:4px;color:#2d5a3d;margin-bottom:12px;font-weight:500}
+        .card-products h2{font-family:'Noto Serif KR',serif;font-size:clamp(20px,6vw,26px);font-weight:600;color:#1a1a1a;margin-bottom:20px}
+        .card-products .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;max-width:400px;width:100%}
+        .card-products .item{background:#fff;border-radius:16px;padding:16px;text-decoration:none;color:inherit;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+        .card-products .item img{width:100%;aspect-ratio:1;object-fit:contain;background:#f8f6f3;border-radius:12px;margin-bottom:12px}
+        .card-products .item .name{font-size:clamp(13px,4vw,15px);font-weight:600;color:#1a1a1a;margin-bottom:4px}
+        .card-products .item .price{font-size:clamp(15px,4.5vw,17px);font-weight:700;color:#2d5a3d}
+        .card-products .item .discount{font-size:12px;color:#c0392b;font-weight:600}
+
+        /* 리스트형 상품 */
+        .card-list{background:linear-gradient(160deg,#fff,#f8f6f3);padding:30px 16px}
+        .card-list .section-icon{font-size:40px;margin-bottom:12px}
+        .card-list h2{font-family:'Noto Serif KR',serif;font-size:clamp(20px,6vw,26px);font-weight:600;color:#1a1a1a;margin-bottom:20px}
+        .card-list .list{display:flex;flex-direction:column;gap:10px;max-width:380px;width:100%}
+        .card-list .list-item{display:flex;align-items:center;gap:14px;background:#fff;border-radius:14px;padding:14px;text-decoration:none;color:inherit;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+        .card-list .list-item img{width:70px;height:70px;object-fit:contain;background:#f8f6f3;border-radius:10px;flex-shrink:0}
+        .card-list .list-item .info{flex:1;text-align:left}
+        .card-list .list-item .name{font-size:clamp(14px,4vw,16px);font-weight:600;color:#1a1a1a;margin-bottom:2px}
+        .card-list .list-item .desc{font-size:12px;color:#888}
+        .card-list .list-item .price{font-size:15px;font-weight:700;color:#2d5a3d}
+
+        /* CTA 카드 */
+        .card-cta{background:linear-gradient(160deg,#e74c3c,#c0392b)}
+        .card-cta .clock{font-size:50px;margin-bottom:16px}
+        .card-cta .final-slogan{font-size:clamp(14px,4vw,16px);color:rgba(255,255,255,.7);letter-spacing:2px;margin-bottom:12px}
+        .card-cta h2{font-family:'Noto Serif KR',serif;font-size:clamp(26px,8vw,36px);font-weight:700;color:#fff;line-height:1.4;margin-bottom:12px}
+        .card-cta .deadline-text{font-size:clamp(16px,5vw,20px);color:#fff;margin-bottom:28px}
+        .card-cta .deadline-text strong{display:block;font-size:clamp(22px,7vw,30px);margin-top:8px}
+        .card-cta .cta-btn{display:inline-block;padding:20px 50px;background:#fff;color:#c0392b;font-size:clamp(18px,5.5vw,24px);font-weight:900;text-decoration:none;border-radius:50px;box-shadow:0 8px 30px rgba(0,0,0,.2);animation:pulse 2s infinite}
+        .card-cta .cta-btn:active{transform:scale(.95)}
+        .card-cta .brand{margin-top:28px;font-size:clamp(12px,3.5vw,14px);color:rgba(255,255,255,.6)}
+
+        .indicator{position:fixed;right:12px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:8px;z-index:100}
+        .dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.3)}
+        .dot.active{background:#fff;transform:scale(1.3)}
+
+        @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+        @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="header-logo"><img src="LOGO.png" alt="두레생협"></a>
+        <div class="header-right">
+            <span class="header-label">토요배송</span>
+            <a href="https://ecoop.or.kr/DureShop/recommend.do" class="header-order">주문하기</a>
+        </div>
+    </header>
+
+    <div class="deadline-bar">
+        <div class="deadline-bar-inner">
+            <span class="badge">⏰ 마감임박</span>
+            <span>내일 오전 11:30 주문마감!</span>
+        </div>
+    </div>
+
+    <div class="card-container" id="cardContainer">
+        <!-- 카드 1: 메인 -->
+        <div class="card card-1">
+            <p class="slogan-sub">━ 토요배송 안내 ━</p>
+            <div class="clock">⏰</div>
+            <h1>내일까지<br>주문하면<br><span class="highlight">토요일</span>에!</h1>
+            <div class="slogan-line"></div>
+            <p class="slogan-desc">주말 식탁, 미리 준비하세요</p>
+            <div class="deadline-box">
+                <p>주문 마감</p>
+                <strong>금요일 오전 11:30</strong>
+            </div>
+            <p class="scroll-hint">↓ 추천 상품 보기</p>
+        </div>
+
+        <!-- 카드 2: 왜 토요배송? -->
+        <div class="card card-2">
+            <div class="intro-icon">📦</div>
+            <p class="intro-label">SATURDAY DELIVERY</p>
+            <h2>주말에도<br>신선하게</h2>
+            <div class="intro-divider"></div>
+            <p class="intro-text">
+                금요일 오전에 주문하면<br>
+                토요일 아침에 도착해요
+            </p>
+            <div class="benefit-list">
+                <div class="benefit-item">
+                    <span class="benefit-icon">🌅</span>
+                    <span class="benefit-text">토요일 아침 배송</span>
+                </div>
+                <div class="benefit-item">
+                    <span class="benefit-icon">🥬</span>
+                    <span class="benefit-text">신선한 채소·과일</span>
+                </div>
+                <div class="benefit-item">
+                    <span class="benefit-icon">🍖</span>
+                    <span class="benefit-text">냉장·냉동 완벽 배송</span>
+                </div>
+                <div class="benefit-item">
+                    <span class="benefit-icon">👨‍👩‍👧‍👦</span>
+                    <span class="benefit-text">주말 가족 식사 준비 끝</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 카드 3: 감성 인용 -->
+        <div class="card card-3">
+            <p class="quote-mark">"</p>
+            <p class="quote-text">
+                바쁜 평일엔<br>
+                주문만 해두세요<br><br>
+                주말 아침,<br>
+                문 앞에 도착해 있을게요
+            </p>
+            <p class="quote-author">- 두레생협 -</p>
+        </div>
+
+        <!-- 카드 4: 이번 주 추천 -->
+        <div class="card card-products">
+            <div class="section-icon">🛒</div>
+            <p class="section-label">THIS WEEK</p>
+            <h2>이번 주 추천</h2>
+            <div class="grid">
+                <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58927C.jpg" alt="영광법성포굴비">
+                    <p class="name">영광법성포굴비</p>
+                    <p class="price">101,700원</p>
+                    <p class="discount">25% 할인</p>
+                </a>
+                <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/41515C.jpg" alt="프로바이오틱스">
+                    <p class="name">프로바이오틱스</p>
+                    <p class="price">14,300원</p>
+                    <p class="discount">30% 할인</p>
+                </a>
+                <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/21166C.jpg" alt="원삼유정란">
+                    <p class="name">원삼유정란</p>
+                    <p class="price">5,800원</p>
+                    <p class="discount">매일 신선하게</p>
+                </a>
+                <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/20708C.jpg" alt="발아참기름">
+                    <p class="name">발아참기름</p>
+                    <p class="price">31,500원</p>
+                    <p class="discount">고소함이 달라요</p>
+                </a>
+            </div>
+        </div>
+
+        <!-- 카드 5: 간편식 추천 -->
+        <div class="card card-list">
+            <div class="section-icon">🍲</div>
+            <h2>바쁜 주말엔 간편하게</h2>
+            <div class="list">
+                <a href="https://ecoop.or.kr/DureShop/recommend.do" class="list-item">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/24964C.jpg" alt="닭개장">
+                    <div class="info">
+                        <p class="name">닭개장</p>
+                        <p class="desc">얼큰하게 속 풀어요</p>
+                    </div>
+                    <span class="price">6,500원</span>
+                </a>
+                <a href="https://ecoop.or.kr/DureShop/recommend.do" class="list-item">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/27560C.jpg" alt="돼지고기김치찌개">
+                    <div class="info">
+                        <p class="name">돼지고기김치찌개</p>
+                        <p class="desc">밥 한 공기 뚝딱</p>
+                    </div>
+                    <span class="price">7,200원</span>
+                </a>
+                <a href="https://ecoop.or.kr/DureShop/recommend.do" class="list-item">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/37571C.jpg" alt="간편동태탕">
+                    <div class="info">
+                        <p class="name">간편동태탕</p>
+                        <p class="desc">시원한 국물 한 그릇</p>
+                    </div>
+                    <span class="price">8,900원</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- 카드 6: 냉장고 채우기 -->
+        <div class="card card-products">
+            <div class="section-icon">🧊</div>
+            <p class="section-label">ESSENTIALS</p>
+            <h2>냉장고 필수템</h2>
+            <div class="grid">
+                <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/20710C.jpg" alt="발아들기름">
+                    <p class="name">발아들기름</p>
+                    <p class="price">26,000원</p>
+                    <p class="discount">나물 무칠 때</p>
+                </a>
+                <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/40137C.jpg" alt="식혜">
+                    <p class="name">식혜 3병</p>
+                    <p class="price">11,900원</p>
+                    <p class="discount">달달하게 쉬어가요</p>
+                </a>
+                <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/55765C.jpg" alt="생강청">
+                    <p class="name">생강청</p>
+                    <p class="price">12,500원</p>
+                    <p class="discount">따뜻하게 한 잔</p>
+                </a>
+                <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56139C.jpg" alt="레몬즙">
+                    <p class="name">레몬즙</p>
+                    <p class="price">8,500원</p>
+                    <p class="discount">상큼하게 하루 시작</p>
+                </a>
+            </div>
+        </div>
+
+        <!-- 카드 7: CTA -->
+        <div class="card card-cta">
+            <div class="clock">⏰</div>
+            <p class="final-slogan">토요배송 마감</p>
+            <h2>내일 오전까지<br>주문하세요!</h2>
+            <p class="deadline-text">
+                주문 마감
+                <strong>금요일 오전 11:30</strong>
+            </p>
+            <a href="https://ecoop.or.kr/DureShop/recommend.do" class="cta-btn">지금 주문하기 →</a>
+            <p class="brand">두레생협 💚 신선함을 약속합니다</p>
+        </div>
+    </div>
+
+    <div class="indicator">
+        <div class="dot active"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
+
+    <script>
+        const container = document.getElementById('cardContainer');
+        const dots = document.querySelectorAll('.dot');
+
+        container.addEventListener('scroll', () => {
+            const scrollPos = container.scrollTop;
+            const cardHeight = window.innerHeight - 110;
+            const activeIndex = Math.round(scrollPos / cardHeight);
+
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === activeIndex);
+            });
+        });
+    </script>
+</body>
+</html>
