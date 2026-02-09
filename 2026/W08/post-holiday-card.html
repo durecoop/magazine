@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>고생 많으셨어요 - 명절 후유증 해결</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Serif+KR:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        html,body{font-family:'Noto Sans KR',sans-serif;background:#1a1a1a;height:100%;overflow:hidden}
+
+        .header{position:fixed;top:0;left:0;right:0;height:60px;background:linear-gradient(135deg,#2d5a3d,#1e4a2d);display:flex;justify-content:space-between;align-items:center;padding:0 18px;z-index:1000}
+        .header-logo img{height:38px;border-radius:4px}
+        .header-right{display:flex;align-items:center;gap:12px}
+        .header-label{font-size:15px;color:#a8d5a2;font-weight:500}
+        .header-order{padding:10px 20px;background:#fff;color:#2d5a3d;text-decoration:none;border-radius:6px;font-size:17px;font-weight:700}
+
+        .promo-bar{position:fixed;top:60px;left:0;right:0;z-index:999;background:linear-gradient(90deg,#f39c12,#e67e22);padding:10px 0;text-align:center}
+        .promo-bar-inner{display:flex;justify-content:center;align-items:center;gap:8px;font-size:clamp(14px,4vw,17px);color:#fff;font-weight:700}
+        .promo-bar-inner .badge{background:#fff;color:#e67e22;padding:3px 10px;border-radius:6px;font-weight:900}
+
+        .card-container{height:100vh;overflow-y:scroll;scroll-snap-type:y mandatory;-webkit-overflow-scrolling:touch;padding-top:100px}
+        .card{min-height:calc(100vh - 100px);scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:40px 20px;text-align:center;position:relative}
+
+        /* 카드 1: 메인 카피 */
+        .card-1{background:linear-gradient(160deg,#667eea,#764ba2)}
+        .card-1 .slogan-sub{font-size:clamp(13px,4vw,16px);color:rgba(255,255,255,.6);letter-spacing:3px;margin-bottom:16px}
+        .card-1 h1{font-family:'Noto Serif KR',serif;font-size:clamp(36px,12vw,52px);font-weight:700;color:#fff;line-height:1.3}
+        .card-1 .slogan-line{width:60px;height:4px;background:rgba(255,255,255,.3);margin:24px auto}
+        .card-1 .slogan-desc{font-size:clamp(16px,5vw,20px);color:rgba(255,255,255,.8);line-height:1.8}
+        .card-1 .free-badge{margin-top:32px;padding:14px 28px;background:#f39c12;border-radius:30px;font-size:clamp(14px,4vw,16px);color:#fff;font-weight:700}
+        .card-1 .scroll-hint{position:absolute;bottom:30px;color:rgba(255,255,255,.5);font-size:14px;animation:bounce 2s infinite}
+
+        /* 카드 2: 인트로 */
+        .card-2{background:linear-gradient(160deg,#fff,#f8f6f3)}
+        .card-2 .intro-label{font-size:11px;letter-spacing:4px;color:#764ba2;margin-bottom:20px;font-weight:500}
+        .card-2 h2{font-family:'Noto Serif KR',serif;font-size:clamp(24px,7vw,32px);font-weight:600;color:#1a1a1a;line-height:1.6;margin-bottom:30px}
+        .card-2 .intro-divider{width:40px;height:2px;background:#764ba2;margin:0 auto 30px}
+        .card-2 .intro-text{font-size:clamp(15px,4.5vw,18px);color:#555;line-height:2;font-weight:300}
+
+        /* 카드 3: 감성 인용 */
+        .card-3{background:linear-gradient(135deg,#667eea,#764ba2)}
+        .card-3 .quote-mark{font-family:'Noto Serif KR',serif;font-size:60px;color:rgba(255,255,255,.2);line-height:1;margin-bottom:20px}
+        .card-3 .quote-text{font-family:'Noto Serif KR',serif;font-size:clamp(18px,5.5vw,24px);color:#fff;line-height:1.9;font-weight:400}
+        .card-3 .quote-author{margin-top:30px;font-size:13px;color:rgba(255,255,255,.6);letter-spacing:2px}
+
+        /* 대보름 카드 */
+        .card-daeboreum{background:linear-gradient(160deg,#ffecd2,#fcb69f);padding:30px 16px}
+        .card-daeboreum .moon{font-size:60px;margin-bottom:16px}
+        .card-daeboreum .label{font-size:11px;letter-spacing:4px;color:#c0392b;margin-bottom:12px;font-weight:500}
+        .card-daeboreum h2{font-family:'Noto Serif KR',serif;font-size:clamp(22px,7vw,28px);font-weight:600;color:#1a1a1a;margin-bottom:16px;line-height:1.5}
+        .card-daeboreum .desc{font-size:clamp(14px,4vw,16px);color:#555;margin-bottom:20px}
+        .card-daeboreum .product-card{background:#fff;border-radius:20px;padding:24px;box-shadow:0 10px 40px rgba(0,0,0,.1);text-decoration:none;color:inherit;display:block;max-width:350px;width:100%}
+        .card-daeboreum .product-card img{width:100%;aspect-ratio:4/3;object-fit:contain;background:#f8f6f3;border-radius:16px;margin-bottom:16px}
+        .card-daeboreum .product-card .name{font-family:'Noto Serif KR',serif;font-size:clamp(18px,5.5vw,22px);font-weight:600;color:#1a1a1a;margin-bottom:6px}
+        .card-daeboreum .product-card .sub{font-size:13px;color:#888;margin-bottom:12px}
+        .card-daeboreum .product-card .badge{display:inline-block;padding:6px 14px;background:#c0392b;color:#fff;font-size:12px;font-weight:700;border-radius:16px;margin-bottom:12px}
+        .card-daeboreum .product-card .price{font-size:clamp(24px,7vw,30px);font-weight:900;color:#c0392b}
+
+        /* 증상별 카드 */
+        .card-symptom{background:linear-gradient(160deg,#fff,#f8f6f3);padding:30px 16px}
+        .card-symptom .icon{font-size:48px;margin-bottom:12px}
+        .card-symptom h2{font-family:'Noto Serif KR',serif;font-size:clamp(20px,6vw,26px);font-weight:600;color:#1a1a1a;margin-bottom:8px}
+        .card-symptom .sub{font-size:clamp(13px,4vw,15px);color:#888;margin-bottom:24px}
+        .card-symptom .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;max-width:380px;width:100%}
+        .card-symptom .item{background:#fff;border-radius:14px;padding:14px;text-decoration:none;color:inherit;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+        .card-symptom .item img{width:100%;aspect-ratio:1;object-fit:contain;background:#f8f6f3;border-radius:10px;margin-bottom:10px}
+        .card-symptom .item .name{font-size:clamp(13px,4vw,15px);font-weight:600;color:#1a1a1a;margin-bottom:4px}
+        .card-symptom .item .desc{font-size:12px;color:#764ba2;font-weight:600}
+
+        /* 국물 카드 */
+        .card-soup{background:linear-gradient(160deg,#ffecd2,#fcb69f);padding:30px 16px}
+        .card-soup .icon{font-size:48px;margin-bottom:12px}
+        .card-soup h2{font-family:'Noto Serif KR',serif;font-size:clamp(20px,6vw,26px);font-weight:600;color:#1a1a1a;margin-bottom:8px}
+        .card-soup .sub{font-size:clamp(13px,4vw,15px);color:#666;margin-bottom:24px}
+        .card-soup .list{display:flex;flex-direction:column;gap:10px;max-width:380px;width:100%}
+        .card-soup .soup-item{display:flex;align-items:center;gap:12px;background:#fff;border-radius:14px;padding:12px;text-decoration:none;color:inherit}
+        .card-soup .soup-item img{width:60px;height:60px;object-fit:contain;background:#f8f6f3;border-radius:10px;flex-shrink:0}
+        .card-soup .soup-item .info{flex:1;text-align:left}
+        .card-soup .soup-item .name{font-size:clamp(14px,4vw,16px);font-weight:600;color:#1a1a1a}
+        .card-soup .soup-item .desc{font-size:12px;color:#888}
+
+        /* 냉장고 카드 */
+        .card-fridge{background:linear-gradient(160deg,#a8edea,#fed6e3);padding:30px 16px}
+        .card-fridge .icon{font-size:48px;margin-bottom:12px}
+        .card-fridge h2{font-family:'Noto Serif KR',serif;font-size:clamp(20px,6vw,26px);font-weight:600;color:#1a1a1a;margin-bottom:8px}
+        .card-fridge .sub{font-size:clamp(13px,4vw,15px);color:#555;margin-bottom:24px}
+        .card-fridge .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;max-width:380px;width:100%}
+        .card-fridge .item{background:#fff;border-radius:14px;padding:16px;text-decoration:none;color:inherit;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+        .card-fridge .item img{width:100%;aspect-ratio:1;object-fit:contain;background:#f8f6f3;border-radius:10px;margin-bottom:10px}
+        .card-fridge .item .name{font-size:clamp(13px,4vw,15px);font-weight:600;color:#1a1a1a;margin-bottom:4px}
+        .card-fridge .item .price{font-size:clamp(15px,4.5vw,17px);font-weight:700;color:#764ba2}
+
+        /* CTA 카드 */
+        .card-cta{background:linear-gradient(160deg,#2d5a3d,#1e4a2d)}
+        .card-cta .final-slogan{font-size:clamp(14px,4vw,16px);color:rgba(255,255,255,.6);letter-spacing:2px;margin-bottom:12px}
+        .card-cta h2{font-family:'Noto Serif KR',serif;font-size:clamp(26px,8vw,36px);font-weight:700;color:#fff;line-height:1.4;margin-bottom:28px}
+        .card-cta .cta-btn{display:inline-block;padding:20px 50px;background:#fff;color:#2d5a3d;font-size:clamp(18px,5.5vw,24px);font-weight:900;text-decoration:none;border-radius:50px;box-shadow:0 8px 30px rgba(0,0,0,.2);animation:pulse 2s infinite}
+        .card-cta .cta-btn:active{transform:scale(.95)}
+        .card-cta .free-info{margin-top:24px;padding:12px 24px;background:rgba(243,156,18,.9);border-radius:12px}
+        .card-cta .free-info p{font-size:clamp(14px,4vw,16px);color:#fff;font-weight:600}
+        .card-cta .brand{margin-top:28px;font-size:clamp(12px,3.5vw,14px);color:rgba(255,255,255,.5)}
+
+        .indicator{position:fixed;right:12px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:8px;z-index:100}
+        .dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.3)}
+        .dot.active{background:#fff;transform:scale(1.3)}
+
+        @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+        @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="header-logo"><img src="LOGO.png" alt="두레생협"></a>
+        <div class="header-right">
+            <span class="header-label">생활의 발견</span>
+            <a href="https://ecoop.or.kr/DureShop/recommend.do" class="header-order">쇼핑하기</a>
+        </div>
+    </header>
+
+    <div class="promo-bar">
+        <div class="promo-bar-inner">
+            <span class="badge">8주차</span>
+            <span>🚚 이번 주 배송료 무료!</span>
+        </div>
+    </div>
+
+    <div class="card-container" id="cardContainer">
+        <!-- 카드 1: 메인 카피 -->
+        <div class="card card-1">
+            <p class="slogan-sub">━ 생활의 발견 ━</p>
+            <h1>고생<br>많으셨어요</h1>
+            <div class="slogan-line"></div>
+            <p class="slogan-desc">명절 보내느라 지치셨죠<br>이제 나를 위한 시간이에요</p>
+            <span class="free-badge">🚚 배송료 무료</span>
+            <p class="scroll-hint">↓ 스크롤해주세요</p>
+        </div>
+
+        <!-- 카드 2: 인트로 -->
+        <div class="card card-2">
+            <p class="intro-label">FOR YOURSELF</p>
+            <h2>이제<br>나를 돌볼 시간</h2>
+            <div class="intro-divider"></div>
+            <p class="intro-text">
+                온 가족 챙기느라<br>
+                정작 나는 못 챙기셨잖아요.<br><br>
+                속도 편하게, 입맛도 돌리고,<br>
+                텅 빈 냉장고도 채우고.<br>
+                <strong>이번엔 나를 위해</strong> 담아보세요.
+            </p>
+        </div>
+
+        <!-- 카드 3: 감성 인용 -->
+        <div class="card card-3">
+            <p class="quote-mark">"</p>
+            <p class="quote-text">
+                몸도 마음도<br>
+                지쳤을 때<br><br>
+                따뜻한 한 끼가<br>
+                위로가 됩니다
+            </p>
+            <p class="quote-author">- 두레생협 -</p>
+        </div>
+
+        <!-- 카드 4: 정월대보름 -->
+        <div class="card card-daeboreum">
+            <div class="moon">🌕</div>
+            <p class="label">DAEBOREUM</p>
+            <h2>보름 나물,<br>올해는 편하게</h2>
+            <p class="desc">매년 나물 준비하느라 힘드셨죠?</p>
+            <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
+                <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56433C.jpg" alt="정월대보름 간편나물세트">
+                <p class="name">간편나물세트 6종</p>
+                <p class="sub">고사리, 도라지, 시래기, 취나물...</p>
+                <span class="badge">🌕 가장 많이 예약했어요</span>
+                <p class="price">27,500원</p>
+            </a>
+        </div>
+
+        <!-- 카드 5: 속이 불편할 때 -->
+        <div class="card card-symptom">
+            <div class="icon">🥬</div>
+            <h2>속이 불편할 때</h2>
+            <p class="sub">과식한 속, 천천히 달래줘요</p>
+            <div class="grid">
+                <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/41515C.jpg" alt="프로바이오틱스">
+                    <p class="name">프로바이오틱스</p>
+                    <p class="desc">장이 편해야 맘도 편해요</p>
+                </a>
+                <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/41011C.jpg" alt="양배추브로콜리즙">
+                    <p class="name">양배추브로콜리즙</p>
+                    <p class="desc">속 쓰릴 때 한 포</p>
+                </a>
+                <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57222C.jpg" alt="마즙">
+                    <p class="name">마즙</p>
+                    <p class="desc">아침에 가볍게</p>
+                </a>
+                <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/55765C.jpg" alt="생강청">
+                    <p class="name">생강청</p>
+                    <p class="desc">따뜻하게 속을 달래요</p>
+                </a>
+            </div>
+        </div>
+
+        <!-- 카드 6: 입맛이 없을 때 -->
+        <div class="card card-symptom">
+            <div class="icon">🍋</div>
+            <h2>입맛이 없을 때</h2>
+            <p class="sub">새콤달콤하게 기분 전환</p>
+            <div class="grid">
+                <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58781C.jpg" alt="매실스틱">
+                    <p class="name">매실스틱</p>
+                    <p class="desc">입안이 개운해져요</p>
+                </a>
+                <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56139C.jpg" alt="레몬즙">
+                    <p class="name">레몬즙</p>
+                    <p class="desc">물에 타서 상큼하게</p>
+                </a>
+                <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/40137C.jpg" alt="식혜">
+                    <p class="name">식혜 3병</p>
+                    <p class="desc">달달하게 쉬어가요</p>
+                </a>
+                <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/55765C.jpg" alt="생강청">
+                    <p class="name">생강청</p>
+                    <p class="desc">차로 따뜻하게</p>
+                </a>
+            </div>
+        </div>
+
+        <!-- 카드 7: 뜨끈한 국물 -->
+        <div class="card card-soup">
+            <div class="icon">🍲</div>
+            <h2>뜨끈한 국물이 그리울 때</h2>
+            <p class="sub">데우기만 하면 끝</p>
+            <div class="list">
+                <a href="https://ecoop.or.kr/DureShop/recommend.do" class="soup-item">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/24964C.jpg" alt="닭개장">
+                    <div class="info">
+                        <p class="name">닭개장</p>
+                        <p class="desc">얼큰하게 속 풀어요</p>
+                    </div>
+                </a>
+                <a href="https://ecoop.or.kr/DureShop/recommend.do" class="soup-item">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/37571C.jpg" alt="간편동태탕">
+                    <div class="info">
+                        <p class="name">간편동태탕</p>
+                        <p class="desc">시원한 국물이 좋을 때</p>
+                    </div>
+                </a>
+                <a href="https://ecoop.or.kr/DureShop/recommend.do" class="soup-item">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/27560C.jpg" alt="돼지고기김치찌개">
+                    <div class="info">
+                        <p class="name">돼지고기김치찌개</p>
+                        <p class="desc">밥 한 공기 뚝딱</p>
+                    </div>
+                </a>
+                <a href="https://ecoop.or.kr/DureShop/recommend.do" class="soup-item">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56070C.jpg" alt="맵도리탕">
+                    <div class="info">
+                        <p class="name">맵도리탕</p>
+                        <p class="desc">칼칼하게 한 그릇</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- 카드 8: 냉장고 채우기 -->
+        <div class="card card-fridge">
+            <div class="icon">🧊</div>
+            <h2>텅 빈 냉장고, 채워야죠</h2>
+            <p class="sub">일상으로 돌아가는 첫걸음</p>
+            <div class="grid">
+                <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/21166C.jpg" alt="원삼유정란">
+                    <p class="name">원삼유정란</p>
+                    <p class="price">5,800원</p>
+                </a>
+                <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/20708C.jpg" alt="발아참기름">
+                    <p class="name">발아참기름</p>
+                    <p class="price">31,500원</p>
+                </a>
+                <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/20710C.jpg" alt="발아들기름">
+                    <p class="name">발아들기름</p>
+                    <p class="price">26,000원</p>
+                </a>
+                <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/40137C.jpg" alt="식혜">
+                    <p class="name">식혜 3병</p>
+                    <p class="price">11,900원</p>
+                </a>
+            </div>
+        </div>
+
+        <!-- 카드 9: CTA -->
+        <div class="card card-cta">
+            <p class="final-slogan">고생 많으셨어요</p>
+            <h2>이번 주도<br>함께해요</h2>
+            <a href="https://ecoop.or.kr/DureShop/recommend.do" class="cta-btn">두레추천 보러가기 →</a>
+            <div class="free-info">
+                <p>🚚 이번 주 배송료 무료!</p>
+            </div>
+            <p class="brand">두레생협 💚 조합원과 함께합니다</p>
+        </div>
+    </div>
+
+    <div class="indicator">
+        <div class="dot active"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
+
+    <script>
+        const container = document.getElementById('cardContainer');
+        const dots = document.querySelectorAll('.dot');
+
+        container.addEventListener('scroll', () => {
+            const scrollPos = container.scrollTop;
+            const cardHeight = window.innerHeight - 100;
+            const activeIndex = Math.round(scrollPos / cardHeight);
+
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === activeIndex);
+            });
+        });
+    </script>
+</body>
+</html>
