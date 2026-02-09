@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>명절 전 마지막 전화주문 - 두레생협</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Serif+KR:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        html,body{font-family:'Noto Sans KR',sans-serif;background:#1a1a1a;height:100%;overflow:hidden}
+
+        .header{position:fixed;top:0;left:0;right:0;height:60px;background:linear-gradient(135deg,#c0392b,#922b21);display:flex;justify-content:space-between;align-items:center;padding:0 18px;z-index:1000}
+        .header-logo img{height:38px;border-radius:4px}
+        .header-right{display:flex;align-items:center;gap:12px}
+        .header-label{font-size:15px;color:#ffcccc;font-weight:500}
+        .header-order{padding:10px 20px;background:#fff;color:#c0392b;text-decoration:none;border-radius:6px;font-size:17px;font-weight:700;animation:pulse 1s infinite}
+
+        .deadline-bar{position:fixed;top:60px;left:0;right:0;z-index:999;background:#1a1a1a;padding:14px 0;text-align:center}
+        .deadline-bar-inner{display:flex;justify-content:center;align-items:center;gap:10px;font-size:clamp(14px,4.5vw,18px);color:#fff;font-weight:700}
+        .deadline-bar-inner .urgent{background:#f39c12;color:#fff;padding:6px 14px;border-radius:8px;font-weight:900;animation:pulse 1s infinite}
+
+        .card-container{height:100vh;overflow-y:scroll;scroll-snap-type:y mandatory;-webkit-overflow-scrolling:touch;padding-top:115px}
+        .card{min-height:calc(100vh - 115px);scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:40px 20px;text-align:center;position:relative}
+
+        /* 카드 1: 메인 */
+        .card-1{background:linear-gradient(160deg,#c0392b,#922b21)}
+        .card-1 .badge{display:inline-block;padding:10px 24px;background:#f39c12;color:#fff;font-size:clamp(13px,4vw,15px);font-weight:900;border-radius:30px;margin-bottom:20px}
+        .card-1 .icon{font-size:70px;margin-bottom:16px}
+        .card-1 h1{font-family:'Noto Serif KR',serif;font-size:clamp(28px,9vw,40px);font-weight:700;color:#fff;line-height:1.4}
+        .card-1 .highlight{color:#f39c12}
+        .card-1 .slogan-line{width:60px;height:4px;background:rgba(255,255,255,.3);margin:24px auto}
+        .card-1 .slogan-desc{font-size:clamp(15px,4.5vw,18px);color:rgba(255,255,255,.85);line-height:1.8}
+        .card-1 .phone-box{margin-top:28px;padding:20px 36px;background:rgba(255,255,255,.15);border-radius:20px;backdrop-filter:blur(10px)}
+        .card-1 .phone-box p{font-size:clamp(13px,4vw,15px);color:rgba(255,255,255,.8);margin-bottom:8px}
+        .card-1 .phone-box .phone-number{font-size:clamp(28px,9vw,36px);font-weight:900;color:#fff;letter-spacing:2px}
+        .card-1 .scroll-hint{position:absolute;bottom:30px;color:rgba(255,255,255,.5);font-size:14px;animation:bounce 2s infinite}
+
+        /* 카드 2: 안내 */
+        .card-2{background:linear-gradient(160deg,#fff,#f8f6f3)}
+        .card-2 .intro-icon{font-size:50px;margin-bottom:16px}
+        .card-2 .intro-label{font-size:11px;letter-spacing:4px;color:#c0392b;margin-bottom:16px;font-weight:500}
+        .card-2 h2{font-family:'Noto Serif KR',serif;font-size:clamp(24px,7vw,32px);font-weight:600;color:#1a1a1a;line-height:1.5;margin-bottom:24px}
+        .card-2 .notice-box{background:#fff3cd;border:2px solid #ffc107;border-radius:16px;padding:24px;margin-bottom:24px;max-width:340px}
+        .card-2 .notice-box .icon{font-size:32px;margin-bottom:10px}
+        .card-2 .notice-box p{font-size:clamp(15px,4.5vw,18px);color:#856404;font-weight:600;line-height:1.7}
+        .card-2 .intro-text{font-size:clamp(15px,4.5vw,18px);color:#555;line-height:2;font-weight:300}
+
+        /* 카드 3: 감성 인용 */
+        .card-3{background:linear-gradient(160deg,#2d5a3d,#1e4a2d)}
+        .card-3 .quote-mark{font-family:'Noto Serif KR',serif;font-size:60px;color:rgba(255,255,255,.2);line-height:1;margin-bottom:20px}
+        .card-3 .quote-text{font-family:'Noto Serif KR',serif;font-size:clamp(18px,5.5vw,24px);color:#fff;line-height:1.9;font-weight:400}
+        .card-3 .quote-author{margin-top:30px;font-size:13px;color:rgba(255,255,255,.6);letter-spacing:2px}
+
+        /* 카드 4: 전화주문 방법 */
+        .card-4{background:linear-gradient(160deg,#f8f6f3,#fff)}
+        .card-4 h2{font-family:'Noto Serif KR',serif;font-size:clamp(22px,7vw,28px);font-weight:600;color:#1a1a1a;margin-bottom:30px}
+        .card-4 .steps{display:flex;flex-direction:column;gap:16px;max-width:340px;width:100%}
+        .card-4 .step{display:flex;align-items:center;gap:16px;background:#fff;border-radius:16px;padding:20px;box-shadow:0 2px 12px rgba(0,0,0,.06);text-align:left}
+        .card-4 .step-num{width:44px;height:44px;background:#c0392b;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;flex-shrink:0}
+        .card-4 .step-content .title{font-size:clamp(15px,4.5vw,17px);font-weight:700;color:#1a1a1a;margin-bottom:4px}
+        .card-4 .step-content .desc{font-size:clamp(13px,4vw,15px);color:#666}
+
+        /* 추천 생활재 카드 */
+        .card-recommend{background:linear-gradient(160deg,#ffecd2,#fcb69f);padding:30px 16px}
+        .card-recommend .section-icon{font-size:40px;margin-bottom:12px}
+        .card-recommend h2{font-family:'Noto Serif KR',serif;font-size:clamp(20px,6vw,26px);font-weight:600;color:#1a1a1a;margin-bottom:8px}
+        .card-recommend .sub{font-size:clamp(13px,4vw,15px);color:#666;margin-bottom:20px}
+        .card-recommend .list{display:flex;flex-direction:column;gap:10px;max-width:360px;width:100%}
+        .card-recommend .item{display:flex;align-items:center;gap:12px;background:#fff;border-radius:14px;padding:14px;text-align:left}
+        .card-recommend .item .icon{font-size:28px;flex-shrink:0}
+        .card-recommend .item .info{flex:1}
+        .card-recommend .item .name{font-size:clamp(14px,4.5vw,16px);font-weight:700;color:#1a1a1a}
+        .card-recommend .item .desc{font-size:12px;color:#888}
+
+        /* CTA 카드 */
+        .card-cta{background:linear-gradient(160deg,#c0392b,#922b21)}
+        .card-cta .icon{font-size:70px;margin-bottom:16px}
+        .card-cta .final-slogan{font-size:clamp(14px,4vw,16px);color:rgba(255,255,255,.7);letter-spacing:2px;margin-bottom:12px}
+        .card-cta h2{font-family:'Noto Serif KR',serif;font-size:clamp(26px,8vw,36px);font-weight:700;color:#fff;line-height:1.4;margin-bottom:16px}
+        .card-cta .deadline-text{font-size:clamp(15px,4.5vw,18px);color:rgba(255,255,255,.8);margin-bottom:24px}
+        .card-cta .deadline-text strong{display:block;font-size:clamp(22px,7vw,28px);color:#f39c12;margin-top:8px}
+        .card-cta .phone-btn{display:inline-block;padding:22px 44px;background:#fff;color:#c0392b;font-size:clamp(24px,8vw,32px);font-weight:900;text-decoration:none;border-radius:50px;box-shadow:0 8px 30px rgba(0,0,0,.3);animation:pulse 1s infinite}
+        .card-cta .phone-btn:active{transform:scale(.95)}
+        .card-cta .phone-btn .icon{font-size:28px;margin-right:8px;vertical-align:middle}
+        .card-cta .sub-text{margin-top:20px;font-size:clamp(14px,4.5vw,17px);color:rgba(255,255,255,.8)}
+        .card-cta .brand{margin-top:24px;font-size:clamp(12px,3.5vw,14px);color:rgba(255,255,255,.5)}
+
+        .indicator{position:fixed;right:12px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:8px;z-index:100}
+        .dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.3)}
+        .dot.active{background:#fff;transform:scale(1.3)}
+
+        @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+        @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="https://ecoop.or.kr/DureShop/main/main.do" class="header-logo"><img src="LOGO.png" alt="두레생협"></a>
+        <div class="header-right">
+            <span class="header-label">전화주문</span>
+            <a href="tel:1661-5110" class="header-order">전화하기</a>
+        </div>
+    </header>
+
+    <div class="deadline-bar">
+        <div class="deadline-bar-inner">
+            <span class="urgent">📞 전화주문만</span>
+            <span>금요일 오전 11:30 마감</span>
+        </div>
+    </div>
+
+    <div class="card-container" id="cardContainer">
+        <!-- 카드 1: 메인 -->
+        <div class="card card-1">
+            <span class="badge">🎊 설 연휴 직전</span>
+            <div class="icon">📞</div>
+            <h1>명절 필요하신 것<br><span class="highlight">전화주문만</span><br>가능해요</h1>
+            <div class="slogan-line"></div>
+            <p class="slogan-desc">금요일 오전 11시 30분까지<br>상담실로 전화주세요</p>
+            <div class="phone-box">
+                <p>두레생협 상담실</p>
+                <p class="phone-number">1661-5110</p>
+            </div>
+            <p class="scroll-hint">↓ 자세히 보기</p>
+        </div>
+
+        <!-- 카드 2: 안내 -->
+        <div class="card card-2">
+            <div class="intro-icon">⚠️</div>
+            <p class="intro-label">NOTICE</p>
+            <h2>인터넷 주문<br>마감됐어요</h2>
+            <div class="notice-box">
+                <div class="icon">📞</div>
+                <p>명절 전 마지막 주문은<br><strong>전화주문만</strong> 가능합니다</p>
+            </div>
+            <p class="intro-text">
+                혹시 빠뜨린 거 있으시면<br>
+                지금 바로 전화주세요!<br><br>
+                토요일에 배송해드릴게요
+            </p>
+        </div>
+
+        <!-- 카드 3: 감성 인용 -->
+        <div class="card card-3">
+            <p class="quote-mark">"</p>
+            <p class="quote-text">
+                명절 준비하느라<br>
+                바쁘신 거 알아요<br><br>
+                전화 한 통이면<br>
+                저희가 챙겨드릴게요
+            </p>
+            <p class="quote-author">- 두레생협 상담실 -</p>
+        </div>
+
+        <!-- 카드 4: 전화주문 방법 -->
+        <div class="card card-4">
+            <h2>📞 이렇게 전화주세요</h2>
+            <div class="steps">
+                <div class="step">
+                    <span class="step-num">1</span>
+                    <div class="step-content">
+                        <p class="title">1661-5110 전화</p>
+                        <p class="desc">상담실로 전화주세요</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <span class="step-num">2</span>
+                    <div class="step-content">
+                        <p class="title">조합원 확인</p>
+                        <p class="desc">조합원 번호나 성함 말씀해주세요</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <span class="step-num">3</span>
+                    <div class="step-content">
+                        <p class="title">필요한 생활재 말씀</p>
+                        <p class="desc">"참기름 하나요" 이렇게만요!</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <span class="step-num">4</span>
+                    <div class="step-content">
+                        <p class="title">토요일 배송</p>
+                        <p class="desc">명절 전 토요일에 도착!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 카드 5: 추천 생활재 -->
+        <div class="card card-recommend">
+            <div class="section-icon">🎁</div>
+            <h2>혹시 빠뜨린 거 없으세요?</h2>
+            <p class="sub">명절에 꼭 필요한 생활재</p>
+            <div class="list">
+                <div class="item">
+                    <span class="icon">🥘</span>
+                    <div class="info">
+                        <p class="name">모듬전세트</p>
+                        <p class="desc">동그랑땡, 동태전, 깻잎전 한번에</p>
+                    </div>
+                </div>
+                <div class="item">
+                    <span class="icon">🌿</span>
+                    <div class="info">
+                        <p class="name">고사리 · 도라지</p>
+                        <p class="desc">나물 준비 다 되셨나요?</p>
+                    </div>
+                </div>
+                <div class="item">
+                    <span class="icon">🐟</span>
+                    <div class="info">
+                        <p class="name">황태포 · 마른오징어</p>
+                        <p class="desc">차례상 필수!</p>
+                    </div>
+                </div>
+                <div class="item">
+                    <span class="icon">🍯</span>
+                    <div class="info">
+                        <p class="name">약과 · 산자</p>
+                        <p class="desc">손님 대접용 다과</p>
+                    </div>
+                </div>
+                <div class="item">
+                    <span class="icon">🫒</span>
+                    <div class="info">
+                        <p class="name">참기름 · 들기름</p>
+                        <p class="desc">나물 무치려면 필수죠</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 카드 6: CTA -->
+        <div class="card card-cta">
+            <div class="icon">📞</div>
+            <p class="final-slogan">명절 전 마지막 기회</p>
+            <h2>지금 바로<br>전화주세요!</h2>
+            <p class="deadline-text">
+                전화주문 마감
+                <strong>금요일 오전 11:30</strong>
+            </p>
+            <a href="tel:1661-5110" class="phone-btn">
+                <span class="icon">📞</span>1661-5110
+            </a>
+            <p class="sub-text">토요일에 배송해드려요</p>
+            <p class="brand">두레생협 💚 풍성한 명절 되세요</p>
+        </div>
+    </div>
+
+    <div class="indicator">
+        <div class="dot active"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
+
+    <script>
+        const container = document.getElementById('cardContainer');
+        const dots = document.querySelectorAll('.dot');
+
+        container.addEventListener('scroll', () => {
+            const scrollPos = container.scrollTop;
+            const cardHeight = window.innerHeight - 115;
+            const activeIndex = Math.round(scrollPos / cardHeight);
+
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === activeIndex);
+            });
+        });
+    </script>
+</body>
+</html>
