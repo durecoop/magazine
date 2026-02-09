@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>명절 전 마지막 토요배송 - 두레생협</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Serif+KR:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        html,body{font-family:'Noto Sans KR',sans-serif;background:#1a1a1a;height:100%;overflow:hidden}
+
+        .header{position:fixed;top:0;left:0;right:0;height:60px;background:linear-gradient(135deg,#c0392b,#922b21);display:flex;justify-content:space-between;align-items:center;padding:0 18px;z-index:1000}
+        .header-logo img{height:38px;border-radius:4px}
+        .header-right{display:flex;align-items:center;gap:12px}
+        .header-label{font-size:15px;color:#ffcccc;font-weight:500}
+        .header-order{padding:10px 20px;background:#fff;color:#c0392b;text-decoration:none;border-radius:6px;font-size:17px;font-weight:700;animation:pulse 1s infinite}
+
+        .deadline-bar{position:fixed;top:60px;left:0;right:0;z-index:999;background:#1a1a1a;padding:14px 0;text-align:center}
+        .deadline-bar-inner{display:flex;justify-content:center;align-items:center;gap:10px;font-size:clamp(14px,4.5vw,18px);color:#fff;font-weight:700}
+        .deadline-bar-inner .urgent{background:#e74c3c;color:#fff;padding:6px 14px;border-radius:8px;font-weight:900;animation:shake .5s infinite}
+
+        .card-container{height:100vh;overflow-y:scroll;scroll-snap-type:y mandatory;-webkit-overflow-scrolling:touch;padding-top:115px}
+        .card{min-height:calc(100vh - 115px);scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:40px 20px;text-align:center;position:relative}
+
+        /* 카드 1: 메인 */
+        .card-1{background:linear-gradient(160deg,#c0392b,#922b21)}
+        .card-1 .badge{display:inline-block;padding:10px 24px;background:#fff;color:#c0392b;font-size:clamp(13px,4vw,15px);font-weight:900;border-radius:30px;margin-bottom:20px}
+        .card-1 .icon{font-size:70px;margin-bottom:16px}
+        .card-1 h1{font-family:'Noto Serif KR',serif;font-size:clamp(32px,10vw,46px);font-weight:700;color:#fff;line-height:1.3}
+        .card-1 .highlight{color:#f39c12}
+        .card-1 .slogan-line{width:60px;height:4px;background:rgba(255,255,255,.3);margin:24px auto}
+        .card-1 .slogan-desc{font-size:clamp(16px,5vw,20px);color:rgba(255,255,255,.85);line-height:1.8}
+        .card-1 .deadline-box{margin-top:28px;padding:18px 32px;background:rgba(0,0,0,.3);border-radius:16px;border:2px solid rgba(255,255,255,.2)}
+        .card-1 .deadline-box p{font-size:clamp(13px,4vw,15px);color:rgba(255,255,255,.8)}
+        .card-1 .deadline-box strong{font-size:clamp(24px,8vw,32px);color:#fff;display:block;margin-top:6px}
+        .card-1 .scroll-hint{position:absolute;bottom:30px;color:rgba(255,255,255,.5);font-size:14px;animation:bounce 2s infinite}
+
+        /* 카드 2: 안내 */
+        .card-2{background:linear-gradient(160deg,#fff,#f8f6f3)}
+        .card-2 .intro-icon{font-size:50px;margin-bottom:16px}
+        .card-2 .intro-label{font-size:11px;letter-spacing:4px;color:#c0392b;margin-bottom:16px;font-weight:500}
+        .card-2 h2{font-family:'Noto Serif KR',serif;font-size:clamp(24px,7vw,32px);font-weight:600;color:#1a1a1a;line-height:1.5;margin-bottom:24px}
+        .card-2 .info-box{background:#fef5f5;border:2px solid #f8d7da;border-radius:16px;padding:24px;margin-bottom:24px;max-width:340px}
+        .card-2 .info-box .icon{font-size:32px;margin-bottom:10px}
+        .card-2 .info-box p{font-size:clamp(15px,4.5vw,18px);color:#721c24;font-weight:600;line-height:1.7}
+        .card-2 .intro-text{font-size:clamp(15px,4.5vw,18px);color:#555;line-height:2;font-weight:300}
+
+        /* 카드 3: 감성 인용 */
+        .card-3{background:linear-gradient(160deg,#2d5a3d,#1e4a2d)}
+        .card-3 .quote-mark{font-family:'Noto Serif KR',serif;font-size:60px;color:rgba(255,255,255,.2);line-height:1;margin-bottom:20px}
+        .card-3 .quote-text{font-family:'Noto Serif KR',serif;font-size:clamp(18px,5.5vw,24px);color:#fff;line-height:1.9;font-weight:400}
+        .card-3 .quote-author{margin-top:30px;font-size:13px;color:rgba(255,255,255,.6);letter-spacing:2px}
+
+        /* 추천 상품 카드 */
+        .card-products{background:linear-gradient(160deg,#f8f6f3,#fff);padding:30px 16px}
+        .card-products .section-icon{font-size:40px;margin-bottom:12px}
+        .card-products .section-label{font-size:11px;letter-spacing:4px;color:#c0392b;margin-bottom:12px;font-weight:500}
+        .card-products h2{font-family:'Noto Serif KR',serif;font-size:clamp(20px,6vw,26px);font-weight:600;color:#1a1a1a;margin-bottom:20px}
+        .card-products .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;max-width:400px;width:100%}
+        .card-products .item{background:#fff;border-radius:16px;padding:16px;text-decoration:none;color:inherit;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+        .card-products .item img{width:100%;aspect-ratio:1;object-fit:contain;background:#f8f6f3;border-radius:12px;margin-bottom:12px}
+        .card-products .item .name{font-size:clamp(13px,4vw,15px);font-weight:600;color:#1a1a1a;margin-bottom:4px}
+        .card-products .item .price{font-size:clamp(15px,4.5vw,17px);font-weight:700;color:#2d5a3d}
+        .card-products .item .discount{font-size:12px;color:#c0392b;font-weight:600}
+
+        /* 리스트형 상품 */
+        .card-list{background:linear-gradient(160deg,#fff,#f8f6f3);padding:30px 16px}
+        .card-list .section-icon{font-size:40px;margin-bottom:12px}
+        .card-list h2{font-family:'Noto Serif KR',serif;font-size:clamp(20px,6vw,26px);font-weight:600;color:#1a1a1a;margin-bottom:20px}
+        .card-list .list{display:flex;flex-direction:column;gap:10px;max-width:380px;width:100%}
+        .card-list .list-item{display:flex;align-items:center;gap:14px;background:#fff;border-radius:14px;padding:14px;text-decoration:none;color:inherit;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+        .card-list .list-item img{width:70px;height:70px;object-fit:contain;background:#f8f6f3;border-radius:10px;flex-shrink:0}
+        .card-list .list-item .info{flex:1;text-align:left}
+        .card-list .list-item .name{font-size:clamp(14px,4vw,16px);font-weight:600;color:#1a1a1a;margin-bottom:2px}
+        .card-list .list-item .desc{font-size:12px;color:#888}
+        .card-list .list-item .price{font-size:15px;font-weight:700;color:#2d5a3d}
+
+        /* CTA 카드 */
+        .card-cta{background:linear-gradient(160deg,#c0392b,#922b21)}
+        .card-cta .icon{font-size:60px;margin-bottom:16px}
+        .card-cta .final-slogan{font-size:clamp(14px,4vw,16px);color:rgba(255,255,255,.7);letter-spacing:2px;margin-bottom:12px}
+        .card-cta h2{font-family:'Noto Serif KR',serif;font-size:clamp(26px,8vw,36px);font-weight:700;color:#fff;line-height:1.4;margin-bottom:16px}
+        .card-cta .deadline-text{font-size:clamp(16px,5vw,20px);color:#fff;margin-bottom:24px}
+        .card-cta .deadline-text strong{display:block;font-size:clamp(24px,7vw,30px);color:#f39c12;margin-top:8px}
+        .card-cta .cta-btn{display:inline-block;padding:22px 50px;background:#fff;color:#c0392b;font-size:clamp(20px,6vw,26px);font-weight:900;text-decoration:none;border-radius:50px;box-shadow:0 8px 30px rgba(0,0,0,.3);animation:pulse 1s infinite}
+        .card-cta .cta-btn:active{transform:scale(.95)}
+        .card-cta .sub-text{margin-top:20px;font-size:clamp(13px,4vw,15px);color:rgba(255,255,255,.7)}
+        .card-cta .brand{margin-top:24px;font-size:clamp(12px,3.5vw,14px);color:rgba(255,255,255,.5)}
+
+        .indicator{position:fixed;right:12px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:8px;z-index:100}
+        .dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.3)}
+        .dot.active{background:#fff;transform:scale(1.3)}
+
+        @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+        @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+        @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-2px)}75%{transform:translateX(2px)}}
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="tel:1661-5110" class="header-logo"><img src="LOGO.png" alt="두레생협"></a>
+        <div class="header-right">
+            <span class="header-label">토요배송</span>
+            <a href="tel:1661-5110" class="header-order">주문하기</a>
+        </div>
+    </header>
+
+    <div class="deadline-bar">
+        <div class="deadline-bar-inner">
+            <span class="urgent">⏰ D-1</span>
+            <span>내일 오전 11:30 마감!</span>
+        </div>
+    </div>
+
+    <div class="card-container" id="cardContainer">
+        <!-- 카드 1: 메인 -->
+        <div class="card card-1">
+            <span class="badge">🎊 설 연휴 직전</span>
+            <div class="icon">📦</div>
+            <h1>내일까지<br>주문하면<br><span class="highlight">토요일</span> 배송!</h1>
+            <div class="slogan-line"></div>
+            <p class="slogan-desc">명절 전 마지막 배송 기회!</p>
+            <div class="deadline-box">
+                <p>⏰ 마감까지 D-1</p>
+                <strong>내일(금) 오전 11:30</strong>
+            </div>
+            <p class="scroll-hint">↓ 자세히 보기</p>
+        </div>
+
+        <!-- 카드 2: 안내 -->
+        <div class="card card-2">
+            <div class="intro-icon">🗓️</div>
+            <p class="intro-label">LAST CHANCE</p>
+            <h2>설 연휴 전<br>마지막 배송이에요</h2>
+            <div class="info-box">
+                <div class="icon">⚠️</div>
+                <p>연휴 기간에는<br>배송이 없습니다<br><br>필요한 건 <strong>지금</strong> 주문하세요!</p>
+            </div>
+            <p class="intro-text">
+                금요일 오전에 주문하시면<br>
+                토요일 아침에 도착해요
+            </p>
+        </div>
+
+        <!-- 카드 3: 감성 인용 -->
+        <div class="card card-3">
+            <p class="quote-mark">"</p>
+            <p class="quote-text">
+                명절 준비하느라<br>
+                정신없으시죠?<br><br>
+                빠뜨린 거 없는지<br>
+                한 번 더 확인하세요
+            </p>
+            <p class="quote-author">- 두레생협 -</p>
+        </div>
+
+        <!-- 카드 4: 명절 필수품 -->
+        <div class="card card-products">
+            <div class="section-icon">🎁</div>
+            <p class="section-label">FOR HOLIDAY</p>
+            <h2>명절에 필요한 것</h2>
+            <div class="grid">
+                <a href="tel:1661-5110" class="item">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/20708C.jpg" alt="발아참기름">
+                    <p class="name">발아참기름</p>
+                    <p class="price">31,500원</p>
+                    <p class="discount">나물 무칠 때</p>
+                </a>
+                <a href="tel:1661-5110" class="item">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/20710C.jpg" alt="발아들기름">
+                    <p class="name">발아들기름</p>
+                    <p class="price">26,000원</p>
+                    <p class="discount">전 부칠 때</p>
+                </a>
+                <a href="tel:1661-5110" class="item">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/21166C.jpg" alt="원삼유정란">
+                    <p class="name">원삼유정란</p>
+                    <p class="price">5,800원</p>
+                    <p class="discount">전, 찜에 필수</p>
+                </a>
+                <a href="tel:1661-5110" class="item">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/42633C.jpg" alt="식혜">
+                    <p class="name">식혜 3병</p>
+                    <p class="price">11,900원</p>
+                    <p class="discount">식후 디저트</p>
+                </a>
+            </div>
+        </div>
+
+        <!-- 카드 5: 빠뜨린 거 없나요? -->
+        <div class="card card-list">
+            <div class="section-icon">✅</div>
+            <h2>혹시 빠뜨린 거 없나요?</h2>
+            <div class="list">
+                <a href="tel:1661-5110" class="list-item">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58927C.jpg" alt="영광법성포굴비">
+                    <div class="info">
+                        <p class="name">영광법성포굴비</p>
+                        <p class="desc">제사상, 차례상에</p>
+                    </div>
+                    <span class="price">101,700원</span>
+                </a>
+                <a href="tel:1661-5110" class="list-item">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/1380C.jpg" alt="마른오징어">
+                    <div class="info">
+                        <p class="name">마른오징어</p>
+                        <p class="desc">차례상 필수</p>
+                    </div>
+                    <span class="price">11,500원</span>
+                </a>
+                <a href="tel:1661-5110" class="list-item">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/55765C.jpg" alt="생강청">
+                    <div class="info">
+                        <p class="name">생강청</p>
+                        <p class="desc">손님 대접할 차</p>
+                    </div>
+                    <span class="price">12,500원</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- 카드 6: CTA -->
+        <div class="card card-cta">
+            <div class="icon">🎊</div>
+            <p class="final-slogan">명절 전 마지막 배송</p>
+            <h2>지금 바로<br>주문하세요!</h2>
+            <p class="deadline-text">
+                명절 주문 마감까지 D-1
+                <strong>내일(금) 오전 11:30</strong>
+            </p>
+            <a href="tel:1661-5110" class="cta-btn">📞 1661-5110</a>
+            <p class="sub-text">전화주문만 가능해요</p>
+            <p class="brand">두레생협 💚 풍성한 명절 되세요</p>
+        </div>
+    </div>
+
+    <div class="indicator">
+        <div class="dot active"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
+
+    <script>
+        const container = document.getElementById('cardContainer');
+        const dots = document.querySelectorAll('.dot');
+
+        container.addEventListener('scroll', () => {
+            const scrollPos = container.scrollTop;
+            const cardHeight = window.innerHeight - 115;
+            const activeIndex = Math.round(scrollPos / cardHeight);
+
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === activeIndex);
+            });
+        });
+    </script>
+</body>
+</html>
