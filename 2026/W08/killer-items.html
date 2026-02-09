@@ -3,211 +3,734 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>두레생협 8주차 - 킬러 아이템</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <title>생활의 발견 - 8주차 킬러 아이템</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Serif+KR:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        *{margin:0;padding:0;box-sizing:border-box}
-        :root{--dark:#3a3230;--brown:#5c4f4a;--brown-light:#8b7d72;--beige:#c4b5a5;--beige-light:#e8e0d5;--cream:#f7f4f0;--white:#fdfcfa;--green:#2d5a3d;--red:#c0392b;--orange:#e67e22}
-        html{font-size:clamp(14px, 4vw, 18px)}
-        body{font-family:'Noto Sans KR',sans-serif;background:var(--cream);color:var(--dark);line-height:1.7;overflow-x:hidden}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-        .card-container{height:100vh;overflow-y:scroll;scroll-snap-type:y mandatory;-webkit-overflow-scrolling:touch}
-        .card{min-height:100vh;scroll-snap-align:start;display:flex;flex-direction:column;padding:20px;position:relative}
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f8f6f3;
+            color: #2c2c2c;
+            line-height: 1.8;
+            -webkit-font-smoothing: antialiased;
+        }
 
-        /* Card 1: 메인 */
-        .card-main{background:linear-gradient(135deg,#2d5a3d 0%,#1e4a2d 100%);color:#fff;justify-content:center;align-items:center;text-align:center}
-        .card-main .badge{display:inline-block;background:#fff;color:var(--green);padding:8px 20px;border-radius:20px;font-size:clamp(13px,3.5vw,15px);font-weight:700;margin-bottom:16px}
-        .card-main .free-shipping{display:inline-block;background:var(--orange);color:#fff;padding:10px 24px;border-radius:25px;font-size:clamp(16px,4.5vw,20px);font-weight:900;margin-bottom:24px;animation:pulse 2s infinite}
-        .card-main h1{font-size:clamp(32px,9vw,42px);font-weight:900;line-height:1.3;margin-bottom:16px}
-        .card-main .subtitle{font-size:clamp(16px,4.5vw,20px);opacity:0.9;margin-bottom:8px}
-        .card-main .desc{font-size:clamp(14px,4vw,16px);opacity:0.8}
+        /* 두레매거진 헤더 */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: linear-gradient(135deg, #2d5a3d, #1e4a2d);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 18px;
+            z-index: 1000;
+        }
+        .header-logo img {
+            height: 38px;
+            border-radius: 4px;
+        }
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .header-label {
+            font-size: 15px;
+            color: #a8d5a2;
+            font-weight: 500;
+        }
+        .header-order {
+            padding: 10px 20px;
+            background: #fff;
+            color: #2d5a3d;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 17px;
+            font-weight: 700;
+        }
 
-        @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+        .promo-bar {
+            position: fixed;
+            top: 60px;
+            left: 0;
+            right: 0;
+            z-index: 999;
+            background: linear-gradient(90deg, #f39c12, #e67e22);
+            padding: 10px 0;
+            text-align: center;
+        }
+        .promo-bar-inner {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            font-size: clamp(14px, 4vw, 17px);
+            color: #fff;
+            font-weight: 700;
+        }
+        .promo-bar-inner .badge {
+            background: #fff;
+            color: #e67e22;
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-weight: 900;
+        }
 
-        /* Card 2-5: 상품 카드 */
-        .card-product{background:var(--white);justify-content:flex-start;padding-top:40px}
-        .product-header{text-align:center;margin-bottom:24px}
-        .product-rank{display:inline-flex;align-items:center;justify-content:center;width:50px;height:50px;background:linear-gradient(135deg,#f39c12,#e67e22);color:#fff;border-radius:50%;font-size:22px;font-weight:900;margin-bottom:12px}
-        .product-header h2{font-size:clamp(22px,6vw,28px);font-weight:900;color:var(--dark);margin-bottom:8px}
-        .discount-badge{display:inline-block;background:var(--red);color:#fff;padding:6px 16px;border-radius:20px;font-size:clamp(18px,5vw,22px);font-weight:900}
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            background: #fff;
+            overflow: hidden;
+        }
 
-        .product-image{width:100%;max-width:280px;aspect-ratio:1;object-fit:contain;background:var(--cream);border-radius:20px;margin:0 auto 20px;display:block}
+        /* 히어로 섹션 */
+        .hero {
+            position: relative;
+            height: 100vh;
+            min-height: 600px;
+            padding-top: 100px;
+            background: linear-gradient(180deg, #c0392b 0%, #922b21 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px 30px;
+            overflow: hidden;
+        }
 
-        .product-info{text-align:center;padding:0 10px}
-        .product-name{font-size:clamp(20px,5.5vw,26px);font-weight:900;margin-bottom:12px}
-        .product-desc{font-size:clamp(14px,4vw,16px);color:var(--brown);margin-bottom:16px;line-height:1.6}
-        .price-box{background:var(--cream);border-radius:16px;padding:16px;margin-bottom:16px}
-        .price-orig{font-size:clamp(16px,4.5vw,18px);color:var(--brown-light);text-decoration:line-through;margin-bottom:4px}
-        .price-now{font-size:clamp(28px,8vw,36px);font-weight:900;color:var(--red)}
-        .price-save{display:inline-block;background:var(--orange);color:#fff;padding:6px 14px;border-radius:12px;font-size:clamp(14px,4vw,16px);font-weight:700;margin-top:8px}
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="0.5"/></svg>');
+            background-size: 200px;
+            opacity: 0.5;
+        }
 
-        .product-btn{display:block;background:var(--green);color:#fff;text-decoration:none;padding:16px;border-radius:14px;font-size:clamp(16px,4.5vw,18px);font-weight:700;text-align:center;margin-top:auto}
+        .hero-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 30px;
+            font-size: 12px;
+            letter-spacing: 3px;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 1;
+        }
 
-        /* Card 6: 추가 상품 */
-        .card-bonus{background:linear-gradient(135deg,#fff9e6,#fff3c4)}
-        .bonus-title{text-align:center;margin-bottom:24px}
-        .bonus-title h2{font-size:clamp(22px,6vw,28px);font-weight:900;color:var(--dark)}
-        .bonus-grid{display:flex;flex-direction:column;gap:12px;margin-bottom:20px}
-        .bonus-item{display:flex;align-items:center;gap:14px;background:#fff;border-radius:14px;padding:14px;text-decoration:none;color:inherit}
-        .bonus-item img{width:70px;height:70px;object-fit:contain;background:var(--cream);border-radius:10px;flex-shrink:0}
-        .bonus-item-info{flex:1}
-        .bonus-item-name{font-size:clamp(15px,4vw,17px);font-weight:700;margin-bottom:4px}
-        .bonus-item-price{font-size:clamp(14px,3.8vw,16px);color:var(--brown-light)}
-        .bonus-item-price span{color:var(--red);font-weight:900}
-        .bonus-item-discount{background:var(--red);color:#fff;padding:4px 10px;border-radius:8px;font-size:13px;font-weight:700}
+        .hero-free {
+            display: inline-block;
+            padding: 10px 24px;
+            background: #f39c12;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
 
-        /* Card 7: CTA */
-        .card-cta{background:linear-gradient(135deg,#2d5a3d,#1e4a2d);color:#fff;justify-content:center;align-items:center;text-align:center}
-        .card-cta .free-badge{display:inline-block;background:var(--orange);color:#fff;padding:12px 28px;border-radius:30px;font-size:clamp(18px,5vw,22px);font-weight:900;margin-bottom:20px}
-        .card-cta h2{font-size:clamp(26px,7vw,34px);font-weight:900;line-height:1.4;margin-bottom:16px}
-        .card-cta p{font-size:clamp(15px,4vw,18px);opacity:0.9;margin-bottom:30px}
-        .cta-btn{display:inline-block;background:#fff;color:var(--green);padding:18px 50px;border-radius:30px;font-size:clamp(18px,5vw,22px);font-weight:900;text-decoration:none}
+        .hero-title {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 15px;
+            font-weight: 400;
+            color: rgba(255,255,255,0.7);
+            letter-spacing: 8px;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
 
-        .scroll-hint{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);font-size:14px;opacity:0.7;animation:bounce 2s infinite}
-        @keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-10px)}}
+        .hero-main {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 42px;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.3;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-sub {
+            font-size: 16px;
+            color: rgba(255,255,255,0.8);
+            font-weight: 300;
+            line-height: 1.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-scroll {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.5);
+            font-size: 12px;
+            letter-spacing: 2px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        /* 인트로 섹션 */
+        .intro {
+            padding: 80px 30px;
+            background: #fff;
+            text-align: center;
+        }
+
+        .intro-label {
+            font-size: 11px;
+            letter-spacing: 4px;
+            color: #c0392b;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .intro-title {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 26px;
+            font-weight: 600;
+            color: #1a1a1a;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .intro-divider {
+            width: 40px;
+            height: 1px;
+            background: #c0392b;
+            margin: 0 auto 30px;
+        }
+
+        .intro-text {
+            font-size: 15px;
+            color: #666;
+            line-height: 2;
+            font-weight: 300;
+        }
+
+        /* 이미지 섹션 */
+        .full-image {
+            width: 100%;
+            display: block;
+        }
+
+        .full-image img {
+            width: 100%;
+            display: block;
+        }
+
+        /* 스토리 섹션 */
+        .story {
+            padding: 70px 30px;
+            background: #f8f6f3;
+        }
+
+        .story-number {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 48px;
+            color: rgba(192, 57, 43, 0.15);
+            font-weight: 700;
+            margin-bottom: -10px;
+        }
+
+        .story-title {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 24px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .story-highlight {
+            color: #c0392b;
+        }
+
+        .story-text {
+            font-size: 15px;
+            color: #555;
+            line-height: 2;
+            font-weight: 300;
+        }
+
+        .story-white {
+            background: #fff;
+        }
+
+        /* 감성 인용 */
+        .quote-section {
+            padding: 80px 30px;
+            background: #c0392b;
+            text-align: center;
+        }
+
+        .quote-mark {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 60px;
+            color: rgba(255,255,255,0.2);
+            line-height: 1;
+            margin-bottom: 20px;
+        }
+
+        .quote-text {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 20px;
+            color: #fff;
+            line-height: 1.9;
+            font-weight: 400;
+        }
+
+        .quote-author {
+            margin-top: 30px;
+            font-size: 13px;
+            color: rgba(255,255,255,0.6);
+            letter-spacing: 2px;
+        }
+
+        /* 킬러 아이템 카드 */
+        .killer-section {
+            padding: 70px 30px;
+            background: #fff;
+        }
+
+        .killer-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .killer-label {
+            font-size: 11px;
+            letter-spacing: 4px;
+            color: #c0392b;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .killer-title {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 26px;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .killer-card {
+            background: #f8f6f3;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 24px;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .killer-card-image {
+            width: 100%;
+            aspect-ratio: 4/3;
+            object-fit: contain;
+            background: #fff;
+        }
+
+        .killer-card-body {
+            padding: 25px;
+        }
+
+        .killer-card-rank {
+            display: inline-block;
+            padding: 6px 14px;
+            background: #c0392b;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 700;
+            border-radius: 20px;
+            margin-bottom: 12px;
+        }
+
+        .killer-card-name {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 22px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 10px;
+        }
+
+        .killer-card-desc {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+
+        .killer-card-price {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .price-original {
+            font-size: 16px;
+            color: #999;
+            text-decoration: line-through;
+        }
+
+        .price-sale {
+            font-size: 28px;
+            font-weight: 700;
+            color: #c0392b;
+        }
+
+        .killer-card-save {
+            display: inline-block;
+            padding: 8px 16px;
+            background: #f39c12;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 700;
+            border-radius: 8px;
+        }
+
+        /* 추가 상품 섹션 */
+        .more-section {
+            padding: 70px 30px;
+            background: linear-gradient(180deg, #f8f6f3 0%, #fff 100%);
+        }
+
+        .more-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .more-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .more-item {
+            background: #fff;
+            border-radius: 16px;
+            padding: 20px;
+            text-decoration: none;
+            color: inherit;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .more-item img {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: contain;
+            background: #f8f6f3;
+            border-radius: 12px;
+            margin-bottom: 14px;
+        }
+
+        .more-item-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 6px;
+        }
+
+        .more-item-price {
+            font-size: 17px;
+            font-weight: 700;
+            color: #c0392b;
+        }
+
+        .more-item-discount {
+            font-size: 12px;
+            color: #f39c12;
+            font-weight: 600;
+        }
+
+        /* CTA */
+        .cta {
+            padding: 60px 30px 80px;
+            background: linear-gradient(180deg, #fff 0%, #f8f6f3 100%);
+            text-align: center;
+        }
+
+        .cta-free {
+            display: inline-block;
+            padding: 12px 28px;
+            background: #f39c12;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 700;
+            border-radius: 30px;
+            margin-bottom: 24px;
+        }
+
+        .cta-text {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 22px;
+            color: #1a1a1a;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 18px 50px;
+            background: #c0392b;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 15px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background: #922b21;
+            transform: translateY(-2px);
+        }
+
+        /* 푸터 */
+        .footer {
+            padding: 40px 30px;
+            background: #1a1a1a;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-size: 14px;
+            color: rgba(255,255,255,0.5);
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+        }
+
+        .footer-text {
+            font-size: 12px;
+            color: rgba(255,255,255,0.3);
+        }
     </style>
 </head>
 <body>
-    <div class="card-container">
-        <!-- Card 1: 메인 -->
-        <div class="card card-main">
-            <span class="badge">두레생협 8주차</span>
-            <span class="free-shipping">🚚 배송료 무료!</span>
-            <h1>이거 하나면<br>클릭 각이에요</h1>
-            <p class="subtitle">할인율 TOP 4 킬러 아이템</p>
-            <p class="desc">명절 끝, 알뜰 쇼핑 시작!</p>
-            <p class="scroll-hint">↓ 아래로 스크롤</p>
+    <!-- 두레매거진 헤더 -->
+    <header class="header">
+        <a href="https://ecoop.or.kr/DureShop/main/main.do" class="header-logo"><img src="LOGO.png" alt="두레생협"></a>
+        <div class="header-right">
+            <span class="header-label">생활의 발견</span>
+            <a href="https://ecoop.or.kr/DureShop/main/main.do" class="header-order">쇼핑하기</a>
         </div>
+    </header>
 
-        <!-- Card 2: 마른오징어 -->
-        <div class="card card-product">
-            <div class="product-header">
-                <div class="product-rank">1</div>
-                <h2>할인율 1위</h2>
-                <span class="discount-badge">30.3% OFF</span>
-            </div>
-            <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/3047C.jpg" class="product-image" alt="마른오징어">
-            <div class="product-info">
-                <p class="product-name">마른오징어</p>
-                <p class="product-desc">차례상 필수품!<br>체감 할인이 확 와닿아요</p>
-                <div class="price-box">
-                    <p class="price-orig">16,500원</p>
-                    <p class="price-now">11,500원</p>
-                    <span class="price-save">5,000원 절약!</span>
-                </div>
-            </div>
-            <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=06&returnNo=3047" class="product-btn">지금 담기</a>
+    <div class="promo-bar">
+        <div class="promo-bar-inner">
+            <span class="badge">8주차</span>
+            <span>🚚 이번 주 배송료 무료!</span>
         </div>
+    </div>
 
-        <!-- Card 3: 프로바이오틱스 -->
-        <div class="card card-product">
-            <div class="product-header">
-                <div class="product-rank">2</div>
-                <h2>장 건강 필수템</h2>
-                <span class="discount-badge">30.2% OFF</span>
-            </div>
-            <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/52318C.jpg" class="product-image" alt="프로바이오틱스">
-            <div class="product-info">
-                <p class="product-name">프로바이오틱스</p>
-                <p class="product-desc">명절 과식 후 장 건강<br>걱정되셨죠?</p>
-                <div class="price-box">
-                    <p class="price-orig">20,500원</p>
-                    <p class="price-now">14,300원</p>
-                    <span class="price-save">6,200원 절약!</span>
-                </div>
-            </div>
-            <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=06&returnNo=52318" class="product-btn">지금 담기</a>
-        </div>
+    <div class="container">
+        <!-- 히어로 -->
+        <section class="hero">
+            <p class="hero-title">생활의 발견</p>
+            <h1 class="hero-main">
+                이거<br>
+                하나면<br>
+                클릭 각
+            </h1>
+            <p class="hero-sub">
+                할인율 TOP 4<br>
+                킬러 아이템을 소개합니다
+            </p>
+            <div class="hero-scroll">SCROLL</div>
+        </section>
 
-        <!-- Card 4: 영광법성포굴비 -->
-        <div class="card card-product">
-            <div class="product-header">
-                <div class="product-rank">3</div>
-                <h2>절약 금액 1위</h2>
-                <span class="discount-badge">25.2% OFF</span>
-            </div>
-            <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/1563C.jpg" class="product-image" alt="영광법성포굴비">
-            <div class="product-info">
-                <p class="product-name">영광법성포굴비 10미</p>
-                <p class="product-desc">3만4천원 아끼는 설 굴비!<br>1년 중 가장 저렴해요</p>
-                <div class="price-box">
-                    <p class="price-orig">136,000원</p>
-                    <p class="price-now">101,700원</p>
-                    <span class="price-save">34,300원 절약!</span>
-                </div>
-            </div>
-            <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=06&returnNo=1563" class="product-btn">지금 담기</a>
-        </div>
+        <!-- 인트로 -->
+        <section class="intro">
+            <p class="intro-label">KILLER ITEMS</p>
+            <h2 class="intro-title">
+                명절 끝,<br>
+                알뜰 쇼핑 시작!
+            </h2>
+            <div class="intro-divider"></div>
+            <p class="intro-text">
+                명절 지나고 나면<br>
+                지갑도, 냉장고도 허전하죠?<br><br>
+                걱정 마세요.<br>
+                두레생협이 준비한<br>
+                <strong>최대 30% 할인</strong> 아이템으로<br>
+                알뜰하게 채워보세요.
+            </p>
+        </section>
 
-        <!-- Card 5: 홍삼캔디 -->
-        <div class="card card-product">
-            <div class="product-header">
-                <div class="product-rank">4</div>
-                <h2>장바구니 추가용</h2>
-                <span class="discount-badge">24.7% OFF</span>
-            </div>
-            <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/9971C.jpg" class="product-image" alt="홍삼캔디">
-            <div class="product-info">
-                <p class="product-name">6년근 홍삼캔디</p>
-                <p class="product-desc">소액이지만 할인율 빵빵!<br>하나 더 담기 딱 좋아요</p>
-                <div class="price-box">
-                    <p class="price-orig">8,900원</p>
-                    <p class="price-now">6,700원</p>
-                    <span class="price-save">2,200원 절약!</span>
-                </div>
-            </div>
-            <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=06&returnNo=9971" class="product-btn">지금 담기</a>
-        </div>
+        <!-- 감성 인용 -->
+        <section class="quote-section">
+            <p class="quote-mark">"</p>
+            <p class="quote-text">
+                할인율만 높은 게 아니라<br>
+                진짜 필요한 것들이에요<br>
+                그게 두레다운 선택입니다
+            </p>
+            <p class="quote-author">- 두레생협 -</p>
+        </section>
 
-        <!-- Card 6: 추가 추천 -->
-        <div class="card card-product card-bonus">
-            <div class="bonus-title">
-                <h2>🛒 함께 담으면 좋아요</h2>
+        <!-- 킬러 아이템 -->
+        <section class="killer-section">
+            <div class="killer-header">
+                <p class="killer-label">BEST DISCOUNT</p>
+                <h3 class="killer-title">할인율 TOP 4</h3>
             </div>
-            <div class="bonus-grid">
-                <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=06&returnNo=31500" class="bonus-item">
-                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/31500C.jpg" alt="발아참기름">
-                    <div class="bonus-item-info">
-                        <p class="bonus-item-name">발아참기름</p>
-                        <p class="bonus-item-price"><span>31,500원</span> (14.6%↓)</p>
+
+            <!-- 1위: 마른오징어 -->
+            <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=마른오징어코드&returnPlanNo=0" class="killer-card">
+                <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/마른오징어코드C.jpg" class="killer-card-image" alt="마른오징어">
+                <div class="killer-card-body">
+                    <span class="killer-card-rank">🥇 할인율 1위 · 30.3%</span>
+                    <h4 class="killer-card-name">마른오징어</h4>
+                    <p class="killer-card-desc">차례상 필수품인데 체감 할인이 커요.<br>전 상품 중 할인율 1위!</p>
+                    <div class="killer-card-price">
+                        <span class="price-original">16,500원</span>
+                        <span class="price-sale">11,500원</span>
                     </div>
-                    <span class="bonus-item-discount">5,400원↓</span>
-                </a>
-                <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=06&returnNo=31501" class="bonus-item">
-                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/31501C.jpg" alt="발아들기름">
-                    <div class="bonus-item-info">
-                        <p class="bonus-item-name">발아들기름</p>
-                        <p class="bonus-item-price"><span>26,000원</span> (6.1%↓)</p>
+                    <span class="killer-card-save">5,000원 절약!</span>
+                </div>
+            </a>
+
+            <!-- 2위: 프로바이오틱스 -->
+            <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=프로바이오틱스코드&returnPlanNo=0" class="killer-card">
+                <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/프로바이오틱스코드C.jpg" class="killer-card-image" alt="프로바이오틱스">
+                <div class="killer-card-body">
+                    <span class="killer-card-rank">🥈 할인율 2위 · 30.2%</span>
+                    <h4 class="killer-card-name">프로바이오틱스</h4>
+                    <p class="killer-card-desc">명절 과식 후 장 건강 걱정되셨죠?<br>50-60대에게 직격 아이템!</p>
+                    <div class="killer-card-price">
+                        <span class="price-original">20,500원</span>
+                        <span class="price-sale">14,300원</span>
                     </div>
-                    <span class="bonus-item-discount">1,700원↓</span>
-                </a>
-                <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=06&returnNo=5800" class="bonus-item">
-                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/5800C.jpg" alt="원삼유정란">
-                    <div class="bonus-item-info">
-                        <p class="bonus-item-name">원삼유정란</p>
-                        <p class="bonus-item-price"><span>5,800원</span> (10.8%↓)</p>
+                    <span class="killer-card-save">6,200원 절약!</span>
+                </div>
+            </a>
+
+            <!-- 3위: 영광법성포굴비 -->
+            <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=굴비10미코드&returnPlanNo=0" class="killer-card">
+                <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/굴비10미코드C.jpg" class="killer-card-image" alt="영광법성포굴비">
+                <div class="killer-card-body">
+                    <span class="killer-card-rank">🥉 절약금액 1위 · 25.2%</span>
+                    <h4 class="killer-card-name">영광법성포굴비 10미</h4>
+                    <p class="killer-card-desc">절약 금액이 가장 큰 상품!<br>3만4천원 아끼는 설 굴비</p>
+                    <div class="killer-card-price">
+                        <span class="price-original">136,000원</span>
+                        <span class="price-sale">101,700원</span>
                     </div>
-                    <span class="bonus-item-discount">700원↓</span>
-                </a>
-                <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=06&returnNo=11900" class="bonus-item">
-                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/11900C.jpg" alt="식혜">
-                    <div class="bonus-item-info">
-                        <p class="bonus-item-name">식혜 3병(알뜰)</p>
-                        <p class="bonus-item-price"><span>11,900원</span> (15.6%↓)</p>
+                    <span class="killer-card-save">34,300원 절약!</span>
+                </div>
+            </a>
+
+            <!-- 4위: 홍삼캔디 -->
+            <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=홍삼캔디코드&returnPlanNo=0" class="killer-card">
+                <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/홍삼캔디코드C.jpg" class="killer-card-image" alt="6년근 홍삼캔디">
+                <div class="killer-card-body">
+                    <span class="killer-card-rank">🍬 장바구니 추가용 · 24.7%</span>
+                    <h4 class="killer-card-name">6년근 홍삼캔디</h4>
+                    <p class="killer-card-desc">소액이지만 할인율이 눈에 띄어요.<br>장바구니에 하나 더!</p>
+                    <div class="killer-card-price">
+                        <span class="price-original">8,900원</span>
+                        <span class="price-sale">6,700원</span>
                     </div>
-                    <span class="bonus-item-discount">2,200원↓</span>
+                    <span class="killer-card-save">2,200원 절약!</span>
+                </div>
+            </a>
+        </section>
+
+        <!-- 스토리 섹션 -->
+        <section class="story">
+            <p class="story-number">TIP</p>
+            <h3 class="story-title">
+                명절에 다 쓴<br>
+                <span class="story-highlight">참기름, 지금 채우세요</span>
+            </h3>
+            <p class="story-text">
+                명절 요리하느라 기름 많이 쓰셨죠?<br><br>
+                발아참기름, 발아들기름 합산 목표만<br>
+                <strong>1.15억원</strong>이에요.<br><br>
+                그만큼 조합원들이 많이 찾는 상품!<br>
+                세트로 묶어 주문하시면<br>
+                배송료도 무료, 일석이조입니다.
+            </p>
+        </section>
+
+        <!-- 추가 상품 -->
+        <section class="more-section">
+            <div class="more-header">
+                <p class="killer-label">ALSO RECOMMENDED</p>
+                <h3 class="killer-title">함께 담으면 좋아요</h3>
+            </div>
+
+            <div class="more-grid">
+                <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=참기름코드&returnPlanNo=0" class="more-item">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/참기름코드C.jpg" alt="발아참기름">
+                    <p class="more-item-name">발아참기름</p>
+                    <p class="more-item-price">31,500원</p>
+                    <p class="more-item-discount">14.6% 할인</p>
+                </a>
+                <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=들기름코드&returnPlanNo=0" class="more-item">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/들기름코드C.jpg" alt="발아들기름">
+                    <p class="more-item-name">발아들기름</p>
+                    <p class="more-item-price">26,000원</p>
+                    <p class="more-item-discount">6.1% 할인</p>
+                </a>
+                <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=유정란코드&returnPlanNo=0" class="more-item">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/유정란코드C.jpg" alt="원삼유정란">
+                    <p class="more-item-name">원삼유정란</p>
+                    <p class="more-item-price">5,800원</p>
+                    <p class="more-item-discount">10.8% 할인</p>
+                </a>
+                <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=식혜코드&returnPlanNo=0" class="more-item">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/식혜코드C.jpg" alt="식혜">
+                    <p class="more-item-name">식혜 3병</p>
+                    <p class="more-item-price">11,900원</p>
+                    <p class="more-item-discount">15.6% 할인</p>
                 </a>
             </div>
-            <p style="text-align:center;font-size:14px;color:var(--brown)">명절에 다 쓴 참기름, 지금 채우세요!</p>
-        </div>
+        </section>
 
-        <!-- Card 7: CTA -->
-        <div class="card card-cta">
-            <span class="free-badge">🚚 이번 주 배송료 무료</span>
-            <h2>명절 끝,<br>알뜰 쇼핑 시작!</h2>
-            <p>최대 30% 할인 킬러 아이템<br>지금 바로 만나보세요</p>
-            <a href="https://ecoop.or.kr/DureShop/main/main.do" class="cta-btn">쇼핑하러 가기</a>
-        </div>
+        <!-- CTA -->
+        <section class="cta">
+            <span class="cta-free">🚚 이번 주 배송료 무료</span>
+            <p class="cta-text">
+                명절 끝나고<br>
+                알뜰하게 장 보세요
+            </p>
+            <a href="https://ecoop.or.kr/DureShop/main/main.do" class="cta-button">
+                쇼핑하러 가기
+            </a>
+        </section>
+
+        <!-- 푸터 -->
+        <footer class="footer">
+            <p class="footer-logo">DURE COOP</p>
+            <p class="footer-text">두레생협 생활의 발견 2026 W08</p>
+        </footer>
     </div>
 </body>
 </html>

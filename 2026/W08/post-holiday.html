@@ -3,270 +3,910 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>두레생협 8주차 - 명절 후유증 해결</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <title>생활의 발견 - 명절 후유증 해결</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Serif+KR:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        *{margin:0;padding:0;box-sizing:border-box}
-        :root{--dark:#3a3230;--brown:#5c4f4a;--brown-light:#8b7d72;--beige:#c4b5a5;--beige-light:#e8e0d5;--cream:#f7f4f0;--white:#fdfcfa;--green:#2d5a3d;--red:#c0392b;--orange:#e67e22;--purple:#8e44ad}
-        html{font-size:clamp(14px, 4vw, 18px)}
-        body{font-family:'Noto Sans KR',sans-serif;background:var(--cream);color:var(--dark);line-height:1.7;overflow-x:hidden}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-        .card-container{height:100vh;overflow-y:scroll;scroll-snap-type:y mandatory;-webkit-overflow-scrolling:touch}
-        .card{min-height:100vh;scroll-snap-align:start;display:flex;flex-direction:column;padding:20px;position:relative}
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f8f6f3;
+            color: #2c2c2c;
+            line-height: 1.8;
+            -webkit-font-smoothing: antialiased;
+        }
 
-        /* Card 1: 메인 */
-        .card-main{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff;justify-content:center;align-items:center;text-align:center}
-        .card-main .badge{display:inline-block;background:rgba(255,255,255,0.2);color:#fff;padding:8px 20px;border-radius:20px;font-size:clamp(13px,3.5vw,15px);font-weight:700;margin-bottom:16px;backdrop-filter:blur(10px)}
-        .card-main .free-shipping{display:inline-block;background:var(--orange);color:#fff;padding:10px 24px;border-radius:25px;font-size:clamp(16px,4.5vw,20px);font-weight:900;margin-bottom:24px}
-        .card-main h1{font-size:clamp(30px,8vw,40px);font-weight:900;line-height:1.3;margin-bottom:16px}
-        .card-main .subtitle{font-size:clamp(16px,4.5vw,20px);opacity:0.95;margin-bottom:8px}
-        .card-main .desc{font-size:clamp(14px,4vw,16px);opacity:0.85}
+        /* 두레매거진 헤더 */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: linear-gradient(135deg, #2d5a3d, #1e4a2d);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 18px;
+            z-index: 1000;
+        }
+        .header-logo img {
+            height: 38px;
+            border-radius: 4px;
+        }
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .header-label {
+            font-size: 15px;
+            color: #a8d5a2;
+            font-weight: 500;
+        }
+        .header-order {
+            padding: 10px 20px;
+            background: #fff;
+            color: #2d5a3d;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 17px;
+            font-weight: 700;
+        }
 
-        /* Card 2: 정월대보름 */
-        .card-daeboreum{background:linear-gradient(180deg,#ffecd2 0%,#fcb69f 100%);justify-content:flex-start;padding-top:40px}
-        .daeboreum-header{text-align:center;margin-bottom:20px}
-        .daeboreum-header .moon{font-size:60px;margin-bottom:12px}
-        .daeboreum-header h2{font-size:clamp(24px,7vw,32px);font-weight:900;color:var(--dark);margin-bottom:8px}
-        .daeboreum-header p{font-size:clamp(14px,4vw,16px);color:var(--brown)}
-        .daeboreum-image{width:100%;max-width:300px;aspect-ratio:1;object-fit:contain;background:#fff;border-radius:20px;margin:0 auto 20px;display:block;box-shadow:0 10px 30px rgba(0,0,0,0.1)}
-        .daeboreum-info{text-align:center;padding:0 10px}
-        .daeboreum-name{font-size:clamp(20px,5.5vw,26px);font-weight:900;margin-bottom:8px}
-        .daeboreum-desc{font-size:clamp(14px,4vw,16px);color:var(--brown);margin-bottom:16px;line-height:1.7}
-        .daeboreum-highlight{display:inline-block;background:#fff;padding:12px 24px;border-radius:14px;margin-bottom:16px}
-        .daeboreum-highlight span{font-size:clamp(13px,3.5vw,15px);color:var(--brown)}
-        .daeboreum-price{font-size:clamp(28px,8vw,36px);font-weight:900;color:var(--red)}
-        .daeboreum-btn{display:block;background:var(--orange);color:#fff;text-decoration:none;padding:16px;border-radius:14px;font-size:clamp(16px,4.5vw,18px);font-weight:700;text-align:center;margin-top:auto}
+        .promo-bar {
+            position: fixed;
+            top: 60px;
+            left: 0;
+            right: 0;
+            z-index: 999;
+            background: linear-gradient(90deg, #f39c12, #e67e22);
+            padding: 10px 0;
+            text-align: center;
+        }
+        .promo-bar-inner {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            font-size: clamp(14px, 4vw, 17px);
+            color: #fff;
+            font-weight: 700;
+        }
+        .promo-bar-inner .badge {
+            background: #fff;
+            color: #e67e22;
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-weight: 900;
+        }
 
-        /* Card 3-5: 명절 증후군 */
-        .card-syndrome{background:var(--white);justify-content:flex-start;padding-top:40px}
-        .syndrome-header{text-align:center;margin-bottom:20px}
-        .syndrome-icon{font-size:50px;margin-bottom:10px}
-        .syndrome-header h2{font-size:clamp(22px,6vw,28px);font-weight:900;color:var(--dark);margin-bottom:8px}
-        .syndrome-header p{font-size:clamp(14px,4vw,16px);color:var(--brown)}
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            background: #fff;
+            overflow: hidden;
+        }
 
-        .syndrome-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:16px}
-        .syndrome-item{background:var(--cream);border-radius:14px;padding:12px;text-decoration:none;color:inherit;text-align:center}
-        .syndrome-item img{width:100%;aspect-ratio:1;object-fit:contain;border-radius:10px;background:#fff;margin-bottom:8px}
-        .syndrome-item-name{font-size:clamp(13px,3.8vw,15px);font-weight:700;margin-bottom:4px}
-        .syndrome-item-price{font-size:clamp(14px,4vw,16px);color:var(--green);font-weight:900}
-        .syndrome-item-discount{font-size:12px;color:var(--red);font-weight:700}
+        /* 히어로 섹션 */
+        .hero {
+            position: relative;
+            height: 100vh;
+            min-height: 600px;
+            padding-top: 100px;
+            background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px 30px;
+            overflow: hidden;
+        }
 
-        .syndrome-list{display:flex;flex-direction:column;gap:10px}
-        .syndrome-row{display:flex;align-items:center;gap:12px;background:var(--cream);border-radius:12px;padding:12px;text-decoration:none;color:inherit}
-        .syndrome-row img{width:60px;height:60px;object-fit:contain;border-radius:8px;background:#fff;flex-shrink:0}
-        .syndrome-row-info{flex:1}
-        .syndrome-row-name{font-size:clamp(14px,4vw,16px);font-weight:700}
-        .syndrome-row-price{font-size:clamp(13px,3.5vw,15px);color:var(--green);font-weight:700}
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="0.5"/></svg>');
+            background-size: 200px;
+            opacity: 0.5;
+        }
 
-        .card-syndrome .cta{display:block;background:var(--green);color:#fff;text-decoration:none;padding:14px;border-radius:12px;font-size:clamp(15px,4vw,17px);font-weight:700;text-align:center;margin-top:auto}
+        .hero-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 30px;
+            font-size: 12px;
+            letter-spacing: 3px;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 1;
+        }
 
-        /* Card 6: 냉장고 채우기 */
-        .card-fridge{background:linear-gradient(135deg,#a8edea 0%,#fed6e3 100%)}
-        .fridge-header{text-align:center;margin-bottom:24px}
-        .fridge-header h2{font-size:clamp(22px,6vw,28px);font-weight:900;color:var(--dark)}
-        .fridge-header p{font-size:clamp(14px,4vw,16px);color:var(--brown);margin-top:8px}
-        .fridge-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-        .fridge-item{background:#fff;border-radius:14px;padding:14px;text-decoration:none;color:inherit;text-align:center}
-        .fridge-item img{width:100%;aspect-ratio:1;object-fit:contain;border-radius:10px;background:var(--cream);margin-bottom:10px}
-        .fridge-item-name{font-size:clamp(14px,4vw,16px);font-weight:700;margin-bottom:6px}
-        .fridge-item-price{font-size:clamp(16px,4.5vw,18px);color:var(--green);font-weight:900}
-        .fridge-item-note{font-size:12px;color:var(--red);font-weight:700;margin-top:4px}
+        .hero-free {
+            display: inline-block;
+            padding: 10px 24px;
+            background: #f39c12;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
 
-        /* Card 7: CTA */
-        .card-cta{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;justify-content:center;align-items:center;text-align:center}
-        .card-cta .free-badge{display:inline-block;background:var(--orange);color:#fff;padding:12px 28px;border-radius:30px;font-size:clamp(18px,5vw,22px);font-weight:900;margin-bottom:20px}
-        .card-cta h2{font-size:clamp(26px,7vw,34px);font-weight:900;line-height:1.4;margin-bottom:16px}
-        .card-cta p{font-size:clamp(15px,4vw,18px);opacity:0.9;margin-bottom:30px}
-        .cta-btn{display:inline-block;background:#fff;color:#764ba2;padding:18px 50px;border-radius:30px;font-size:clamp(18px,5vw,22px);font-weight:900;text-decoration:none}
+        .hero-title {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 15px;
+            font-weight: 400;
+            color: rgba(255,255,255,0.7);
+            letter-spacing: 8px;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
 
-        .scroll-hint{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);font-size:14px;opacity:0.7;animation:bounce 2s infinite}
-        @keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-10px)}}
+        .hero-main {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 40px;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.3;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-sub {
+            font-size: 16px;
+            color: rgba(255,255,255,0.8);
+            font-weight: 300;
+            line-height: 1.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-scroll {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.5);
+            font-size: 12px;
+            letter-spacing: 2px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        /* 인트로 섹션 */
+        .intro {
+            padding: 80px 30px;
+            background: #fff;
+            text-align: center;
+        }
+
+        .intro-label {
+            font-size: 11px;
+            letter-spacing: 4px;
+            color: #764ba2;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .intro-title {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 26px;
+            font-weight: 600;
+            color: #1a1a1a;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .intro-divider {
+            width: 40px;
+            height: 1px;
+            background: #764ba2;
+            margin: 0 auto 30px;
+        }
+
+        .intro-text {
+            font-size: 15px;
+            color: #666;
+            line-height: 2;
+            font-weight: 300;
+        }
+
+        /* 스토리 섹션 */
+        .story {
+            padding: 70px 30px;
+            background: #f8f6f3;
+        }
+
+        .story-number {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 48px;
+            color: rgba(118, 75, 162, 0.15);
+            font-weight: 700;
+            margin-bottom: -10px;
+        }
+
+        .story-title {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 24px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .story-highlight {
+            color: #764ba2;
+        }
+
+        .story-text {
+            font-size: 15px;
+            color: #555;
+            line-height: 2;
+            font-weight: 300;
+        }
+
+        .story-white {
+            background: #fff;
+        }
+
+        /* 감성 인용 */
+        .quote-section {
+            padding: 80px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            text-align: center;
+        }
+
+        .quote-mark {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 60px;
+            color: rgba(255,255,255,0.2);
+            line-height: 1;
+            margin-bottom: 20px;
+        }
+
+        .quote-text {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 20px;
+            color: #fff;
+            line-height: 1.9;
+            font-weight: 400;
+        }
+
+        .quote-author {
+            margin-top: 30px;
+            font-size: 13px;
+            color: rgba(255,255,255,0.6);
+            letter-spacing: 2px;
+        }
+
+        /* 대보름 섹션 */
+        .daeboreum {
+            padding: 70px 30px;
+            background: linear-gradient(180deg, #ffecd2 0%, #fcb69f 100%);
+            text-align: center;
+        }
+
+        .daeboreum-moon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+
+        .daeboreum-label {
+            font-size: 11px;
+            letter-spacing: 4px;
+            color: #c0392b;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .daeboreum-title {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 28px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .daeboreum-desc {
+            font-size: 15px;
+            color: #555;
+            line-height: 1.9;
+            margin-bottom: 30px;
+        }
+
+        .daeboreum-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .daeboreum-card img {
+            width: 100%;
+            aspect-ratio: 4/3;
+            object-fit: contain;
+            background: #f8f6f3;
+            border-radius: 16px;
+            margin-bottom: 20px;
+        }
+
+        .daeboreum-card-name {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 22px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+        }
+
+        .daeboreum-card-sub {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 16px;
+        }
+
+        .daeboreum-card-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            background: #c0392b;
+            color: #fff;
+            font-size: 13px;
+            font-weight: 700;
+            border-radius: 20px;
+            margin-bottom: 16px;
+        }
+
+        .daeboreum-card-price {
+            font-size: 32px;
+            font-weight: 700;
+            color: #c0392b;
+        }
+
+        /* 증후군 섹션 */
+        .syndrome-section {
+            padding: 70px 30px;
+            background: #fff;
+        }
+
+        .syndrome-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .syndrome-label {
+            font-size: 11px;
+            letter-spacing: 4px;
+            color: #764ba2;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .syndrome-title {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 26px;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .syndrome-category {
+            margin-bottom: 40px;
+        }
+
+        .syndrome-cat-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .syndrome-cat-icon {
+            font-size: 32px;
+        }
+
+        .syndrome-cat-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .syndrome-cat-desc {
+            font-size: 13px;
+            color: #888;
+        }
+
+        .syndrome-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .syndrome-item {
+            background: #f8f6f3;
+            border-radius: 14px;
+            padding: 16px;
+            text-decoration: none;
+            color: inherit;
+            text-align: center;
+        }
+
+        .syndrome-item img {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: contain;
+            background: #fff;
+            border-radius: 10px;
+            margin-bottom: 12px;
+        }
+
+        .syndrome-item-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 4px;
+        }
+
+        .syndrome-item-discount {
+            font-size: 13px;
+            color: #764ba2;
+            font-weight: 600;
+        }
+
+        /* 간편식 리스트 */
+        .soup-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .soup-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: #f8f6f3;
+            border-radius: 14px;
+            padding: 14px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .soup-item img {
+            width: 70px;
+            height: 70px;
+            object-fit: contain;
+            background: #fff;
+            border-radius: 10px;
+            flex-shrink: 0;
+        }
+
+        .soup-item-info {
+            flex: 1;
+        }
+
+        .soup-item-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 4px;
+        }
+
+        .soup-item-desc {
+            font-size: 13px;
+            color: #888;
+        }
+
+        /* 냉장고 섹션 */
+        .fridge-section {
+            padding: 70px 30px;
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        }
+
+        .fridge-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .fridge-icon {
+            font-size: 50px;
+            margin-bottom: 16px;
+        }
+
+        .fridge-title {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 24px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 10px;
+        }
+
+        .fridge-desc {
+            font-size: 15px;
+            color: #555;
+        }
+
+        .fridge-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+        }
+
+        .fridge-item {
+            background: #fff;
+            border-radius: 16px;
+            padding: 20px;
+            text-decoration: none;
+            color: inherit;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .fridge-item img {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: contain;
+            background: #f8f6f3;
+            border-radius: 12px;
+            margin-bottom: 14px;
+        }
+
+        .fridge-item-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 6px;
+        }
+
+        .fridge-item-price {
+            font-size: 17px;
+            font-weight: 700;
+            color: #764ba2;
+        }
+
+        .fridge-item-discount {
+            font-size: 12px;
+            color: #c0392b;
+            font-weight: 600;
+        }
+
+        /* CTA */
+        .cta {
+            padding: 60px 30px 80px;
+            background: linear-gradient(180deg, #fff 0%, #f8f6f3 100%);
+            text-align: center;
+        }
+
+        .cta-free {
+            display: inline-block;
+            padding: 12px 28px;
+            background: #f39c12;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 700;
+            border-radius: 30px;
+            margin-bottom: 24px;
+        }
+
+        .cta-text {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 22px;
+            color: #1a1a1a;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 18px 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 15px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(118, 75, 162, 0.3);
+        }
+
+        /* 푸터 */
+        .footer {
+            padding: 40px 30px;
+            background: #1a1a1a;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-size: 14px;
+            color: rgba(255,255,255,0.5);
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+        }
+
+        .footer-text {
+            font-size: 12px;
+            color: rgba(255,255,255,0.3);
+        }
     </style>
 </head>
 <body>
-    <div class="card-container">
-        <!-- Card 1: 메인 -->
-        <div class="card card-main">
-            <span class="badge">두레생협 8주차</span>
-            <span class="free-shipping">🚚 배송료 무료!</span>
-            <h1>명절 후유증?<br>두레가 해결!</h1>
-            <p class="subtitle">지친 몸과 마음을 위한<br>두레생협 처방전</p>
-            <p class="desc">정월대보름 나물부터 해장까지</p>
-            <p class="scroll-hint">↓ 아래로 스크롤</p>
+    <!-- 두레매거진 헤더 -->
+    <header class="header">
+        <a href="https://ecoop.or.kr/DureShop/main/main.do" class="header-logo"><img src="LOGO.png" alt="두레생협"></a>
+        <div class="header-right">
+            <span class="header-label">생활의 발견</span>
+            <a href="https://ecoop.or.kr/DureShop/main/main.do" class="header-order">쇼핑하기</a>
         </div>
+    </header>
 
-        <!-- Card 2: 정월대보름 나물세트 -->
-        <div class="card card-daeboreum">
-            <div class="daeboreum-header">
-                <div class="moon">🌕</div>
-                <h2>정월대보름 준비</h2>
-                <p>올해도 나물 준비 번거로우셨죠?</p>
+    <div class="promo-bar">
+        <div class="promo-bar-inner">
+            <span class="badge">8주차</span>
+            <span>🚚 이번 주 배송료 무료!</span>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- 히어로 -->
+        <section class="hero">
+            <p class="hero-title">생활의 발견</p>
+            <h1 class="hero-main">
+                명절<br>
+                후유증?<br>
+                두레가 해결
+            </h1>
+            <p class="hero-sub">
+                지친 몸과 마음을 위한<br>
+                두레생협 처방전
+            </p>
+            <div class="hero-scroll">SCROLL</div>
+        </section>
+
+        <!-- 인트로 -->
+        <section class="intro">
+            <p class="intro-label">POST HOLIDAY CARE</p>
+            <h2 class="intro-title">
+                명절 끝나고<br>
+                몸이 무거우시죠?
+            </h2>
+            <div class="intro-divider"></div>
+            <p class="intro-text">
+                과식, 과음, 피로...<br>
+                명절 증후군이 찾아왔어요.<br><br>
+                속 풀어주고, 입맛 돌려주고,<br>
+                냉장고 채워주는<br>
+                <strong>두레생협 처방전</strong>을 준비했습니다.
+            </p>
+        </section>
+
+        <!-- 정월대보름 -->
+        <section class="daeboreum">
+            <div class="daeboreum-moon">🌕</div>
+            <p class="daeboreum-label">DAEBOREUM</p>
+            <h2 class="daeboreum-title">
+                정월대보름<br>
+                나물 준비 끝!
+            </h2>
+            <p class="daeboreum-desc">
+                올해도 나물 준비 번거로우셨죠?<br>
+                6종을 한 번에 해결하세요!
+            </p>
+            <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=나물세트코드&returnPlanNo=0" class="daeboreum-card">
+                <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/나물세트코드C.jpg" alt="정월대보름 간편나물세트">
+                <h3 class="daeboreum-card-name">간편나물세트 6종</h3>
+                <p class="daeboreum-card-sub">고사리, 도라지, 시래기, 취나물 등</p>
+                <span class="daeboreum-card-badge">🔥 예약 상품 1위 · 한정 2,000세트</span>
+                <p class="daeboreum-card-price">27,500원</p>
+            </a>
+        </section>
+
+        <!-- 감성 인용 -->
+        <section class="quote-section">
+            <p class="quote-mark">"</p>
+            <p class="quote-text">
+                명절 후유증?<br>
+                두레가 해결해 드립니다<br>
+                22개 상품을 하나의 이야기로
+            </p>
+            <p class="quote-author">- 두레생협 -</p>
+        </section>
+
+        <!-- 명절 증후군 시리즈 -->
+        <section class="syndrome-section">
+            <div class="syndrome-header">
+                <p class="syndrome-label">RECOVERY SERIES</p>
+                <h3 class="syndrome-title">명절 증후군 시리즈</h3>
             </div>
-            <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58900C.jpg" class="daeboreum-image" alt="정월대보름 간편나물세트">
-            <div class="daeboreum-info">
-                <p class="daeboreum-name">간편나물세트 6종</p>
-                <p class="daeboreum-desc">고사리, 도라지, 시래기, 취나물...<br><strong>6종을 한 번에!</strong></p>
-                <div class="daeboreum-highlight">
-                    <span>🔥 예약 상품 1위 · 한정 2,000세트</span>
+
+            <!-- 속 풀어주는 -->
+            <div class="syndrome-category">
+                <div class="syndrome-cat-header">
+                    <span class="syndrome-cat-icon">🥬</span>
+                    <div>
+                        <h4 class="syndrome-cat-title">속 풀어주는</h4>
+                        <p class="syndrome-cat-desc">과식한 속, 편안하게</p>
+                    </div>
                 </div>
-                <p class="daeboreum-price">27,500원</p>
+                <div class="syndrome-grid">
+                    <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=프로바이오틱스코드&returnPlanNo=0" class="syndrome-item">
+                        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/프로바이오틱스코드C.jpg" alt="프로바이오틱스">
+                        <p class="syndrome-item-name">프로바이오틱스</p>
+                        <p class="syndrome-item-discount">30.2% ↓</p>
+                    </a>
+                    <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=양배추즙코드&returnPlanNo=0" class="syndrome-item">
+                        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/양배추즙코드C.jpg" alt="양배추브로콜리즙">
+                        <p class="syndrome-item-name">양배추브로콜리즙</p>
+                        <p class="syndrome-item-discount">10% ↓</p>
+                    </a>
+                    <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=마즙코드&returnPlanNo=0" class="syndrome-item">
+                        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/마즙코드C.jpg" alt="마즙">
+                        <p class="syndrome-item-name">마즙</p>
+                        <p class="syndrome-item-discount">10% ↓</p>
+                    </a>
+                    <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=생강청코드&returnPlanNo=0" class="syndrome-item">
+                        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/생강청코드C.jpg" alt="생강청">
+                        <p class="syndrome-item-name">생강청</p>
+                        <p class="syndrome-item-discount">10.4% ↓</p>
+                    </a>
+                </div>
             </div>
-            <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=06&returnNo=58900" class="daeboreum-btn">예약 주문하기</a>
-        </div>
 
-        <!-- Card 3: 속 풀어주는 -->
-        <div class="card card-syndrome">
-            <div class="syndrome-header">
-                <div class="syndrome-icon">🥬</div>
-                <h2>속 풀어주는</h2>
-                <p>과식한 속, 편안하게</p>
+            <!-- 입맛 돌려주는 -->
+            <div class="syndrome-category">
+                <div class="syndrome-cat-header">
+                    <span class="syndrome-cat-icon">🍋</span>
+                    <div>
+                        <h4 class="syndrome-cat-title">입맛 돌려주는</h4>
+                        <p class="syndrome-cat-desc">새콤달콤 리프레시</p>
+                    </div>
+                </div>
+                <div class="syndrome-grid">
+                    <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=매실스틱코드&returnPlanNo=0" class="syndrome-item">
+                        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/매실스틱코드C.jpg" alt="매실스틱">
+                        <p class="syndrome-item-name">매실스틱</p>
+                        <p class="syndrome-item-discount">10.5% ↓</p>
+                    </a>
+                    <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=레몬즙코드&returnPlanNo=0" class="syndrome-item">
+                        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/레몬즙코드C.jpg" alt="레몬즙">
+                        <p class="syndrome-item-name">레몬즙</p>
+                        <p class="syndrome-item-discount">10.1% ↓</p>
+                    </a>
+                    <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=식혜코드&returnPlanNo=0" class="syndrome-item">
+                        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/식혜코드C.jpg" alt="식혜">
+                        <p class="syndrome-item-name">식혜 3병</p>
+                        <p class="syndrome-item-discount">15.6% ↓</p>
+                    </a>
+                    <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=생강청코드&returnPlanNo=0" class="syndrome-item">
+                        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/생강청코드C.jpg" alt="생강청">
+                        <p class="syndrome-item-name">생강청</p>
+                        <p class="syndrome-item-discount">10.4% ↓</p>
+                    </a>
+                </div>
             </div>
-            <div class="syndrome-grid">
-                <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=06&returnNo=52318" class="syndrome-item">
-                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/52318C.jpg" alt="프로바이오틱스">
-                    <p class="syndrome-item-name">프로바이오틱스</p>
-                    <p class="syndrome-item-price">14,300원</p>
-                    <p class="syndrome-item-discount">30.2% ↓</p>
-                </a>
-                <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=06&returnNo=45123" class="syndrome-item">
-                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/45123C.jpg" alt="양배추브로콜리즙">
-                    <p class="syndrome-item-name">양배추브로콜리즙</p>
-                    <p class="syndrome-item-price">할인가</p>
-                    <p class="syndrome-item-discount">10% ↓</p>
-                </a>
-                <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=06&returnNo=45124" class="syndrome-item">
-                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/45124C.jpg" alt="마즙">
-                    <p class="syndrome-item-name">마즙</p>
-                    <p class="syndrome-item-price">할인가</p>
-                    <p class="syndrome-item-discount">10% ↓</p>
-                </a>
-                <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=06&returnNo=45125" class="syndrome-item">
-                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/45125C.jpg" alt="생강청">
-                    <p class="syndrome-item-name">생강청</p>
-                    <p class="syndrome-item-price">할인가</p>
-                    <p class="syndrome-item-discount">10.4% ↓</p>
-                </a>
-            </div>
-            <a href="https://ecoop.or.kr/DureShop/main/main.do" class="cta">더 보기</a>
-        </div>
 
-        <!-- Card 4: 입맛 돌려주는 -->
-        <div class="card card-syndrome" style="background:linear-gradient(180deg,#fff9e6,#fff)">
-            <div class="syndrome-header">
-                <div class="syndrome-icon">🍋</div>
-                <h2>입맛 돌려주는</h2>
-                <p>새콤달콤하게 리프레시!</p>
+            <!-- 얼큰하게 해장 -->
+            <div class="syndrome-category">
+                <div class="syndrome-cat-header">
+                    <span class="syndrome-cat-icon">🍲</span>
+                    <div>
+                        <h4 class="syndrome-cat-title">얼큰하게 해장</h4>
+                        <p class="syndrome-cat-desc">뜨끈한 국물로 깔끔하게</p>
+                    </div>
+                </div>
+                <div class="soup-list">
+                    <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=닭개장코드&returnPlanNo=0" class="soup-item">
+                        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/닭개장코드C.jpg" alt="닭개장">
+                        <div class="soup-item-info">
+                            <p class="soup-item-name">닭개장</p>
+                            <p class="soup-item-desc">간편하게 데워먹는 해장</p>
+                        </div>
+                    </a>
+                    <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=동태탕코드&returnPlanNo=0" class="soup-item">
+                        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/동태탕코드C.jpg" alt="동태탕">
+                        <div class="soup-item-info">
+                            <p class="soup-item-name">동태탕</p>
+                            <p class="soup-item-desc">시원한 국물 해장</p>
+                        </div>
+                    </a>
+                    <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=김치찌개코드&returnPlanNo=0" class="soup-item">
+                        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/김치찌개코드C.jpg" alt="돼지고기김치찌개">
+                        <div class="soup-item-info">
+                            <p class="soup-item-name">돼지고기김치찌개</p>
+                            <p class="soup-item-desc">든든한 한 끼</p>
+                        </div>
+                    </a>
+                    <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=맵도리탕코드&returnPlanNo=0" class="soup-item">
+                        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/맵도리탕코드C.jpg" alt="맵도리탕">
+                        <div class="soup-item-info">
+                            <p class="soup-item-name">맵도리탕</p>
+                            <p class="soup-item-desc">칼칼하게 속 풀기</p>
+                        </div>
+                    </a>
+                </div>
             </div>
-            <div class="syndrome-grid">
-                <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=06&returnNo=45126" class="syndrome-item">
-                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/45126C.jpg" alt="생강청">
-                    <p class="syndrome-item-name">생강청</p>
-                    <p class="syndrome-item-price">할인가</p>
-                    <p class="syndrome-item-discount">10.4% ↓</p>
-                </a>
-                <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=06&returnNo=45127" class="syndrome-item">
-                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/45127C.jpg" alt="매실스틱">
-                    <p class="syndrome-item-name">매실스틱</p>
-                    <p class="syndrome-item-price">할인가</p>
-                    <p class="syndrome-item-discount">10.5% ↓</p>
-                </a>
-                <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=06&returnNo=45128" class="syndrome-item">
-                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/45128C.jpg" alt="레몬즙">
-                    <p class="syndrome-item-name">레몬즙</p>
-                    <p class="syndrome-item-price">할인가</p>
-                    <p class="syndrome-item-discount">10.1% ↓</p>
-                </a>
-                <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=06&returnNo=11900" class="syndrome-item">
-                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/11900C.jpg" alt="식혜">
-                    <p class="syndrome-item-name">식혜 3병</p>
-                    <p class="syndrome-item-price">11,900원</p>
-                    <p class="syndrome-item-discount">15.6% ↓</p>
-                </a>
-            </div>
-            <a href="https://ecoop.or.kr/DureShop/main/main.do" class="cta">더 보기</a>
-        </div>
+        </section>
 
-        <!-- Card 5: 얼큰하게 해장 -->
-        <div class="card card-syndrome" style="background:linear-gradient(180deg,#ffe6e6,#fff)">
-            <div class="syndrome-header">
-                <div class="syndrome-icon">🍲</div>
-                <h2>얼큰하게 해장</h2>
-                <p>뜨끈한 국물로 깔끔하게!</p>
-            </div>
-            <div class="syndrome-list">
-                <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=06&returnNo=45130" class="syndrome-row">
-                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/45130C.jpg" alt="닭개장">
-                    <div class="syndrome-row-info">
-                        <p class="syndrome-row-name">닭개장</p>
-                        <p class="syndrome-row-price">간편하게 데워먹는 해장</p>
-                    </div>
-                </a>
-                <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=06&returnNo=45131" class="syndrome-row">
-                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/45131C.jpg" alt="동태탕">
-                    <div class="syndrome-row-info">
-                        <p class="syndrome-row-name">동태탕</p>
-                        <p class="syndrome-row-price">시원한 국물 해장</p>
-                    </div>
-                </a>
-                <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=06&returnNo=45132" class="syndrome-row">
-                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/45132C.jpg" alt="돼지고기김치찌개">
-                    <div class="syndrome-row-info">
-                        <p class="syndrome-row-name">돼지고기김치찌개</p>
-                        <p class="syndrome-row-price">든든한 한 끼</p>
-                    </div>
-                </a>
-                <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=06&returnNo=45133" class="syndrome-row">
-                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/45133C.jpg" alt="맵도리탕">
-                    <div class="syndrome-row-info">
-                        <p class="syndrome-row-name">맵도리탕</p>
-                        <p class="syndrome-row-price">칼칼하게 속 풀기</p>
-                    </div>
-                </a>
-            </div>
-            <a href="https://ecoop.or.kr/DureShop/main/main.do" class="cta" style="background:var(--red)">간편식 전체 보기</a>
-        </div>
-
-        <!-- Card 6: 냉장고 채우기 -->
-        <div class="card card-syndrome card-fridge">
+        <!-- 냉장고 채우기 -->
+        <section class="fridge-section">
             <div class="fridge-header">
-                <h2>🧊 냉장고 첫 번째 채우기</h2>
-                <p>명절 끝나면 달걀부터 떨어지죠!</p>
+                <div class="fridge-icon">🧊</div>
+                <h3 class="fridge-title">냉장고 첫 번째 채우기</h3>
+                <p class="fridge-desc">명절 끝나면 달걀부터 떨어지죠!</p>
             </div>
+
             <div class="fridge-grid">
-                <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=06&returnNo=5800" class="fridge-item">
-                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/5800C.jpg" alt="원삼유정란">
+                <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=유정란코드&returnPlanNo=0" class="fridge-item">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/유정란코드C.jpg" alt="원삼유정란">
                     <p class="fridge-item-name">원삼유정란</p>
                     <p class="fridge-item-price">5,800원</p>
-                    <p class="fridge-item-note">10.8% ↓</p>
+                    <p class="fridge-item-discount">10.8% ↓</p>
                 </a>
-                <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=06&returnNo=31500" class="fridge-item">
-                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/31500C.jpg" alt="발아참기름">
+                <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=참기름코드&returnPlanNo=0" class="fridge-item">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/참기름코드C.jpg" alt="발아참기름">
                     <p class="fridge-item-name">발아참기름</p>
                     <p class="fridge-item-price">31,500원</p>
-                    <p class="fridge-item-note">14.6% ↓</p>
+                    <p class="fridge-item-discount">14.6% ↓</p>
                 </a>
-                <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=06&returnNo=31501" class="fridge-item">
-                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/31501C.jpg" alt="발아들기름">
+                <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=들기름코드&returnPlanNo=0" class="fridge-item">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/들기름코드C.jpg" alt="발아들기름">
                     <p class="fridge-item-name">발아들기름</p>
                     <p class="fridge-item-price">26,000원</p>
-                    <p class="fridge-item-note">6.1% ↓</p>
+                    <p class="fridge-item-discount">6.1% ↓</p>
                 </a>
-                <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=06&returnNo=11900" class="fridge-item">
-                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/11900C.jpg" alt="식혜">
+                <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=식혜코드&returnPlanNo=0" class="fridge-item">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/식혜코드C.jpg" alt="식혜">
                     <p class="fridge-item-name">식혜 3병</p>
                     <p class="fridge-item-price">11,900원</p>
-                    <p class="fridge-item-note">15.6% ↓</p>
+                    <p class="fridge-item-discount">15.6% ↓</p>
                 </a>
             </div>
-        </div>
+        </section>
 
-        <!-- Card 7: CTA -->
-        <div class="card card-cta">
-            <span class="free-badge">🚚 이번 주 배송료 무료</span>
-            <h2>명절 후유증?<br>두레가 해결해요</h2>
-            <p>나물부터 해장까지<br>한 번에 장 보세요</p>
-            <a href="https://ecoop.or.kr/DureShop/main/main.do" class="cta-btn">쇼핑하러 가기</a>
-        </div>
+        <!-- CTA -->
+        <section class="cta">
+            <span class="cta-free">🚚 이번 주 배송료 무료</span>
+            <p class="cta-text">
+                명절 후유증?<br>
+                두레가 해결해요
+            </p>
+            <a href="https://ecoop.or.kr/DureShop/main/main.do" class="cta-button">
+                쇼핑하러 가기
+            </a>
+        </section>
+
+        <!-- 푸터 -->
+        <footer class="footer">
+            <p class="footer-logo">DURE COOP</p>
+            <p class="footer-text">두레생협 생활의 발견 2026 W08</p>
+        </footer>
     </div>
 </body>
 </html>
