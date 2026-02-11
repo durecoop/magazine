@@ -56,36 +56,36 @@
         .header{
             position:fixed;top:0;left:0;right:0;
             height:52px;z-index:1000;
-            background:rgba(255,255,255,.92);
-            backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-            border-bottom:1px solid var(--border-light);
+            background:var(--green-dark);
             display:flex;align-items:center;
             padding:0 16px;
+            box-shadow:0 2px 8px rgba(0,0,0,.12);
         }
         .h-logo{display:flex;align-items:center;text-decoration:none;flex-shrink:0}
-        .h-logo img{height:30px;border-radius:3px}
+        .h-logo img{height:28px;border-radius:2px}
         .h-center{flex:1;text-align:center;padding:0 8px}
         .h-mag{
             font-family:'Noto Serif KR',serif;
             font-size:15px;font-weight:700;
-            color:var(--green-dark);letter-spacing:1.5px;
+            color:#fff;letter-spacing:1.5px;
         }
-        .h-week{font-size:10px;color:var(--text-light);letter-spacing:.5px;margin-top:1px}
+        .h-week{font-size:10px;color:rgba(255,255,255,.55);letter-spacing:.5px;margin-top:1px}
         .h-cta{
             flex-shrink:0;padding:7px 16px;
-            background:var(--green);color:#fff;
+            background:rgba(255,255,255,.18);color:#fff;
             text-decoration:none;border-radius:20px;
             font-size:13px;font-weight:700;
+            border:1px solid rgba(255,255,255,.25);
             transition:all .2s;
         }
-        .h-cta:active{transform:scale(.95);background:var(--green-dark)}
+        .h-cta:active{transform:scale(.95);background:rgba(255,255,255,.3)}
 
         /* ═══════════════════════════════════════════ */
         /*  하단 프로모 바                                */
         /* ═══════════════════════════════════════════ */
         .promo{
             position:fixed;bottom:0;left:0;right:0;z-index:999;
-            background:var(--dark-deep);padding:10px 0;text-align:center;
+            background:var(--green-deep);padding:10px 0;text-align:center;
         }
         .promo-inner{
             max-width:480px;margin:0 auto;
