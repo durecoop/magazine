@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#3d6041">
+    <title>생활의 발견 7주차 — 명절 전 특가, 반값에 담으세요</title>
+    <meta property="og:title" content="생활의 발견 | 명절 전 특가, 최대 55% 할인">
+    <meta property="og:description" content="떡갈비 2,900원 · 교자만두 2,580원. 배송비 무료 🚚">
+    <meta property="og:image" content="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/30084C.png">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Serif+KR:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        :root{
+            --green:#5b9a42;
+            --green-dark:#3d7a2e;
+            --green-deep:#2c5e1f;
+            --green-pale:#f0f7ec;
+            --green-mist:#e4f0de;
+            --logo-bg:#3d6041;
+
+            --red:#c4463a;
+            --red-soft:#e8665c;
+            --orange:#d98c4a;
+            --gold:#a68a52;
+
+            --bg:#fafaf8;
+            --white:#ffffff;
+            --cream:#f8f5f0;
+            --border:#ebebeb;
+            --border-light:#f2f2f0;
+
+            --text:#2a2a2a;
+            --text-sub:#6b6b6b;
+            --text-light:#999999;
+
+            --dark:#2b3328;
+            --dark-deep:#1c231a;
+
+            --shadow-sm:0 1px 4px rgba(0,0,0,.04);
+            --shadow-md:0 4px 16px rgba(0,0,0,.06);
+            --shadow-lg:0 8px 32px rgba(0,0,0,.08);
+            --radius:12px;
+            --radius-lg:20px;
+        }
+        html,body{
+            font-family:'Noto Sans KR',sans-serif;
+            background:var(--bg);color:var(--text);
+            -webkit-font-smoothing:antialiased;
+            -webkit-text-size-adjust:100%;
+        }
+
+        /* ═══ 고정 헤더 ═══ */
+        .header{
+            position:fixed;top:0;left:0;right:0;
+            height:52px;z-index:1000;
+            background:var(--logo-bg);
+            display:flex;align-items:center;
+            padding:0 16px;
+            box-shadow:0 2px 8px rgba(0,0,0,.12);
+        }
+        .h-logo{display:flex;align-items:center;text-decoration:none;flex-shrink:0}
+        .h-logo img{height:28px;border-radius:2px}
+        .h-center{flex:1;text-align:center;padding:0 8px}
+        .h-mag{font-family:'Noto Serif KR',serif;font-size:15px;font-weight:700;color:#fff;letter-spacing:1.5px}
+        .h-week{font-size:10px;color:rgba(255,255,255,.55);letter-spacing:.5px;margin-top:1px}
+        .h-cta{
+            flex-shrink:0;padding:7px 16px;
+            background:rgba(255,255,255,.18);color:#fff;
+            text-decoration:none;border-radius:20px;
+            font-size:13px;font-weight:700;
+            border:1px solid rgba(255,255,255,.25);
+            transition:all .2s;
+        }
+        .h-cta:active{transform:scale(.95);background:rgba(255,255,255,.3)}
+
+        /* ═══ 하단 프로모 바 ═══ */
+        .promo{
+            position:fixed;bottom:0;left:0;right:0;z-index:999;
+            background:var(--green-deep);padding:10px 0;text-align:center;
+        }
+        .promo-inner{
+            max-width:480px;margin:0 auto;
+            display:flex;justify-content:center;align-items:center;gap:18px;
+            font-size:13px;color:rgba(255,255,255,.7);font-weight:500;
+        }
+        .promo-inner .hl{color:#a8d98a;font-weight:700}
+
+        /* ═══ 컨테이너 ═══ */
+        .wrap{
+            max-width:480px;margin:0 auto;
+            padding-top:52px;padding-bottom:38px;
+            background:var(--white);
+            height:100vh;height:100dvh;
+            overflow-y:scroll;
+            scroll-snap-type:y mandatory;
+            -webkit-overflow-scrolling:touch;
+            scrollbar-width:none;
+        }
+        .wrap::-webkit-scrollbar{display:none}
+
+        /* ═══ 도트 인디케이터 ═══ */
+        .dots{
+            position:fixed;right:8px;top:50%;transform:translateY(-50%);
+            z-index:998;display:flex;flex-direction:column;gap:6px;
+        }
+        .dot{
+            width:6px;height:6px;border-radius:50%;
+            background:rgba(0,0,0,.12);
+            transition:all .35s cubic-bezier(.4,0,.2,1);
+        }
+        .dot.on{background:var(--green);height:18px;border-radius:3px}
+
+        /* ═══ 슬라이드 공통 ═══ */
+        .s{
+            min-height:calc(100vh - 90px);
+            min-height:calc(100dvh - 90px);
+            scroll-snap-align:start;
+            scroll-snap-stop:always;
+            display:flex;flex-direction:column;
+            justify-content:center;align-items:center;
+            padding:36px 22px;text-align:center;
+            overflow:hidden;position:relative;
+        }
+        .lb{font-size:11px;letter-spacing:4px;color:var(--green);font-weight:700;margin-bottom:10px}
+        .tl{
+            font-family:'Noto Serif KR',serif;
+            font-size:28px;font-weight:900;
+            line-height:1.6;color:var(--text);
+            margin-bottom:14px;
+        }
+        .sb{font-size:17px;color:var(--text-sub);line-height:2;font-weight:300;word-break:keep-all}
+        .sb strong{font-weight:700;color:var(--green-dark)}
+
+        /* ═══ 애니메이션 ═══ */
+        .a{opacity:0;transform:translateY(32px);transition:opacity .7s ease,transform .7s cubic-bezier(.25,.46,.45,.94)}
+        .a.v{opacity:1;transform:translateY(0)}
+        .ap{opacity:0;transform:scale(.75);transition:opacity .5s ease,transform .6s cubic-bezier(.34,1.56,.64,1)}
+        .ap.v{opacity:1;transform:scale(1)}
+        .al{opacity:0;transform:translateX(-40px);transition:opacity .6s ease,transform .7s cubic-bezier(.25,.46,.45,.94)}
+        .al.v{opacity:1;transform:translateX(0)}
+        .ar{opacity:0;transform:translateX(40px);transition:opacity .6s ease,transform .7s cubic-bezier(.25,.46,.45,.94)}
+        .ar.v{opacity:1;transform:translateX(0)}
+        .at{opacity:0;transform:translateY(-28px);transition:opacity .6s ease,transform .6s ease}
+        .at.v{opacity:1;transform:translateY(0)}
+        .ab{opacity:0;filter:blur(8px);transition:opacity .8s ease,filter .8s ease}
+        .ab.v{opacity:1;filter:blur(0)}
+        .arot{opacity:0;transform:rotate(-8deg) scale(.85);transition:opacity .6s ease,transform .7s cubic-bezier(.34,1.56,.64,1)}
+        .arot.v{opacity:1;transform:rotate(0) scale(1)}
+
+        .d1{transition-delay:.1s}.d2{transition-delay:.2s}
+        .d3{transition-delay:.3s}.d4{transition-delay:.4s}
+        .d5{transition-delay:.5s}.d6{transition-delay:.6s}
+        .d7{transition-delay:.7s}.d8{transition-delay:.8s}
+
+        @keyframes shimmer{0%{background-position:-200% center}100%{background-position:200% center}}
+        @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+        @keyframes floatSlow{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+        @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
+        @keyframes bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
+        @keyframes borderGlow{0%,100%{box-shadow:0 0 8px rgba(91,154,66,.15)}50%{box-shadow:0 0 20px rgba(91,154,66,.3)}}
+        @keyframes shake{0%,100%{transform:rotate(0)}25%{transform:rotate(-3deg)}75%{transform:rotate(3deg)}}
+
+        /* ═══ 커버 ═══ */
+        .cover{
+            background:linear-gradient(135deg,#1c231a 0%,#2b3328 40%,#3d6041 100%);
+            color:#fff;position:relative;
+        }
+        .cover>*{position:relative;z-index:1}
+        .c-badge{
+            display:inline-block;padding:6px 18px;
+            border:1px solid rgba(255,255,255,.25);border-radius:20px;
+            font-size:12px;font-weight:600;color:rgba(255,255,255,.75);
+            letter-spacing:3px;margin-bottom:16px;
+            animation:borderGlow 3s infinite;
+        }
+        .c-title{font-family:'Noto Serif KR',serif;font-size:38px;font-weight:900;line-height:1.35;margin-bottom:14px}
+        .c-sub{font-size:17px;color:rgba(255,255,255,.6);line-height:2;font-weight:300}
+        .c-delivery{
+            margin-top:22px;
+            display:inline-flex;align-items:center;gap:8px;
+            padding:10px 22px;
+            background:rgba(255,255,255,.1);
+            backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+            border-radius:30px;border:1px solid rgba(255,255,255,.12);
+            font-size:14px;color:rgba(255,255,255,.8);font-weight:500;
+            animation:float 3s ease-in-out infinite;
+        }
+        .c-delivery strong{color:#a8d98a;font-weight:700}
+        .c-highlight{
+            display:inline-block;margin-top:18px;
+            padding:8px 24px;
+            background:linear-gradient(135deg,var(--red) 0%,var(--red-soft) 100%);
+            border-radius:30px;
+            font-size:22px;font-weight:900;color:#fff;
+            animation:pulse 2s ease-in-out infinite;
+        }
+        .sc-hint{
+            position:absolute;bottom:16px;left:50%;
+            font-size:12px;color:rgba(255,255,255,.3);
+            letter-spacing:2px;animation:bob 2s infinite;
+        }
+        .sc-hint::after{content:' ▼';font-size:9px}
+
+        .particles{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+        .particle{position:absolute;border-radius:50%;background:rgba(168,217,138,.15);animation:floatSlow 6s ease-in-out infinite}
+
+        /* ═══ 상품 대형 카드 ═══ */
+        .product-hero{
+            max-width:400px;width:100%;
+            margin-top:20px;
+            display:flex;flex-direction:column;gap:16px;
+        }
+        .ph-card{
+            background:var(--white);
+            border-radius:var(--radius-lg);
+            overflow:hidden;
+            box-shadow:var(--shadow-lg);
+            border:1px solid var(--border);
+            text-decoration:none;color:inherit;
+            display:block;
+            transition:transform .25s cubic-bezier(.34,1.56,.64,1);
+        }
+        .ph-card:active{transform:scale(.97)}
+        .ph-img-wrap{
+            position:relative;
+            background:var(--bg);
+            overflow:hidden;
+        }
+        .ph-img-wrap img{
+            width:100%;aspect-ratio:4/3;
+            object-fit:contain;display:block;
+            transition:transform .4s ease;
+        }
+        .ph-card:active img{transform:scale(1.05)}
+        .ph-discount{
+            position:absolute;top:12px;left:12px;
+            background:linear-gradient(135deg,var(--red) 0%,var(--red-soft) 100%);
+            color:#fff;padding:8px 16px;border-radius:var(--radius);
+            font-size:24px;font-weight:900;
+            box-shadow:0 4px 12px rgba(196,70,58,.3);
+        }
+        .ph-stock{
+            position:absolute;top:12px;right:12px;
+            background:rgba(0,0,0,.6);
+            color:#fff;padding:5px 12px;border-radius:20px;
+            font-size:12px;font-weight:600;
+            backdrop-filter:blur(4px);
+        }
+        .ph-info{padding:18px 20px 22px}
+        .ph-name{font-size:22px;font-weight:900;color:var(--text);margin-bottom:8px}
+        .ph-price-row{display:flex;align-items:baseline;gap:10px;margin-bottom:6px}
+        .ph-sale{font-size:34px;font-weight:900;color:var(--red)}
+        .ph-original{font-size:18px;color:var(--text-light);text-decoration:line-through}
+        .ph-save{
+            display:inline-block;
+            background:var(--green-pale);color:var(--green-dark);
+            padding:4px 12px;border-radius:20px;
+            font-size:14px;font-weight:700;
+            margin-bottom:6px;
+        }
+        .ph-expiry{
+            font-size:13px;color:var(--text-light);
+            margin-top:4px;
+        }
+        .ph-expiry strong{color:var(--text-sub);font-weight:600}
+
+        /* ═══ 비교 테이블 ═══ */
+        .compare{
+            max-width:400px;width:100%;margin-top:20px;
+        }
+        .compare-row{
+            display:flex;
+            background:var(--white);
+            border-radius:var(--radius);
+            overflow:hidden;
+            box-shadow:var(--shadow-sm);
+            border:1px solid var(--border);
+            margin-bottom:10px;
+            text-decoration:none;color:inherit;
+            transition:transform .2s;
+        }
+        .compare-row:active{transform:scale(.98)}
+        .compare-img{
+            width:100px;height:100px;flex-shrink:0;
+            background:var(--bg);
+            display:flex;align-items:center;justify-content:center;
+        }
+        .compare-img img{width:100%;height:100%;object-fit:contain}
+        .compare-info{
+            flex:1;padding:12px 14px;
+            display:flex;flex-direction:column;justify-content:center;
+        }
+        .compare-name{font-size:17px;font-weight:700;color:var(--text);margin-bottom:4px}
+        .compare-prices{display:flex;align-items:baseline;gap:8px}
+        .compare-sale{font-size:24px;font-weight:900;color:var(--red)}
+        .compare-orig{font-size:14px;color:var(--text-light);text-decoration:line-through}
+        .compare-badge{
+            flex-shrink:0;
+            width:60px;
+            display:flex;align-items:center;justify-content:center;
+            background:linear-gradient(135deg,var(--red),var(--red-soft));
+            color:#fff;font-size:18px;font-weight:900;
+        }
+
+        /* ═══ 안내 박스 ═══ */
+        .info-box{
+            max-width:360px;width:100%;margin-top:20px;
+            background:var(--white);
+            border-radius:var(--radius-lg);
+            padding:24px;
+            box-shadow:var(--shadow-md);
+            border:1px solid var(--border-light);
+            text-align:left;
+        }
+        .info-item{
+            display:flex;align-items:flex-start;gap:12px;
+            padding:10px 0;
+            border-bottom:1px solid var(--border-light);
+        }
+        .info-item:last-child{border-bottom:none}
+        .info-icon{font-size:20px;flex-shrink:0;margin-top:2px}
+        .info-label{font-size:13px;color:var(--text-light);margin-bottom:2px}
+        .info-value{font-size:16px;font-weight:700;color:var(--text)}
+        .info-value.red{color:var(--red)}
+
+        /* ═══ 버튼 ═══ */
+        .btn{
+            display:inline-block;margin-top:18px;padding:13px 32px;border-radius:var(--radius);
+            font-size:16px;font-weight:700;text-decoration:none;
+            transition:all .2s cubic-bezier(.34,1.56,.64,1);position:relative;overflow:hidden;
+        }
+        .btn:active{transform:scale(.95)}
+        .btn-g{background:var(--green);color:#fff}
+        .btn-r{background:var(--red);color:#fff}
+        .btn-ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.25)}
+        .btn::after{
+            content:'';position:absolute;width:100%;height:100%;top:0;left:0;
+            background:radial-gradient(circle,rgba(255,255,255,.25) 10%,transparent 10.01%);
+            transform:scale(10);opacity:0;transition:transform .5s,opacity .8s;
+        }
+        .btn:active::after{transform:scale(0);opacity:1;transition:0s}
+
+        /* ═══ 공감 ═══ */
+        .empathy{
+            background:linear-gradient(135deg,#1c231a 0%,#2b3328 50%,#3d6041 100%);
+            color:#fff;position:relative;
+        }
+        .empathy>*{position:relative;z-index:1}
+        .e-quote{
+            max-width:360px;
+            border-left:3px solid rgba(168,217,138,.5);
+            padding-left:20px;text-align:left;margin-bottom:24px;
+        }
+        .e-quote p{font-family:'Noto Serif KR',serif;font-size:22px;font-weight:600;line-height:1.9;color:rgba(255,255,255,.9)}
+        .e-body{font-size:17px;color:rgba(255,255,255,.55);line-height:2.1;max-width:340px;text-align:left}
+        .e-body strong{color:#a8d98a;font-weight:600}
+        .e-cta{margin-top:20px;font-family:'Noto Serif KR',serif;font-size:22px;font-weight:700;color:#fff;line-height:1.7}
+        .e-line{display:inline-block;background:linear-gradient(transparent 60%,rgba(168,217,138,.35) 60%);padding:0 4px}
+
+        /* ═══ 클로징 ═══ */
+        .closing{
+            background:linear-gradient(170deg,#2b3328 0%,#1c231a 100%);
+            color:#fff;position:relative;
+        }
+        .closing>*{position:relative;z-index:1}
+        .cl-title{font-family:'Noto Serif KR',serif;font-size:34px;font-weight:900;line-height:1.45;margin-bottom:20px}
+        .cl-msg{font-size:17px;color:rgba(255,255,255,.6);line-height:2.1;max-width:320px;font-weight:300}
+        .cl-brand{margin-top:40px;font-size:12px;letter-spacing:6px;color:rgba(255,255,255,.15);font-weight:700}
+
+        .footer{background:var(--dark-deep);padding:16px;text-align:center;color:rgba(255,255,255,.2);font-size:12px;min-height:auto}
+
+        .divider{width:32px;height:2px;background:var(--green);border-radius:1px;margin:18px auto;opacity:.5}
+
+        /* ═══ 수량 게이지 ═══ */
+        .stock-gauge{
+            max-width:360px;width:100%;margin-top:8px;
+        }
+        .gauge-row{
+            display:flex;align-items:center;gap:10px;
+            margin-bottom:8px;
+        }
+        .gauge-label{font-size:14px;font-weight:600;color:var(--text);width:70px;flex-shrink:0}
+        .gauge-bar{
+            flex:1;height:10px;
+            background:var(--border-light);
+            border-radius:5px;overflow:hidden;
+        }
+        .gauge-fill{
+            height:100%;border-radius:5px;
+            transition:width 1.5s cubic-bezier(.25,.46,.45,.94);
+        }
+        .gauge-fill.red{background:linear-gradient(90deg,var(--red),var(--red-soft))}
+        .gauge-fill.orange{background:linear-gradient(90deg,var(--orange),#e8a85c)}
+        .gauge-num{font-size:13px;font-weight:700;color:var(--text-sub);width:50px;text-align:right}
+
+        @media(max-width:380px){
+            .s{padding:28px 16px}
+            .c-title{font-size:32px}
+            .tl{font-size:24px}
+            .ph-name{font-size:19px}
+            .ph-sale{font-size:28px}
+            .ph-discount{font-size:20px;padding:6px 12px}
+        }
+    </style>
+</head>
+<body>
+
+<!-- 헤더 -->
+<header class="header">
+    <a href="https://ecoop.or.kr/DureShop/" class="h-logo"><img src="LOGO.png" alt="두레생협"></a>
+    <div class="h-center">
+        <div class="h-mag">생활의 발견</div>
+        <div class="h-week">7주차 · 명절 전 특가</div>
+    </div>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="h-cta">장보기</a>
+</header>
+
+<!-- 하단 프로모 -->
+<div class="promo">
+    <div class="promo-inner">
+        <span>🔥 <span class="hl">최대 55% 할인</span></span>
+        <span>💚 <span class="hl">명절 전 반값 특가</span></span>
+    </div>
+</div>
+
+<!-- 도트 인디케이터 -->
+<div class="dots" id="dots"></div>
+
+<div class="wrap" id="wrap">
+
+<!-- ── 1. 커버 ── -->
+<section class="cover s" data-slide>
+    <div class="particles">
+        <div class="particle" style="width:60px;height:60px;top:15%;left:8%;animation-delay:0s;opacity:.12"></div>
+        <div class="particle" style="width:40px;height:40px;top:65%;right:12%;animation-delay:2s;opacity:.08"></div>
+        <div class="particle" style="width:30px;height:30px;bottom:20%;left:20%;animation-delay:4s;opacity:.1"></div>
+    </div>
+    <span class="c-badge a">2026 · 7주차</span>
+    <h1 class="c-title ab d1">명절 전,<br>반값 특가</h1>
+    <p class="c-sub a d2">설 준비에 바쁜 이번 주,<br>냉동실에 든든히 채워두세요</p>
+    <div class="c-highlight a d3">최대 55% 할인</div>
+    <div class="c-delivery a d4">
+        <strong>배송비 무료</strong> 7주차 공급분
+    </div>
+    <span class="sc-hint">아래로 넘기세요</span>
+</section>
+
+<!-- ── 2. 공감 ── -->
+<section class="empathy s" data-slide>
+    <div class="particles">
+        <div class="particle" style="width:50px;height:50px;top:20%;right:10%;animation-delay:1s;opacity:.08"></div>
+    </div>
+    <div class="e-quote al">
+        <p>명절 손님맞이,<br>간편하게 준비하세요.</p>
+    </div>
+    <p class="e-body a d2">
+        떡갈비 부치고, 만두 쪄서<br>
+        한 접시씩 내놓으면<br><br>
+        <strong>그것만으로도 근사한 상차림.</strong><br><br>
+        반값에 준비해 두세요.
+    </p>
+    <p class="e-cta a d3">
+        <span class="e-line">부담 없이, 넉넉하게.</span>
+    </p>
+</section>
+
+<!-- ── 3. 떡갈비 ── -->
+<section class="s" style="background:var(--white)" data-slide>
+    <p class="lb a">명절 전 특가 01</p>
+    <h2 class="tl at d1"><span style="color:var(--red)">50%</span> 할인<br>떡갈비 300g</h2>
+    <p class="sb a d2" style="font-size:14px;color:var(--text-light)">구워서 접시에 올리면 끝, 간편한 명절 한 접시</p>
+    <div class="product-hero">
+        <a class="ph-card ap d2" href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=30084&returnPlanNo=0">
+            <div class="ph-img-wrap">
+                <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/30084C.png" alt="떡갈비(300g)" loading="lazy">
+                <div class="ph-discount">50%</div>
+                <div class="ph-stock">320개 한정</div>
+            </div>
+            <div class="ph-info">
+                <p class="ph-name">떡갈비 (300g / 100g×3)</p>
+                <div class="ph-price-row">
+                    <span class="ph-sale">2,900원</span>
+                    <span class="ph-original">5,800원</span>
+                </div>
+                <span class="ph-save">2,900원 절약</span>
+                <p class="ph-expiry">유통기한 <strong>2026.03.10</strong>까지</p>
+            </div>
+        </a>
+    </div>
+    <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=30084&returnPlanNo=0" class="btn btn-r a d4">떡갈비 담으러 가기</a>
+</section>
+
+<!-- ── 4. 교자만두 ── -->
+<section class="s" style="background:var(--cream)" data-slide>
+    <p class="lb a">명절 전 특가 02</p>
+    <h2 class="tl ar d1"><span style="color:var(--red)">55%</span> 할인<br>교자만두</h2>
+    <p class="sb a d2" style="font-size:14px;color:var(--text-light)">쪄도, 구워도, 끓여도 맛있는 만두</p>
+    <div class="product-hero">
+        <a class="ph-card ap d2" href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=34723&returnPlanNo=0">
+            <div class="ph-img-wrap">
+                <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/34723C.png" alt="교자만두" loading="lazy">
+                <div class="ph-discount">55%</div>
+                <div class="ph-stock">280개 한정</div>
+            </div>
+            <div class="ph-info">
+                <p class="ph-name">교자만두 (500g / 약 37개)</p>
+                <div class="ph-price-row">
+                    <span class="ph-sale">2,580원</span>
+                    <span class="ph-original">5,700원</span>
+                </div>
+                <span class="ph-save">3,120원 절약</span>
+                <p class="ph-expiry">유통기한 <strong>2026.03.29</strong>까지</p>
+            </div>
+        </a>
+    </div>
+    <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=34723&returnPlanNo=0" class="btn btn-r a d4">교자만두 담으러 가기</a>
+</section>
+
+<!-- ── 5. 한눈에 비교 ── -->
+<section class="s" style="background:var(--white)" data-slide>
+    <p class="lb a">한눈에 보기</p>
+    <h2 class="tl a d1">두 가지 모두<br><span style="color:var(--red)">반값</span>이에요</h2>
+    <p class="sb a d2" style="font-size:14px;color:var(--text-light)">둘 다 담아도 5,480원</p>
+
+    <div class="compare a d3">
+        <a class="compare-row" href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=30084&returnPlanNo=0">
+            <div class="compare-img">
+                <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/30084C.png" alt="떡갈비" loading="lazy">
+            </div>
+            <div class="compare-info">
+                <p class="compare-name">떡갈비 300g</p>
+                <div class="compare-prices">
+                    <span class="compare-sale">2,900원</span>
+                    <span class="compare-orig">5,800원</span>
+                </div>
+            </div>
+            <div class="compare-badge">50%</div>
+        </a>
+        <a class="compare-row" href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=34723&returnPlanNo=0">
+            <div class="compare-img">
+                <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/34723C.png" alt="교자만두" loading="lazy">
+            </div>
+            <div class="compare-info">
+                <p class="compare-name">교자만두</p>
+                <div class="compare-prices">
+                    <span class="compare-sale">2,580원</span>
+                    <span class="compare-orig">5,700원</span>
+                </div>
+            </div>
+            <div class="compare-badge">55%</div>
+        </a>
+    </div>
+
+    <div class="info-box a d4">
+        <div class="info-item">
+            <span class="info-icon">📦</span>
+            <div>
+                <p class="info-label">남은 수량</p>
+                <p class="info-value">떡갈비 320개 · 교자만두 280개</p>
+            </div>
+        </div>
+        <div class="info-item">
+            <span class="info-icon">📅</span>
+            <div>
+                <p class="info-label">유통기한</p>
+                <p class="info-value">떡갈비 3/10 · 만두 3/29</p>
+            </div>
+        </div>
+        <div class="info-item">
+            <span class="info-icon">💰</span>
+            <div>
+                <p class="info-label">절약 금액</p>
+                <p class="info-value red">둘 다 사면 6,020원 절약</p>
+            </div>
+        </div>
+    </div>
+
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="btn btn-g a d5">장보러 가기</a>
+</section>
+
+<!-- ── 6. 클로징 ── -->
+<section class="closing s" data-slide>
+    <div class="particles">
+        <div class="particle" style="width:50px;height:50px;top:20%;left:15%;animation-delay:0s;opacity:.06"></div>
+        <div class="particle" style="width:70px;height:70px;bottom:30%;right:10%;animation-delay:3s;opacity:.04"></div>
+    </div>
+    <h2 class="cl-title ab d1">명절 준비,<br>부담 없이.</h2>
+    <p class="cl-msg a d2">
+        반값에 넉넉히 채워두고<br>
+        여유롭게 명절 보내세요.<br><br>
+        두레가 함께합니다.
+    </p>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="btn btn-ghost a d3" style="margin-top:24px">두레 장보기</a>
+    <p class="cl-brand a d4">DURE COOP</p>
+</section>
+
+<footer class="footer">생활의 발견 · 2026년 7주차</footer>
+
+</div>
+
+<script>
+const slides=document.querySelectorAll('[data-slide]');
+const dotsEl=document.getElementById('dots');
+slides.forEach((_,i)=>{const d=document.createElement('div');d.className='dot'+(i===0?' on':'');dotsEl.appendChild(d)});
+const dots=dotsEl.querySelectorAll('.dot');
+const wrap=document.getElementById('wrap');
+const io=new IntersectionObserver(entries=>{
+    entries.forEach(x=>{
+        if(x.isIntersecting){
+            x.target.querySelectorAll('.a,.ap,.al,.ar,.at,.ab,.arot').forEach(el=>el.classList.add('v'));
+            const idx=[...slides].indexOf(x.target);
+            if(idx>=0) dots.forEach((d,i)=>d.classList.toggle('on',i===idx));
+        }
+    });
+},{threshold:.2,root:wrap});
+slides.forEach(s=>io.observe(s));
+wrap.addEventListener('scroll',()=>{
+    const st=wrap.scrollTop;
+    const cover=document.querySelector('.cover');
+    if(cover) cover.style.backgroundPositionY=`${50+st/window.innerHeight*15}%`;
+},{passive:true});
+document.querySelectorAll('.ph-card,.compare-row').forEach(el=>{
+    el.addEventListener('touchstart',()=>el.style.transform='scale(.96)',{passive:true});
+    el.addEventListener('touchend',()=>el.style.transform='',{passive:true});
+});
+
+// 수량 게이지 애니메이션
+const gaugeObs=new IntersectionObserver(entries=>{
+    entries.forEach(x=>{
+        if(x.isIntersecting){
+            x.target.querySelectorAll('.gauge-fill').forEach(bar=>{
+                bar.style.width=bar.dataset.width;
+            });
+        }
+    });
+},{threshold:.3,root:wrap});
+document.querySelectorAll('.stock-gauge').forEach(g=>gaugeObs.observe(g));
+</script>
+</body>
+</html>
