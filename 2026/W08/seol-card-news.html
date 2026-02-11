@@ -3,24 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>두레생협 8주차 - 설 명절의 수고를 덜어드리는 따뜻한 두레 소식</title>
-    <meta property="og:title" content="두레생협 - 따뜻한 설 명절 소식">
-    <meta property="og:description" content="새해 복 많이 받으세요. 명절 준비부터 연휴 뒤 일상까지, 두레가 함께합니다.">
+    <title>두레생협 - 설 명절, 수고 많으셨어요</title>
+    <meta property="og:title" content="두레생협 | 새해 복 많이 받으세요">
+    <meta property="og:description" content="명절 준비부터 연휴 뒤 일상까지, 두레가 함께합니다.">
+    <meta property="og:image" content="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/44754C.jpg">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Serif+KR:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
+            --cream: #FFF8F0;
+            --warm: #FDF6EC;
+            --beige: #F5EDE0;
+            --brown-dark: #4A3728;
+            --brown-mid: #7A6555;
+            --brown-light: #A89585;
             --green-dark: #1B4332;
             --green-mid: #2D6A4F;
             --green-light: #52B788;
             --green-pale: #D8F3DC;
             --coral: #E76F51;
             --orange: #F4A261;
-            --cream: #FFF8F0;
-            --text-dark: #1A1A1A;
-            --text-gray: #666666;
-            --festive-red: #C0392B;
-            --festive-gold: #D4A017;
-            --warm-bg: #FDF6EC;
+            --red: #C0392B;
+            --gold: #C5961E;
+            --gold-light: #E8D5A3;
+            --text: #2C2418;
+            --text-sub: #7A6B5D;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -33,1074 +39,924 @@
         body {
             font-family: 'Noto Sans KR', sans-serif;
             background: var(--cream);
-            color: var(--text-dark);
+            color: var(--text);
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
         }
 
-        /* ── 네비게이션 도트 ── */
+        /* ── 도트 네비 ── */
         .dots {
-            position: fixed;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 1000;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
+            position: fixed; right: 8px; top: 50%;
+            transform: translateY(-50%); z-index: 1000;
+            display: flex; flex-direction: column; gap: 6px;
         }
-
         .dot {
-            width: 7px;
-            height: 7px;
-            border-radius: 4px;
-            background: rgba(0,0,0,0.15);
-            transition: all 0.3s;
-            cursor: pointer;
+            width: 7px; height: 7px; border-radius: 4px;
+            background: rgba(0,0,0,0.12); transition: all .3s; cursor: pointer;
         }
-
         .dot.active {
-            height: 22px;
-            background: var(--festive-red);
+            height: 24px; background: var(--brown-dark);
         }
 
         /* ── 카드 공통 ── */
         .card {
-            min-height: 100vh;
-            min-height: 100dvh;
+            min-height: 100vh; min-height: 100dvh;
             scroll-snap-align: start;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 50px 28px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            padding: 48px 24px; text-align: center;
+            position: relative; overflow: hidden;
         }
 
-        .section-label {
-            font-size: 12px;
-            letter-spacing: 4px;
-            color: var(--festive-gold);
-            margin-bottom: 16px;
-            font-weight: 500;
+        .label {
+            font-size: 13px; letter-spacing: 3px;
+            color: var(--gold); font-weight: 600;
+            margin-bottom: 14px;
         }
 
-        .card-title {
+        .title {
             font-family: 'Noto Serif KR', serif;
-            font-size: 28px;
-            font-weight: 700;
-            line-height: 1.5;
-            color: var(--text-dark);
-            margin-bottom: 18px;
+            font-size: 32px; font-weight: 900;
+            line-height: 1.45; color: var(--text);
+            margin-bottom: 14px;
         }
 
-        .card-sub {
-            font-size: 16px;
-            color: var(--text-gray);
-            line-height: 1.9;
-            font-weight: 300;
+        .sub {
+            font-size: 18px; color: var(--text-sub);
+            line-height: 1.8; font-weight: 300;
         }
 
-        .hl-red { color: var(--festive-red); }
-        .hl-gold { color: var(--festive-gold); }
-        .hl-green { color: var(--green-mid); }
+        .hl-r { color: var(--coral); }
+        .hl-g { color: var(--green-mid); }
+        .hl-gold { color: var(--gold); }
 
-        .underline-gold {
-            background: linear-gradient(transparent 60%, rgba(212,160,23,0.25) 60%);
+        /* ── 공통 버튼 ── */
+        .btn {
+            display: inline-block;
+            padding: 18px 40px;
+            border-radius: 50px;
+            font-size: 18px; font-weight: 700;
+            text-decoration: none;
+            margin-top: 20px;
+            transition: transform .15s;
+        }
+        .btn:active { transform: scale(.97); }
+        .btn-green { background: var(--green-mid); color: #fff; }
+        .btn-red { background: var(--red); color: #fff; }
+        .btn-brown { background: var(--brown-dark); color: #fff; }
+        .btn-gold { background: var(--gold); color: #fff; }
+        .btn-white { background: #fff; color: var(--green-mid); box-shadow: 0 2px 12px rgba(0,0,0,.08); }
+
+        /* ── 상품 그리드 (2열 썸네일) ── */
+        .prod-grid {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 12px; max-width: 400px; width: 100%; margin-top: 20px;
         }
 
-        /* ═══ Card 1: 설 인사 커버 ═══ */
+        .prod-card {
+            background: #fff; border-radius: 16px;
+            overflow: hidden; text-decoration: none; color: inherit;
+            box-shadow: 0 2px 16px rgba(0,0,0,.05);
+            display: block;
+        }
+
+        .prod-card img {
+            width: 100%; aspect-ratio: 1; object-fit: contain;
+            background: #fafafa; display: block;
+        }
+
+        .prod-body {
+            padding: 14px 12px 16px;
+        }
+
+        .prod-name {
+            font-size: 16px; font-weight: 700;
+            color: var(--text); line-height: 1.3;
+            margin-bottom: 6px;
+        }
+
+        .prod-price {
+            font-size: 20px; font-weight: 900;
+            color: var(--coral);
+        }
+        .prod-price span { font-size: 14px; font-weight: 400; }
+
+        .prod-tag {
+            display: inline-block;
+            padding: 3px 8px; border-radius: 6px;
+            font-size: 12px; font-weight: 600;
+            background: var(--green-pale); color: var(--green-dark);
+            margin-top: 4px;
+        }
+
+        /* ── 상품 리스트 (가로형) ── */
+        .prod-list {
+            max-width: 400px; width: 100%; margin-top: 18px;
+            display: flex; flex-direction: column; gap: 10px;
+        }
+
+        .prod-row {
+            display: flex; align-items: center; gap: 14px;
+            background: #fff; border-radius: 16px;
+            padding: 12px; text-decoration: none; color: inherit;
+            box-shadow: 0 2px 12px rgba(0,0,0,.04);
+        }
+
+        .prod-row img {
+            width: 80px; height: 80px;
+            object-fit: contain; border-radius: 12px;
+            background: #fafafa; flex-shrink: 0;
+        }
+
+        .prod-row-info { flex: 1; text-align: left; }
+
+        .prod-row-name {
+            font-size: 17px; font-weight: 700;
+            color: var(--text); line-height: 1.3;
+        }
+
+        .prod-row-desc {
+            font-size: 14px; color: var(--text-sub); margin-top: 3px;
+        }
+
+        .prod-row-sale {
+            font-size: 20px; font-weight: 900;
+            color: var(--coral); flex-shrink: 0;
+        }
+
+        /* ═══════════════════════════════════════ */
+        /* Card 1: 커버                             */
+        /* ═══════════════════════════════════════ */
         .card-cover {
-            background: linear-gradient(170deg, #1a0a0a 0%, #3d1111 30%, #5e1b1b 60%, #2a0808 100%);
+            background: linear-gradient(175deg, #3D1111 0%, #6B2020 35%, #4A1616 70%, #2A0808 100%);
             color: #fff;
         }
-
         .card-cover::before {
-            content: '';
-            position: absolute;
-            top: -50%; left: -50%;
-            width: 200%; height: 200%;
-            background: radial-gradient(ellipse at 30% 20%, rgba(212,160,23,0.08) 0%, transparent 50%),
-                        radial-gradient(ellipse at 70% 80%, rgba(212,160,23,0.05) 0%, transparent 50%);
+            content: ''; position: absolute; inset: 0;
+            background:
+                radial-gradient(ellipse at 25% 15%, rgba(197,150,30,.12) 0%, transparent 55%),
+                radial-gradient(ellipse at 75% 85%, rgba(197,150,30,.08) 0%, transparent 55%);
             pointer-events: none;
         }
 
-        .cover-badge {
-            display: inline-block;
+        .cover-week {
             padding: 8px 22px;
-            background: rgba(212,160,23,0.2);
-            border: 1px solid rgba(212,160,23,0.3);
-            border-radius: 30px;
-            font-size: 12px;
-            letter-spacing: 3px;
-            color: var(--festive-gold);
-            margin-bottom: 35px;
-            position: relative; z-index: 1;
+            background: rgba(197,150,30,.2);
+            border: 1px solid rgba(197,150,30,.3);
+            border-radius: 30px; font-size: 13px;
+            letter-spacing: 3px; color: var(--gold-light);
+            margin-bottom: 32px; position: relative; z-index: 1;
         }
 
-        .cover-deco {
-            font-size: 60px;
-            margin-bottom: 20px;
+        .cover-icon {
+            font-size: 72px; margin-bottom: 16px;
             position: relative; z-index: 1;
-            line-height: 1;
         }
 
         .cover-title {
             font-family: 'Noto Serif KR', serif;
-            font-size: 38px;
-            font-weight: 900;
-            color: #fff;
-            line-height: 1.4;
-            margin-bottom: 24px;
+            font-size: 42px; font-weight: 900;
+            color: #fff; line-height: 1.35;
+            margin-bottom: 20px;
             position: relative; z-index: 1;
         }
-
-        .cover-title .gold { color: var(--festive-gold); }
+        .cover-title .gold { color: var(--gold-light); }
 
         .cover-sub {
-            font-size: 16px;
-            color: rgba(255,255,255,0.7);
-            line-height: 2;
-            font-weight: 300;
+            font-size: 18px; color: rgba(255,255,255,.7);
+            line-height: 1.9; font-weight: 300;
             position: relative; z-index: 1;
         }
 
-        .cover-scroll {
-            position: absolute;
-            bottom: 30px; left: 50%;
+        .scroll-hint {
+            position: absolute; bottom: 28px; left: 50%;
             transform: translateX(-50%);
-            color: rgba(255,255,255,0.4);
-            font-size: 11px;
-            letter-spacing: 3px;
-            animation: bounce 2s infinite;
+            color: rgba(255,255,255,.35); font-size: 12px;
+            letter-spacing: 3px; animation: bob 2s infinite;
         }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateX(-50%) translateY(0); }
+        @keyframes bob {
+            0%,100% { transform: translateX(-50%) translateY(0); }
             50% { transform: translateX(-50%) translateY(8px); }
         }
 
-        /* ═══ Card 2: 두레지기의 편지 ═══ */
-        .card-letter { background: var(--warm-bg); }
+        /* ═══════════════════════════════════════ */
+        /* Card 2: 공감 상황                        */
+        /* ═══════════════════════════════════════ */
+        .card-empathy {
+            background: var(--warm);
+        }
 
-        .letter-box {
-            background: #fff;
-            border-radius: 20px;
-            padding: 35px 28px;
-            max-width: 360px; width: 100%;
-            box-shadow: 0 8px 40px rgba(0,0,0,0.06);
-            text-align: left;
+        .empathy-box {
+            max-width: 380px; width: 100%;
+            background: #fff; border-radius: 24px;
+            padding: 40px 28px;
+            box-shadow: 0 8px 40px rgba(74,55,40,.06);
             position: relative;
         }
-
-        .letter-box::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--festive-red), var(--festive-gold));
-            border-radius: 20px 20px 0 0;
+        .empathy-box::before {
+            content: ''; position: absolute;
+            top: 0; left: 0; right: 0; height: 5px;
+            background: linear-gradient(90deg, var(--coral), var(--orange), var(--gold));
+            border-radius: 24px 24px 0 0;
         }
 
-        .letter-greeting {
+        .empathy-icon {
+            font-size: 52px; margin-bottom: 18px;
+        }
+
+        .empathy-q {
             font-family: 'Noto Serif KR', serif;
-            font-size: 20px; font-weight: 700;
-            color: var(--text-dark);
-            margin-bottom: 20px; line-height: 1.5;
+            font-size: 26px; font-weight: 700;
+            line-height: 1.6; color: var(--text);
+            margin-bottom: 20px; text-align: left;
         }
 
-        .letter-body {
-            font-size: 15px; color: #555;
-            line-height: 2; font-weight: 300;
+        .empathy-body {
+            font-size: 18px; color: var(--text-sub);
+            line-height: 2; text-align: left;
+        }
+        .empathy-body strong {
+            color: var(--green-mid); font-weight: 600;
         }
 
-        .letter-body strong {
-            color: var(--green-mid); font-weight: 500;
+        .empathy-divider {
+            width: 40px; height: 3px;
+            background: var(--gold); border-radius: 2px;
+            margin: 24px 0;
         }
 
-        .letter-sign {
-            margin-top: 24px; padding-top: 18px;
-            border-top: 1px solid #eee;
-            font-size: 14px; color: var(--green-mid);
-            font-weight: 500; text-align: right;
+        .empathy-cta {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 22px; font-weight: 700;
+            color: var(--green-mid); text-align: left;
+            line-height: 1.6;
         }
 
-        /* ═══ Card 3: 공급 안내 + 무료배송 ═══ */
-        .card-delivery {
-            background: linear-gradient(180deg, var(--green-dark) 0%, #0f2b1f 100%);
+        /* ═══════════════════════════════════════ */
+        /* Card 3: 배송 + 무료배송                  */
+        /* ═══════════════════════════════════════ */
+        .card-ship {
+            background: linear-gradient(175deg, var(--green-dark) 0%, #0f2b1f 100%);
             color: #fff;
         }
 
-        .delivery-icon { font-size: 50px; margin-bottom: 20px; }
+        .ship-icon { font-size: 56px; margin-bottom: 16px; }
 
-        .card-delivery .card-title { color: #fff; }
-        .card-delivery .card-sub { color: rgba(255,255,255,0.7); }
+        .card-ship .title { color: #fff; }
+        .card-ship .sub { color: rgba(255,255,255,.65); }
 
-        .delivery-box {
-            background: rgba(255,255,255,0.1);
+        .ship-box {
+            background: rgba(255,255,255,.1);
             backdrop-filter: blur(10px);
-            border-radius: 18px;
-            padding: 28px 24px;
-            max-width: 340px; width: 100%;
-            margin-top: 24px;
+            border-radius: 20px; padding: 30px 24px;
+            max-width: 370px; width: 100%; margin-top: 24px;
         }
 
-        .delivery-date {
-            font-size: 28px; font-weight: 900;
-            color: var(--green-light);
-            margin-bottom: 8px;
+        .ship-date {
+            font-size: 32px; font-weight: 900;
+            color: var(--green-light); margin-bottom: 8px;
         }
 
-        .delivery-note {
-            font-size: 14px;
-            color: rgba(255,255,255,0.8);
-            line-height: 1.7;
+        .ship-note {
+            font-size: 18px; color: rgba(255,255,255,.8);
+            line-height: 1.6;
         }
 
-        .free-badge {
-            display: inline-block;
-            margin-top: 18px;
-            padding: 10px 24px;
-            background: var(--coral);
-            border-radius: 30px;
-            font-size: 15px; font-weight: 700;
-            color: #fff; letter-spacing: 1px;
+        .free-tag {
+            display: inline-block; margin-top: 18px;
+            padding: 14px 32px; background: var(--coral);
+            border-radius: 30px; font-size: 20px;
+            font-weight: 900; color: #fff;
         }
 
-        /* ═══ Card 4: 떡국·만두 ═══ */
-        .card-tteok { background: var(--warm-bg); }
+        /* ═══════════════════════════════════════ */
+        /* 테마 섹션 공통                           */
+        /* ═══════════════════════════════════════ */
+        .theme-icon { font-size: 52px; margin-bottom: 12px; }
 
-        .theme-emoji { font-size: 56px; margin-bottom: 16px; }
+        /* ═══════════════════════════════════════ */
+        /* Card 4: 떡국·만두                        */
+        /* ═══════════════════════════════════════ */
+        .card-tteok { background: var(--warm); }
 
-        .product-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            max-width: 360px; width: 100%;
-            margin-top: 20px;
-        }
-
-        .product-chip {
-            background: #fff;
-            border-radius: 14px;
-            padding: 16px 12px;
-            text-align: center;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
-        }
-
-        .chip-name {
-            font-size: 14px; font-weight: 600;
-            color: var(--text-dark);
-            margin-bottom: 6px; line-height: 1.4;
-        }
-
-        .chip-discount {
-            font-size: 18px; font-weight: 900;
-            color: var(--coral);
-        }
-
-        .chip-discount span { font-size: 12px; font-weight: 400; }
-
-        .chip-label {
-            font-size: 11px; color: var(--text-gray);
-            margin-top: 4px;
-        }
-
-        /* ═══ Card 5: 전·부침·잡채 ═══ */
+        /* ═══════════════════════════════════════ */
+        /* Card 5: 전·부침                          */
+        /* ═══════════════════════════════════════ */
         .card-jeon { background: #fff; }
 
-        .item-list {
-            max-width: 360px; width: 100%;
-            margin-top: 20px;
+        /* ═══════════════════════════════════════ */
+        /* Card 6: 반찬·나물                        */
+        /* ═══════════════════════════════════════ */
+        .card-banchan { background: var(--warm); }
+
+        /* ═══════════════════════════════════════ */
+        /* Card 7: 다과·음료                        */
+        /* ═══════════════════════════════════════ */
+        .card-dagwa { background: #fff; }
+
+        /* ═══════════════════════════════════════ */
+        /* Card 8: 명절 후 회복                     */
+        /* ═══════════════════════════════════════ */
+        .card-recover {
+            background: linear-gradient(180deg, #F5F0EB 0%, var(--cream) 100%);
         }
 
-        .item-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 14px 18px;
-            background: var(--warm-bg);
-            border-radius: 14px;
-            margin-bottom: 8px;
-        }
-
-        .item-left {
-            display: flex; align-items: center; gap: 12px;
-        }
-
-        .item-emoji { font-size: 24px; }
-
-        .item-name {
-            font-size: 15px; font-weight: 500;
-            color: var(--text-dark);
-        }
-
-        .item-discount {
-            font-size: 16px; font-weight: 800;
-            color: var(--coral);
-        }
-
-        /* ═══ Card 6: 반찬·나물·양념 ═══ */
-        .card-banchan {
-            background: linear-gradient(180deg, #f0f7f0 0%, #e8f5e8 50%, #f5faf5 100%);
-        }
-
-        .banchan-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            max-width: 360px; width: 100%;
-            margin-top: 20px;
-        }
-
-        .banchan-item {
-            background: #fff;
-            border-radius: 14px;
-            padding: 14px 8px;
-            text-align: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.04);
-        }
-
-        .banchan-emoji { font-size: 28px; margin-bottom: 6px; }
-
-        .banchan-name {
-            font-size: 12px; font-weight: 500;
-            color: var(--text-dark); line-height: 1.3;
-        }
-
-        .banchan-sale {
-            font-size: 13px; font-weight: 800;
-            color: var(--coral); margin-top: 4px;
-        }
-
-        /* ═══ Card 7: 명절 후 간편 한 끼 ═══ */
-        .card-easy { background: var(--cream); }
-
-        .easy-items {
-            max-width: 360px; width: 100%;
-            margin-top: 20px;
-            display: flex; flex-direction: column; gap: 10px;
-        }
-
-        .easy-card {
-            background: #fff;
-            border-radius: 16px;
-            padding: 18px 20px;
-            display: flex; align-items: center; gap: 14px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
-            text-align: left;
-        }
-
-        .easy-icon { font-size: 32px; flex-shrink: 0; }
-        .easy-info { flex: 1; }
-
-        .easy-name {
-            font-size: 15px; font-weight: 600;
-            color: var(--text-dark);
-        }
-
-        .easy-desc {
-            font-size: 12px; color: var(--text-gray); margin-top: 3px;
-        }
-
-        .easy-sale {
-            font-size: 17px; font-weight: 900;
-            color: var(--coral); flex-shrink: 0;
-        }
-
-        /* ═══ Card 8: 농식품부 할인 ═══ */
+        /* ═══════════════════════════════════════ */
+        /* Card 9: 농할 + 정보                      */
+        /* ═══════════════════════════════════════ */
         .card-nonghal {
-            background: linear-gradient(170deg, #1B4332 0%, #2D6A4F 50%, #1B4332 100%);
+            background: linear-gradient(175deg, var(--green-dark) 0%, var(--green-mid) 50%, var(--green-dark) 100%);
             color: #fff;
         }
 
         .nonghal-badge {
-            display: inline-block;
-            padding: 8px 20px;
-            background: rgba(255,255,255,0.15);
-            border-radius: 30px;
-            font-size: 12px;
-            color: rgba(255,255,255,0.9);
-            letter-spacing: 2px;
-            margin-bottom: 20px;
+            padding: 10px 22px; background: rgba(255,255,255,.15);
+            border-radius: 30px; font-size: 14px;
+            color: rgba(255,255,255,.9); letter-spacing: 2px;
+            margin-bottom: 18px;
         }
 
         .nonghal-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            max-width: 360px; width: 100%;
-            margin-top: 20px;
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 12px; max-width: 400px; width: 100%; margin-top: 20px;
         }
 
-        .nonghal-item {
-            background: rgba(255,255,255,0.1);
+        .nonghal-card {
+            background: rgba(255,255,255,.1);
             backdrop-filter: blur(5px);
-            border-radius: 16px;
-            padding: 18px 12px;
-            text-align: center;
+            border-radius: 18px; overflow: hidden;
+            text-decoration: none; color: #fff;
+        }
+
+        .nonghal-card img {
+            width: 100%; aspect-ratio: 1;
+            object-fit: contain; background: rgba(255,255,255,.95);
+        }
+
+        .nonghal-info {
+            padding: 12px 10px 14px; text-align: center;
         }
 
         .nonghal-name {
-            font-size: 14px; font-weight: 500;
-            color: rgba(255,255,255,0.95);
-            margin-bottom: 6px;
+            font-size: 15px; font-weight: 500;
+            color: rgba(255,255,255,.95); margin-bottom: 4px;
         }
 
-        .nonghal-discount {
+        .nonghal-pct {
             font-size: 22px; font-weight: 900;
             color: var(--orange);
         }
+        .nonghal-pct span { font-size: 13px; font-weight: 400; }
 
-        .nonghal-discount span { font-size: 12px; font-weight: 400; }
-
-        .nonghal-note {
-            font-size: 11px;
-            color: rgba(255,255,255,0.5);
-            margin-top: 4px;
+        .nonghal-sub {
+            font-size: 12px; color: rgba(255,255,255,.45);
+            margin-top: 2px;
         }
 
-        .coupon-tip {
-            margin-top: 20px;
-            padding: 14px 20px;
-            background: rgba(231,111,81,0.3);
-            border-radius: 14px;
-            max-width: 360px; width: 100%;
+        .coupon-box {
+            margin-top: 18px; padding: 14px 20px;
+            background: rgba(231,111,81,.25);
+            border-radius: 14px; max-width: 400px; width: 100%;
         }
+        .coupon-box p { font-size: 16px; color: #fff; font-weight: 600; }
 
-        .coupon-tip p {
-            font-size: 13px; color: #fff; font-weight: 500;
-        }
-
-        /* ═══ Card 9: 봄 맛찬 + 메주 ═══ */
-        .card-spring {
-            background: linear-gradient(180deg, #f9f5f0 0%, #f0ebe3 100%);
-        }
-
-        .spring-box {
-            background: #fff;
-            border-radius: 20px;
-            padding: 28px 24px;
-            max-width: 360px; width: 100%;
-            margin-top: 20px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-        }
-
-        .spring-section {
-            margin-bottom: 24px; padding-bottom: 20px;
-            border-bottom: 1px solid #f0ebe3;
-        }
-
-        .spring-section:last-child {
-            margin-bottom: 0; padding-bottom: 0; border-bottom: none;
-        }
-
-        .spring-label {
-            font-size: 11px; letter-spacing: 2px;
-            color: var(--green-mid); font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        .spring-title {
-            font-family: 'Noto Serif KR', serif;
-            font-size: 18px; font-weight: 700;
-            color: var(--text-dark);
-            margin-bottom: 8px; line-height: 1.5;
-        }
-
-        .spring-desc {
-            font-size: 14px; color: var(--text-gray); line-height: 1.7;
-        }
-
-        .reserve-tag {
-            display: inline-block;
-            padding: 5px 12px;
-            background: var(--green-pale);
-            color: var(--green-dark);
-            border-radius: 8px;
-            font-size: 12px; font-weight: 600;
-            margin-top: 8px;
-        }
-
-        /* ═══ Card 10: 클로징 ═══ */
+        /* ═══════════════════════════════════════ */
+        /* Card 10: 클로징                          */
+        /* ═══════════════════════════════════════ */
         .card-closing {
-            background: linear-gradient(170deg, #2a0808 0%, #5e1b1b 40%, #3d1111 70%, #1a0a0a 100%);
+            background: linear-gradient(175deg, #2A0808 0%, #5E1B1B 40%, #3D1111 75%, #1A0505 100%);
             color: #fff;
         }
-
         .card-closing::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(ellipse at 50% 40%, rgba(212,160,23,0.1) 0%, transparent 60%);
+            content: ''; position: absolute; inset: 0;
+            background: radial-gradient(ellipse at 50% 40%, rgba(197,150,30,.1) 0%, transparent 60%);
             pointer-events: none;
         }
 
-        .closing-deco {
-            font-size: 48px; margin-bottom: 24px;
+        .close-icon {
+            font-size: 56px; margin-bottom: 24px;
             position: relative; z-index: 1;
         }
 
-        .closing-title {
+        .close-title {
             font-family: 'Noto Serif KR', serif;
-            font-size: 34px; font-weight: 900;
-            color: var(--festive-gold);
-            line-height: 1.5; margin-bottom: 24px;
+            font-size: 38px; font-weight: 900;
+            color: var(--gold-light); line-height: 1.4;
+            margin-bottom: 24px;
             position: relative; z-index: 1;
         }
 
-        .closing-msg {
-            font-size: 16px;
-            color: rgba(255,255,255,0.8);
+        .close-msg {
+            font-size: 19px; color: rgba(255,255,255,.75);
             line-height: 2; font-weight: 300;
-            max-width: 320px;
+            max-width: 340px;
             position: relative; z-index: 1;
         }
 
-        .closing-brand {
-            margin-top: 40px;
-            font-size: 13px; letter-spacing: 4px;
-            color: rgba(255,255,255,0.3);
+        .close-brand {
+            margin-top: 48px; font-size: 14px;
+            letter-spacing: 5px;
+            color: rgba(255,255,255,.25);
             position: relative; z-index: 1;
         }
 
         /* ── 푸터 ── */
         .footer {
-            padding: 30px;
-            background: #111;
-            text-align: center;
+            padding: 28px; background: #1a1a1a; text-align: center;
         }
-
-        .footer p {
-            font-size: 12px;
-            color: rgba(255,255,255,0.3);
-        }
-
-        /* ── 주문 버튼 ── */
-        .order-btn {
-            display: inline-flex;
-            align-items: center; gap: 8px;
-            padding: 15px 30px;
-            background: var(--green-mid);
-            color: #fff;
-            text-decoration: none;
-            border-radius: 30px;
-            font-size: 15px; font-weight: 600;
-            margin-top: 22px;
-            box-shadow: 0 4px 18px rgba(45,106,79,0.3);
-            transition: transform 0.2s;
-        }
-
-        .order-btn:active { transform: scale(0.97); }
-
-        .order-btn-red {
-            background: var(--festive-red);
-            box-shadow: 0 4px 18px rgba(192,57,43,0.3);
-        }
-
-        .order-btn-gold {
-            background: var(--festive-gold);
-            color: #1a0a0a;
-            box-shadow: 0 4px 18px rgba(212,160,23,0.3);
-        }
-
-        .order-btn-white {
-            background: #fff;
-            color: var(--green-mid);
-            box-shadow: 0 4px 18px rgba(0,0,0,0.1);
-        }
-
-        /* ── 다과·마실거리 카드 ── */
-        .card-dagwa { background: #fff; }
-
-        .dagwa-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            max-width: 360px; width: 100%;
-            margin-top: 20px;
-        }
-
-        .dagwa-item {
-            background: var(--warm-bg);
-            border-radius: 14px;
-            padding: 16px 12px;
-            text-align: center;
-        }
-
-        .dagwa-emoji { font-size: 28px; margin-bottom: 6px; }
-
-        .dagwa-name {
-            font-size: 13px; font-weight: 500;
-            color: var(--text-dark); line-height: 1.3;
-        }
-
-        .dagwa-sale {
-            font-size: 14px; font-weight: 800;
-            color: var(--coral); margin-top: 4px;
-        }
+        .footer p { font-size: 13px; color: rgba(255,255,255,.25); }
 
         /* ── 반응형 ── */
         @media (max-width: 380px) {
-            .cover-title { font-size: 30px; }
-            .card-title { font-size: 24px; }
-            .card { padding: 40px 20px; }
-            .product-grid, .nonghal-grid, .dagwa-grid { gap: 8px; }
-            .chip-name, .nonghal-name { font-size: 13px; }
+            .card { padding: 36px 18px; }
+            .cover-title { font-size: 34px; }
+            .title { font-size: 27px; }
+            .prod-grid { gap: 8px; }
+            .prod-name { font-size: 15px; }
+            .prod-row img { width: 68px; height: 68px; }
         }
 
-        @media (min-width: 600px) {
-            .card { padding: 60px 40px; }
-            .cover-title { font-size: 46px; }
-            .card-title { font-size: 32px; }
+        @media (min-width: 500px) {
+            .card { padding: 56px 36px; }
+            .cover-title { font-size: 48px; }
+            .title { font-size: 36px; }
+            .prod-grid { max-width: 440px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- 네비게이션 도트 -->
-    <div class="dots" id="dots">
-        <div class="dot active" data-i="0"></div>
-        <div class="dot" data-i="1"></div>
-        <div class="dot" data-i="2"></div>
-        <div class="dot" data-i="3"></div>
-        <div class="dot" data-i="4"></div>
-        <div class="dot" data-i="5"></div>
-        <div class="dot" data-i="6"></div>
-        <div class="dot" data-i="7"></div>
-        <div class="dot" data-i="8"></div>
-        <div class="dot" data-i="9"></div>
+<div class="dots" id="dots">
+    <div class="dot active" data-i="0"></div>
+    <div class="dot" data-i="1"></div>
+    <div class="dot" data-i="2"></div>
+    <div class="dot" data-i="3"></div>
+    <div class="dot" data-i="4"></div>
+    <div class="dot" data-i="5"></div>
+    <div class="dot" data-i="6"></div>
+    <div class="dot" data-i="7"></div>
+    <div class="dot" data-i="8"></div>
+    <div class="dot" data-i="9"></div>
+</div>
+
+
+<!-- ════════════════════════════════════════════ -->
+<!--  1. 커버 — 설 인사                            -->
+<!-- ════════════════════════════════════════════ -->
+<section class="card card-cover" data-i="0">
+    <span class="cover-week">2026 설 특별호</span>
+    <div class="cover-icon">&#127885;</div>
+    <h1 class="cover-title">
+        <span class="gold">새해 복</span><br>
+        많이 받으세요
+    </h1>
+    <p class="cover-sub">
+        설 명절의 수고를 덜어드리는<br>
+        따뜻한 두레 소식입니다
+    </p>
+    <div class="scroll-hint">아래로 내려보세요</div>
+</section>
+
+
+<!-- ════════════════════════════════════════════ -->
+<!--  2. 공감 상황 — "명절이면 제일 바쁜 사람"     -->
+<!-- ════════════════════════════════════════════ -->
+<section class="card card-empathy" data-i="1">
+    <div class="empathy-box">
+        <div class="empathy-icon">&#128167;</div>
+        <p class="empathy-q">
+            전 부치랴, 나물 무치랴,<br>
+            떡국 끓이랴, 과일 깎으랴&#8230;
+        </p>
+        <p class="empathy-body">
+            명절이면 제일 바쁜 사람은<br>
+            늘 엄마, 아내, 며느리.<br><br>
+            다 차려놓고 맨 마지막에<br>
+            겨우 수저 드는 그 자리.<br><br>
+            올해는 조금이라도<br>
+            <strong>두레가 덜어드릴게요.</strong>
+        </p>
+        <div class="empathy-divider"></div>
+        <p class="empathy-cta">
+            장 보기부터 상차림까지,<br>
+            한 번에 담아뒀습니다.
+        </p>
     </div>
+</section>
 
-    <!-- ═══════════════════════════════════════ -->
-    <!-- Card 1: 설 명절 인사 커버                -->
-    <!-- ═══════════════════════════════════════ -->
-    <section class="card card-cover" data-i="0">
-        <span class="cover-badge">2026 WEEK 08</span>
-        <div class="cover-deco">&#127885;</div>
-        <h1 class="cover-title">
-            <span class="gold">새해 복</span><br>
-            많이 받으세요
-        </h1>
-        <p class="cover-sub">
-            설 명절의 수고를 덜어드리는<br>
-            따뜻한 두레 소식을 전합니다
-        </p>
-        <div class="cover-scroll">SCROLL</div>
-    </section>
 
-    <!-- ═══════════════════════════════════════ -->
-    <!-- Card 2: 두레지기의 편지                  -->
-    <!-- ═══════════════════════════════════════ -->
-    <section class="card card-letter" data-i="1">
-        <p class="section-label">두레지기의 편지 vol.8</p>
-        <div class="letter-box">
-            <p class="letter-greeting">안녕하세요,<br>조합원님.</p>
-            <p class="letter-body">
-                가족과 함께할 설렘도 크지만,
-                명절을 준비하는 조합원님의 마음 한편엔
-                벌써 분주함이 자리 잡고 있진 않으신지요.<br><br>
-                가족을 향한 소중한 정성만큼,
-                이번 명절엔 <strong>조합원님의 몸과 마음도
-                꼭 먼저 살펴주세요.</strong><br><br>
-                명절 뒤 찾아올 피로감은
-                저희가 준비한 신선한 생활재로
-                가뿐히 털어내시길 바랍니다.
-            </p>
-            <p class="letter-sign">두레지기 드림</p>
-        </div>
-    </section>
+<!-- ════════════════════════════════════════════ -->
+<!--  3. 공급일정 + 배송비 무료                     -->
+<!-- ════════════════════════════════════════════ -->
+<section class="card card-ship" data-i="2">
+    <div class="ship-icon">&#128666;</div>
+    <h2 class="title" style="color:#fff;">
+        연휴 이후<br>
+        <span style="color:var(--green-light);">공급 일정 안내</span>
+    </h2>
+    <p class="sub" style="color:rgba(255,255,255,.6);">
+        일상 복귀를 위한 생활재를<br>
+        미리 준비해 두었습니다
+    </p>
+    <div class="ship-box">
+        <p class="ship-date">2/19(목) ~ 2/20(금)</p>
+        <p class="ship-note">위 공급일 선택 시</p>
+        <div class="free-tag">배송비 무료</div>
+    </div>
+</section>
 
-    <!-- ═══════════════════════════════════════ -->
-    <!-- Card 3: 공급일정 + 무료배송              -->
-    <!-- ═══════════════════════════════════════ -->
-    <section class="card card-delivery" data-i="2">
-        <div class="delivery-icon">&#128666;</div>
-        <h2 class="card-title" style="color:#fff;">
-            연휴 이후<br>
-            <span style="color:var(--green-light);">공급 일정 안내</span>
-        </h2>
-        <p class="card-sub" style="color:rgba(255,255,255,0.7);">
-            명절 음식으로 지친 속을 달래줄<br>
-            정갈한 생활재와 함께<br>
-            다시 시작될 일상을 맞이하세요
-        </p>
-        <div class="delivery-box">
-            <p class="delivery-date">2/19(목) ~ 2/20(금)</p>
-            <p class="delivery-note">위 공급일 선택 시</p>
-            <div class="free-badge">배송비 무료</div>
-        </div>
-    </section>
 
-    <!-- ═══════════════════════════════════════ -->
-    <!-- Card 4: 설 상차림 - 떡국·만두            -->
-    <!-- ═══════════════════════════════════════ -->
-    <section class="card card-tteok" data-i="3">
-        <div class="theme-emoji">&#127836;</div>
-        <p class="section-label">설 상차림</p>
-        <h2 class="card-title">
-            <span class="hl-red">떡국</span>과 <span class="hl-red">만두</span>로<br>
-            한 해를 열어요
-        </h2>
-        <p class="card-sub" style="font-size:14px;">
-            마음은 풍성하게, 준비는 간편하게
-        </p>
-        <div class="product-grid">
-            <div class="product-chip">
-                <p class="chip-name">유기농 떡국떡</p>
-                <p class="chip-discount">10.2<span>%</span></p>
-                <p class="chip-label">인기 1위</p>
+<!-- ════════════════════════════════════════════ -->
+<!--  4. 설 상차림 — 떡국 · 만두                    -->
+<!-- ════════════════════════════════════════════ -->
+<section class="card card-tteok" data-i="3">
+    <div class="theme-icon">&#127836;</div>
+    <p class="label">설 상차림</p>
+    <h2 class="title">
+        따끈한 <span class="hl-r">떡국</span>과<br>
+        넉넉한 <span class="hl-r">만두</span>
+    </h2>
+    <div class="prod-grid">
+        <a class="prod-card" href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=44754&returnPlanNo=0">
+            <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/44754C.jpg" alt="유기농 떡국떡" loading="lazy">
+            <div class="prod-body">
+                <p class="prod-name">유기농 떡국떡</p>
+                <p class="prod-price">10.2<span>% 할인</span></p>
+                <span class="prod-tag">인기 1위</span>
             </div>
-            <div class="product-chip">
-                <p class="chip-name">유기농 현미떡국떡</p>
-                <p class="chip-discount">11.3<span>%</span></p>
-                <p class="chip-label">건강한 선택</p>
+        </a>
+        <a class="prod-card" href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=20316&returnPlanNo=0">
+            <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/20316C.jpg" alt="사골곰탕" loading="lazy">
+            <div class="prod-body">
+                <p class="prod-name">사골곰탕</p>
+                <p class="prod-price">18<span>% 할인</span></p>
+                <span class="prod-tag">진한 국물</span>
             </div>
-            <div class="product-chip">
-                <p class="chip-name">사골곰탕</p>
-                <p class="chip-discount">18<span>%</span></p>
-                <p class="chip-label">진한 국물</p>
+        </a>
+        <a class="prod-card" href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=35418&returnPlanNo=0">
+            <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/35418C.jpg" alt="고기손만두" loading="lazy">
+            <div class="prod-body">
+                <p class="prod-name">고기손만두</p>
+                <p class="prod-price">9.4<span>% 할인</span></p>
             </div>
-            <div class="product-chip">
-                <p class="chip-name">고기손만두</p>
-                <p class="chip-discount">9.4<span>%</span></p>
-                <p class="chip-label">온가족 인기</p>
+        </a>
+        <a class="prod-card" href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=39157&returnPlanNo=0">
+            <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/39157C.jpg" alt="한우사골곰탕" loading="lazy">
+            <div class="prod-body">
+                <p class="prod-name">한우사골곰탕</p>
+                <p class="prod-price">12.5<span>% 할인</span></p>
             </div>
-            <div class="product-chip">
-                <p class="chip-name">한우사골곰탕</p>
-                <p class="chip-discount">12.5<span>%</span></p>
-                <p class="chip-label">명절 특별</p>
+        </a>
+        <a class="prod-card" href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=36723&returnPlanNo=0">
+            <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/36723C.jpg" alt="김치손만두" loading="lazy">
+            <div class="prod-body">
+                <p class="prod-name">김치손만두</p>
+                <p class="prod-price">9.4<span>% 할인</span></p>
             </div>
-            <div class="product-chip">
-                <p class="chip-name">알육수 사골 20알</p>
-                <p class="chip-discount">17.2<span>%</span></p>
-                <p class="chip-label">간편 육수</p>
+        </a>
+        <a class="prod-card" href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=51828&returnPlanNo=0">
+            <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/51828C.jpg" alt="알육수 사골 20알" loading="lazy">
+            <div class="prod-body">
+                <p class="prod-name">알육수 사골 20알</p>
+                <p class="prod-price">17.2<span>% 할인</span></p>
+                <span class="prod-tag">간편 육수</span>
             </div>
-        </div>
-        <a href="https://ecoop.or.kr" class="order-btn order-btn-red">상차림 전체 보기</a>
-    </section>
+        </a>
+    </div>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="btn btn-red">떡국·만두 전체 보기</a>
+</section>
 
-    <!-- ═══════════════════════════════════════ -->
-    <!-- Card 5: 전·부침·잡채                     -->
-    <!-- ═══════════════════════════════════════ -->
-    <section class="card card-jeon" data-i="4">
-        <div class="theme-emoji">&#129368;</div>
-        <p class="section-label">설 상차림</p>
-        <h2 class="card-title">
-            바삭한 <span class="hl-gold">전</span>과<br>
-            든든한 <span class="hl-gold">잡채</span>
-        </h2>
-        <div class="item-list">
-            <div class="item-row">
-                <div class="item-left">
-                    <span class="item-emoji">&#129368;</span>
-                    <span class="item-name">모듬전세트</span>
-                </div>
-                <span class="item-discount" style="color:var(--green-mid); font-size:13px;">신규</span>
-            </div>
-            <div class="item-row">
-                <div class="item-left">
-                    <span class="item-emoji">&#127858;</span>
-                    <span class="item-name">구례밀 부침가루</span>
-                </div>
-                <span class="item-discount">15%</span>
-            </div>
-            <div class="item-row">
-                <div class="item-left">
-                    <span class="item-emoji">&#127833;</span>
-                    <span class="item-name">떡갈비 10개</span>
-                </div>
-                <span class="item-discount">12.1%</span>
-            </div>
-            <div class="item-row">
-                <div class="item-left">
-                    <span class="item-emoji">&#129379;</span>
-                    <span class="item-name">무농약 찹쌀가루</span>
-                </div>
-                <span class="item-discount">20.3%</span>
-            </div>
-            <div class="item-row">
-                <div class="item-left">
-                    <span class="item-emoji">&#127836;</span>
-                    <span class="item-name">자른당면 (잡채)</span>
-                </div>
-                <span class="item-discount">4.8%</span>
-            </div>
-            <div class="item-row">
-                <div class="item-left">
-                    <span class="item-emoji">&#129385;</span>
-                    <span class="item-name">녹두전</span>
-                </div>
-                <span class="item-discount">8.4%</span>
-            </div>
-        </div>
-        <a href="https://ecoop.or.kr" class="order-btn">전·부침 전체 보기</a>
-    </section>
 
-    <!-- ═══════════════════════════════════════ -->
-    <!-- Card 6: 반찬·나물·양념                   -->
-    <!-- ═══════════════════════════════════════ -->
-    <section class="card card-banchan" data-i="5">
-        <p class="section-label" style="color:var(--green-mid);">설 상차림</p>
-        <h2 class="card-title">
-            정성 가득<br>
-            <span class="hl-green">반찬과 나물</span>
-        </h2>
-        <div class="banchan-grid">
-            <div class="banchan-item">
-                <div class="banchan-emoji">&#127811;</div>
-                <p class="banchan-name">겨울 시금치</p>
-                <p class="banchan-sale">무농약</p>
+<!-- ════════════════════════════════════════════ -->
+<!--  5. 설 상차림 — 전 · 부침 · 잡채              -->
+<!-- ════════════════════════════════════════════ -->
+<section class="card card-jeon" data-i="4">
+    <div class="theme-icon">&#129368;</div>
+    <p class="label">설 상차림</p>
+    <h2 class="title">
+        바삭한 <span class="hl-gold">전</span>과<br>
+        든든한 <span class="hl-gold">잡채</span>
+    </h2>
+    <div class="prod-grid">
+        <a class="prod-card" href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=58118&returnPlanNo=0">
+            <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58118C.jpg" alt="모듬전세트" loading="lazy">
+            <div class="prod-body">
+                <p class="prod-name">모듬전세트</p>
+                <p class="prod-price" style="color:var(--green-mid); font-size:16px;">동그랑땡·동태전·깻잎전</p>
+                <span class="prod-tag">신규</span>
             </div>
-            <div class="banchan-item">
-                <div class="banchan-emoji">&#129388;</div>
-                <p class="banchan-name">콩나물</p>
-                <p class="banchan-sale">11.8%</p>
+        </a>
+        <a class="prod-card" href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=52015&returnPlanNo=0">
+            <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/52015C.jpg" alt="구례밀 부침가루" loading="lazy">
+            <div class="prod-body">
+                <p class="prod-name">구례밀 부침가루</p>
+                <p class="prod-price">15<span>% 할인</span></p>
             </div>
-            <div class="banchan-item">
-                <div class="banchan-emoji">&#129388;</div>
-                <p class="banchan-name">숙주나물</p>
-                <p class="banchan-sale">8.7%</p>
+        </a>
+        <a class="prod-card" href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=57676&returnPlanNo=0">
+            <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57676C.jpg" alt="떡갈비 10개" loading="lazy">
+            <div class="prod-body">
+                <p class="prod-name">떡갈비 10개</p>
+                <p class="prod-price">12.1<span>% 할인</span></p>
             </div>
-            <div class="banchan-item">
-                <div class="banchan-emoji">&#127798;</div>
-                <p class="banchan-name">포기김치 2kg</p>
-                <p class="banchan-sale">15.2%</p>
+        </a>
+        <a class="prod-card" href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=14731&returnPlanNo=0">
+            <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/14731C.jpg" alt="자른당면" loading="lazy">
+            <div class="prod-body">
+                <p class="prod-name">자른당면</p>
+                <p class="prod-price">4.8<span>% 할인</span></p>
             </div>
-            <div class="banchan-item">
-                <div class="banchan-emoji">&#129472;</div>
-                <p class="banchan-name">발아참기름</p>
-                <p class="banchan-sale">14.6%</p>
+        </a>
+        <a class="prod-card" href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=20377&returnPlanNo=0">
+            <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/20377C.jpg" alt="녹두전" loading="lazy">
+            <div class="prod-body">
+                <p class="prod-name">녹두전</p>
+                <p class="prod-price">8.4<span>% 할인</span></p>
             </div>
-            <div class="banchan-item">
-                <div class="banchan-emoji">&#127859;</div>
-                <p class="banchan-name">원삼유정란</p>
-                <p class="banchan-sale">10.8%</p>
+        </a>
+        <a class="prod-card" href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=58116&returnPlanNo=0">
+            <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58116C.jpg" alt="동그랑땡" loading="lazy">
+            <div class="prod-body">
+                <p class="prod-name">동그랑땡 300g</p>
+                <p class="prod-price">9.2<span>% 할인</span></p>
             </div>
-            <div class="banchan-item">
-                <div class="banchan-emoji">&#127843;</div>
-                <p class="banchan-name">김부각 3번들</p>
-                <p class="banchan-sale">21.9%</p>
-            </div>
-            <div class="banchan-item">
-                <div class="banchan-emoji">&#127846;</div>
-                <p class="banchan-name">연근조림</p>
-                <p class="banchan-sale">5.5%</p>
-            </div>
-            <div class="banchan-item">
-                <div class="banchan-emoji">&#129472;</div>
-                <p class="banchan-name">발아들기름</p>
-                <p class="banchan-sale">6.1%</p>
-            </div>
-        </div>
-        <a href="https://ecoop.or.kr" class="order-btn order-btn-white">반찬·나물 전체 보기</a>
-    </section>
+        </a>
+    </div>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="btn btn-brown">전·부침 전체 보기</a>
+</section>
 
-    <!-- ═══════════════════════════════════════ -->
-    <!-- Card 7: 다과·마실거리                    -->
-    <!-- ═══════════════════════════════════════ -->
-    <section class="card card-dagwa" data-i="6">
-        <div class="theme-emoji">&#127861;</div>
-        <p class="section-label" style="color:var(--green-mid);">설 상차림</p>
-        <h2 class="card-title">
-            마음을 나누는<br>
-            <span class="hl-gold">다과와 마실거리</span>
-        </h2>
-        <div class="dagwa-grid">
-            <div class="dagwa-item">
-                <div class="dagwa-emoji">&#127856;</div>
-                <p class="dagwa-name">약과</p>
-                <p class="dagwa-sale">5.6%</p>
-            </div>
-            <div class="dagwa-item">
-                <div class="dagwa-emoji">&#127862;</div>
-                <p class="dagwa-name">전통식혜</p>
-                <p class="dagwa-sale">11.1%</p>
-            </div>
-            <div class="dagwa-item">
-                <div class="dagwa-emoji">&#127863;</div>
-                <p class="dagwa-name">전통수정과</p>
-                <p class="dagwa-sale">17%</p>
-            </div>
-            <div class="dagwa-item">
-                <div class="dagwa-emoji">&#127856;</div>
-                <p class="dagwa-name">현미강정</p>
-                <p class="dagwa-sale">15%</p>
-            </div>
-            <div class="dagwa-item">
-                <div class="dagwa-emoji">&#127864;</div>
-                <p class="dagwa-name">오산막걸리</p>
-                <p class="dagwa-sale">8.8%</p>
-            </div>
-            <div class="dagwa-item">
-                <div class="dagwa-emoji">&#127861;</div>
-                <p class="dagwa-name">쌍화차</p>
-                <p class="dagwa-sale">11.1%</p>
-            </div>
-            <div class="dagwa-item">
-                <div class="dagwa-emoji">&#127856;</div>
-                <p class="dagwa-name">차례상산자</p>
-                <p class="dagwa-sale">5%</p>
-            </div>
-            <div class="dagwa-item">
-                <div class="dagwa-emoji">&#127862;</div>
-                <p class="dagwa-name">유기농 식혜</p>
-                <p class="dagwa-sale">17.6%</p>
-            </div>
-        </div>
-        <a href="https://ecoop.or.kr" class="order-btn">다과·음료 전체 보기</a>
-    </section>
 
-    <!-- ═══════════════════════════════════════ -->
-    <!-- Card 8: 명절 후 간편 한 끼              -->
-    <!-- ═══════════════════════════════════════ -->
-    <section class="card card-easy" data-i="7">
-        <div class="theme-emoji">&#127869;</div>
-        <p class="section-label">명절 이후</p>
-        <h2 class="card-title">
-            지친 몸을 가볍게<br>
-            <span class="underline-gold">간편 한 끼</span>
-        </h2>
-        <p class="card-sub" style="font-size:14px;">
-            더부룩한 속은 편안하게 달래고<br>
-            지친 입맛은 기분 좋게 깨워보세요
-        </p>
-        <div class="easy-items">
-            <div class="easy-card">
-                <div class="easy-icon">&#128138;</div>
-                <div class="easy-info">
-                    <p class="easy-name">프로바이오틱스</p>
-                    <p class="easy-desc">장 건강 회복</p>
-                </div>
-                <p class="easy-sale">30.2%</p>
+<!-- ════════════════════════════════════════════ -->
+<!--  6. 설 상차림 — 반찬 · 나물 · 양념            -->
+<!-- ════════════════════════════════════════════ -->
+<section class="card card-banchan" data-i="5">
+    <div class="theme-icon">&#127811;</div>
+    <p class="label" style="color:var(--green-mid);">설 상차림</p>
+    <h2 class="title">
+        정성 가득<br>
+        <span class="hl-g">반찬과 나물</span>
+    </h2>
+    <div class="prod-grid">
+        <a class="prod-card" href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=32424&returnPlanNo=0">
+            <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/32424C.jpg" alt="포기김치 2kg" loading="lazy">
+            <div class="prod-body">
+                <p class="prod-name">포기김치 2kg</p>
+                <p class="prod-price">15.2<span>% 할인</span></p>
             </div>
-            <div class="easy-card">
-                <div class="easy-icon">&#129382;</div>
-                <div class="easy-info">
-                    <p class="easy-name">양배추브로콜리즙</p>
-                    <p class="easy-desc">속 편안한 한 잔</p>
-                </div>
-                <p class="easy-sale">10%</p>
+        </a>
+        <a class="prod-card" href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=21166&returnPlanNo=0">
+            <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/21166C.jpg" alt="원삼유정란 15구" loading="lazy">
+            <div class="prod-body">
+                <p class="prod-name">원삼유정란 15구</p>
+                <p class="prod-price">10.8<span>% 할인</span></p>
+                <span class="prod-tag">필수</span>
             </div>
-            <div class="easy-card">
-                <div class="easy-icon">&#127861;</div>
-                <div class="easy-info">
-                    <p class="easy-name">6년근 홍삼캔디</p>
-                    <p class="easy-desc">지친 몸 충전</p>
-                </div>
-                <p class="easy-sale">24.7%</p>
+        </a>
+        <a class="prod-card" href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=56238&returnPlanNo=0">
+            <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56238C.jpg" alt="김부각 3번들" loading="lazy">
+            <div class="prod-body">
+                <p class="prod-name">김부각 3번들</p>
+                <p class="prod-price">21.9<span>% 할인</span></p>
             </div>
-            <div class="easy-card">
-                <div class="easy-icon">&#127834;</div>
-                <div class="easy-info">
-                    <p class="easy-name">새우볶음밥 2팩</p>
-                    <p class="easy-desc">간편한 한 끼</p>
-                </div>
-                <p class="easy-sale">9.4%</p>
+        </a>
+        <a class="prod-card" href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=20708&returnPlanNo=0">
+            <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/20708C.jpg" alt="발아참기름" loading="lazy">
+            <div class="prod-body">
+                <p class="prod-name">발아참기름 300ml</p>
+                <p class="prod-price">14.6<span>% 할인</span></p>
             </div>
-            <div class="easy-card">
-                <div class="easy-icon">&#127862;</div>
-                <div class="easy-info">
-                    <p class="easy-name">생강청 1000ml</p>
-                    <p class="easy-desc">따뜻한 한 잔</p>
-                </div>
-                <p class="easy-sale">10.4%</p>
+        </a>
+        <a class="prod-card" href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=35728&returnPlanNo=0">
+            <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/35728C.jpg" alt="콩나물" loading="lazy">
+            <div class="prod-body">
+                <p class="prod-name">콩나물 (무농약)</p>
+                <p class="prod-price">11.8<span>% 할인</span></p>
             </div>
-        </div>
-        <a href="https://ecoop.or.kr" class="order-btn">간편 한 끼 더 보기</a>
-    </section>
+        </a>
+        <a class="prod-card" href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=34752&returnPlanNo=0">
+            <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/34752C.jpg" alt="숙주나물" loading="lazy">
+            <div class="prod-body">
+                <p class="prod-name">숙주나물 (무농약)</p>
+                <p class="prod-price">8.7<span>% 할인</span></p>
+            </div>
+        </a>
+    </div>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="btn btn-white">반찬·나물 전체 보기</a>
+</section>
 
-    <!-- ═══════════════════════════════════════ -->
-    <!-- Card 9: 농식품부 할인 + 봄소식           -->
-    <!-- ═══════════════════════════════════════ -->
-    <section class="card card-nonghal" data-i="8">
-        <span class="nonghal-badge">농식품부 할인지원</span>
-        <h2 class="card-title" style="color:#fff;">
-            축산 · 과일<br>
-            <span style="color:var(--orange);">최대 32%</span> 할인
-        </h2>
-        <p class="card-sub" style="color:rgba(255,255,255,0.6); font-size:14px;">
-            쿠폰 사용: 2/5(목) ~ 2/11(수)
-        </p>
-        <div class="nonghal-grid">
-            <div class="nonghal-item">
+
+<!-- ════════════════════════════════════════════ -->
+<!--  7. 다과 · 음료                               -->
+<!-- ════════════════════════════════════════════ -->
+<section class="card card-dagwa" data-i="6">
+    <div class="theme-icon">&#127861;</div>
+    <p class="label">설 상차림</p>
+    <h2 class="title">
+        둘러앉아 나누는<br>
+        <span class="hl-gold">다과와 음료</span>
+    </h2>
+    <div class="prod-grid">
+        <a class="prod-card" href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=835&returnPlanNo=0">
+            <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/835C.jpg" alt="약과" loading="lazy">
+            <div class="prod-body">
+                <p class="prod-name">약과</p>
+                <p class="prod-price">5.6<span>% 할인</span></p>
+            </div>
+        </a>
+        <a class="prod-card" href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=42634&returnPlanNo=0">
+            <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/42634C.jpg" alt="전통식혜" loading="lazy">
+            <div class="prod-body">
+                <p class="prod-name">전통식혜 1000ml</p>
+                <p class="prod-price">11.1<span>% 할인</span></p>
+            </div>
+        </a>
+        <a class="prod-card" href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=42633&returnPlanNo=0">
+            <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/42633C.jpg" alt="전통수정과" loading="lazy">
+            <div class="prod-body">
+                <p class="prod-name">전통수정과 1000ml</p>
+                <p class="prod-price">17<span>% 할인</span></p>
+            </div>
+        </a>
+        <a class="prod-card" href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=53094&returnPlanNo=0">
+            <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/53094C.jpg" alt="현미강정" loading="lazy">
+            <div class="prod-body">
+                <p class="prod-name">현미강정</p>
+                <p class="prod-price">15<span>% 할인</span></p>
+            </div>
+        </a>
+        <a class="prod-card" href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=7855&returnPlanNo=0">
+            <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/7855C.jpg" alt="차례상산자" loading="lazy">
+            <div class="prod-body">
+                <p class="prod-name">차례상산자</p>
+                <p class="prod-price">5<span>% 할인</span></p>
+                <span class="prod-tag">차례용</span>
+            </div>
+        </a>
+        <a class="prod-card" href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=45769&returnPlanNo=0">
+            <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/45769C.jpg" alt="유기요기 유기농식혜" loading="lazy">
+            <div class="prod-body">
+                <p class="prod-name">유기농 식혜</p>
+                <p class="prod-price">17.6<span>% 할인</span></p>
+            </div>
+        </a>
+    </div>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="btn btn-brown">다과·음료 전체 보기</a>
+</section>
+
+
+<!-- ════════════════════════════════════════════ -->
+<!--  8. 명절 후 회복 — 간편 한 끼                 -->
+<!-- ════════════════════════════════════════════ -->
+<section class="card card-recover" data-i="7">
+    <div class="theme-icon">&#128156;</div>
+    <p class="label">명절 이후</p>
+    <h2 class="title">
+        수고한 나를 위한<br>
+        <span class="hl-r">간편 회복 한 끼</span>
+    </h2>
+    <p class="sub" style="font-size:17px;">
+        더부룩한 속도, 지친 몸도<br>
+        가뿐하게 돌아오도록
+    </p>
+    <div class="prod-list">
+        <a class="prod-row" href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=41515&returnPlanNo=0">
+            <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/41515C.jpg" alt="프로바이오틱스" loading="lazy">
+            <div class="prod-row-info">
+                <p class="prod-row-name">프로바이오틱스</p>
+                <p class="prod-row-desc">장 건강 회복</p>
+            </div>
+            <span class="prod-row-sale">30.2%</span>
+        </a>
+        <a class="prod-row" href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=57305&returnPlanNo=0">
+            <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57305C.jpg" alt="6년근 홍삼캔디" loading="lazy">
+            <div class="prod-row-info">
+                <p class="prod-row-name">6년근 홍삼캔디</p>
+                <p class="prod-row-desc">지친 몸 충전</p>
+            </div>
+            <span class="prod-row-sale">24.7%</span>
+        </a>
+        <a class="prod-row" href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=41011&returnPlanNo=0">
+            <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/41011C.jpg" alt="양배추브로콜리즙" loading="lazy">
+            <div class="prod-row-info">
+                <p class="prod-row-name">양배추브로콜리즙</p>
+                <p class="prod-row-desc">속 편안한 한 잔</p>
+            </div>
+            <span class="prod-row-sale">10%</span>
+        </a>
+        <a class="prod-row" href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=55765&returnPlanNo=0">
+            <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/55765C.jpg" alt="생강청" loading="lazy">
+            <div class="prod-row-info">
+                <p class="prod-row-name">생강청 1000ml</p>
+                <p class="prod-row-desc">따뜻한 한 잔</p>
+            </div>
+            <span class="prod-row-sale">10.4%</span>
+        </a>
+        <a class="prod-row" href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=56390&returnPlanNo=0">
+            <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56390C.jpg" alt="새우볶음밥" loading="lazy">
+            <div class="prod-row-info">
+                <p class="prod-row-name">새우볶음밥 2팩</p>
+                <p class="prod-row-desc">간편한 한 끼</p>
+            </div>
+            <span class="prod-row-sale">9.4%</span>
+        </a>
+    </div>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="btn btn-green">간편 한 끼 더 보기</a>
+</section>
+
+
+<!-- ════════════════════════════════════════════ -->
+<!--  9. 농식품부 할인지원                          -->
+<!-- ════════════════════════════════════════════ -->
+<section class="card card-nonghal" data-i="8">
+    <span class="nonghal-badge">농식품부 할인지원</span>
+    <h2 class="title" style="color:#fff;">
+        축산 · 과일<br>
+        <span style="color:var(--orange);">최대 32%</span> 할인
+    </h2>
+    <p class="sub" style="color:rgba(255,255,255,.55); font-size:16px;">
+        쿠폰 사용: 2/5(목) ~ 2/11(수)
+    </p>
+    <div class="nonghal-grid">
+        <a class="nonghal-card" href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=35134&returnPlanNo=0">
+            <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/35134C.jpg" alt="한라봉" loading="lazy">
+            <div class="nonghal-info">
                 <p class="nonghal-name">한라봉 1kg</p>
-                <p class="nonghal-discount">32<span>%</span></p>
-                <p class="nonghal-note">자체+정부 할인</p>
+                <p class="nonghal-pct">32<span>%</span></p>
+                <p class="nonghal-sub">자체+정부 할인</p>
             </div>
-            <div class="nonghal-item">
+        </a>
+        <a class="nonghal-card" href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=27644&returnPlanNo=0">
+            <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/27644C.jpg" alt="천혜향" loading="lazy">
+            <div class="nonghal-info">
                 <p class="nonghal-name">천혜향 1kg</p>
-                <p class="nonghal-discount">32<span>%</span></p>
-                <p class="nonghal-note">자체+정부 할인</p>
+                <p class="nonghal-pct">32<span>%</span></p>
+                <p class="nonghal-sub">자체+정부 할인</p>
             </div>
-            <div class="nonghal-item">
+        </a>
+        <a class="nonghal-card" href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=56902&returnPlanNo=0">
+            <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56902C.jpg" alt="동물복지 삼겹살" loading="lazy">
+            <div class="nonghal-info">
                 <p class="nonghal-name">동물복지 삼겹살</p>
-                <p class="nonghal-discount">28<span>%</span></p>
-                <p class="nonghal-note">500g</p>
+                <p class="nonghal-pct">28<span>%</span></p>
+                <p class="nonghal-sub">500g</p>
             </div>
-            <div class="nonghal-item">
+        </a>
+        <a class="nonghal-card" href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=56904&returnPlanNo=0">
+            <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56904C.jpg" alt="동물복지 목살" loading="lazy">
+            <div class="nonghal-info">
                 <p class="nonghal-name">동물복지 목살</p>
-                <p class="nonghal-discount">28<span>%</span></p>
-                <p class="nonghal-note">500g</p>
+                <p class="nonghal-pct">28<span>%</span></p>
+                <p class="nonghal-sub">500g</p>
             </div>
-            <div class="nonghal-item">
-                <p class="nonghal-name">의성 신고배</p>
-                <p class="nonghal-discount">28<span>%</span></p>
-                <p class="nonghal-note">2kg</p>
-            </div>
-            <div class="nonghal-item">
-                <p class="nonghal-name">생통닭 11호</p>
-                <p class="nonghal-discount">28<span>%</span></p>
-                <p class="nonghal-note">온가족 한 마리</p>
-            </div>
-        </div>
-        <div class="coupon-tip">
-            <p>쿠폰 등록 후 주문 시 자동 할인 적용</p>
-        </div>
-        <a href="https://ecoop.or.kr" class="order-btn order-btn-gold">할인 상품 보기</a>
-    </section>
+        </a>
+    </div>
+    <div class="coupon-box">
+        <p>쿠폰 등록 후 주문 시 자동 할인</p>
+    </div>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="btn btn-gold">할인 상품 보기</a>
+</section>
 
-    <!-- ═══════════════════════════════════════ -->
-    <!-- Card 10: 클로징 새해 인사                -->
-    <!-- ═══════════════════════════════════════ -->
-    <section class="card card-closing" data-i="9">
-        <div class="closing-deco">&#127885;&#10024;</div>
-        <h2 class="closing-title">
-            새해 복<br>
-            많이 받으세요
-        </h2>
-        <p class="closing-msg">
-            올 한 해도 조합원님의 식탁 위에<br>
-            건강하고 따뜻한 한 끼가<br>
-            늘 함께하길 바랍니다.<br><br>
-            명절 준비부터 연휴 뒤 일상까지,<br>
-            두레가 함께합니다.
-        </p>
-        <p class="closing-brand">DURE COOP</p>
-    </section>
 
-    <!-- 푸터 -->
-    <footer class="footer">
-        <p>두레생협 8주차 소식 2026.02</p>
-    </footer>
+<!-- ════════════════════════════════════════════ -->
+<!--  10. 클로징 — 새해 인사                       -->
+<!-- ════════════════════════════════════════════ -->
+<section class="card card-closing" data-i="9">
+    <div class="close-icon">&#127885;&#10024;</div>
+    <h2 class="close-title">
+        새해 복<br>
+        많이 받으세요
+    </h2>
+    <p class="close-msg">
+        올 한 해도 조합원님의 식탁 위에<br>
+        건강하고 따뜻한 한 끼가<br>
+        늘 함께하길 바랍니다.<br><br>
+        명절 준비부터 연휴 뒤 일상까지,<br>
+        두레가 함께합니다.
+    </p>
+    <p class="close-brand">DURE COOP</p>
+</section>
 
-    <script>
-        const cards = document.querySelectorAll('.card');
-        const dots = document.querySelectorAll('.dot');
 
-        const obs = new IntersectionObserver((entries) => {
-            entries.forEach(e => {
-                if (e.isIntersecting) {
-                    const i = e.target.dataset.i;
-                    dots.forEach((d, idx) => d.classList.toggle('active', idx == i));
-                }
-            });
-        }, { threshold: 0.5 });
+<footer class="footer">
+    <p>두레생협 2026년 설 특별호</p>
+</footer>
 
-        cards.forEach(c => obs.observe(c));
-        dots.forEach(d => d.onclick = () => cards[d.dataset.i].scrollIntoView({ behavior: 'smooth' }));
-    </script>
+
+<script>
+const cards = document.querySelectorAll('.card');
+const dots = document.querySelectorAll('.dot');
+
+const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+        if (e.isIntersecting) {
+            const i = e.target.dataset.i;
+            dots.forEach((d, idx) => d.classList.toggle('active', idx == i));
+        }
+    });
+}, { threshold: .45 });
+
+cards.forEach(c => obs.observe(c));
+dots.forEach(d => d.onclick = () => cards[d.dataset.i].scrollIntoView({ behavior: 'smooth' }));
+</script>
 </body>
 </html>
