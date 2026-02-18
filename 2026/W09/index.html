@@ -9,1027 +9,780 @@
 <meta property="og:image" content="https://durecoop.github.io/magazine/2026/W09/img/hero-bg.svg">
 <meta property="og:url" content="https://durecoop.github.io/magazine/2026/W09/">
 <meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root {
-    --brown-dark: #4a3f35;
-    --brown: #6b5d52;
-    --brown-light: #8b7d72;
-    --beige: #c4b5a5;
-    --beige-light: #e8e0d5;
-    --cream: #f7f4f0;
-    --white: #fdfcfa;
+  --dark: #3d3229;
+  --brown: #6b5d52;
+  --light: #8b7d72;
+  --beige: #c4b5a5;
+  --cream: #f0ebe4;
+  --white: #faf8f5;
+  --accent: #b5634b;
+  --accent2: #d4956b;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{height:100%;overflow:hidden}
+body{
+  font-family:'Gowun Batang',serif;
+  color:var(--brown);
+  background:#000;
+  height:100%;
+  overflow:hidden;
+  -webkit-user-select:none;user-select:none;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
-html {
-    scroll-snap-type: y mandatory;
-    scroll-behavior: smooth;
+/* ── 카드 컨테이너 ── */
+.deck{
+  height:100%;width:100%;
+  overflow-y:scroll;
+  scroll-snap-type:y mandatory;
+  -webkit-overflow-scrolling:touch;
+}
+.card{
+  min-height:100vh;min-height:100dvh;
+  scroll-snap-align:start;
+  scroll-snap-stop:always;
+  display:flex;flex-direction:column;
+  justify-content:center;align-items:center;
+  padding:48px 28px 36px;
+  position:relative;
+  overflow:hidden;
 }
 
-body {
-    font-family: 'Gowun Batang', serif;
-    color: var(--brown);
-    background: var(--white);
-    line-height: 1.9;
-    letter-spacing: -0.01em;
-    overflow-x: hidden;
+/* ── 인디케이터 ── */
+.indicator{
+  position:fixed;right:10px;top:50%;transform:translateY(-50%);
+  z-index:100;display:flex;flex-direction:column;gap:6px;
+}
+.indicator .dot{
+  width:6px;height:6px;border-radius:50%;
+  background:rgba(255,255,255,.25);transition:.3s;
+}
+.indicator .dot.on{background:#fff;transform:scale(1.4)}
+
+/* ── 카드 0: 커버 ── */
+.card-cover{
+  background:linear-gradient(160deg,#4a3f35 0%,#6b5d52 50%,#8b7d72 100%);
+  color:var(--white);text-align:center;
+}
+.card-cover .moon{font-size:72px;margin-bottom:24px;filter:drop-shadow(0 0 40px rgba(255,220,150,.4))}
+.card-cover .vol{font-size:11px;letter-spacing:4px;opacity:.5;margin-bottom:20px;text-transform:uppercase}
+.card-cover h1{font-size:clamp(28px,8vw,36px);font-weight:700;line-height:1.5;margin-bottom:16px}
+.card-cover .sub{font-size:14px;opacity:.6;line-height:1.8}
+.card-cover .scroll-hint{
+  position:absolute;bottom:28px;font-size:12px;opacity:.35;
+  animation:bob 2s ease-in-out infinite;
+}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+
+/* ── 카드: 편지 ── */
+.card-letter{background:var(--white);text-align:left;align-items:flex-start;padding:56px 32px 40px}
+.card-letter .vol{font-size:11px;letter-spacing:3px;color:var(--light);margin-bottom:16px}
+.card-letter h2{font-size:22px;font-weight:700;color:var(--dark);margin-bottom:20px}
+.card-letter p{font-size:14.5px;color:var(--brown);line-height:2;margin-bottom:12px}
+.card-letter .sign{margin-top:16px;font-size:13px;color:var(--light);text-align:right;width:100%}
+
+/* ── 테마 헤더 카드 ── */
+.card-theme-header{text-align:center}
+.card-theme-header .num{font-size:11px;letter-spacing:4px;opacity:.5;margin-bottom:10px}
+.card-theme-header h2{font-size:clamp(24px,7vw,32px);font-weight:700;line-height:1.4;margin-bottom:12px}
+.card-theme-header .desc{font-size:14px;opacity:.7;line-height:1.8}
+.card-theme-header .emoji-big{font-size:56px;margin-bottom:20px}
+
+.bg-warm{background:linear-gradient(160deg,#f5efe8,#e8ddd0);color:var(--dark)}
+.bg-green{background:linear-gradient(160deg,#e8efe5,#d5e0cf);color:#3d4a35}
+.bg-dark{background:linear-gradient(160deg,#3d3229,#5a4d42);color:var(--white)}
+.bg-cream{background:var(--cream);color:var(--dark)}
+.bg-white{background:var(--white);color:var(--dark)}
+.bg-brown{background:linear-gradient(160deg,#6b5d52,#8b7d72);color:var(--white)}
+.bg-sunset{background:linear-gradient(160deg,#d4956b,#b5634b);color:#fff}
+
+/* ── 상품 카드 ── */
+.card-products{background:var(--white);padding:40px 20px 32px;align-items:stretch}
+.card-products.alt{background:var(--cream)}
+.card-products .section-label{
+  font-size:11px;letter-spacing:3px;color:var(--light);margin-bottom:6px;
+}
+.card-products .section-title{
+  font-size:20px;font-weight:700;color:var(--dark);margin-bottom:20px;
 }
 
-/* 고정 헤더 */
-.header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 56px;
-    background: var(--brown-dark);
-    color: var(--white);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 100;
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 2px;
+.grid{display:grid;gap:14px;width:100%}
+.grid-2{grid-template-columns:repeat(2,1fr)}
+.grid-3{grid-template-columns:repeat(3,1fr)}
+
+.item{text-decoration:none;color:inherit;display:block}
+.item .thumb{
+  width:100%;aspect-ratio:1;border-radius:12px;overflow:hidden;
+  background:var(--cream);margin-bottom:8px;position:relative;
+}
+.item .thumb img{width:100%;height:100%;object-fit:cover}
+.item .thumb.placeholder{
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,var(--cream),#e0d6c8);
+}
+.item .thumb.placeholder::after{
+  content:'📦';font-size:32px;opacity:.4;
+}
+.item .badge{
+  position:absolute;top:8px;left:8px;
+  background:var(--accent);color:#fff;
+  font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;
+}
+.item .badge.coupon{background:var(--dark)}
+.item .nm{font-size:12.5px;color:var(--dark);line-height:1.4;margin-bottom:3px;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.item .dc{font-size:14px;font-weight:700;color:var(--accent)}
+
+/* ── 쿠폰 배너 ── */
+.coupon-card{
+  background:var(--dark);color:#fff;border-radius:14px;
+  padding:24px;text-align:center;width:100%;margin-bottom:20px;
+}
+.coupon-card .cl{font-size:10px;letter-spacing:3px;opacity:.5;margin-bottom:6px}
+.coupon-card .ct{font-size:18px;font-weight:700;margin-bottom:4px}
+.coupon-card .cd{font-size:13px;opacity:.7}
+
+/* ── 피처드 (풀와이드 1상품) ── */
+.featured{
+  text-decoration:none;color:inherit;display:block;width:100%;margin-bottom:20px;
+}
+.featured .f-img{
+  width:100%;aspect-ratio:4/3;border-radius:16px;overflow:hidden;
+  background:var(--cream);margin-bottom:14px;
+}
+.featured .f-img img{width:100%;height:100%;object-fit:cover}
+.featured .f-nm{font-size:18px;font-weight:700;color:var(--dark);margin-bottom:4px}
+.featured .f-desc{font-size:13px;color:var(--light);margin-bottom:6px}
+.featured .f-dc{font-size:16px;font-weight:700;color:var(--accent)}
+
+/* ── 가로 스크롤 ── */
+.hscroll{
+  display:flex;gap:12px;overflow-x:auto;width:calc(100% + 40px);
+  margin:0 -20px;padding:0 20px 8px;
+  scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+}
+.hscroll::-webkit-scrollbar{display:none}
+.hscroll .item{flex:0 0 130px;scroll-snap-align:start}
+
+/* ── 배너 ── */
+.banner-inline{
+  background:linear-gradient(135deg,var(--dark),var(--brown));
+  color:#fff;border-radius:16px;padding:28px 24px;
+  text-align:center;width:100%;margin-bottom:20px;
+}
+.banner-inline .emoji{font-size:40px;margin-bottom:8px}
+.banner-inline h3{font-size:20px;font-weight:700;margin-bottom:6px}
+.banner-inline p{font-size:13px;opacity:.7}
+
+/* ── CTA ── */
+.card-cta{background:var(--cream);text-align:center}
+.card-cta h2{font-size:22px;font-weight:700;color:var(--dark);line-height:1.5;margin-bottom:12px}
+.card-cta p{font-size:14px;color:var(--light);margin-bottom:28px;line-height:1.8}
+.card-cta .btn{
+  display:inline-block;background:var(--dark);color:#fff;
+  padding:16px 52px;border-radius:50px;text-decoration:none;
+  font-family:'Gowun Batang',serif;font-size:15px;font-weight:700;
+  letter-spacing:1px;
 }
 
-/* 인디케이터 */
-.indicator {
-    position: fixed;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 99;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+/* ── 푸터 ── */
+.card-footer{
+  background:var(--dark);color:var(--beige);
+  text-align:center;font-size:12px;line-height:2;
+  min-height:auto;padding:40px 24px;
 }
+.card-footer a{color:var(--beige);text-decoration:none}
 
-.dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--beige);
-    opacity: 0.4;
-    transition: all 0.3s;
-    cursor: pointer;
+/* ── 반응형 ── */
+@media(min-width:480px){
+  .grid-2{grid-template-columns:repeat(3,1fr)}
+  .grid-3{grid-template-columns:repeat(4,1fr)}
+  .hscroll .item{flex:0 0 150px}
 }
-
-.dot.active {
-    opacity: 1;
-    background: var(--brown-dark);
-    transform: scale(1.3);
-}
-
-/* 슬라이드 공통 */
-.slide {
-    min-height: calc(100vh - 56px);
-    margin-top: 56px;
-    scroll-snap-align: start;
-    scroll-snap-stop: always;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 40px 30px;
-}
-
-.slide + .slide { margin-top: 0; }
-
-/* 히어로 */
-.hero {
-    background: var(--cream);
-    text-align: center;
-    padding: 60px 30px;
-}
-
-.hero .label {
-    font-size: 12px;
-    letter-spacing: 3px;
-    color: var(--brown-light);
-    text-transform: uppercase;
-    margin-bottom: 24px;
-}
-
-.hero h1 {
-    font-size: clamp(26px, 7vw, 32px);
-    font-weight: 700;
-    color: var(--brown-dark);
-    line-height: 1.5;
-    margin-bottom: 16px;
-}
-
-.hero .sub {
-    font-size: 15px;
-    color: var(--brown-light);
-}
-
-.hero .moon {
-    font-size: 48px;
-    margin-bottom: 20px;
-}
-
-/* 편지 */
-.letter {
-    background: var(--white);
-    padding: 50px 30px;
-}
-
-.letter .vol {
-    font-size: 12px;
-    letter-spacing: 3px;
-    color: var(--brown-light);
-    margin-bottom: 20px;
-}
-
-.letter h2 {
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--brown-dark);
-    margin-bottom: 24px;
-}
-
-.letter p {
-    font-size: 15px;
-    color: var(--brown);
-    margin-bottom: 16px;
-}
-
-.letter .sign {
-    margin-top: 24px;
-    font-size: 14px;
-    color: var(--brown-light);
-    text-align: right;
-}
-
-/* 테마 섹션 */
-.theme-section {
-    background: var(--white);
-    padding: 50px 24px;
-}
-
-.theme-section.alt { background: var(--cream); }
-.theme-section.event-bg { background: var(--beige-light); }
-
-.theme-label {
-    font-size: 12px;
-    letter-spacing: 3px;
-    color: var(--brown-light);
-    margin-bottom: 8px;
-}
-
-.theme-title {
-    font-size: clamp(20px, 5.5vw, 24px);
-    font-weight: 700;
-    color: var(--brown-dark);
-    margin-bottom: 8px;
-    line-height: 1.4;
-}
-
-.theme-desc {
-    font-size: 14px;
-    color: var(--brown-light);
-    margin-bottom: 28px;
-}
-
-/* 서브 카테고리 */
-.sub-category {
-    font-size: 13px;
-    letter-spacing: 2px;
-    color: var(--brown-light);
-    margin: 28px 0 14px;
-    padding-bottom: 6px;
-    border-bottom: 1px solid var(--beige);
-}
-
-/* 상품 그리드 */
-.products-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-}
-
-.product-card {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-}
-
-.product-card .img-wrap {
-    width: 100%;
-    aspect-ratio: 1;
-    border-radius: 12px;
-    overflow: hidden;
-    background: var(--cream);
-    margin-bottom: 10px;
-}
-
-.product-card .img-wrap img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.product-card .name {
-    font-size: 13px;
-    color: var(--brown-dark);
-    font-weight: 400;
-    line-height: 1.5;
-    margin-bottom: 4px;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-
-.product-card .discount {
-    font-size: 15px;
-    font-weight: 700;
-    color: #b5634b;
-    margin-right: 4px;
-}
-
-.product-card .price {
-    font-size: 13px;
-    color: var(--brown-light);
-}
-
-/* 피처드 상품 (풀 와이드) */
-.featured-card {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-    margin-bottom: 24px;
-}
-
-.featured-card .img-wrap {
-    width: 100%;
-    aspect-ratio: 4/3;
-    border-radius: 16px;
-    overflow: hidden;
-    background: var(--cream);
-    margin-bottom: 14px;
-}
-
-.featured-card .img-wrap img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.featured-card .name {
-    font-size: 17px;
-    font-weight: 700;
-    color: var(--brown-dark);
-    margin-bottom: 6px;
-}
-
-.featured-card .desc {
-    font-size: 14px;
-    color: var(--brown-light);
-    margin-bottom: 8px;
-}
-
-.featured-card .discount {
-    font-size: 18px;
-    font-weight: 700;
-    color: #b5634b;
-}
-
-/* 쿠폰 배너 */
-.coupon-banner {
-    background: var(--brown-dark);
-    color: var(--white);
-    border-radius: 12px;
-    padding: 20px 24px;
-    margin-bottom: 24px;
-    text-align: center;
-}
-
-.coupon-banner .coupon-label {
-    font-size: 11px;
-    letter-spacing: 2px;
-    opacity: 0.7;
-    margin-bottom: 6px;
-}
-
-.coupon-banner .coupon-title {
-    font-size: 17px;
-    font-weight: 700;
-    margin-bottom: 4px;
-}
-
-.coupon-banner .coupon-desc {
-    font-size: 13px;
-    opacity: 0.8;
-}
-
-/* 띠배너 */
-.banner {
-    background: linear-gradient(135deg, var(--brown-dark), var(--brown));
-    color: var(--white);
-    border-radius: 16px;
-    padding: 28px 24px;
-    text-align: center;
-    margin-bottom: 24px;
-}
-
-.banner .emoji { font-size: 36px; margin-bottom: 10px; }
-.banner h3 { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
-.banner p { font-size: 14px; opacity: 0.8; }
-
-/* CTA */
-.cta {
-    background: var(--cream);
-    text-align: center;
-    padding: 60px 30px;
-}
-
-.cta h2 {
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--brown-dark);
-    margin-bottom: 12px;
-    line-height: 1.5;
-}
-
-.cta p {
-    font-size: 15px;
-    color: var(--brown-light);
-    margin-bottom: 32px;
-}
-
-.cta-btn {
-    display: inline-block;
-    background: var(--brown-dark);
-    color: var(--white);
-    padding: 16px 48px;
-    border-radius: 50px;
-    text-decoration: none;
-    font-size: 15px;
-    font-weight: 700;
-    font-family: 'Gowun Batang', serif;
-    letter-spacing: 1px;
-    transition: background 0.3s;
-}
-
-.cta-btn:hover { background: var(--brown); }
-
-/* 푸터 */
-.footer {
-    background: var(--brown-dark);
-    color: var(--beige);
-    text-align: center;
-    padding: 32px 24px;
-    font-size: 12px;
-    line-height: 1.8;
-}
-
-.footer a {
-    color: var(--beige);
-    text-decoration: none;
-}
-
-/* 3열 그리드 */
-.products-grid-3 {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-}
-
-.products-grid-3 .product-card .name {
-    font-size: 12px;
-}
-
-/* 수평 스크롤 */
-.products-scroll {
-    display: flex;
-    gap: 14px;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    padding-bottom: 8px;
-}
-
-.products-scroll::-webkit-scrollbar { display: none; }
-
-.products-scroll .product-card {
-    flex: 0 0 140px;
-    scroll-snap-align: start;
-}
-
-/* 반응형 */
-@media (min-width: 480px) {
-    .products-grid { grid-template-columns: repeat(3, 1fr); }
-    .products-grid-3 { grid-template-columns: repeat(4, 1fr); }
-}
-
-@media (min-width: 768px) {
-    .slide, .theme-section { padding: 60px 48px; }
-    .products-grid { grid-template-columns: repeat(4, 1fr); }
+@media(min-width:768px){
+  .card{padding:60px 48px 48px}
+  .grid-2{grid-template-columns:repeat(4,1fr)}
 }
 </style>
 </head>
 <body>
 
-<!-- 고정 헤더 -->
-<header class="header">두레생협 생활의 발견</header>
+<nav class="indicator" id="ind"></nav>
 
-<!-- 인디케이터 -->
-<nav class="indicator" id="indicator"></nav>
+<div class="deck" id="deck">
 
-<!-- 0. 히어로 -->
-<section class="slide hero" id="s0">
-    <div class="moon">🌕</div>
-    <p class="label">VOL.9 · 2026년 2월 마지막 주</p>
-    <h1>2월의 끝자락,<br>보름달 같은<br>풍요로움을 전해요.</h1>
-    <p class="sub">명절의 여운 위에, 정월대보름의 넉넉함을 더합니다</p>
+<!-- ★ 0. 커버 -->
+<section class="card card-cover" id="c0">
+  <div class="moon">🌕</div>
+  <p class="vol">vol.9 · 2026년 2월 마지막 주</p>
+  <h1>보름달 같은<br>풍요로움을<br>전해드려요.</h1>
+  <p class="sub">명절의 여운 위에,<br>정월대보름의 넉넉함을 더합니다</p>
+  <p class="scroll-hint">↓ 아래로 스크롤</p>
 </section>
 
-<!-- 1. 두레지기의 편지 -->
-<section class="slide letter" id="s1">
-    <p class="vol">두레지기의 편지 VOL.9</p>
-    <h2>안녕하세요, 조합원님.</h2>
-    <p>떠들썩했던 명절이 지나고<br>어느덧 2월의 마지막 주를 맞이했습니다.</p>
-    <p>분주했던 손길을 잠시 내려놓고,<br>이제는 조금 차분해진 일상을<br>만끽하고 계시는지요.</p>
-    <p>이번 주는 명절 뒤 나른해진 입맛을 깨워줄<br>짭조름한 염장 수산물과,<br>다가오는 정월대보름을 위한<br>정갈한 먹거리들을 준비했습니다.</p>
-    <p>한 해의 건강을 기원하는 마음으로<br>부럼과 나물도 미리 살펴보시면 좋겠습니다.</p>
-    <p>남은 2월, 무거웠던 피로는 털어내시고<br>차오르는 보름달처럼<br>넉넉하고 건강한 일상 보내시길 바랍니다.</p>
-    <p class="sign">두레지기 올림</p>
+<!-- ★ 1. 편지 -->
+<section class="card card-letter" id="c1">
+  <p class="vol">두레지기의 편지</p>
+  <h2>안녕하세요, 조합원님.</h2>
+  <p>떠들썩했던 명절이 지나고<br>어느덧 2월의 마지막 주를 맞이했습니다.</p>
+  <p>이번 주는 명절 뒤 나른해진 입맛을 깨워줄<br>짭조름한 염장 수산물과,<br>다가오는 정월대보름을 위한<br>정갈한 먹거리들을 준비했습니다.</p>
+  <p>한 해의 건강을 기원하는 마음으로<br>부럼과 나물도 미리 살펴보시면 좋겠습니다.</p>
+  <p>남은 2월, 차오르는 보름달처럼<br>넉넉하고 건강한 일상 보내시길 바랍니다.</p>
+  <p class="sign">두레지기 올림 ✉️</p>
 </section>
 
-<!-- 2. 테마 0: 염장 수산물 -->
-<section class="slide theme-section" id="s2">
-    <p class="theme-label">THEME 01</p>
-    <h2 class="theme-title">입맛 살리는 짭조름 밥도둑</h2>
-    <p class="theme-desc">명절 뒤 나른한 입맛을 깨워줄 염장 수산물</p>
-
-    <div class="products-grid">
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/58827C.jpg" alt="염장 미역줄기" loading="lazy"></div>
-            <p class="name">염장 미역줄기(300g)</p>
-            <span class="discount">13%</span>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/58937C.jpg" alt="염장 톳" loading="lazy"></div>
-            <p class="name">염장 톳(300g)</p>
-            <span class="discount">12%</span>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/58938C.svg" alt="염장 꼬시래기" loading="lazy"></div>
-            <p class="name">염장 꼬시래기(300g)</p>
-            <span class="discount">11%</span>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/323C.jpg" alt="햇장봉재래김" loading="lazy"></div>
-            <p class="name">(수)햇장봉재래김(50매)</p>
-            <span class="discount">11%</span>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/55747C.jpg" alt="고등어구이" loading="lazy"></div>
-            <p class="name">고등어구이(90g)</p>
-            <span class="discount">16%</span>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/55748C.jpg" alt="삼치구이" loading="lazy"></div>
-            <p class="name">삼치구이(90g)</p>
-            <span class="discount">15%</span>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/56866C.jpg" alt="가자미구이" loading="lazy"></div>
-            <p class="name">가자미구이(80g)</p>
-            <span class="discount">16%</span>
-        </a>
-    </div>
+<!-- ★ 2. 테마1 헤더: 염장수산물 -->
+<section class="card card-theme-header bg-warm" id="c2">
+  <div class="emoji-big">🐟</div>
+  <p class="num">THEME 01</p>
+  <h2>입맛 살리는<br>짭조름 밥도둑</h2>
+  <p class="desc">명절 뒤 나른한 입맛을 깨워줄<br>염장 수산물을 모았습니다</p>
 </section>
 
-<!-- 3. 테마 1: 클린 디톡스 -->
-<section class="slide theme-section alt" id="s3">
-    <p class="theme-label">THEME 02</p>
-    <h2 class="theme-title">클린 디톡스 식단</h2>
-    <p class="theme-desc">대저토마토 햇출하 · 장바구니 추천템</p>
-
-    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="featured-card">
-        <div class="img-wrap"><img src="img/17091C.jpg" alt="대저토마토" loading="lazy"></div>
-        <p class="name">대저토마토(800g/무농약)</p>
-        <p class="desc">올해 첫 출하, 장바구니 추천템</p>
+<!-- ★ 3. 테마1 상품 -->
+<section class="card card-products" id="c3">
+  <p class="section-label">THEME 01</p>
+  <p class="section-title">염장 수산물 & 생선구이</p>
+  <div class="grid grid-2">
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/58827C.jpg" alt="염장 미역줄기" loading="lazy"><span class="badge">13%</span></div>
+      <p class="nm">염장 미역줄기(300g)</p>
     </a>
-
-    <div class="products-grid">
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/13128C.jpg" alt="한우국갈비" loading="lazy"></div>
-            <p class="name">한우국갈비(800g/냉동)</p>
-            <span class="discount">10%</span>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/28445C.jpg" alt="대패오리" loading="lazy"></div>
-            <p class="name">대패오리(500g/냉동)</p>
-            <span class="discount">10%</span>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/31451C.jpg" alt="돌돌대패삼겹살" loading="lazy"></div>
-            <p class="name">돌돌대패삼겹살(500g/냉동)</p>
-            <span class="discount">10%</span>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/34426C.jpg" alt="돌돌대패목살" loading="lazy"></div>
-            <p class="name">돌돌대패목살(500g/냉동)</p>
-            <span class="discount">10%</span>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/55704C.jpg" alt="구운유정란" loading="lazy"></div>
-            <p class="name">구운유정란(20알)</p>
-            <span class="discount">12%</span>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/57499C.jpg" alt="큐브닭가슴살" loading="lazy"></div>
-            <p class="name">큐브닭가슴살(200g/IQF냉동)</p>
-            <span class="discount">12%</span>
-        </a>
-    </div>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/58937C.jpg" alt="염장 톳" loading="lazy"><span class="badge">12%</span></div>
+      <p class="nm">염장 톳(300g)</p>
+    </a>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb placeholder" title="염장 꼬시래기"><span class="badge">11%</span></div>
+      <p class="nm">염장 꼬시래기(300g)</p>
+    </a>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/323C.jpg" alt="재래김" loading="lazy"><span class="badge">11%</span></div>
+      <p class="nm">(수)햇장봉재래김(50매)</p>
+    </a>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/55747C.jpg" alt="고등어구이" loading="lazy"><span class="badge">16%</span></div>
+      <p class="nm">고등어구이(90g)</p>
+    </a>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/55748C.jpg" alt="삼치구이" loading="lazy"><span class="badge">15%</span></div>
+      <p class="nm">삼치구이(90g)</p>
+    </a>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/56866C.jpg" alt="가자미구이" loading="lazy"><span class="badge">16%</span></div>
+      <p class="nm">가자미구이(80g)</p>
+    </a>
+  </div>
 </section>
 
-<!-- 4. 테마 2: 정월대보름 - 저당잡곡 -->
-<section class="slide theme-section event-bg" id="s4">
-    <p class="theme-label">THEME 03</p>
-    <h2 class="theme-title">정월대보름 밥상</h2>
-    <p class="theme-desc">저당·고단백으로 건강하게</p>
-
-    <div class="coupon-banner">
-        <p class="coupon-label">COUPON EVENT</p>
-        <p class="coupon-title">급하게 찐 살, 저당으로 해결!</p>
-        <p class="coupon-desc">저당 잡곡 & 고단백 콩 5% 추가 할인 쿠폰</p>
-    </div>
-
-    <p class="sub-category">저당 잡곡 & 고단백 콩</p>
-    <div class="products-grid">
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/55821C.jpg" alt="저당 혼합10곡" loading="lazy"></div>
-            <p class="name">저당 혼합10곡(1kg/유기)</p>
-            <span class="discount">10%</span>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/55822C.jpg" alt="저당 귀리혼합곡" loading="lazy"></div>
-            <p class="name">저당 귀리혼합곡(1kg/유기)</p>
-            <span class="discount">10%</span>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/55823C.jpg" alt="저당 호라산밀혼합곡" loading="lazy"></div>
-            <p class="name">저당 호라산밀혼합곡(1kg/유기)</p>
-            <span class="discount">10%</span>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/14142C.jpg" alt="서리콩" loading="lazy"></div>
-            <p class="name">서리콩(500g)</p>
-        </a>
-    </div>
-
-    <p class="sub-category">오곡밥 재료</p>
-    <div class="products-grid">
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/29C.jpg" alt="정월대보름 오곡밥" loading="lazy"></div>
-            <p class="name">정월대보름 오곡밥(1kg)</p>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/4531C.jpg" alt="팥" loading="lazy"></div>
-            <p class="name">팥(500g)</p>
-            <span class="discount">10%</span>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/14140C.jpg" alt="차조" loading="lazy"></div>
-            <p class="name">차조(500g)</p>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/88C.jpg" alt="수수" loading="lazy"></div>
-            <p class="name">수수(500g)</p>
-        </a>
-    </div>
+<!-- ★ 4. 테마2 헤더: 클린디톡스 -->
+<section class="card card-theme-header bg-green" id="c4">
+  <div class="emoji-big">🍅</div>
+  <p class="num">THEME 02</p>
+  <h2>클린 디톡스 식단</h2>
+  <p class="desc">대저토마토 첫 출하!<br>가벼운 한 끼를 위한 장바구니 추천</p>
 </section>
 
-<!-- 5. 정월대보름 나물 -->
-<section class="slide theme-section" id="s5">
-    <p class="theme-label">THEME 03</p>
-    <h2 class="theme-title">정월대보름 나물</h2>
-    <p class="theme-desc">아홉 가지 나물로 한 해의 건강을 빌어요</p>
-
-    <div class="products-grid">
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/233C.jpg" alt="가지말림" loading="lazy"></div>
-            <p class="name">가지말림(100g/무농약)</p>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/244C.jpg" alt="아주까리잎말림" loading="lazy"></div>
-            <p class="name">아주까리잎말림(50g/유기)</p>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/25521C.jpg" alt="건곤드레나물" loading="lazy"></div>
-            <p class="name">건곤드레나물(60g/무농약)</p>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/30244C.jpg" alt="건취나물" loading="lazy"></div>
-            <p class="name">건취나물(60g/국내산)</p>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/42940C.jpg" alt="지리산건고사리" loading="lazy"></div>
-            <p class="name">지리산건고사리(50g/자연산)</p>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/44201C.jpg" alt="건고사리" loading="lazy"></div>
-            <p class="name">건고사리(50g/유기농)</p>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/44361C.svg" alt="건토란대" loading="lazy"></div>
-            <p class="name">건토란대(60g/유기농)</p>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/54029C.jpg" alt="애호박말림" loading="lazy"></div>
-            <p class="name">애호박말림(80g/국내산)</p>
-        </a>
-    </div>
+<!-- ★ 5. 테마2 상품 -->
+<section class="card card-products alt" id="c5">
+  <a href="https://ecoop.or.kr/DureShop/recommend.do" class="featured">
+    <div class="f-img"><img src="img/17091C.jpg" alt="대저토마토" loading="lazy"></div>
+    <p class="f-nm">대저토마토(800g/무농약)</p>
+    <p class="f-desc">올해 첫 출하, 장바구니 추천템</p>
+  </a>
+  <div class="grid grid-3">
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/13128C.jpg" alt="한우국갈비" loading="lazy"><span class="badge">10%</span></div>
+      <p class="nm">한우국갈비(800g)</p>
+    </a>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/28445C.jpg" alt="대패오리" loading="lazy"><span class="badge">10%</span></div>
+      <p class="nm">대패오리(500g)</p>
+    </a>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/31451C.jpg" alt="돌돌대패삼겹살" loading="lazy"><span class="badge">10%</span></div>
+      <p class="nm">돌돌대패삼겹(500g)</p>
+    </a>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/34426C.jpg" alt="대패목살" loading="lazy"><span class="badge">10%</span></div>
+      <p class="nm">돌돌대패목살(500g)</p>
+    </a>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/55704C.jpg" alt="구운유정란" loading="lazy"><span class="badge">12%</span></div>
+      <p class="nm">구운유정란(20알)</p>
+    </a>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/57499C.jpg" alt="큐브닭가슴살" loading="lazy"><span class="badge">12%</span></div>
+      <p class="nm">큐브닭가슴살(200g)</p>
+    </a>
+  </div>
 </section>
 
-<!-- 6. 부럼 -->
-<section class="slide theme-section alt" id="s6">
-    <p class="theme-label">THEME 03</p>
-    <h2 class="theme-title">정월대보름 부럼</h2>
-    <p class="theme-desc">부럼 깨며 한 해의 무사태평을 빌어요</p>
-
-    <div class="products-grid">
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/27407C.jpg" alt="부럼세트" loading="lazy"></div>
-            <p class="name">부럼세트(300g)</p>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/54124C.jpg" alt="부럼세트" loading="lazy"></div>
-            <p class="name">부럼세트(140g)</p>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/58717C.jpg" alt="볶은해바라기씨" loading="lazy"></div>
-            <p class="name">볶은해바라기씨(130g/무농약)</p>
-            <span class="discount">10%</span>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/36970C.jpg" alt="밤" loading="lazy"></div>
-            <p class="name">밤(1kg/유기)</p>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/24738C.jpg" alt="황잣" loading="lazy"></div>
-            <p class="name">(경)황잣(140g)</p>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/24739C.jpg" alt="백잣" loading="lazy"></div>
-            <p class="name">(경)백잣(140g)</p>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/209C.jpg" alt="피호두" loading="lazy"></div>
-            <p class="name">피호두(170g)</p>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/297C.jpg" alt="깐호두" loading="lazy"></div>
-            <p class="name">깐호두(150g)</p>
-        </a>
-    </div>
+<!-- ★ 6. 테마3 헤더: 정월대보름 -->
+<section class="card card-theme-header bg-dark" id="c6">
+  <div class="emoji-big">🌕</div>
+  <p class="num">THEME 03</p>
+  <h2>정월대보름 밥상</h2>
+  <p class="desc">한 해의 태평과 풍요를 기원하며<br>저당 잡곡과 고단백 콩으로<br>건강한 보름 밥상을 준비했습니다</p>
 </section>
 
-<!-- 7. 테마 4: 간편 한 끼 - 소화와 장건강 -->
-<section class="slide theme-section" id="s7">
-    <p class="theme-label">THEME 04</p>
-    <h2 class="theme-title">간편 한 끼, 명절 후 피로회복</h2>
-    <p class="theme-desc">지친 몸과 마음을 달래줄 따뜻한 한 끼</p>
-
-    <p class="sub-category">소화와 장건강</p>
-    <div class="products-grid">
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/28623C.jpg" alt="우리콩낫토" loading="lazy"></div>
-            <p class="name">우리콩낫토(2개)</p>
-            <span class="discount">7%</span>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/41011C.jpg" alt="양배추브로콜리즙" loading="lazy"></div>
-            <p class="name">양배추브로콜리즙</p>
-            <span class="discount">10%</span>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/41515C.svg" alt="프로바이오틱스" loading="lazy"></div>
-            <p class="name">프로바이오틱스</p>
-            <span class="discount">30%</span>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/57222C.jpg" alt="굿모닝 마즙" loading="lazy"></div>
-            <p class="name">굿모닝 마즙(20팩)</p>
-            <span class="discount">10%</span>
-        </a>
-    </div>
-
-    <p class="sub-category">매콤 한 끼</p>
-    <div class="products-scroll">
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/24964C.jpg" alt="닭개장" loading="lazy"></div>
-            <p class="name">닭개장</p>
-            <span class="discount">8%</span>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/25257C.jpg" alt="매콤닭정육" loading="lazy"></div>
-            <p class="name">매콤닭정육</p>
-            <span class="discount">7%</span>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/27560C.jpg" alt="돼지고기김치찌개" loading="lazy"></div>
-            <p class="name">돼지고기김치찌개</p>
-            <span class="discount">8%</span>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/37571C.jpg" alt="간편동태탕" loading="lazy"></div>
-            <p class="name">간편동태탕</p>
-            <span class="discount">7%</span>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/39016C.svg" alt="황태콩나물국" loading="lazy"></div>
-            <p class="name">황태콩나물국</p>
-            <span class="discount">7%</span>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/43010C.svg" alt="깐풍기" loading="lazy"></div>
-            <p class="name">깐풍기</p>
-            <span class="discount">7%</span>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/52642C.jpg" alt="뼈없는 양념닭발" loading="lazy"></div>
-            <p class="name">뼈없는 양념닭발</p>
-            <span class="discount">7%</span>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/56070C.jpg" alt="맵도리탕" loading="lazy"></div>
-            <p class="name">맵도리탕</p>
-            <span class="discount">7%</span>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/56390C.jpg" alt="새우볶음밥" loading="lazy"></div>
-            <p class="name">새우볶음밥(2팩)</p>
-            <span class="discount">9%</span>
-        </a>
-    </div>
-
-    <p class="sub-category">고추씨기름과 함께</p>
-    <div class="products-grid" style="grid-template-columns: repeat(3, 1fr);">
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/58859C.jpg" alt="고추씨기름" loading="lazy"></div>
-            <p class="name">고추씨기름(160ml)</p>
-            <span class="discount">4%</span>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/35206C.jpg" alt="고추부각" loading="lazy"></div>
-            <p class="name">고추부각</p>
-            <span class="discount">13%</span>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/54721C.jpg" alt="고추참치" loading="lazy"></div>
-            <p class="name">두레생협 고추참치</p>
-            <span class="discount">8%</span>
-        </a>
-    </div>
+<!-- ★ 7. 정월대보름 - 저당잡곡 & 쿠폰 -->
+<section class="card card-products" id="c7">
+  <div class="coupon-card">
+    <p class="cl">COUPON EVENT</p>
+    <p class="ct">급하게 찐 살, 저당으로 해결!</p>
+    <p class="cd">5% 처방 쿠폰 다운로드 → 결제 시 적용</p>
+  </div>
+  <p class="section-title">[쿠폰] 저당 잡곡 & 고단백 콩</p>
+  <div class="grid grid-2">
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/55821C.jpg" alt="저당 혼합10곡" loading="lazy"><span class="badge coupon">쿠폰</span></div>
+      <p class="nm">저당 혼합10곡(1kg/유기)</p>
+    </a>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/55822C.jpg" alt="저당 귀리혼합곡" loading="lazy"><span class="badge coupon">쿠폰</span></div>
+      <p class="nm">저당 귀리혼합곡(1kg/유기)</p>
+    </a>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/55823C.jpg" alt="저당 호라산밀혼합곡" loading="lazy"><span class="badge coupon">쿠폰</span></div>
+      <p class="nm">저당 호라산밀혼합곡(1kg/유기)</p>
+    </a>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/14142C.jpg" alt="서리콩" loading="lazy"><span class="badge coupon">쿠폰</span></div>
+      <p class="nm">서리콩(500g)</p>
+    </a>
+  </div>
 </section>
 
-<!-- 8. 상콤달콤 충전 -->
-<section class="slide theme-section alt" id="s8">
-    <p class="theme-label">THEME 04</p>
-    <h2 class="theme-title">상콤달콤 충전</h2>
-    <p class="theme-desc">피로를 달래줄 달콤한 한 입</p>
-
-    <div class="products-grid">
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/55891C.jpg" alt="제주레몬 프로폴리스 캔디" loading="lazy"></div>
-            <p class="name">제주레몬 프로폴리스 캔디</p>
-            <span class="discount">10%</span>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/57305C.jpg" alt="6년근 홍삼캔디" loading="lazy"></div>
-            <p class="name">6년근 홍삼캔디</p>
-            <span class="discount">25%</span>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/58781C.jpg" alt="유기농 매실스틱" loading="lazy"></div>
-            <p class="name">유기농 매실스틱(20ml×15개)</p>
-            <span class="discount">11%</span>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/55765C.jpg" alt="생강청" loading="lazy"></div>
-            <p class="name">생강청(1000ml)</p>
-            <span class="discount">10%</span>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/56139C.jpg" alt="유기농 레몬즙" loading="lazy"></div>
-            <p class="name">유기농 레몬즙(20ml×14포)</p>
-            <span class="discount">10%</span>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/58698C.jpg" alt="유기 월앙매실" loading="lazy"></div>
-            <p class="name">유기 월앙매실(500ml)</p>
-            <span class="discount">10%</span>
-        </a>
-    </div>
+<!-- ★ 8. 정월대보름 - 오곡밥 재료 -->
+<section class="card card-products alt" id="c8">
+  <p class="section-label">THEME 03</p>
+  <p class="section-title">오곡밥 재료</p>
+  <div class="grid grid-2">
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/29C.jpg" alt="오곡밥" loading="lazy"></div>
+      <p class="nm">정월대보름 오곡밥(1kg)</p>
+    </a>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/4531C.jpg" alt="팥" loading="lazy"><span class="badge">10%</span></div>
+      <p class="nm">팥(500g)</p>
+    </a>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/14140C.jpg" alt="차조" loading="lazy"></div>
+      <p class="nm">차조(500g)</p>
+    </a>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/88C.jpg" alt="수수" loading="lazy"></div>
+      <p class="nm">수수(500g)</p>
+    </a>
+  </div>
 </section>
 
-<!-- 9. 테마 5: 삼겹살데이 -->
-<section class="slide theme-section" id="s9">
-    <div class="banner">
-        <div class="emoji">🥩</div>
-        <h3>3월 3일, 삼겹살데이</h3>
-        <p>동물복지 삼겹살로 맛있게, 건강하게</p>
-    </div>
-
-    <p class="sub-category">삼겹살</p>
-    <div class="products-grid" style="grid-template-columns: repeat(3, 1fr);">
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/31451C.jpg" alt="돌돌대패삼겹살" loading="lazy"></div>
-            <p class="name">돌돌대패삼겹살(500g/냉동)</p>
-            <span class="discount">10%</span>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/56902C.jpg" alt="동물복지 삼겹살" loading="lazy"></div>
-            <p class="name">동물복지 삼겹살(500g/구이)</p>
-            <span class="discount">10%</span>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/56903C.jpg" alt="동물복지 보쌈삼겹" loading="lazy"></div>
-            <p class="name">동물복지 보쌈삼겹(500g)</p>
-            <span class="discount">10%</span>
-        </a>
-    </div>
-
-    <p class="sub-category">장아찌 반찬</p>
-    <div class="products-scroll">
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/56594C.jpg" alt="명이장아찌" loading="lazy"></div>
-            <p class="name">명이장아찌(330g)</p>
-            <span class="discount">5%</span>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/56595C.jpg" alt="깻잎장아찌" loading="lazy"></div>
-            <p class="name">깻잎장아찌(200g)</p>
-            <span class="discount">5%</span>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/56596C.jpg" alt="셀러리장아찌" loading="lazy"></div>
-            <p class="name">셀러리장아찌(200g)</p>
-            <span class="discount">5%</span>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/56598C.jpg" alt="순무쭈글이장아찌" loading="lazy"></div>
-            <p class="name">순무쭈글이장아찌(200g)</p>
-            <span class="discount">5%</span>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/56586C.jpg" alt="곰취장아찌" loading="lazy"></div>
-            <p class="name">곰취장아찌(200g)</p>
-            <span class="discount">5%</span>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/56597C.jpg" alt="고추장아찌" loading="lazy"></div>
-            <p class="name">고추장아찌(200g)</p>
-            <span class="discount">5%</span>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/56899C.jpg" alt="부추장아찌" loading="lazy"></div>
-            <p class="name">부추장아찌(200g)</p>
-            <span class="discount">5%</span>
-        </a>
-    </div>
-
-    <p class="sub-category">양념과 소시지</p>
-    <div class="products-grid">
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/56246C.jpg" alt="마라스 소금" loading="lazy"></div>
-            <p class="name">페루 마라스 소금 그라인더(110g)</p>
-            <span class="discount">5%</span>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/39948C.jpg" alt="양념쌈장" loading="lazy"></div>
-            <p class="name">양념쌈장(250g)</p>
-            <span class="discount">10%</span>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/27321C.jpg" alt="두레참기름" loading="lazy"></div>
-            <p class="name">두레참기름(300ml)</p>
-            <span class="discount">10%</span>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/46634C.svg" alt="불고기양념소시지" loading="lazy"></div>
-            <p class="name">불고기양념소시지</p>
-            <span class="discount">10%</span>
-        </a>
-    </div>
-
-    <p class="sub-category">디저트</p>
-    <div class="products-grid" style="grid-template-columns: repeat(3, 1fr);">
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/55804C.jpg" alt="요거트 젤라또" loading="lazy"></div>
-            <p class="name">요거트 젤라또(370ml)</p>
-            <span class="discount">25%</span>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/45411C.jpg" alt="섬유탈취제" loading="lazy"></div>
-            <p class="name">섬유탈취제</p>
-            <span class="discount">10%</span>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/55434C.jpg" alt="편백수 탈취제" loading="lazy"></div>
-            <p class="name">편백수 탈취제(500ml)</p>
-            <span class="discount">10%</span>
-        </a>
-    </div>
+<!-- ★ 9. 정월대보름 - 나물 -->
+<section class="card card-products" id="c9">
+  <p class="section-label">THEME 03</p>
+  <p class="section-title">아홉 가지 나물</p>
+  <div class="grid grid-2">
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/233C.jpg" alt="가지말림" loading="lazy"></div>
+      <p class="nm">가지말림(100g/무농약)</p>
+    </a>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/244C.jpg" alt="아주까리잎" loading="lazy"></div>
+      <p class="nm">아주까리잎말림(50g/유기)</p>
+    </a>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/25521C.jpg" alt="건곤드레나물" loading="lazy"></div>
+      <p class="nm">건곤드레나물(60g/무농약)</p>
+    </a>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/30244C.jpg" alt="건취나물" loading="lazy"></div>
+      <p class="nm">건취나물(60g/국내산)</p>
+    </a>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/42940C.jpg" alt="건고사리" loading="lazy"></div>
+      <p class="nm">지리산건고사리(50g/자연산)</p>
+    </a>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/44201C.jpg" alt="건고사리" loading="lazy"></div>
+      <p class="nm">건고사리(50g/유기농)</p>
+    </a>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb placeholder" title="건토란대"></div>
+      <p class="nm">건토란대(60g/유기농)</p>
+    </a>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/54029C.jpg" alt="애호박말림" loading="lazy"></div>
+      <p class="nm">애호박말림(80g/국내산)</p>
+    </a>
+  </div>
 </section>
 
-<!-- 10. 테마 6: 봄맞이 대청소 -->
-<section class="slide theme-section event-bg" id="s10">
-    <p class="theme-label">THEME 06</p>
-    <h2 class="theme-title">봄맞이 대청소, 안심 세제</h2>
-    <p class="theme-desc">환경도 우리 가족도 안심할 수 있도록</p>
+<!-- ★ 10. 정월대보름 - 부럼 -->
+<section class="card card-products alt" id="c10">
+  <p class="section-label">THEME 03</p>
+  <p class="section-title">🥜 부럼 깨기</p>
+  <div class="grid grid-2">
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/27407C.jpg" alt="부럼세트" loading="lazy"></div>
+      <p class="nm">부럼세트(300g)</p>
+    </a>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/54124C.jpg" alt="부럼세트" loading="lazy"></div>
+      <p class="nm">부럼세트(140g)</p>
+    </a>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/58717C.jpg" alt="볶은해바라기씨" loading="lazy"><span class="badge">10%</span></div>
+      <p class="nm">볶은해바라기씨(130g)</p>
+    </a>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/36970C.jpg" alt="밤" loading="lazy"></div>
+      <p class="nm">밤(1kg/유기)</p>
+    </a>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/24738C.jpg" alt="황잣" loading="lazy"></div>
+      <p class="nm">(경)황잣(140g)</p>
+    </a>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/24739C.jpg" alt="백잣" loading="lazy"></div>
+      <p class="nm">(경)백잣(140g)</p>
+    </a>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/209C.jpg" alt="피호두" loading="lazy"></div>
+      <p class="nm">피호두(170g)</p>
+    </a>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/297C.jpg" alt="깐호두" loading="lazy"></div>
+      <p class="nm">깐호두(150g)</p>
+    </a>
+  </div>
+</section>
 
-    <div class="products-grid">
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/57151C.svg" alt="액상 세탁세제" loading="lazy"></div>
-            <p class="name">액상 세탁세제(2L/환경)</p>
-            <span class="discount">21%</span>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/57152C.svg" alt="액상 세탁세제 보충" loading="lazy"></div>
-            <p class="name">액상 세탁세제(보충/환경)</p>
-            <span class="discount">20%</span>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/41532C.svg" alt="베이킹소다" loading="lazy"></div>
-            <p class="name">베이킹소다(750g)</p>
-            <span class="discount">15%</span>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/41530C.svg" alt="구연산" loading="lazy"></div>
-            <p class="name">구연산(750g)</p>
-            <span class="discount">15%</span>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/44980C.svg" alt="가루세탁세제" loading="lazy"></div>
-            <p class="name">가루세탁세제</p>
-            <span class="discount">15%</span>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/52199C.jpg" alt="EM세탁비누" loading="lazy"></div>
-            <p class="name">EM세탁비누</p>
-            <span class="discount">15%</span>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/1006C.jpg" alt="세탁용고형비누" loading="lazy"></div>
-            <p class="name">세탁용고형비누</p>
-            <span class="discount">14%</span>
-        </a>
-        <a href="https://ecoop.or.kr/DureShop/recommend.do" class="product-card">
-            <div class="img-wrap"><img src="img/56702C.jpg" alt="식물성세제 제로너스" loading="lazy"></div>
-            <p class="name">식물성세제 제로너스(3L)</p>
-            <span class="discount">20%</span>
-        </a>
+<!-- ★ 11. 테마4 헤더: 간편한끼 -->
+<section class="card card-theme-header bg-sunset" id="c11">
+  <div class="emoji-big">🍲</div>
+  <p class="num">THEME 04</p>
+  <h2>간편 한 끼,<br>명절 후 피로회복</h2>
+  <p class="desc">지친 몸과 마음을 달래줄<br>따뜻한 한 끼</p>
+</section>
+
+<!-- ★ 12. 간편한끼 - 소화/장건강 -->
+<section class="card card-products" id="c12">
+  <p class="section-label">THEME 04</p>
+  <p class="section-title">소화와 장건강</p>
+  <div class="grid grid-2">
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/28623C.jpg" alt="우리콩낫토" loading="lazy"><span class="badge">7%</span></div>
+      <p class="nm">우리콩낫토(2개)</p>
+    </a>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/41011C.jpg" alt="양배추브로콜리즙" loading="lazy"><span class="badge">10%</span></div>
+      <p class="nm">양배추브로콜리즙</p>
+    </a>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb placeholder" title="프로바이오틱스"><span class="badge">30%</span></div>
+      <p class="nm">프로바이오틱스</p>
+    </a>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/57222C.jpg" alt="굿모닝 마즙" loading="lazy"><span class="badge">10%</span></div>
+      <p class="nm">굿모닝 마즙(20팩)</p>
+    </a>
+  </div>
+</section>
+
+<!-- ★ 13. 간편한끼 - 매콤한끼 -->
+<section class="card card-products alt" id="c13">
+  <p class="section-label">THEME 04</p>
+  <p class="section-title">🌶️ 매콤 한 끼</p>
+  <div class="hscroll">
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/24964C.jpg" alt="닭개장" loading="lazy"><span class="badge">8%</span></div>
+      <p class="nm">닭개장</p>
+    </a>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/25257C.jpg" alt="매콤닭정육" loading="lazy"><span class="badge">7%</span></div>
+      <p class="nm">매콤닭정육</p>
+    </a>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/27560C.jpg" alt="돼지고기김치찌개" loading="lazy"><span class="badge">8%</span></div>
+      <p class="nm">돼지고기김치찌개</p>
+    </a>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/37571C.jpg" alt="간편동태탕" loading="lazy"><span class="badge">7%</span></div>
+      <p class="nm">간편동태탕</p>
+    </a>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb placeholder" title="황태콩나물국"><span class="badge">7%</span></div>
+      <p class="nm">황태콩나물국</p>
+    </a>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb placeholder" title="깐풍기"><span class="badge">7%</span></div>
+      <p class="nm">깐풍기</p>
+    </a>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/52642C.jpg" alt="양념닭발" loading="lazy"><span class="badge">7%</span></div>
+      <p class="nm">뼈없는 양념닭발</p>
+    </a>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/56070C.jpg" alt="맵도리탕" loading="lazy"><span class="badge">7%</span></div>
+      <p class="nm">맵도리탕</p>
+    </a>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/56390C.jpg" alt="새우볶음밥" loading="lazy"><span class="badge">9%</span></div>
+      <p class="nm">새우볶음밥(2팩)</p>
+    </a>
+  </div>
+  <div style="margin-top:20px;width:100%">
+    <p class="section-title">고추씨기름과 함께</p>
+    <div class="grid grid-3">
+      <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+        <div class="thumb"><img src="img/58859C.jpg" alt="고추씨기름" loading="lazy"><span class="badge">4%</span></div>
+        <p class="nm">고추씨기름(160ml)</p>
+      </a>
+      <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+        <div class="thumb"><img src="img/35206C.jpg" alt="고추부각" loading="lazy"><span class="badge">13%</span></div>
+        <p class="nm">고추부각</p>
+      </a>
+      <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+        <div class="thumb"><img src="img/54721C.jpg" alt="고추참치" loading="lazy"><span class="badge">8%</span></div>
+        <p class="nm">고추참치</p>
+      </a>
     </div>
+  </div>
 </section>
 
-<!-- 11. CTA -->
-<section class="slide cta" id="s11">
-    <h2>조합원의 선택이<br>생산자의 내일이 됩니다.</h2>
-    <p>차오르는 보름달처럼,<br>넉넉한 한 주 되시길 바랍니다.</p>
-    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="cta-btn">장보러 가기</a>
+<!-- ★ 14. 상콤달콤 충전 -->
+<section class="card card-products" id="c14">
+  <p class="section-label">THEME 04</p>
+  <p class="section-title">🍋 상콤달콤 충전</p>
+  <div class="grid grid-2">
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/55891C.jpg" alt="프로폴리스 캔디" loading="lazy"><span class="badge">10%</span></div>
+      <p class="nm">제주레몬 프로폴리스 캔디</p>
+    </a>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/57305C.jpg" alt="홍삼캔디" loading="lazy"><span class="badge">25%</span></div>
+      <p class="nm">6년근 홍삼캔디</p>
+    </a>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/58781C.jpg" alt="매실스틱" loading="lazy"><span class="badge">11%</span></div>
+      <p class="nm">유기농 매실스틱(15개)</p>
+    </a>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/55765C.jpg" alt="생강청" loading="lazy"><span class="badge">10%</span></div>
+      <p class="nm">생강청(1000ml)</p>
+    </a>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/56139C.jpg" alt="레몬즙" loading="lazy"><span class="badge">10%</span></div>
+      <p class="nm">유기농 레몬즙(14포)</p>
+    </a>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/58698C.jpg" alt="매실" loading="lazy"><span class="badge">10%</span></div>
+      <p class="nm">유기 월앙매실(500ml)</p>
+    </a>
+  </div>
 </section>
 
-<!-- 12. 푸터 -->
-<footer class="footer" id="s12">
-    <p>두레생협연합회</p>
-    <p>상담전화 <a href="tel:1661-5110">1661-5110</a></p>
-    <p style="margin-top:8px;opacity:0.6;">ⓒ 2026 두레생협 생활의 발견</p>
+<!-- ★ 15. 테마5 헤더: 삼겹살데이 -->
+<section class="card card-theme-header bg-brown" id="c15">
+  <div class="emoji-big">🥩</div>
+  <p class="num">THEME 05 · 3월 3일</p>
+  <h2>삼겹살데이</h2>
+  <p class="desc">동물복지 삼겹살로<br>맛있게, 건강하게</p>
+</section>
+
+<!-- ★ 16. 삼겹살 + 장아찌 -->
+<section class="card card-products" id="c16">
+  <p class="section-title">삼겹살</p>
+  <div class="grid grid-3">
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/31451C.jpg" alt="대패삼겹" loading="lazy"><span class="badge">10%</span></div>
+      <p class="nm">돌돌대패삼겹(500g)</p>
+    </a>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/56902C.jpg" alt="동물복지 삼겹살" loading="lazy"><span class="badge">10%</span></div>
+      <p class="nm">동물복지 삼겹살(500g)</p>
+    </a>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/56903C.jpg" alt="보쌈삼겹" loading="lazy"><span class="badge">10%</span></div>
+      <p class="nm">동물복지 보쌈삼겹(500g)</p>
+    </a>
+  </div>
+  <div style="margin-top:24px;width:100%">
+    <p class="section-title">장아찌 반찬</p>
+    <div class="hscroll">
+      <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+        <div class="thumb"><img src="img/56594C.jpg" alt="명이장아찌" loading="lazy"><span class="badge">5%</span></div>
+        <p class="nm">명이장아찌(330g)</p>
+      </a>
+      <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+        <div class="thumb"><img src="img/56595C.jpg" alt="깻잎장아찌" loading="lazy"><span class="badge">5%</span></div>
+        <p class="nm">깻잎장아찌(200g)</p>
+      </a>
+      <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+        <div class="thumb"><img src="img/56596C.jpg" alt="셀러리장아찌" loading="lazy"><span class="badge">5%</span></div>
+        <p class="nm">셀러리장아찌(200g)</p>
+      </a>
+      <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+        <div class="thumb"><img src="img/56598C.jpg" alt="순무장아찌" loading="lazy"><span class="badge">5%</span></div>
+        <p class="nm">순무쭈글이장아찌(200g)</p>
+      </a>
+      <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+        <div class="thumb"><img src="img/56586C.jpg" alt="곰취장아찌" loading="lazy"><span class="badge">5%</span></div>
+        <p class="nm">곰취장아찌(200g)</p>
+      </a>
+      <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+        <div class="thumb"><img src="img/56597C.jpg" alt="고추장아찌" loading="lazy"><span class="badge">5%</span></div>
+        <p class="nm">고추장아찌(200g)</p>
+      </a>
+      <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+        <div class="thumb"><img src="img/56899C.jpg" alt="부추장아찌" loading="lazy"><span class="badge">5%</span></div>
+        <p class="nm">부추장아찌(200g)</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ★ 17. 삼겹살 - 양념/디저트 -->
+<section class="card card-products alt" id="c17">
+  <p class="section-title">양념과 소시지</p>
+  <div class="grid grid-2">
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/56246C.jpg" alt="마라스소금" loading="lazy"><span class="badge">5%</span></div>
+      <p class="nm">페루 마라스 소금(110g)</p>
+    </a>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/39948C.jpg" alt="양념쌈장" loading="lazy"><span class="badge">10%</span></div>
+      <p class="nm">양념쌈장(250g)</p>
+    </a>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/27321C.jpg" alt="참기름" loading="lazy"><span class="badge">10%</span></div>
+      <p class="nm">두레참기름(300ml)</p>
+    </a>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb placeholder" title="불고기양념소시지"><span class="badge">10%</span></div>
+      <p class="nm">불고기양념소시지</p>
+    </a>
+  </div>
+  <div style="margin-top:24px;width:100%">
+    <p class="section-title">🍨 디저트</p>
+    <div class="grid grid-3">
+      <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+        <div class="thumb"><img src="img/55804C.jpg" alt="젤라또" loading="lazy"><span class="badge">25%</span></div>
+        <p class="nm">요거트 젤라또(370ml)</p>
+      </a>
+      <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+        <div class="thumb"><img src="img/45411C.jpg" alt="섬유탈취제" loading="lazy"><span class="badge">10%</span></div>
+        <p class="nm">섬유탈취제</p>
+      </a>
+      <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+        <div class="thumb"><img src="img/55434C.jpg" alt="편백수 탈취제" loading="lazy"><span class="badge">10%</span></div>
+        <p class="nm">편백수 탈취제(500ml)</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ★ 18. 테마6 헤더: 봄맞이 대청소 -->
+<section class="card card-theme-header bg-green" id="c18">
+  <div class="emoji-big">🧹</div>
+  <p class="num">THEME 06</p>
+  <h2>봄맞이 대청소<br>안심 세제</h2>
+  <p class="desc">환경도 우리 가족도<br>안심할 수 있도록</p>
+</section>
+
+<!-- ★ 19. 대청소 상품 -->
+<section class="card card-products" id="c19">
+  <p class="section-label">THEME 06</p>
+  <p class="section-title">세탁 & 청소 세제</p>
+  <div class="grid grid-2">
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb placeholder" title="액상 세탁세제"><span class="badge">21%</span></div>
+      <p class="nm">액상 세탁세제(2L/환경)</p>
+    </a>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb placeholder" title="세탁세제 보충"><span class="badge">20%</span></div>
+      <p class="nm">액상 세탁세제(보충/환경)</p>
+    </a>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb placeholder" title="베이킹소다"><span class="badge">15%</span></div>
+      <p class="nm">베이킹소다(750g)</p>
+    </a>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb placeholder" title="구연산"><span class="badge">15%</span></div>
+      <p class="nm">구연산(750g)</p>
+    </a>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb placeholder" title="가루세탁세제"><span class="badge">15%</span></div>
+      <p class="nm">가루세탁세제</p>
+    </a>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/52199C.jpg" alt="EM세탁비누" loading="lazy"><span class="badge">15%</span></div>
+      <p class="nm">EM세탁비누</p>
+    </a>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/1006C.jpg" alt="세탁비누" loading="lazy"><span class="badge">14%</span></div>
+      <p class="nm">세탁용고형비누</p>
+    </a>
+    <a href="https://ecoop.or.kr/DureShop/recommend.do" class="item">
+      <div class="thumb"><img src="img/56702C.jpg" alt="제로너스" loading="lazy"><span class="badge">20%</span></div>
+      <p class="nm">식물성세제 제로너스(3L)</p>
+    </a>
+  </div>
+</section>
+
+<!-- ★ 20. CTA -->
+<section class="card card-cta" id="c20">
+  <h2>조합원의 선택이<br>생산자의 내일이 됩니다.</h2>
+  <p>차오르는 보름달처럼,<br>넉넉한 한 주 되시길 바랍니다. 🌕</p>
+  <a href="https://ecoop.or.kr/DureShop/recommend.do" class="btn">장보러 가기</a>
+</section>
+
+<!-- ★ 21. 푸터 -->
+<footer class="card card-footer" id="c21">
+  <p style="font-size:14px;font-weight:700;margin-bottom:8px">두레생협연합회</p>
+  <p>상담전화 <a href="tel:1661-5110">1661-5110</a></p>
+  <p style="margin-top:12px;opacity:.5">ⓒ 2026 두레생협 생활의 발견</p>
 </footer>
 
+</div><!-- /deck -->
+
 <script>
-// 인디케이터 생성 및 스크롤 추적
-(function() {
-    const sections = document.querySelectorAll('[id^="s"]');
-    const indicator = document.getElementById('indicator');
-    
-    sections.forEach((s, i) => {
-        const dot = document.createElement('div');
-        dot.className = 'dot' + (i === 0 ? ' active' : '');
-        dot.addEventListener('click', () => s.scrollIntoView({ behavior: 'smooth' }));
-        indicator.appendChild(dot);
+(function(){
+  const deck=document.getElementById('deck');
+  const cards=deck.querySelectorAll('.card');
+  const ind=document.getElementById('ind');
+
+  // 인디케이터 생성
+  cards.forEach((_,i)=>{
+    const d=document.createElement('div');
+    d.className='dot'+(i===0?' on':'');
+    d.onclick=()=>cards[i].scrollIntoView({behavior:'smooth'});
+    ind.appendChild(d);
+  });
+  const dots=ind.querySelectorAll('.dot');
+
+  // 스크롤 추적
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const idx=[...cards].indexOf(e.target);
+        dots.forEach((d,i)=>d.classList.toggle('on',i===idx));
+      }
     });
+  },{root:deck,threshold:.4});
+  cards.forEach(c=>obs.observe(c));
 
-    const dots = indicator.querySelectorAll('.dot');
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const idx = Array.from(sections).indexOf(entry.target);
-                dots.forEach((d, i) => d.classList.toggle('active', i === idx));
-            }
-        });
-    }, { threshold: 0.4 });
-
-    sections.forEach(s => observer.observe(s));
+  // 이미지 로드 실패 → placeholder
+  document.querySelectorAll('.thumb img').forEach(img=>{
+    img.onerror=function(){
+      this.parentElement.classList.add('placeholder');
+      this.remove();
+    };
+  });
 })();
 </script>
 </body>
