@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>💕 연인방</title>
+<style>
+:root{--bg:#FFF5F8;--card:#FFFFFF;--primary:#E8778B;--primary-dark:#D4566E;--accent:#C9A0B0;--text:#4A3540;--text-light:#9B8A92;--bubble-me:#FFE0E8;--bubble-other:#FFF;--bubble-bot:#F8E8F0;--border:#F0D8E0;--header:linear-gradient(135deg,#E8778B,#D4A0C0);--heart:#FF4D6D}
+*{margin:0;padding:0;box-sizing:border-box}
+html{height:100%;height:100dvh}
+body{font-family:-apple-system,'Noto Sans KR',sans-serif;background:var(--bg);height:100%;display:flex;flex-direction:column;color:var(--text);overflow:hidden}
+.header{background:var(--header);color:#fff;padding:12px 16px;padding-top:max(12px,env(safe-area-inset-top));display:flex;align-items:center;justify-content:space-between;flex-shrink:0;z-index:10;position:relative}
+.header h1{font-size:16px;font-weight:700}.header-sub{font-size:11px;opacity:.85;margin-top:1px}
+.header-right{display:flex;gap:8px;align-items:center}
+.btn-icon{background:none;border:none;color:#fff;font-size:18px;cursor:pointer;padding:4px}
+.dday{background:rgba(255,255,255,.25);padding:3px 10px;border-radius:12px;font-size:12px;font-weight:600}
+.messages{flex:1;overflow-y:auto;padding:12px 16px;display:flex;flex-direction:column;gap:6px;-webkit-overflow-scrolling:touch}
+.msg{max-width:80%;padding:8px 12px;border-radius:16px;font-size:14px;line-height:1.5;word-break:break-word;position:relative;transition:transform .1s}
+.msg.me{align-self:flex-end;background:var(--bubble-me);border-bottom-right-radius:4px}
+.msg.other{align-self:flex-start;background:var(--bubble-other);border-bottom-left-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.msg.bot{align-self:flex-start;background:var(--bubble-bot);border-bottom-left-radius:4px;border-left:3px solid var(--primary)}
+.msg .sender{font-size:11px;font-weight:700;color:var(--primary);margin-bottom:2px}
+.msg .time{font-size:10px;color:var(--text-light);text-align:right;margin-top:2px}
+.msg .heart-btn{position:absolute;right:-28px;top:50%;transform:translateY(-50%);font-size:16px;cursor:pointer;opacity:.3;transition:all .2s}
+.msg .heart-btn:hover,.msg .heart-btn.active{opacity:1;transform:translateY(-50%) scale(1.3)}
+.msg .file-link{display:inline-block;background:var(--primary);color:#fff;padding:3px 10px;border-radius:8px;font-size:12px;text-decoration:none;margin-top:4px}
+.system-msg{text-align:center;font-size:12px;color:var(--accent);padding:4px 0}
+.input-area{background:var(--card);border-top:1px solid var(--border);padding:8px 12px;padding-bottom:max(8px,env(safe-area-inset-bottom));display:flex;gap:8px;align-items:center;flex-shrink:0}
+.input-area input[type=text]{flex:1;border:1px solid var(--border);border-radius:20px;padding:8px 14px;font-size:14px;outline:none;background:var(--bg)}
+.input-area input[type=text]:focus{border-color:var(--primary)}
+.send-btn{background:var(--primary);color:#fff;border:none;border-radius:50%;width:36px;height:36px;font-size:18px;cursor:pointer;flex-shrink:0}
+.upload-btn{background:none;border:none;font-size:22px;cursor:pointer;color:var(--accent);flex-shrink:0}
+/* Login */
+.login-overlay{position:fixed;inset:0;background:var(--bg);z-index:100;display:flex;align-items:center;justify-content:center}
+.login-box{background:var(--card);padding:32px 24px;border-radius:20px;width:min(320px,90vw);box-shadow:0 8px 30px rgba(232,119,139,.15);text-align:center}
+.login-box h2{color:var(--primary);margin-bottom:4px;font-size:22px}.login-box p{color:var(--accent);font-size:13px;margin-bottom:20px}
+.login-box input{width:100%;padding:10px;border:1px solid var(--border);border-radius:12px;font-size:14px;margin-bottom:12px;background:#fff;text-align:center}
+.login-box button{width:100%;padding:10px;background:var(--primary);color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:600;cursor:pointer}
+/* Modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:200;display:none;align-items:center;justify-content:center}
+.modal-overlay.show{display:flex}
+.modal{background:#fff;border-radius:16px;padding:24px;width:min(320px,90vw)}
+.modal h3{margin-bottom:16px;color:var(--primary)}.modal label{display:block;font-size:13px;color:var(--text-light);margin-bottom:4px}
+.modal input{width:100%;padding:8px;border:1px solid var(--border);border-radius:8px;margin-bottom:12px;font-size:14px}
+.modal button{padding:8px 16px;border:none;border-radius:8px;cursor:pointer;font-size:14px}
+.modal .btn-primary{background:var(--primary);color:#fff}.modal .btn-cancel{background:#eee;color:#333;margin-left:8px}
+/* Floating hearts */
+.floating-heart{position:fixed;pointer-events:none;font-size:20px;z-index:50;animation:floatUp 2s ease-out forwards}
+@keyframes floatUp{0%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-200px) scale(.3) rotate(20deg)}}
+pre{white-space:pre-wrap;font-family:inherit}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="login-overlay" id="loginOverlay">
+<div class="login-box">
+  <h2>💕 연인방</h2>
+  <p>둘만의 비밀 채팅</p>
+  <input id="loginName" placeholder="닉네임을 입력하세요">
+  <button onclick="doLogin()">입장하기 💕</button>
+</div>
+</div>
+
+<!-- CHAT -->
+<div class="header">
+  <div>
+    <h1>💕 연인방</h1>
+    <div class="header-sub" id="ddayText"></div>
+  </div>
+  <div class="header-right">
+    <span class="dday" id="ddayBadge"></span>
+    <button class="btn-icon" onclick="openSettings()">⚙️</button>
+  </div>
+</div>
+<div class="messages" id="messages"></div>
+<div class="input-area">
+  <label class="upload-btn">📷<input type="file" hidden id="fileInput" accept="image/*,*/*" onchange="uploadFile()"></label>
+  <input type="text" id="chatInput" placeholder="메시지를 입력하세요 💕" onkeydown="if(event.key==='Enter')sendMsg()">
+  <button class="send-btn" onclick="sendMsg()">💌</button>
+</div>
+
+<!-- SETTINGS -->
+<div class="modal-overlay" id="settingsModal">
+<div class="modal">
+  <h3>⚙️ 설정</h3>
+  <label>API 서버 URL</label>
+  <input id="settingsUrl">
+  <label>사귄 날 (D-day)</label>
+  <input type="date" id="settingsDate">
+  <div style="text-align:right">
+    <button class="btn-primary" onclick="saveSettings()">저장</button>
+    <button class="btn-cancel" onclick="closeSettings()">취소</button>
+  </div>
+</div>
+</div>
+
+<script>
+const ROOM = 'love';
+let API_URL = localStorage.getItem('love_api_url') || 'https://basically-yearly-foo-statewide.trycloudflare.com';
+let user = JSON.parse(localStorage.getItem('love_user') || 'null');
+let anniversary = localStorage.getItem('love_anniversary') || '';
+let lastTs = 0;
+let pollTimer = null;
+const msgEl = document.getElementById('messages');
+
+// D-day
+function updateDday() {
+  if (!anniversary) { document.getElementById('ddayBadge').textContent = ''; document.getElementById('ddayText').textContent = '사귄날을 설정해보세요 ⚙️'; return; }
+  const start = new Date(anniversary);
+  const now = new Date();
+  const diff = Math.floor((now - start) / 86400000);
+  document.getElementById('ddayBadge').textContent = `D+${diff}`;
+  document.getElementById('ddayText').textContent = `${anniversary} ~`;
+}
+updateDday();
+
+// Login
+function doLogin() {
+  const name = document.getElementById('loginName').value.trim();
+  if (!name) return alert('닉네임을 입력해주세요');
+  user = { sender: name };
+  localStorage.setItem('love_user', JSON.stringify(user));
+  document.getElementById('loginOverlay').style.display = 'none';
+  addSystem(`${name}님이 입장했습니다 💕`);
+  startPolling();
+}
+if (user) { document.getElementById('loginOverlay').style.display = 'none'; startPolling(); }
+
+// Settings
+function openSettings() {
+  document.getElementById('settingsUrl').value = API_URL;
+  document.getElementById('settingsDate').value = anniversary;
+  document.getElementById('settingsModal').classList.add('show');
+}
+function closeSettings() { document.getElementById('settingsModal').classList.remove('show'); }
+function saveSettings() {
+  const v = document.getElementById('settingsUrl').value.replace(/\/$/,'');
+  if (v) { API_URL = v; localStorage.setItem('love_api_url', v); }
+  const d = document.getElementById('settingsDate').value;
+  if (d) { anniversary = d; localStorage.setItem('love_anniversary', d); updateDday(); }
+  closeSettings();
+}
+
+// Floating heart
+function spawnHeart(x, y) {
+  const el = document.createElement('div');
+  el.className = 'floating-heart';
+  el.textContent = ['❤️','💕','💖','💗','💘'][Math.floor(Math.random()*5)];
+  el.style.left = x + 'px'; el.style.top = y + 'px';
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 2000);
+}
+
+// Messages
+function addBubble(msg) {
+  const isMe = msg.type === 'user' && msg.sender === user?.sender;
+  const div = document.createElement('div');
+  div.className = `msg ${msg.type === 'bot' ? 'bot' : isMe ? 'me' : 'other'}`;
+  const t = new Date(msg.timestamp).toLocaleTimeString('ko',{hour:'2-digit',minute:'2-digit'});
+  let html = '';
+  if (!isMe && msg.type !== 'bot') html += `<div class="sender">${esc(msg.sender)}</div>`;
+  if (msg.type === 'bot') html += `<div class="sender">클로이 🤖</div>`;
+  html += `<pre>${esc(msg.text)}</pre>`;
+  if (msg.fileName && msg.filePath) html += `<a class="file-link" href="${API_URL}/api/download/${encodeURIComponent(msg.filePath)}" target="_blank">📥 ${esc(msg.fileName)}</a>`;
+  else if (msg.fileName) html += `<span style="font-size:12px;color:var(--accent)">📎 ${esc(msg.fileName)}</span>`;
+  html += `<div class="time">${t}</div>`;
+  // Heart reaction button
+  if (msg.type !== 'bot') html += `<span class="heart-btn" onclick="toggleHeart(this,event)">♡</span>`;
+  div.innerHTML = html;
+  // Double-tap heart
+  let lastTap = 0;
+  div.addEventListener('click', (e) => {
+    const now = Date.now();
+    if (now - lastTap < 300) { spawnHeart(e.clientX, e.clientY); }
+    lastTap = now;
+  });
+  msgEl.appendChild(div);
+}
+
+function toggleHeart(el, e) {
+  el.classList.toggle('active');
+  el.textContent = el.classList.contains('active') ? '❤️' : '♡';
+  if (el.classList.contains('active')) spawnHeart(e.clientX, e.clientY);
+  e.stopPropagation();
+}
+
+function addSystem(text) {
+  const div = document.createElement('div');
+  div.className = 'system-msg';
+  div.textContent = text;
+  msgEl.appendChild(div);
+  scrollBottom();
+}
+
+function scrollBottom() { requestAnimationFrame(() => msgEl.scrollTop = msgEl.scrollHeight); }
+function esc(s) { return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+// API
+async function sendMsg() {
+  const input = document.getElementById('chatInput');
+  const text = input.value.trim();
+  if (!text) return;
+  input.value = '';
+  try {
+    await fetch(`${API_URL}/api/message`, {
+      method: 'POST', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ text, sender: user.sender, room: ROOM })
+    });
+    fetchMessages();
+  } catch (e) { addSystem('⚠️ 전송 실패'); }
+}
+
+async function uploadFile() {
+  const file = document.getElementById('fileInput').files[0];
+  if (!file) return;
+  const fd = new FormData();
+  fd.append('file', file);
+  fd.append('sender', user.sender);
+  fd.append('room', ROOM);
+  try {
+    addSystem('📤 업로드 중...');
+    await fetch(`${API_URL}/api/upload`, { method: 'POST', body: fd });
+    fetchMessages();
+  } catch { addSystem('⚠️ 업로드 실패'); }
+  document.getElementById('fileInput').value = '';
+}
+
+async function fetchMessages() {
+  try {
+    const res = await fetch(`${API_URL}/api/messages?room=${ROOM}&since=${lastTs}`);
+    const data = await res.json();
+    if (data.messages?.length) {
+      data.messages.forEach(m => { addBubble(m); if (m.timestamp > lastTs) lastTs = m.timestamp; });
+      scrollBottom();
+    }
+  } catch {}
+}
+
+function startPolling() {
+  fetchMessages();
+  if (pollTimer) clearInterval(pollTimer);
+  pollTimer = setInterval(fetchMessages, 3000);
+}
+</script>
+</body>
+</html>

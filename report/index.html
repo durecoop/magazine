@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>두레생협 팀장방</title>
+<style>
+:root{--bg:#F5F0E8;--card:#FFFFFF;--primary:#2D5016;--primary-light:#4a7a2e;--accent:#8B7355;--text:#333;--text-light:#666;--bubble-me:#DCF8C6;--bubble-other:#FFF;--bubble-bot:#E8F5E1;--border:#E0D8C8;--input-bg:#FFF;--header:#2D5016}
+*{margin:0;padding:0;box-sizing:border-box}
+html{height:100%;height:100dvh}
+body{font-family:-apple-system,'Noto Sans KR',sans-serif;background:var(--bg);height:100%;display:flex;flex-direction:column;color:var(--text);overflow:hidden}
+.header{background:var(--header);color:#fff;padding:12px 16px;padding-top:max(12px,env(safe-area-inset-top));display:flex;align-items:center;justify-content:space-between;flex-shrink:0;z-index:10}
+.header h1{font-size:16px;font-weight:700}.header-right{display:flex;gap:8px;align-items:center}
+.online-badge{background:rgba(255,255,255,.2);padding:3px 10px;border-radius:12px;font-size:12px}
+.btn-icon{background:none;border:none;color:#fff;font-size:18px;cursor:pointer;padding:4px}
+.messages{flex:1;overflow-y:auto;padding:12px 16px;display:flex;flex-direction:column;gap:6px;-webkit-overflow-scrolling:touch}
+.msg{max-width:80%;padding:8px 12px;border-radius:12px;font-size:14px;line-height:1.5;word-break:break-word;position:relative}
+.msg.me{align-self:flex-end;background:var(--bubble-me);border-bottom-right-radius:4px}
+.msg.other{align-self:flex-start;background:var(--bubble-other);border-bottom-left-radius:4px;box-shadow:0 1px 2px rgba(0,0,0,.06)}
+.msg.bot{align-self:flex-start;background:var(--bubble-bot);border-bottom-left-radius:4px;border-left:3px solid var(--primary)}
+.msg .sender{font-size:11px;font-weight:700;color:var(--primary);margin-bottom:2px}
+.msg .time{font-size:10px;color:var(--text-light);text-align:right;margin-top:2px}
+.msg .file-link{display:inline-block;background:var(--primary);color:#fff;padding:3px 10px;border-radius:8px;font-size:12px;text-decoration:none;margin-top:4px}
+.system-msg{text-align:center;font-size:12px;color:var(--accent);padding:4px 0}
+.input-area{background:var(--card);border-top:1px solid var(--border);padding:8px 12px;padding-bottom:max(8px,env(safe-area-inset-bottom));display:flex;gap:8px;align-items:center;flex-shrink:0}
+.input-area input[type=text]{flex:1;border:1px solid var(--border);border-radius:20px;padding:8px 14px;font-size:14px;outline:none;background:var(--bg)}
+.input-area input[type=text]:focus{border-color:var(--primary)}
+.send-btn{background:var(--primary);color:#fff;border:none;border-radius:50%;width:36px;height:36px;font-size:18px;cursor:pointer;flex-shrink:0}
+.upload-btn{background:none;border:none;font-size:22px;cursor:pointer;color:var(--accent);flex-shrink:0}
+/* Login */
+.login-overlay{position:fixed;inset:0;background:var(--bg);z-index:100;display:flex;align-items:center;justify-content:center}
+.login-box{background:var(--card);padding:32px 24px;border-radius:16px;width:min(320px,90vw);box-shadow:0 4px 20px rgba(0,0,0,.1);text-align:center}
+.login-box h2{color:var(--primary);margin-bottom:4px;font-size:20px}.login-box p{color:var(--accent);font-size:13px;margin-bottom:20px}
+.login-box select,.login-box input{width:100%;padding:10px;border:1px solid var(--border);border-radius:10px;font-size:14px;margin-bottom:12px;background:#fff}
+.login-box button{width:100%;padding:10px;background:var(--primary);color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer}
+/* Settings modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:200;display:none;align-items:center;justify-content:center}
+.modal-overlay.show{display:flex}
+.modal{background:#fff;border-radius:16px;padding:24px;width:min(320px,90vw)}
+.modal h3{margin-bottom:16px;color:var(--primary)}.modal label{display:block;font-size:13px;color:var(--text-light);margin-bottom:4px}
+.modal input,.modal select{width:100%;padding:8px;border:1px solid var(--border);border-radius:8px;margin-bottom:12px;font-size:14px}
+.modal button{padding:8px 16px;border:none;border-radius:8px;cursor:pointer;font-size:14px}
+.modal .btn-primary{background:var(--primary);color:#fff}.modal .btn-cancel{background:#eee;color:#333;margin-left:8px}
+pre{white-space:pre-wrap;font-family:inherit}
+</style>
+</head>
+<body>
+
+<!-- ===== LOGIN ===== -->
+<div class="login-overlay" id="loginOverlay">
+<div class="login-box">
+  <h2>🌿 두레생협</h2>
+  <p>팀장방 - 사업보고</p>
+  <select id="loginTeam">
+    <option value="">팀 선택</option>
+    <option value="livestock|축수산팀|상영">축수산팀 - 상영</option>
+    <option value="agri|농산팀|정현">농산팀 - 정현</option>
+    <option value="processed|가공팀|기현">가공팀 - 기현</option>
+    <option value="store|매장사업팀|인서울">매장사업팀 - 인서울</option>
+    <option value="online|온라인팀|이지원">온라인팀 - 이지원</option>
+    <option value="exec|사업상무|100상무님">사업상무 - 100상무님</option>
+  </select>
+  <input id="loginName" placeholder="닉네임 (자동입력)" readonly>
+  <button onclick="doLogin()">입장하기</button>
+</div>
+</div>
+
+<!-- ===== CHAT ===== -->
+<div class="header">
+  <h1>🌿 팀장방</h1>
+  <div class="header-right">
+    <span class="online-badge" id="onlineBadge">접속 1명</span>
+    <button class="btn-icon" onclick="openSettings()">⚙️</button>
+  </div>
+</div>
+<div class="messages" id="messages"></div>
+<div class="input-area">
+  <label class="upload-btn">📎<input type="file" hidden id="fileInput" onchange="uploadFile()"></label>
+  <input type="text" id="chatInput" placeholder="메시지 또는 /현황 /취합 /리마인드" onkeydown="if(event.key==='Enter')sendMsg()">
+  <button class="send-btn" onclick="sendMsg()">↑</button>
+</div>
+
+<!-- ===== SETTINGS ===== -->
+<div class="modal-overlay" id="settingsModal">
+<div class="modal">
+  <h3>⚙️ 설정</h3>
+  <label>API 서버 URL</label>
+  <input id="settingsUrl" placeholder="https://...">
+  <div style="text-align:right">
+    <button class="btn-primary" onclick="saveSettings()">저장</button>
+    <button class="btn-cancel" onclick="closeSettings()">취소</button>
+  </div>
+</div>
+</div>
+
+<input type="file" hidden id="hiddenFile">
+
+<script>
+const ROOM = 'report';
+let API_URL = localStorage.getItem('report_api_url') || 'https://basically-yearly-foo-statewide.trycloudflare.com';
+let user = JSON.parse(localStorage.getItem('report_user') || 'null');
+let lastTs = 0;
+let pollTimer = null;
+const msgEl = document.getElementById('messages');
+const onlineSessions = new Set();
+
+// Login
+document.getElementById('loginTeam').onchange = function() {
+  const parts = this.value.split('|');
+  document.getElementById('loginName').value = parts[2] || '';
+};
+
+function doLogin() {
+  const val = document.getElementById('loginTeam').value;
+  if (!val) return alert('팀을 선택해주세요');
+  const [teamId, team, name] = val.split('|');
+  user = { sender: name, team, teamId };
+  localStorage.setItem('report_user', JSON.stringify(user));
+  document.getElementById('loginOverlay').style.display = 'none';
+  addSystem(`${name}님이 입장했습니다`);
+  startPolling();
+}
+
+if (user) {
+  document.getElementById('loginOverlay').style.display = 'none';
+  startPolling();
+}
+
+// Settings
+function openSettings() {
+  document.getElementById('settingsUrl').value = API_URL;
+  document.getElementById('settingsModal').classList.add('show');
+}
+function closeSettings() { document.getElementById('settingsModal').classList.remove('show'); }
+function saveSettings() {
+  const v = document.getElementById('settingsUrl').value.replace(/\/$/,'');
+  if (v) { API_URL = v; localStorage.setItem('report_api_url', v); }
+  closeSettings();
+}
+
+// Messages
+function addBubble(msg) {
+  const isMe = msg.type === 'user' && msg.sender === user?.sender;
+  const div = document.createElement('div');
+  div.className = `msg ${msg.type === 'bot' ? 'bot' : isMe ? 'me' : 'other'}`;
+  const t = new Date(msg.timestamp).toLocaleTimeString('ko',{hour:'2-digit',minute:'2-digit'});
+  let html = '';
+  if (!isMe && msg.type !== 'bot') html += `<div class="sender">${esc(msg.sender)}${msg.team ? ' · ' + msg.team : ''}</div>`;
+  if (msg.type === 'bot') html += `<div class="sender">클로이 🤖</div>`;
+  html += `<pre>${esc(msg.text)}</pre>`;
+  if (msg.fileName && msg.filePath) html += `<a class="file-link" href="${API_URL}/api/download/${encodeURIComponent(msg.filePath)}" target="_blank">📥 ${esc(msg.fileName)}</a>`;
+  else if (msg.fileName) html += `<span style="font-size:12px;color:var(--accent)">📎 ${esc(msg.fileName)}</span>`;
+  html += `<div class="time">${t}</div>`;
+  div.innerHTML = html;
+  msgEl.appendChild(div);
+}
+
+function addSystem(text) {
+  const div = document.createElement('div');
+  div.className = 'system-msg';
+  div.textContent = text;
+  msgEl.appendChild(div);
+  scrollBottom();
+}
+
+function scrollBottom() { requestAnimationFrame(() => msgEl.scrollTop = msgEl.scrollHeight); }
+function esc(s) { return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+// API
+async function sendMsg() {
+  const input = document.getElementById('chatInput');
+  const text = input.value.trim();
+  if (!text) return;
+  input.value = '';
+  try {
+    const res = await fetch(`${API_URL}/api/message`, {
+      method: 'POST', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ text, sender: user.sender, team: user.team, teamId: user.teamId, room: ROOM })
+    });
+    const data = await res.json();
+    // Bot response will appear via polling
+    fetchMessages();
+  } catch (e) { addSystem('⚠️ 전송 실패: ' + e.message); }
+}
+
+async function uploadFile() {
+  const file = document.getElementById('fileInput').files[0];
+  if (!file) return;
+  const fd = new FormData();
+  fd.append('file', file);
+  fd.append('sender', user.sender);
+  fd.append('team', user.team);
+  fd.append('teamId', user.teamId);
+  fd.append('room', ROOM);
+  try {
+    addSystem('📤 업로드 중...');
+    const res = await fetch(`${API_URL}/api/upload`, { method: 'POST', body: fd });
+    await res.json();
+    fetchMessages();
+  } catch (e) { addSystem('⚠️ 업로드 실패'); }
+  document.getElementById('fileInput').value = '';
+}
+
+async function fetchMessages() {
+  try {
+    const res = await fetch(`${API_URL}/api/messages?room=${ROOM}&since=${lastTs}`);
+    const data = await res.json();
+    if (data.messages?.length) {
+      data.messages.forEach(m => { addBubble(m); if (m.timestamp > lastTs) lastTs = m.timestamp; });
+      scrollBottom();
+    }
+  } catch {}
+}
+
+function startPolling() {
+  fetchMessages();
+  if (pollTimer) clearInterval(pollTimer);
+  pollTimer = setInterval(fetchMessages, 3000);
+}
+
+// Online count (simple: random 1-3 for now since no websocket)
+function updateOnline() {
+  onlineSessions.add(user?.sender || 'anon');
+  document.getElementById('onlineBadge').textContent = `접속 ${onlineSessions.size}명`;
+}
+if (user) updateOnline();
+</script>
+</body>
+</html>
