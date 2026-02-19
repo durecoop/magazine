@@ -80,6 +80,41 @@ pre{white-space:pre-wrap;font-family:inherit}
 .note-actions{display:flex;gap:8px;padding:8px 12px;border-top:1px solid var(--border);flex-shrink:0;flex-wrap:wrap}
 .note-actions button{flex:1;padding:8px;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer}
 .note-btn-confirm{background:#E8F5E1;color:#2D5016}.note-btn-edit{background:#FFF3CD;color:#856404}.note-btn-delete{background:#FFE0E8;color:#D4566E}
+/* Anniversary Panel */
+.anniv-overlay{position:fixed;inset:0;background:rgba(0,0,0,.3);z-index:300;display:none;opacity:0;transition:opacity .3s}
+.anniv-overlay.show{display:block;opacity:1}
+.anniv-panel{position:fixed;top:0;right:-100%;width:min(360px,88vw);height:100%;background:#FFF5F8;z-index:310;transition:right .3s ease;display:flex;flex-direction:column;box-shadow:-4px 0 20px rgba(0,0,0,.15)}
+.anniv-panel.show{right:0}
+.anniv-header{background:linear-gradient(135deg,#E8778B,#C97B9B);color:#fff;padding:14px 16px;padding-top:max(14px,env(safe-area-inset-top));display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.anniv-header h2{font-size:16px;font-weight:700}
+.anniv-body{flex:1;overflow-y:auto;padding:12px;-webkit-overflow-scrolling:touch}
+.anniv-add-btn{width:100%;padding:12px;border:2px dashed var(--border);border-radius:12px;background:none;font-size:14px;color:var(--accent);cursor:pointer;margin-bottom:10px}
+.anniv-card{background:#fff;border-radius:14px;padding:14px;margin-bottom:10px;box-shadow:0 2px 8px rgba(232,119,139,.1);position:relative;transition:transform .15s}
+.anniv-card:active{transform:scale(.97)}
+.anniv-card .anniv-emoji{font-size:28px;margin-right:10px;flex-shrink:0}
+.anniv-card .anniv-info{flex:1}
+.anniv-card .anniv-title{font-weight:700;font-size:14px;color:var(--text)}
+.anniv-card .anniv-date{font-size:12px;color:var(--text-light);margin-top:2px}
+.anniv-card .anniv-dday{font-size:18px;font-weight:800;color:var(--primary);flex-shrink:0;min-width:60px;text-align:right}
+.anniv-card .anniv-dday.today{color:#FF4D6D;font-size:16px}
+.anniv-card .anniv-repeat{font-size:10px;color:var(--accent);margin-top:2px}
+.anniv-card-row{display:flex;align-items:center}
+.anniv-card-actions{display:flex;gap:6px;margin-top:8px;justify-content:flex-end}
+.anniv-card-actions button{background:none;border:1px solid var(--border);border-radius:6px;padding:3px 8px;font-size:11px;cursor:pointer;color:var(--text-light)}
+.anniv-card-actions button:hover{background:var(--bubble-me)}
+/* Anniversary Modal */
+.anniv-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:400;display:none;align-items:center;justify-content:center}
+.anniv-modal-overlay.show{display:flex}
+.anniv-modal{background:#fff;border-radius:16px;padding:24px;width:min(320px,90vw)}
+.anniv-modal h3{margin-bottom:16px;color:var(--primary);font-size:17px}
+.anniv-modal label{display:block;font-size:12px;color:var(--text-light);margin-bottom:4px;margin-top:10px}
+.anniv-modal input,.anniv-modal select{width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-size:14px;background:#fff}
+.emoji-picker{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.emoji-picker span{font-size:24px;cursor:pointer;padding:4px;border-radius:8px;border:2px solid transparent;transition:all .15s}
+.emoji-picker span:hover,.emoji-picker span.selected{border-color:var(--primary);background:var(--bubble-me)}
+.anniv-modal-btns{display:flex;gap:8px;margin-top:16px;justify-content:flex-end}
+.anniv-modal-btns button{padding:8px 16px;border:none;border-radius:8px;cursor:pointer;font-size:14px;font-weight:600}
+.anniv-modal-btns .btn-save{background:var(--primary);color:#fff}.anniv-modal-btns .btn-cancel{background:#eee;color:#333}
 </style>
 </head>
 <body>
@@ -103,6 +138,7 @@ pre{white-space:pre-wrap;font-family:inherit}
   <div class="header-right">
     <span class="dday" id="onlineCount" style="background:rgba(255,255,255,.2);font-size:11px">👤 0</span>
     <span class="dday" id="ddayBadge"></span>
+    <button class="btn-icon" onclick="openAnniv()">💝</button>
     <button class="btn-icon" onclick="openNotes()">📝</button>
     <button class="btn-icon" onclick="openSettings()">⚙️</button>
   </div>
@@ -164,6 +200,42 @@ pre{white-space:pre-wrap;font-family:inherit}
       <button class="note-btn-delete" onclick="deleteCurrentNote()">🗑️ 삭제</button>
     </div>
   </div>
+</div>
+
+<!-- ANNIVERSARY PANEL -->
+<div class="anniv-overlay" id="annivOverlay" onclick="closeAnniv()"></div>
+<div class="anniv-panel" id="annivPanel">
+  <div class="anniv-header">
+    <h2>💝 기념일</h2>
+    <button class="btn-icon" onclick="closeAnniv()" style="color:#fff;font-size:20px">✕</button>
+  </div>
+  <div class="anniv-body" id="annivBody">
+    <button class="anniv-add-btn" onclick="openAnnivModal()">➕ 기념일 추가</button>
+    <div id="annivList"></div>
+  </div>
+</div>
+
+<!-- ANNIVERSARY MODAL -->
+<div class="anniv-modal-overlay" id="annivModalOverlay">
+<div class="anniv-modal">
+  <h3 id="annivModalTitle">💝 기념일 추가</h3>
+  <label>제목</label>
+  <input id="annivTitleInput" placeholder="예: 사귄 날, 100일">
+  <label>날짜</label>
+  <input type="date" id="annivDateInput">
+  <label>이모지</label>
+  <div class="emoji-picker" id="emojiPicker"></div>
+  <label>반복</label>
+  <select id="annivRepeatInput">
+    <option value="none">반복 없음</option>
+    <option value="yearly">매년</option>
+    <option value="monthly">매월</option>
+  </select>
+  <div class="anniv-modal-btns">
+    <button class="btn-cancel" onclick="closeAnnivModal()">취소</button>
+    <button class="btn-save" onclick="saveAnniv()">저장</button>
+  </div>
+</div>
 </div>
 
 <script>
@@ -469,6 +541,204 @@ async function deleteCurrentNote() {
     backToList();
   } catch { alert('삭제 실패'); }
 }
+
+// ═══════════════════════════════════════
+// Anniversaries
+// ═══════════════════════════════════════
+const EMOJI_PRESETS = ['💕','❤️','🎂','🎄','🌹','💍','🎁','🏖️','🥂','🎆','💐','🍰','☀️','🌙','💫','🦋'];
+let editingAnnivId = null;
+let selectedEmoji = '💕';
+
+function openAnniv() {
+  document.getElementById('annivOverlay').classList.add('show');
+  document.getElementById('annivPanel').classList.add('show');
+  fetchAnniversaries();
+  // Auto-migrate legacy anniversary from settings
+  migrateSettingsAnniversary();
+}
+function closeAnniv() {
+  document.getElementById('annivOverlay').classList.remove('show');
+  document.getElementById('annivPanel').classList.remove('show');
+}
+
+async function migrateSettingsAnniversary() {
+  if (!anniversary || localStorage.getItem('love_anniv_migrated')) return;
+  try {
+    const res = await fetch(`${API_URL}/api/anniversaries?room=${ROOM}`);
+    const { anniversaries } = await res.json();
+    const exists = anniversaries.some(a => a.date === anniversary && a.title === '사귄 날');
+    if (!exists) {
+      await fetch(`${API_URL}/api/anniversaries`, {
+        method: 'POST', headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({ room: ROOM, title: '사귄 날', date: anniversary, emoji: '💕', repeat: 'yearly', createdBy: user?.sender || '' })
+      });
+    }
+    localStorage.setItem('love_anniv_migrated', '1');
+    fetchAnniversaries();
+  } catch {}
+}
+
+async function fetchAnniversaries() {
+  try {
+    const res = await fetch(`${API_URL}/api/anniversaries?room=${ROOM}`);
+    const { anniversaries } = await res.json();
+    renderAnniversaries(anniversaries);
+    updateHeaderAnniv(anniversaries);
+  } catch {}
+}
+
+function calcDday(dateStr, repeat) {
+  const now = new Date(); now.setHours(0,0,0,0);
+  let target = new Date(dateStr); target.setHours(0,0,0,0);
+  const diff = Math.floor((now - target) / 86400000);
+
+  if (repeat === 'yearly') {
+    // Find next occurrence
+    let next = new Date(target);
+    next.setFullYear(now.getFullYear());
+    if (next < now) next.setFullYear(now.getFullYear() + 1);
+    const daysUntil = Math.floor((next - now) / 86400000);
+    return { diff, daysUntil, isToday: daysUntil === 0 };
+  }
+  if (repeat === 'monthly') {
+    let next = new Date(now.getFullYear(), now.getMonth(), target.getDate());
+    if (next < now) next.setMonth(next.getMonth() + 1);
+    const daysUntil = Math.floor((next - now) / 86400000);
+    return { diff, daysUntil, isToday: daysUntil === 0 };
+  }
+  return { diff, daysUntil: -diff, isToday: diff === 0 };
+}
+
+function ddayLabel(info) {
+  if (info.isToday) return 'D-DAY 🎉';
+  if (info.diff > 0) return `D+${info.diff}`;
+  return `D${info.diff}`;
+}
+
+function renderAnniversaries(annivs) {
+  const el = document.getElementById('annivList');
+  if (!annivs.length) { el.innerHTML = '<p style="text-align:center;color:var(--text-light);padding:20px;font-size:13px">기념일을 추가해보세요 💕</p>'; return; }
+
+  // Sort: upcoming first, then past
+  const sorted = [...annivs].sort((a, b) => {
+    const ai = calcDday(a.date, a.repeat);
+    const bi = calcDday(b.date, b.repeat);
+    return ai.daysUntil - bi.daysUntil;
+  });
+
+  el.innerHTML = sorted.map(a => {
+    const info = calcDday(a.date, a.repeat);
+    const repeatLabel = a.repeat === 'yearly' ? '매년' : a.repeat === 'monthly' ? '매월' : '';
+    return `<div class="anniv-card">
+      <div class="anniv-card-row">
+        <span class="anniv-emoji">${a.emoji}</span>
+        <div class="anniv-info">
+          <div class="anniv-title">${esc(a.title)}</div>
+          <div class="anniv-date">${a.date}${repeatLabel ? ' · ' + repeatLabel : ''}</div>
+          ${info.diff > 0 && a.repeat !== 'none' ? `<div class="anniv-repeat">다음까지 ${info.daysUntil}일</div>` : ''}
+        </div>
+        <div class="anniv-dday ${info.isToday ? 'today' : ''}">${ddayLabel(info)}</div>
+      </div>
+      <div class="anniv-card-actions">
+        <button onclick="editAnniv('${a.id}','${esc(a.title)}','${a.date}','${a.emoji}','${a.repeat}')">✏️ 수정</button>
+        <button onclick="deleteAnniv('${a.id}')">🗑️ 삭제</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function updateHeaderAnniv(annivs) {
+  if (!annivs.length) return;
+  // Find closest upcoming or today
+  const now = new Date(); now.setHours(0,0,0,0);
+  let closest = null, closestDays = Infinity;
+
+  annivs.forEach(a => {
+    const info = calcDday(a.date, a.repeat);
+    if (info.daysUntil >= 0 && info.daysUntil < closestDays) {
+      closestDays = info.daysUntil;
+      closest = a;
+    }
+  });
+
+  const ddayTextEl = document.getElementById('ddayText');
+  if (closest && closestDays <= 30) {
+    const label = closestDays === 0 ? 'D-DAY 🎉' : `D-${closestDays}`;
+    ddayTextEl.textContent = `${closest.emoji} ${closest.title} ${label}`;
+  } else {
+    // Show the "사귄 날" D+ count
+    const started = annivs.find(a => a.title === '사귄 날');
+    if (started) {
+      const diff = Math.floor((now - new Date(started.date)) / 86400000);
+      ddayTextEl.textContent = `💕 함께한 지 ${diff}일째`;
+    }
+  }
+}
+
+function initEmojiPicker() {
+  const el = document.getElementById('emojiPicker');
+  el.innerHTML = EMOJI_PRESETS.map(e => `<span onclick="selectEmoji(this,'${e}')" ${e===selectedEmoji?'class="selected"':''}>${e}</span>`).join('');
+}
+function selectEmoji(el, emoji) {
+  selectedEmoji = emoji;
+  document.querySelectorAll('.emoji-picker span').forEach(s => s.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+function openAnnivModal(id) {
+  editingAnnivId = id || null;
+  document.getElementById('annivModalTitle').textContent = id ? '💝 기념일 수정' : '💝 기념일 추가';
+  if (!id) {
+    document.getElementById('annivTitleInput').value = '';
+    document.getElementById('annivDateInput').value = '';
+    document.getElementById('annivRepeatInput').value = 'none';
+    selectedEmoji = '💕';
+  }
+  initEmojiPicker();
+  document.getElementById('annivModalOverlay').classList.add('show');
+}
+function closeAnnivModal() {
+  document.getElementById('annivModalOverlay').classList.remove('show');
+  editingAnnivId = null;
+}
+
+function editAnniv(id, title, date, emoji, repeat) {
+  editingAnnivId = id;
+  document.getElementById('annivTitleInput').value = title;
+  document.getElementById('annivDateInput').value = date;
+  document.getElementById('annivRepeatInput').value = repeat;
+  selectedEmoji = emoji;
+  openAnnivModal(id);
+}
+
+async function saveAnniv() {
+  const title = document.getElementById('annivTitleInput').value.trim();
+  const date = document.getElementById('annivDateInput').value;
+  const repeat = document.getElementById('annivRepeatInput').value;
+  if (!title || !date) return alert('제목과 날짜를 입력해주세요');
+
+  const body = { room: ROOM, title, date, emoji: selectedEmoji, repeat, createdBy: user?.sender || '' };
+  try {
+    if (editingAnnivId) {
+      await fetch(`${API_URL}/api/anniversaries/${editingAnnivId}`, { method: 'PUT', headers: {'Content-Type':'application/json'}, body: JSON.stringify(body) });
+    } else {
+      await fetch(`${API_URL}/api/anniversaries`, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(body) });
+    }
+    closeAnnivModal();
+    fetchAnniversaries();
+  } catch { alert('저장 실패'); }
+}
+
+async function deleteAnniv(id) {
+  if (!confirm('이 기념일을 삭제할까요?')) return;
+  try {
+    await fetch(`${API_URL}/api/anniversaries/${id}?room=${ROOM}`, { method: 'DELETE' });
+    fetchAnniversaries();
+  } catch { alert('삭제 실패'); }
+}
+
+// Load anniversaries on start (for header)
+if (user) setTimeout(() => fetchAnniversaries(), 1000);
 </script>
 </body>
 </html>
