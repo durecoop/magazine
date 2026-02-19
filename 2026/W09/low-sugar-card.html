@@ -109,6 +109,19 @@
         .more-item .name{font-size:clamp(13px,4vw,15px);font-weight:600;color:#1a1a1a;margin-bottom:4px}
         .more-item .desc{font-size:12px;color:#B8956A;font-weight:600}
 
+        /* 찜질팩 역시즌 카드 */
+        .card-hotpack{background:linear-gradient(160deg,#8B5E4B,#6B4638);padding:30px 16px;overflow:hidden}
+        .card-hotpack>*{position:relative;z-index:1}
+        .card-hotpack::before{content:'';position:absolute;top:-20%;right:-10%;width:60%;height:60%;background:radial-gradient(circle,rgba(255,255,255,.06) 0%,transparent 60%);border-radius:50%;pointer-events:none}
+        .card-hotpack .hp-label{font-size:11px;letter-spacing:4px;color:rgba(255,255,255,.5);margin-bottom:12px}
+        .card-hotpack h2{font-family:'Noto Serif KR',serif;font-size:clamp(22px,7vw,30px);font-weight:700;color:#fff;line-height:1.5;margin-bottom:8px}
+        .card-hotpack .hp-sub{font-size:clamp(14px,4vw,16px);color:rgba(255,255,255,.65);margin-bottom:20px}
+        .card-hotpack .hp-imgs{display:flex;gap:10px;max-width:320px;width:100%;margin-bottom:20px}
+        .card-hotpack .hp-imgs img{flex:1;aspect-ratio:1;object-fit:contain;background:rgba(255,255,255,.1);border-radius:14px}
+        .card-hotpack .hp-price{font-size:clamp(14px,4vw,16px);color:rgba(255,255,255,.8);line-height:1.8;margin-bottom:20px}
+        .card-hotpack .hp-price strong{color:#FFD7A0;font-weight:900;font-size:clamp(18px,5vw,22px)}
+        .card-hotpack .hp-btn{display:inline-block;padding:14px 36px;background:#fff;color:#8B5E4B;font-size:clamp(16px,4.5vw,18px);font-weight:900;text-decoration:none;border-radius:30px;box-shadow:0 4px 16px rgba(0,0,0,.15)}
+
         /* CTA 카드 */
         .card-cta{background:linear-gradient(160deg,#3D6041,#2d4a31)}
         .card-cta .final-slogan{font-size:clamp(14px,4vw,16px);color:rgba(255,255,255,.6);letter-spacing:2px;margin-bottom:12px}
@@ -195,6 +208,13 @@
         .card-more.in-view .more-item:nth-child(2){animation:fadeInUp .5s .65s both}
         .card-more.in-view .more-item:nth-child(3){animation:fadeInUp .5s .8s both}
         .card-more.in-view .more-item:nth-child(4){animation:fadeInUp .5s .95s both}
+
+        .card-hotpack.in-view .hp-label{animation:fadeInDown .5s .2s both}
+        .card-hotpack.in-view h2{animation:fadeInUp .6s .4s both}
+        .card-hotpack.in-view .hp-sub{animation:fadeInUp .5s .6s both}
+        .card-hotpack.in-view .hp-imgs{animation:scaleIn .6s .8s both}
+        .card-hotpack.in-view .hp-price{animation:fadeInUp .5s 1s both}
+        .card-hotpack.in-view .hp-btn{animation:scaleIn .5s 1.2s both}
 
         .card-cta.in-view .final-slogan{animation:fadeInDown .5s .2s both}
         .card-cta.in-view h2{animation:fadeInUp .7s .5s both}
@@ -390,7 +410,23 @@
             </div>
         </div>
 
-        <!-- 카드 9: CTA -->
+        <!-- 카드 9: 찜질팩 역시즌 -->
+        <div class="card card-hotpack">
+            <p class="hp-label anim">OFF-SEASON SALE</p>
+            <h2 class="anim">찜질팩 전품목<br>반값</h2>
+            <p class="hp-sub anim">2026 공급종료 · 역시즌 50% 할인</p>
+            <div class="hp-imgs anim">
+                <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/16540C.png" alt="사각찜질팩">
+                <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/16542C.png" alt="어깨찜질팩">
+            </div>
+            <p class="hp-price anim">
+                사각 54,000 → <strong>27,000원</strong><br>
+                어깨 63,000 → <strong>31,500원</strong>
+            </p>
+            <a href="https://ecoop.or.kr/DureShop/DureShop/main/subHome.do?msinTopIdx=4&returnIndex1=0&returnCategory2=99" class="hp-btn anim">찜질팩 보러가기 →</a>
+        </div>
+
+        <!-- 카드 10: CTA -->
         <div class="card card-cta">
             <p class="final-slogan">수고 많으셨어요</p>
             <h2>오늘부터<br>나를 챙겨요</h2>
@@ -404,6 +440,7 @@
 
     <div class="indicator">
         <div class="dot active"></div>
+        <div class="dot"></div>
         <div class="dot"></div>
         <div class="dot"></div>
         <div class="dot"></div>
