@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>찜질팩 공급종료 50% 할인 - 두레생협</title>
+    <meta property="og:title" content="두레생협 | 찜질팩 전품목 50% 할인">
+    <meta property="og:description" content="2026년 공급종료 결정. 남은 재고 전품목 반값에 드립니다.">
+    <meta property="og:image" content="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/16542C.png">
+    <meta property="og:url" content="https://durecoop.github.io/magazine/2026/W08/hotpack-card.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="두레생협 생활의 발견">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Serif+KR:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        html,body{font-family:'Noto Sans KR',sans-serif;background:#1a1a1a;height:100%;overflow:hidden}
+
+        .header{position:fixed;top:0;left:0;right:0;height:60px;background:linear-gradient(135deg,#3D6041,#2d4a31);display:flex;justify-content:space-between;align-items:center;padding:0 18px;z-index:1000}
+        .header-logo img{height:38px;border-radius:4px}
+        .header-right{display:flex;align-items:center;gap:12px}
+        .header-label{font-size:15px;color:#a8d5a2;font-weight:500}
+        .header-order{padding:10px 20px;background:#fff;color:#3D6041;text-decoration:none;border-radius:6px;font-size:17px;font-weight:700}
+
+        .promo-bar{position:fixed;top:60px;left:0;right:0;z-index:999;background:linear-gradient(90deg,#C75A3A,#A04530);padding:10px 0;text-align:center}
+        .promo-bar-inner{display:flex;justify-content:center;align-items:center;gap:8px;font-size:clamp(14px,4vw,17px);color:#fff;font-weight:700}
+        .promo-bar-inner .badge{background:#fff;color:#C75A3A;padding:3px 10px;border-radius:6px;font-weight:900}
+
+        .card-container{height:100vh;overflow-y:scroll;scroll-snap-type:y mandatory;-webkit-overflow-scrolling:touch;padding-top:100px}
+        .card{min-height:calc(100vh - 100px);scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:40px 20px;text-align:center;position:relative}
+
+        /* 히어로 */
+        .card-hero{background:linear-gradient(160deg,#8B5E4B,#6B4638);overflow:hidden}
+        .card-hero>*{position:relative;z-index:1}
+        .card-hero::before{content:'';position:absolute;inset:0;background:url('bg-warmth.svg') no-repeat center/cover;pointer-events:none}
+        .card-hero .hero-icon{font-size:clamp(14px,4vw,17px);color:rgba(255,255,255,.5);letter-spacing:3px;margin-bottom:20px}
+        .card-hero h1{font-family:'Noto Serif KR',serif;font-size:clamp(30px,9vw,42px);font-weight:700;color:#fff;line-height:1.4;margin-bottom:16px}
+        .card-hero .hero-sub{font-size:clamp(15px,4.5vw,18px);color:rgba(255,255,255,.7);line-height:2;margin-bottom:28px}
+        .card-hero .hero-badge{display:inline-block;padding:14px 28px;background:rgba(199,90,58,.5);border:1px solid rgba(255,255,255,.2);border-radius:14px;font-size:clamp(18px,5.5vw,24px);color:#fff;font-weight:900;letter-spacing:2px}
+        .card-hero .scroll-hint{position:absolute;bottom:30px;color:rgba(255,255,255,.4);font-size:14px;animation:bounce 2s infinite}
+
+        /* 스토리 */
+        .card-story{background:linear-gradient(160deg,#fff,#FBF6F0);overflow:hidden}
+        .card-story>*{position:relative;z-index:1}
+        .card-story::before{content:'';position:absolute;inset:0;background:url('bg-story.svg') no-repeat center/cover;pointer-events:none}
+        .card-story .story-label{font-size:11px;letter-spacing:4px;color:#8B5E4B;margin-bottom:20px;font-weight:500}
+        .card-story h2{font-family:'Noto Serif KR',serif;font-size:clamp(22px,7vw,30px);font-weight:600;color:#1a1a1a;line-height:1.6;margin-bottom:24px}
+        .card-story .divider{width:40px;height:2px;background:#8B5E4B;margin:0 auto 24px}
+        .card-story .story-text{font-size:clamp(15px,4.5vw,17px);color:#555;line-height:2.1;font-weight:300;max-width:340px}
+        .card-story .story-text strong{color:#C75A3A;font-weight:600}
+
+        /* 상품 카드 공통 */
+        .card-product{background:linear-gradient(160deg,#FBF6F0,#fff);padding:30px 16px;overflow:hidden}
+        .card-product>*{position:relative;z-index:1}
+        .card-product::before{content:'';position:absolute;inset:0;background:url('bg-warmth.svg') no-repeat center/cover;pointer-events:none}
+        .card-product .prod-num{font-size:12px;color:#aaa;letter-spacing:2px;margin-bottom:12px}
+        .product-detail{background:#fff;border-radius:20px;padding:20px;box-shadow:0 4px 16px rgba(0,0,0,.04);border:1px solid #E8E8E8;text-decoration:none;color:inherit;display:block;max-width:380px;width:100%}
+        .product-detail .prod-imgs{display:flex;gap:8px;margin-bottom:16px}
+        .product-detail .prod-imgs img{flex:1;aspect-ratio:1/1;object-fit:contain;border-radius:14px;background:#F5F5F5}
+        .product-detail .prod-imgs.single img{aspect-ratio:4/3}
+        .product-detail .name{font-family:'Noto Serif KR',serif;font-size:clamp(18px,5.5vw,22px);font-weight:600;color:#1a1a1a;margin-bottom:6px}
+        .product-detail .variant{font-size:14px;color:#8B5E4B;margin-bottom:10px;font-weight:500}
+        .product-detail .feature{font-size:clamp(13px,4vw,15px);color:#666;line-height:1.8;margin-bottom:16px;text-align:left;padding:0 4px}
+        .product-detail .price-box{background:#FBF6F0;border-radius:12px;padding:14px;margin-bottom:10px}
+        .product-detail .price-row{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap}
+        .product-detail .orig{font-size:15px;color:#aaa;text-decoration:line-through}
+        .product-detail .arrow{font-size:14px;color:#aaa}
+        .product-detail .price{font-size:clamp(24px,7vw,30px);font-weight:900;color:#C75A3A}
+        .product-detail .pct{display:inline-block;padding:4px 12px;background:#C75A3A;color:#fff;font-size:clamp(14px,4vw,16px);font-weight:900;border-radius:8px}
+        .product-detail .end-badge{display:inline-flex;align-items:center;gap:6px;margin-top:8px;padding:6px 14px;background:#2d2d2d;border-radius:20px;font-size:13px;color:#fff;font-weight:700}
+        .product-detail .end-badge::before{content:'';display:inline-block;width:8px;height:8px;background:#C75A3A;border-radius:50%;animation:stockPulse 1.5s infinite}
+
+        .card-product.alt{background:linear-gradient(160deg,#fff,#FBF6F0)}
+
+        /* 겉피 모음 */
+        .cover-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+        .cover-item{background:#F5F5F5;border-radius:12px;padding:10px;text-align:center}
+        .cover-item img{width:100%;aspect-ratio:1/1;object-fit:contain;border-radius:8px;margin-bottom:6px}
+        .cover-item .cover-name{font-size:12px;color:#555;font-weight:500}
+        .cover-item .cover-price{font-size:14px;color:#C75A3A;font-weight:900}
+
+        /* CTA */
+        .card-cta{background:linear-gradient(160deg,#8B5E4B,#6B4638);overflow:hidden}
+        .card-cta>*{position:relative;z-index:1}
+        .card-cta::before{content:'';position:absolute;top:-20%;left:50%;transform:translateX(-50%);width:120%;height:50%;background:radial-gradient(ellipse,rgba(255,255,255,.05) 0%,transparent 60%);pointer-events:none}
+        .card-cta .final-icon{font-size:48px;margin-bottom:16px}
+        .card-cta .final-slogan{font-size:clamp(14px,4vw,16px);color:rgba(255,255,255,.6);letter-spacing:2px;margin-bottom:12px}
+        .card-cta h2{font-family:'Noto Serif KR',serif;font-size:clamp(24px,7vw,32px);font-weight:700;color:#fff;line-height:1.5;margin-bottom:28px}
+        .card-cta .cta-btn{display:inline-block;padding:20px 50px;background:#fff;color:#8B5E4B;font-size:clamp(18px,5.5vw,24px);font-weight:900;text-decoration:none;border-radius:50px;box-shadow:0 8px 30px rgba(0,0,0,.2);animation:pulse 2s infinite}
+        .card-cta .cta-btn:active{transform:scale(.95)}
+        .card-cta .cta-info{margin-top:24px;padding:12px 24px;background:rgba(199,90,58,.4);border-radius:12px}
+        .card-cta .cta-info p{font-size:clamp(14px,4vw,16px);color:#fff;font-weight:600}
+        .card-cta .brand{margin-top:28px;font-size:clamp(12px,3.5vw,14px);color:rgba(255,255,255,.5)}
+
+        .indicator{position:fixed;right:12px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:8px;z-index:100}
+        .dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.3)}
+        .dot.active{background:#fff;transform:scale(1.3)}
+
+        @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+        @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
+        @keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes fadeInDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes scaleIn{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:scale(1)}}
+        @keyframes slideInLeft{from{opacity:0;transform:translateX(-30px)}to{opacity:1;transform:translateX(0)}}
+        @keyframes stockPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.7)}}
+
+        .card:not(.in-view) .anim{opacity:0}
+
+        .card-hero.in-view .hero-icon{animation:fadeInDown .5s .2s both}
+        .card-hero.in-view h1{animation:fadeInUp .7s .4s both}
+        .card-hero.in-view .hero-sub{animation:fadeInUp .6s .7s both}
+        .card-hero.in-view .hero-badge{animation:scaleIn .5s 1s both}
+        .card-hero.in-view .scroll-hint{animation:fadeInUp .5s 1.4s both,bounce 2s 1.9s infinite}
+
+        .card-story.in-view .story-label{animation:fadeInDown .5s .2s both}
+        .card-story.in-view h2{animation:fadeInUp .6s .4s both}
+        .card-story.in-view .divider{animation:scaleIn .4s .6s both}
+        .card-story.in-view .story-text{animation:fadeInUp .6s .8s both}
+
+        .card-product.in-view .prod-num{animation:fadeInDown .4s .2s both}
+        .card-product.in-view .product-detail{animation:fadeInUp .7s .4s both}
+
+        .card-cta.in-view .final-icon{animation:scaleIn .5s .1s both}
+        .card-cta.in-view .final-slogan{animation:fadeInDown .5s .3s both}
+        .card-cta.in-view h2{animation:fadeInUp .7s .5s both}
+        .card-cta.in-view .cta-btn{animation:scaleIn .5s .9s both,pulse 2s 1.4s infinite}
+        .card-cta.in-view .cta-info{animation:fadeInUp .5s 1.2s both}
+        .card-cta.in-view .brand{animation:fadeInUp .5s 1.4s both}
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="https://ecoop.or.kr/DureShop/DureShop/main/subHome.do?msinTopIdx=4&returnIndex1=0&returnCategory2=99" class="header-logo"><img src="LOGO.png" alt="두레생협"></a>
+        <div class="header-right">
+            <span class="header-label">공급종료</span>
+            <a href="https://ecoop.or.kr/DureShop/DureShop/main/subHome.do?msinTopIdx=4&returnIndex1=0&returnCategory2=99" class="header-order">쇼핑하기</a>
+        </div>
+    </header>
+
+    <div class="promo-bar">
+        <div class="promo-bar-inner">
+            <span class="badge">종료</span>
+            <span>찜질팩 전품목 50% 할인</span>
+        </div>
+    </div>
+
+    <div class="card-container" id="cardContainer">
+        <!-- 카드 1: 히어로 -->
+        <div class="card card-hero">
+            <p class="hero-icon anim">━ 공급종료 안내 ━</p>
+            <h1 class="anim">찜질팩<br>전품목<br>반값</h1>
+            <p class="hero-sub anim">2026년 공급종료가 결정되었습니다.<br>남은 재고를 <strong style="color:#FFD7A0">50%</strong> 할인으로 드립니다</p>
+            <div class="hero-badge anim">전품목 50% OFF</div>
+            <p class="scroll-hint anim">↓ 아래로 스크롤</p>
+        </div>
+
+        <!-- 카드 2: 스토리 -->
+        <div class="card card-story">
+            <p class="story-label anim">NOTICE</p>
+            <h2 class="anim">올해를 마지막으로<br>찜질팩 공급이 종료됩니다</h2>
+            <div class="divider anim"></div>
+            <p class="story-text anim">
+                오랜 시간 함께해 온<br>
+                <strong>찜질팩의 공급이 종료</strong>됩니다.<br><br>
+                남은 재고를<br>
+                <strong>전품목 50% 할인</strong>으로 드려요.<br>
+                재고 소진 시 영구 종료입니다.
+            </p>
+        </div>
+
+        <!-- 카드 3: 사각찜질팩 -->
+        <div class="card card-product">
+            <p class="prod-num anim">01 / 04</p>
+            <a href="https://ecoop.or.kr/DureShop/DureShop/main/subHome.do?msinTopIdx=4&returnIndex1=0&returnCategory2=99" class="product-detail">
+                <div class="prod-imgs">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/16540C.png" alt="사각찜질팩(숯)">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/16541C.png" alt="사각찜질팩(황토)">
+                </div>
+                <p class="name">사각찜질팩</p>
+                <p class="variant">숯 / 황토 2종</p>
+                <p class="feature">
+                    전자레인지에 데워 배, 허리, 무릎 등에 올려 사용하는 사각형 찜질팩이에요. 숯과 황토 2가지 소재로, 은은한 온기가 오래 유지돼요. 생리통, 근육통 완화에 좋아요.
+                </p>
+                <div class="price-box">
+                    <div class="price-row">
+                        <span class="pct">50%</span>
+                        <span class="orig">54,000원</span>
+                        <span class="arrow">→</span>
+                        <span class="price">27,000원</span>
+                    </div>
+                </div>
+                <p class="end-badge">2026 공급종료</p>
+            </a>
+        </div>
+
+        <!-- 카드 4: 어깨찜질팩 -->
+        <div class="card card-product alt">
+            <p class="prod-num anim">02 / 04</p>
+            <a href="https://ecoop.or.kr/DureShop/DureShop/main/subHome.do?msinTopIdx=4&returnIndex1=0&returnCategory2=99" class="product-detail">
+                <div class="prod-imgs">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/16542C.png" alt="어깨찜질팩(숯)">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/16543C.png" alt="어깨찜질팩(황토)">
+                </div>
+                <p class="name">어깨찜질팩</p>
+                <p class="variant">숯 / 황토 2종</p>
+                <p class="feature">
+                    어깨와 목에 걸쳐 사용하는 U자형 찜질팩이에요. 어깨 결림, 목 뻐근함에 효과적이에요. 컴퓨터 작업이 많은 분, 어깨가 자주 뭉치는 분께 추천드려요.
+                </p>
+                <div class="price-box">
+                    <div class="price-row">
+                        <span class="pct">50%</span>
+                        <span class="orig">63,000원</span>
+                        <span class="arrow">→</span>
+                        <span class="price">31,500원</span>
+                    </div>
+                </div>
+                <p class="end-badge">2026 공급종료</p>
+            </a>
+        </div>
+
+        <!-- 카드 5: 사각찜질팩 겉피 -->
+        <div class="card card-product">
+            <p class="prod-num anim">03 / 04</p>
+            <a href="https://ecoop.or.kr/DureShop/DureShop/main/subHome.do?msinTopIdx=4&returnIndex1=0&returnCategory2=99" class="product-detail">
+                <div class="prod-imgs">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/16589C.png" alt="사각찜질팩(숯)겉피">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/16590C.png" alt="사각찜질팩(황토)겉피">
+                </div>
+                <p class="name">사각찜질팩 겉피</p>
+                <p class="variant">숯 / 황토 2종</p>
+                <p class="feature">
+                    사각찜질팩 전용 교체 커버예요. 겉피만 따로 세탁할 수 있어 위생적이에요. 찜질팩을 오래 쓰고 계신 분은 겉피를 함께 구비해두시면 좋아요.
+                </p>
+                <div class="price-box">
+                    <div class="price-row">
+                        <span class="pct">50%</span>
+                        <span class="orig">12,000원</span>
+                        <span class="arrow">→</span>
+                        <span class="price">6,000원</span>
+                    </div>
+                </div>
+                <p class="end-badge">2026 공급종료</p>
+            </a>
+        </div>
+
+        <!-- 카드 6: 어깨찜질팩 겉피 -->
+        <div class="card card-product alt">
+            <p class="prod-num anim">04 / 04</p>
+            <a href="https://ecoop.or.kr/DureShop/DureShop/main/subHome.do?msinTopIdx=4&returnIndex1=0&returnCategory2=99" class="product-detail">
+                <div class="prod-imgs">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/16591C.png" alt="어깨찜질팩(숯)겉피">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/16592C.png" alt="어깨찜질팩(황토)겉피">
+                </div>
+                <p class="name">어깨찜질팩 겉피</p>
+                <p class="variant">숯 / 황토 2종</p>
+                <p class="feature">
+                    어깨찜질팩 전용 교체 커버예요. 세탁이 가능해 깨끗하게 사용할 수 있어요. 공급종료 후에는 구할 수 없으니 여분을 준비해두세요.
+                </p>
+                <div class="price-box">
+                    <div class="price-row">
+                        <span class="pct">50%</span>
+                        <span class="orig">15,500원</span>
+                        <span class="arrow">→</span>
+                        <span class="price">7,750원</span>
+                    </div>
+                </div>
+                <p class="end-badge">2026 공급종료</p>
+            </a>
+        </div>
+
+        <!-- 카드 7: CTA -->
+        <div class="card card-cta">
+            <p class="final-icon anim">🔥</p>
+            <p class="final-slogan anim">공급종료 전 마지막 기회</p>
+            <h2 class="anim">재고 소진 시<br>영구 종료됩니다</h2>
+            <a href="https://ecoop.or.kr/DureShop/DureShop/main/subHome.do?msinTopIdx=4&returnIndex1=0&returnCategory2=99" class="cta-btn">찜질팩 보러가기 →</a>
+            <div class="cta-info">
+                <p>전품목 50% · 재고 소진 시 종료</p>
+            </div>
+            <p class="brand">두레생협</p>
+        </div>
+    </div>
+
+    <div class="indicator">
+        <div class="dot active"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
+
+    <script>
+        const container = document.getElementById('cardContainer');
+        const dots = document.querySelectorAll('.dot');
+
+        container.addEventListener('scroll', () => {
+            const scrollPos = container.scrollTop;
+            const cardHeight = window.innerHeight - 100;
+            const activeIndex = Math.round(scrollPos / cardHeight);
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === activeIndex);
+            });
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) e.target.classList.add('in-view');
+            });
+        }, { root: container, threshold: 0.3 });
+        document.querySelectorAll('.card').forEach(card => observer.observe(card));
+    </script>
+</body>
+</html>
