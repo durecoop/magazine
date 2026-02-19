@@ -295,7 +295,7 @@ function renderMessage(msg) {
 
   const senderTeam = msg.team || '';
   const badgeHtml = senderTeam ? `<span class="team-badge" style="background:${teamColor(senderTeam)}">${esc(senderTeam)}</span>` : '';
-  const senderLabel = isBot ? '십형호' : esc(msg.sender || '');
+  const senderLabel = isBot ? '클로이' : esc(msg.sender || '');
 
   const time = new Date(msg.timestamp).toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'});
   row.innerHTML = `
@@ -349,7 +349,7 @@ async function sendMessage() {
   autoResize(input);
 
   // Determine if this is a command or bot mention (show typing for those)
-  const isBotCall = /^[\/]/.test(text) || /^@(십형호|봇)/.test(text);
+  const isBotCall = /^[\/]/.test(text) || /^@(클로이|봇)/.test(text);
   if (isBotCall) showTyping();
 
   try {
