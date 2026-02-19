@@ -78,6 +78,13 @@
         .grain-sub a .name{font-size:13px;font-weight:600;color:#1a1a1a}
         .grain-sub a .price{font-size:14px;font-weight:700;color:#8B5E4B}
 
+        /* 나물세트 카드 */
+        .card-namulset{background:linear-gradient(160deg,#fff,#FAF8F6);padding:30px 16px;overflow:hidden;position:relative}
+        .card-namulset>*{position:relative;z-index:1}
+        .card-namulset::before{content:'';position:absolute;inset:0;background:url('bg-namul.svg') no-repeat center/cover;pointer-events:none}
+        .card-namulset .category-badge{display:inline-block;background:#8B5E4B;color:#fff;font-size:clamp(12px,3.5vw,14px);font-weight:700;padding:8px 20px;border-radius:20px;margin-bottom:16px}
+        .card-namulset h2{font-family:'Noto Serif KR',serif;font-size:clamp(20px,6vw,26px);font-weight:600;color:#1a1a1a;margin-bottom:20px}
+
         /* 나물 카드 */
         .card-namul{background:linear-gradient(160deg,#fff,#FAF8F6);padding:30px 16px}
         .card-namul .icon{font-size:48px;margin-bottom:12px}
@@ -198,6 +205,11 @@
         .card-grain.in-view .grain-main{animation:fadeInUp .7s .6s both}
         .card-grain.in-view .grain-sub a:nth-child(1){animation:fadeInUp .5s .9s both}
         .card-grain.in-view .grain-sub a:nth-child(2){animation:fadeInUp .5s 1.1s both}
+
+        /* 나물세트 */
+        .card-namulset.in-view .category-badge{animation:scaleIn .5s .2s both}
+        .card-namulset.in-view h2{animation:fadeInUp .6s .4s both}
+        .card-namulset.in-view .product-big{animation:fadeInUp .7s .6s both}
 
         /* 나물 */
         .card-namul.in-view .icon{animation:scaleIn .4s .1s both,float 3s 1.5s infinite}
@@ -330,7 +342,22 @@
             </div>
         </div>
 
-        <!-- 카드 6: 대보름 나물/재료 -->
+        <!-- 카드 6: 정월대보름 나물세트 -->
+        <div class="card card-namulset">
+            <span class="category-badge anim">🌿 대보름 나물 한 세트로 끝!</span>
+            <h2 class="anim">정월대보름 나물세트</h2>
+            <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=02&returnNo=56433&returnPlanNo=0" class="product-big">
+                <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56433C.jpg" alt="정월대보름 나물세트(6종/600g)">
+                <p class="name">정월대보름 나물세트</p>
+                <p class="desc">고사리, 도라지, 시래기 등 6종 나물 600g<br>불려서 바로 조리하면 대보름 나물 완성!</p>
+                <div class="price-wrap">
+                    <span class="price">27,500원</span>
+                </div>
+                <span class="save">6종 나물 한 번에!</span>
+            </a>
+        </div>
+
+        <!-- 카드 7: 대보름 나물/재료 -->
         <div class="card card-namul">
             <div class="icon">🌿</div>
             <h2>나물 반찬, 봄 향기</h2>
@@ -441,6 +468,7 @@
 
     <div class="indicator">
         <div class="dot active"></div>
+        <div class="dot"></div>
         <div class="dot"></div>
         <div class="dot"></div>
         <div class="dot"></div>
