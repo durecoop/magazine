@@ -101,6 +101,7 @@ pre{white-space:pre-wrap;font-family:inherit}
     <div class="header-sub" id="ddayText"></div>
   </div>
   <div class="header-right">
+    <span class="dday" id="onlineCount" style="background:rgba(255,255,255,.2);font-size:11px">👤 0</span>
     <span class="dday" id="ddayBadge"></span>
     <button class="btn-icon" onclick="openNotes()">📝</button>
     <button class="btn-icon" onclick="openSettings()">⚙️</button>
@@ -318,10 +319,22 @@ async function resetChat() {
   } catch { alert('리셋 실패 — 서버 연결을 확인해주세요'); }
 }
 
+async function sendHeartbeat() {
+  try {
+    const res = await fetch(`${API_URL}/api/heartbeat`, {
+      method: 'POST', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ room: ROOM, sender: user.sender })
+    });
+    const data = await res.json();
+    document.getElementById('onlineCount').textContent = `👤 ${data.count}`;
+  } catch {}
+}
+
 function startPolling() {
   fetchMessages();
+  sendHeartbeat();
   if (pollTimer) clearInterval(pollTimer);
-  pollTimer = setInterval(fetchMessages, 3000);
+  pollTimer = setInterval(() => { fetchMessages(); sendHeartbeat(); }, 3000);
 }
 
 // ═══════════════════════════════════════
