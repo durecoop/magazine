@@ -1,7 +1,7 @@
 {
-  "name": "두레생협 팀장방",
+  "name": "두레생협 사업본부 팀장방",
   "short_name": "팀장방",
-  "description": "두레생협 사업보고 팀장방 채팅",
+  "description": "두레생협 사업본부 팀장방",
   "start_url": "/magazine/report/",
   "scope": "/magazine/report/",
   "display": "standalone",
