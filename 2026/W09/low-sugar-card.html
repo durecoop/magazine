@@ -123,6 +123,21 @@
         .dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.3)}
         .dot.active{background:#fff;transform:scale(1.3)}
 
+        /* 배경 장식 */
+        .card-1{overflow:hidden}
+        .card-1>*{position:relative;z-index:1}
+        .card-1::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Ccircle cx='50' cy='50' r='40' fill='none' stroke='rgba(255,255,255,0.04)' stroke-width='1'/%3E%3Ccircle cx='150' cy='150' r='30' fill='none' stroke='rgba(255,255,255,0.03)' stroke-width='1'/%3E%3Cpath d='M100 30Q120 60 100 90Q80 60 100 30Z' fill='rgba(255,255,255,0.025)'/%3E%3C/svg%3E");background-size:200px;pointer-events:none}
+        .card-1::after{content:'';position:absolute;top:-20%;right:-15%;width:70%;height:70%;background:radial-gradient(circle,rgba(255,255,255,.12) 0%,transparent 60%);border-radius:50%;pointer-events:none}
+        .hero-deco{position:absolute;right:-5%;top:50%;transform:translateY(-50%);width:65%;max-width:280px;pointer-events:none;z-index:0}
+        .card-2{overflow:hidden}
+        .card-2::before{content:'';position:absolute;top:30px;right:20px;width:80px;height:130px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 130'%3E%3Cpath d='M40 5C55 15 58 35 48 50C43 40 38 35 40 5Z' fill='%2316a085' opacity='.1'/%3E%3Cpath d='M40 35C25 45 22 65 32 80C37 70 42 65 40 35Z' fill='%2316a085' opacity='.08'/%3E%3Cpath d='M40 65C55 75 58 95 48 110C43 100 38 95 40 65Z' fill='%2316a085' opacity='.06'/%3E%3Cline x1='40' y1='5' x2='40' y2='125' stroke='%2316a085' stroke-width='.8' opacity='.06'/%3E%3C/svg%3E") no-repeat center/contain;pointer-events:none}
+        .card-3{overflow:hidden}
+        .card-3>*{position:relative;z-index:1}
+        .card-3::after{content:'';position:absolute;bottom:-25%;right:-20%;width:65%;height:65%;background:radial-gradient(circle,rgba(255,255,255,.1) 0%,transparent 55%);border-radius:50%;pointer-events:none}
+        .card-cta{overflow:hidden}
+        .card-cta>*{position:relative;z-index:1}
+        .card-cta::before{content:'';position:absolute;top:-20%;left:50%;transform:translateX(-50%);width:120%;height:50%;background:radial-gradient(ellipse,rgba(255,255,255,.05) 0%,transparent 60%);pointer-events:none}
+
         @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
         @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
     </style>
@@ -146,6 +161,13 @@
     <div class="card-container" id="cardContainer">
         <!-- 카드 1: 메인 카피 -->
         <div class="card card-1">
+            <svg class="hero-deco" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
+                <path d="M180 40C220 70 230 140 200 200C185 170 170 140 155 110C140 140 125 170 110 200C80 140 90 70 130 40C145 60 160 70 180 40Z" fill="rgba(255,255,255,0.07)"/>
+                <path d="M220 220C245 240 250 280 235 310C225 295 215 280 205 265C195 280 185 295 175 310C160 280 165 240 190 220C200 230 210 235 220 220Z" fill="rgba(255,255,255,0.05)"/>
+                <circle cx="80" cy="320" r="45" fill="rgba(255,255,255,0.03)"/>
+                <circle cx="250" cy="350" r="30" fill="rgba(255,255,255,0.025)"/>
+                <path d="M155 110Q150 200 155 280" stroke="rgba(255,255,255,0.04)" fill="none" stroke-width="1.5"/>
+            </svg>
             <p class="slogan-sub">━ 생활의 발견 ━</p>
             <h1>가볍게,<br>건강하게</h1>
             <div class="slogan-line"></div>

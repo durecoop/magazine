@@ -127,6 +127,21 @@
         .dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.3)}
         .dot.active{background:#fff;transform:scale(1.3)}
 
+        /* 배경 장식 */
+        .card-1{overflow:hidden}
+        .card-1>*{position:relative;z-index:1}
+        .card-1::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Ccircle cx='50' cy='50' r='40' fill='none' stroke='rgba(255,255,255,0.04)' stroke-width='1'/%3E%3Ccircle cx='150' cy='150' r='30' fill='none' stroke='rgba(255,255,255,0.03)' stroke-width='1'/%3E%3Cellipse cx='120' cy='40' rx='14' ry='7' fill='rgba(255,255,255,0.025)' transform='rotate(-25 120 40)'/%3E%3Cellipse cx='130' cy='70' rx='14' ry='7' fill='rgba(255,255,255,0.02)' transform='rotate(25 130 70)'/%3E%3C/svg%3E");background-size:200px;pointer-events:none}
+        .card-1::after{content:'';position:absolute;top:-20%;right:-15%;width:70%;height:70%;background:radial-gradient(circle,rgba(255,255,255,.12) 0%,transparent 60%);border-radius:50%;pointer-events:none}
+        .hero-deco{position:absolute;right:-5%;top:50%;transform:translateY(-50%);width:65%;max-width:280px;pointer-events:none;z-index:0}
+        .card-2{overflow:hidden}
+        .card-2::before{content:'';position:absolute;top:30px;right:20px;width:80px;height:130px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 130'%3E%3Cellipse cx='40' cy='25' rx='20' ry='10' fill='%23e67e22' opacity='.08' transform='rotate(-20 40 25)'/%3E%3Cellipse cx='40' cy='55' rx='20' ry='10' fill='%23e67e22' opacity='.06' transform='rotate(20 40 55)'/%3E%3Cellipse cx='40' cy='85' rx='20' ry='10' fill='%23e67e22' opacity='.05' transform='rotate(-20 40 85)'/%3E%3Cline x1='40' y1='15' x2='40' y2='125' stroke='%23e67e22' stroke-width='.8' opacity='.06'/%3E%3C/svg%3E") no-repeat center/contain;pointer-events:none}
+        .card-3{overflow:hidden}
+        .card-3>*{position:relative;z-index:1}
+        .card-3::after{content:'';position:absolute;bottom:-25%;right:-20%;width:65%;height:65%;background:radial-gradient(circle,rgba(255,255,255,.1) 0%,transparent 55%);border-radius:50%;pointer-events:none}
+        .card-cta{overflow:hidden}
+        .card-cta>*{position:relative;z-index:1}
+        .card-cta::before{content:'';position:absolute;top:-20%;left:50%;transform:translateX(-50%);width:120%;height:50%;background:radial-gradient(ellipse,rgba(255,255,255,.05) 0%,transparent 60%);pointer-events:none}
+
         @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
         @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
     </style>
@@ -150,6 +165,17 @@
     <div class="card-container" id="cardContainer">
         <!-- 카드 1: 메인 카피 -->
         <div class="card card-1">
+            <svg class="hero-deco" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
+                <path d="M100 200Q110 160 160 155Q210 160 220 200Q210 260 160 275Q110 260 100 200Z" fill="rgba(255,255,255,0.06)"/>
+                <path d="M130 140Q135 115 130 95" stroke="rgba(255,255,255,0.05)" fill="none" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="M160 132Q165 107 160 87" stroke="rgba(255,255,255,0.05)" fill="none" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="M190 140Q195 115 190 95" stroke="rgba(255,255,255,0.05)" fill="none" stroke-width="2.5" stroke-linecap="round"/>
+                <ellipse cx="245" cy="60" rx="18" ry="8" fill="rgba(255,255,255,0.05)" transform="rotate(-25 245 60)"/>
+                <ellipse cx="235" cy="95" rx="18" ry="8" fill="rgba(255,255,255,0.04)" transform="rotate(25 235 95)"/>
+                <ellipse cx="245" cy="130" rx="18" ry="8" fill="rgba(255,255,255,0.035)" transform="rotate(-25 245 130)"/>
+                <path d="M243 45Q238 130 233 200" stroke="rgba(255,255,255,0.03)" fill="none" stroke-width="1.5"/>
+                <circle cx="60" cy="340" r="50" fill="rgba(255,255,255,0.03)"/>
+            </svg>
             <p class="slogan-sub">━ 생활의 발견 ━</p>
             <h1>밥상 리셋,<br>두레로</h1>
             <div class="slogan-line"></div>
