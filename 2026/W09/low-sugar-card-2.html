@@ -120,8 +120,11 @@
         .card-hotpack .hp-label{font-size:11px;letter-spacing:4px;color:rgba(255,255,255,.5);margin-bottom:12px}
         .card-hotpack h2{font-family:'Noto Serif KR',serif;font-size:clamp(22px,7vw,30px);font-weight:700;color:#fff;line-height:1.5;margin-bottom:8px}
         .card-hotpack .hp-sub{font-size:clamp(14px,4vw,16px);color:rgba(255,255,255,.65);margin-bottom:20px}
-        .card-hotpack .hp-imgs{display:flex;gap:10px;max-width:320px;width:100%;margin-bottom:20px}
-        .card-hotpack .hp-imgs img{flex:1;aspect-ratio:1;object-fit:contain;background:rgba(255,255,255,.1);border-radius:14px}
+        .card-hotpack .hp-imgs{display:flex;gap:12px;max-width:340px;width:100%;margin-bottom:20px}
+        .card-hotpack .hp-card{flex:1;background:#fff;border-radius:16px;padding:12px;box-shadow:0 4px 16px rgba(0,0,0,.1);text-align:center}
+        .card-hotpack .hp-card img{width:100%;aspect-ratio:1;object-fit:contain;border-radius:10px;background:#F5F5F5;margin-bottom:8px}
+        .card-hotpack .hp-card .hp-name{font-size:13px;font-weight:600;color:#1a1a1a;margin-bottom:4px}
+        .card-hotpack .hp-card .hp-off{font-size:12px;font-weight:900;color:#C75A3A}
         .card-hotpack .hp-price{font-size:clamp(14px,4vw,16px);color:rgba(255,255,255,.8);line-height:1.8;margin-bottom:20px}
         .card-hotpack .hp-price strong{color:#FFD7A0;font-weight:900;font-size:clamp(18px,5vw,22px)}
         .card-hotpack .hp-btn{display:inline-block;padding:14px 36px;background:#fff;color:#8B5E4B;font-size:clamp(16px,4.5vw,18px);font-weight:900;text-decoration:none;border-radius:30px;box-shadow:0 4px 16px rgba(0,0,0,.15)}
@@ -436,13 +439,17 @@
             <h2 class="anim">찜질팩 전품목<br>반값</h2>
             <p class="hp-sub anim">2026 공급종료 · 역시즌 50% 할인</p>
             <div class="hp-imgs anim">
-                <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/16540C.png" alt="사각찜질팩">
-                <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/16542C.png" alt="어깨찜질팩">
+                <div class="hp-card">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/16540C.png" alt="사각찜질팩">
+                    <p class="hp-name">사각찜질팩</p>
+                    <p class="hp-off">54,000 → 27,000원</p>
+                </div>
+                <div class="hp-card">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/16542C.png" alt="어깨찜질팩">
+                    <p class="hp-name">어깨찜질팩</p>
+                    <p class="hp-off">63,000 → 31,500원</p>
+                </div>
             </div>
-            <p class="hp-price anim">
-                사각 54,000 → <strong>27,000원</strong><br>
-                어깨 63,000 → <strong>31,500원</strong>
-            </p>
             <a href="https://ecoop.or.kr/DureShop/DureShop/main/subHome.do?msinTopIdx=4&returnIndex1=0&returnCategory2=99" class="hp-btn anim">찜질팩 보러가기 →</a>
         </div>
 
