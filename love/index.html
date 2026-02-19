@@ -115,6 +115,13 @@ pre{white-space:pre-wrap;font-family:inherit}
 .anniv-modal-btns{display:flex;gap:8px;margin-top:16px;justify-content:flex-end}
 .anniv-modal-btns button{padding:8px 16px;border:none;border-radius:8px;cursor:pointer;font-size:14px;font-weight:600}
 .anniv-modal-btns .btn-save{background:var(--primary);color:#fff}.anniv-modal-btns .btn-cancel{background:#eee;color:#333}
+/* Place cards */
+.place-card{background:var(--bubble-bot);border-radius:12px;padding:8px 12px;margin:4px 0;border-left:3px solid var(--primary)}
+.place-name{font-weight:700;font-size:13px;color:var(--primary-dark)}
+.place-addr{font-size:11px;color:var(--text-light)}
+.place-map-btn{display:inline-block;background:var(--primary);color:#fff;padding:3px 10px;border-radius:8px;font-size:11px;text-decoration:none;margin-top:4px}
+.note-created-link{display:inline-block;background:var(--bubble-bot);border-radius:8px;padding:4px 10px;margin-top:6px;font-size:12px;color:var(--primary-dark);cursor:pointer;border:1px solid var(--border)}
+.note-created-link:hover{background:var(--bubble-me)}
 </style>
 </head>
 <body>
@@ -307,6 +314,21 @@ function addBubble(msg) {
   html += `<pre>${esc(msg.text)}</pre>`;
   if (msg.fileName && msg.filePath) html += `<a class="file-link" href="${API_URL}/api/download/${encodeURIComponent(msg.filePath)}" target="_blank">📥 ${esc(msg.fileName)}</a>`;
   else if (msg.fileName) html += `<span style="font-size:12px;color:var(--accent)">📎 ${esc(msg.fileName)}</span>`;
+  // Place cards
+  if (msg.places && msg.places.length) {
+    html += '<div style="margin-top:6px">';
+    msg.places.forEach(p => {
+      const mapUrl = `https://map.kakao.com/link/search/${encodeURIComponent((p.name||'')+(p.address?' '+p.address:''))}`;
+      html += `<div class="place-card"><div class="place-name">📍 ${esc(p.name)}</div>`;
+      if (p.address) html += `<div class="place-addr">${esc(p.address)}</div>`;
+      html += `<a class="place-map-btn" href="${mapUrl}" target="_blank">🗺️ 지도보기</a></div>`;
+    });
+    html += '</div>';
+  }
+  // Note created link
+  if (msg.noteCreated) {
+    html += `<div class="note-created-link" onclick="openNotes();setTimeout(()=>openNoteDetail('${msg.noteCreated.id}'),300)">📝 메모에 저장됨 — ${esc(msg.noteCreated.title)} 보기</div>`;
+  }
   html += `<div class="time">${t}</div>`;
   // Heart reaction button
   if (msg.type !== 'bot') html += `<span class="heart-btn" onclick="toggleHeart(this,event)">♡</span>`;
