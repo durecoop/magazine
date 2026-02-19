@@ -3,6 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="팀장방">
+<meta name="theme-color" content="#2D5016">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
 <title>두레생협 팀장방</title>
 <style>
 :root{--bg:#F5F0E8;--card:#FFFFFF;--primary:#2D5016;--primary-light:#4a7a2e;--accent:#8B7355;--text:#333;--text-light:#666;--bubble-me:#DCF8C6;--bubble-other:#FFF;--bubble-bot:#E8F5E1;--border:#E0D8C8;--input-bg:#FFF;--header:#2D5016}
@@ -118,6 +124,7 @@ pre{white-space:pre-wrap;font-family:inherit}
   <h1>🌿 팀장방</h1>
   <div class="header-right">
     <span class="online-badge" id="onlineBadge">접속 1명</span>
+    <button class="btn-icon" id="pushBtn" onclick="togglePush()" title="알림">🔕</button>
     <button class="btn-icon" onclick="openSchedule()">📅</button>
     <button class="btn-icon" onclick="openNotes()">📝</button>
     <button class="btn-icon" onclick="openSettings()">⚙️</button>
@@ -529,6 +536,90 @@ async function deleteScheduleEvent(id) {
     await fetch(`${API_URL}/api/schedule/${id}?room=${ROOM}`, { method: 'DELETE' });
     fetchSchedule();
   } catch { alert('삭제 실패'); }
+}
+
+// ═══════════════════════════════════════
+// PWA + Push Notifications
+// ═══════════════════════════════════════
+let swReg = null;
+let pushSubscription = null;
+
+// Register service worker
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js').then(reg => {
+    swReg = reg;
+    console.log('SW registered');
+    checkPushStatus();
+  }).catch(err => console.log('SW error:', err));
+}
+
+async function checkPushStatus() {
+  if (!swReg || !('PushManager' in window)) return;
+  const sub = await swReg.pushManager.getSubscription();
+  pushSubscription = sub;
+  document.getElementById('pushBtn').textContent = sub ? '🔔' : '🔕';
+}
+
+async function togglePush() {
+  if (!swReg) { alert('서비스워커가 아직 준비되지 않았습니다'); return; }
+  if (!('PushManager' in window)) { alert('이 브라우저는 푸시 알림을 지원하지 않습니다'); return; }
+
+  if (pushSubscription) {
+    // Unsubscribe
+    try {
+      await fetch(`${API_URL}/api/push/unsubscribe`, {
+        method: 'POST', headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({ endpoint: pushSubscription.endpoint })
+      });
+      await pushSubscription.unsubscribe();
+      pushSubscription = null;
+      document.getElementById('pushBtn').textContent = '🔕';
+      addSystem('🔕 알림이 해제되었습니다');
+    } catch (e) { alert('알림 해제 실패: ' + e.message); }
+  } else {
+    // Subscribe
+    try {
+      const permission = await Notification.requestPermission();
+      if (permission !== 'granted') { alert('알림 권한이 거부되었습니다. 브라우저 설정에서 허용해주세요.'); return; }
+
+      // Get VAPID public key from server
+      const vapidRes = await fetch(`${API_URL}/api/vapid-public`);
+      const { publicKey } = await vapidRes.json();
+      const applicationServerKey = urlBase64ToUint8Array(publicKey);
+
+      const sub = await swReg.pushManager.subscribe({
+        userVisibleOnly: true,
+        applicationServerKey
+      });
+      pushSubscription = sub;
+
+      // Send to server
+      await fetch(`${API_URL}/api/push/subscribe`, {
+        method: 'POST', headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({ subscription: sub.toJSON(), room: ROOM, sender: user?.sender || '' })
+      });
+      document.getElementById('pushBtn').textContent = '🔔';
+      addSystem('🔔 알림이 설정되었습니다! 새 메시지가 오면 알려드릴게요.');
+    } catch (e) { alert('알림 설정 실패: ' + e.message); }
+  }
+}
+
+function urlBase64ToUint8Array(base64String) {
+  const padding = '='.repeat((4 - base64String.length % 4) % 4);
+  const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
+  const rawData = atob(base64);
+  const outputArray = new Uint8Array(rawData.length);
+  for (let i = 0; i < rawData.length; ++i) outputArray[i] = rawData.charCodeAt(i);
+  return outputArray;
+}
+
+// iOS install prompt
+if (window.matchMedia('(display-mode: browser)').matches && /iPhone|iPad/.test(navigator.userAgent)) {
+  setTimeout(() => {
+    if (!localStorage.getItem('pwa_install_dismissed')) {
+      addSystem('📱 홈 화면에 추가하면 앱처럼 사용할 수 있어요! Safari 공유 버튼 → "홈 화면에 추가"');
+    }
+  }, 3000);
 }
 </script>
 </body>
