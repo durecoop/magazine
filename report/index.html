@@ -3,262 +3,536 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>두레생협 사업보고 자료 제출</title>
+<title>두레생협 사업보고 채팅방</title>
 <style>
 :root {
-  --green: #2d6a4f;
-  --green-light: #40916c;
-  --green-pale: #d8f3dc;
-  --brown: #6b4226;
-  --brown-light: #a67c52;
-  --bg: #f5f1eb;
-  --white: #ffffff;
-  --gray: #e9ecef;
-  --text: #2b2b2b;
-  --text-light: #6c757d;
-  --shadow: 0 2px 12px rgba(0,0,0,0.08);
+  --green: #2D5016;
+  --green-light: #4a7a2e;
+  --beige: #F5F0E8;
+  --beige-dark: #E8DFD0;
+  --brown: #5C3D2E;
+  --brown-light: #8B6914;
+  --white: #FFFFFF;
+  --gray: #999;
+  --bubble-mine: #DCF8C6;
+  --bubble-other: #FFFFFF;
+  --bubble-bot: #FFF9E6;
 }
-* { margin:0; padding:0; box-sizing:border-box; }
-body { font-family: -apple-system, 'Pretendard', sans-serif; background: var(--bg); color: var(--text); height: 100dvh; display:flex; flex-direction:column; }
-/* TEAM SELECT */
-#team-select { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:24px; }
-#team-select h1 { font-size:1.5rem; color:var(--green); margin-bottom:6px; }
-#team-select p { color:var(--text-light); margin-bottom:28px; font-size:0.9rem; }
-.team-grid { display:grid; grid-template-columns: 1fr 1fr; gap:12px; width:100%; max-width:360px; }
-.team-btn { padding:18px 12px; border:none; border-radius:14px; background:var(--white); box-shadow:var(--shadow); cursor:pointer; transition:all .2s; text-align:center; }
-.team-btn:active { transform:scale(0.96); }
-.team-btn .name { font-size:1.05rem; font-weight:700; color:var(--green); }
-.team-btn .person { font-size:0.8rem; color:var(--text-light); margin-top:4px; }
-.team-btn:hover { background:var(--green-pale); }
-/* CHAT */
-#chat-screen { flex:1; display:none; flex-direction:column; height:100dvh; }
-.chat-header { background:var(--green); color:#fff; padding:14px 16px; display:flex; align-items:center; gap:12px; flex-shrink:0; }
-.chat-header .back { background:none; border:none; color:#fff; font-size:1.3rem; cursor:pointer; }
-.chat-header .title { font-weight:700; font-size:1.05rem; }
-.chat-header .sub { font-size:0.75rem; opacity:0.8; }
-.chat-messages { flex:1; overflow-y:auto; padding:16px; display:flex; flex-direction:column; gap:10px; background:var(--bg); }
-.msg { max-width:82%; padding:12px 16px; border-radius:18px; font-size:0.92rem; line-height:1.5; word-break:break-word; }
-.msg.bot { align-self:flex-start; background:var(--white); box-shadow:0 1px 4px rgba(0,0,0,0.06); border-bottom-left-radius:4px; }
-.msg.user { align-self:flex-end; background:var(--green); color:#fff; border-bottom-right-radius:4px; }
-.msg .time { font-size:0.65rem; opacity:0.6; margin-top:4px; }
-.msg .file-badge { display:inline-block; background:rgba(255,255,255,0.2); padding:2px 8px; border-radius:8px; font-size:0.75rem; margin-top:4px; }
-.msg.bot .file-badge { background:var(--green-pale); color:var(--green); }
-/* INPUT */
-.chat-input { flex-shrink:0; background:var(--white); border-top:1px solid var(--gray); padding:10px 12px; display:flex; gap:8px; align-items:flex-end; }
-.chat-input textarea { flex:1; border:1px solid var(--gray); border-radius:20px; padding:10px 14px; font-size:0.92rem; resize:none; max-height:120px; font-family:inherit; outline:none; }
-.chat-input textarea:focus { border-color:var(--green-light); }
-.chat-input .btn-icon { width:40px; height:40px; border:none; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
-.btn-attach { background:var(--gray); color:var(--text-light); font-size:1.2rem; }
-.btn-send { background:var(--green); color:#fff; font-size:1.1rem; }
-.btn-send:disabled { opacity:0.4; }
-.file-preview { font-size:0.78rem; color:var(--green); padding:0 8px 4px; }
-.file-preview span { cursor:pointer; margin-left:6px; color:red; }
-/* HISTORY TOGGLE */
-.history-divider { text-align:center; font-size:0.75rem; color:var(--text-light); padding:8px; cursor:pointer; }
-.history-divider:hover { color:var(--green); }
-/* LOADING */
-.typing { display:flex; gap:4px; padding:12px 16px; align-self:flex-start; }
-.typing span { width:8px; height:8px; background:var(--green-light); border-radius:50%; animation:bounce .6s infinite alternate; }
-.typing span:nth-child(2) { animation-delay:.2s; }
-.typing span:nth-child(3) { animation-delay:.4s; }
-@keyframes bounce { to { opacity:.3; transform:translateY(-4px); } }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--beige); height: 100vh; height: 100dvh; overflow: hidden; }
+
+/* ===== Team Select Screen ===== */
+#teamSelect {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  height: 100vh; height: 100dvh; padding: 20px; background: linear-gradient(135deg, var(--green) 0%, var(--green-light) 100%);
+}
+#teamSelect h1 { color: var(--white); font-size: 24px; margin-bottom: 8px; }
+#teamSelect p { color: rgba(255,255,255,0.8); font-size: 14px; margin-bottom: 30px; }
+.team-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; max-width: 360px; }
+.team-btn {
+  background: var(--white); border: none; border-radius: 16px; padding: 18px 12px;
+  font-size: 15px; font-weight: 600; color: var(--green); cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.team-btn:active { transform: scale(0.96); }
+.team-btn .emoji { font-size: 28px; display: block; margin-bottom: 6px; }
+.team-btn .name { font-size: 12px; color: var(--gray); margin-top: 2px; }
+
+/* ===== Chat Screen ===== */
+#chatScreen { display: none; flex-direction: column; height: 100vh; height: 100dvh; }
+
+/* Header */
+.chat-header {
+  background: var(--green); color: var(--white); padding: 12px 16px;
+  display: flex; align-items: center; gap: 12px; flex-shrink: 0;
+}
+.chat-header .back { background: none; border: none; color: var(--white); font-size: 22px; cursor: pointer; padding: 4px; }
+.chat-header .title { flex: 1; }
+.chat-header .title h2 { font-size: 16px; font-weight: 600; }
+.chat-header .title span { font-size: 11px; opacity: 0.8; }
+
+/* Status Bar */
+.status-bar {
+  background: var(--beige-dark); padding: 10px 16px; flex-shrink: 0;
+  display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--brown);
+}
+.status-dots { display: flex; gap: 4px; }
+.status-dot {
+  width: 22px; height: 22px; border-radius: 50%; background: #ccc;
+  display: flex; align-items: center; justify-content: center; font-size: 10px; color: var(--white); font-weight: 700;
+  transition: background 0.3s;
+}
+.status-dot.done { background: var(--green); }
+.status-text { margin-left: auto; font-weight: 600; }
+
+/* Messages */
+.messages {
+  flex: 1; overflow-y: auto; padding: 12px 16px; display: flex; flex-direction: column; gap: 6px;
+  background: var(--beige); -webkit-overflow-scrolling: touch;
+}
+.msg-group { display: flex; flex-direction: column; gap: 2px; margin-bottom: 4px; }
+.msg-sender { font-size: 12px; font-weight: 600; color: var(--brown); margin-left: 4px; margin-bottom: 2px; }
+.msg-row { display: flex; align-items: flex-end; gap: 6px; }
+.msg-row.mine { flex-direction: row-reverse; }
+.msg-bubble {
+  max-width: 75%; padding: 10px 14px; border-radius: 18px; font-size: 14px; line-height: 1.5;
+  word-break: break-word; position: relative;
+}
+.msg-row:not(.mine):not(.bot) .msg-bubble { background: var(--bubble-other); border-top-left-radius: 4px; box-shadow: 0 1px 2px rgba(0,0,0,0.06); }
+.msg-row.mine .msg-bubble { background: var(--bubble-mine); border-top-right-radius: 4px; }
+.msg-row.bot .msg-bubble { background: var(--bubble-bot); border-top-left-radius: 4px; border: 1px solid #F0E6C8; }
+.msg-time { font-size: 10px; color: var(--gray); white-space: nowrap; flex-shrink: 0; }
+.msg-file { display: flex; align-items: center; gap: 6px; padding: 6px 0 2px; font-size: 13px; color: var(--green); }
+.msg-file a { color: var(--green); text-decoration: underline; }
+.msg-system {
+  text-align: center; font-size: 12px; color: var(--gray); background: rgba(0,0,0,0.04);
+  padding: 4px 12px; border-radius: 12px; align-self: center; margin: 6px 0;
+}
+.status-table { width: 100%; font-size: 13px; border-collapse: collapse; margin-top: 6px; }
+.status-table td { padding: 3px 8px; }
+.status-table .check { color: var(--green); font-weight: bold; }
+.status-table .pending { color: var(--gray); }
+
+/* Input */
+.chat-input {
+  background: var(--white); border-top: 1px solid var(--beige-dark); padding: 8px 12px;
+  display: flex; align-items: flex-end; gap: 8px; flex-shrink: 0;
+}
+.chat-input .file-btn {
+  background: none; border: none; font-size: 22px; cursor: pointer; color: var(--gray); padding: 6px;
+}
+.chat-input textarea {
+  flex: 1; border: 1px solid #ddd; border-radius: 20px; padding: 10px 14px; font-size: 14px;
+  resize: none; max-height: 100px; min-height: 40px; outline: none; font-family: inherit;
+  line-height: 1.4;
+}
+.chat-input textarea:focus { border-color: var(--green); }
+.chat-input .send-btn {
+  background: var(--green); border: none; color: var(--white); width: 40px; height: 40px;
+  border-radius: 50%; font-size: 18px; cursor: pointer; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.chat-input .send-btn:disabled { background: #ccc; }
+.file-preview {
+  background: var(--beige); padding: 6px 12px; font-size: 12px; color: var(--brown);
+  display: none; align-items: center; gap: 8px; flex-shrink: 0;
+}
+.file-preview .remove { cursor: pointer; color: red; font-weight: bold; }
 </style>
 </head>
 <body>
 
-<!-- TEAM SELECT -->
-<div id="team-select">
+<!-- ===== Team Selection ===== -->
+<div id="teamSelect">
   <h1>🌿 두레생협</h1>
-  <p>사업보고 자료 제출</p>
+  <p>사업보고 자료 제출 채팅방</p>
   <div class="team-grid">
-    <button class="team-btn" onclick="selectTeam('team01','축수산팀','상영')"><div class="name">🥩 축수산팀</div><div class="person">상영</div></button>
-    <button class="team-btn" onclick="selectTeam('team02','농산팀','정현')"><div class="name">🥬 농산팀</div><div class="person">정현</div></button>
-    <button class="team-btn" onclick="selectTeam('team03','가공팀','기현')"><div class="name">🫙 가공팀</div><div class="person">기현</div></button>
-    <button class="team-btn" onclick="selectTeam('team04','매장사업팀','인서울')"><div class="name">🏪 매장사업팀</div><div class="person">인서울</div></button>
-    <button class="team-btn" onclick="selectTeam('team05','온라인팀','이지원')"><div class="name">💻 온라인팀</div><div class="person">이지원</div></button>
-    <button class="team-btn" onclick="selectTeam('team06','사업상무','100상무님')"><div class="name">📊 사업상무</div><div class="person">100상무님</div></button>
+    <button class="team-btn" onclick="joinChat('team01')"><span class="emoji">🐄</span>축수산팀<div class="name">상영</div></button>
+    <button class="team-btn" onclick="joinChat('team02')"><span class="emoji">🌾</span>농산팀<div class="name">정현</div></button>
+    <button class="team-btn" onclick="joinChat('team03')"><span class="emoji">🏭</span>가공팀<div class="name">기현</div></button>
+    <button class="team-btn" onclick="joinChat('team04')"><span class="emoji">🏪</span>매장사업팀<div class="name">인서울</div></button>
+    <button class="team-btn" onclick="joinChat('team05')"><span class="emoji">💻</span>온라인팀<div class="name">이지원</div></button>
+    <button class="team-btn" onclick="joinChat('team06')"><span class="emoji">📊</span>사업상무<div class="name">100상무님</div></button>
   </div>
 </div>
 
-<!-- CHAT -->
-<div id="chat-screen">
+<!-- ===== Chat Room ===== -->
+<div id="chatScreen">
   <div class="chat-header">
-    <button class="back" onclick="goBack()">←</button>
-    <div>
-      <div class="title" id="chat-title"></div>
-      <div class="sub">사업보고 자료 제출</div>
+    <button class="back" onclick="leaveChat()">←</button>
+    <div class="title">
+      <h2>🌿 사업보고 채팅방</h2>
+      <span id="headerSub">참여자 0명</span>
     </div>
   </div>
-  <div class="chat-messages" id="messages"></div>
-  <div class="file-preview" id="file-preview" style="display:none"></div>
+  <div class="status-bar">
+    <span>제출 현황</span>
+    <div class="status-dots" id="statusDots"></div>
+    <span class="status-text" id="statusText">0/6</span>
+  </div>
+  <div class="messages" id="messages"></div>
+  <div class="file-preview" id="filePreview">
+    📎 <span id="fileName"></span> <span class="remove" onclick="removeFile()">✕</span>
+  </div>
   <div class="chat-input">
-    <input type="file" id="file-input" style="display:none" multiple onchange="onFileSelect()">
-    <button class="btn-icon btn-attach" onclick="document.getElementById('file-input').click()">📎</button>
-    <textarea id="text-input" rows="1" placeholder="자료 내용을 입력하세요..." oninput="autoGrow(this);toggleSend()"></textarea>
-    <button class="btn-icon btn-send" id="btn-send" disabled onclick="sendMessage()">➤</button>
+    <button class="file-btn" onclick="document.getElementById('fileInput').click()">📎</button>
+    <input type="file" id="fileInput" style="display:none" onchange="handleFile(this)">
+    <textarea id="msgInput" rows="1" placeholder="메시지를 입력하세요..." onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
+    <button class="send-btn" id="sendBtn" onclick="sendMessage()">➤</button>
   </div>
 </div>
 
 <script>
-// === CONFIG ===
-const APPS_SCRIPT_URL = '%%APPS_SCRIPT_URL%%'; // 배포 후 교체
+// ===== Firebase Config (나중에 연결) =====
+const FIREBASE_CONFIG = {
+  apiKey: "",
+  authDomain: "",
+  databaseURL: "",
+  projectId: "",
+  storageBucket: "",
+  messagingSenderId: "",
+  appId: ""
+};
+const USE_FIREBASE = FIREBASE_CONFIG.apiKey !== "";
 
-let currentTeam = {};
-let selectedFiles = [];
-const STORAGE_KEY = 'dure_report_history';
+// ===== Google Apps Script URL =====
+const GAS_URL = ""; // 배포 후 URL 입력
 
-function getHistory() {
-  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch { return {}; }
-}
-function saveToHistory(teamCode, entry) {
-  const h = getHistory();
-  if (!h[teamCode]) h[teamCode] = [];
-  h[teamCode].push(entry);
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(h));
-}
+// ===== Teams =====
+const TEAMS = {
+  team01: { name: '축수산팀', person: '상영', emoji: '🐄' },
+  team02: { name: '농산팀', person: '정현', emoji: '🌾' },
+  team03: { name: '가공팀', person: '기현', emoji: '🏭' },
+  team04: { name: '매장사업팀', person: '인서울', emoji: '🏪' },
+  team05: { name: '온라인팀', person: '이지원', emoji: '💻' },
+  team06: { name: '사업상무', person: '100상무님', emoji: '📊' }
+};
 
-function selectTeam(code, name, person) {
-  currentTeam = { code, name, person };
-  document.getElementById('chat-title').textContent = `${name} — ${person}`;
-  document.getElementById('team-select').style.display = 'none';
-  const cs = document.getElementById('chat-screen');
-  cs.style.display = 'flex';
-  renderChat();
-}
+let currentUser = null;
+let pendingFile = null;
+let submittedTeams = new Set();
+let db = null; // Firebase ref
+let messagesRef = null;
 
-function goBack() {
-  document.getElementById('chat-screen').style.display = 'none';
-  document.getElementById('team-select').style.display = 'flex';
-  selectedFiles = [];
-  document.getElementById('file-input').value = '';
-  document.getElementById('file-preview').style.display = 'none';
-}
-
-function renderChat() {
-  const box = document.getElementById('messages');
-  box.innerHTML = '';
-  addBotMsg('안녕하세요! 📋\n사업보고에 필요한 자료를 보내주세요.\n텍스트 입력과 파일 첨부가 가능합니다.');
-  const history = (getHistory()[currentTeam.code] || []);
-  if (history.length) {
-    const div = document.createElement('div');
-    div.className = 'history-divider';
-    div.textContent = `📜 이전 제출 내역 ${history.length}건 보기`;
-    div.onclick = () => { showHistory(history, div); };
-    box.appendChild(div);
-  }
-  scrollBottom();
-}
-
-function showHistory(list, divEl) {
-  divEl.style.display = 'none';
-  const box = document.getElementById('messages');
-  list.forEach(e => {
-    const m = document.createElement('div');
-    m.className = 'msg user';
-    let t = e.text || '';
-    if (e.files) t += `\n📎 파일 ${e.files}개`;
-    m.innerHTML = esc(t) + `<div class="time">${e.date}</div>`;
-    box.insertBefore(m, divEl.nextSibling);
-    const r = document.createElement('div');
-    r.className = 'msg bot';
-    r.textContent = '✅ 접수 완료';
-    box.insertBefore(r, m.nextSibling);
-  });
-  scrollBottom();
-}
-
-function addBotMsg(text) {
-  const box = document.getElementById('messages');
-  const m = document.createElement('div');
-  m.className = 'msg bot';
-  m.innerHTML = esc(text);
-  box.appendChild(m);
-  scrollBottom();
-}
-function addUserMsg(text, fileCount) {
-  const box = document.getElementById('messages');
-  const m = document.createElement('div');
-  m.className = 'msg user';
-  let html = esc(text);
-  if (fileCount) html += `<div class="file-badge">📎 파일 ${fileCount}개 첨부</div>`;
-  const now = new Date();
-  html += `<div class="time">${now.getHours()}:${String(now.getMinutes()).padStart(2,'0')}</div>`;
-  m.innerHTML = html;
-  box.appendChild(m);
-  scrollBottom();
-}
-function addTyping() {
-  const box = document.getElementById('messages');
-  const d = document.createElement('div');
-  d.className = 'typing';
-  d.id = 'typing';
-  d.innerHTML = '<span></span><span></span><span></span>';
-  box.appendChild(d);
-  scrollBottom();
-}
-function removeTyping() { document.getElementById('typing')?.remove(); }
-
-function esc(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>'); }
-function scrollBottom() { const b=document.getElementById('messages'); setTimeout(()=>b.scrollTop=b.scrollHeight,50); }
-function autoGrow(el) { el.style.height='auto'; el.style.height=el.scrollHeight+'px'; }
-function toggleSend() { document.getElementById('btn-send').disabled = !(document.getElementById('text-input').value.trim() || selectedFiles.length); }
-
-function onFileSelect() {
-  const fi = document.getElementById('file-input');
-  selectedFiles = [...fi.files];
-  const fp = document.getElementById('file-preview');
-  if (selectedFiles.length) {
-    fp.style.display = 'block';
-    fp.innerHTML = selectedFiles.map(f=>f.name).join(', ') + ' <span onclick="clearFiles()">✕</span>';
-  } else { fp.style.display='none'; }
-  toggleSend();
-}
-function clearFiles() {
-  selectedFiles = [];
-  document.getElementById('file-input').value = '';
-  document.getElementById('file-preview').style.display = 'none';
-  toggleSend();
-}
-
-async function sendMessage() {
-  const text = document.getElementById('text-input').value.trim();
-  if (!text && !selectedFiles.length) return;
-  addUserMsg(text || '(파일 첨부)', selectedFiles.length);
-  const fileCount = selectedFiles.length;
-  document.getElementById('text-input').value = '';
-  autoGrow(document.getElementById('text-input'));
-  document.getElementById('file-preview').style.display = 'none';
-  toggleSend();
-  addTyping();
-
+// ===== Firebase Init =====
+function initFirebase() {
+  if (!USE_FIREBASE) return false;
   try {
-    const fd = new FormData();
-    fd.append('teamCode', currentTeam.code);
-    fd.append('teamName', currentTeam.name);
-    fd.append('person', currentTeam.person);
-    fd.append('text', text);
-    selectedFiles.forEach(f => fd.append('file', f));
-
-    const res = await fetch(APPS_SCRIPT_URL, { method:'POST', body: fd });
-    removeTyping();
-    if (res.ok) {
-      addBotMsg('✅ 접수 완료!\n자료가 정상적으로 제출되었습니다.');
-      saveToHistory(currentTeam.code, { text, files: fileCount, date: new Date().toLocaleString('ko-KR') });
-    } else {
-      addBotMsg('⚠️ 전송 중 오류가 발생했습니다.\n다시 시도해주세요.');
-    }
-  } catch(e) {
-    removeTyping();
-    addBotMsg('⚠️ 네트워크 오류입니다.\n인터넷 연결을 확인해주세요.');
-  }
-  selectedFiles = [];
-  document.getElementById('file-input').value = '';
+    firebase.initializeApp(FIREBASE_CONFIG);
+    db = firebase.database();
+    messagesRef = db.ref('chatroom/messages');
+    return true;
+  } catch(e) { console.warn('Firebase init failed, using local mode', e); return false; }
 }
 
-// Enter to send
-document.getElementById('text-input').addEventListener('keydown', e => {
+// ===== Local Storage Fallback =====
+const LS_KEY = 'dure_chat_messages';
+const LS_SUBMIT_KEY = 'dure_submitted';
+
+function lsGetMessages() {
+  try { return JSON.parse(localStorage.getItem(LS_KEY) || '[]'); } catch { return []; }
+}
+function lsSaveMessage(msg) {
+  const msgs = lsGetMessages();
+  msgs.push(msg);
+  localStorage.setItem(LS_KEY, JSON.stringify(msgs));
+}
+function lsGetSubmitted() {
+  try { return new Set(JSON.parse(localStorage.getItem(LS_SUBMIT_KEY) || '[]')); } catch { return new Set(); }
+}
+function lsSaveSubmitted(set) {
+  localStorage.setItem(LS_SUBMIT_KEY, JSON.stringify([...set]));
+}
+
+// ===== Polling for local mode =====
+let lastMsgCount = 0;
+let pollTimer = null;
+
+function startLocalPoll() {
+  pollTimer = setInterval(() => {
+    const msgs = lsGetMessages();
+    if (msgs.length > lastMsgCount) {
+      for (let i = lastMsgCount; i < msgs.length; i++) renderMessage(msgs[i]);
+      lastMsgCount = msgs.length;
+    }
+    // Sync submitted
+    submittedTeams = lsGetSubmitted();
+    updateStatusBar();
+  }, 1000);
+}
+
+// ===== Join Chat =====
+function joinChat(teamCode) {
+  const team = TEAMS[teamCode];
+  currentUser = { code: teamCode, name: team.person, teamName: team.name, emoji: team.emoji, nick: `${team.person}(${team.name})` };
+  document.getElementById('teamSelect').style.display = 'none';
+  document.getElementById('chatScreen').style.display = 'flex';
+
+  submittedTeams = lsGetSubmitted();
+  updateStatusBar();
+
+  if (USE_FIREBASE && initFirebase()) {
+    // Load existing + listen
+    messagesRef.on('child_added', snap => {
+      const msg = snap.val();
+      renderMessage(msg);
+      if (msg.isSubmission && msg.teamCode) {
+        submittedTeams.add(msg.teamCode);
+        lsSaveSubmitted(submittedTeams);
+        updateStatusBar();
+      }
+    });
+    // Load submitted state
+    db.ref('chatroom/submitted').on('value', snap => {
+      const val = snap.val();
+      if (val) { submittedTeams = new Set(Object.keys(val)); updateStatusBar(); }
+    });
+  } else {
+    // Local mode: render existing
+    const msgs = lsGetMessages();
+    msgs.forEach(m => renderMessage(m));
+    lastMsgCount = msgs.length;
+    startLocalPoll();
+  }
+
+  // System + bot welcome
+  addSystemMessage(`${currentUser.nick}님이 입장했습니다.`);
+  setTimeout(() => {
+    addBotMessage(`안녕하세요 ${currentUser.name}님! 사업보고 자료를 보내주세요. 📋\n\n텍스트나 파일을 보내시면 접수됩니다.\n"/현황" 을 입력하면 제출 현황을 볼 수 있어요.`);
+  }, 500);
+
+  updateHeaderSub();
+  document.getElementById('msgInput').focus();
+}
+
+function leaveChat() {
+  if (pollTimer) clearInterval(pollTimer);
+  if (messagesRef) messagesRef.off();
+  document.getElementById('chatScreen').style.display = 'none';
+  document.getElementById('teamSelect').style.display = 'flex';
+  document.getElementById('messages').innerHTML = '';
+  currentUser = null;
+  lastMsgCount = 0;
+}
+
+// ===== Render =====
+function renderMessage(msg) {
+  const container = document.getElementById('messages');
+  if (msg.type === 'system') {
+    const div = document.createElement('div');
+    div.className = 'msg-system';
+    div.textContent = msg.text;
+    container.appendChild(div);
+  } else {
+    const isMine = msg.sender === currentUser?.nick;
+    const isBot = msg.sender === '십형호 🧠';
+    const group = document.createElement('div');
+    group.className = 'msg-group';
+
+    if (!isMine) {
+      const senderEl = document.createElement('div');
+      senderEl.className = 'msg-sender';
+      senderEl.textContent = msg.sender;
+      group.appendChild(senderEl);
+    }
+
+    const row = document.createElement('div');
+    row.className = 'msg-row' + (isMine ? ' mine' : '') + (isBot ? ' bot' : '');
+
+    const bubble = document.createElement('div');
+    bubble.className = 'msg-bubble';
+    bubble.innerHTML = formatText(msg.text || '');
+
+    if (msg.fileName) {
+      const fileDiv = document.createElement('div');
+      fileDiv.className = 'msg-file';
+      if (msg.fileData) {
+        const a = document.createElement('a');
+        a.href = msg.fileData;
+        a.download = msg.fileName;
+        a.textContent = '📄 ' + msg.fileName;
+        fileDiv.appendChild(a);
+      } else {
+        fileDiv.textContent = '📄 ' + msg.fileName;
+      }
+      bubble.appendChild(fileDiv);
+    }
+
+    const time = document.createElement('span');
+    time.className = 'msg-time';
+    time.textContent = formatTime(msg.ts);
+
+    row.appendChild(bubble);
+    row.appendChild(time);
+    group.appendChild(row);
+    container.appendChild(group);
+  }
+  container.scrollTop = container.scrollHeight;
+}
+
+function formatText(text) {
+  // Simple: escape HTML, convert newlines, render status table
+  text = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  if (text.includes('──────')) {
+    // Status table rendering
+    return text.replace(/\n/g, '<br>');
+  }
+  return text.replace(/\n/g, '<br>');
+}
+
+function formatTime(ts) {
+  if (!ts) return '';
+  const d = new Date(ts);
+  const h = d.getHours(); const m = d.getMinutes();
+  const ampm = h < 12 ? '오전' : '오후';
+  return `${ampm} ${h % 12 || 12}:${m.toString().padStart(2, '0')}`;
+}
+
+// ===== Send Message =====
+function sendMessage() {
+  const input = document.getElementById('msgInput');
+  const text = input.value.trim();
+  if (!text && !pendingFile) return;
+
+  const msg = {
+    sender: currentUser.nick,
+    teamCode: currentUser.code,
+    text: text,
+    ts: Date.now(),
+    type: 'user'
+  };
+
+  const isSubmission = text.length > 0 || pendingFile;
+
+  if (pendingFile) {
+    msg.fileName = pendingFile.name;
+    msg.fileData = pendingFile.data;
+    msg.isSubmission = true;
+    removeFile();
+  }
+
+  // Check commands
+  if (text === '/현황') {
+    // Don't save as submission
+    pushMessage(msg);
+    input.value = '';
+    autoResize(input);
+    setTimeout(() => showStatusReport(), 300);
+    return;
+  }
+
+  if (isSubmission && text !== '') {
+    msg.isSubmission = true;
+  }
+
+  pushMessage(msg);
+  input.value = '';
+  autoResize(input);
+
+  // Bot response for submission
+  if (msg.isSubmission) {
+    submittedTeams.add(currentUser.code);
+    lsSaveSubmitted(submittedTeams);
+    if (USE_FIREBASE && db) {
+      const obj = {}; obj[currentUser.code] = true;
+      db.ref('chatroom/submitted').update(obj);
+    }
+    updateStatusBar();
+    sendToGAS(msg);
+
+    const count = submittedTeams.size;
+    setTimeout(() => {
+      addBotMessage(`✅ ${currentUser.teamName} 자료 접수 완료! (${count}/6)`);
+      if (count >= 6) {
+        setTimeout(() => {
+          addBotMessage(`🎉 전체 접수 완료! 취합 보고서를 준비합니다.\n모든 팀 수고하셨습니다! 👏`);
+          notifyComplete();
+        }, 1000);
+      }
+    }, 500);
+  }
+}
+
+function pushMessage(msg) {
+  if (USE_FIREBASE && messagesRef) {
+    messagesRef.push(msg);
+  } else {
+    lsSaveMessage(msg);
+    renderMessage(msg);
+    lastMsgCount = lsGetMessages().length;
+  }
+}
+
+function addBotMessage(text) {
+  const msg = { sender: '십형호 🧠', text, ts: Date.now(), type: 'bot' };
+  pushMessage(msg);
+}
+
+function addSystemMessage(text) {
+  const msg = { type: 'system', text, ts: Date.now() };
+  pushMessage(msg);
+}
+
+// ===== Status =====
+function updateStatusBar() {
+  const dots = document.getElementById('statusDots');
+  dots.innerHTML = '';
+  Object.entries(TEAMS).forEach(([code, team]) => {
+    const dot = document.createElement('span');
+    dot.className = 'status-dot' + (submittedTeams.has(code) ? ' done' : '');
+    dot.textContent = team.emoji;
+    dot.title = team.name;
+    dots.appendChild(dot);
+  });
+  document.getElementById('statusText').textContent = `${submittedTeams.size}/6`;
+}
+
+function showStatusReport() {
+  let lines = ['📋 제출 현황 리포트', '──────────────'];
+  Object.entries(TEAMS).forEach(([code, team]) => {
+    const done = submittedTeams.has(code);
+    lines.push(`${done ? '✅' : '⬜'} ${team.emoji} ${team.name} (${team.person}) ${done ? '— 제출완료' : '— 미제출'}`);
+  });
+  lines.push('──────────────');
+  lines.push(`총 ${submittedTeams.size}/6팀 제출 완료`);
+  addBotMessage(lines.join('\n'));
+}
+
+function updateHeaderSub() {
+  document.getElementById('headerSub').textContent = `참여 중: ${currentUser.nick}`;
+}
+
+// ===== File Handling =====
+function handleFile(input) {
+  const file = input.files[0];
+  if (!file) return;
+  if (file.size > 5 * 1024 * 1024) { alert('5MB 이하 파일만 첨부 가능합니다.'); return; }
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    pendingFile = { name: file.name, data: e.target.result };
+    document.getElementById('filePreview').style.display = 'flex';
+    document.getElementById('fileName').textContent = file.name;
+  };
+  reader.readAsDataURL(file);
+  input.value = '';
+}
+
+function removeFile() {
+  pendingFile = null;
+  document.getElementById('filePreview').style.display = 'none';
+}
+
+// ===== Input Helpers =====
+function handleKey(e) {
   if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
-});
+}
+function autoResize(el) {
+  el.style.height = 'auto';
+  el.style.height = Math.min(el.scrollHeight, 100) + 'px';
+}
+
+// ===== Google Apps Script =====
+function sendToGAS(msg) {
+  if (!GAS_URL) return;
+  const params = new URLSearchParams({
+    teamCode: msg.teamCode,
+    teamName: currentUser.teamName,
+    person: currentUser.name,
+    text: msg.text || '',
+    fileName: msg.fileName || ''
+  });
+  fetch(GAS_URL + '?' + params.toString(), { method: 'POST', mode: 'no-cors' }).catch(() => {});
+}
+
+function notifyComplete() {
+  if (!GAS_URL) return;
+  fetch(GAS_URL + '?action=notifyComplete', { method: 'POST', mode: 'no-cors' }).catch(() => {});
+}
 </script>
+
+<!-- Firebase SDK (uncomment when ready) -->
+<!-- <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script> -->
+<!-- <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script> -->
+
 </body>
 </html>
