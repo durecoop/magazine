@@ -300,7 +300,7 @@ function addBubble(msg) {
   let html = '';
   if (!isMe && msg.type !== 'bot') html += `<div class="sender">${esc(msg.sender)}${msg.team ? ' · ' + msg.team : ''}</div>`;
   if (msg.type === 'bot') html += `<div class="sender">클로이 🤖</div>`;
-  html += `<pre>${esc(msg.text)}</pre>`;
+  html += `<pre>${linkify(esc(msg.text))}</pre>`;
   if (msg.fileName && msg.filePath) html += `<a class="file-link" href="${API_URL}/api/download/${encodeURIComponent(msg.filePath)}" target="_blank">📥 ${esc(msg.fileName)}</a>`;
   else if (msg.fileName) html += `<span style="font-size:12px;color:var(--accent)">📎 ${esc(msg.fileName)}</span>`;
   html += `<div class="time">${t}</div>`;
@@ -318,6 +318,7 @@ function addSystem(text) {
 
 function scrollBottom() { requestAnimationFrame(() => msgEl.scrollTop = msgEl.scrollHeight); }
 function esc(s) { return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function linkify(s) { return s.replace(/(https?:\/\/[^\s<>&]+)/g, '<a href="$1" target="_blank" style="color:#2D5016;text-decoration:underline;word-break:break-all">$1</a>'); }
 
 // API
 async function sendMsg() {
