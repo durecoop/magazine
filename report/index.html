@@ -78,6 +78,25 @@ pre{white-space:pre-wrap;font-family:inherit}
 .sched-dday.future{background:#E8F5E1;color:#2D5016}
 .sched-del{position:absolute;bottom:8px;right:10px;background:none;border:none;color:#ccc;font-size:14px;cursor:pointer}
 .sched-del:hover{color:#c00}
+/* Calendar View */
+.sched-tabs{display:flex;border-bottom:2px solid var(--border);margin-bottom:10px}
+.sched-tab{flex:1;padding:8px;text-align:center;font-size:13px;font-weight:600;cursor:pointer;color:var(--text-light);border-bottom:2px solid transparent;margin-bottom:-2px;background:none;border-top:none;border-left:none;border-right:none}
+.sched-tab.active{color:var(--primary);border-bottom-color:var(--primary)}
+.cal-header{display:flex;align-items:center;justify-content:space-between;padding:4px 0 8px}
+.cal-header button{background:none;border:none;font-size:18px;cursor:pointer;color:var(--primary);padding:4px 8px}
+.cal-header span{font-weight:700;font-size:15px;color:var(--text)}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+.cal-dow{text-align:center;font-size:11px;font-weight:600;color:var(--text-light);padding:4px 0}
+.cal-day{text-align:center;padding:6px 2px;border-radius:8px;font-size:13px;min-height:36px;cursor:default;position:relative}
+.cal-day.other{color:#ccc}
+.cal-day.today{background:#E8F5E1;font-weight:700}
+.cal-day.has-event{background:#FFF3CD;font-weight:700;cursor:pointer}
+.cal-day.has-event.today{background:linear-gradient(135deg,#E8F5E1,#FFF3CD)}
+.cal-day .cal-dot{position:absolute;bottom:2px;left:50%;transform:translateX(-50%);width:5px;height:5px;border-radius:50%;background:var(--primary)}
+.cal-events{margin-top:8px}
+.cal-event-item{background:#fff;border-radius:8px;padding:8px 10px;margin-bottom:4px;font-size:13px;border-left:3px solid var(--primary);box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.cal-event-item .cal-ev-title{font-weight:600}
+.cal-event-item .cal-ev-time{font-size:11px;color:var(--text-light)}
 /* Notes Panel */
 .notes-overlay{position:fixed;inset:0;background:rgba(0,0,0,.3);z-index:300;display:none;opacity:0;transition:opacity .3s}
 .notes-overlay.show{display:block;opacity:1}
@@ -205,9 +224,25 @@ pre{white-space:pre-wrap;font-family:inherit}
     <h2>📅 일정표</h2>
     <button class="btn-icon" onclick="closeSchedule()" style="color:#fff;font-size:20px">✕</button>
   </div>
-  <div class="notes-body" id="schedBody">
+  <div style="padding:8px 12px 0">
+    <div class="sched-tabs">
+      <button class="sched-tab active" id="tabList" onclick="switchSchedTab('list')">📋 목록</button>
+      <button class="sched-tab" id="tabCal" onclick="switchSchedTab('cal')">📅 달력</button>
+    </div>
+  </div>
+  <div class="notes-body" id="schedListView">
     <button class="note-add-btn" onclick="addScheduleEvent()">➕ 일정 추가</button>
     <div id="schedList"></div>
+  </div>
+  <div class="notes-body" id="schedCalView" style="display:none">
+    <div class="cal-header">
+      <button onclick="calNav(-1)">◀</button>
+      <span id="calMonthLabel"></span>
+      <button onclick="calNav(1)">▶</button>
+    </div>
+    <div class="cal-grid" id="calGrid"></div>
+    <div class="cal-events" id="calDayEvents"></div>
+    <button class="note-add-btn" onclick="addScheduleEvent()" style="margin-top:8px">➕ 일정 추가</button>
   </div>
 </div>
 
@@ -548,7 +583,101 @@ async function deleteScheduleEvent(id) {
   try {
     await fetch(`${API_URL}/api/schedule/${id}?room=${ROOM}`, { method: 'DELETE' });
     fetchSchedule();
+    renderCalendar();
   } catch { alert('삭제 실패'); }
+}
+
+// ═══════════════════════════════════════
+// Calendar View
+// ═══════════════════════════════════════
+let calYear, calMonth, calEvents = [];
+const DOW = ['일','월','화','수','목','금','토'];
+
+function switchSchedTab(tab) {
+  document.getElementById('tabList').classList.toggle('active', tab === 'list');
+  document.getElementById('tabCal').classList.toggle('active', tab === 'cal');
+  document.getElementById('schedListView').style.display = tab === 'list' ? '' : 'none';
+  document.getElementById('schedCalView').style.display = tab === 'cal' ? '' : 'none';
+  if (tab === 'cal') renderCalendar();
+}
+
+function calNav(dir) {
+  calMonth += dir;
+  if (calMonth > 11) { calMonth = 0; calYear++; }
+  if (calMonth < 0) { calMonth = 11; calYear--; }
+  renderCalendar();
+}
+
+async function renderCalendar() {
+  if (!calYear) { const now = new Date(); calYear = now.getFullYear(); calMonth = now.getMonth(); }
+  document.getElementById('calMonthLabel').textContent = `${calYear}년 ${calMonth + 1}월`;
+
+  // Fetch events
+  try {
+    const res = await fetch(`${API_URL}/api/schedule?room=${ROOM}`);
+    const data = await res.json();
+    calEvents = data.events || [];
+  } catch { calEvents = []; }
+
+  const grid = document.getElementById('calGrid');
+  const today = new Date(); today.setHours(0,0,0,0);
+  const firstDay = new Date(calYear, calMonth, 1);
+  const lastDay = new Date(calYear, calMonth + 1, 0);
+  const startDow = firstDay.getDay();
+
+  // Event dates set
+  const eventDates = {};
+  calEvents.forEach(ev => {
+    const d = ev.date; // YYYY-MM-DD
+    if (!eventDates[d]) eventDates[d] = [];
+    eventDates[d].push(ev);
+  });
+
+  let html = DOW.map(d => `<div class="cal-dow">${d}</div>`).join('');
+
+  // Previous month filler
+  const prevLast = new Date(calYear, calMonth, 0).getDate();
+  for (let i = startDow - 1; i >= 0; i--) {
+    html += `<div class="cal-day other">${prevLast - i}</div>`;
+  }
+
+  // Current month
+  for (let d = 1; d <= lastDay.getDate(); d++) {
+    const dateStr = `${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const isToday = today.getFullYear() === calYear && today.getMonth() === calMonth && today.getDate() === d;
+    const hasEv = eventDates[dateStr];
+    let cls = 'cal-day';
+    if (isToday) cls += ' today';
+    if (hasEv) cls += ' has-event';
+    const dot = hasEv ? '<span class="cal-dot"></span>' : '';
+    html += `<div class="${cls}" onclick="showCalDayEvents('${dateStr}')">${d}${dot}</div>`;
+  }
+
+  // Next month filler
+  const totalCells = startDow + lastDay.getDate();
+  const remaining = (7 - totalCells % 7) % 7;
+  for (let i = 1; i <= remaining; i++) {
+    html += `<div class="cal-day other">${i}</div>`;
+  }
+
+  grid.innerHTML = html;
+  document.getElementById('calDayEvents').innerHTML = '';
+}
+
+function showCalDayEvents(dateStr) {
+  const evts = calEvents.filter(ev => ev.date === dateStr);
+  const el = document.getElementById('calDayEvents');
+  const [,m,d] = dateStr.split('-');
+  if (!evts.length) {
+    el.innerHTML = `<div style="text-align:center;color:var(--text-light);font-size:13px;padding:12px">${parseInt(m)}/${parseInt(d)} - 일정 없음</div>`;
+    return;
+  }
+  el.innerHTML = `<div style="font-size:12px;font-weight:600;color:var(--primary);padding:4px 0">${parseInt(m)}월 ${parseInt(d)}일</div>` +
+    evts.map(ev => `<div class="cal-event-item">
+      <span class="cal-ev-title">${esc(ev.emoji)} ${esc(ev.title)}</span>
+      ${ev.time ? `<div class="cal-ev-time">🕐 ${ev.time}</div>` : ''}
+      ${ev.description ? `<div class="cal-ev-time">${esc(ev.description)}</div>` : ''}
+    </div>`).join('');
 }
 
 // ═══════════════════════════════════════
