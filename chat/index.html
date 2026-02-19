@@ -10,25 +10,26 @@
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--green:#2D5016;--beige:#F5F0E8;--brown:#8B7355;--light-green:#E8F5E1;--my-bubble:#D4EDC9;--bot-bubble:#F0F8E8;--other-bubble:#fff}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans-serif;background:var(--beige);height:100vh;height:100dvh;display:flex;flex-direction:column;overflow:hidden}
-#loginScreen{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;padding:20px;background:linear-gradient(135deg,#2D5016 0%,#4a7a2e 100%)}
-#loginScreen h1{color:#fff;font-size:1.6em;margin-bottom:6px;text-shadow:0 2px 4px rgba(0,0,0,.2)}
-#loginScreen p{color:rgba(255,255,255,.85);font-size:.9em;margin-bottom:30px}
-.team-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:100%;max-width:400px}
-.team-card{background:rgba(255,255,255,.95);border-radius:16px;padding:18px 14px;text-align:center;cursor:pointer;transition:all .2s;border:3px solid transparent;box-shadow:0 2px 8px rgba(0,0,0,.1)}
-.team-card:hover,.team-card:active{transform:scale(1.03);border-color:var(--green);box-shadow:0 4px 16px rgba(45,80,22,.3)}
-.team-card .emoji{font-size:2em;margin-bottom:6px}
-.team-card .team-name{font-weight:700;color:var(--green);font-size:1em}
-.team-card .person{color:var(--brown);font-size:.85em;margin-top:2px}
-#chatScreen{display:none;flex-direction:column;height:100%}
+
+/* Nickname modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;z-index:1000}
+.modal-box{background:#fff;border-radius:20px;padding:28px 24px;width:min(340px,90vw);box-shadow:0 8px 32px rgba(0,0,0,.2);text-align:center}
+.modal-box h2{color:var(--green);font-size:1.2em;margin-bottom:4px}
+.modal-box p{color:#888;font-size:.85em;margin-bottom:18px}
+.modal-box input,.modal-box select{width:100%;padding:11px 14px;border:1.5px solid #ddd;border-radius:12px;font-size:.95em;font-family:inherit;outline:none;margin-bottom:10px;-webkit-appearance:none}
+.modal-box input:focus,.modal-box select:focus{border-color:var(--green)}
+.modal-box button{width:100%;padding:12px;background:var(--green);color:#fff;border:none;border-radius:12px;font-size:1em;font-weight:700;cursor:pointer;margin-top:4px}
+.modal-box button:disabled{opacity:.4;cursor:default}
+
+/* Chat */
+#chatScreen{display:flex;flex-direction:column;height:100%}
 .chat-header{background:var(--green);color:#fff;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;box-shadow:0 2px 8px rgba(0,0,0,.15)}
 .chat-header .title{font-size:1.05em;font-weight:700}
-.chat-header .subtitle{font-size:.75em;opacity:.8;margin-top:2px}
-.header-left{display:flex;align-items:center;gap:10px}
-.back-btn{background:none;border:none;color:#fff;font-size:1.3em;cursor:pointer;padding:4px}
-.progress-bar{background:rgba(255,255,255,.12);padding:8px 16px;display:flex;gap:6px;flex-wrap:wrap;flex-shrink:0;border-bottom:1px solid rgba(255,255,255,.1)}
-.progress-item{font-size:.78em;background:rgba(255,255,255,.15);padding:3px 8px;border-radius:10px;white-space:nowrap}
-.progress-item.done{background:rgba(212,237,201,.3);color:#D4EDC9}
-.progress-item.pending{opacity:.6}
+.chat-header .subtitle{font-size:.75em;opacity:.85;margin-top:2px}
+.header-right{display:flex;align-items:center;gap:8px}
+.online-count{background:rgba(255,255,255,.2);padding:3px 10px;border-radius:10px;font-size:.78em;font-weight:600}
+.settings-btn{background:none;border:none;color:#fff;font-size:1.1em;cursor:pointer;padding:4px}
+
 .messages{flex:1;overflow-y:auto;padding:12px 16px;display:flex;flex-direction:column;gap:8px;-webkit-overflow-scrolling:touch;scroll-behavior:smooth}
 .msg-row{display:flex;align-items:flex-end;gap:6px;max-width:85%}
 .msg-row.mine{align-self:flex-end;flex-direction:row-reverse}
@@ -40,15 +41,16 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 .msg-row.mine .bubble{background:var(--my-bubble);border-bottom-right-radius:4px;color:#1a3a0a}
 .msg-row.other .bubble{background:var(--other-bubble);border-bottom-left-radius:4px;color:#333}
 .msg-row.bot .bubble{background:var(--bot-bubble);border-bottom-left-radius:4px;color:#2D5016;border:1px solid #c5e1b5}
-.sender-name{font-size:.75em;font-weight:700;color:var(--brown);margin-bottom:3px}
+.sender-name{font-size:.75em;font-weight:700;margin-bottom:3px;display:flex;align-items:center;gap:5px}
+.team-badge{display:inline-block;padding:1px 7px;border-radius:8px;font-size:.85em;color:#fff;font-weight:600;line-height:1.5}
 .msg-time{font-size:.65em;color:#999;margin-top:3px;text-align:right}
+
 .file-card{background:rgba(45,80,22,.08);border:1px solid rgba(45,80,22,.2);border-radius:10px;padding:10px 12px;margin-top:6px;display:flex;align-items:center;gap:8px}
 .file-card .file-icon{font-size:1.5em}
 .file-card .file-info{flex:1;min-width:0}
 .file-card .file-name{font-size:.82em;font-weight:600;color:var(--green);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.file-card .file-size{font-size:.7em;color:#999}
 .report-btn{display:inline-block;background:var(--green);color:#fff;border:none;padding:10px 20px;border-radius:12px;font-size:.88em;cursor:pointer;margin-top:8px;text-decoration:none;font-weight:600}
-.report-btn:active{opacity:.7}
+
 .input-area{background:#fff;padding:8px 12px;display:flex;align-items:flex-end;gap:8px;flex-shrink:0;border-top:1px solid #e0d8cc;padding-bottom:max(8px,env(safe-area-inset-bottom))}
 .input-area textarea{flex:1;border:1px solid #ddd;border-radius:20px;padding:10px 14px;font-size:.92em;resize:none;max-height:100px;min-height:40px;line-height:1.4;font-family:inherit;outline:none}
 .input-area textarea:focus{border-color:var(--green)}
@@ -57,38 +59,35 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 .send-btn{background:var(--green);color:#fff}
 .send-btn:active,.attach-btn:active{opacity:.7}
 #fileInput{display:none}
-.system-msg{text-align:center;font-size:.78em;color:#999;padding:4px 0}
+
+.system-msg{text-align:center;font-size:.78em;color:#999;padding:6px 0}
 .typing{align-self:flex-start;display:flex;align-items:center;gap:6px;padding:4px 0}
 .typing .dots{display:flex;gap:3px}
 .typing .dots span{width:6px;height:6px;border-radius:50%;background:#999;animation:blink 1.4s infinite both}
 .typing .dots span:nth-child(2){animation-delay:.2s}
 .typing .dots span:nth-child(3){animation-delay:.4s}
 @keyframes blink{0%,80%,100%{opacity:.3}40%{opacity:1}}
+
 .connection-badge{position:fixed;top:60px;right:10px;padding:3px 10px;border-radius:10px;font-size:.7em;font-weight:700;z-index:100;opacity:.85}
 .connection-badge.ok{background:#4caf50;color:#fff}
 .connection-badge.err{background:#f44336;color:#fff}
-@media(min-width:600px){.team-grid{grid-template-columns:1fr 1fr 1fr}.messages{max-width:700px;margin:0 auto;width:100%}.input-area{max-width:700px;margin:0 auto;width:100%}}
+
+@media(min-width:600px){.messages{max-width:700px;margin:0 auto;width:100%}.input-area{max-width:700px;margin:0 auto;width:100%}}
 </style>
 </head>
 <body>
 
-<div id="loginScreen">
-  <h1>🌿 두레생협 사업보고</h1>
-  <p>팀을 선택해 채팅방에 입장하세요</p>
-  <div class="team-grid" id="teamGrid"></div>
-</div>
-
 <div id="chatScreen">
   <div class="chat-header">
-    <div class="header-left">
-      <button class="back-btn" onclick="logout()">←</button>
-      <div>
-        <div class="title">🌿 사업보고 채팅방</div>
-        <div class="subtitle" id="onlineStatus">접속 중</div>
-      </div>
+    <div>
+      <div class="title">🌿 두레생협 사업보고 채팅방</div>
+      <div class="subtitle" id="onlineStatus">접속 중</div>
+    </div>
+    <div class="header-right">
+      <span class="online-count" id="onlineCount">0명 접속</span>
+      <button class="settings-btn" onclick="showNicknameModal()" title="닉네임/팀 변경">⚙️</button>
     </div>
   </div>
-  <div class="progress-bar" id="progressBar"></div>
   <div class="messages" id="messages"></div>
   <div class="input-area">
     <button class="attach-btn" onclick="document.getElementById('fileInput').click()">📎</button>
@@ -100,40 +99,101 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 
 <script>
 // ═══════════════════════════════════════════
-// CONFIG — Cloudflare Tunnel URL
+// CONFIG
 // ═══════════════════════════════════════════
 const API_URL = 'https://basically-yearly-foo-statewide.trycloudflare.com';
 
-// ═══════════════════════════════════════════
-// Team Data
-// ═══════════════════════════════════════════
-const TEAMS = [
-  { id: 'livestock', team: '축수산팀', name: '상영', emoji: '🥩' },
-  { id: 'agri', team: '농산팀', name: '정현', emoji: '🌾' },
-  { id: 'processed', team: '가공팀', name: '기현', emoji: '🏭' },
-  { id: 'store', team: '매장사업팀', name: '인서울', emoji: '🏪' },
-  { id: 'online', team: '온라인팀', name: '이지원', emoji: '💻' },
-  { id: 'exec', team: '사업상무', name: '100상무님', emoji: '👔' }
-];
+const TEAM_COLORS = {
+  '축수산팀': '#1B5E20',
+  '농산팀': '#E65100',
+  '가공팀': '#1565C0',
+  '매장사업팀': '#6A1B9A',
+  '온라인팀': '#00838F',
+  '사업상무': '#C62828'
+};
+const DEFAULT_COLOR = '#757575';
 
-let currentUser = null;
+const TEAMS_LIST = ['축수산팀','농산팀','가공팀','매장사업팀','온라인팀','사업상무'];
+
+let currentUser = null; // { name, team }
 let lastTimestamp = 0;
 let pollTimer = null;
 let renderedIds = new Set();
-const BOT_NAME = '십형호 🧠';
+let onlineUsers = new Map(); // name -> { team, lastSeen }
 
 // ═══════════════════════════════════════════
-// Connection check
+// Nickname Modal
+// ═══════════════════════════════════════════
+function showNicknameModal(isFirst) {
+  if (document.querySelector('.modal-overlay')) return;
+  const overlay = document.createElement('div');
+  overlay.className = 'modal-overlay';
+  const name = currentUser?.name || '';
+  const team = currentUser?.team || '';
+  overlay.innerHTML = `<div class="modal-box">
+    <h2>🌿 ${isFirst ? '채팅방 입장' : '닉네임/팀 변경'}</h2>
+    <p>${isFirst ? '이름을 입력하면 바로 시작합니다' : '정보를 수정하세요'}</p>
+    <input id="modalName" placeholder="이름을 입력하세요" value="${esc(name)}" maxlength="20" autocomplete="off">
+    <select id="modalTeam">
+      <option value="">팀 선택 안 함</option>
+      ${TEAMS_LIST.map(t => `<option value="${t}" ${t===team?'selected':''}>${t}</option>`).join('')}
+    </select>
+    <button id="modalBtn" ${name?'':'disabled'}>입장</button>
+  </div>`;
+  document.body.appendChild(overlay);
+
+  const inp = document.getElementById('modalName');
+  const btn = document.getElementById('modalBtn');
+  inp.focus();
+  inp.addEventListener('input', () => { btn.disabled = !inp.value.trim(); });
+  inp.addEventListener('keydown', e => { if (e.key === 'Enter' && inp.value.trim()) btn.click(); });
+
+  if (!isFirst) {
+    overlay.addEventListener('click', e => { if (e.target === overlay) overlay.remove(); });
+  }
+
+  btn.onclick = () => {
+    const n = inp.value.trim();
+    if (!n) return;
+    const t = document.getElementById('modalTeam').value;
+    const oldName = currentUser?.name;
+    currentUser = { name: n, team: t };
+    localStorage.setItem('dure-chat-user', JSON.stringify(currentUser));
+    overlay.remove();
+    updateHeaderInfo();
+    if (isFirst || !oldName) {
+      announceJoin();
+      loadMessages();
+      startPolling();
+    }
+  };
+}
+
+function updateHeaderInfo() {
+  const sub = document.getElementById('onlineStatus');
+  if (currentUser) {
+    sub.textContent = currentUser.team ? `${currentUser.name} (${currentUser.team})` : currentUser.name;
+  }
+}
+
+// ═══════════════════════════════════════════
+// Online tracking (simple via polling)
+// ═══════════════════════════════════════════
+function updateOnlineCount(count) {
+  document.getElementById('onlineCount').textContent = `${count || 1}명 접속`;
+}
+
+// ═══════════════════════════════════════════
+// Connection
 // ═══════════════════════════════════════════
 async function checkConnection() {
   try {
     const r = await fetch(API_URL + '/api/health', { signal: AbortSignal.timeout(5000) });
-    if (r.ok) { showBadge('ok', '🟢 연결됨'); return true; }
+    if (r.ok) { showBadge('ok','🟢 연결됨'); return true; }
   } catch {}
-  showBadge('err', '🔴 서버 오프라인');
+  showBadge('err','🔴 서버 오프라인');
   return false;
 }
-
 function showBadge(cls, text) {
   let b = document.querySelector('.connection-badge');
   if (!b) { b = document.createElement('div'); b.className = 'connection-badge'; document.body.appendChild(b); }
@@ -142,56 +202,17 @@ function showBadge(cls, text) {
 }
 
 // ═══════════════════════════════════════════
-// Login
+// Polling
 // ═══════════════════════════════════════════
-function buildLoginScreen() {
-  const grid = document.getElementById('teamGrid');
-  TEAMS.forEach(t => {
-    const card = document.createElement('div');
-    card.className = 'team-card';
-    card.innerHTML = `<div class="emoji">${t.emoji}</div><div class="team-name">${t.team}</div><div class="person">${t.name}</div>`;
-    card.onclick = () => login(t);
-    grid.appendChild(card);
-  });
-}
-
-function login(team) {
-  currentUser = team;
-  localStorage.setItem('dure-chat-user', JSON.stringify(team));
-  document.getElementById('loginScreen').style.display = 'none';
-  document.getElementById('chatScreen').style.display = 'flex';
-  document.getElementById('onlineStatus').textContent = `${team.team} ${team.name} 접속 중`;
-  checkConnection();
-  loadMessages();
-  startPolling();
-  updateProgress();
-}
-
-function logout() {
-  currentUser = null;
-  localStorage.removeItem('dure-chat-user');
-  stopPolling();
-  renderedIds.clear();
-  lastTimestamp = 0;
-  document.getElementById('loginScreen').style.display = 'flex';
-  document.getElementById('chatScreen').style.display = 'none';
-  document.getElementById('messages').innerHTML = '';
-}
-
-// ═══════════════════════════════════════════
-// Polling for messages
-// ═══════════════════════════════════════════
-function startPolling() {
-  stopPolling();
-  pollTimer = setInterval(pollMessages, 3000);
-}
+function startPolling() { stopPolling(); pollTimer = setInterval(pollMessages, 3000); }
 function stopPolling() { if (pollTimer) clearInterval(pollTimer); pollTimer = null; }
 
 async function pollMessages() {
   try {
-    const r = await fetch(`${API_URL}/api/messages?since=${lastTimestamp}`);
+    const r = await fetch(`${API_URL}/api/messages?since=${lastTimestamp}&user=${encodeURIComponent(currentUser?.name||'')}`);
     const data = await r.json();
-    if (data.messages && data.messages.length) {
+    if (data.onlineCount) updateOnlineCount(data.onlineCount);
+    if (data.messages?.length) {
       data.messages.forEach(m => {
         if (!renderedIds.has(m.id)) {
           renderMessage(m);
@@ -207,6 +228,7 @@ async function loadMessages() {
   try {
     const r = await fetch(`${API_URL}/api/messages?since=0`);
     const data = await r.json();
+    if (data.onlineCount) updateOnlineCount(data.onlineCount);
     if (data.messages) {
       data.messages.forEach(m => {
         if (!renderedIds.has(m.id)) {
@@ -217,15 +239,31 @@ async function loadMessages() {
       });
     }
   } catch {
-    addLocalMsg('system', '서버에 연결할 수 없습니다. 잠시 후 다시 시도해주세요.');
+    addSystemMsg('서버에 연결할 수 없습니다. 잠시 후 다시 시도해주세요.');
   }
+}
+
+// ═══════════════════════════════════════════
+// Announce join
+// ═══════════════════════════════════════════
+async function announceJoin() {
+  try {
+    await fetch(API_URL + '/api/join', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: currentUser.name, team: currentUser.team })
+    });
+  } catch {}
 }
 
 // ═══════════════════════════════════════════
 // Render
 // ═══════════════════════════════════════════
+function teamColor(team) { return TEAM_COLORS[team] || DEFAULT_COLOR; }
+
 function renderMessage(msg) {
   const container = document.getElementById('messages');
+
   if (msg.type === 'system') {
     const div = document.createElement('div');
     div.className = 'system-msg';
@@ -234,11 +272,13 @@ function renderMessage(msg) {
     container.scrollTop = container.scrollHeight;
     return;
   }
+
   const isMine = currentUser && msg.sender === currentUser.name && msg.team === currentUser.team && msg.type === 'user';
   const isBot = msg.type === 'bot';
   const row = document.createElement('div');
   row.className = `msg-row ${isMine ? 'mine' : isBot ? 'bot' : 'other'}`;
-  const avatarEmoji = isBot ? '🧠' : (TEAMS.find(t => t.name === msg.sender)?.emoji || '👤');
+
+  const avatarEmoji = isBot ? '🧠' : '👤';
 
   let fileHtml = '';
   if (msg.fileName) {
@@ -253,11 +293,15 @@ function renderMessage(msg) {
       <a class="report-btn" style="background:var(--brown);margin-left:6px" href="${API_URL}/api/report?format=xlsx" target="_blank">📊 엑셀 다운로드</a></div>`;
   }
 
+  const senderTeam = msg.team || '';
+  const badgeHtml = senderTeam ? `<span class="team-badge" style="background:${teamColor(senderTeam)}">${esc(senderTeam)}</span>` : '';
+  const senderLabel = isBot ? '십형호' : esc(msg.sender || '');
+
   const time = new Date(msg.timestamp).toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'});
   row.innerHTML = `
     <div class="avatar">${avatarEmoji}</div>
     <div class="bubble">
-      ${!isMine ? `<div class="sender-name">${esc(msg.sender)}${msg.team && !isBot ? ' · '+esc(msg.team):''}</div>` : ''}
+      ${!isMine ? `<div class="sender-name">${senderLabel} ${badgeHtml}</div>` : ''}
       <div>${formatText(msg.text||'')}</div>
       ${fileHtml}${reportHtml}
       <div class="msg-time">${time}</div>
@@ -266,7 +310,7 @@ function renderMessage(msg) {
   container.scrollTop = container.scrollHeight;
 }
 
-function addLocalMsg(type, text) {
+function addSystemMsg(text) {
   const container = document.getElementById('messages');
   const div = document.createElement('div');
   div.className = 'system-msg';
@@ -283,10 +327,7 @@ function showTyping() {
   container.appendChild(div);
   container.scrollTop = container.scrollHeight;
 }
-function hideTyping() {
-  const el = document.getElementById('typingIndicator');
-  if (el) el.remove();
-}
+function hideTyping() { document.getElementById('typingIndicator')?.remove(); }
 
 function formatText(t) { return esc(t).replace(/\n/g,'<br>'); }
 function esc(s) { return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
@@ -297,7 +338,8 @@ function getFileIcon(name) {
 }
 
 // ═══════════════════════════════════════════
-// Send Message
+// Send Message — ALL messages go to server,
+// server decides whether bot replies
 // ═══════════════════════════════════════════
 async function sendMessage() {
   const input = document.getElementById('msgInput');
@@ -306,7 +348,10 @@ async function sendMessage() {
   input.value = '';
   autoResize(input);
 
-  showTyping();
+  // Determine if this is a command or bot mention (show typing for those)
+  const isBotCall = /^[\/]/.test(text) || /^@(십형호|봇)/.test(text);
+  if (isBotCall) showTyping();
+
   try {
     const r = await fetch(API_URL + '/api/message', {
       method: 'POST',
@@ -314,22 +359,28 @@ async function sendMessage() {
       body: JSON.stringify({
         text,
         sender: currentUser.name,
-        team: currentUser.team,
-        teamId: currentUser.id
+        team: currentUser.team
       })
     });
     const data = await r.json();
     hideTyping();
-    // Messages will appear via polling, but render bot response immediately
+
+    // Render user message from response
     if (data.message && !renderedIds.has(data.message.id)) {
       renderMessage(data.message);
       renderedIds.add(data.message.id);
       if (data.message.timestamp > lastTimestamp) lastTimestamp = data.message.timestamp;
     }
-    updateProgress();
+
+    // Render bot reply ONLY if server returned one
+    if (data.botReply && !renderedIds.has(data.botReply.id)) {
+      renderMessage(data.botReply);
+      renderedIds.add(data.botReply.id);
+      if (data.botReply.timestamp > lastTimestamp) lastTimestamp = data.botReply.timestamp;
+    }
   } catch (err) {
     hideTyping();
-    addLocalMsg('system', '⚠️ 서버 연결 실패. 잠시 후 다시 시도해주세요.');
+    addSystemMsg('⚠️ 서버 연결 실패. 잠시 후 다시 시도해주세요.');
   }
 }
 
@@ -348,11 +399,7 @@ async function handleFile(e) {
   const file = e.target.files[0];
   if (!file || !currentUser) return;
   e.target.value = '';
-
-  if (file.size > 10 * 1024 * 1024) {
-    addLocalMsg('system', '⚠️ 파일 크기가 10MB를 초과합니다.');
-    return;
-  }
+  if (file.size > 10 * 1024 * 1024) { addSystemMsg('⚠️ 파일 크기가 10MB를 초과합니다.'); return; }
 
   showTyping();
   try {
@@ -360,7 +407,6 @@ async function handleFile(e) {
     fd.append('file', file);
     fd.append('sender', currentUser.name);
     fd.append('team', currentUser.team);
-    fd.append('teamId', currentUser.id);
 
     const r = await fetch(API_URL + '/api/upload', { method: 'POST', body: fd });
     const data = await r.json();
@@ -370,38 +416,33 @@ async function handleFile(e) {
       renderedIds.add(data.message.id);
       if (data.message.timestamp > lastTimestamp) lastTimestamp = data.message.timestamp;
     }
-    updateProgress();
+    if (data.botReply && !renderedIds.has(data.botReply.id)) {
+      renderMessage(data.botReply);
+      renderedIds.add(data.botReply.id);
+      if (data.botReply.timestamp > lastTimestamp) lastTimestamp = data.botReply.timestamp;
+    }
   } catch {
     hideTyping();
-    addLocalMsg('system', '⚠️ 파일 업로드 실패.');
+    addSystemMsg('⚠️ 파일 업로드 실패.');
   }
-}
-
-// ═══════════════════════════════════════════
-// Progress
-// ═══════════════════════════════════════════
-async function updateProgress() {
-  try {
-    const r = await fetch(API_URL + '/api/status');
-    const data = await r.json();
-    const bar = document.getElementById('progressBar');
-    if (!bar) return;
-    bar.innerHTML = '';
-    data.teams.forEach(t => {
-      const item = document.createElement('span');
-      item.className = `progress-item ${t.submitted ? 'done' : 'pending'}`;
-      item.textContent = `${t.submitted ? '✅' : '⬜'} ${t.team}`;
-      bar.appendChild(item);
-    });
-  } catch {}
 }
 
 // ═══════════════════════════════════════════
 // Init
 // ═══════════════════════════════════════════
-buildLoginScreen();
+checkConnection();
 const saved = localStorage.getItem('dure-chat-user');
-if (saved) { try { login(JSON.parse(saved)); } catch {} }
+if (saved) {
+  try {
+    currentUser = JSON.parse(saved);
+    updateHeaderInfo();
+    announceJoin();
+    loadMessages();
+    startPolling();
+  } catch { showNicknameModal(true); }
+} else {
+  showNicknameModal(true);
+}
 </script>
 </body>
 </html>
