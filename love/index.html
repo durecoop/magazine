@@ -153,7 +153,7 @@ pre{white-space:pre-wrap;font-family:inherit}
 <div class="messages" id="messages"></div>
 <div class="input-area">
   <label class="upload-btn">📷<input type="file" hidden id="fileInput" accept="image/*,*/*" onchange="uploadFile()"></label>
-  <input type="text" id="chatInput" placeholder="메시지를 입력하세요 💕" onkeydown="if(event.key==='Enter')sendMsg()">
+  <input type="text" id="chatInput" placeholder="메시지를 입력하세요 💕" onkeydown="if(event.key==='Enter'&&!event.isComposing)sendMsg()">
   <button class="send-btn" onclick="sendMsg()">💌</button>
 </div>
 
