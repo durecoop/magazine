@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 700">
+  <defs>
+    <radialGradient id="tomatoGrad" cx="50%" cy="45%" r="50%">
+      <stop offset="0%" stop-color="#E85C4A"/>
+      <stop offset="100%" stop-color="#C94435"/>
+    </radialGradient>
+    <radialGradient id="tomatoShine" cx="35%" cy="30%" r="40%">
+      <stop offset="0%" stop-color="#FFF" stop-opacity=".3"/>
+      <stop offset="100%" stop-color="#FFF" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- 큰 토마토 (우상단) -->
+  <g transform="translate(300,80)" opacity=".12">
+    <circle cx="0" cy="0" r="65" fill="url(#tomatoGrad)"/>
+    <circle cx="0" cy="0" r="65" fill="url(#tomatoShine)"/>
+    <path d="M-15,-65Q-10,-78 0,-80Q10,-78 15,-65" fill="#4A8B50" opacity=".8"/>
+    <path d="M-25,-60Q-20,-75 -5,-78" fill="#3D7543" opacity=".6"/>
+    <path d="M25,-60Q20,-75 5,-78" fill="#3D7543" opacity=".6"/>
+    <line x1="0" y1="-65" x2="0" y2="-90" stroke="#5A9A60" stroke-width="2.5" opacity=".7"/>
+    <path d="M0,-85Q-15,-95 -25,-88" fill="none" stroke="#5A9A60" stroke-width="1.5" opacity=".5"/>
+  </g>
+
+  <!-- 중간 토마토 (좌하단) -->
+  <g transform="translate(60,520)" opacity=".08">
+    <circle cx="0" cy="0" r="50" fill="url(#tomatoGrad)"/>
+    <circle cx="0" cy="0" r="50" fill="url(#tomatoShine)"/>
+    <path d="M-12,-50Q-8,-60 0,-62Q8,-60 12,-50" fill="#4A8B50" opacity=".7"/>
+    <line x1="0" y1="-50" x2="0" y2="-70" stroke="#5A9A60" stroke-width="2" opacity=".6"/>
+  </g>
+
+  <!-- 작은 토마토들 -->
+  <g transform="translate(350,400)" opacity=".06">
+    <circle cx="0" cy="0" r="28" fill="#D64545"/>
+    <path d="M-6,-28Q0,-36 6,-28" fill="#4A8B50" opacity=".7"/>
+  </g>
+  <g transform="translate(40,250)" opacity=".05">
+    <circle cx="0" cy="0" r="22" fill="#D64545"/>
+    <path d="M-5,-22Q0,-28 5,-22" fill="#4A8B50" opacity=".6"/>
+  </g>
+
+  <!-- 덩굴/줄기 -->
+  <g stroke="#4A8B50" fill="none" stroke-linecap="round" opacity=".08">
+    <path d="M350,160Q320,200 330,260Q310,300 340,340Q320,380 350,400" stroke-width="3"/>
+    <!-- 덩굴손 (감기는 줄기) -->
+    <path d="M330,220Q310,210 305,225Q310,235 320,230" stroke-width="1.5"/>
+    <path d="M340,310Q360,300 365,315Q360,325 350,320" stroke-width="1.5"/>
+  </g>
+
+  <!-- 잎사귀들 -->
+  <g fill="#4A8B50" opacity=".07">
+    <path d="M320,190Q335,170 350,180Q340,195 320,190Z"/>
+    <path d="M340,260Q355,245 365,258Q355,270 340,260Z"/>
+    <path d="M310,340Q295,325 308,315Q320,330 310,340Z"/>
+  </g>
+
+  <!-- 좌측 덩굴 -->
+  <g stroke="#4A8B50" fill="none" stroke-linecap="round" opacity=".06">
+    <path d="M60,250Q80,300 55,350Q70,400 50,450Q65,490 60,520" stroke-width="2.5"/>
+    <path d="M70,320Q90,310 95,325Q85,335 70,325" stroke-width="1.2"/>
+  </g>
+  <g fill="#4A8B50" opacity=".05">
+    <path d="M55,290Q40,275 52,265Q65,280 55,290Z"/>
+    <path d="M65,420Q80,405 88,418Q78,430 65,420Z"/>
+  </g>
+
+  <!-- 꽃 -->
+  <g transform="translate(340,280)" opacity=".06">
+    <circle cx="0" cy="0" r="4" fill="#FFD700"/>
+    <ellipse cx="0" cy="-8" rx="3" ry="5" fill="#FFE44D"/>
+    <ellipse cx="7" cy="-3" rx="3" ry="5" fill="#FFE44D" transform="rotate(72)"/>
+    <ellipse cx="5" cy="6" rx="3" ry="5" fill="#FFE44D" transform="rotate(144)"/>
+    <ellipse cx="-5" cy="6" rx="3" ry="5" fill="#FFE44D" transform="rotate(216)"/>
+    <ellipse cx="-7" cy="-3" rx="3" ry="5" fill="#FFE44D" transform="rotate(288)"/>
+  </g>
+</svg>

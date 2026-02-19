@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 700">
+  <defs>
+    <radialGradient id="nutGrad" cx="40%" cy="35%" r="50%">
+      <stop offset="0%" stop-color="#C4A070"/>
+      <stop offset="100%" stop-color="#8B6E45"/>
+    </radialGradient>
+    <radialGradient id="nutShine" cx="35%" cy="30%" r="35%">
+      <stop offset="0%" stop-color="#FFF" stop-opacity=".2"/>
+      <stop offset="100%" stop-color="#FFF" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- 호두 (우상단) -->
+  <g transform="translate(320,80)" opacity=".1">
+    <ellipse cx="0" cy="0" rx="35" ry="30" fill="url(#nutGrad)"/>
+    <ellipse cx="0" cy="0" rx="35" ry="30" fill="url(#nutShine)"/>
+    <path d="M0,-30Q0,0 0,30" fill="none" stroke="#6B5030" stroke-width="1.5" opacity=".4"/>
+    <path d="M-15,-20Q-5,-15 -15,-5Q-5,0 -15,10" fill="none" stroke="#6B5030" stroke-width=".8" opacity=".3"/>
+    <path d="M15,-20Q5,-15 15,-5Q5,0 15,10" fill="none" stroke="#6B5030" stroke-width=".8" opacity=".3"/>
+  </g>
+
+  <!-- 땅콩 (좌측) -->
+  <g transform="translate(50,200)" opacity=".08">
+    <ellipse cx="0" cy="-18" rx="18" ry="22" fill="#D4B88A"/>
+    <ellipse cx="0" cy="18" rx="16" ry="20" fill="#D4B88A"/>
+    <ellipse cx="0" cy="0" rx="12" ry="6" fill="#C4A878" opacity=".5"/>
+    <path d="M-18,-18Q-18,0 -16,18" fill="none" stroke="#B89870" stroke-width="1" opacity=".4"/>
+    <path d="M18,-18Q18,0 16,18" fill="none" stroke="#B89870" stroke-width="1" opacity=".4"/>
+    <!-- 망 패턴 -->
+    <path d="M-12,-30Q-6,-25 -12,-15" fill="none" stroke="#B89870" stroke-width=".5" opacity=".3"/>
+    <path d="M12,-30Q6,-25 12,-15" fill="none" stroke="#B89870" stroke-width=".5" opacity=".3"/>
+    <path d="M-10,15Q-4,20 -10,30" fill="none" stroke="#B89870" stroke-width=".5" opacity=".3"/>
+    <path d="M10,15Q4,20 10,30" fill="none" stroke="#B89870" stroke-width=".5" opacity=".3"/>
+  </g>
+
+  <!-- 밤 (우하단) -->
+  <g transform="translate(340,500)" opacity=".07">
+    <path d="M0,-35Q30,-30 35,0Q30,30 0,35Q-30,30 -35,0Q-30,-30 0,-35Z" fill="#7A5030"/>
+    <path d="M0,-35Q10,-30 15,0Q10,30 0,35" fill="#6A4020" opacity=".5"/>
+    <path d="M-5,-30Q5,-25 5,-10" fill="none" stroke="#8A6040" stroke-width="1" opacity=".4"/>
+    <!-- 밤꼭지 -->
+    <path d="M-8,-35Q0,-45 8,-35" fill="#5A4030" opacity=".6"/>
+    <line x1="0" y1="-40" x2="0" y2="-48" stroke="#5A4030" stroke-width="1.5" opacity=".5"/>
+  </g>
+
+  <!-- 잣 (흩뿌려진) -->
+  <g opacity=".05">
+    <ellipse cx="150" cy="100" rx="5" ry="10" fill="#E8D8B0" transform="rotate(-20 150 100)"/>
+    <ellipse cx="250" cy="350" rx="4" ry="9" fill="#E8D8B0" transform="rotate(15 250 350)"/>
+    <ellipse cx="100" cy="450" rx="5" ry="10" fill="#E8D8B0" transform="rotate(-30 100 450)"/>
+    <ellipse cx="300" cy="250" rx="4" ry="8" fill="#E8D8B0" transform="rotate(25 300 250)"/>
+  </g>
+
+  <!-- 껍데기 조각들 -->
+  <g opacity=".04">
+    <path d="M200,600Q210,590 220,600Q210,605 200,600Z" fill="#8B6E45"/>
+    <path d="M80,350Q88,342 95,350Q88,355 80,350Z" fill="#A0845A"/>
+    <path d="M280,150Q290,142 298,152Q290,158 280,152Z" fill="#8B6E45"/>
+  </g>
+</svg>

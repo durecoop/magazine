@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 700">
+  <defs>
+    <linearGradient id="leaf1" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#5A9A60"/>
+      <stop offset="100%" stop-color="#3D7543"/>
+    </linearGradient>
+    <linearGradient id="leaf2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#6AAA68"/>
+      <stop offset="100%" stop-color="#4A8A48"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 좌측 나물 다발 -->
+  <g transform="translate(30,100)" opacity=".08">
+    <!-- 줄기들 -->
+    <path d="M20,300Q15,200 25,100Q20,50 30,0" fill="none" stroke="#4A8A48" stroke-width="2"/>
+    <path d="M35,300Q40,210 30,120Q35,60 25,10" fill="none" stroke="#5A9A58" stroke-width="1.8"/>
+    <path d="M10,300Q5,220 15,140Q10,80 20,20" fill="none" stroke="#3D7543" stroke-width="1.5"/>
+
+    <!-- 잎사귀들 (고사리 느낌) -->
+    <path d="M25,60Q45,40 55,55Q40,65 25,60Z" fill="url(#leaf1)"/>
+    <path d="M25,60Q5,40 -5,55Q10,65 25,60Z" fill="url(#leaf2)"/>
+    <path d="M30,120Q55,105 60,120Q48,133 30,125Z" fill="url(#leaf1)" opacity=".9"/>
+    <path d="M30,120Q5,105 0,120Q12,133 30,125Z" fill="url(#leaf2)" opacity=".9"/>
+    <path d="M22,180Q45,168 50,180Q40,192 22,185Z" fill="url(#leaf1)" opacity=".8"/>
+    <path d="M22,180Q0,168 -5,180Q8,192 22,185Z" fill="url(#leaf2)" opacity=".8"/>
+    <path d="M28,240Q48,230 52,242Q42,252 28,245Z" fill="url(#leaf1)" opacity=".7"/>
+    <path d="M28,240Q8,230 5,242Q15,252 28,245Z" fill="url(#leaf2)" opacity=".7"/>
+  </g>
+
+  <!-- 우측 나물 다발 -->
+  <g transform="translate(340,350)" opacity=".06">
+    <path d="M0,250Q5,170 -5,90Q0,40 -10,0" fill="none" stroke="#4A8A48" stroke-width="2"/>
+    <path d="M15,250Q20,180 10,100Q15,50 5,10" fill="none" stroke="#5A9A58" stroke-width="1.5"/>
+
+    <path d="M-5,50Q15,35 22,48Q10,58 -5,52Z" fill="url(#leaf1)"/>
+    <path d="M-5,50Q-25,35 -30,48Q-18,58 -5,52Z" fill="url(#leaf2)"/>
+    <path d="M0,120Q20,108 25,120Q15,130 0,124Z" fill="url(#leaf1)" opacity=".8"/>
+    <path d="M0,120Q-20,108 -25,120Q-15,130 0,124Z" fill="url(#leaf2)" opacity=".8"/>
+    <path d="M-3,190Q15,180 20,190Q12,200 -3,195Z" fill="url(#leaf1)" opacity=".7"/>
+    <path d="M-3,190Q-20,180 -25,190Q-15,200 -3,195Z" fill="url(#leaf2)" opacity=".7"/>
+  </g>
+
+  <!-- 흩날리는 작은 잎들 -->
+  <g opacity=".05">
+    <path d="M200,150Q210,140 215,150Q208,157 200,152Z" fill="#5A9A60"/>
+    <path d="M150,400Q160,392 163,400Q157,406 150,402Z" fill="#4A8A48"/>
+    <path d="M300,250Q312,242 316,252Q308,258 300,253Z" fill="#5A9A60"/>
+    <path d="M80,550Q90,543 93,552Q86,558 80,553Z" fill="#3D7543"/>
+  </g>
+</svg>
