@@ -88,7 +88,9 @@ pre{white-space:pre-wrap;font-family:inherit}
   <input id="settingsUrl">
   <label>사귄 날 (D-day)</label>
   <input type="date" id="settingsDate">
-  <div style="text-align:right">
+  <hr style="border:none;border-top:1px solid var(--border);margin:16px 0 12px">
+  <button style="width:100%;padding:10px;background:#FF4D6D;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer" onclick="resetChat()">🗑️ 채팅 리셋</button>
+  <div style="text-align:right;margin-top:12px">
     <button class="btn-primary" onclick="saveSettings()">저장</button>
     <button class="btn-cancel" onclick="closeSettings()">취소</button>
   </div>
@@ -235,6 +237,17 @@ async function fetchMessages() {
       scrollBottom();
     }
   } catch {}
+}
+
+async function resetChat() {
+  if (!confirm('채팅 내용을 모두 삭제할까요?')) return;
+  try {
+    await fetch(`${API_URL}/api/reset?room=${ROOM}`, { method: 'POST' });
+    msgEl.innerHTML = '';
+    lastTs = 0;
+    addSystem('💕 채팅이 리셋되었습니다');
+    closeSettings();
+  } catch { alert('리셋 실패 — 서버 연결을 확인해주세요'); }
 }
 
 function startPolling() {
