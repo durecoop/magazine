@@ -165,7 +165,7 @@ pre{white-space:pre-wrap;font-family:inherit}
 <div class="messages" id="messages"></div>
 <div class="input-area">
   <label class="upload-btn">📎<input type="file" hidden id="fileInput" onchange="uploadFile()"></label>
-  <input type="text" id="chatInput" placeholder="메시지 또는 /현황 /취합 /보고서 /리마인드" onkeydown="if(event.key==='Enter'&&!event.isComposing)sendMsg()">
+  <input type="text" id="chatInput" placeholder="메시지 입력 · /현황 /보고서 /확정 /재생성 /초기화" onkeydown="if(event.key==='Enter'&&!event.isComposing)sendMsg()">
   <button class="send-btn" onclick="sendMsg()">↑</button>
 </div>
 
