@@ -5,15 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>두레생협 사업보고 채팅방</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>">
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
 <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--green:#2D5016;--beige:#F5F0E8;--brown:#8B7355;--light-green:#E8F5E1;--my-bubble:#D4EDC9;--bot-bubble:#F0F8E8;--other-bubble:#fff}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans-serif;background:var(--beige);height:100vh;height:100dvh;display:flex;flex-direction:column;overflow:hidden}
-/* Login Screen */
 #loginScreen{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;padding:20px;background:linear-gradient(135deg,#2D5016 0%,#4a7a2e 100%)}
 #loginScreen h1{color:#fff;font-size:1.6em;margin-bottom:6px;text-shadow:0 2px 4px rgba(0,0,0,.2)}
 #loginScreen p{color:rgba(255,255,255,.85);font-size:.9em;margin-bottom:30px}
@@ -23,20 +19,16 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 .team-card .emoji{font-size:2em;margin-bottom:6px}
 .team-card .team-name{font-weight:700;color:var(--green);font-size:1em}
 .team-card .person{color:var(--brown);font-size:.85em;margin-top:2px}
-/* Chat Screen */
 #chatScreen{display:none;flex-direction:column;height:100%}
-/* Header */
 .chat-header{background:var(--green);color:#fff;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;box-shadow:0 2px 8px rgba(0,0,0,.15)}
 .chat-header .title{font-size:1.05em;font-weight:700}
 .chat-header .subtitle{font-size:.75em;opacity:.8;margin-top:2px}
 .header-left{display:flex;align-items:center;gap:10px}
 .back-btn{background:none;border:none;color:#fff;font-size:1.3em;cursor:pointer;padding:4px}
-/* Progress Bar */
 .progress-bar{background:rgba(255,255,255,.12);padding:8px 16px;display:flex;gap:6px;flex-wrap:wrap;flex-shrink:0;border-bottom:1px solid rgba(255,255,255,.1)}
 .progress-item{font-size:.78em;background:rgba(255,255,255,.15);padding:3px 8px;border-radius:10px;white-space:nowrap}
 .progress-item.done{background:rgba(212,237,201,.3);color:#D4EDC9}
 .progress-item.pending{opacity:.6}
-/* Messages */
 .messages{flex:1;overflow-y:auto;padding:12px 16px;display:flex;flex-direction:column;gap:8px;-webkit-overflow-scrolling:touch;scroll-behavior:smooth}
 .msg-row{display:flex;align-items:flex-end;gap:6px;max-width:85%}
 .msg-row.mine{align-self:flex-end;flex-direction:row-reverse}
@@ -55,14 +47,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 .file-card .file-info{flex:1;min-width:0}
 .file-card .file-name{font-size:.82em;font-weight:600;color:var(--green);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .file-card .file-size{font-size:.7em;color:#999}
-.file-card .dl-btn{background:var(--green);color:#fff;border:none;padding:6px 12px;border-radius:8px;font-size:.78em;cursor:pointer;white-space:nowrap}
-.dl-btn:active{opacity:.7}
-.status-table{width:100%;border-collapse:collapse;margin-top:8px;font-size:.82em}
-.status-table td,.status-table th{padding:5px 8px;border-bottom:1px solid rgba(45,80,22,.15);text-align:left}
-.status-table th{color:var(--green);font-weight:600}
 .report-btn{display:inline-block;background:var(--green);color:#fff;border:none;padding:10px 20px;border-radius:12px;font-size:.88em;cursor:pointer;margin-top:8px;text-decoration:none;font-weight:600}
 .report-btn:active{opacity:.7}
-/* Input Area */
 .input-area{background:#fff;padding:8px 12px;display:flex;align-items:flex-end;gap:8px;flex-shrink:0;border-top:1px solid #e0d8cc;padding-bottom:max(8px,env(safe-area-inset-bottom))}
 .input-area textarea{flex:1;border:1px solid #ddd;border-radius:20px;padding:10px 14px;font-size:.92em;resize:none;max-height:100px;min-height:40px;line-height:1.4;font-family:inherit;outline:none}
 .input-area textarea:focus{border-color:var(--green)}
@@ -71,23 +57,27 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 .send-btn{background:var(--green);color:#fff}
 .send-btn:active,.attach-btn:active{opacity:.7}
 #fileInput{display:none}
-/* Demo badge */
-.demo-badge{position:fixed;top:60px;right:10px;background:#ff9800;color:#fff;padding:3px 10px;border-radius:10px;font-size:.7em;font-weight:700;z-index:100;opacity:.8}
-/* System message */
 .system-msg{text-align:center;font-size:.78em;color:#999;padding:4px 0}
+.typing{align-self:flex-start;display:flex;align-items:center;gap:6px;padding:4px 0}
+.typing .dots{display:flex;gap:3px}
+.typing .dots span{width:6px;height:6px;border-radius:50%;background:#999;animation:blink 1.4s infinite both}
+.typing .dots span:nth-child(2){animation-delay:.2s}
+.typing .dots span:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,80%,100%{opacity:.3}40%{opacity:1}}
+.connection-badge{position:fixed;top:60px;right:10px;padding:3px 10px;border-radius:10px;font-size:.7em;font-weight:700;z-index:100;opacity:.85}
+.connection-badge.ok{background:#4caf50;color:#fff}
+.connection-badge.err{background:#f44336;color:#fff}
 @media(min-width:600px){.team-grid{grid-template-columns:1fr 1fr 1fr}.messages{max-width:700px;margin:0 auto;width:100%}.input-area{max-width:700px;margin:0 auto;width:100%}}
 </style>
 </head>
 <body>
 
-<!-- Login Screen -->
 <div id="loginScreen">
   <h1>🌿 두레생협 사업보고</h1>
   <p>팀을 선택해 채팅방에 입장하세요</p>
   <div class="team-grid" id="teamGrid"></div>
 </div>
 
-<!-- Chat Screen -->
 <div id="chatScreen">
   <div class="chat-header">
     <div class="header-left">
@@ -110,17 +100,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 
 <script>
 // ═══════════════════════════════════════════
-// Firebase Config — 여기만 수정하면 됩니다
+// CONFIG — Cloudflare Tunnel URL
 // ═══════════════════════════════════════════
-const FIREBASE_CONFIG = {
-  apiKey: "",
-  authDomain: "",
-  databaseURL: "",
-  projectId: "",
-  storageBucket: "",
-  messagingSenderId: "",
-  appId: ""
-};
+const API_URL = 'https://roommate-passion-rough-devoted.trycloudflare.com';
 
 // ═══════════════════════════════════════════
 // Team Data
@@ -134,50 +116,29 @@ const TEAMS = [
   { id: 'exec', team: '사업상무', name: '100상무님', emoji: '👔' }
 ];
 
-// ═══════════════════════════════════════════
-// State
-// ═══════════════════════════════════════════
 let currentUser = null;
-let firebaseReady = false;
-let db = null;
-let storage = null;
-let messagesRef = null;
-let submissions = {}; // teamId -> {fileName, fileData, fileType, texts:[]}
+let lastTimestamp = 0;
+let pollTimer = null;
+let renderedIds = new Set();
 const BOT_NAME = '십형호 🧠';
 
 // ═══════════════════════════════════════════
-// Firebase Init
+// Connection check
 // ═══════════════════════════════════════════
-function initFirebase() {
-  if (!FIREBASE_CONFIG.apiKey || !FIREBASE_CONFIG.databaseURL) {
-    console.log('Firebase 미설정 → 데모 모드');
-    showDemoBadge();
-    return false;
-  }
+async function checkConnection() {
   try {
-    firebase.initializeApp(FIREBASE_CONFIG);
-    db = firebase.database();
-    storage = firebase.storage();
-    messagesRef = db.ref('report-chat/messages');
-    firebaseReady = true;
-    // Load submissions state
-    db.ref('report-chat/submissions').on('value', snap => {
-      if (snap.val()) submissions = snap.val();
-      updateProgress();
-    });
-    return true;
-  } catch(e) {
-    console.error('Firebase init failed:', e);
-    showDemoBadge();
-    return false;
-  }
+    const r = await fetch(API_URL + '/api/health', { signal: AbortSignal.timeout(5000) });
+    if (r.ok) { showBadge('ok', '🟢 연결됨'); return true; }
+  } catch {}
+  showBadge('err', '🔴 서버 오프라인');
+  return false;
 }
 
-function showDemoBadge() {
-  const d = document.createElement('div');
-  d.className = 'demo-badge';
-  d.textContent = 'DEMO 모드';
-  document.body.appendChild(d);
+function showBadge(cls, text) {
+  let b = document.querySelector('.connection-badge');
+  if (!b) { b = document.createElement('div'); b.className = 'connection-badge'; document.body.appendChild(b); }
+  b.className = 'connection-badge ' + cls;
+  b.textContent = text;
 }
 
 // ═══════════════════════════════════════════
@@ -199,65 +160,72 @@ function login(team) {
   localStorage.setItem('dure-chat-user', JSON.stringify(team));
   document.getElementById('loginScreen').style.display = 'none';
   document.getElementById('chatScreen').style.display = 'flex';
-  loadMessages();
-  // Bot welcome
-  setTimeout(() => {
-    addBotMessage(`안녕하세요 ${team.name}님! 사업보고 자료를 첨부해주세요. 📎\n\n💡 명령어:\n• /현황 — 제출 현황 보기\n• /취합 — 현재까지 접수분 취합`);
-  }, 500);
-  updateProgress();
   document.getElementById('onlineStatus').textContent = `${team.team} ${team.name} 접속 중`;
+  checkConnection();
+  loadMessages();
+  startPolling();
+  updateProgress();
 }
 
 function logout() {
   currentUser = null;
   localStorage.removeItem('dure-chat-user');
+  stopPolling();
+  renderedIds.clear();
+  lastTimestamp = 0;
   document.getElementById('loginScreen').style.display = 'flex';
   document.getElementById('chatScreen').style.display = 'none';
   document.getElementById('messages').innerHTML = '';
 }
 
 // ═══════════════════════════════════════════
-// Messages
+// Polling for messages
 // ═══════════════════════════════════════════
-function loadMessages() {
-  if (firebaseReady) {
-    messagesRef.orderByChild('timestamp').on('child_added', snap => {
-      renderMessage(snap.val());
-    });
-  } else {
-    const msgs = JSON.parse(localStorage.getItem('dure-chat-msgs') || '[]');
-    msgs.forEach(m => renderMessage(m));
+function startPolling() {
+  stopPolling();
+  pollTimer = setInterval(pollMessages, 3000);
+}
+function stopPolling() { if (pollTimer) clearInterval(pollTimer); pollTimer = null; }
+
+async function pollMessages() {
+  try {
+    const r = await fetch(`${API_URL}/api/messages?since=${lastTimestamp}`);
+    const data = await r.json();
+    if (data.messages && data.messages.length) {
+      data.messages.forEach(m => {
+        if (!renderedIds.has(m.id)) {
+          renderMessage(m);
+          renderedIds.add(m.id);
+          if (m.timestamp > lastTimestamp) lastTimestamp = m.timestamp;
+        }
+      });
+    }
+  } catch {}
+}
+
+async function loadMessages() {
+  try {
+    const r = await fetch(`${API_URL}/api/messages?since=0`);
+    const data = await r.json();
+    if (data.messages) {
+      data.messages.forEach(m => {
+        if (!renderedIds.has(m.id)) {
+          renderMessage(m);
+          renderedIds.add(m.id);
+          if (m.timestamp > lastTimestamp) lastTimestamp = m.timestamp;
+        }
+      });
+    }
+  } catch {
+    addLocalMsg('system', '서버에 연결할 수 없습니다. 잠시 후 다시 시도해주세요.');
   }
 }
 
-function saveMessage(msg) {
-  if (firebaseReady) {
-    messagesRef.push(msg);
-  } else {
-    const msgs = JSON.parse(localStorage.getItem('dure-chat-msgs') || '[]');
-    msgs.push(msg);
-    localStorage.setItem('dure-chat-msgs', JSON.stringify(msgs));
-    renderMessage(msg);
-  }
-}
-
-function saveSubmissions() {
-  if (firebaseReady) {
-    db.ref('report-chat/submissions').set(submissions);
-  } else {
-    localStorage.setItem('dure-chat-subs', JSON.stringify(submissions));
-  }
-}
-
-function loadSubmissions() {
-  if (!firebaseReady) {
-    submissions = JSON.parse(localStorage.getItem('dure-chat-subs') || '{}');
-  }
-}
-
+// ═══════════════════════════════════════════
+// Render
+// ═══════════════════════════════════════════
 function renderMessage(msg) {
   const container = document.getElementById('messages');
-  
   if (msg.type === 'system') {
     const div = document.createElement('div');
     div.className = 'system-msg';
@@ -266,63 +234,62 @@ function renderMessage(msg) {
     container.scrollTop = container.scrollHeight;
     return;
   }
-
-  const isMine = currentUser && msg.sender === currentUser.name && msg.team === currentUser.team;
+  const isMine = currentUser && msg.sender === currentUser.name && msg.team === currentUser.team && msg.type === 'user';
   const isBot = msg.type === 'bot';
-  
   const row = document.createElement('div');
   row.className = `msg-row ${isMine ? 'mine' : isBot ? 'bot' : 'other'}`;
-  
   const avatarEmoji = isBot ? '🧠' : (TEAMS.find(t => t.name === msg.sender)?.emoji || '👤');
-  
+
   let fileHtml = '';
   if (msg.fileName) {
     const icon = getFileIcon(msg.fileName);
-    const dlAttr = msg.fileData ? `onclick="downloadFile('${encodeURIComponent(msg.fileName)}','${msg.fileData?.substring(0,50)==='data:'? 'stored':''}',this)" data-filedata="${msg.fileData||''}"` : '';
-    fileHtml = `<div class="file-card">
-      <div class="file-icon">${icon}</div>
-      <div class="file-info"><div class="file-name">${escHtml(msg.fileName)}</div><div class="file-size">${msg.fileType||''}</div></div>
-      ${msg.fileData ? `<button class="dl-btn" ${dlAttr}>다운로드</button>` : ''}
-    </div>`;
+    fileHtml = `<div class="file-card"><div class="file-icon">${icon}</div><div class="file-info"><div class="file-name">${esc(msg.fileName)}</div></div></div>`;
   }
 
-  // Report download button
   let reportHtml = '';
-  if (msg.reportData) {
-    reportHtml = `<div style="margin-top:8px"><button class="report-btn" onclick="downloadReport(this)" data-report="${encodeURIComponent(msg.reportData)}">📋 HTML 보고서 다운로드</button>
-    <button class="report-btn" style="background:var(--brown);margin-left:6px" onclick="downloadExcelReport(this)" data-report="${encodeURIComponent(msg.reportData)}">📊 엑셀 다운로드</button></div>`;
-  }
-
-  // Status table
-  let statusHtml = '';
-  if (msg.statusTable) {
-    statusHtml = msg.statusTable;
+  if (msg.hasReport) {
+    reportHtml = `<div style="margin-top:8px">
+      <a class="report-btn" href="${API_URL}/api/report?format=html" target="_blank">📋 HTML 보고서</a>
+      <a class="report-btn" style="background:var(--brown);margin-left:6px" href="${API_URL}/api/report?format=xlsx" target="_blank">📊 엑셀 다운로드</a></div>`;
   }
 
   const time = new Date(msg.timestamp).toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'});
-  
   row.innerHTML = `
     <div class="avatar">${avatarEmoji}</div>
     <div class="bubble">
-      ${!isMine ? `<div class="sender-name">${escHtml(msg.sender)}${msg.team && !isBot ? ' · '+escHtml(msg.team):''}</div>` : ''}
+      ${!isMine ? `<div class="sender-name">${esc(msg.sender)}${msg.team && !isBot ? ' · '+esc(msg.team):''}</div>` : ''}
       <div>${formatText(msg.text||'')}</div>
-      ${fileHtml}${statusHtml}${reportHtml}
+      ${fileHtml}${reportHtml}
       <div class="msg-time">${time}</div>
     </div>`;
-  
   container.appendChild(row);
   container.scrollTop = container.scrollHeight;
 }
 
-function formatText(t) {
-  return escHtml(t).replace(/\n/g,'<br>');
+function addLocalMsg(type, text) {
+  const container = document.getElementById('messages');
+  const div = document.createElement('div');
+  div.className = 'system-msg';
+  div.textContent = text;
+  container.appendChild(div);
 }
 
-function escHtml(s) {
-  if(!s)return '';
-  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+function showTyping() {
+  const container = document.getElementById('messages');
+  const div = document.createElement('div');
+  div.className = 'typing';
+  div.id = 'typingIndicator';
+  div.innerHTML = `<div class="avatar">🧠</div><div class="dots"><span></span><span></span><span></span></div>`;
+  container.appendChild(div);
+  container.scrollTop = container.scrollHeight;
+}
+function hideTyping() {
+  const el = document.getElementById('typingIndicator');
+  if (el) el.remove();
 }
 
+function formatText(t) { return esc(t).replace(/\n/g,'<br>'); }
+function esc(s) { return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function getFileIcon(name) {
   const ext = (name.split('.').pop()||'').toLowerCase();
   const icons = {xlsx:'📊',xls:'📊',csv:'📊',doc:'📝',docx:'📝',hwp:'📝',pdf:'📕',ppt:'📙',pptx:'📙',txt:'📄',jpg:'🖼️',jpeg:'🖼️',png:'🖼️',gif:'🖼️',zip:'📦'};
@@ -332,39 +299,43 @@ function getFileIcon(name) {
 // ═══════════════════════════════════════════
 // Send Message
 // ═══════════════════════════════════════════
-function sendMessage() {
+async function sendMessage() {
   const input = document.getElementById('msgInput');
   const text = input.value.trim();
   if (!text || !currentUser) return;
   input.value = '';
   autoResize(input);
 
-  // Commands
-  if (text === '/현황') { showStatus(); return; }
-  if (text === '/취합') { generateReport(); return; }
-
-  const msg = {
-    sender: currentUser.name,
-    team: currentUser.team,
-    text: text,
-    timestamp: Date.now(),
-    type: 'user'
-  };
-  saveMessage(msg);
-
-  // Track text messages per team
-  if (!submissions[currentUser.id]) submissions[currentUser.id] = {};
-  if (!submissions[currentUser.id].texts) submissions[currentUser.id].texts = [];
-  submissions[currentUser.id].texts.push(text);
-  submissions[currentUser.id].teamName = currentUser.team;
-  submissions[currentUser.id].personName = currentUser.name;
-  saveSubmissions();
+  showTyping();
+  try {
+    const r = await fetch(API_URL + '/api/message', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        text,
+        sender: currentUser.name,
+        team: currentUser.team,
+        teamId: currentUser.id
+      })
+    });
+    const data = await r.json();
+    hideTyping();
+    // Messages will appear via polling, but render bot response immediately
+    if (data.message && !renderedIds.has(data.message.id)) {
+      renderMessage(data.message);
+      renderedIds.add(data.message.id);
+      if (data.message.timestamp > lastTimestamp) lastTimestamp = data.message.timestamp;
+    }
+    updateProgress();
+  } catch (err) {
+    hideTyping();
+    addLocalMsg('system', '⚠️ 서버 연결 실패. 잠시 후 다시 시도해주세요.');
+  }
 }
 
 function handleKey(e) {
   if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
 }
-
 function autoResize(el) {
   el.style.height = 'auto';
   el.style.height = Math.min(el.scrollHeight, 100) + 'px';
@@ -373,231 +344,64 @@ function autoResize(el) {
 // ═══════════════════════════════════════════
 // File Upload
 // ═══════════════════════════════════════════
-function handleFile(e) {
+async function handleFile(e) {
   const file = e.target.files[0];
   if (!file || !currentUser) return;
   e.target.value = '';
 
-  if (file.size > 5 * 1024 * 1024) {
-    addBotMessage('⚠️ 파일 크기가 5MB를 초과합니다. 더 작은 파일을 업로드해주세요.');
+  if (file.size > 10 * 1024 * 1024) {
+    addLocalMsg('system', '⚠️ 파일 크기가 10MB를 초과합니다.');
     return;
   }
 
-  const reader = new FileReader();
-  reader.onload = function(ev) {
-    const base64 = ev.target.result;
-    
-    if (firebaseReady && storage) {
-      // Upload to Firebase Storage
-      const ref = storage.ref(`report-files/${currentUser.id}/${file.name}`);
-      ref.put(file).then(snapshot => snapshot.ref.getDownloadURL()).then(url => {
-        postFileMessage(file.name, file.type, url);
-      }).catch(err => {
-        console.error('Storage upload failed, using base64:', err);
-        postFileMessage(file.name, file.type, base64);
-      });
-    } else {
-      postFileMessage(file.name, file.type, base64);
+  showTyping();
+  try {
+    const fd = new FormData();
+    fd.append('file', file);
+    fd.append('sender', currentUser.name);
+    fd.append('team', currentUser.team);
+    fd.append('teamId', currentUser.id);
+
+    const r = await fetch(API_URL + '/api/upload', { method: 'POST', body: fd });
+    const data = await r.json();
+    hideTyping();
+    if (data.message && !renderedIds.has(data.message.id)) {
+      renderMessage(data.message);
+      renderedIds.add(data.message.id);
+      if (data.message.timestamp > lastTimestamp) lastTimestamp = data.message.timestamp;
     }
-  };
-  reader.readAsDataURL(file);
-}
-
-function postFileMessage(fileName, fileType, fileData) {
-  const msg = {
-    sender: currentUser.name,
-    team: currentUser.team,
-    text: `📎 파일을 첨부했습니다`,
-    fileName, fileType, fileData,
-    timestamp: Date.now(),
-    type: 'user'
-  };
-  saveMessage(msg);
-
-  // Track submission
-  if (!submissions[currentUser.id]) submissions[currentUser.id] = {};
-  submissions[currentUser.id].fileName = fileName;
-  submissions[currentUser.id].fileType = fileType;
-  submissions[currentUser.id].fileData = fileData;
-  submissions[currentUser.id].teamName = currentUser.team;
-  submissions[currentUser.id].personName = currentUser.name;
-  submissions[currentUser.id].submittedAt = Date.now();
-  saveSubmissions();
-  updateProgress();
-
-  const count = Object.keys(submissions).filter(k => submissions[k].fileName).length;
-  
-  setTimeout(() => {
-    addBotMessage(`✅ ${currentUser.team} 자료 접수 완료! (${count}/6)`);
-    
-    if (count >= 6) {
-      setTimeout(() => {
-        addBotMessage('🎉 전체 접수 완료! 취합 보고서를 생성합니다...');
-        setTimeout(() => generateReport(), 1500);
-      }, 1000);
-    }
-  }, 800);
-}
-
-// ═══════════════════════════════════════════
-// File Download
-// ═══════════════════════════════════════════
-function downloadFile(encodedName, type, btn) {
-  const name = decodeURIComponent(encodedName);
-  const data = btn.getAttribute('data-filedata');
-  if (!data) return;
-  
-  if (data.startsWith('http')) {
-    window.open(data, '_blank');
-  } else {
-    const a = document.createElement('a');
-    a.href = data;
-    a.download = name;
-    a.click();
+    updateProgress();
+  } catch {
+    hideTyping();
+    addLocalMsg('system', '⚠️ 파일 업로드 실패.');
   }
 }
 
 // ═══════════════════════════════════════════
-// Bot Messages
+// Progress
 // ═══════════════════════════════════════════
-function addBotMessage(text, extra) {
-  const msg = {
-    sender: BOT_NAME,
-    team: '',
-    text,
-    timestamp: Date.now(),
-    type: 'bot',
-    ...extra
-  };
-  saveMessage(msg);
-}
-
-// ═══════════════════════════════════════════
-// Status
-// ═══════════════════════════════════════════
-function showStatus() {
-  loadSubmissions();
-  let tableHtml = '<table class="status-table"><tr><th>팀</th><th>담당</th><th>상태</th><th>파일</th></tr>';
-  TEAMS.forEach(t => {
-    const sub = submissions[t.id];
-    const done = sub && sub.fileName;
-    tableHtml += `<tr><td>${t.team}</td><td>${t.name}</td><td>${done?'✅ 제출':'❌ 미제출'}</td><td>${done?escHtml(sub.fileName):'-'}</td></tr>`;
-  });
-  tableHtml += '</table>';
-  
-  const count = Object.keys(submissions).filter(k => submissions[k]?.fileName).length;
-  const msg = {
-    sender: BOT_NAME, team: '', text: `📊 제출 현황 (${count}/6)`,
-    timestamp: Date.now(), type: 'bot', statusTable: tableHtml
-  };
-  saveMessage(msg);
-}
-
-function updateProgress() {
-  loadSubmissions();
-  const bar = document.getElementById('progressBar');
-  if (!bar) return;
-  bar.innerHTML = '';
-  TEAMS.forEach(t => {
-    const done = submissions[t.id]?.fileName;
-    const item = document.createElement('span');
-    item.className = `progress-item ${done ? 'done' : 'pending'}`;
-    item.textContent = `${done ? '✅' : '⬜'} ${t.team}`;
-    bar.appendChild(item);
-  });
-}
-
-// ═══════════════════════════════════════════
-// Report Generation
-// ═══════════════════════════════════════════
-function generateReport() {
-  loadSubmissions();
-  const now = new Date();
-  const dateStr = `${now.getFullYear()}년 ${now.getMonth()+1}월`;
-  
-  let reportHtml = `<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>두레생협 사업보고 - ${dateStr}</title>
-<style>body{font-family:-apple-system,'Noto Sans KR',sans-serif;max-width:800px;margin:0 auto;padding:40px 20px;color:#333;line-height:1.8}
-h1{color:#2D5016;border-bottom:3px solid #2D5016;padding-bottom:12px;font-size:1.6em}
-h2{color:#4a7a2e;margin-top:30px;font-size:1.2em;border-left:4px solid #2D5016;padding-left:12px}
-.meta{color:#8B7355;font-size:.9em;margin-bottom:30px}
-.team-section{background:#f9f7f2;border-radius:12px;padding:20px;margin:16px 0}
-.file-badge{display:inline-block;background:#E8F5E1;color:#2D5016;padding:4px 12px;border-radius:8px;font-size:.85em;margin-top:8px}
-.divider{border:none;border-top:1px solid #ddd;margin:24px 0}
-.no-data{color:#999;font-style:italic}</style></head><body>
-<h1>🌿 두레생협 사업본부 월간 사업보고</h1>
-<div class="meta">작성일: ${dateStr} | 자동 취합 보고서</div><hr class="divider">`;
-
-  TEAMS.forEach((t, i) => {
-    const sub = submissions[t.id];
-    reportHtml += `<h2>${i+1}. ${t.team} (${t.name})</h2><div class="team-section">`;
-    if (sub) {
-      const texts = sub.texts || [];
-      if (texts.length) {
-        reportHtml += `<p>${texts.map(escHtml).join('<br>')}</p>`;
-      } else {
-        reportHtml += `<p class="no-data">텍스트 보고 없음</p>`;
-      }
-      if (sub.fileName) {
-        reportHtml += `<div class="file-badge">📎 첨부: ${escHtml(sub.fileName)}</div>`;
-      }
-    } else {
-      reportHtml += `<p class="no-data">미제출</p>`;
-    }
-    reportHtml += `</div>`;
-  });
-
-  reportHtml += `<hr class="divider"><p style="text-align:center;color:#999;font-size:.8em">두레생협 사업보고 자동 취합 시스템</p></body></html>`;
-
-  const count = Object.keys(submissions).filter(k => submissions[k]?.fileName).length;
-  addBotMessage(`📋 취합 보고서가 준비되었습니다! (${count}/6팀 접수분)`, {
-    reportData: reportHtml
-  });
-}
-
-function downloadReport(btn) {
-  const html = decodeURIComponent(btn.getAttribute('data-report'));
-  const blob = new Blob([html], {type:'text/html;charset=utf-8'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = `두레생협_사업보고_취합_${new Date().toISOString().slice(0,10)}.html`;
-  a.click();
-  URL.revokeObjectURL(a.href);
-}
-
-function downloadExcelReport(btn) {
-  if (typeof XLSX === 'undefined') { alert('SheetJS 로딩 중... 잠시 후 다시 시도해주세요.'); return; }
-  loadSubmissions();
-  const now = new Date();
-  const data = [['두레생협 사업본부 월간 사업보고'],[`작성일: ${now.getFullYear()}년 ${now.getMonth()+1}월`],[],['팀','담당자','제출상태','텍스트 보고','첨부파일']];
-  TEAMS.forEach(t => {
-    const sub = submissions[t.id];
-    data.push([
-      t.team, t.name,
-      sub?.fileName ? '제출' : '미제출',
-      (sub?.texts||[]).join('\n') || '',
-      sub?.fileName || ''
-    ]);
-  });
-  const ws = XLSX.utils.aoa_to_sheet(data);
-  ws['!cols'] = [{wch:14},{wch:10},{wch:8},{wch:40},{wch:20}];
-  const wb = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb, ws, '사업보고');
-  XLSX.writeFile(wb, `두레생협_사업보고_${now.toISOString().slice(0,10)}.xlsx`);
+async function updateProgress() {
+  try {
+    const r = await fetch(API_URL + '/api/status');
+    const data = await r.json();
+    const bar = document.getElementById('progressBar');
+    if (!bar) return;
+    bar.innerHTML = '';
+    data.teams.forEach(t => {
+      const item = document.createElement('span');
+      item.className = `progress-item ${t.submitted ? 'done' : 'pending'}`;
+      item.textContent = `${t.submitted ? '✅' : '⬜'} ${t.team}`;
+      bar.appendChild(item);
+    });
+  } catch {}
 }
 
 // ═══════════════════════════════════════════
 // Init
 // ═══════════════════════════════════════════
 buildLoginScreen();
-initFirebase();
-loadSubmissions();
-
-// Auto-login if saved
 const saved = localStorage.getItem('dure-chat-user');
-if (saved) {
-  try { login(JSON.parse(saved)); } catch(e) {}
-}
+if (saved) { try { login(JSON.parse(saved)); } catch {} }
 </script>
 </body>
 </html>
