@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>긴급 타임세일 - 최대 36% 할인</title>
+    <meta property="og:title" content="두레생협 | 긴급 타임세일 🔥">
+    <meta property="og:description" content="2/19~2/22 단 4일! 최대 36% 할인 ⏰ 한정수량 소진 시 종료">
+    <meta property="og:image" content="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/19531C.jpg">
+    <meta property="og:url" content="https://durecoop.github.io/magazine/2026/W08/timesale-card.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="두레생협 생활의 발견">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Serif+KR:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        html,body{font-family:'Noto Sans KR',sans-serif;background:#1a1a1a;height:100%;overflow:hidden}
+
+        .header{position:fixed;top:0;left:0;right:0;height:60px;background:linear-gradient(135deg,#3D6041,#2d4a31);display:flex;justify-content:space-between;align-items:center;padding:0 18px;z-index:1000}
+        .header-logo img{height:38px;border-radius:4px}
+        .header-right{display:flex;align-items:center;gap:12px}
+        .header-label{font-size:15px;color:#a8d5a2;font-weight:500}
+        .header-order{padding:10px 20px;background:#fff;color:#3D6041;text-decoration:none;border-radius:6px;font-size:17px;font-weight:700}
+
+        .promo-bar{position:fixed;top:60px;left:0;right:0;z-index:999;background:linear-gradient(90deg,#D64545,#B33030);padding:10px 0;text-align:center}
+        .promo-bar-inner{display:flex;justify-content:center;align-items:center;gap:8px;font-size:clamp(14px,4vw,17px);color:#fff;font-weight:700}
+        .promo-bar-inner .badge{background:#fff;color:#D64545;padding:3px 10px;border-radius:6px;font-weight:900}
+        .promo-bar-inner .timer{background:rgba(0,0,0,.3);padding:3px 10px;border-radius:6px;font-family:monospace;font-size:clamp(13px,3.5vw,15px);letter-spacing:1px}
+
+        .card-container{height:100vh;overflow-y:scroll;scroll-snap-type:y mandatory;-webkit-overflow-scrolling:touch;padding-top:100px}
+        .card{min-height:calc(100vh - 100px);scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:40px 20px;text-align:center;position:relative}
+
+        /* 히어로 */
+        .card-hero{background:linear-gradient(160deg,#1a1a1a,#2d1a1a);overflow:hidden}
+        .card-hero>*{position:relative;z-index:1}
+        .card-hero::before{content:'';position:absolute;top:-30%;right:-20%;width:80%;height:80%;background:radial-gradient(circle,rgba(214,69,69,.15) 0%,transparent 60%);border-radius:50%;pointer-events:none}
+        .card-hero::after{content:'';position:absolute;bottom:-20%;left:-15%;width:60%;height:60%;background:radial-gradient(circle,rgba(214,69,69,.08) 0%,transparent 55%);border-radius:50%;pointer-events:none}
+        .card-hero .flash{font-size:clamp(40px,12vw,56px);margin-bottom:8px}
+        .card-hero .sale-tag{display:inline-block;background:#D64545;color:#fff;padding:8px 24px;border-radius:30px;font-size:clamp(13px,4vw,16px);font-weight:700;letter-spacing:2px;margin-bottom:20px}
+        .card-hero h1{font-family:'Noto Serif KR',serif;font-size:clamp(38px,12vw,54px);font-weight:900;color:#fff;line-height:1.2;margin-bottom:12px}
+        .card-hero h1 span{color:#FF6B6B}
+        .card-hero .hero-sub{font-size:clamp(16px,5vw,20px);color:rgba(255,255,255,.7);line-height:1.8;margin-bottom:24px}
+        .card-hero .hero-period{padding:14px 28px;background:rgba(214,69,69,.2);border:2px solid rgba(214,69,69,.4);border-radius:14px;font-size:clamp(15px,4.5vw,18px);color:#FF8A8A;font-weight:700}
+        .card-hero .hero-period strong{color:#fff;font-size:clamp(18px,5.5vw,22px)}
+        .card-hero .scroll-hint{position:absolute;bottom:30px;color:rgba(255,255,255,.4);font-size:14px;animation:bounce 2s infinite}
+
+        /* TOP DEAL */
+        .card-top{background:linear-gradient(160deg,#fff,#FFF8F8);padding:30px 16px;overflow:hidden}
+        .card-top>*{position:relative;z-index:1}
+        .card-top::before{content:'';position:absolute;top:-10%;right:-10%;width:50%;height:50%;background:radial-gradient(circle,rgba(214,69,69,.06) 0%,transparent 60%);border-radius:50%;pointer-events:none}
+        .card-top .top-label{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#D64545,#B33030);color:#fff;padding:8px 20px;border-radius:20px;font-size:clamp(12px,3.5vw,14px);font-weight:700;margin-bottom:16px}
+        .card-top h2{font-family:'Noto Serif KR',serif;font-size:clamp(22px,7vw,28px);font-weight:700;color:#1a1a1a;margin-bottom:20px}
+        .deal-card{background:#fff;border-radius:20px;padding:20px;box-shadow:0 4px 20px rgba(214,69,69,.1);border:2px solid #FFE0E0;text-decoration:none;color:inherit;display:block;max-width:380px;width:100%}
+        .deal-card img{width:100%;aspect-ratio:4/3;object-fit:contain;border-radius:14px;background:#F5F5F5;margin-bottom:16px}
+        .deal-card .name{font-family:'Noto Serif KR',serif;font-size:clamp(18px,5.5vw,22px);font-weight:600;color:#1a1a1a;margin-bottom:6px}
+        .deal-card .desc{font-size:clamp(13px,4vw,15px);color:#888;margin-bottom:14px;line-height:1.6}
+        .deal-card .price-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+        .deal-card .orig{font-size:15px;color:#aaa;text-decoration:line-through}
+        .deal-card .price{font-size:clamp(26px,8vw,32px);font-weight:900;color:#D64545}
+        .deal-card .discount-badge{display:inline-block;padding:6px 14px;background:#D64545;color:#fff;font-size:clamp(16px,5vw,20px);font-weight:900;border-radius:8px}
+        .deal-card .limit{display:inline-block;margin-top:10px;padding:6px 14px;background:#FFF0F0;color:#D64545;font-size:13px;font-weight:700;border-radius:8px}
+
+        /* 건강 선물 */
+        .card-health{background:linear-gradient(160deg,#FFF8F8,#fff);padding:30px 16px;overflow:hidden}
+        .card-health>*{position:relative;z-index:1}
+        .card-health .section-label{display:inline-block;background:#8B5E4B;color:#fff;padding:8px 20px;border-radius:20px;font-size:clamp(12px,3.5vw,14px);font-weight:700;margin-bottom:16px}
+        .card-health h2{font-family:'Noto Serif KR',serif;font-size:clamp(20px,6vw,26px);font-weight:600;color:#1a1a1a;margin-bottom:20px}
+        .health-grid{display:flex;flex-direction:column;gap:12px;max-width:380px;width:100%}
+        .health-item{display:flex;align-items:center;gap:14px;background:#fff;border-radius:16px;padding:14px;text-decoration:none;color:inherit;box-shadow:0 2px 12px rgba(0,0,0,.04);border:1px solid #F0E8E8}
+        .health-item img{width:90px;height:90px;object-fit:contain;background:#F5F5F5;border-radius:12px;flex-shrink:0}
+        .health-item .info{flex:1;text-align:left}
+        .health-item .name{font-size:clamp(14px,4vw,16px);font-weight:600;color:#1a1a1a;margin-bottom:4px}
+        .health-item .sub-desc{font-size:12px;color:#888;margin-bottom:8px}
+        .health-item .price-line{display:flex;align-items:center;gap:8px}
+        .health-item .orig{font-size:12px;color:#aaa;text-decoration:line-through}
+        .health-item .price{font-size:clamp(17px,5vw,20px);font-weight:900;color:#D64545}
+        .health-item .pct{display:inline-block;padding:2px 8px;background:#D64545;color:#fff;font-size:11px;font-weight:700;border-radius:6px}
+
+        /* 프리미엄 양념/소금 */
+        .card-premium{background:linear-gradient(160deg,#fff,#FAF8F6);padding:30px 16px;overflow:hidden}
+        .card-premium>*{position:relative;z-index:1}
+        .card-premium .section-label{display:inline-block;background:#c4956a;color:#fff;padding:8px 20px;border-radius:20px;font-size:clamp(12px,3.5vw,14px);font-weight:700;margin-bottom:16px}
+        .card-premium h2{font-family:'Noto Serif KR',serif;font-size:clamp(20px,6vw,26px);font-weight:600;color:#1a1a1a;margin-bottom:20px}
+        .premium-grid{display:flex;flex-direction:column;gap:12px;max-width:380px;width:100%}
+        .premium-item{display:flex;align-items:center;gap:14px;background:#fff;border-radius:16px;padding:14px;text-decoration:none;color:inherit;box-shadow:0 2px 12px rgba(0,0,0,.04);border:1px solid #E8E8E8}
+        .premium-item img{width:90px;height:90px;object-fit:contain;background:#F5F5F5;border-radius:12px;flex-shrink:0}
+        .premium-item .info{flex:1;text-align:left}
+        .premium-item .name{font-size:clamp(14px,4vw,16px);font-weight:600;color:#1a1a1a;margin-bottom:4px}
+        .premium-item .sub-desc{font-size:12px;color:#888;margin-bottom:8px}
+        .premium-item .price-line{display:flex;align-items:center;gap:8px}
+        .premium-item .orig{font-size:12px;color:#aaa;text-decoration:line-through}
+        .premium-item .price{font-size:clamp(17px,5vw,20px);font-weight:900;color:#c4956a}
+        .premium-item .pct{display:inline-block;padding:2px 8px;background:#D64545;color:#fff;font-size:11px;font-weight:700;border-radius:6px}
+        .premium-item .limit-tag{display:inline-block;padding:2px 8px;background:#FFF0F0;color:#D64545;font-size:11px;font-weight:700;border-radius:6px;margin-left:4px}
+
+        /* 긴급 청국장 */
+        .card-urgent{background:linear-gradient(160deg,#2d1a1a,#1a1a1a);padding:30px 16px;overflow:hidden}
+        .card-urgent>*{position:relative;z-index:1}
+        .card-urgent::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 20px,rgba(214,69,69,.03) 20px,rgba(214,69,69,.03) 40px);pointer-events:none}
+        .card-urgent .urgent-badge{display:inline-flex;align-items:center;gap:6px;background:#D64545;color:#fff;padding:10px 24px;border-radius:30px;font-size:clamp(14px,4.5vw,17px);font-weight:900;margin-bottom:16px;animation:urgentPulse 1.5s infinite}
+        .card-urgent h2{font-family:'Noto Serif KR',serif;font-size:clamp(22px,7vw,28px);font-weight:700;color:#fff;margin-bottom:8px}
+        .card-urgent .urgent-sub{font-size:clamp(14px,4vw,16px);color:rgba(255,255,255,.6);margin-bottom:24px}
+        .urgent-card{background:rgba(255,255,255,.08);border:2px solid rgba(214,69,69,.3);border-radius:20px;padding:20px;max-width:380px;width:100%;text-decoration:none;color:inherit;display:block;backdrop-filter:blur(10px)}
+        .urgent-card img{width:100%;aspect-ratio:4/3;object-fit:contain;border-radius:14px;background:rgba(255,255,255,.05);margin-bottom:16px}
+        .urgent-card .name{font-size:clamp(18px,5.5vw,22px);font-weight:700;color:#fff;margin-bottom:6px}
+        .urgent-card .desc{font-size:clamp(13px,4vw,15px);color:rgba(255,255,255,.6);margin-bottom:14px;line-height:1.6}
+        .urgent-card .price-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+        .urgent-card .orig{font-size:15px;color:rgba(255,255,255,.4);text-decoration:line-through}
+        .urgent-card .price{font-size:clamp(26px,8vw,32px);font-weight:900;color:#FF6B6B}
+        .urgent-card .discount-badge{display:inline-block;padding:6px 14px;background:#D64545;color:#fff;font-size:clamp(16px,5vw,18px);font-weight:900;border-radius:8px}
+        .urgent-card .stock{margin-top:10px;font-size:13px;color:#FF8A8A;font-weight:600}
+
+        /* CTA */
+        .card-cta{background:linear-gradient(160deg,#3D6041,#2d4a31);overflow:hidden}
+        .card-cta>*{position:relative;z-index:1}
+        .card-cta::before{content:'';position:absolute;top:-20%;left:50%;transform:translateX(-50%);width:120%;height:50%;background:radial-gradient(ellipse,rgba(255,255,255,.05) 0%,transparent 60%);pointer-events:none}
+        .card-cta .final-slogan{font-size:clamp(14px,4vw,16px);color:rgba(255,255,255,.6);letter-spacing:2px;margin-bottom:12px}
+        .card-cta h2{font-family:'Noto Serif KR',serif;font-size:clamp(26px,8vw,36px);font-weight:700;color:#fff;line-height:1.4;margin-bottom:28px}
+        .card-cta .cta-btn{display:inline-block;padding:20px 50px;background:#fff;color:#3D6041;font-size:clamp(18px,5.5vw,24px);font-weight:900;text-decoration:none;border-radius:50px;box-shadow:0 8px 30px rgba(0,0,0,.2);animation:pulse 2s infinite}
+        .card-cta .cta-btn:active{transform:scale(.95)}
+        .card-cta .coupon-info{margin-top:24px;padding:12px 24px;background:rgba(214,69,69,.7);border-radius:12px}
+        .card-cta .coupon-info p{font-size:clamp(14px,4vw,16px);color:#fff;font-weight:600}
+        .card-cta .brand{margin-top:28px;font-size:clamp(12px,3.5vw,14px);color:rgba(255,255,255,.5)}
+
+        .indicator{position:fixed;right:12px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:8px;z-index:100}
+        .dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.3)}
+        .dot.active{background:#fff;transform:scale(1.3)}
+
+        @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+        @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
+        @keyframes urgentPulse{0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(214,69,69,.4)}50%{transform:scale(1.05);box-shadow:0 0 20px 5px rgba(214,69,69,.2)}}
+        @keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes fadeInDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes scaleIn{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:scale(1)}}
+        @keyframes slideInLeft{from{opacity:0;transform:translateX(-30px)}to{opacity:1;transform:translateX(0)}}
+        @keyframes glow{0%,100%{box-shadow:0 0 10px rgba(255,255,255,.1)}50%{box-shadow:0 0 25px rgba(255,255,255,.3)}}
+        @keyframes countdown{0%{opacity:1}50%{opacity:.5}100%{opacity:1}}
+
+        .card:not(.in-view) .anim{opacity:0}
+
+        .card-hero.in-view .flash{animation:scaleIn .5s .1s both}
+        .card-hero.in-view .sale-tag{animation:fadeInDown .5s .3s both}
+        .card-hero.in-view h1{animation:fadeInUp .7s .5s both}
+        .card-hero.in-view .hero-sub{animation:fadeInUp .6s .8s both}
+        .card-hero.in-view .hero-period{animation:scaleIn .5s 1.1s both}
+        .card-hero.in-view .scroll-hint{animation:fadeInUp .5s 1.5s both,bounce 2s 2s infinite}
+
+        .card-top.in-view .top-label{animation:scaleIn .5s .2s both}
+        .card-top.in-view h2{animation:fadeInUp .6s .4s both}
+        .card-top.in-view .deal-card{animation:fadeInUp .7s .6s both}
+
+        .card-health.in-view .section-label{animation:scaleIn .5s .2s both}
+        .card-health.in-view h2{animation:fadeInUp .5s .4s both}
+        .card-health.in-view .health-item:nth-child(1){animation:slideInLeft .5s .6s both}
+        .card-health.in-view .health-item:nth-child(2){animation:slideInLeft .5s .8s both}
+
+        .card-premium.in-view .section-label{animation:scaleIn .5s .2s both}
+        .card-premium.in-view h2{animation:fadeInUp .5s .4s both}
+        .card-premium.in-view .premium-item:nth-child(1){animation:slideInLeft .5s .6s both}
+        .card-premium.in-view .premium-item:nth-child(2){animation:slideInLeft .5s .8s both}
+        .card-premium.in-view .premium-item:nth-child(3){animation:slideInLeft .5s 1s both}
+
+        .card-urgent.in-view .urgent-badge{animation:scaleIn .5s .2s both,urgentPulse 1.5s 1s infinite}
+        .card-urgent.in-view h2{animation:fadeInUp .6s .4s both}
+        .card-urgent.in-view .urgent-sub{animation:fadeInUp .5s .6s both}
+        .card-urgent.in-view .urgent-card{animation:fadeInUp .7s .8s both}
+
+        .card-cta.in-view .final-slogan{animation:fadeInDown .5s .2s both}
+        .card-cta.in-view h2{animation:fadeInUp .7s .5s both}
+        .card-cta.in-view .cta-btn{animation:scaleIn .5s .9s both,pulse 2s 1.4s infinite}
+        .card-cta.in-view .coupon-info{animation:fadeInUp .5s 1.2s both}
+        .card-cta.in-view .brand{animation:fadeInUp .5s 1.4s both}
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="https://ecoop.or.kr/DureShop/shopMain.do" class="header-logo"><img src="LOGO.png" alt="두레생협"></a>
+        <div class="header-right">
+            <span class="header-label">타임세일</span>
+            <a href="https://ecoop.or.kr/DureShop/shopMain.do" class="header-order">쇼핑하기</a>
+        </div>
+    </header>
+
+    <div class="promo-bar">
+        <div class="promo-bar-inner">
+            <span class="badge">긴급</span>
+            <span>🔥 최대 36% 할인</span>
+            <span class="timer" id="timer">00:00:00</span>
+        </div>
+    </div>
+
+    <div class="card-container" id="cardContainer">
+        <!-- 카드 1: 히어로 -->
+        <div class="card card-hero">
+            <p class="flash">🔥</p>
+            <span class="sale-tag">TIME SALE</span>
+            <h1>긴급<br><span>타임세일</span></h1>
+            <p class="hero-sub">한정수량, 소진 시 조기 종료!<br>최대 <strong style="color:#FF6B6B">36%</strong> 할인</p>
+            <div class="hero-period">
+                <strong>2/19(수) ~ 2/22(일)</strong><br>
+                단 4일간!
+            </div>
+            <p class="scroll-hint">↓ 세일 상품 보기</p>
+        </div>
+
+        <!-- 카드 2: TOP DEAL - 소금선물세트 36% -->
+        <div class="card card-top">
+            <span class="top-label">🏆 TOP DEAL · 최대 할인</span>
+            <h2>소금선물세트모음</h2>
+            <a href="https://ecoop.or.kr/DureShop/shopMain.do" class="deal-card">
+                <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/19531C.jpg" alt="소금선물세트모음(5종)">
+                <p class="name">소금선물세트모음 (5종)</p>
+                <p class="desc">다양한 소금 5종 구성,<br>선물로도 좋아요</p>
+                <div class="price-row">
+                    <span class="discount-badge">36%</span>
+                    <span class="orig">35,500원</span>
+                    <span class="price">22,800원</span>
+                </div>
+                <span class="limit">한정 116세트</span>
+            </a>
+        </div>
+
+        <!-- 카드 3: 건강 선물세트 2종 -->
+        <div class="card card-health">
+            <span class="section-label">🎁 건강 선물세트</span>
+            <h2>마음까지 전하는 선물</h2>
+            <div class="health-grid">
+                <a href="https://ecoop.or.kr/DureShop/shopMain.do" class="health-item">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57834C.png" alt="6년근 홍삼캔디 세트">
+                    <div class="info">
+                        <p class="name">6년근 홍삼캔디 세트</p>
+                        <p class="sub-desc">건강 선물세트 · 217개 한정</p>
+                        <div class="price-line">
+                            <span class="pct">27%</span>
+                            <span class="orig">28,900원</span>
+                            <span class="price">21,100원</span>
+                        </div>
+                    </div>
+                </a>
+                <a href="https://ecoop.or.kr/DureShop/shopMain.do" class="health-item">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57833C.png" alt="제주레몬 프로폴리스 캔디 세트">
+                    <div class="info">
+                        <p class="name">제주레몬 프로폴리스<br>캔디 세트</p>
+                        <p class="sub-desc">제주산 원료 · 면역력 강화</p>
+                        <div class="price-line">
+                            <span class="pct">27%</span>
+                            <span class="orig">28,800원</span>
+                            <span class="price">21,100원</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- 카드 4: 프리미엄 양념/소금 -->
+        <div class="card card-premium">
+            <span class="section-label">🧂 프리미엄 양념 · 소금</span>
+            <h2>주방의 격이 달라져요</h2>
+            <div class="premium-grid">
+                <a href="https://ecoop.or.kr/DureShop/shopMain.do" class="premium-item">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/55375C.jpg" alt="감향초 발사믹식초세트(3종)">
+                    <div class="info">
+                        <p class="name">감향초 발사믹식초 (3종)</p>
+                        <p class="sub-desc">고급 식초 3종 세트</p>
+                        <div class="price-line">
+                            <span class="pct">31%</span>
+                            <span class="orig">70,000원</span>
+                            <span class="price">48,300원</span>
+                        </div>
+                    </div>
+                </a>
+                <a href="https://ecoop.or.kr/DureShop/shopMain.do" class="premium-item">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/40033C.jpg" alt="천연양념선물세트">
+                    <div class="info">
+                        <p class="name">천연양념선물세트</p>
+                        <p class="sub-desc">천연 양념류 구성</p>
+                        <div class="price-line">
+                            <span class="pct">31%</span>
+                            <span class="orig">44,000원</span>
+                            <span class="price">30,400원</span>
+                        </div>
+                        <span class="limit-tag">한정 30세트</span>
+                    </div>
+                </a>
+                <a href="https://ecoop.or.kr/DureShop/shopMain.do" class="premium-item">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56209C.jpg" alt="페루 마라스 소금 선물세트">
+                    <div class="info">
+                        <p class="name">페루 마라스 소금 선물세트</p>
+                        <p class="sub-desc">프리미엄 소금</p>
+                        <div class="price-line">
+                            <span class="pct">25%</span>
+                            <span class="orig">19,800원</span>
+                            <span class="price">14,800원</span>
+                        </div>
+                        <span class="limit-tag">한정 50세트</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- 카드 5: 긴급 청국장 -->
+        <div class="card card-urgent">
+            <span class="urgent-badge">⚠️ 긴급 할인</span>
+            <h2>오색담은 맛있는 청국장</h2>
+            <p class="urgent-sub">2월 말 소비기한 임박! 서둘러 주세요</p>
+            <a href="https://ecoop.or.kr/DureShop/shopMain.do" class="urgent-card">
+                <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58943C.jpg" alt="오색담은 맛있는 청국장(4입)">
+                <p class="name">오색담은 맛있는 청국장 (4입)</p>
+                <p class="desc">소비기한 임박 긴급 특가!<br>냉동 보관하면 오래 먹을 수 있어요</p>
+                <div class="price-row">
+                    <span class="discount-badge">27%</span>
+                    <span class="orig">9,200원</span>
+                    <span class="price">6,700원</span>
+                </div>
+                <p class="stock">📦 304개 한정 · 소진 시 종료</p>
+            </a>
+        </div>
+
+        <!-- 카드 6: CTA -->
+        <div class="card card-cta">
+            <p class="final-slogan">한정수량 · 소진 시 종료</p>
+            <h2>지금 바로<br>장바구니에</h2>
+            <a href="https://ecoop.or.kr/DureShop/shopMain.do" class="cta-btn">타임세일 보러가기 →</a>
+            <div class="coupon-info">
+                <p>🔥 2/19(수) ~ 2/22(일) 단 4일!</p>
+            </div>
+            <p class="brand">두레생협 💚 조합원 특별 혜택</p>
+        </div>
+    </div>
+
+    <div class="indicator">
+        <div class="dot active"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
+
+    <script>
+        const container = document.getElementById('cardContainer');
+        const dots = document.querySelectorAll('.dot');
+
+        container.addEventListener('scroll', () => {
+            const scrollPos = container.scrollTop;
+            const cardHeight = window.innerHeight - 100;
+            const activeIndex = Math.round(scrollPos / cardHeight);
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === activeIndex);
+            });
+        });
+
+        // IntersectionObserver
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) e.target.classList.add('in-view');
+            });
+        }, { root: container, threshold: 0.3 });
+        document.querySelectorAll('.card').forEach(card => observer.observe(card));
+
+        // 카운트다운 타이머 (2/22 23:59:59 종료)
+        function updateTimer() {
+            const end = new Date('2026-02-22T23:59:59+09:00');
+            const now = new Date();
+            const diff = end - now;
+            const el = document.getElementById('timer');
+            if (diff <= 0) { el.textContent = '종료!'; return; }
+            const h = Math.floor(diff / 3600000);
+            const m = Math.floor((diff % 3600000) / 60000);
+            const s = Math.floor((diff % 60000) / 1000);
+            el.textContent = String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+        }
+        updateTimer();
+        setInterval(updateTimer, 1000);
+    </script>
+</body>
+</html>

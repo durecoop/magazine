@@ -140,6 +140,67 @@
 
         @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
         @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
+        @keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes fadeInDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes scaleIn{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:scale(1)}}
+        @keyframes slideInLeft{from{opacity:0;transform:translateX(-30px)}to{opacity:1;transform:translateX(0)}}
+        @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+        @keyframes glow{0%,100%{box-shadow:0 0 10px rgba(255,255,255,.1)}50%{box-shadow:0 0 25px rgba(255,255,255,.3)}}
+
+        .card:not(.in-view) .anim{opacity:0}
+
+        .card-1.in-view .slogan-sub{animation:fadeInDown .6s .2s both}
+        .card-1.in-view h1{animation:fadeInUp .7s .5s both}
+        .card-1.in-view .slogan-line{animation:scaleIn .5s .8s both}
+        .card-1.in-view .slogan-desc{animation:fadeInUp .6s 1s both}
+        .card-1.in-view .coupon-badge{animation:scaleIn .5s 1.3s both,glow 2.5s 1.8s infinite}
+        .card-1.in-view .scroll-hint{animation:fadeInUp .5s 1.6s both,bounce 2s 2.1s infinite}
+
+        .card-2.in-view .intro-label{animation:fadeInDown .5s .2s both}
+        .card-2.in-view h2{animation:fadeInUp .6s .4s both}
+        .card-2.in-view .intro-divider{animation:scaleIn .4s .6s both}
+        .card-2.in-view .intro-text{animation:fadeInUp .6s .8s both}
+
+        .card-3.in-view .quote-mark{animation:fadeInDown .5s .2s both}
+        .card-3.in-view .quote-text{animation:fadeInUp .7s .5s both}
+        .card-3.in-view .quote-author{animation:fadeInUp .5s .9s both}
+
+        .card-fish.in-view .icon{animation:scaleIn .4s .1s both,float 3s 1.5s infinite}
+        .card-fish.in-view h2{animation:fadeInUp .5s .3s both}
+        .card-fish.in-view .sub{animation:fadeInUp .5s .5s both}
+        .card-fish.in-view .fish-item:nth-child(1){animation:slideInLeft .5s .7s both}
+        .card-fish.in-view .fish-item:nth-child(2){animation:slideInLeft .5s .9s both}
+        .card-fish.in-view .fish-item:nth-child(3){animation:slideInLeft .5s 1.1s both}
+
+        .card-juice.in-view .icon{animation:scaleIn .4s .1s both,float 3s 1.5s infinite}
+        .card-juice.in-view h2{animation:fadeInUp .5s .3s both}
+        .card-juice.in-view .sub{animation:fadeInUp .5s .5s both}
+        .card-juice.in-view .juice-item:nth-child(1){animation:fadeInUp .5s .7s both}
+        .card-juice.in-view .juice-item:nth-child(2){animation:fadeInUp .5s .9s both}
+
+        .card-probio.in-view .category-badge{animation:scaleIn .5s .2s both}
+        .card-probio.in-view h2{animation:fadeInUp .6s .4s both}
+        .card-probio.in-view .product-big{animation:fadeInUp .7s .6s both}
+
+        .card-easy.in-view .icon{animation:scaleIn .4s .1s both,float 3s 1.5s infinite}
+        .card-easy.in-view h2{animation:fadeInUp .5s .3s both}
+        .card-easy.in-view .sub{animation:fadeInUp .5s .5s both}
+        .card-easy.in-view .item:nth-child(1){animation:fadeInUp .5s .7s both}
+        .card-easy.in-view .item:nth-child(2){animation:fadeInUp .5s .85s both}
+        .card-easy.in-view .item:nth-child(3){animation:fadeInUp .5s 1s both}
+        .card-easy.in-view .item:nth-child(4){animation:fadeInUp .5s 1.15s both}
+
+        .card-more.in-view h2{animation:fadeInUp .5s .2s both}
+        .card-more.in-view .more-item:nth-child(1){animation:fadeInUp .5s .5s both}
+        .card-more.in-view .more-item:nth-child(2){animation:fadeInUp .5s .65s both}
+        .card-more.in-view .more-item:nth-child(3){animation:fadeInUp .5s .8s both}
+        .card-more.in-view .more-item:nth-child(4){animation:fadeInUp .5s .95s both}
+
+        .card-cta.in-view .final-slogan{animation:fadeInDown .5s .2s both}
+        .card-cta.in-view h2{animation:fadeInUp .7s .5s both}
+        .card-cta.in-view .cta-btn{animation:scaleIn .5s .9s both,pulse 2s 1.4s infinite}
+        .card-cta.in-view .coupon-info{animation:fadeInUp .5s 1.2s both}
+        .card-cta.in-view .brand{animation:fadeInUp .5s 1.4s both}
     </style>
 </head>
 <body>
@@ -366,6 +427,14 @@
                 dot.classList.toggle('active', i === activeIndex);
             });
         });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) e.target.classList.add('in-view');
+            });
+        }, { root: container, threshold: 0.3 });
+
+        document.querySelectorAll('.card').forEach(card => observer.observe(card));
     </script>
 </body>
 </html>
