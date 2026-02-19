@@ -16,106 +16,106 @@
         *{margin:0;padding:0;box-sizing:border-box}
         html,body{font-family:'Noto Sans KR',sans-serif;background:#1a1a1a;height:100%;overflow:hidden}
 
-        .header{position:fixed;top:0;left:0;right:0;height:60px;background:linear-gradient(135deg,#2d5a3d,#1e4a2d);display:flex;justify-content:space-between;align-items:center;padding:0 18px;z-index:1000}
+        .header{position:fixed;top:0;left:0;right:0;height:60px;background:linear-gradient(135deg,#3D6041,#2d4a31);display:flex;justify-content:space-between;align-items:center;padding:0 18px;z-index:1000}
         .header-logo img{height:38px;border-radius:4px}
         .header-right{display:flex;align-items:center;gap:12px}
         .header-label{font-size:15px;color:#a8d5a2;font-weight:500}
-        .header-order{padding:10px 20px;background:#fff;color:#2d5a3d;text-decoration:none;border-radius:6px;font-size:17px;font-weight:700}
+        .header-order{padding:10px 20px;background:#fff;color:#3D6041;text-decoration:none;border-radius:6px;font-size:17px;font-weight:700}
 
-        .promo-bar{position:fixed;top:60px;left:0;right:0;z-index:999;background:linear-gradient(90deg,#1abc9c,#16a085);padding:10px 0;text-align:center}
+        .promo-bar{position:fixed;top:60px;left:0;right:0;z-index:999;background:linear-gradient(90deg,#4a7356,#3D6041);padding:10px 0;text-align:center}
         .promo-bar-inner{display:flex;justify-content:center;align-items:center;gap:8px;font-size:clamp(14px,4vw,17px);color:#fff;font-weight:700}
-        .promo-bar-inner .badge{background:#fff;color:#16a085;padding:3px 10px;border-radius:6px;font-weight:900}
+        .promo-bar-inner .badge{background:#fff;color:#3D6041;padding:3px 10px;border-radius:6px;font-weight:900}
 
         .card-container{height:100vh;overflow-y:scroll;scroll-snap-type:y mandatory;-webkit-overflow-scrolling:touch;padding-top:100px}
         .card{min-height:calc(100vh - 100px);scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:40px 20px;text-align:center;position:relative}
 
         /* 카드 1: 메인 카피 */
-        .card-1{background:linear-gradient(160deg,#1abc9c,#0e8c73)}
+        .card-1{background:linear-gradient(160deg,#4a7356,#3D6041)}
         .card-1 .slogan-sub{font-size:clamp(13px,4vw,16px);color:rgba(255,255,255,.6);letter-spacing:3px;margin-bottom:16px}
         .card-1 h1{font-family:'Noto Serif KR',serif;font-size:clamp(36px,12vw,52px);font-weight:700;color:#fff;line-height:1.3}
         .card-1 .slogan-line{width:60px;height:4px;background:rgba(255,255,255,.3);margin:24px auto}
         .card-1 .slogan-desc{font-size:clamp(16px,5vw,20px);color:rgba(255,255,255,.8);line-height:1.8}
-        .card-1 .coupon-badge{margin-top:32px;padding:14px 28px;background:#f39c12;border-radius:30px;font-size:clamp(14px,4vw,16px);color:#fff;font-weight:700}
+        .card-1 .coupon-badge{margin-top:32px;padding:14px 28px;background:#B8956A;border-radius:30px;font-size:clamp(14px,4vw,16px);color:#fff;font-weight:700}
         .card-1 .scroll-hint{position:absolute;bottom:30px;color:rgba(255,255,255,.5);font-size:14px;animation:bounce 2s infinite}
 
         /* 카드 2: 인트로 */
-        .card-2{background:linear-gradient(160deg,#fff,#f0faf7)}
-        .card-2 .intro-label{font-size:11px;letter-spacing:4px;color:#16a085;margin-bottom:20px;font-weight:500}
+        .card-2{background:linear-gradient(160deg,#fff,#f7f8f7)}
+        .card-2 .intro-label{font-size:11px;letter-spacing:4px;color:#3D6041;margin-bottom:20px;font-weight:500}
         .card-2 h2{font-family:'Noto Serif KR',serif;font-size:clamp(24px,7vw,32px);font-weight:600;color:#1a1a1a;line-height:1.6;margin-bottom:30px}
-        .card-2 .intro-divider{width:40px;height:2px;background:#16a085;margin:0 auto 30px}
+        .card-2 .intro-divider{width:40px;height:2px;background:#3D6041;margin:0 auto 30px}
         .card-2 .intro-text{font-size:clamp(15px,4.5vw,18px);color:#555;line-height:2;font-weight:300}
 
         /* 카드 3: 감성 인용 */
-        .card-3{background:linear-gradient(135deg,#1abc9c,#0e8c73)}
+        .card-3{background:linear-gradient(135deg,#4a7356,#3D6041)}
         .card-3 .quote-mark{font-family:'Noto Serif KR',serif;font-size:60px;color:rgba(255,255,255,.2);line-height:1;margin-bottom:20px}
         .card-3 .quote-text{font-family:'Noto Serif KR',serif;font-size:clamp(18px,5.5vw,24px);color:#fff;line-height:1.9;font-weight:400}
         .card-3 .quote-author{margin-top:30px;font-size:13px;color:rgba(255,255,255,.6);letter-spacing:2px}
 
         /* 생선구이 카드 */
-        .card-fish{background:linear-gradient(160deg,#e8f8f5,#fff);padding:30px 16px}
+        .card-fish{background:linear-gradient(160deg,#f5f7f6,#fff);padding:30px 16px}
         .card-fish .icon{font-size:48px;margin-bottom:12px}
         .card-fish h2{font-family:'Noto Serif KR',serif;font-size:clamp(20px,6vw,26px);font-weight:600;color:#1a1a1a;margin-bottom:8px}
         .card-fish .sub{font-size:clamp(13px,4vw,15px);color:#888;margin-bottom:24px}
         .card-fish .fish-grid{display:flex;flex-direction:column;gap:10px;max-width:380px;width:100%}
-        .card-fish .fish-item{display:flex;align-items:center;gap:12px;background:#fff;border-radius:14px;padding:12px;text-decoration:none;color:inherit;box-shadow:0 2px 10px rgba(0,0,0,.05)}
-        .card-fish .fish-item img{width:70px;height:70px;object-fit:contain;background:#f8f6f3;border-radius:10px;flex-shrink:0}
+        .card-fish .fish-item{display:flex;align-items:center;gap:12px;background:#fff;border-radius:14px;padding:12px;text-decoration:none;color:inherit;box-shadow:0 2px 8px rgba(0,0,0,.03);border:1px solid #E8E8E8}
+        .card-fish .fish-item img{width:70px;height:70px;object-fit:contain;background:#F5F5F5;border-radius:10px;flex-shrink:0}
         .card-fish .fish-item .info{flex:1;text-align:left}
         .card-fish .fish-item .name{font-size:clamp(14px,4vw,16px);font-weight:600;color:#1a1a1a}
         .card-fish .fish-item .desc{font-size:12px;color:#888;margin-top:2px}
-        .card-fish .fish-item .price{font-size:clamp(15px,4.5vw,17px);font-weight:700;color:#16a085;margin-top:4px}
+        .card-fish .fish-item .price{font-size:clamp(15px,4.5vw,17px);font-weight:700;color:#3D6041;margin-top:4px}
 
         /* 건강즙 카드 */
-        .card-juice{background:linear-gradient(160deg,#fff,#f0faf7);padding:30px 16px}
+        .card-juice{background:linear-gradient(160deg,#fff,#f7f8f7);padding:30px 16px}
         .card-juice .icon{font-size:48px;margin-bottom:12px}
         .card-juice h2{font-family:'Noto Serif KR',serif;font-size:clamp(20px,6vw,26px);font-weight:600;color:#1a1a1a;margin-bottom:8px}
         .card-juice .sub{font-size:clamp(13px,4vw,15px);color:#888;margin-bottom:24px}
         .card-juice .juice-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;max-width:380px;width:100%}
-        .card-juice .juice-item{background:#fff;border-radius:14px;padding:16px;text-decoration:none;color:inherit;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.05)}
-        .card-juice .juice-item img{width:100%;aspect-ratio:1;object-fit:contain;background:#f8f6f3;border-radius:10px;margin-bottom:10px}
+        .card-juice .juice-item{background:#fff;border-radius:14px;padding:16px;text-decoration:none;color:inherit;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.03);border:1px solid #E8E8E8}
+        .card-juice .juice-item img{width:100%;aspect-ratio:1;object-fit:contain;background:#F5F5F5;border-radius:10px;margin-bottom:10px}
         .card-juice .juice-item .name{font-size:clamp(13px,4vw,15px);font-weight:600;color:#1a1a1a;margin-bottom:4px}
-        .card-juice .juice-item .discount{display:inline-block;padding:3px 8px;background:#e74c3c;color:#fff;font-size:11px;font-weight:700;border-radius:10px;margin-bottom:6px}
-        .card-juice .juice-item .price{font-size:clamp(15px,4.5vw,17px);font-weight:700;color:#16a085}
+        .card-juice .juice-item .discount{display:inline-block;padding:3px 8px;background:#D64545;color:#fff;font-size:11px;font-weight:700;border-radius:10px;margin-bottom:6px}
+        .card-juice .juice-item .price{font-size:clamp(15px,4.5vw,17px);font-weight:700;color:#3D6041}
 
         /* 프로바이오틱스 카드 - 대형 상품 */
-        .card-probio{background:linear-gradient(160deg,#e8f8f5,#d5f5e3);padding:30px 16px}
-        .card-probio .category-badge{display:inline-block;background:#16a085;color:#fff;font-size:clamp(12px,3.5vw,14px);font-weight:700;padding:8px 20px;border-radius:20px;margin-bottom:16px}
+        .card-probio{background:linear-gradient(160deg,#f5f7f6,#eef2ef);padding:30px 16px}
+        .card-probio .category-badge{display:inline-block;background:#3D6041;color:#fff;font-size:clamp(12px,3.5vw,14px);font-weight:700;padding:8px 20px;border-radius:20px;margin-bottom:16px}
         .card-probio h2{font-family:'Noto Serif KR',serif;font-size:clamp(20px,6vw,26px);font-weight:600;color:#1a1a1a;margin-bottom:20px}
-        .product-big{background:#fff;border-radius:20px;padding:20px;box-shadow:0 4px 20px rgba(0,0,0,.08);text-decoration:none;color:inherit;display:block;max-width:380px;width:100%}
-        .product-big img{width:100%;aspect-ratio:4/3;object-fit:contain;border-radius:14px;background:#f8f6f3;margin-bottom:16px}
+        .product-big{background:#fff;border-radius:20px;padding:20px;box-shadow:0 4px 16px rgba(0,0,0,.05);border:1px solid #E8E8E8;text-decoration:none;color:inherit;display:block;max-width:380px;width:100%}
+        .product-big img{width:100%;aspect-ratio:4/3;object-fit:contain;border-radius:14px;background:#F5F5F5;margin-bottom:16px}
         .product-big .name{font-family:'Noto Serif KR',serif;font-size:clamp(18px,5.5vw,22px);font-weight:600;color:#1a1a1a;margin-bottom:8px}
         .product-big .desc{font-size:clamp(13px,4vw,15px);color:#888;margin-bottom:12px;line-height:1.6}
         .product-big .price-wrap{display:flex;align-items:center;gap:10px;margin-bottom:10px}
         .product-big .orig{font-size:14px;color:#aaa;text-decoration:line-through}
-        .product-big .price{font-size:clamp(24px,7vw,30px);font-weight:900;color:#e74c3c}
-        .product-big .save{display:inline-block;padding:8px 16px;background:#f39c12;color:#fff;font-size:13px;font-weight:700;border-radius:8px}
+        .product-big .price{font-size:clamp(24px,7vw,30px);font-weight:900;color:#D64545}
+        .product-big .save{display:inline-block;padding:8px 16px;background:#B8956A;color:#fff;font-size:13px;font-weight:700;border-radius:8px}
 
         /* 간편식 카드 */
-        .card-easy{background:linear-gradient(160deg,#fff,#f0faf7);padding:30px 16px}
+        .card-easy{background:linear-gradient(160deg,#fff,#f7f8f7);padding:30px 16px}
         .card-easy .icon{font-size:48px;margin-bottom:12px}
         .card-easy h2{font-family:'Noto Serif KR',serif;font-size:clamp(20px,6vw,26px);font-weight:600;color:#1a1a1a;margin-bottom:8px}
         .card-easy .sub{font-size:clamp(13px,4vw,15px);color:#888;margin-bottom:24px}
         .card-easy .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;max-width:380px;width:100%}
-        .card-easy .item{background:#fff;border-radius:14px;padding:14px;text-decoration:none;color:inherit;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.05)}
-        .card-easy .item img{width:100%;aspect-ratio:1;object-fit:contain;background:#f8f6f3;border-radius:10px;margin-bottom:10px}
+        .card-easy .item{background:#fff;border-radius:14px;padding:14px;text-decoration:none;color:inherit;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.03);border:1px solid #E8E8E8}
+        .card-easy .item img{width:100%;aspect-ratio:1;object-fit:contain;background:#F5F5F5;border-radius:10px;margin-bottom:10px}
         .card-easy .item .name{font-size:clamp(13px,4vw,15px);font-weight:600;color:#1a1a1a;margin-bottom:4px}
-        .card-easy .item .desc{font-size:12px;color:#16a085;font-weight:600}
+        .card-easy .item .desc{font-size:12px;color:#3D6041;font-weight:600}
 
         /* 추가 상품 그리드 */
-        .card-more{background:linear-gradient(160deg,#e8f8f5,#fff);padding:30px 16px}
+        .card-more{background:linear-gradient(160deg,#f5f7f6,#fff);padding:30px 16px}
         .card-more h2{font-family:'Noto Serif KR',serif;font-size:clamp(20px,6vw,26px);font-weight:600;color:#1a1a1a;margin-bottom:24px}
         .more-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;max-width:400px;width:100%}
-        .more-item{background:#fff;border-radius:16px;padding:16px;text-decoration:none;color:inherit;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.05)}
-        .more-item img{width:100%;aspect-ratio:1;object-fit:contain;background:#f8f6f3;border-radius:10px;margin-bottom:10px}
+        .more-item{background:#fff;border-radius:16px;padding:16px;text-decoration:none;color:inherit;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.03);border:1px solid #E8E8E8}
+        .more-item img{width:100%;aspect-ratio:1;object-fit:contain;background:#F5F5F5;border-radius:10px;margin-bottom:10px}
         .more-item .name{font-size:clamp(13px,4vw,15px);font-weight:600;color:#1a1a1a;margin-bottom:4px}
-        .more-item .desc{font-size:12px;color:#f39c12;font-weight:600}
+        .more-item .desc{font-size:12px;color:#B8956A;font-weight:600}
 
         /* CTA 카드 */
-        .card-cta{background:linear-gradient(160deg,#2d5a3d,#1e4a2d)}
+        .card-cta{background:linear-gradient(160deg,#3D6041,#2d4a31)}
         .card-cta .final-slogan{font-size:clamp(14px,4vw,16px);color:rgba(255,255,255,.6);letter-spacing:2px;margin-bottom:12px}
         .card-cta h2{font-family:'Noto Serif KR',serif;font-size:clamp(26px,8vw,36px);font-weight:700;color:#fff;line-height:1.4;margin-bottom:28px}
-        .card-cta .cta-btn{display:inline-block;padding:20px 50px;background:#fff;color:#2d5a3d;font-size:clamp(18px,5.5vw,24px);font-weight:900;text-decoration:none;border-radius:50px;box-shadow:0 8px 30px rgba(0,0,0,.2);animation:pulse 2s infinite}
+        .card-cta .cta-btn{display:inline-block;padding:20px 50px;background:#fff;color:#3D6041;font-size:clamp(18px,5.5vw,24px);font-weight:900;text-decoration:none;border-radius:50px;box-shadow:0 8px 30px rgba(0,0,0,.2);animation:pulse 2s infinite}
         .card-cta .cta-btn:active{transform:scale(.95)}
-        .card-cta .coupon-info{margin-top:24px;padding:12px 24px;background:rgba(26,188,156,.9);border-radius:12px}
+        .card-cta .coupon-info{margin-top:24px;padding:12px 24px;background:rgba(61,96,65,.85);border-radius:12px}
         .card-cta .coupon-info p{font-size:clamp(14px,4vw,16px);color:#fff;font-weight:600}
         .card-cta .brand{margin-top:28px;font-size:clamp(12px,3.5vw,14px);color:rgba(255,255,255,.5)}
 
@@ -130,7 +130,7 @@
         .card-1::after{content:'';position:absolute;top:-20%;right:-15%;width:70%;height:70%;background:radial-gradient(circle,rgba(255,255,255,.12) 0%,transparent 60%);border-radius:50%;pointer-events:none}
         .hero-deco{position:absolute;right:-5%;top:50%;transform:translateY(-50%);width:65%;max-width:280px;pointer-events:none;z-index:0}
         .card-2{overflow:hidden}
-        .card-2::before{content:'';position:absolute;top:30px;right:20px;width:80px;height:130px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 130'%3E%3Cpath d='M40 5C55 15 58 35 48 50C43 40 38 35 40 5Z' fill='%2316a085' opacity='.1'/%3E%3Cpath d='M40 35C25 45 22 65 32 80C37 70 42 65 40 35Z' fill='%2316a085' opacity='.08'/%3E%3Cpath d='M40 65C55 75 58 95 48 110C43 100 38 95 40 65Z' fill='%2316a085' opacity='.06'/%3E%3Cline x1='40' y1='5' x2='40' y2='125' stroke='%2316a085' stroke-width='.8' opacity='.06'/%3E%3C/svg%3E") no-repeat center/contain;pointer-events:none}
+        .card-2::before{content:'';position:absolute;top:30px;right:20px;width:80px;height:130px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 130'%3E%3Cpath d='M40 5C55 15 58 35 48 50C43 40 38 35 40 5Z' fill='%233D6041' opacity='.1'/%3E%3Cpath d='M40 35C25 45 22 65 32 80C37 70 42 65 40 35Z' fill='%233D6041' opacity='.08'/%3E%3Cpath d='M40 65C55 75 58 95 48 110C43 100 38 95 40 65Z' fill='%233D6041' opacity='.06'/%3E%3Cline x1='40' y1='5' x2='40' y2='125' stroke='%233D6041' stroke-width='.8' opacity='.06'/%3E%3C/svg%3E") no-repeat center/contain;pointer-events:none}
         .card-3{overflow:hidden}
         .card-3>*{position:relative;z-index:1}
         .card-3::after{content:'';position:absolute;bottom:-25%;right:-20%;width:65%;height:65%;background:radial-gradient(circle,rgba(255,255,255,.1) 0%,transparent 55%);border-radius:50%;pointer-events:none}
