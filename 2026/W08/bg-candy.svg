@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 700">
+  <defs>
+    <radialGradient id="cg" cx="40%" cy="35%" r="50%">
+      <stop offset="0%" stop-color="#C75A3A" stop-opacity=".15"/>
+      <stop offset="100%" stop-color="#8B5E4B" stop-opacity=".05"/>
+    </radialGradient>
+  </defs>
+
+  <!-- 캔디 1 (우상단) -->
+  <g transform="translate(330,80) rotate(-20)" opacity=".1">
+    <rect x="-18" y="-12" width="36" height="24" rx="12" fill="url(#cg)"/>
+    <path d="M-18,0Q-30,-8 -28,0Q-30,8 -18,0" fill="#C75A3A" opacity=".08"/>
+    <path d="M18,0Q30,-8 28,0Q30,8 18,0" fill="#C75A3A" opacity=".08"/>
+  </g>
+
+  <!-- 캔디 2 (좌하단) -->
+  <g transform="translate(50,500) rotate(15)" opacity=".07">
+    <rect x="-15" y="-10" width="30" height="20" rx="10" fill="url(#cg)"/>
+    <path d="M-15,0Q-25,-6 -23,0Q-25,6 -15,0" fill="#C75A3A" opacity=".06"/>
+    <path d="M15,0Q25,-6 23,0Q25,6 15,0" fill="#C75A3A" opacity=".06"/>
+  </g>
+
+  <!-- 홍삼 뿌리 실루엣 (좌상단) -->
+  <g transform="translate(50,150)" opacity=".05">
+    <path d="M0,0Q5,30 -5,60Q0,90 10,120Q5,140 0,160" fill="none" stroke="#8B5E4B" stroke-width="3" stroke-linecap="round"/>
+    <path d="M0,60Q-15,70 -20,90" fill="none" stroke="#8B5E4B" stroke-width="2" stroke-linecap="round"/>
+    <path d="M10,120Q20,130 25,150" fill="none" stroke="#8B5E4B" stroke-width="2" stroke-linecap="round"/>
+  </g>
+
+  <!-- 꿀벌 (프로폴리스) -->
+  <g transform="translate(320,400)" opacity=".06">
+    <ellipse cx="0" cy="0" rx="10" ry="7" fill="#D4A040"/>
+    <line x1="-4" y1="-3" x2="-4" y2="3" stroke="#8B5E4B" stroke-width="1"/>
+    <line x1="0" y1="-4" x2="0" y2="4" stroke="#8B5E4B" stroke-width="1"/>
+    <line x1="4" y1="-3" x2="4" y2="3" stroke="#8B5E4B" stroke-width="1"/>
+    <ellipse cx="-6" cy="-8" rx="6" ry="4" fill="#D4A040" opacity=".4" transform="rotate(-20 -6 -8)"/>
+    <ellipse cx="6" cy="-8" rx="6" ry="4" fill="#D4A040" opacity=".4" transform="rotate(20 6 -8)"/>
+  </g>
+
+  <!-- 레몬 슬라이스 -->
+  <g transform="translate(350,200)" opacity=".06">
+    <circle cx="0" cy="0" r="20" fill="#E8D060" opacity=".3"/>
+    <circle cx="0" cy="0" r="15" fill="none" stroke="#D4B040" stroke-width="1"/>
+    <line x1="0" y1="-12" x2="0" y2="12" stroke="#D4B040" stroke-width=".5" opacity=".5"/>
+    <line x1="-10" y1="-6" x2="10" y2="6" stroke="#D4B040" stroke-width=".5" opacity=".5"/>
+    <line x1="-10" y1="6" x2="10" y2="-6" stroke="#D4B040" stroke-width=".5" opacity=".5"/>
+  </g>
+
+  <!-- 흩뿌려진 작은 원 -->
+  <g fill="#8B5E4B" opacity=".03">
+    <circle cx="150" cy="620" r="4"/>
+    <circle cx="250" cy="100" r="3"/>
+    <circle cx="200" cy="350" r="3.5"/>
+    <circle cx="100" cy="550" r="3"/>
+  </g>
+</svg>

@@ -31,7 +31,7 @@
         /* 히어로 */
         .card-hero{background:linear-gradient(160deg,#3D6041,#2d4a31);overflow:hidden}
         .card-hero>*{position:relative;z-index:1}
-        .card-hero::before{content:'';position:absolute;top:-20%;right:-15%;width:70%;height:70%;background:radial-gradient(circle,rgba(255,255,255,.06) 0%,transparent 60%);border-radius:50%;pointer-events:none}
+        .card-hero::before{content:'';position:absolute;inset:0;background:url('bg-gift.svg') no-repeat center/cover;pointer-events:none}
         .card-hero .hero-icon{font-size:clamp(14px,4vw,17px);color:rgba(255,255,255,.5);letter-spacing:3px;margin-bottom:20px}
         .card-hero h1{font-family:'Noto Serif KR',serif;font-size:clamp(32px,10vw,46px);font-weight:700;color:#fff;line-height:1.4;margin-bottom:16px}
         .card-hero .hero-sub{font-size:clamp(15px,4.5vw,18px);color:rgba(255,255,255,.7);line-height:2;margin-bottom:28px}
@@ -40,7 +40,9 @@
         .card-hero .scroll-hint{position:absolute;bottom:30px;color:rgba(255,255,255,.4);font-size:14px;animation:bounce 2s infinite}
 
         /* 인트로 - 솔직한 이야기 */
-        .card-story{background:linear-gradient(160deg,#fff,#FAF8F6);overflow:hidden}
+        .card-story{background:linear-gradient(160deg,#fff,#FAF8F6);overflow:hidden;position:relative}
+        .card-story>*{position:relative;z-index:1}
+        .card-story::before{content:'';position:absolute;inset:0;background:url('bg-story.svg') no-repeat center/cover;pointer-events:none}
         .card-story .story-label{font-size:11px;letter-spacing:4px;color:#8B5E4B;margin-bottom:20px;font-weight:500}
         .card-story h2{font-family:'Noto Serif KR',serif;font-size:clamp(22px,7vw,30px);font-weight:600;color:#1a1a1a;line-height:1.6;margin-bottom:24px}
         .card-story .divider{width:40px;height:2px;background:#8B5E4B;margin:0 auto 24px}
@@ -61,8 +63,15 @@
         .product-detail .arrow{font-size:14px;color:#aaa}
         .product-detail .price{font-size:clamp(24px,7vw,30px);font-weight:900;color:#C75A3A}
         .product-detail .pct{display:inline-block;padding:4px 12px;background:#C75A3A;color:#fff;font-size:clamp(14px,4vw,16px);font-weight:900;border-radius:8px}
-        .product-detail .stock{font-size:13px;color:#999;margin-top:6px}
+        .product-detail .stock{display:inline-flex;align-items:center;gap:6px;margin-top:8px;padding:6px 14px;background:#FFF0F0;border:1px solid #FFD4D4;border-radius:20px;font-size:13px;color:#C75A3A;font-weight:700}
+        .product-detail .stock::before{content:'';display:inline-block;width:8px;height:8px;background:#C75A3A;border-radius:50%;animation:stockPulse 1.5s infinite}
+        .product-detail .stock.low{background:#FFE8E0;border-color:#FFC4B0}
+        .product-detail .stock.low::before{background:#D64545}
         .product-detail .reason{font-size:13px;color:#8B5E4B;font-weight:500;margin-top:10px;padding:8px 14px;background:#FBF5F0;border-radius:8px;text-align:left;line-height:1.6}
+
+        /* 상품 카드 배경 이미지 */
+        .card-product.candy::before{content:'';position:absolute;inset:0;background:url('bg-candy.svg') no-repeat center/cover;pointer-events:none}
+        .card-product.salt::before{content:'';position:absolute;inset:0;background:url('bg-salt.svg') no-repeat center/cover;pointer-events:none}
 
         /* 상품 카드 교대 배경 */
         .card-product.alt{background:linear-gradient(160deg,#fff,#FAF8F6)}
@@ -90,6 +99,9 @@
         @keyframes fadeInDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
         @keyframes scaleIn{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:scale(1)}}
         @keyframes slideInLeft{from{opacity:0;transform:translateX(-30px)}to{opacity:1;transform:translateX(0)}}
+        @keyframes stockPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.7)}}
+        @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+        @keyframes glow{0%,100%{box-shadow:0 0 10px rgba(255,255,255,.1)}50%{box-shadow:0 0 25px rgba(255,255,255,.3)}}
 
         .card:not(.in-view) .anim{opacity:0}
 
@@ -117,10 +129,10 @@
 </head>
 <body>
     <header class="header">
-        <a href="https://ecoop.or.kr/DureShop/shopMain.do" class="header-logo"><img src="LOGO.png" alt="두레생협"></a>
+        <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1640" class="header-logo"><img src="LOGO.png" alt="두레생협"></a>
         <div class="header-right">
             <span class="header-label">솔직 특판</span>
-            <a href="https://ecoop.or.kr/DureShop/shopMain.do" class="header-order">쇼핑하기</a>
+            <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1640" class="header-order">쇼핑하기</a>
         </div>
     </header>
 
@@ -163,9 +175,9 @@
         </div>
 
         <!-- 카드 3: 6년근 홍삼캔디 세트 -->
-        <div class="card card-product">
+        <div class="card card-product candy">
             <p class="prod-num">01 / 06</p>
-            <a href="https://ecoop.or.kr/DureShop/shopMain.do" class="product-detail">
+            <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1640" class="product-detail">
                 <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57834C.png" alt="6년근 홍삼캔디 세트">
                 <p class="name">6년근 홍삼캔디 세트</p>
                 <p class="feature">
@@ -179,15 +191,15 @@
                         <span class="price">20,200원</span>
                     </div>
                 </div>
-                <p class="stock">남은 수량 217개</p>
+                <p class="stock">한정 217개</p>
                 <p class="reason">💬 명절 선물세트로 준비했지만 많이 남았어요. 건강 간식으로 본인이 드셔도 좋아요.</p>
             </a>
         </div>
 
         <!-- 카드 4: 제주레몬 프로폴리스 캔디 세트 -->
-        <div class="card card-product alt">
+        <div class="card card-product alt candy">
             <p class="prod-num">02 / 06</p>
-            <a href="https://ecoop.or.kr/DureShop/shopMain.do" class="product-detail">
+            <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1640" class="product-detail">
                 <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57833C.png" alt="제주레몬 프로폴리스 캔디 세트">
                 <p class="name">제주레몬 프로폴리스 캔디 세트</p>
                 <p class="feature">
@@ -201,15 +213,15 @@
                         <span class="price">20,200원</span>
                     </div>
                 </div>
-                <p class="stock">남은 수량 216개</p>
+                <p class="stock">한정 216개</p>
                 <p class="reason">💬 면역력 강화로 인기 많았던 제품인데 재고가 넉넉히 남았어요. 환절기 대비용으로 추천드려요.</p>
             </a>
         </div>
 
         <!-- 카드 5: 감향초 발사믹식초세트(3종) -->
-        <div class="card card-product">
+        <div class="card card-product salt">
             <p class="prod-num">03 / 06</p>
-            <a href="https://ecoop.or.kr/DureShop/shopMain.do" class="product-detail">
+            <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1640" class="product-detail">
                 <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/55375C.jpg" alt="감향초 발사믹식초세트(3종)">
                 <p class="name">감향초 발사믹식초 세트 (3종)</p>
                 <p class="feature">
@@ -223,15 +235,15 @@
                         <span class="price">52,500원</span>
                     </div>
                 </div>
-                <p class="stock">남은 수량 453개</p>
+                <p class="stock">한정 453개</p>
                 <p class="reason">💬 고급 선물세트라 가격이 부담스러우셨죠. 이 가격이면 본인용으로 한 세트 어떠세요?</p>
             </a>
         </div>
 
         <!-- 카드 6: 소금선물세트모음(5종) -->
-        <div class="card card-product alt">
+        <div class="card card-product alt salt">
             <p class="prod-num">04 / 06</p>
-            <a href="https://ecoop.or.kr/DureShop/shopMain.do" class="product-detail">
+            <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1640" class="product-detail">
                 <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/19531C.jpg" alt="소금선물세트모음(5종)">
                 <p class="name">소금선물세트모음 (5종)</p>
                 <p class="feature">
@@ -245,15 +257,15 @@
                         <span class="price">24,900원</span>
                     </div>
                 </div>
-                <p class="stock">남은 수량 116개</p>
+                <p class="stock">한정 116개</p>
                 <p class="reason">💬 5종 구성이라 쓸수록 소금의 다양한 맛에 놀라실 거예요. 요리 좋아하시는 분께 강추!</p>
             </a>
         </div>
 
         <!-- 카드 7: 천연양념선물세트 -->
-        <div class="card card-product">
+        <div class="card card-product salt">
             <p class="prod-num">05 / 06</p>
-            <a href="https://ecoop.or.kr/DureShop/shopMain.do" class="product-detail">
+            <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1640" class="product-detail">
                 <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/40033C.jpg" alt="천연양념선물세트">
                 <p class="name">천연양념선물세트</p>
                 <p class="feature">
@@ -267,15 +279,15 @@
                         <span class="price">30,800원</span>
                     </div>
                 </div>
-                <p class="stock">남은 수량 30개</p>
+                <p class="stock low">마감 임박! 30개</p>
                 <p class="reason">💬 딱 30세트 남았어요. 천연 양념은 늘 쓰는 거니까 이 기회에 넉넉히 장만하세요.</p>
             </a>
         </div>
 
         <!-- 카드 8: 페루 마라스 소금 선물세트 -->
-        <div class="card card-product alt">
+        <div class="card card-product alt salt">
             <p class="prod-num">06 / 06</p>
-            <a href="https://ecoop.or.kr/DureShop/shopMain.do" class="product-detail">
+            <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1640" class="product-detail">
                 <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56209C.jpg" alt="페루 마라스 소금 선물세트">
                 <p class="name">페루 마라스 소금 선물세트</p>
                 <p class="feature">
@@ -289,7 +301,7 @@
                         <span class="price">13,900원</span>
                     </div>
                 </div>
-                <p class="stock">남은 수량 50개</p>
+                <p class="stock low">마감 임박! 50개</p>
                 <p class="reason">💬 한정 50세트뿐이에요. 프리미엄 소금을 이 가격에 만나기 어렵습니다.</p>
             </a>
         </div>
@@ -299,7 +311,7 @@
             <p class="final-icon">🌿</p>
             <p class="final-slogan">생산자의 정성, 조합원의 식탁으로</p>
             <h2>좋은 것들이<br>제 값을 못 받고<br>있어요</h2>
-            <a href="https://ecoop.or.kr/DureShop/shopMain.do" class="cta-btn">특판 보러가기 →</a>
+            <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1640" class="cta-btn">특판 보러가기 →</a>
             <div class="cta-period">
                 <p>2/19(수) ~ 2/22(일) · 한정수량</p>
             </div>

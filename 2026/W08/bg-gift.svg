@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 700">
+  <!-- 선물상자 1 (우상단) -->
+  <g transform="translate(310,60)" opacity=".08">
+    <rect x="-35" y="-10" width="70" height="55" rx="4" fill="#fff"/>
+    <rect x="-40" y="-10" width="80" height="18" rx="3" fill="#fff" opacity=".8"/>
+    <line x1="0" y1="-10" x2="0" y2="45" stroke="#fff" stroke-width="6" opacity=".5"/>
+    <path d="M0,-10Q-15,-30 -5,-35Q5,-30 0,-10" fill="#fff" opacity=".4"/>
+    <path d="M0,-10Q15,-30 5,-35Q-5,-30 0,-10" fill="#fff" opacity=".4"/>
+  </g>
+
+  <!-- 선물상자 2 (좌하단) -->
+  <g transform="translate(60,520)" opacity=".06">
+    <rect x="-28" y="-8" width="56" height="44" rx="3" fill="#fff"/>
+    <rect x="-32" y="-8" width="64" height="14" rx="3" fill="#fff" opacity=".7"/>
+    <line x1="0" y1="-8" x2="0" y2="36" stroke="#fff" stroke-width="5" opacity=".5"/>
+    <path d="M0,-8Q-12,-24 -4,-28Q4,-24 0,-8" fill="#fff" opacity=".3"/>
+    <path d="M0,-8Q12,-24 4,-28Q-4,-24 0,-8" fill="#fff" opacity=".3"/>
+  </g>
+
+  <!-- 리본 곡선 -->
+  <g stroke="#fff" fill="none" stroke-linecap="round" opacity=".04">
+    <path d="M50,150Q100,120 150,160Q200,200 250,170Q300,140 350,180" stroke-width="3"/>
+    <path d="M30,400Q80,370 130,410Q180,450 230,420Q280,390 330,430" stroke-width="2.5"/>
+  </g>
+
+  <!-- 별 장식 -->
+  <g fill="#fff" opacity=".06">
+    <circle cx="180" cy="100" r="2"/>
+    <circle cx="120" cy="300" r="1.5"/>
+    <circle cx="300" cy="400" r="2"/>
+    <circle cx="80" cy="450" r="1.5"/>
+    <circle cx="250" cy="200" r="1.8"/>
+    <circle cx="350" cy="550" r="1.5"/>
+  </g>
+
+  <!-- 하트 장식 -->
+  <g opacity=".04">
+    <path d="M200,300Q195,290 185,290Q175,290 175,300Q175,310 200,325Q225,310 225,300Q225,290 215,290Q205,290 200,300Z" fill="#fff"/>
+    <path d="M330,250Q327,244 321,244Q315,244 315,250Q315,256 330,265Q345,256 345,250Q345,244 339,244Q333,244 330,250Z" fill="#fff"/>
+  </g>
+</svg>

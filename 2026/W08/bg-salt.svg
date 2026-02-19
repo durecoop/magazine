@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 700">
+  <!-- 소금 결정 (우상단) -->
+  <g transform="translate(330,80)" opacity=".08">
+    <rect x="-15" y="-15" width="30" height="30" rx="2" fill="#D4C8B8" transform="rotate(45)"/>
+    <rect x="-8" y="-8" width="16" height="16" rx="1" fill="#E8DCC8" transform="rotate(45)" opacity=".6"/>
+  </g>
+
+  <!-- 소금 결정 (좌하단) -->
+  <g transform="translate(50,520)" opacity=".06">
+    <rect x="-12" y="-12" width="24" height="24" rx="2" fill="#D4C8B8" transform="rotate(30)"/>
+    <rect x="-6" y="-6" width="12" height="12" rx="1" fill="#E8DCC8" transform="rotate(30)" opacity=".5"/>
+  </g>
+
+  <!-- 소금 알갱이 흩뿌림 -->
+  <g fill="#D4C8B8" opacity=".06">
+    <circle cx="100" cy="150" r="2.5"/>
+    <circle cx="120" cy="160" r="1.5"/>
+    <circle cx="110" cy="140" r="2"/>
+    <circle cx="280" cy="350" r="2"/>
+    <circle cx="300" cy="340" r="1.5"/>
+    <circle cx="290" cy="360" r="2.5"/>
+    <circle cx="180" cy="600" r="2"/>
+    <circle cx="200" cy="590" r="1.5"/>
+    <circle cx="160" cy="610" r="2"/>
+    <circle cx="350" cy="500" r="1.8"/>
+    <circle cx="60" cy="300" r="2"/>
+  </g>
+
+  <!-- 양념 병 실루엣 (우측) -->
+  <g transform="translate(340,300)" opacity=".05">
+    <rect x="-8" y="-40" width="16" height="8" rx="2" fill="#8B5E4B"/>
+    <rect x="-12" y="-32" width="24" height="55" rx="4" fill="#8B5E4B"/>
+    <rect x="-10" y="-36" width="20" height="4" rx="1" fill="#A07050"/>
+  </g>
+
+  <!-- 양념 병 실루엣 (좌측) -->
+  <g transform="translate(40,400)" opacity=".04">
+    <rect x="-6" y="-35" width="12" height="6" rx="2" fill="#8B5E4B"/>
+    <rect x="-10" y="-29" width="20" height="45" rx="3" fill="#8B5E4B"/>
+  </g>
+
+  <!-- 소금밭 패턴 (하단) -->
+  <g stroke="#C4B8A0" fill="none" opacity=".04">
+    <path d="M20,650Q100,640 200,650Q300,640 380,650" stroke-width="1.5"/>
+    <path d="M20,665Q100,655 200,665Q300,655 380,665" stroke-width="1"/>
+    <path d="M20,678Q100,670 200,678Q300,670 380,678" stroke-width=".8"/>
+  </g>
+</svg>
