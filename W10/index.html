@@ -22,6 +22,7 @@
             align-items: center;
             padding: 0;
             overflow: hidden;
+            -webkit-text-size-adjust: 100%;
         }
 
         .card-container {
@@ -48,6 +49,9 @@
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             flex-direction: column;
+            overflow-y: auto;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
         }
 
         .card.active {
@@ -65,7 +69,7 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 40px 30px;
+            padding: clamp(20px, 4vh, 40px) clamp(15px, 4vw, 30px);
         }
 
         .card-intro .sub-text {
@@ -78,7 +82,7 @@
         .card-intro h1 {
             font-family: 'Noto Serif KR', serif;
             color: white;
-            font-size: 2.6em;
+            font-size: clamp(1.8em, 6vw, 2.6em);
             font-weight: 700;
             letter-spacing: 3px;
             margin-bottom: 8px;
@@ -102,9 +106,9 @@
 
         .card-intro .week-badge {
             color: rgba(255,255,255,0.7);
-            font-size: 1.1em;
+            font-size: clamp(0.85em, 2.5vw, 1.1em);
             font-weight: 500;
-            margin: 8px 0 25px;
+            margin: 5px 0 clamp(12px, 2.5vh, 25px);
             display: block;
             letter-spacing: 1px;
         }
@@ -112,7 +116,7 @@
         .card-intro .focus-section {
             background: #fffde7;
             width: 90%;
-            padding: 22px 22px 18px;
+            padding: clamp(14px, 3vw, 22px) clamp(14px, 3vw, 22px) clamp(12px, 2.5vw, 18px);
             position: relative;
             box-shadow: 2px 3px 12px rgba(0,0,0,0.2), inset 0 0 40px rgba(255,253,200,0.3);
             transform: rotate(-1deg);
@@ -156,8 +160,8 @@
 
         .card-intro .focus-items {
             color: #333;
-            font-size: 1.05em;
-            line-height: 2;
+            font-size: clamp(0.85em, 2.5vw, 1.05em);
+            line-height: 1.8;
         }
 
         .card-intro .focus-items span {
@@ -174,9 +178,11 @@
         }
 
         .card-product .image-section {
-            height: 48%;
+            height: clamp(180px, 38vh, 48vh);
+            min-height: 150px;
             position: relative;
             overflow: hidden;
+            flex-shrink: 0;
         }
 
         .card-product .image-section img {
@@ -237,10 +243,11 @@
 
         .card-product .content-section {
             flex: 1;
-            padding: 22px 28px 28px;
+            padding: clamp(14px, 3vw, 22px) clamp(18px, 4vw, 28px) clamp(14px, 3vw, 28px);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            min-height: 0;
         }
 
         .card-product .product-header {
@@ -251,16 +258,16 @@
 
         .card-product .product-name {
             font-family: 'Noto Serif KR', serif;
-            font-size: 1.85em;
+            font-size: clamp(1.3em, 4.5vw, 1.85em);
             color: #333;
             font-weight: 700;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .card-product .product-desc {
             color: #666;
-            font-size: 1.05em;
-            line-height: 1.6;
+            font-size: clamp(0.85em, 2.5vw, 1.05em);
+            line-height: 1.5;
             font-weight: 400;
         }
 
@@ -277,7 +284,7 @@
         }
 
         .card-product .sale-price {
-            font-size: 2.3em;
+            font-size: clamp(1.6em, 5vw, 2.3em);
             font-weight: 700;
         }
 
@@ -297,20 +304,21 @@
 
         .card-product .buy-btn {
             display: block;
-            width: calc(100% - 56px);
-            margin: 0 28px 80px;
-            padding: 15px;
+            width: calc(100% - 40px);
+            margin: 10px 20px 70px;
+            padding: clamp(12px, 2.5vw, 15px);
             background: linear-gradient(135deg, #2d6a4f, #40916c);
             color: white;
             border: none;
             border-radius: 12px;
-            font-size: 1em;
+            font-size: clamp(0.9em, 2.5vw, 1em);
             font-weight: 700;
             text-align: center;
             text-decoration: none;
             cursor: pointer;
             box-shadow: 0 4px 12px rgba(45,106,79,0.3);
             transition: transform 0.2s, box-shadow 0.2s;
+            flex-shrink: 0;
         }
 
         .card-product .buy-btn:hover {
@@ -322,10 +330,11 @@
             background: linear-gradient(135deg, #2d6a4f, #40916c);
             color: white;
             text-align: center;
-            padding: 13px 15px;
-            font-size: 1em;
+            padding: clamp(8px, 2vw, 13px) 15px;
+            font-size: clamp(0.8em, 2.3vw, 1em);
             font-weight: 600;
             letter-spacing: 0.5px;
+            flex-shrink: 0;
         }
 
         .card-product .promo-strip.accent {
@@ -408,7 +417,7 @@
         /* 상세 스크롤 카드 */
         .card-detail-scroll {
             padding: 0;
-            overflow: hidden;
+            overflow: hidden !important;
             background: #fff;
         }
 
@@ -436,12 +445,12 @@
             width: 100%;
             max-width: 100%;
             display: block;
-            object-fit: fill;
+            object-fit: contain;
         }
 
         .scroll-control-btn {
             position: absolute;
-            bottom: 75px;
+            bottom: 65px;
             left: 50%;
             transform: translateX(-50%);
             background: rgba(0,0,0,0.6);
@@ -470,7 +479,6 @@
         /* 맛찬 카드 스타일 */
         .card-matchan {
             background: linear-gradient(180deg, #1a1a2e 0%, #16213e 40%, #0f3460 100%);
-            overflow: hidden;
         }
 
 
@@ -535,7 +543,7 @@
         .matchan-header h2 {
             font-family: 'Noto Serif KR', serif;
             color: white;
-            font-size: 1.3em;
+            font-size: clamp(1em, 3.5vw, 1.3em);
             line-height: 1.4;
             margin-bottom: 8px;
             text-shadow: 0 2px 4px rgba(0,0,0,0.2);
@@ -555,8 +563,9 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 8px;
-            padding: 8px 8px 70px;
+            padding: 8px 8px 65px;
             flex: 1;
+            min-height: 0;
         }
 
         .matchan-item {
@@ -671,7 +680,7 @@
 
         .card-fullmoon h2 {
             font-family: 'Noto Serif KR', serif;
-            font-size: 1.8em;
+            font-size: clamp(1.3em, 4.5vw, 1.8em);
             margin-bottom: 8px;
             color: #ffeaa7;
         }
@@ -808,8 +817,8 @@
         }
 
         .namul-slot img {
-            width: 90px;
-            height: 90px;
+            width: clamp(55px, 15vw, 90px);
+            height: clamp(55px, 15vw, 90px);
             border-radius: 50%;
             object-fit: cover;
             border: 2px solid rgba(255,234,167,0.5);
@@ -818,8 +827,8 @@
 
         .namul-slot span {
             color: #ffeaa7;
-            font-size: 0.8em;
-            margin-top: 4px;
+            font-size: clamp(0.6em, 2vw, 0.8em);
+            margin-top: 2px;
             font-weight: 600;
             text-shadow: 0 1px 3px rgba(0,0,0,0.5);
         }
@@ -895,14 +904,15 @@
 
         .card-bibimbap .header-section {
             background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%);
-            padding: 25px;
+            padding: clamp(15px, 3vw, 25px);
             text-align: center;
             color: white;
+            flex-shrink: 0;
         }
 
         .card-bibimbap .header-section h2 {
             font-family: 'Noto Serif KR', serif;
-            font-size: 1.7em;
+            font-size: clamp(1.2em, 4vw, 1.7em);
             margin-bottom: 8px;
         }
 
@@ -1015,13 +1025,13 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 40px;
+            padding: clamp(20px, 5vw, 40px);
         }
 
         .card-outro h2 {
             font-family: 'Noto Serif KR', serif;
             color: white;
-            font-size: 1.8em;
+            font-size: clamp(1.3em, 4.5vw, 1.8em);
             font-weight: 400;
             line-height: 1.6;
             margin-bottom: 15px;
@@ -1077,24 +1087,24 @@
         /* 네비게이션 */
         .nav-buttons {
             position: absolute;
-            bottom: 25px;
+            bottom: clamp(10px, 2.5vh, 25px);
             left: 0;
             right: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 14px;
+            gap: 10px;
             z-index: 20;
         }
 
         .nav-btn {
-            width: 42px;
-            height: 42px;
+            width: clamp(34px, 8vw, 42px);
+            height: clamp(34px, 8vw, 42px);
             border-radius: 50%;
             border: none;
             background: rgba(100,100,100,0.45);
             color: rgba(255,255,255,0.9);
-            font-size: 1.1em;
+            font-size: clamp(0.85em, 2.5vw, 1.1em);
             cursor: pointer;
             transition: all 0.3s;
             display: flex;
@@ -1164,6 +1174,123 @@
             font-weight: 600;
             z-index: 10;
             box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        /* 작은 화면 대응 */
+        @media screen and (max-height: 700px) {
+            .card-intro .week-badge {
+                margin: 5px 0 15px;
+            }
+            .card-intro .divider {
+                margin: 10px auto;
+            }
+            .card-intro h2 {
+                font-size: 1.1em;
+            }
+            .card-product .image-section {
+                height: clamp(140px, 30vh, 35vh);
+            }
+            .card-product .buy-btn {
+                margin-bottom: 55px;
+                padding: 10px;
+            }
+            .card-fullmoon .moon {
+                width: 70px;
+                height: 70px;
+            }
+            .card-fullmoon .product-item {
+                padding: 10px;
+                gap: 10px;
+            }
+            .card-fullmoon .product-item img {
+                width: 55px;
+                height: 55px;
+            }
+            .bowl-top-view {
+                width: 70vw;
+                max-width: 280px;
+            }
+            .matchan-grid {
+                padding-bottom: 55px;
+            }
+            .matchan-footer {
+                padding-bottom: 55px;
+            }
+            .scroll-control-btn {
+                bottom: 55px;
+            }
+        }
+
+        @media screen and (max-height: 600px) {
+            .card-intro .focus-section {
+                padding: 10px 12px 8px;
+            }
+            .card-intro .focus-items {
+                line-height: 1.6;
+                font-size: 0.8em;
+            }
+            .card-intro .focus-title {
+                font-size: 0.85em;
+                margin-bottom: 8px;
+                padding-bottom: 6px;
+            }
+            .card-product .image-section {
+                height: clamp(120px, 25vh, 30vh);
+            }
+            .card-product .product-header {
+                padding-bottom: 8px;
+                margin-bottom: 8px;
+            }
+            .card-product .product-features span {
+                padding: 4px 8px;
+                font-size: 0.78em;
+            }
+            .matchan-item {
+                padding: 8px 6px;
+            }
+            .matchan-item h4 {
+                font-size: 0.8em;
+            }
+            .matchan-price .sale {
+                font-size: 1em;
+            }
+        }
+
+        @media screen and (max-width: 360px) {
+            .card-intro .focus-items span {
+                font-size: 0.88em;
+                padding: 0 0 0 6px;
+            }
+            .card-product .category-tag {
+                padding: 8px 12px;
+                font-size: 0.8em;
+            }
+            .card-product .special-tag {
+                padding: 8px 12px;
+                font-size: 0.78em;
+            }
+            .card-product .discount-tag {
+                width: 45px;
+                height: 45px;
+                font-size: 0.82em;
+            }
+            .card-product .benefit-tag {
+                font-size: 0.82em;
+                padding: 6px 10px;
+            }
+            .matchan-discount {
+                font-size: 0.68em;
+                padding: 3px 7px;
+            }
+            .matchan-weight {
+                font-size: 0.68em;
+            }
+            .matchan-price .original {
+                font-size: 0.72em;
+            }
+            .matchan-price .sale {
+                font-size: 1em;
+            }
         }
 
     </style>
@@ -1490,10 +1617,10 @@
 
             <!-- 마지막 카드: 장보기 -->
             <div class="card" style="background:#ffffff; justify-content:center; align-items:center; text-align:center;">
-                <a href="https://ecoop.or.kr/DureShop/shopMain.do" target="_blank" style="text-decoration:none; display:flex; flex-direction:column; align-items:center; background:linear-gradient(135deg, #1b4332 0%, #2d6a4f 100%); border:none; border-radius:30px; padding:50px 45px; box-shadow:0 8px 30px rgba(45,106,79,0.35); transition:all 0.3s;">
-                    <span style="font-size:8em; margin-bottom:25px; display:block;">🛒</span>
-                    <p style="color:white; font-family:'Noto Serif KR',serif; font-size:2.5em; font-weight:700; letter-spacing:2px; margin-bottom:10px;">이번 주 장보기</p>
-                    <p style="color:rgba(183,228,199,0.8); font-size:1.15em;">두레생협 쇼핑몰 바로가기 →</p>
+                <a href="https://ecoop.or.kr/DureShop/shopMain.do" target="_blank" style="text-decoration:none; display:flex; flex-direction:column; align-items:center; background:linear-gradient(135deg, #1b4332 0%, #2d6a4f 100%); border:none; border-radius:30px; padding:clamp(30px, 6vh, 50px) clamp(25px, 6vw, 45px); box-shadow:0 8px 30px rgba(45,106,79,0.35); transition:all 0.3s; margin:0 20px;">
+                    <span style="font-size:clamp(4em, 15vw, 8em); margin-bottom:clamp(15px, 3vh, 25px); display:block;">🛒</span>
+                    <p style="color:white; font-family:'Noto Serif KR',serif; font-size:clamp(1.5em, 5vw, 2.5em); font-weight:700; letter-spacing:2px; margin-bottom:10px;">이번 주 장보기</p>
+                    <p style="color:rgba(183,228,199,0.8); font-size:clamp(0.9em, 2.5vw, 1.15em);">두레생협 쇼핑몰 바로가기 →</p>
                 </a>
             </div>
 
