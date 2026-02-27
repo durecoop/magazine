@@ -1,0 +1,1664 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>생활의 발견 - 두레생협 10주 기획전</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Serif+KR:wght@400;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: #000;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .card-container {
+            width: 100%;
+            height: 100vh;
+            position: relative;
+        }
+
+        .card-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            border-radius: 0;
+            box-shadow: none;
+        }
+
+        .card {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .card.prev {
+            transform: translateX(-100%);
+        }
+
+        /* 카드 1: 인트로 */
+        .card-intro {
+            background: linear-gradient(180deg, #1b4332 0%, #2d6a4f 100%);
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px 30px;
+        }
+
+        .card-intro .sub-text {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.85em;
+            letter-spacing: 4px;
+            margin-bottom: 10px;
+        }
+
+        .card-intro h1 {
+            font-family: 'Noto Serif KR', serif;
+            color: white;
+            font-size: 2.6em;
+            font-weight: 700;
+            letter-spacing: 3px;
+            margin-bottom: 8px;
+        }
+
+        .card-intro .divider {
+            width: 50px;
+            height: 2px;
+            background: rgba(183,228,199,0.5);
+            margin: 16px auto;
+        }
+
+        .card-intro h2 {
+            font-family: 'Noto Serif KR', serif;
+            color: #b7e4c7;
+            font-size: 1.4em;
+            font-weight: 400;
+            margin-bottom: 6px;
+            letter-spacing: 2px;
+        }
+
+        .card-intro .week-badge {
+            color: rgba(255,255,255,0.7);
+            font-size: 1.1em;
+            font-weight: 500;
+            margin: 8px 0 25px;
+            display: block;
+            letter-spacing: 1px;
+        }
+
+        .card-intro .focus-section {
+            background: #fffde7;
+            width: 90%;
+            padding: 22px 22px 18px;
+            position: relative;
+            box-shadow: 2px 3px 12px rgba(0,0,0,0.2), inset 0 0 40px rgba(255,253,200,0.3);
+            transform: rotate(-1deg);
+            border: none;
+            border-radius: 2px;
+        }
+
+        .card-intro .focus-section::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 16px;
+            background: rgba(46,139,87,0.5);
+            border-radius: 2px;
+        }
+
+        .card-intro .focus-section::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 0 0 18px 18px;
+            border-color: transparent transparent #d4d0a8 transparent;
+        }
+
+        .card-intro .focus-title {
+            color: #2d6a4f;
+            font-size: 1em;
+            font-weight: 700;
+            margin-bottom: 14px;
+            letter-spacing: 1px;
+            border-bottom: 2px dashed rgba(45,106,79,0.25);
+            padding-bottom: 10px;
+        }
+
+        .card-intro .focus-items {
+            color: #333;
+            font-size: 1.05em;
+            line-height: 2;
+        }
+
+        .card-intro .focus-items span {
+            display: block;
+            padding: 1px 0 1px 8px;
+            font-size: 1em;
+            border-left: 3px solid #2d6a4f;
+            margin-bottom: 2px;
+        }
+
+        /* 상품 카드 공통 */
+        .card-product {
+            background: #ffffff;
+        }
+
+        .card-product .image-section {
+            height: 48%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-product .image-section img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-product .image-section .overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: linear-gradient(transparent, rgba(255,255,255,0.9));
+        }
+
+        .card-product .category-tag {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 25px;
+            font-size: 0.9em;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .card-product .special-tag {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            padding: 10px 16px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+        }
+
+        .card-product .discount-tag {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
+            color: white;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            font-size: 0.95em;
+            font-weight: 700;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(255,65,108,0.4);
+        }
+
+        .card-product .content-section {
+            flex: 1;
+            padding: 22px 28px 28px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card-product .product-header {
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 12px;
+            margin-bottom: 12px;
+        }
+
+        .card-product .product-name {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 1.85em;
+            color: #333;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .card-product .product-desc {
+            color: #666;
+            font-size: 1.05em;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
+        .card-product .price-section {
+            display: flex;
+            align-items: flex-end;
+            gap: 12px;
+        }
+
+        .card-product .original-price {
+            color: #bbb;
+            text-decoration: line-through;
+            font-size: 1.15em;
+        }
+
+        .card-product .sale-price {
+            font-size: 2.3em;
+            font-weight: 700;
+        }
+
+        .card-product .sale-price span {
+            font-size: 0.5em;
+            font-weight: 400;
+        }
+
+        .card-product .benefit-tag {
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-size: 0.92em;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .card-product .buy-btn {
+            display: block;
+            width: calc(100% - 56px);
+            margin: 0 28px 80px;
+            padding: 15px;
+            background: linear-gradient(135deg, #2d6a4f, #40916c);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1em;
+            font-weight: 700;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(45,106,79,0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card-product .buy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(45,106,79,0.4);
+        }
+
+        .card-product .promo-strip {
+            background: linear-gradient(135deg, #2d6a4f, #40916c);
+            color: white;
+            text-align: center;
+            padding: 13px 15px;
+            font-size: 1em;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .card-product .promo-strip.accent {
+            background: linear-gradient(135deg, #e74c3c, #ff6b6b);
+        }
+
+        .card-product .promo-strip.gold {
+            background: linear-gradient(135deg, #f39c12, #f7dc6f);
+            color: #333;
+        }
+
+        .card-product .product-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 10px;
+        }
+
+        .card-product .product-features span {
+            background: #f0f0f0;
+            color: #555;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.88em;
+            font-weight: 500;
+        }
+
+        /* 증정 이벤트 특별 스타일 */
+        .gift-tag {
+            background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%) !important;
+            animation: giftPulse 1.5s infinite;
+        }
+
+        @keyframes giftPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes shimmer {
+            0%, 100% { box-shadow: 0 3px 10px rgba(255,71,87,0.4); opacity: 1; }
+            50% { box-shadow: 0 3px 25px rgba(255,71,87,0.9), 0 0 40px rgba(255,107,129,0.5); opacity: 0.85; transform: scale(1.05); }
+        }
+
+        /* 신규 출시 특별 스타일 */
+        .new-tag {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        }
+
+        /* 집중 품목 특별 스타일 */
+        .focus-tag {
+            background: linear-gradient(135deg, #f7971e 0%, #ffd200 100%) !important;
+            color: #333 !important;
+        }
+
+        /* 카드별 테마 색상 */
+        .card-snack .category-tag { background: linear-gradient(135deg, #f7971e 0%, #ffd200 100%); }
+        .card-snack .sale-price { color: #f7971e; }
+        .card-snack .benefit-tag { background: #fff8e1; color: #f7971e; }
+
+        .card-meat .category-tag { background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%); }
+        .card-meat .sale-price { color: #eb3349; }
+        .card-meat .benefit-tag { background: #ffebee; color: #eb3349; }
+
+        .card-fermented .category-tag { background: linear-gradient(135deg, #8e2de2 0%, #4a00e0 100%); }
+        .card-fermented .sale-price { color: #8e2de2; }
+        .card-fermented .benefit-tag { background: #f3e5f5; color: #8e2de2; }
+
+        .card-kimchi .category-tag { background: linear-gradient(135deg, #e67e22 0%, #f39c12 100%); }
+        .card-kimchi .sale-price { color: #e67e22; }
+        .card-kimchi .benefit-tag { background: #fef5e7; color: #e67e22; }
+
+        .card-soy .category-tag { background: linear-gradient(135deg, #6b4226 0%, #a0522d 100%); }
+        .card-soy .sale-price { color: #6b4226; }
+        .card-soy .benefit-tag { background: #f5ebe0; color: #6b4226; }
+
+        .card-namul .category-tag { background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%); }
+        .card-namul .sale-price { color: #e74c3c; }
+        .card-namul .benefit-tag { background: #fff3e0; color: #e74c3c; }
+
+        /* 상세 스크롤 카드 */
+        .card-detail-scroll {
+            padding: 0;
+            overflow: hidden;
+            background: #fff;
+        }
+
+        .card-detail-scroll .detail-scroll-area {
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .card-detail-scroll .detail-scroll-area::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .card-detail-scroll .detail-scroll-area::-webkit-scrollbar-thumb {
+            background: rgba(0,0,0,0.2);
+            border-radius: 4px;
+        }
+
+        .card-detail-scroll .detail-scroll-inner {
+            width: 100%;
+        }
+
+        .card-detail-scroll .detail-scroll-inner img {
+            width: 100%;
+            max-width: 100%;
+            display: block;
+            object-fit: fill;
+        }
+
+        .scroll-control-btn {
+            position: absolute;
+            bottom: 75px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.6);
+            color: white;
+            border: none;
+            padding: 8px 22px;
+            border-radius: 20px;
+            font-size: 0.82em;
+            font-weight: 600;
+            cursor: pointer;
+            z-index: 10;
+            backdrop-filter: blur(5px);
+            transition: background 0.2s;
+        }
+
+        .scroll-control-btn:hover {
+            background: rgba(0,0,0,0.8);
+        }
+
+        /* 정월대보름 테마 카드 */
+        .card-fullmoon {
+            background: linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: white;
+        }
+
+        /* 맛찬 카드 스타일 */
+        .card-matchan {
+            background: linear-gradient(180deg, #1a1a2e 0%, #16213e 40%, #0f3460 100%);
+            overflow: hidden;
+        }
+
+
+        .card-matchan::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(1px 1px at 10% 15%, rgba(255,255,255,0.6), transparent),
+                radial-gradient(1px 1px at 25% 35%, rgba(255,255,255,0.4), transparent),
+                radial-gradient(1.5px 1.5px at 50% 8%, rgba(255,255,255,0.7), transparent),
+                radial-gradient(1px 1px at 70% 25%, rgba(255,255,255,0.5), transparent),
+                radial-gradient(1px 1px at 85% 45%, rgba(255,255,255,0.4), transparent),
+                radial-gradient(1.5px 1.5px at 15% 55%, rgba(255,255,255,0.3), transparent),
+                radial-gradient(1px 1px at 40% 65%, rgba(255,255,255,0.4), transparent),
+                radial-gradient(1px 1px at 90% 60%, rgba(255,255,255,0.3), transparent);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .card-matchan > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .matchan-header {
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(5px);
+            padding: 12px 20px;
+            text-align: center;
+            position: relative;
+            border-bottom: 1px solid rgba(255,234,167,0.15);
+        }
+
+
+        .matchan-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: #ff4757;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.75em;
+            font-weight: 700;
+        }
+
+        .matchan-logo {
+            display: inline-block;
+            background: #2d5a27;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .matchan-header h2 {
+            font-family: 'Noto Serif KR', serif;
+            color: white;
+            font-size: 1.3em;
+            line-height: 1.4;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .matchan-notice {
+            background: rgba(255,255,255,0.2);
+            color: #fff;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .matchan-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            padding: 8px 8px 70px;
+            flex: 1;
+        }
+
+        .matchan-item {
+            background: rgba(255,255,255,0.92);
+            border-radius: 12px;
+            padding: 12px 8px;
+            text-align: center;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.25);
+            position: relative;
+            transition: transform 0.2s;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+        }
+
+        .matchan-item-link {
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            height: 100%;
+        }
+
+        .matchan-item:hover {
+            transform: translateY(-3px);
+        }
+
+        .matchan-discount {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            font-weight: 700;
+            z-index: 2;
+            box-shadow: 0 2px 8px rgba(255,65,108,0.4);
+        }
+
+        .matchan-img-wrap {
+            width: 100%;
+            flex: 1;
+            min-height: 100px;
+            margin: 5px auto 8px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #f5f5f5;
+        }
+
+        .matchan-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .matchan-item h4 {
+            font-size: 0.95em;
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 3px;
+            line-height: 1.3;
+        }
+
+        .matchan-weight {
+            color: #888;
+            font-size: 0.75em;
+            margin-bottom: 8px;
+        }
+
+        .matchan-price {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .matchan-price .original {
+            color: #aaa;
+            text-decoration: line-through;
+            font-size: 0.8em;
+        }
+
+        .matchan-price .sale {
+            color: #e74c3c;
+            font-size: 1.2em;
+            font-weight: 700;
+        }
+
+        .matchan-footer {
+            color: #ffeaa7;
+            text-align: center;
+            padding: 12px 15px 65px;
+            font-weight: 500;
+        }
+
+        .matchan-footer p {
+            font-size: 1.15em;
+            font-weight: 600;
+        }
+
+        .card-fullmoon .moon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            box-shadow: 0 0 60px rgba(253, 203, 110, 0.6), 0 0 100px rgba(253, 203, 110, 0.3);
+        }
+
+        .card-fullmoon h2 {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 1.8em;
+            margin-bottom: 8px;
+            color: #ffeaa7;
+        }
+
+        .card-fullmoon .subtitle {
+            font-size: 1em;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 25px;
+        }
+
+        .card-fullmoon .product-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding: 0 15px;
+        }
+
+        .card-fullmoon .product-item {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .card-fullmoon .product-item img {
+            width: 70px;
+            height: 70px;
+            border-radius: 12px;
+            object-fit: cover;
+        }
+
+        .card-fullmoon .product-info {
+            flex: 1;
+        }
+
+        .card-fullmoon .product-info h4 {
+            font-size: 1em;
+            margin-bottom: 5px;
+            color: white;
+        }
+
+        .card-fullmoon .product-info p {
+            font-size: 0.85em;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .card-fullmoon .product-info .price {
+            color: #ffeaa7;
+            font-weight: 700;
+            font-size: 1.1em;
+        }
+
+        .card-fullmoon .namul-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 20px;
+            padding: 0 10px;
+        }
+
+        .card-fullmoon .namul-item {
+            background: rgba(255,234,167,0.2);
+            color: #ffeaa7;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            border: 1px solid rgba(255,234,167,0.3);
+        }
+
+        /* 위에서 본 그릇 애니메이션 */
+        .bowl-top-view-wrap {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 10px 5px;
+            flex: 1;
+        }
+
+        .bowl-top-view {
+            position: relative;
+            width: 85vw;
+            max-width: 380px;
+            aspect-ratio: 1;
+        }
+
+        .bowl-rim {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #D2691E 0%, #8B4513 50%, #654321 100%);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4), inset 0 0 30px rgba(0,0,0,0.3);
+        }
+
+        .bowl-inside {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+            border-radius: 50%;
+            background: linear-gradient(180deg, #3d2817 0%, #2a1a0f 100%);
+            box-shadow: inset 0 5px 20px rgba(0,0,0,0.5);
+        }
+
+        .namul-grid {
+            position: absolute;
+            top: 35px;
+            left: 35px;
+            right: 35px;
+            bottom: 35px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 4px;
+            z-index: 1;
+        }
+
+        .namul-slot {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: scale(0) translateY(-30px);
+        }
+
+        .namul-slot img {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid rgba(255,234,167,0.5);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+        }
+
+        .namul-slot span {
+            color: #ffeaa7;
+            font-size: 0.8em;
+            margin-top: 4px;
+            font-weight: 600;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+        }
+
+        .namul-slot.slot-1 { animation: dropIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards 0.5s; }
+        .namul-slot.slot-2 { animation: dropIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards 1.2s; }
+        .namul-slot.slot-3 { animation: dropIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards 1.9s; }
+        .namul-slot.slot-4 { animation: dropIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards 2.6s; }
+        .namul-slot.slot-5 { animation: dropIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards 3.3s; }
+        .namul-slot.slot-6 { animation: dropIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards 4s; }
+
+        @keyframes dropIn {
+            0% {
+                opacity: 0;
+                transform: scale(0) translateY(-50px);
+            }
+            60% {
+                opacity: 1;
+                transform: scale(1.15) translateY(5px);
+            }
+            80% {
+                transform: scale(0.95) translateY(-2px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .final-bubble {
+            margin-top: 10px;
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            opacity: 0;
+            transform: scale(0.1) translateZ(-800px);
+            animation: flyIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards 5s;
+        }
+
+        .final-bubble p {
+            color: #fff;
+            font-size: 1.2em;
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+
+        .final-bubble strong {
+            color: #ffe;
+            font-size: 1.6em;
+        }
+
+        @keyframes bubblePop {
+            0% { opacity: 0; transform: scale(0); }
+            50% { transform: scale(1.1); }
+            70% { transform: scale(0.95); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes flyIn {
+            0% { opacity: 0; transform: scale(0.1) translateY(-600px) rotate(-15deg); }
+            40% { opacity: 0.7; transform: scale(0.6) translateY(-100px) rotate(5deg); }
+            70% { opacity: 1; transform: scale(1.1) translateY(10px) rotate(-2deg); }
+            85% { transform: scale(0.95) translateY(-5px) rotate(1deg); }
+            100% { opacity: 1; transform: scale(1) translateY(0) rotate(0deg); }
+        }
+
+        /* 봄동 비빔밥 테마 카드 */
+        .card-bibimbap {
+            background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .card-bibimbap .header-section {
+            background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%);
+            padding: 25px;
+            text-align: center;
+            color: white;
+        }
+
+        .card-bibimbap .header-section h2 {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 1.7em;
+            margin-bottom: 8px;
+        }
+
+        .card-bibimbap .header-section p {
+            font-size: 0.95em;
+            opacity: 0.95;
+        }
+
+        .card-bibimbap .recipe-section {
+            padding: 25px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-bibimbap .main-product {
+            display: flex;
+            gap: 20px;
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+        }
+
+        .card-bibimbap .main-product img {
+            width: 100px;
+            height: 100px;
+            border-radius: 12px;
+            object-fit: cover;
+        }
+
+        .card-bibimbap .main-product .info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .card-bibimbap .main-product h3 {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 1.4em;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .card-bibimbap .main-product .tag {
+            display: inline-block;
+            background: #e8f5e9;
+            color: #56ab2f;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .card-bibimbap .main-product .price-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-bibimbap .main-product .original {
+            color: #aaa;
+            text-decoration: line-through;
+            font-size: 0.9em;
+        }
+
+        .card-bibimbap .main-product .sale {
+            color: #56ab2f;
+            font-size: 1.4em;
+            font-weight: 700;
+        }
+
+        .card-bibimbap .main-product .discount {
+            background: #ff5722;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 0.75em;
+            font-weight: 700;
+        }
+
+        .card-bibimbap .recipe-tip {
+            background: #fff8e1;
+            border-radius: 12px;
+            padding: 18px;
+            border-left: 4px solid #ffc107;
+        }
+
+        .card-bibimbap .recipe-tip h4 {
+            color: #f57c00;
+            font-size: 0.95em;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-bibimbap .recipe-tip p {
+            color: #666;
+            font-size: 0.88em;
+            line-height: 1.7;
+        }
+
+        /* 마지막 카드: 아웃트로 */
+        .card-outro {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 50%, #a8e063 100%);
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .card-outro h2 {
+            font-family: 'Noto Serif KR', serif;
+            color: white;
+            font-size: 1.8em;
+            font-weight: 400;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.15);
+        }
+
+        .card-outro .highlight {
+            font-weight: 700;
+            font-size: 1.2em;
+        }
+
+        .card-outro .summary-box {
+            background: rgba(255,255,255,0.2);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .card-outro .summary-item {
+            color: white;
+            font-size: 0.9em;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .card-outro .summary-item:last-child {
+            border-bottom: none;
+        }
+
+        .card-outro .summary-item strong {
+            color: #ffd700;
+        }
+
+        .card-outro .cta-button {
+            background: white;
+            color: #11998e;
+            padding: 18px 50px;
+            border-radius: 40px;
+            font-size: 1.1em;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .card-outro .cta-button:hover {
+            transform: scale(1.05);
+        }
+
+        /* 네비게이션 */
+        .nav-buttons {
+            position: absolute;
+            bottom: 25px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 14px;
+            z-index: 20;
+        }
+
+        .nav-btn {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(100,100,100,0.45);
+            color: rgba(255,255,255,0.9);
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .nav-btn:hover {
+            background: rgba(0,0,0,0.6);
+            color: white;
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.2;
+            cursor: not-allowed;
+        }
+
+        /* 인디케이터 */
+        .indicators {
+            display: flex;
+            gap: 6px;
+        }
+
+        .indicator {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(120,120,120,0.5);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .indicator.active {
+            background: #666;
+            width: 20px;
+            border-radius: 3px;
+        }
+
+        /* 스와이프 힌트 */
+        .swipe-hint {
+            position: absolute;
+            bottom: 15px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: rgba(255,255,255,0.8);
+            font-size: 0.85em;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* 페이지 카운터 */
+        .page-counter {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(0,0,0,0.5);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+            z-index: 10;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+    </style>
+</head>
+<body>
+    <div class="card-container">
+        <div class="card-wrapper">
+
+            <!-- 카드 1: 인트로 -->
+            <div class="card card-intro active">
+                <p class="sub-text">건강한 먹거리, 지속 가능한 소비</p>
+                <h1>두레생협</h1>
+                <div class="divider"></div>
+                <h2>생활의 발견</h2>
+                <span class="week-badge">공급일 3/2(월) ~ 3/7(금)</span>
+
+                <div class="focus-section">
+                    <p class="focus-title">이번 주 기획 생활재</p>
+                    <div class="focus-items">
+                        <span>🥩 한우도가니스지탕 10% 할인</span>
+                        <span>🥬 열무김치 할인</span>
+                        <span>🎁 7만원 이상 바나나송송 증정</span>
+                        <span>✨ 순진한 막걸리식초 신규 출시</span>
+                        <span>🫙 5년숙성 자연미간장 예약</span>
+                        <span>🌕 정월대보름 나물세트</span>
+                    </div>
+                </div>
+                <p class="swipe-hint">← 옆으로 넘겨보세요 →</p>
+            </div>
+
+            <!-- 카드: 한우도가니스지탕 (집중 품목) -->
+            <div class="card card-product card-meat">
+                <div class="image-section">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58965C.jpg" alt="한우도가니스지탕">
+                    <div class="overlay"></div>
+                    <span class="category-tag">🥩 육류</span>
+                    <span class="special-tag" style="background:linear-gradient(135deg, #667eea 0%, #764ba2 100%);">✨ 신규</span>
+                </div>
+                <div class="promo-strip">이번 주만 누리는 특별 혜택, 10% 할인!</div>
+                <div class="content-section">
+                    <div>
+                        <div class="product-header">
+                            <h3 class="product-name">한우도가니스지탕</h3>
+                            <p class="product-desc">진하게 우려낸 한우 국물 한 그릇<br>온 가족이 든든하게 보양하세요</p>
+                        </div>
+                        <div class="product-features">
+                            <span>한 마리당 2kg만</span>
+                            <span>진한 국물</span>
+                            <span>간편 보양식</span>
+                            <span>2인분</span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="price-section">
+                            <span class="original-price">13,800원</span>
+                            <span class="sale-price">12,400<span>원</span></span>
+                        </div>
+                        <span class="benefit-tag">🔥 이번 주 집중 생활재</span>
+                    </div>
+                </div>
+                <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1642#book4" target="_blank" class="buy-btn">구매하기</a>
+            </div>
+
+            <!-- 카드: 한우도가니스지탕 상세 스크롤 -->
+            <div class="card card-detail-scroll" id="detail-scroll-card">
+                <div class="detail-scroll-area" id="detail-scroll-area-beef">
+                    <div class="detail-scroll-inner">
+                        <img src="img/한우도가니스지탕1.jpg" alt="한우도가니스지탕 상세1">
+                        <img src="img/한우도가니스지탕3.gif" alt="한우도가니스지탕 상세3">
+                        <img src="img/한우도가니스지탕4.gif" alt="한우도가니스지탕 상세4">
+                        <img src="img/한우도가니스지탕2.jpg" alt="한우도가니스지탕 상세2">
+                    </div>
+                </div>
+                <button class="scroll-control-btn" id="scrollControlBtnBeef" onclick="toggleAutoScroll('beef')">⏸ 자동스크롤 멈춤</button>
+            </div>
+
+            <!-- 카드: 열무김치 -->
+            <div class="card card-product card-kimchi">
+                <div class="image-section">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/28224C.png" alt="열무김치">
+                    <div class="overlay"></div>
+                    <span class="category-tag">🥬 김치</span>
+                    <span class="special-tag" style="background:linear-gradient(135deg, #e74c3c 0%, #ff6b6b 100%);">🔥 할인</span>
+                </div>
+                <div class="promo-strip gold">한우스지도가니탕과 찰떡궁합!</div>
+                <div class="content-section">
+                    <div>
+                        <div class="product-header">
+                            <h3 class="product-name">열무김치 (1kg)</h3>
+                            <p class="product-desc">아삭하고 시원한 열무김치<br>밥 위에 올려 쓱쓱 비비면 한 끼 뚝딱!</p>
+                        </div>
+                        <div class="product-features">
+                            <span>아삭한 식감</span>
+                            <span>국내산 원료</span>
+                            <span>넉넉한 1kg</span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="price-section">
+                            <span class="original-price">7,000원</span>
+                            <span class="sale-price">6,700<span>원</span></span>
+                        </div>
+                        <span class="benefit-tag">🔥 조합원 특가</span>
+                    </div>
+                </div>
+                <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1642#book4" target="_blank" class="buy-btn">구매하기</a>
+            </div>
+
+            <!-- 카드: 바나나송송 증정 이벤트 -->
+            <div class="card card-product card-snack">
+                <div class="image-section">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58892C.jpg" alt="바나나송송">
+                    <div class="overlay"></div>
+                    <span class="category-tag">🍪 스낵</span>
+                    <span class="special-tag gift-tag">🎁 증정</span>
+                </div>
+                <div class="promo-strip accent">🎁 이번 주 7만원 이상 구매 시 바나나송송 1개 증정!</div>
+                <div class="content-section">
+                    <div>
+                        <div class="product-header">
+                            <h3 class="product-name">바나나송송</h3>
+                            <p class="product-desc">바삭하고 달콤한 바나나칩<br>아이들 간식, 나들이 간식으로 인기 만점!</p>
+                        </div>
+                        <div class="product-features">
+                            <span>바삭한 식감</span>
+                            <span>자연 그대로</span>
+                            <span>온 가족 간식</span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="price-section">
+                            <span class="original-price">2,300원</span>
+                            <span class="sale-price">2,000<span>원</span></span>
+                        </div>
+                        <span class="benefit-tag">🎁 7만원 이상 구매 시 증정</span>
+                    </div>
+                </div>
+                <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1642" target="_blank" class="buy-btn">구매하기</a>
+            </div>
+
+            <!-- 카드: 순진한 막걸리식초 (신규 출시) -->
+            <div class="card card-product card-fermented">
+                <div class="image-section">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59045C.jpg" alt="순진한 막걸리식초">
+                    <div class="overlay"></div>
+                    <span class="category-tag">🍶 발효식품</span>
+                    <span class="special-tag new-tag">✨ 신규</span>
+                </div>
+                <div class="promo-strip" style="background:linear-gradient(135deg,#667eea,#764ba2);">신규 출시 기념 10% 할인! 전통 발효 식초</div>
+                <div class="content-section">
+                    <div>
+                        <div class="product-header">
+                            <h3 class="product-name">순진한 막걸리식초</h3>
+                            <p class="product-desc">전통 막걸리로 빚은 자연발효 식초<br>요리에 넣으면 풍미가 확 살아나요</p>
+                        </div>
+                        <div class="product-features">
+                            <span>전통 발효</span>
+                            <span>무첨가</span>
+                            <span>요리 필수템</span>
+                            <span>신규 출시</span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="price-section">
+                            <span class="original-price">8,200원</span>
+                            <span class="sale-price">7,400<span>원</span></span>
+                        </div>
+                        <span class="benefit-tag">🆕 이번 주 신규 출시 생활재</span>
+                    </div>
+                </div>
+                <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1642#book5" target="_blank" class="buy-btn">구매하기</a>
+            </div>
+
+            <!-- 막걸리식초 상세 스크롤 카드 -->
+            <div class="card card-detail-scroll" id="detail-scroll-card-vinegar">
+                <div class="detail-scroll-area" id="detail-scroll-area-vinegar">
+                    <div class="detail-scroll-inner">
+                        <img src="img/순진한 막걸리 식초.jpg" alt="순진한 막걸리식초 상세">
+                    </div>
+                </div>
+                <button class="scroll-control-btn" id="scrollControlBtnVinegar" onclick="toggleAutoScroll('vinegar')">⏸ 자동스크롤 멈춤</button>
+            </div>
+
+            <!-- 카드: 5년숙성 자연미간장 (예약 생활재) -->
+            <div class="card card-product card-soy">
+                <div class="image-section">
+                    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59135C.jpg" alt="5년숙성 자연미간장">
+                    <div class="overlay"></div>
+                    <span class="category-tag">🫙 장류</span>
+                    <span class="special-tag" style="background:linear-gradient(135deg, #d35400, #e74c3c); animation: shimmer 2s ease-in-out infinite;">예약 마감 3/9</span>
+                </div>
+                <div class="promo-strip" style="background:linear-gradient(135deg, #6b4226, #a0522d);">📋 예약 생활재 | 3/9(월) 마감 → 3/20(목) 공급</div>
+                <div class="content-section">
+                    <div>
+                        <div class="product-header">
+                            <h3 class="product-name">5년숙성 자연미간장</h3>
+                            <p class="product-desc">순 우리콩으로 빚은 5년 숙성 간장<br>깊고 풍부한 감칠맛, 1.8L 대용량</p>
+                        </div>
+                        <div class="product-features">
+                            <span>5년 숙성</span>
+                            <span>국산 우리콩</span>
+                            <span>천일염</span>
+                            <span>1.8L</span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="price-section">
+                            <span class="sale-price">19,200<span>원</span></span>
+                        </div>
+                        <span class="benefit-tag">📋 예약 생활재 · 3/9 마감</span>
+                    </div>
+                </div>
+                <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=02&returnNo=59135&returnPlanNo=0" target="_blank" class="buy-btn" style="background:linear-gradient(135deg, #6b4226, #a0522d);">예약하기</a>
+            </div>
+
+            <!-- 카드 5: 정월대보름 나물세트 -->
+            <div class="card card-product card-namul">
+                <div class="image-section">
+                    <img src="img/정월대보름나물세트.png" alt="정월대보름 나물세트">
+                    <div class="overlay"></div>
+                    <span class="category-tag">🌕 정월대보름</span>
+                    <span class="special-tag" style="background:linear-gradient(135deg, #ff4757, #ff6b81); animation: shimmer 2s ease-in-out infinite;">한정수량</span>
+                </div>
+                <div class="promo-strip accent">🌕 정월대보름 나물 6종, 한 번에 준비 끝!</div>
+                <div class="content-section">
+                    <div>
+                        <div class="product-header">
+                            <h3 class="product-name">나물세트(6종)</h3>
+                            <p class="product-desc">고사리·도라지·시래기·취나물·곤드레·토란대<br>정월대보름 나물, 한 세트로 간편하게</p>
+                        </div>
+                        <div class="product-features">
+                            <span>6종 구성</span>
+                            <span>간편 완성</span>
+                            <span>한정수량</span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="price-section">
+                            <span class="sale-price">27,500<span>원</span></span>
+                        </div>
+                        <span class="benefit-tag">🌕 한정수량 · 서둘러 주세요</span>
+                    </div>
+                </div>
+                <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1642#book14" target="_blank" class="buy-btn">구매하기</a>
+            </div>
+
+            <!-- 카드 6: 정월대보름 대용량 맛찬 나물 -->
+            <div class="card card-matchan">
+                <div class="matchan-header">
+
+                    <div class="matchan-badge">NEW</div>
+                    <div class="matchan-logo">두레맛찬</div>
+                    <h2>정월대보름<br><span style="background:linear-gradient(transparent 55%, rgba(255,224,102,0.5) 55%); padding:0 4px;">더 푸짐한 대용량</span><br>두레맛찬 나물</h2>
+                    <p class="matchan-notice">3/3(화) 단 하루만 공급!</p>
+                </div>
+
+                <div class="matchan-grid">
+                    <!-- 고사리나물 -->
+                    <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1642#book21" target="_blank" class="matchan-item-link">
+                    <div class="matchan-item">
+                        <div class="matchan-discount">10%</div>
+                        <div class="matchan-img-wrap">
+                            <img src="img/(맛찬)고사리나물.jpg" alt="고사리나물">
+                        </div>
+                        <h4>(맛찬)고사리나물</h4>
+                        <p class="matchan-weight">200g</p>
+                        <div class="matchan-price">
+                            <span class="original">14,400원</span>
+                            <span class="sale">13,000원</span>
+                        </div>
+                    </div>
+                    </a>
+
+                    <!-- 깻잎손들깨볶음 -->
+                    <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1642#book21" target="_blank" class="matchan-item-link">
+                    <div class="matchan-item">
+                        <div class="matchan-discount">10%</div>
+                        <div class="matchan-img-wrap">
+                            <img src="img/(맛찬)깻잎순들깨볶음.png" alt="깻잎순들깨볶음">
+                        </div>
+                        <h4>(맛찬)깻잎손들깨볶음</h4>
+                        <p class="matchan-weight">200g</p>
+                        <div class="matchan-price">
+                            <span class="original">12,600원</span>
+                            <span class="sale">11,300원</span>
+                        </div>
+                    </div>
+                    </a>
+
+                    <!-- 도라지나물 -->
+                    <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1642#book21" target="_blank" class="matchan-item-link">
+                    <div class="matchan-item">
+                        <div class="matchan-discount">10%</div>
+                        <div class="matchan-img-wrap">
+                            <img src="img/(맛찬)도라지나물.png" alt="도라지나물">
+                        </div>
+                        <h4>(맛찬)도라지나물</h4>
+                        <p class="matchan-weight">200g</p>
+                        <div class="matchan-price">
+                            <span class="original">14,600원</span>
+                            <span class="sale">13,100원</span>
+                        </div>
+                    </div>
+                    </a>
+
+                    <!-- 도라지초무침 -->
+                    <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1642#book21" target="_blank" class="matchan-item-link">
+                    <div class="matchan-item">
+                        <div class="matchan-discount">10%</div>
+                        <div class="matchan-img-wrap">
+                            <img src="img/(맛찬)도라지초무침.png" alt="도라지초무침">
+                        </div>
+                        <h4>(맛찬)도라지초무침</h4>
+                        <p class="matchan-weight">220g</p>
+                        <div class="matchan-price">
+                            <span class="original">11,800원</span>
+                            <span class="sale">10,600원</span>
+                        </div>
+                    </div>
+                    </a>
+                </div>
+
+            </div>
+
+            <!-- 마지막 카드: 장보기 -->
+            <div class="card" style="background:#ffffff; justify-content:center; align-items:center; text-align:center;">
+                <a href="https://ecoop.or.kr/DureShop/shopMain.do" target="_blank" style="text-decoration:none; display:flex; flex-direction:column; align-items:center; background:linear-gradient(135deg, #1b4332 0%, #2d6a4f 100%); border:none; border-radius:30px; padding:50px 45px; box-shadow:0 8px 30px rgba(45,106,79,0.35); transition:all 0.3s;">
+                    <span style="font-size:8em; margin-bottom:25px; display:block;">🛒</span>
+                    <p style="color:white; font-family:'Noto Serif KR',serif; font-size:2.5em; font-weight:700; letter-spacing:2px; margin-bottom:10px;">이번 주 장보기</p>
+                    <p style="color:rgba(183,228,199,0.8); font-size:1.15em;">두레생협 쇼핑몰 바로가기 →</p>
+                </a>
+            </div>
+
+        </div>
+
+        <!-- 네비게이션 -->
+        <div class="nav-buttons">
+            <button class="nav-btn" id="prevBtn" onclick="prevCard()">◀</button>
+            <div class="indicators" id="indicators"></div>
+            <button class="nav-btn" id="nextBtn" onclick="nextCard()">▶</button>
+        </div>
+    </div>
+
+    <script>
+        const cards = document.querySelectorAll('.card');
+        const totalPages = cards.length;
+        let currentIndex = 0;
+
+        // 인디케이터 생성
+        const indicatorsContainer = document.getElementById('indicators');
+        for (let i = 0; i < totalPages; i++) {
+            const indicator = document.createElement('div');
+            indicator.className = 'indicator' + (i === 0 ? ' active' : '');
+            indicator.onclick = () => goToCard(i);
+            indicatorsContainer.appendChild(indicator);
+        }
+
+        const totalPagesEl = document.getElementById('totalPages');
+        if (totalPagesEl) totalPagesEl.textContent = totalPages;
+
+        function updateCards() {
+            cards.forEach((card, index) => {
+                card.classList.remove('active', 'prev');
+                if (index === currentIndex) {
+                    card.classList.add('active');
+                    // 정월대보름 카드 애니메이션 재시작
+                    if (card.id === 'card-fullmoon-5') {
+                        restartAnimation(card);
+                    }
+                    // 상세 스크롤 카드 자동 스크롤
+                    if (card.classList.contains('card-detail-scroll')) {
+                        const area = card.querySelector('.detail-scroll-area');
+                        if (area) startAutoScroll(area, true);
+                    }
+                } else if (index < currentIndex) {
+                    card.classList.add('prev');
+                }
+            });
+
+            document.querySelectorAll('.indicator').forEach((ind, index) => {
+                ind.classList.toggle('active', index === currentIndex);
+            });
+
+            const currentPageEl = document.getElementById('currentPage');
+            if (currentPageEl) currentPageEl.textContent = currentIndex + 1;
+            document.getElementById('prevBtn').disabled = currentIndex === 0;
+            document.getElementById('nextBtn').disabled = currentIndex === totalPages - 1;
+        }
+
+        const scrollState = {};
+
+        function getScrollConfig(type) {
+            if (type === 'beef') return { areaId: 'detail-scroll-area-beef', btnId: 'scrollControlBtnBeef' };
+            if (type === 'vinegar') return { areaId: 'detail-scroll-area-vinegar', btnId: 'scrollControlBtnVinegar' };
+            return null;
+        }
+
+        function startAutoScroll(area, fromTop) {
+            const type = area.id === 'detail-scroll-area-beef' ? 'beef' : 'vinegar';
+            const cfg = getScrollConfig(type);
+            if (!scrollState[type]) scrollState[type] = {};
+            if (scrollState[type].timer) clearInterval(scrollState[type].timer);
+            if (fromTop) area.scrollTop = 0;
+            scrollState[type].active = true;
+            const btn = document.getElementById(cfg.btnId);
+            if (btn) btn.textContent = '⏸ 자동스크롤 멈춤';
+            const delay = fromTop ? 800 : 0;
+            setTimeout(() => {
+                const maxScroll = area.scrollHeight - area.clientHeight;
+                const duration = 55000;
+                const stepTime = 30;
+                const stepSize = maxScroll / (duration / stepTime);
+                scrollState[type].timer = setInterval(() => {
+                    area.scrollTop += stepSize;
+                    if (area.scrollTop >= maxScroll) {
+                        clearInterval(scrollState[type].timer);
+                        scrollState[type].timer = null;
+                        scrollState[type].active = false;
+                        if (btn) btn.textContent = '↑ 맨 위로';
+                    }
+                }, stepTime);
+            }, delay);
+        }
+
+        function toggleAutoScroll(type) {
+            const cfg = getScrollConfig(type);
+            const area = document.getElementById(cfg.areaId);
+            const btn = document.getElementById(cfg.btnId);
+            if (!scrollState[type]) scrollState[type] = {};
+            if (scrollState[type].active) {
+                clearInterval(scrollState[type].timer);
+                scrollState[type].timer = null;
+                scrollState[type].active = false;
+                btn.textContent = '▶ 자동스크롤 재시작';
+            } else {
+                if (area.scrollTop >= area.scrollHeight - area.clientHeight - 10) {
+                    startAutoScroll(area, true);
+                } else {
+                    startAutoScroll(area, false);
+                }
+            }
+        }
+
+        function restartAnimation(card) {
+            const animatedElements = card.querySelectorAll('.namul-slot, .final-bubble');
+            animatedElements.forEach(el => {
+                el.style.animation = 'none';
+                el.offsetHeight; // 리플로우 트리거
+                el.style.animation = null;
+            });
+        }
+
+        function nextCard() {
+            if (currentIndex < totalPages - 1) {
+                currentIndex++;
+                updateCards();
+            }
+        }
+
+        function prevCard() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateCards();
+            }
+        }
+
+        function goToCard(index) {
+            currentIndex = index;
+            updateCards();
+        }
+
+        // 터치 스와이프
+        let touchStartX = 0;
+        let touchEndX = 0;
+        const wrapper = document.querySelector('.card-wrapper');
+
+        wrapper.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        wrapper.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            const diff = touchStartX - touchEndX;
+            if (Math.abs(diff) > 50) {
+                diff > 0 ? nextCard() : prevCard();
+            }
+        });
+
+        // 키보드 네비게이션
+        document.addEventListener('keydown', e => {
+            if (e.key === 'ArrowRight') nextCard();
+            if (e.key === 'ArrowLeft') prevCard();
+        });
+
+        updateCards();
+    </script>
+</body>
+</html>
