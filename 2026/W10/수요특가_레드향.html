@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>수요특가 - 명품 레드향</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            font-size: 18px;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            min-height: 100dvh;
+            padding: 0;
+        }
+
+        .card-container {
+            width: 100%;
+            max-width: 480px;
+            background: #ffffff;
+            overflow: hidden;
+            min-height: 100vh;
+            min-height: 100dvh;
+        }
+
+        @media (min-width: 481px) {
+            body { padding: 20px; align-items: center; }
+            .card-container {
+                border-radius: 24px;
+                min-height: auto;
+                box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12);
+            }
+        }
+
+        /* ===== 헤더 ===== */
+        .slide-header {
+            background: linear-gradient(135deg, #FF8C00, #FFA500, #FFB347);
+            padding: 36px 20px 28px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide-header::before {
+            content: '';
+            position: absolute;
+            top: -40px;
+            right: -40px;
+            width: 120px;
+            height: 120px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .slide-header::after {
+            content: '';
+            position: absolute;
+            bottom: -30px;
+            left: -20px;
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+        }
+
+        .badge-wed {
+            display: inline-block;
+            background: #fff;
+            color: #FF6B00;
+            font-size: 15px;
+            font-weight: 700;
+            padding: 7px 20px;
+            border-radius: 50px;
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+            box-shadow: 0 2px 8px rgba(255, 107, 0, 0.2);
+        }
+
+        .date-text {
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .header-title {
+            color: #fff;
+            font-size: 28px;
+            font-weight: 900;
+            line-height: 1.35;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-title .highlight {
+            display: block;
+            font-size: 38px;
+            margin-top: 6px;
+        }
+
+        /* ===== 히어로 이미지 ===== */
+        .hero-image-section {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .hero-image-section img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: linear-gradient(to bottom, transparent, #ffffff);
+        }
+
+        /* ===== 타이머 ===== */
+        .timer-bar {
+            background: #FFF8F0;
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .timer-label {
+            font-size: 16px;
+            font-weight: 700;
+            color: #FF6B00;
+        }
+
+        .timer-display {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+        }
+
+        .timer-box {
+            background: #FF6B00;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 900;
+            padding: 5px 10px;
+            border-radius: 6px;
+            min-width: 36px;
+            text-align: center;
+        }
+
+        .timer-colon {
+            color: #FF6B00;
+            font-weight: 900;
+            font-size: 18px;
+            line-height: 32px;
+        }
+
+        .timer-end-note {
+            font-size: 14px;
+            color: #FF6B00;
+            font-weight: 600;
+        }
+
+        /* ===== 상품 이미지 영역 ===== */
+        .slide-product {
+            padding: 28px 20px 24px;
+            text-align: center;
+            background: #fff;
+        }
+
+        .product-catchphrase {
+            font-size: 17px;
+            color: #888;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .product-main-copy {
+            font-size: 24px;
+            font-weight: 800;
+            color: #222;
+            line-height: 1.4;
+            margin-bottom: 22px;
+        }
+
+        .product-main-copy .orange {
+            color: #FF6B00;
+        }
+
+        .product-image-wrap {
+            position: relative;
+            background: #FFF8F0;
+            border-radius: 16px;
+            padding: 20px;
+            margin: 0 auto;
+        }
+
+        .product-image-wrap .fruit-emoji {
+            position: absolute;
+            top: -12px;
+            left: 16px;
+            font-size: 36px;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .product-image-wrap .fruit-emoji2 {
+            position: absolute;
+            bottom: -8px;
+            right: 14px;
+            font-size: 28px;
+            animation: bounce 2s ease-in-out 0.5s infinite;
+        }
+
+        .product-img {
+            width: 100%;
+            max-width: 320px;
+            height: auto;
+            border-radius: 12px;
+            object-fit: cover;
+        }
+
+        /* ===== 상품 소개 영역 ===== */
+        .product-info {
+            padding: 28px 20px;
+            background: #fff;
+        }
+
+        .product-info-title-wrap {
+            text-align: center;
+            margin-bottom: 22px;
+            position: relative;
+        }
+
+        .mini-bubble {
+            display: inline-block;
+            background: #FF6B00;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 700;
+            padding: 8px 20px;
+            border-radius: 20px;
+            margin-bottom: 10px;
+            position: relative;
+            animation: bubbleFloat 2.5s ease-in-out infinite;
+        }
+
+        .mini-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-top: 7px solid #FF6B00;
+        }
+
+        .product-info-title {
+            font-size: 24px;
+            font-weight: 800;
+            color: #222;
+        }
+
+        .product-info-title .accent {
+            color: #FF6B00;
+        }
+
+        .info-card-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .info-card {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            background: #FFFAF5;
+            border-radius: 14px;
+            padding: 16px;
+            border-left: 4px solid #FF8C00;
+        }
+
+        .info-card .info-icon {
+            font-size: 22px;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .info-card .info-text {
+            font-size: 17px;
+            color: #444;
+            font-weight: 500;
+            line-height: 1.65;
+            word-break: keep-all;
+        }
+
+        .info-card .info-text strong {
+            color: #222;
+            font-weight: 700;
+        }
+
+        .trust-badge {
+            margin-top: 20px;
+            background: linear-gradient(135deg, #F0FAF0, #E8F5E8);
+            border-radius: 14px;
+            padding: 16px;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .trust-badge .info-icon {
+            font-size: 22px;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .trust-badge .info-text {
+            font-size: 17px;
+            color: #2E7D32;
+            font-weight: 500;
+            line-height: 1.65;
+            word-break: keep-all;
+        }
+
+        .trust-badge .info-text strong {
+            color: #1B5E20;
+            font-weight: 700;
+        }
+
+        /* ===== 단면 이미지 ===== */
+        .cross-section-image {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .cross-section-image img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* 말풍선 */
+        .speech-bubble {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: #fff;
+            border-radius: 20px;
+            padding: 10px 18px;
+            font-size: 15px;
+            font-weight: 800;
+            color: #FF6B00;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+            animation: bubbleFloat 2.5s ease-in-out infinite;
+            z-index: 2;
+            white-space: nowrap;
+        }
+
+        .speech-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            right: 24px;
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 10px solid #fff;
+        }
+
+        .speech-bubble .bubble-emoji {
+            margin-right: 4px;
+        }
+
+        @keyframes bubbleFloat {
+            0%, 100% { transform: translateY(0) rotate(-1deg); }
+            50% { transform: translateY(-10px) rotate(1deg); }
+        }
+
+        /* ===== 할인율 강조 영역 ===== */
+        .discount-highlight {
+            background: #FFF5F0;
+            margin: 0 20px;
+            border-radius: 16px;
+            padding: 22px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid #FF8C00;
+        }
+
+        .discount-highlight-inner {
+            position: relative;
+            z-index: 1;
+        }
+
+        .discount-label {
+            font-size: 16px;
+            color: #FF6B00;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .discount-percent {
+            font-size: 52px;
+            font-weight: 900;
+            color: #FF4444;
+            line-height: 1;
+        }
+
+        .discount-percent .percent-sign {
+            font-size: 36px;
+        }
+
+        .discount-percent .off-text {
+            font-size: 42px;
+            font-weight: 900;
+            color: #FF4444;
+            margin-left: 4px;
+        }
+
+        .divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, #eee, transparent);
+            margin: 0 20px;
+        }
+
+        /* ===== 가격 정보 ===== */
+        .slide-price {
+            padding: 26px 20px;
+            text-align: center;
+        }
+
+        .product-info-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .product-name {
+            font-size: 34px;
+            font-weight: 900;
+            color: #222;
+        }
+
+        .product-spec {
+            font-size: 17px;
+            color: #999;
+            font-weight: 500;
+            background: #f5f5f5;
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        .price-area {
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .original-price {
+            font-size: 18px;
+            color: #bbb;
+            text-decoration: line-through;
+        }
+
+        .sale-price {
+            font-size: 40px;
+            font-weight: 900;
+            color: #FF2020;
+        }
+
+        .sale-price .won {
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .savings-tag {
+            display: inline-block;
+            margin-top: 12px;
+            background: #FFF0F0;
+            color: #FF2020;
+            font-size: 16px;
+            font-weight: 700;
+            padding: 7px 16px;
+            border-radius: 20px;
+        }
+
+        /* ===== CTA ===== */
+        .slide-cta {
+            padding: 0 20px 32px;
+            text-align: center;
+        }
+
+        .cta-benefits {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 15px;
+            color: #666;
+            font-weight: 600;
+        }
+
+        .benefit-item .icon {
+            font-size: 16px;
+        }
+
+        .cta-button {
+            display: block;
+            width: 100%;
+            padding: 18px 20px;
+            background: linear-gradient(135deg, #FF8C00, #FF6B00);
+            color: #fff;
+            font-size: 20px;
+            font-weight: 800;
+            border: none;
+            border-radius: 14px;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            box-shadow: 0 6px 20px rgba(255, 107, 0, 0.35);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button:hover, .cta-button:active {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(255, 107, 0, 0.45);
+        }
+
+        .cta-button::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            50% { left: 100%; }
+            100% { left: 100%; }
+        }
+
+        .cta-sub {
+            margin-top: 12px;
+            font-size: 14px;
+            color: #999;
+            font-weight: 500;
+        }
+
+        /* ===== 배송 애니메이션 ===== */
+        .delivery-maze {
+            padding: 28px 20px 20px;
+            background: #FFF9F0;
+        }
+
+        .maze-title {
+            text-align: center;
+            font-size: 18px;
+            font-weight: 800;
+            color: #222;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .maze-title .accent {
+            color: #FF6B00;
+        }
+
+        .maze-wrap {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 2px solid #E0E0E0;
+        }
+
+        .maze-path-svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .maze-route-progress {
+            fill: none;
+            stroke-width: 4;
+        }
+
+        .maze-character {
+            position: absolute;
+            font-size: 36px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .maze-spot {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            z-index: 3;
+        }
+
+        .maze-spot .spot-icon {
+            font-size: 34px;
+            filter: drop-shadow(0 2px 3px rgba(0,0,0,0.1));
+        }
+
+        .maze-spot .spot-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: #555;
+            white-space: nowrap;
+            background: rgba(255,255,255,0.95);
+            padding: 2px 8px;
+            border-radius: 8px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+        }
+
+        .spot-jeju { left: 6px; bottom: 6px; }
+        .spot-ship { left: 90px; top: 15px; }
+        .spot-warehouse { left: 195px; top: 15px; }
+        .spot-truck { right: 6px; top: 15px; }
+        .spot-home { right: 6px; bottom: 6px; }
+
+        /* 도로 위 자동차 애니메이션 */
+        .road-car {
+            position: absolute;
+            z-index: 2;
+            font-size: 16px;
+            opacity: 0.5;
+        }
+
+        .car-down {
+            animation: carDown 4s linear infinite;
+        }
+
+        .car-up {
+            animation: carUp 5s linear infinite;
+        }
+
+        @keyframes carDown {
+            0% { top: -20px; }
+            100% { top: 310px; }
+        }
+
+        @keyframes carUp {
+            0% { bottom: -20px; }
+            100% { bottom: 310px; }
+        }
+
+        .spot-home .spot-icon {
+            animation: homeGlow 1.5s ease-in-out infinite;
+        }
+
+        @keyframes homeGlow {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+
+        .arrival-msg {
+            position: absolute;
+            right: 6px;
+            bottom: 56px;
+            background: #FF6B00;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 5px 12px;
+            border-radius: 12px;
+            opacity: 0;
+            white-space: nowrap;
+            z-index: 4;
+            transition: opacity 0.5s;
+        }
+
+        .arrival-msg::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            right: 16px;
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 6px solid #FF6B00;
+        }
+
+        .maze-wave {
+            position: absolute;
+            font-size: 13px;
+            opacity: 0.35;
+            z-index: 2;
+            animation: waveMove 2s ease-in-out infinite;
+        }
+
+        @keyframes waveMove {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(4px); }
+        }
+
+        /* 중앙 말하는 레드향 */
+        .maze-narrator {
+            position: absolute;
+            left: 38%;
+            top: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            z-index: 3;
+            animation: narratorBounce 3s ease-in-out infinite;
+        }
+
+        .maze-narrator .narrator-bubble {
+            background: #fff;
+            border-radius: 18px;
+            padding: 8px 14px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #FF6B00;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .maze-narrator .narrator-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -7px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-top: 8px solid #fff;
+        }
+
+        .maze-narrator .narrator-char {
+            font-size: 56px;
+            filter: drop-shadow(0 3px 6px rgba(0,0,0,0.15));
+        }
+
+        @keyframes narratorBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+
+        /* ===== 하단 safe area ===== */
+        .bottom-safe {
+            height: env(safe-area-inset-bottom, 0px);
+        }
+    </style>
+</head>
+<body>
+    <div class="card-container">
+
+        <!-- 헤더 -->
+        <div class="slide-header">
+            <div class="badge-wed">수요 특가</div>
+            <div class="date-text">2026. 3. 4 (수) 오후 7시 마감!</div>
+            <div class="header-title">
+                매주 수요일,<br>놓치면 후회하는
+                <span class="highlight">수요특가</span>
+            </div>
+        </div>
+
+        <!-- 히어로 이미지 -->
+        <div class="hero-image-section">
+            <img src="img/tc00240088025.jpg" alt="레드향 박스">
+            <div class="hero-overlay"></div>
+        </div>
+
+        <!-- 타이머 -->
+        <div class="timer-bar">
+            <span class="timer-label">마감까지</span>
+            <div class="timer-display">
+                <span class="timer-box" id="hours">00</span>
+                <span class="timer-colon">:</span>
+                <span class="timer-box" id="minutes">00</span>
+                <span class="timer-colon">:</span>
+                <span class="timer-box" id="seconds">00</span>
+            </div>
+            <span class="timer-end-note">3/4(수) 오후 7시</span>
+        </div>
+
+        <!-- 상품 카피 + 이미지 -->
+        <div class="slide-product">
+            <p class="product-catchphrase">달콤~한 과즙에 한 번,</p>
+            <p class="product-main-copy">
+                가격에 두 번 반하는<br>
+                <span class="orange">명품 레드향</span>
+            </p>
+            <div class="product-image-wrap">
+                <span class="fruit-emoji">🍊</span>
+                <span class="fruit-emoji2">🍃</span>
+                <img class="product-img" src="img/56605C.jpg" alt="레드향 접시">
+            </div>
+        </div>
+
+        <!-- 상품 소개 -->
+        <div class="product-info">
+            <div class="product-info-title-wrap">
+                <div class="mini-bubble">🍊 올레팜에서 왔어요!</div>
+                <div class="product-info-title">
+                    <span class="accent">두레생협 레드향</span>이 특별한 이유
+                </div>
+            </div>
+            <div class="info-card-list">
+                <div class="info-card">
+                    <span class="info-icon">🌱</span>
+                    <span class="info-text"><strong>한라봉과 온주밀감류(서지향)</strong><br>두 품종을 교배하여 만든<br>프리미엄 품종입니다.</span>
+                </div>
+                <div class="info-card">
+                    <span class="info-icon">🍊</span>
+                    <span class="info-text">둥글 넓적한 모양에<br><strong>톡톡 터지는 식감!</strong><br>당도 높고, 껍질이 얇아 먹기 쉽고<br><strong>과즙까지 풍부</strong>합니다.</span>
+                </div>
+                <div class="info-card">
+                    <span class="info-icon">🔴</span>
+                    <span class="info-text">귤 겉 껍질이 <strong>붉은 빛</strong>이 돌아<br>'레드향'이라는 이름이 붙었습니다.</span>
+                </div>
+                <div class="info-card">
+                    <span class="info-icon">📏</span>
+                    <span class="info-text"><strong>개당 200g 이상</strong>의<br>큼직한 과일만 선별하여 공급합니다.</span>
+                </div>
+            </div>
+            <div class="trust-badge">
+                <span class="info-icon">🛡️</span>
+                <span class="info-text"><strong>두레생협 레드향</strong>은<br>강제착색, 강제후숙, 왁싱 작업 없이<br><strong>안전하게 키워 공급</strong>하므로<br>믿고 드실 수 있습니다.</span>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- 단면 이미지 -->
+        <div class="cross-section-image">
+            <img src="img/tc06270000075.jpg" alt="레드향 단면">
+            <div class="speech-bubble">
+                <span class="bubble-emoji">🍊</span>비타민C 충전 완료!
+            </div>
+        </div>
+
+        <!-- 할인율 강조 -->
+        <div style="padding: 22px 0;">
+            <div class="discount-highlight">
+                <div class="discount-highlight-inner">
+                    <div class="discount-label">오늘 단 하루!</div>
+                    <div class="discount-percent">
+                        33<span class="percent-sign">%</span> <span class="off-text">할인</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- 가격 정보 -->
+        <div class="slide-price">
+            <div class="product-info-row">
+                <span class="product-name">레드향</span>
+                <span class="product-spec">1kg / 국내산</span>
+            </div>
+            <div class="price-area">
+                <span class="original-price">13,400원</span>
+                <span class="sale-price">8,900<span class="won">원</span></span>
+            </div>
+            <div class="savings-tag">4,500원 할인!</div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- CTA -->
+        <div class="slide-cta">
+            <div class="cta-benefits">
+                <span class="benefit-item"><span class="icon">🚚</span> 무료배송</span>
+                <span class="benefit-item"><span class="icon">✅</span> 국내산 100%</span>
+                <span class="benefit-item"><span class="icon">🍊</span> 산지직송</span>
+            </div>
+            <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1642" class="cta-button" target="_blank">
+                입안 가득 터지는 비타민 충전 &gt;
+            </a>
+            <p class="cta-sub">* 3/4(수) 오후 7시까지 진행되는 한정 특가입니다</p>
+        </div>
+
+        <!-- 배송 애니메이션 -->
+        <div class="delivery-maze">
+            <div class="maze-title">
+                제주도 올레팜 생산지에서<br><span class="accent">조합원님 댁</span>까지!
+            </div>
+            <div class="maze-wrap">
+                <svg class="maze-path-svg" viewBox="0 0 440 300" preserveAspectRatio="none">
+                    <!-- 바다 배경 (왼쪽 40%) -->
+                    <rect x="0" y="0" width="190" height="300" fill="#E3F2FD" />
+                    <!-- 도로 배경 (오른쪽 60%) -->
+                    <rect x="190" y="0" width="250" height="300" fill="#F0F0F0" />
+
+                    <!-- 바다 물결 장식 -->
+                    <text x="45" y="85" font-size="14" opacity="0.25">🌊</text>
+                    <text x="120" y="200" font-size="14" opacity="0.2">🌊</text>
+                    <text x="25" y="190" font-size="12" opacity="0.18">🌊</text>
+                    <text x="100" y="120" font-size="12" opacity="0.15">🌊</text>
+
+                    <!-- 도로 노면 -->
+                    <rect x="190" y="0" width="250" height="300" fill="#E8E8E8" />
+                    <!-- 노란 중앙선만 -->
+                    <line x1="195" y1="150" x2="435" y2="150" stroke="#FFF176" stroke-width="2" stroke-dasharray="8 6" opacity="0.5" />
+                    <line x1="340" y1="5" x2="340" y2="295" stroke="#FFF176" stroke-width="2" stroke-dasharray="8 6" opacity="0.5" />
+
+                    <!-- 진행 경로: 올레팜(좌하)→배(좌상)→물류센터(중앙상)→배송출발(우상)→집(우하) -->
+                    <path class="maze-route-progress" id="mazeProgress"
+                        d="M 35,270 L 35,150 L 120,150 L 120,55 L 260,55 L 410,55 L 410,270"
+                        stroke="#FF8C00" />
+                </svg>
+
+                <!-- 도로 위 자동차들 -->
+                <div class="road-car car-down" style="right:70px; animation-delay:0s;">🚗</div>
+                <div class="road-car car-up" style="right:95px; animation-delay:1.5s;">🚙</div>
+                <div class="road-car car-down" style="right:40px; animation-delay:2.5s;">🚕</div>
+                <div class="road-car car-up" style="right:115px; animation-delay:0.8s;">🚗</div>
+
+                <!-- 장소 아이콘 -->
+                <div class="maze-spot spot-jeju">
+                    <span class="spot-icon">🏝️</span>
+                    <span class="spot-label">제주 올레팜</span>
+                </div>
+                <div class="maze-spot spot-ship">
+                    <span class="spot-icon">⛴️</span>
+                    <span class="spot-label">배 타는 중~</span>
+                </div>
+                <div class="maze-spot spot-warehouse">
+                    <span class="spot-icon">🏬</span>
+                    <span class="spot-label">두레생협 물류센터</span>
+                </div>
+                <div class="maze-spot spot-truck">
+                    <span class="spot-icon">🚛</span>
+                    <span class="spot-label">배송 출발!</span>
+                </div>
+                <div class="maze-spot spot-home">
+                    <span class="spot-icon">🏠</span>
+                    <span class="spot-label">조합원님 댁</span>
+                </div>
+
+                <!-- 중앙 말하는 레드향 -->
+                <div class="maze-narrator">
+                    <div class="narrator-bubble">저는 이렇게 도착해요!</div>
+                    <span class="narrator-char">🍊</span>
+                </div>
+
+                <!-- 도착 메시지 -->
+                <div class="arrival-msg" id="arrivalMsg">안전하게 도착!</div>
+
+                <!-- 레드향 캐릭터 -->
+                <div class="maze-character" id="mazeChar">🍊</div>
+            </div>
+        </div>
+
+        <div class="bottom-safe"></div>
+    </div>
+
+    <script>
+        function updateTimer() {
+            const now = new Date();
+            const deadline = new Date(2026, 2, 4, 19, 0, 0); // 2026-03-04 19:00:00
+            const diff = deadline - now;
+
+            if (diff <= 0) {
+                document.getElementById('hours').textContent = '00';
+                document.getElementById('minutes').textContent = '00';
+                document.getElementById('seconds').textContent = '00';
+                return;
+            }
+
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+        }
+
+        updateTimer();
+        setInterval(updateTimer, 1000);
+
+        // 미로 애니메이션: 줄과 캐릭터 동기화
+        (function() {
+            const path = document.getElementById('mazeProgress');
+            const char = document.getElementById('mazeChar');
+            const msg = document.getElementById('arrivalMsg');
+            if (!path || !char) return;
+
+            const totalLen = path.getTotalLength();
+            path.style.strokeDasharray = totalLen;
+            path.style.strokeDashoffset = totalLen;
+
+            const duration = 14000; // 이동 14초
+            const pause = 4000;    // 도착 후 대기 4초
+            const cycle = duration + pause;
+            let startTime = null;
+
+            function animate(ts) {
+                if (!startTime) startTime = ts;
+                const elapsed = (ts - startTime) % cycle;
+                const progress = Math.min(elapsed / duration, 1);
+
+                // 부드러운 easing
+                const eased = progress < 1 ? progress * (2 - progress) : 1;
+
+                // 줄 그리기
+                path.style.strokeDashoffset = totalLen * (1 - eased);
+
+                // 캐릭터 위치 (줄 끝에 맞춤)
+                const point = path.getPointAtLength(totalLen * eased);
+                const svgEl = path.ownerSVGElement;
+                const rect = svgEl.getBoundingClientRect();
+                const vb = svgEl.viewBox.baseVal;
+                const scaleX = rect.width / vb.width;
+                const scaleY = rect.height / vb.height;
+
+                char.style.left = (point.x * scaleX - 14) + 'px';
+                char.style.top = (point.y * scaleY - 14) + 'px';
+
+                // 도착 메시지
+                msg.style.opacity = eased >= 1 ? '1' : '0';
+
+                requestAnimationFrame(animate);
+            }
+
+            requestAnimationFrame(animate);
+        })();
+    </script>
+</body>
+</html>
