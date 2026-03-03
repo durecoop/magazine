@@ -654,6 +654,7 @@
             align-items: center;
             gap: 2px;
             z-index: 3;
+            transform: translateX(-50%);
         }
 
         .maze-spot .spot-icon {
@@ -672,11 +673,11 @@
             box-shadow: 0 1px 4px rgba(0,0,0,0.06);
         }
 
-        .spot-jeju { left: 6px; bottom: 6px; }
-        .spot-ship { left: 90px; top: 15px; }
-        .spot-warehouse { left: 195px; top: 15px; }
-        .spot-truck { right: 6px; top: 15px; }
-        .spot-home { right: 6px; bottom: 6px; }
+        .spot-jeju { left: 8%; bottom: 6px; }
+        .spot-ship { left: 27%; top: 15px; }
+        .spot-warehouse { left: 50%; top: 15px; }
+        .spot-truck { left: 82%; top: 15px; }
+        .spot-home { left: 93%; bottom: 6px; }
 
         /* 도로 위 자동차 애니메이션 */
         .road-car {
@@ -765,6 +766,7 @@
             align-items: center;
             gap: 4px;
             z-index: 3;
+            transform: translateX(-50%);
             animation: narratorBounce 3s ease-in-out infinite;
         }
 
@@ -965,7 +967,7 @@
 
                     <!-- 진행 경로: 올레팜(좌하)→배(좌상)→물류센터(중앙상)→배송출발(우상)→집(우하) -->
                     <path class="maze-route-progress" id="mazeProgress"
-                        d="M 35,270 L 35,150 L 120,150 L 120,55 L 260,55 L 410,55 L 410,270"
+                        d="M 35,270 L 35,150 L 120,150 L 120,55 L 220,55 L 410,55 L 410,270"
                         stroke="#FF8C00" />
                 </svg>
 
