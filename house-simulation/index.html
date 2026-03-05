@@ -652,8 +652,7 @@ async function walkChar(el,waypoints,isGirl){
     });
     if(waypoints[i].door)await new Promise(r=>setTimeout(r,250));
   }
-  el.classList.remove('walking');el.classList.add('idle');
-  if(isGirl)setTimeout(()=>{bichonEl.classList.remove('walking');bichonEl.classList.add('idle');},DOG_DELAY+500);
+  return [fromRoom]; // fallback
 }
 
 async function moveGirl(){
@@ -688,7 +687,330 @@ async function mainLoop(){
   (async()=>{while(true)await moveGirl();})();
   (async()=>{while(true)await moveBoy();})();
 }
-mainLoop();
+
+// ===== CHARACTERS =====
+const potato = document.createElement('div');
+potato.className = 'ch';
+potato.innerHTML = `<svg width="40" height="48" viewBox="0 0 40 48">
+  <ellipse cx="20" cy="44" rx="12" ry="3" fill="#000" opacity=".25"/>
+  <rect class="pl" x="12" y="35" width="5" height="9" rx="2.5" fill="#b8903a"/>
+  <rect class="pr" x="23" y="35" width="5" height="9" rx="2.5" fill="#b8903a"/>
+  <rect x="1" y="20" width="6" height="4" rx="2" fill="#b8903a" transform="rotate(-15 4 22)"/>
+  <rect x="33" y="20" width="6" height="4" rx="2" fill="#b8903a" transform="rotate(15 36 22)"/>
+  <ellipse cx="20" cy="22" rx="15" ry="17" fill="#d4a843"/>
+  <ellipse cx="20" cy="30" rx="12" ry="7" fill="#c49b38" opacity=".2"/>
+  <circle cx="12" cy="16" r="2" fill="#c49b38" opacity=".4"/>
+  <circle cx="28" cy="26" r="1.8" fill="#c49b38" opacity=".3"/>
+  <circle cx="33" cy="18" r="1.5" fill="#c49b38" opacity=".3"/>
+  <ellipse cx="14" cy="20" rx="3.5" ry="4" fill="#fff"/>
+  <ellipse cx="26" cy="20" rx="3.5" ry="4" fill="#fff"/>
+  <circle cx="15" cy="20" r="2.2" fill="#2c2c2c"/>
+  <circle cx="27" cy="20" r="2.2" fill="#2c2c2c"/>
+  <circle cx="16" cy="18.5" r=".9" fill="#fff" opacity=".8"/>
+  <circle cx="28" cy="18.5" r=".9" fill="#fff" opacity=".8"/>
+  <path d="M11 15Q14 12 18 15" stroke="#5a3a20" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+  <path d="M22 15Q26 12 29 15" stroke="#5a3a20" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+  <ellipse cx="8" cy="25" rx="3" ry="2" fill="#e8896e" opacity=".5"/>
+  <ellipse cx="32" cy="25" rx="3" ry="2" fill="#e8896e" opacity=".5"/>
+  <path d="M16 28Q20 32 24 28" stroke="#6b3a2a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+</svg>`;
+house.appendChild(potato);
+
+const cat = document.createElement('div');
+cat.className = 'ch';
+cat.innerHTML = `<svg width="32" height="36" viewBox="0 0 32 36">
+  <ellipse cx="16" cy="34" rx="8" ry="2" fill="#000" opacity=".2"/>
+  <!-- Tail: calico orange+white -->
+  <path class="ct" d="M26 24Q34 18 30 10" stroke="#e8943a" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M28 16Q32 13 30 10" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" opacity=".5"/>
+  <!-- Legs: white with orange/black patches -->
+  <rect class="cl" x="9" y="27" width="4" height="7" rx="2" fill="#f5f0e8"/>
+  <rect class="cr" x="19" y="27" width="4" height="7" rx="2" fill="#e8943a"/>
+  <!-- Body: white base with calico patches -->
+  <ellipse cx="16" cy="22" rx="11" ry="10" fill="#f5f0e8"/>
+  <ellipse cx="10" cy="20" rx="5" ry="4" fill="#e8943a" opacity=".8"/>
+  <ellipse cx="22" cy="24" rx="5" ry="4" fill="#3a3a3a" opacity=".7"/>
+  <ellipse cx="16" cy="26" rx="4" ry="3" fill="#e8943a" opacity=".5"/>
+  <!-- Head: white with calico patches -->
+  <circle cx="16" cy="13" r="9" fill="#f5f0e8"/>
+  <ellipse cx="10" cy="10" rx="5" ry="4" fill="#e8943a" opacity=".8"/>
+  <ellipse cx="22" cy="11" rx="4" ry="3.5" fill="#3a3a3a" opacity=".7"/>
+  <!-- Ears -->
+  <polygon points="7,8 5,0 12,6" fill="#f5f0e8"/>
+  <polygon points="25,8 27,0 20,6" fill="#3a3a3a" opacity=".8"/>
+  <polygon points="8,7 6.5,2 11,6" fill="#f9a"/>
+  <polygon points="24,7 25.5,2 21,6" fill="#f9a"/>
+  <!-- Eyes -->
+  <ellipse cx="12" cy="12" rx="2.5" ry="3" fill="#2c2c2c"/>
+  <ellipse cx="20" cy="12" rx="2.5" ry="3" fill="#2c2c2c"/>
+  <ellipse cx="12" cy="12" rx="1.2" ry="2.8" fill="#5a2"/>
+  <ellipse cx="20" cy="12" rx="1.2" ry="2.8" fill="#5a2"/>
+  <circle cx="12.5" cy="10.5" r=".8" fill="#fff" opacity=".8"/>
+  <circle cx="20.5" cy="10.5" r=".8" fill="#fff" opacity=".8"/>
+  <!-- Nose & mouth -->
+  <polygon points="15,15 17,15 16,16.5" fill="#f9a"/>
+  <path d="M13 17.5Q16 20 19 17.5" stroke="#b88" stroke-width=".8" fill="none"/>
+  <!-- Whiskers -->
+  <line x1="2" y1="14" x2="10" y2="15" stroke="#ccc" stroke-width=".5"/>
+  <line x1="2" y1="16" x2="10" y2="16" stroke="#ccc" stroke-width=".5"/>
+  <line x1="22" y1="15" x2="30" y2="14" stroke="#ccc" stroke-width=".5"/>
+  <line x1="22" y1="16" x2="30" y2="16" stroke="#ccc" stroke-width=".5"/>
+</svg>`;
+house.appendChild(cat);
+
+const pSp = document.createElement('div'); pSp.className='sp'; house.appendChild(pSp);
+const cSp = document.createElement('div'); cSp.className='sp cat'; house.appendChild(cSp);
+
+const pSayings = [
+  '배고프다...','졸리다 zzZ','심심해~','퇴근하고싶다',
+  '뭐 먹을까','아 피곤해','넷플릭스 볼까','오늘 뭐하지...',
+  '치킨 먹고싶다','주말 언제 오냐','하...월요일',
+  '커피 마셔야돼','아 집이 최고야','게임하고싶다',
+  '냥이야 밥 줬지?','이불 밖은 위험해','라면 끓일까...',
+  '아까 산 옷 입어볼까','샤워하고싶다','소파에 눕고싶어'
+];
+const cSayings = ['야옹~','냐옹!','야옹야옹~','뿌르르르','냐~','야옹..','미야옹~','그르릉','냥!','빠르르'];
+
+function showSp(el,txt,x,y){
+  el.textContent=txt;
+  el.style.left=(x-10)+'px';
+  el.style.top=(y-40)+'px';
+  el.classList.add('show');
+  clearTimeout(el._t);
+  el._t=setTimeout(()=>el.classList.remove('show'),2500);
+}
+
+// ===== MOVEMENT STATE =====
+let pX=300, pY=480, pRoom='kitchen';
+let pPath=[], pWalking=false, pFacing=false, pIdle=0, pSpT=2000;
+const catHist=[];
+const CAT_DELAY=45;
+let cX=320,cY=500,cFacing=false,cSpT=4000,cWalking=false;
+let legF=0,tailF=0;
+
+function pickDest(){
+  const roomNames=Object.keys(rooms);
+  const dest=roomNames[Math.floor(Math.random()*roomNames.length)];
+  pPath=buildPath(pX,pY,pRoom,dest);
+}
+
+pickDest();
+
+let lastT=performance.now();
+function loop(t){
+  const dt=t-lastT; lastT=t;
+
+  // Potato follows path
+  if(pPath.length>0){
+    const wp=pPath[0];
+    const dx=wp.x-pX, dy=wp.y-pY;
+    const dist=Math.sqrt(dx*dx+dy*dy);
+    if(dist<3){
+      pRoom=wp.room;
+      pPath.shift();
+      pWalking=pPath.length>0;
+      if(!pWalking) pIdle=0;
+    } else {
+      const spd=1.2;
+      pX+=dx/dist*spd;
+      pY+=dy/dist*spd;
+      pFacing=dx<0;
+      pWalking=true;
+      pIdle=0;
+    }
+  } else {
+    pWalking=false;
+    pIdle+=dt;
+    if(pIdle>2000+Math.random()*2500){
+      pickDest();
+      pIdle=0;
+    }
+  }
+
+  // Cat follows potato through recorded path
+  catHist.push({x:pX,y:pY});
+  if(catHist.length>CAT_DELAY+5) catHist.shift();
+
+  if(catHist.length>CAT_DELAY){
+    const tgt=catHist[0];
+    const cdx=tgt.x-cX,cdy=tgt.y-cY;
+    const cd=Math.sqrt(cdx*cdx+cdy*cdy);
+    if(cd>5){cX+=cdx/cd*1.1;cY+=cdy/cd*1.1;cFacing=cdx<0;cWalking=true}
+    else cWalking=false;
+  }
+
+  // Speech
+  pSpT-=dt;
+  if(pSpT<=0){showSp(pSp,pSayings[Math.floor(Math.random()*pSayings.length)],pX,pY);pSpT=4000+Math.random()*6000}
+  cSpT-=dt;
+  if(cSpT<=0){showSp(cSp,cSayings[Math.floor(Math.random()*cSayings.length)],cX,cY);cSpT=5000+Math.random()*7000}
+
+  // Render positions
+  potato.style.left=(pX-20)+'px';
+  potato.style.top=(pY-24)+'px';
+  cat.style.left=(cX-16)+'px';
+  cat.style.top=(cY-18)+'px';
+
+  const pSvg=potato.querySelector('svg');
+  const cSvg=cat.querySelector('svg');
+
+  if(pWalking){
+    legF++;
+    const a=Math.sin(legF*.3)*18;
+    potato.querySelector('.pl').style.transform=`rotate(${a}deg)`;
+    potato.querySelector('.pr').style.transform=`rotate(${-a}deg)`;
+    pSvg.style.transform=pFacing?'scaleX(-1)':'';
+  } else {
+    potato.querySelector('.pl').style.transform='';
+    potato.querySelector('.pr').style.transform='';
+    const b=Math.sin(t*.003)*3;
+    pSvg.style.transform=(pFacing?'scaleX(-1) ':'')+`translateY(${b}px)`;
+  }
+
+  if(cWalking){
+    const a=Math.sin(legF*.3)*14;
+    cat.querySelector('.cl').style.transform=`rotate(${a}deg)`;
+    cat.querySelector('.cr').style.transform=`rotate(${-a}deg)`;
+    cSvg.style.transform=cFacing?'scaleX(-1)':'';
+  } else {
+    cat.querySelector('.cl').style.transform='';
+    cat.querySelector('.cr').style.transform='';
+    const b=Math.sin(t*.004)*2;
+    cSvg.style.transform=(cFacing?'scaleX(-1) ':'')+`translateY(${b}px)`;
+  }
+
+  // Tail wag
+  tailF++;
+  const tw=Math.sin(tailF*.08)*6;
+  const tail=cat.querySelector('.ct');
+  if(tail) tail.setAttribute('d',`M26 24Q${34+tw} 18 ${30+tw} 10`);
+
+  requestAnimationFrame(loop);
+}
+requestAnimationFrame(loop);
+
+// ========== GREENHOUSE LOGIC ==========
+let lightOn = false;
+let lightLevel = 70;
+let waterLevel = 50;
+let growth = 20;
+let totalN = 0, totalP = 0, totalK = 0;
+
+const ghLed = document.getElementById('ghLed');
+const ghBeam = document.getElementById('ghBeam');
+const waterBar = document.getElementById('waterBar');
+const growthBar = document.getElementById('growthBar');
+
+function toggleLight() {
+  lightOn = !lightOn;
+  const btn = document.getElementById('lightBtn');
+  btn.textContent = lightOn ? 'ON' : 'OFF';
+  btn.classList.toggle('on', lightOn);
+  updateLight();
+}
+
+function setLightLevel(val) {
+  lightLevel = parseInt(val);
+  document.getElementById('lightVal').textContent = val + '%';
+  updateLight();
+}
+
+function updateLight() {
+  const opacity = lightLevel / 100;
+  if (lightOn) {
+    ghLed.className = 'gh-led on';
+    ghLed.style.opacity = opacity;
+    ghLed.style.boxShadow = `0 0 ${12*opacity}px rgba(255,140,48,${opacity*0.7}),0 0 ${30*opacity}px rgba(255,140,48,${opacity*0.3})`;
+    ghBeam.className = 'gh-led-beam on';
+    ghBeam.style.opacity = opacity;
+  } else {
+    ghLed.className = 'gh-led';
+    ghLed.style.opacity = '';
+    ghLed.style.boxShadow = '';
+    ghBeam.className = 'gh-led-beam';
+    ghBeam.style.opacity = '';
+  }
+}
+
+function giveWater() {
+  waterLevel = Math.min(100, waterLevel + 15);
+  document.getElementById('ghWater').textContent = Math.round(waterLevel) + '%';
+  waterBar.style.width = waterLevel + '%';
+
+  // drip animation on all 4 drip points
+  for (let i = 1; i <= 4; i++) {
+    const drip = document.getElementById('drip' + i);
+    const drop = drip.querySelector('.gh-drip-drop');
+    drip.style.opacity = '1';
+    drop.style.animation = 'none';
+    drop.offsetHeight;
+    drop.style.animation = `dripFall 0.8s ${i * 0.15}s ease-in forwards`;
+  }
+  setTimeout(() => {
+    for (let i = 1; i <= 4; i++) document.getElementById('drip' + i).style.opacity = '0';
+  }, 1500);
+
+  // humidity bump
+  const humEl = document.getElementById('ghHumid');
+  const hum = Math.min(95, 65 + waterLevel * 0.3);
+  humEl.textContent = Math.round(hum) + '%';
+
+  checkGrowth();
+}
+
+function giveFertilizer() {
+  const n = parseInt(document.getElementById('nSlider').value);
+  const p = parseInt(document.getElementById('pSlider').value);
+  const k = parseInt(document.getElementById('kSlider').value);
+  totalN += n; totalP += p; totalK += k;
+
+  document.getElementById('ghNpk').textContent = `${totalN}/${totalP}/${totalK}`;
+  checkGrowth();
+}
+
+document.getElementById('nSlider').oninput = function() { document.getElementById('nVal').textContent = this.value; };
+document.getElementById('pSlider').oninput = function() { document.getElementById('pVal').textContent = this.value; };
+document.getElementById('kSlider').oninput = function() { document.getElementById('kVal').textContent = this.value; };
+
+function checkGrowth() {
+  let bonus = 0;
+  if (lightOn) bonus += lightLevel * 0.03;
+  if (waterLevel > 30) bonus += 3;
+  bonus += Math.min(totalN, 300) * 0.015;
+  bonus += Math.min(totalP, 300) * 0.012;
+  bonus += Math.min(totalK, 300) * 0.012;
+
+  growth = Math.min(100, growth + bonus);
+  growthBar.style.width = growth + '%';
+  document.getElementById('growthVal').textContent = Math.round(growth) + '%';
+
+  // Scale all plants based on growth
+  const scale = 0.6 + growth / 100 * 0.5;
+  document.querySelectorAll('.gh-plant').forEach(p => {
+    p.style.transform = `scale(${scale})`;
+    p.style.transformOrigin = 'bottom center';
+  });
+
+  // Growth stage
+  const stageEl = document.getElementById('growthStage');
+  if (growth < 25) stageEl.textContent = 'Seedling';
+  else if (growth < 50) stageEl.textContent = 'Growing';
+  else if (growth < 75) stageEl.textContent = 'Mature';
+  else if (growth < 95) stageEl.textContent = 'Fruiting';
+  else stageEl.textContent = 'Harvest!';
+}
+
+// Water drain & temp fluctuation
+setInterval(() => {
+  if (waterLevel > 0) {
+    waterLevel = Math.max(0, waterLevel - 0.5);
+    document.getElementById('ghWater').textContent = Math.round(waterLevel) + '%';
+    waterBar.style.width = waterLevel + '%';
+  }
+  // temp fluctuation
+  const temp = (23.5 + Math.random() * 1.5 + (lightOn ? lightLevel * 0.02 : 0)).toFixed(1);
+  document.getElementById('ghTemp').textContent = temp + 'C';
+}, 2000);
 </script>
 </body>
 </html>
