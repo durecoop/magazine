@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Cozy Home</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);display:flex;justify-content:center;align-items:center;min-height:100vh;font-family:'Gowun Dodum',sans-serif;overflow:hidden;}
+
+/* ===== HOUSE - Top-down floor plan ===== */
+.house{
+  position:relative;width:1000px;height:700px;
+  background:#f5e6d0;border:4px solid #8b6914;border-radius:8px;
+  box-shadow:0 8px 40px rgba(0,0,0,0.6),inset 0 0 80px rgba(139,105,20,0.1);
+}
+
+/* ===== WALLS ===== */
+.wall{position:absolute;background:#c4a87c;z-index:3;}
+.wall-h{height:6px;} .wall-v{width:6px;}
+
+/* ===== DOOR GAPS ===== */
+.door-gap{position:absolute;z-index:4;}
+.door-gap-h{height:6px;background:#e8d5b0;}
+.door-gap-v{width:6px;background:#e8d5b0;}
+
+/* ===== ROOMS (floor colors) ===== */
+.room-floor{position:absolute;z-index:0;border-radius:2px;}
+
+/* Bedroom - wooden floor */
+.floor-bedroom{left:0;top:0;width:400px;height:350px;
+  background:repeating-linear-gradient(90deg,#d4a56a 0px,#c9975a 18px,#d4a56a 20px);
+}
+/* Closet - carpet */
+.floor-closet{left:400px;top:0;width:300px;height:350px;
+  background:#e8c8e0;
+  background-image:radial-gradient(circle,#dbb8d4 1px,transparent 1px);
+  background-size:8px 8px;
+}
+/* Bathroom - tiles */
+.floor-bathroom{left:700px;top:0;width:300px;height:350px;
+  background:#d4e8ea;
+  background-image:linear-gradient(#c0dade 1px,transparent 1px),linear-gradient(90deg,#c0dade 1px,transparent 1px);
+  background-size:24px 24px;
+}
+/* Kitchen - tiles */
+.floor-kitchen{left:0;top:350px;width:340px;height:350px;
+  background:#f0e4c8;
+  background-image:linear-gradient(45deg,#e8d8b4 25%,transparent 25%,transparent 75%,#e8d8b4 75%),
+                    linear-gradient(45deg,#e8d8b4 25%,transparent 25%,transparent 75%,#e8d8b4 75%);
+  background-size:30px 30px;
+  background-position:0 0,15px 15px;
+}
+/* Living room - warm carpet */
+.floor-living{left:340px;top:350px;width:360px;height:350px;
+  background:#e0d0b8;
+  background-image:radial-gradient(ellipse,#d8c4a8 1px,transparent 1px);
+  background-size:12px 12px;
+}
+/* Entrance - stone */
+.floor-entrance{left:700px;top:350px;width:300px;height:350px;
+  background:#bfb09a;
+  background-image:linear-gradient(#b0a28c 1px,transparent 1px),linear-gradient(90deg,#b0a28c 1px,transparent 1px);
+  background-size:40px 40px;
+}
+
+/* ===== ROOM LABELS ===== */
+.room-name{
+  position:absolute;z-index:2;
+  font-size:14px;font-weight:bold;color:#8b6914;
+  background:rgba(255,255,255,0.6);padding:2px 10px;border-radius:8px;
+  letter-spacing:2px;
+}
+
+/* ===== FURNITURE (top-down view with pseudo-3D shadows) ===== */
+.furn{position:absolute;z-index:2;}
+
+/* -- Bedroom -- */
+.f-bed{left:30px;top:40px;width:120px;height:160px;background:#9b7dcf;border-radius:8px;
+  border:3px solid #7c5fbf;box-shadow:3px 3px 0 #6a4faa,inset 0 0 0 8px #b49be0;}
+.f-bed::before{content:'';position:absolute;top:8px;left:8px;right:8px;height:40px;
+  background:#f9c;border-radius:6px;/* pillow */}
+.f-bed::after{content:'';position:absolute;bottom:8px;left:15px;right:15px;height:60px;
+  background:#ddd;border-radius:4px;opacity:0.5;}
+.f-nightstand{left:160px;top:60px;width:40px;height:40px;background:#7c5a3c;border-radius:4px;
+  border:2px solid #5c3a1c;box-shadow:2px 2px 0 #4a2e14;}
+.f-lamp{left:168px;top:45px;width:24px;height:24px;background:radial-gradient(circle,#fff8a0,#ffeb3b);
+  border-radius:50%;box-shadow:0 0 15px 5px rgba(255,235,59,0.3);border:1px solid #f0d030;}
+.f-desk{left:240px;top:180px;width:100px;height:50px;background:#a08060;border-radius:3px;
+  border:2px solid #806040;box-shadow:2px 2px 0 #604020;}
+.f-chair{left:270px;top:240px;width:35px;height:35px;background:#e07050;border-radius:50%;
+  border:2px solid #c05838;box-shadow:1px 1px 0 #a04828;}
+.f-rug1{left:170px;top:130px;width:80px;height:100px;background:radial-gradient(ellipse,#d4a0d0,#c080b8);
+  border-radius:50%;opacity:0.4;}
+
+/* -- Closet -- */
+.f-wardrobe{left:430px;top:30px;width:110px;height:50px;background:#a0522d;border-radius:4px;
+  border:3px solid #7a3a1a;box-shadow:3px 3px 0 #5a2a0a;}
+.f-wardrobe::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:2px;height:35px;background:#5a2a0a;}
+.f-wardrobe::after{content:'';position:absolute;top:50%;left:25%;transform:translateY(-50%);
+  width:5px;height:5px;background:#ffd700;border-radius:50%;box-shadow:30px 0 0 #ffd700;}
+.f-rack{left:560px;top:30px;width:8px;height:140px;background:#888;border-radius:2px;
+  box-shadow:-30px 0 0 1px #888;}
+.f-dress1{left:535px;top:40px;width:18px;height:30px;background:#e74c8b;border-radius:0 0 6px 6px;
+  box-shadow:0 1px 2px rgba(0,0,0,0.2);}
+.f-dress2{left:550px;top:38px;width:18px;height:35px;background:#3498db;border-radius:0 0 6px 6px;
+  box-shadow:0 1px 2px rgba(0,0,0,0.2);}
+.f-dress3{left:565px;top:42px;width:18px;height:28px;background:#f1c40f;border-radius:0 0 6px 6px;
+  box-shadow:0 1px 2px rgba(0,0,0,0.2);}
+.f-mirror{left:440px;top:120px;width:30px;height:60px;
+  background:linear-gradient(135deg,#e8f4ff,#b8d8f0,#e8f4ff);
+  border:3px solid #c9a96e;border-radius:15px;box-shadow:2px 2px 0 #a08550;}
+.f-dresser{left:500px;top:200px;width:70px;height:40px;background:#b8860b;border-radius:3px;
+  border:2px solid #8b6508;box-shadow:2px 2px 0 #6b4e06;}
+.f-dresser::before{content:'';position:absolute;top:10px;left:50%;transform:translateX(-50%);
+  width:40px;height:3px;background:#ffd700;border-radius:2px;box-shadow:0 14px 0 #ffd700;}
+
+/* -- Bathroom -- */
+.f-bathtub{left:720px;top:40px;width:80px;height:140px;background:#e8e8e8;border-radius:40px;
+  border:4px solid #ccc;box-shadow:3px 3px 0 #aaa;}
+.f-bathtub::after{content:'';position:absolute;top:20px;left:50%;transform:translateX(-50%);
+  width:50px;height:80px;background:rgba(135,206,235,0.5);border-radius:30px;}
+.f-toilet{left:830px;top:60px;width:40px;height:50px;background:#f5f5f5;
+  border-radius:8px 8px 20px 20px;border:3px solid #ddd;box-shadow:2px 2px 0 #bbb;}
+.f-toilet::before{content:'';position:absolute;top:-10px;left:50%;transform:translateX(-50%);
+  width:36px;height:14px;background:#eee;border-radius:6px;border:2px solid #ddd;}
+.f-sink{left:900px;top:80px;width:45px;height:35px;background:#ddd;
+  border-radius:20px 20px 8px 8px;border:3px solid #ccc;box-shadow:2px 2px 0 #aaa;}
+.f-sink::after{content:'';position:absolute;top:-8px;left:50%;transform:translateX(-50%);
+  width:8px;height:10px;background:#bbb;border-radius:3px;}
+.f-bathmat{left:730px;top:200px;width:60px;height:40px;background:#87ceeb;border-radius:12px;opacity:0.5;}
+.f-towel{left:880px;top:180px;width:40px;height:8px;background:#f9c;border-radius:2px;
+  box-shadow:0 12px 0 #f9c;}
+
+/* -- Kitchen -- */
+.f-fridge{left:20px;top:370px;width:50px;height:80px;background:#ecf0f1;border-radius:5px;
+  border:3px solid #bdc3c7;box-shadow:3px 3px 0 #95a5a6;}
+.f-fridge::before{content:'';position:absolute;top:45%;left:0;width:100%;height:3px;background:#bdc3c7;}
+.f-fridge::after{content:'';position:absolute;top:20%;right:5px;width:4px;height:12px;
+  background:#95a5a6;border-radius:2px;box-shadow:0 20px 0 #95a5a6;}
+.f-counter{left:20px;top:470px;width:120px;height:40px;background:#7f8c8d;border-radius:3px;
+  border:2px solid #6a7577;box-shadow:2px 2px 0 #555;}
+.f-stove{left:25px;top:475px;width:30px;height:30px;background:#444;border-radius:50%;
+  border:3px solid #555;box-shadow:inset 0 0 0 4px #e74c3c;}
+.f-stove2{left:62px;top:475px;width:30px;height:30px;background:#444;border-radius:50%;
+  border:3px solid #555;box-shadow:inset 0 0 0 4px #e74c3c;}
+.f-table{left:160px;top:430px;width:100px;height:80px;background:#b8860b;border-radius:8px;
+  border:3px solid #8b6508;box-shadow:3px 3px 0 #6b4e06;}
+.f-ramen{left:185px;top:445px;width:45px;height:45px;background:#fff;border-radius:50%;
+  border:2px solid #eee;overflow:hidden;box-shadow:1px 1px 0 #ddd;}
+.f-ramen::before{content:'';position:absolute;top:8px;left:5px;right:5px;height:15px;
+  background:repeating-linear-gradient(90deg,#f5d442 0px,#f5d442 2px,transparent 2px,transparent 4px);}
+.f-ramen::after{content:'';position:absolute;top:10px;right:6px;width:10px;height:10px;
+  background:#fff;border-radius:50%;border:1px solid #eee;
+  box-shadow:inset 3px 3px 0 #f5a623;}
+.f-chopstick{left:235px;top:440px;width:2px;height:30px;background:#8b6914;
+  transform:rotate(20deg);box-shadow:5px 2px 0 #8b6914;}
+.f-sink2{left:100px;top:475px;width:35px;height:30px;background:#95a5a6;border-radius:4px;
+  border:2px solid #7f8c8d;}
+
+/* -- Living Room -- */
+.f-sofa{left:380px;top:560px;width:140px;height:50px;background:#e74c3c;border-radius:10px;
+  border:3px solid #c0392b;box-shadow:3px 3px 0 #a03020;}
+.f-sofa::before{content:'';position:absolute;top:5px;left:5px;width:30px;height:38px;
+  background:#c0392b;border-radius:8px;}
+.f-sofa::after{content:'';position:absolute;top:5px;right:5px;width:30px;height:38px;
+  background:#c0392b;border-radius:8px;}
+.f-tv2{left:400px;top:370px;width:90px;height:10px;background:#222;border-radius:2px;
+  box-shadow:0 -2px 0 #444;}
+.f-tvscreen{left:405px;top:380px;width:80px;height:50px;background:#111;border-radius:3px;
+  border:3px solid #333;overflow:hidden;}
+.f-tvglow{position:absolute;top:3px;left:3px;right:3px;bottom:3px;
+  background:linear-gradient(135deg,#1a1a5e,#3a3aae);border-radius:2px;
+  animation:tvGlow 3s infinite alternate;}
+@keyframes tvGlow{0%{opacity:0.5}100%{opacity:1}}
+.f-bookshelf{left:560px;top:365px;width:80px;height:30px;background:#6d4c2e;border-radius:3px;
+  border:2px solid #4d2c0e;box-shadow:2px 2px 0 #3d1c00;
+  display:flex;gap:3px;padding:4px 6px;align-items:center;}
+.f-bookshelf span{display:block;width:8px;height:20px;border-radius:1px;}
+.f-plant{left:570px;top:440px;width:30px;height:30px;position:relative;}
+.f-plant-pot{left:575px;top:465px;width:22px;height:16px;background:#8B4513;
+  border-radius:0 0 5px 5px;border:2px solid #6d3410;}
+.f-plant-leaf{position:absolute;width:12px;height:18px;background:#27ae60;border-radius:50% 0;}
+.f-cushion1{left:540px;top:530px;width:26px;height:26px;background:#f39c12;border-radius:50%;
+  opacity:0.7;box-shadow:1px 1px 0 #d4850a;}
+.f-cushion2{left:510px;top:545px;width:22px;height:22px;background:#9b59b6;border-radius:50%;
+  opacity:0.7;box-shadow:1px 1px 0 #7d3c98;}
+.f-rug2{left:390px;top:480px;width:160px;height:80px;
+  background:radial-gradient(ellipse,#d4a0d0 0%,#c080b8 60%,transparent 70%);
+  border-radius:50%;opacity:0.3;}
+
+/* -- Entrance -- */
+.f-frontdoor{left:870px;top:550px;width:80px;height:12px;background:#6d4c2e;border-radius:3px;
+  border:2px solid #5a3a1e;box-shadow:2px 2px 0 #3a1a0e;}
+.f-doorframe{left:868px;top:530px;width:84px;height:80px;border:4px solid #5a3a1e;
+  border-bottom:none;border-radius:4px 4px 0 0;background:rgba(109,76,46,0.3);}
+.f-shoerack{left:730px;top:560px;width:70px;height:35px;background:#5a3e28;border-radius:4px;
+  border:2px solid #3a1e08;box-shadow:2px 2px 0 #2a0e00;}
+.f-shoe1{left:738px;top:567px;width:12px;height:8px;background:#e74c3c;border-radius:3px 6px 3px 3px;transform:rotate(-10deg);}
+.f-shoe2{left:754px;top:570px;width:12px;height:8px;background:#fff;border-radius:3px 6px 3px 3px;}
+.f-shoe3{left:770px;top:567px;width:12px;height:8px;background:#3498db;border-radius:3px 6px 3px 3px;transform:rotate(5deg);}
+.f-shoe4{left:738px;top:580px;width:12px;height:8px;background:#f39c12;border-radius:3px 6px 3px 3px;}
+.f-umbrella{left:820px;top:540px;width:5px;height:40px;background:#e74c3c;border-radius:2px;}
+.f-umbrella::before{content:'';position:absolute;top:-5px;left:-8px;width:22px;height:10px;
+  background:#e74c3c;border-radius:12px 12px 0 0;}
+.f-mat{left:880px;top:640px;width:60px;height:25px;background:#8b7355;border-radius:4px;
+  text-align:center;line-height:25px;font-size:8px;color:#c9a96e;font-weight:bold;letter-spacing:1px;}
+.f-coathook{left:720px;top:380px;width:40px;height:6px;background:#777;border-radius:2px;}
+.f-coat{left:725px;top:386px;width:14px;height:25px;background:#3498db;border-radius:0 0 4px 4px;
+  box-shadow:18px 0 0 #2ecc71;}
+
+/* ===== MAPLE-STORY STYLE CHARACTERS ===== */
+.character{position:absolute;z-index:10;pointer-events:none;
+  filter:drop-shadow(2px 4px 3px rgba(0,0,0,0.35));}
+
+/* Girl - MapleStory chibi style */
+.maple-girl{width:52px;text-align:center;position:relative;}
+/* Shadow under feet */
+.maple-girl::after{content:'';position:absolute;bottom:-3px;left:50%;transform:translateX(-50%);
+  width:30px;height:8px;background:rgba(0,0,0,0.15);border-radius:50%;}
+/* Big head */
+.mg-head{width:40px;height:38px;background:#fde8d0;border-radius:50%;margin:0 auto;
+  position:relative;border:2px solid #f0c8a0;}
+/* Hair - long brown */
+.mg-hair-back{position:absolute;top:-2px;left:-6px;width:52px;height:44px;
+  background:#5a3015;border-radius:50% 50% 30% 30%;z-index:-1;}
+.mg-hair-top{position:absolute;top:-8px;left:-3px;width:46px;height:24px;
+  background:#6b3a1a;border-radius:50%;}
+.mg-hair-bangs{position:absolute;top:6px;left:2px;width:36px;height:12px;
+  background:#5a3015;border-radius:0 0 50% 50%;z-index:1;}
+.mg-hair-side-l{position:absolute;top:20px;left:-8px;width:12px;height:30px;
+  background:#5a3015;border-radius:6px;z-index:-1;}
+.mg-hair-side-r{position:absolute;top:20px;right:-8px;width:12px;height:30px;
+  background:#5a3015;border-radius:6px;z-index:-1;}
+/* Big sparkly eyes */
+.mg-eyes{position:absolute;top:16px;left:6px;width:28px;display:flex;justify-content:space-between;z-index:2;}
+.mg-eye{width:10px;height:10px;background:#222;border-radius:50%;position:relative;
+  box-shadow:inset 2px 2px 0 rgba(255,255,255,0.6);}
+.mg-eye::after{content:'';position:absolute;top:1px;right:1px;width:3px;height:3px;
+  background:#fff;border-radius:50%;}
+/* Blush */
+.mg-blush-l,.mg-blush-r{position:absolute;top:24px;width:8px;height:5px;
+  background:rgba(255,130,130,0.5);border-radius:50%;z-index:2;}
+.mg-blush-l{left:2px;} .mg-blush-r{right:2px;}
+/* Mouth */
+.mg-mouth{position:absolute;top:27px;left:50%;transform:translateX(-50%);
+  width:5px;height:3px;background:#e88;border-radius:0 0 50% 50%;z-index:2;}
+/* Hair accessory */
+.mg-ribbon{position:absolute;top:2px;right:-2px;width:10px;height:8px;
+  background:#ff6b9d;border-radius:50%;z-index:3;
+  box-shadow:4px 2px 0 #ff6b9d;}
+/* Body */
+.mg-body{width:28px;height:18px;background:#ff8fab;margin:-2px auto 0;border-radius:6px 6px 2px 2px;
+  border:2px solid #e87a9a;position:relative;z-index:0;}
+.mg-body::before{content:'';position:absolute;top:3px;left:50%;transform:translateX(-50%);
+  width:4px;height:4px;background:#fff;border-radius:50%;/* button */}
+/* Skirt */
+.mg-skirt{width:36px;height:14px;background:#ff6b9d;margin:0 auto;
+  border-radius:0 0 50% 50%;border:2px solid #e85a8a;border-top:none;}
+/* Legs */
+.mg-legs{display:flex;justify-content:center;gap:4px;}
+.mg-leg{width:8px;height:10px;background:#fde8d0;border-radius:0 0 4px 4px;border:1px solid #f0c8a0;}
+/* Shoes */
+.mg-shoes{display:flex;justify-content:center;gap:4px;margin-top:-1px;}
+.mg-shoe{width:11px;height:5px;background:#e85a8a;border-radius:3px 6px 3px 3px;}
+/* Walking animation */
+.walking .mg-legs{animation:mapleLegWalk 0.4s infinite;}
+@keyframes mapleLegWalk{
+  0%,100%{transform:none;}
+  25%{transform:skewX(8deg);}
+  75%{transform:skewX(-8deg);}
+}
+/* Idle bounce */
+.idle .maple-girl{animation:idleBounce 2s ease-in-out infinite;}
+@keyframes idleBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+
+/* ===== BICHON - MapleStory pet style ===== */
+.maple-bichon{width:36px;text-align:center;position:relative;}
+.maple-bichon::after{content:'';position:absolute;bottom:-2px;left:50%;transform:translateX(-50%);
+  width:24px;height:6px;background:rgba(0,0,0,0.12);border-radius:50%;}
+.mb-head{width:26px;height:24px;background:#fff;border-radius:50%;margin:0 auto;
+  position:relative;border:1px solid #e8e8e8;
+  box-shadow:-4px -2px 0 #fff,4px -2px 0 #fff,0 -5px 0 #fff,-2px -4px 0 #fff,2px -4px 0 #fff;}
+/* Fluffy top */
+.mb-fluff1,.mb-fluff2,.mb-fluff3{position:absolute;background:#fff;border-radius:50%;}
+.mb-fluff1{top:-6px;left:3px;width:10px;height:8px;}
+.mb-fluff2{top:-7px;left:8px;width:10px;height:9px;}
+.mb-fluff3{top:-5px;right:3px;width:8px;height:7px;}
+/* Black ears */
+.mb-ear-l,.mb-ear-r{position:absolute;top:1px;width:10px;height:12px;
+  background:#2a2a2a;border-radius:50%;z-index:-1;}
+.mb-ear-l{left:-4px;transform:rotate(-15deg);}
+.mb-ear-r{right:-4px;transform:rotate(15deg);}
+/* Eyes */
+.mb-eyes{position:absolute;top:9px;left:4px;width:18px;display:flex;justify-content:space-between;z-index:1;}
+.mb-eye{width:5px;height:5px;background:#111;border-radius:50%;
+  box-shadow:inset 1px 1px 0 rgba(255,255,255,0.5);}
+.mb-eye::after{content:'';position:absolute;top:0;right:0;width:2px;height:2px;
+  background:#fff;border-radius:50%;}
+/* Nose */
+.mb-nose{position:absolute;top:14px;left:50%;transform:translateX(-50%);
+  width:5px;height:3px;background:#222;border-radius:50%;z-index:1;}
+/* Tongue */
+.mb-tongue{position:absolute;top:17px;left:50%;transform:translateX(-50%);
+  width:5px;height:5px;background:#ff8888;border-radius:0 0 50% 50%;z-index:1;
+  animation:pant 0.5s infinite alternate;}
+@keyframes pant{0%{height:4px}100%{height:6px}}
+/* Body */
+.mb-body{width:28px;height:16px;background:#fff;margin:-3px auto 0;border-radius:12px;
+  border:1px solid #e8e8e8;position:relative;}
+/* Fluffy body */
+.mb-body::before{content:'';position:absolute;top:-2px;left:-3px;right:-3px;bottom:-2px;
+  background:#fff;border-radius:12px;z-index:-1;
+  box-shadow:0 0 0 1px rgba(0,0,0,0.05);}
+/* Tail */
+.mb-tail{position:absolute;top:-8px;right:-6px;width:10px;height:12px;
+  background:#fff;border-radius:50%;border:1px solid #e8e8e8;
+  animation:wag 0.35s infinite alternate;transform-origin:bottom center;}
+@keyframes wag{0%{transform:rotate(-25deg)}100%{transform:rotate(25deg)}}
+/* Legs */
+.mb-legs{display:flex;justify-content:center;gap:2px;margin-top:-1px;}
+.mb-leg{width:6px;height:7px;background:#fff;border-radius:0 0 3px 3px;border:1px solid #e8e8e8;}
+/* Walking */
+.walking .mb-legs{animation:dogWalk 0.3s infinite;}
+@keyframes dogWalk{
+  0%,100%{transform:none;}
+  25%{transform:skewX(10deg);}
+  75%{transform:skewX(-10deg);}
+}
+/* Idle bounce */
+.idle .maple-bichon{animation:dogBounce 1.5s ease-in-out infinite;}
+@keyframes dogBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
+
+/* ===== SPEECH BUBBLES ===== */
+.speech-bubble{
+  position:absolute;top:-44px;left:50%;transform:translateX(-50%);
+  background:#fff;color:#555;padding:5px 12px;border-radius:14px;
+  font-size:12px;font-weight:bold;white-space:nowrap;
+  opacity:0;transition:opacity 0.3s;z-index:20;
+  box-shadow:0 2px 10px rgba(0,0,0,0.15);
+  border:2px solid #ffc0d0;
+}
+.speech-bubble::after{
+  content:'';position:absolute;bottom:-7px;left:50%;transform:translateX(-50%);
+  border-left:7px solid transparent;border-right:7px solid transparent;border-top:7px solid #fff;
+}
+.speech-bubble.show{opacity:1;}
+.dog-bubble{background:#fffde8;border-color:#ffe080;font-size:11px;}
+.dog-bubble::after{border-top-color:#fffde8;}
+</style>
+</head>
+<body>
+
+<div class="house" id="house">
+  <!-- Floor tiles -->
+  <div class="room-floor floor-bedroom"></div>
+  <div class="room-floor floor-closet"></div>
+  <div class="room-floor floor-bathroom"></div>
+  <div class="room-floor floor-kitchen"></div>
+  <div class="room-floor floor-living"></div>
+  <div class="room-floor floor-entrance"></div>
+
+  <!-- Walls -->
+  <!-- Top -->
+  <div class="wall wall-h" style="left:0;top:0;width:1000px;"></div>
+  <!-- Bottom -->
+  <div class="wall wall-h" style="left:0;bottom:0;width:1000px;"></div>
+  <!-- Left -->
+  <div class="wall wall-v" style="left:0;top:0;height:700px;"></div>
+  <!-- Right -->
+  <div class="wall wall-v" style="right:0;top:0;height:700px;"></div>
+  <!-- Horizontal middle -->
+  <div class="wall wall-h" style="left:0;top:347px;width:140px;"></div>
+  <div class="wall wall-h" style="left:200px;top:347px;width:200px;"></div>
+  <div class="wall wall-h" style="left:460px;top:347px;width:140px;"></div>
+  <div class="wall wall-h" style="left:660px;top:347px;width:90px;"></div>
+  <div class="wall wall-h" style="left:810px;top:347px;width:190px;"></div>
+  <!-- Vertical: bedroom|closet -->
+  <div class="wall wall-v" style="left:397px;top:0;height:120px;"></div>
+  <div class="wall wall-v" style="left:397px;top:180px;height:170px;"></div>
+  <!-- Vertical: closet|bathroom -->
+  <div class="wall wall-v" style="left:697px;top:0;height:100px;"></div>
+  <div class="wall wall-v" style="left:697px;top:160px;height:190px;"></div>
+  <!-- Vertical: kitchen|living -->
+  <div class="wall wall-v" style="left:337px;top:350px;height:130px;"></div>
+  <div class="wall wall-v" style="left:337px;top:540px;height:160px;"></div>
+  <!-- Vertical: living|entrance -->
+  <div class="wall wall-v" style="left:697px;top:350px;height:110px;"></div>
+  <div class="wall wall-v" style="left:697px;top:520px;height:180px;"></div>
+
+  <!-- Door gaps (lighter color showing openings) -->
+  <div class="door-gap door-gap-h" style="left:140px;top:347px;width:60px;"></div>
+  <div class="door-gap door-gap-h" style="left:400px;top:347px;width:60px;"></div>
+  <div class="door-gap door-gap-h" style="left:750px;top:347px;width:60px;"></div>
+  <div class="door-gap door-gap-v" style="left:397px;top:120px;height:60px;"></div>
+  <div class="door-gap door-gap-v" style="left:697px;top:100px;height:60px;"></div>
+  <div class="door-gap door-gap-v" style="left:337px;top:480px;height:60px;"></div>
+  <div class="door-gap door-gap-v" style="left:697px;top:460px;height:60px;"></div>
+
+  <!-- Room names -->
+  <div class="room-name" style="left:160px;top:15px;">BEDROOM</div>
+  <div class="room-name" style="left:500px;top:15px;">CLOSET</div>
+  <div class="room-name" style="left:800px;top:15px;">BATHROOM</div>
+  <div class="room-name" style="left:120px;top:360px;">KITCHEN</div>
+  <div class="room-name" style="left:440px;top:360px;">LIVING ROOM</div>
+  <div class="room-name" style="left:770px;top:360px;">ENTRANCE</div>
+
+  <!-- ===== FURNITURE ===== -->
+  <!-- Bedroom -->
+  <div class="furn f-bed"></div>
+  <div class="furn f-nightstand"></div>
+  <div class="furn f-lamp"></div>
+  <div class="furn f-desk"></div>
+  <div class="furn f-chair"></div>
+  <div class="furn f-rug1"></div>
+
+  <!-- Closet -->
+  <div class="furn f-wardrobe"></div>
+  <div class="furn f-rack"></div>
+  <div class="furn f-dress1"></div>
+  <div class="furn f-dress2"></div>
+  <div class="furn f-dress3"></div>
+  <div class="furn f-mirror"></div>
+  <div class="furn f-dresser"></div>
+
+  <!-- Bathroom -->
+  <div class="furn f-bathtub"></div>
+  <div class="furn f-toilet"></div>
+  <div class="furn f-sink"></div>
+  <div class="furn f-bathmat"></div>
+  <div class="furn f-towel"></div>
+
+  <!-- Kitchen -->
+  <div class="furn f-fridge"></div>
+  <div class="furn f-counter"></div>
+  <div class="furn f-stove"></div>
+  <div class="furn f-stove2"></div>
+  <div class="furn f-table"></div>
+  <div class="furn f-ramen"></div>
+  <div class="furn f-chopstick"></div>
+  <div class="furn f-sink2"></div>
+
+  <!-- Living Room -->
+  <div class="furn f-sofa"></div>
+  <div class="furn f-tvscreen"><div class="f-tvglow"></div></div>
+  <div class="furn f-tv2"></div>
+  <div class="furn f-bookshelf">
+    <span style="background:#e74c3c"></span><span style="background:#3498db"></span>
+    <span style="background:#2ecc71"></span><span style="background:#f39c12"></span>
+    <span style="background:#9b59b6"></span><span style="background:#e67e22"></span>
+  </div>
+  <div class="furn f-plant">
+    <div class="f-plant-leaf" style="top:5px;left:2px;transform:rotate(-30deg);"></div>
+    <div class="f-plant-leaf" style="top:0;left:10px;transform:rotate(10deg);"></div>
+    <div class="f-plant-leaf" style="top:6px;left:18px;transform:rotate(30deg);"></div>
+  </div>
+  <div class="furn f-plant-pot"></div>
+  <div class="furn f-cushion1"></div>
+  <div class="furn f-cushion2"></div>
+  <div class="furn f-rug2"></div>
+
+  <!-- Entrance -->
+  <div class="furn f-doorframe"></div>
+  <div class="furn f-frontdoor"></div>
+  <div class="furn f-shoerack"></div>
+  <div class="furn f-shoe1"></div>
+  <div class="furn f-shoe2"></div>
+  <div class="furn f-shoe3"></div>
+  <div class="furn f-shoe4"></div>
+  <div class="furn f-umbrella"></div>
+  <div class="furn f-mat">WELCOME</div>
+  <div class="furn f-coathook"></div>
+  <div class="furn f-coat"></div>
+
+  <!-- ===== CHARACTERS ===== -->
+  <div class="character idle" id="girl">
+    <div class="speech-bubble" id="girlBubble"></div>
+    <div class="maple-girl">
+      <div class="mg-head">
+        <div class="mg-hair-back"></div>
+        <div class="mg-hair-top"></div>
+        <div class="mg-hair-bangs"></div>
+        <div class="mg-hair-side-l"></div>
+        <div class="mg-hair-side-r"></div>
+        <div class="mg-ribbon"></div>
+        <div class="mg-eyes"><div class="mg-eye"></div><div class="mg-eye"></div></div>
+        <div class="mg-blush-l"></div><div class="mg-blush-r"></div>
+        <div class="mg-mouth"></div>
+      </div>
+      <div class="mg-body"></div>
+      <div class="mg-skirt"></div>
+      <div class="mg-legs"><div class="mg-leg"></div><div class="mg-leg"></div></div>
+      <div class="mg-shoes"><div class="mg-shoe"></div><div class="mg-shoe"></div></div>
+    </div>
+  </div>
+
+  <div class="character idle" id="bichon">
+    <div class="speech-bubble dog-bubble" id="dogBubble"></div>
+    <div class="maple-bichon">
+      <div class="mb-head">
+        <div class="mb-fluff1"></div><div class="mb-fluff2"></div><div class="mb-fluff3"></div>
+        <div class="mb-ear-l"></div><div class="mb-ear-r"></div>
+        <div class="mb-eyes"><div class="mb-eye"></div><div class="mb-eye"></div></div>
+        <div class="mb-nose"></div>
+        <div class="mb-tongue"></div>
+      </div>
+      <div class="mb-body"><div class="mb-tail"></div></div>
+      <div class="mb-legs"><div class="mb-leg"></div><div class="mb-leg"></div><div class="mb-leg"></div><div class="mb-leg"></div></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const girlEl = document.getElementById('girl');
+const bichonEl = document.getElementById('bichon');
+const girlBubble = document.getElementById('girlBubble');
+const dogBubble = document.getElementById('dogBubble');
+
+// Room walkable center areas (px from house top-left)
+const roomCenters = {
+  bedroom:    { x: 200, y: 200 },
+  closet:     { x: 530, y: 180 },
+  bathroom:   { x: 820, y: 200 },
+  kitchen:    { x: 180, y: 510 },
+  livingroom: { x: 500, y: 510 },
+  entrance:   { x: 820, y: 510 },
+};
+
+// Door waypoints
+const doors = {
+  'bedroom-closet':      { x: 400, y: 150 },
+  'closet-bathroom':     { x: 700, y: 130 },
+  'bedroom-kitchen':     { x: 170, y: 350 },
+  'closet-livingroom':   { x: 430, y: 350 },
+  'bathroom-entrance':   { x: 780, y: 350 },
+  'kitchen-livingroom':  { x: 340, y: 510 },
+  'livingroom-entrance': { x: 700, y: 490 },
+};
+
+const adjacency = {
+  bedroom:    ['closet', 'kitchen'],
+  closet:     ['bedroom', 'bathroom', 'livingroom'],
+  bathroom:   ['closet', 'entrance'],
+  kitchen:    ['bedroom', 'livingroom'],
+  livingroom: ['closet', 'kitchen', 'entrance'],
+  entrance:   ['bathroom', 'livingroom'],
+};
+
+function findPath(from, to) {
+  if (from === to) return [from];
+  const queue = [[from]];
+  const visited = new Set([from]);
+  while (queue.length) {
+    const path = queue.shift();
+    const cur = path[path.length - 1];
+    for (const nb of adjacency[cur]) {
+      if (nb === to) return [...path, nb];
+      if (!visited.has(nb)) { visited.add(nb); queue.push([...path, nb]); }
+    }
+  }
+  return [from, to];
+}
+
+function getDoorPos(a, b) {
+  return doors[a+'-'+b] || doors[b+'-'+a];
+}
+
+function buildWaypoints(path) {
+  const wp = [];
+  for (let i = 0; i < path.length; i++) {
+    const c = roomCenters[path[i]];
+    wp.push({ x: c.x + (Math.random()-0.5)*60, y: c.y + (Math.random()-0.5)*40, room: path[i] });
+    if (i < path.length - 1) {
+      const dp = getDoorPos(path[i], path[i+1]);
+      wp.push({ x: dp.x, y: dp.y, door: true });
+    }
+  }
+  return wp;
+}
+
+const girlSayings = {
+  bedroom:    ["졸리다 zzZ", "잠이 안와...", "이불 밖은 위험해...", "5분만 더...", "꿈나라 가고싶다"],
+  closet:     ["오늘 뭐 입지?", "옷이 없어...", "이거 입을까?", "쇼핑가고 싶다", "이 원피스 귀엽다~"],
+  bathroom:   ["씻어야지~", "목욕하고 싶다", "거울아 거울아~", "세수해야지", "따뜻한 물~"],
+  kitchen:    ["배고프다...", "라면 먹자!", "치킨 먹고싶다", "오늘 뭐 먹지?", "커피 마시고싶다"],
+  livingroom: ["심심해~", "넷플릭스 볼까?", "퇴근하고싶다...", "아 집이 최고야", "책 읽을까?"],
+  entrance:   ["나갈까 말까...", "택배 왔나?", "내일도 출근이라니...", "하... 월요일...", "산책 갈까?"],
+};
+const dogSounds = ['멍멍~!', '왈왈!', '낑낑~', '멍!', '헥헥..', '꼬리살랑~', '킁킁!', '깨갱!'];
+
+const roomNames = Object.keys(roomCenters);
+let currentRoom = 'livingroom';
+let isMoving = false;
+let girlX, girlY, dogX, dogY;
+
+const girlHistory = [];
+const DOG_DELAY = 1200; // dog trails 1.2s behind
+
+function initPositions() {
+  const c = roomCenters.livingroom;
+  girlX = c.x - 26; girlY = c.y - 50;
+  dogX = girlX + 6; dogY = girlY + 60;
+  girlEl.style.left = girlX + 'px';
+  girlEl.style.top = girlY + 'px';
+  bichonEl.style.left = dogX + 'px';
+  bichonEl.style.top = dogY + 'px';
+}
+
+function showBubble(bubble, text, dur = 2500) {
+  bubble.textContent = text;
+  bubble.classList.add('show');
+  setTimeout(() => bubble.classList.remove('show'), dur);
+}
+
+function updateDogPosition() {
+  const now = performance.now();
+  while (girlHistory.length > 1 && girlHistory[1].time <= now - DOG_DELAY) {
+    girlHistory.shift();
+  }
+  if (girlHistory.length > 0) {
+    const target = girlHistory[0];
+    const lerpSpeed = 0.06;
+    dogX += (target.x - dogX) * lerpSpeed;
+    dogY += (target.y + 48 - dogY) * lerpSpeed;
+    bichonEl.style.left = dogX + 'px';
+    bichonEl.style.top = dogY + 'px';
+  }
+  requestAnimationFrame(updateDogPosition);
+}
+
+async function walkPath(waypoints) {
+  girlEl.classList.remove('idle');
+  girlEl.classList.add('walking');
+  bichonEl.classList.remove('idle');
+  bichonEl.classList.add('walking');
+
+  for (let i = 1; i < waypoints.length; i++) {
+    const fromX = parseFloat(girlEl.style.left);
+    const fromY = parseFloat(girlEl.style.top);
+    const toX = waypoints[i].x - 26;
+    const toY = waypoints[i].y - 50;
+    const dist = Math.sqrt((toX-fromX)**2 + (toY-fromY)**2);
+    // SLOW speed: ~8ms per px (was 3.5)
+    const duration = Math.max(600, dist * 8);
+
+    const startTime = performance.now();
+    await new Promise(resolve => {
+      function step(now) {
+        const t = Math.min((now - startTime) / duration, 1);
+        const ease = t < 0.5 ? 2*t*t : -1+(4-2*t)*t;
+        girlX = fromX + (toX - fromX) * ease;
+        girlY = fromY + (toY - fromY) * ease;
+        girlEl.style.left = girlX + 'px';
+        girlEl.style.top = girlY + 'px';
+        girlHistory.push({ x: girlX, y: girlY, time: now });
+        if (girlHistory.length > 500) girlHistory.splice(0, 200);
+        if (t < 1) requestAnimationFrame(step);
+        else resolve();
+      }
+      requestAnimationFrame(step);
+    });
+
+    if (waypoints[i].door) {
+      await new Promise(r => setTimeout(r, 300));
+    }
+  }
+
+  girlEl.classList.remove('walking');
+  girlEl.classList.add('idle');
+  // Dog stops walking after catching up (delayed)
+  setTimeout(() => {
+    bichonEl.classList.remove('walking');
+    bichonEl.classList.add('idle');
+  }, DOG_DELAY + 500);
+}
+
+async function moveToRandomRoom() {
+  if (isMoving) return;
+  isMoving = true;
+
+  let nextRoom;
+  do { nextRoom = roomNames[Math.floor(Math.random() * roomNames.length)]; }
+  while (nextRoom === currentRoom);
+
+  const path = findPath(currentRoom, nextRoom);
+  const waypoints = buildWaypoints(path);
+
+  await walkPath(waypoints);
+  currentRoom = nextRoom;
+
+  const sayings = girlSayings[currentRoom];
+  showBubble(girlBubble, sayings[Math.floor(Math.random() * sayings.length)], 3000);
+
+  setTimeout(() => {
+    showBubble(dogBubble, dogSounds[Math.floor(Math.random() * dogSounds.length)], 2000);
+  }, 1400);
+
+  await new Promise(r => setTimeout(r, 3500 + Math.random() * 2500));
+  isMoving = false;
+}
+
+async function mainLoop() {
+  initPositions();
+  girlHistory.push({ x: girlX, y: girlY, time: performance.now() });
+  requestAnimationFrame(updateDogPosition);
+
+  setTimeout(() => showBubble(girlBubble, '아 집이 최고야~', 2500), 600);
+  setTimeout(() => showBubble(dogBubble, '멍멍~!', 2000), 1500);
+
+  await new Promise(r => setTimeout(r, 3500));
+  while (true) { await moveToRandomRoom(); }
+}
+
+mainLoop();
+</script>
+</body>
+</html>
