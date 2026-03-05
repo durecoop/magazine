@@ -8,7 +8,125 @@
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:#1a1a2e;font-family:'Jua',sans-serif;overflow:hidden;height:100vh;display:flex;align-items:center;justify-content:center}
 
-.house{position:relative;width:900px;height:620px;background:#2a1f14;border-radius:12px;border:4px solid #3d2b1a;box-shadow:0 0 60px rgba(0,0,0,.5),0 0 120px rgba(0,0,0,.3);overflow:hidden}
+.world{display:flex;align-items:stretch;gap:0}
+.house{position:relative;width:900px;height:620px;background:#2a1f14;border-radius:0 12px 12px 0;border:4px solid #3d2b1a;border-left:none;box-shadow:0 0 60px rgba(0,0,0,.5),0 0 120px rgba(0,0,0,.3);overflow:hidden}
+
+/* ======== GREENHOUSE ======== */
+.greenhouse{position:relative;width:220px;height:620px;background:#1a2e1a;border-radius:12px 0 0 12px;border:4px solid #2a4a2a;border-right:3px solid #3d2b1a;overflow:hidden;box-shadow:0 0 60px rgba(0,0,0,.5)}
+.gh-label{position:absolute;top:10px;left:50%;transform:translateX(-50%);font-size:11px;color:rgba(150,255,150,.35);letter-spacing:2px;white-space:nowrap;z-index:1}
+.gh-floor{position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(255,255,255,.02) 0px,rgba(255,255,255,.02) 1px,transparent 1px,transparent 55px),linear-gradient(180deg,#1a2e1a,#162816)}
+/* LED strip at top */
+.gh-led{position:absolute;top:30px;left:15px;right:15px;height:8px;background:#333;border-radius:4px;z-index:2;transition:all .5s}
+.gh-led.on{background:#ff8c30;box-shadow:0 0 12px #ff8c30aa,0 0 30px #ff8c3044}
+.gh-led-beam{position:absolute;top:38px;left:0;right:0;bottom:0;background:transparent;z-index:1;pointer-events:none;transition:all .5s}
+.gh-led-beam.on{background:linear-gradient(180deg,rgba(255,140,48,.1) 0%,rgba(255,140,48,.04) 40%,rgba(255,140,48,.02) 100%)}
+
+/* Shelf rows */
+.gh-shelf{position:absolute;left:12px;right:12px;height:3px;background:#4a3520;z-index:2}
+.gh-shelf1{top:120px}
+.gh-shelf2{top:270px}
+.gh-shelf3{top:420px}
+
+/* Soil trays */
+.gh-tray{position:absolute;left:18px;right:18px;height:22px;background:linear-gradient(180deg,#4a3020,#3a2518);border-radius:3px;z-index:2}
+.gh-tray1{top:98px}
+.gh-tray2{top:248px}
+.gh-tray3{top:398px}
+
+/* Individual plants */
+/* Plants container */
+.gh-plant{position:absolute;z-index:3;text-align:center}
+.gh-plant .stem{display:block;margin:0 auto;border-radius:1px}
+.gh-plant .pot-label{font-size:8px;color:rgba(255,255,255,.45);margin-top:2px;white-space:nowrap}
+
+/* === Tomato (1단, center) === */
+.tomato-plant{left:85px;top:48px}
+.tomato-stem{width:3px;height:55px;background:#3a7a30}
+.t-leaf{position:absolute;background:#4a8a3a;border-radius:50%}
+.t-l1{top:8px;left:-12px;width:16px;height:9px;transform:rotate(-25deg)}
+.t-l2{top:8px;right:-12px;width:16px;height:9px;transform:rotate(25deg)}
+.t-l3{top:22px;left:-10px;width:14px;height:8px;background:#4a9a3a;transform:rotate(-18deg)}
+.t-l4{top:22px;right:-10px;width:14px;height:8px;background:#4a9a3a;transform:rotate(18deg)}
+.t-l5{top:36px;left:-8px;width:12px;height:7px;background:#5aaa4a;transform:rotate(-12deg)}
+.t-l6{top:36px;right:-8px;width:12px;height:7px;background:#5aaa4a;transform:rotate(12deg)}
+.t-f1{position:absolute;top:-4px;left:-8px;width:16px;height:16px;background:radial-gradient(circle at 40% 35%,#f44,#c22);border-radius:50%}
+.t-f1::after{content:'';position:absolute;top:-3px;left:5px;width:6px;height:5px;background:#3a7a30;border-radius:0 0 3px 3px}
+.t-f2{position:absolute;top:0;right:-10px;width:13px;height:13px;background:radial-gradient(circle at 40% 35%,#e66,#c33);border-radius:50%}
+.t-f2::after{content:'';position:absolute;top:-2px;left:4px;width:5px;height:4px;background:#3a7a30;border-radius:0 0 2px 2px}
+.t-f3{position:absolute;top:-6px;left:4px;width:11px;height:11px;background:radial-gradient(circle at 40% 35%,#fa6,#da4);border-radius:50%}
+
+/* === Paprika (2단, center) === */
+.paprika-plant{left:85px;top:178px}
+.paprika-stem{width:3px;height:52px;background:#3a7a30}
+.pk-leaf{position:absolute;background:#4a9a3a;border-radius:50%}
+.pk-l1{top:10px;left:-11px;width:15px;height:9px;transform:rotate(-22deg)}
+.pk-l2{top:10px;right:-11px;width:15px;height:9px;transform:rotate(22deg)}
+.pk-l3{top:24px;left:-9px;width:13px;height:7px;background:#4a8a3a;transform:rotate(-15deg)}
+.pk-l4{top:24px;right:-9px;width:13px;height:7px;background:#4a8a3a;transform:rotate(15deg)}
+.pk-f1{position:absolute;top:-5px;left:-12px;width:14px;height:20px;background:radial-gradient(ellipse at 40% 30%,#f44,#c22);border-radius:6px 6px 8px 8px}
+.pk-f1::after{content:'';position:absolute;top:-4px;left:4px;width:5px;height:6px;background:#3a7a30;border-radius:1px}
+.pk-f2{position:absolute;top:-2px;right:-10px;width:12px;height:18px;background:radial-gradient(ellipse at 40% 30%,#ff0,#da0);border-radius:5px 5px 7px 7px}
+.pk-f2::after{content:'';position:absolute;top:-3px;left:3px;width:5px;height:5px;background:#3a7a30;border-radius:1px}
+.pk-f3{position:absolute;top:3px;left:4px;width:11px;height:16px;background:radial-gradient(ellipse at 40% 30%,#f80,#c60);border-radius:5px 5px 6px 6px}
+
+/* === Perilla / 깻잎 (3단, center) === */
+.perilla-plant{left:85px;top:310px}
+.perilla-stem{width:3px;height:55px;background:#3a6a30}
+.pr-leaf{position:absolute;border-radius:4px 4px 40% 40%;border:1px solid #2a5a2a}
+.pr-l1{top:0;left:-18px;width:22px;height:16px;background:radial-gradient(ellipse,#3a7a3a,#2a5a2a);transform:rotate(-10deg)}
+.pr-l2{top:0;right:-18px;width:22px;height:16px;background:radial-gradient(ellipse,#3a7a3a,#2a5a2a);transform:rotate(10deg)}
+.pr-l3{top:15px;left:-16px;width:20px;height:14px;background:radial-gradient(ellipse,#3a8a3a,#2a6a2a);transform:rotate(-14deg)}
+.pr-l4{top:15px;right:-16px;width:20px;height:14px;background:radial-gradient(ellipse,#3a8a3a,#2a6a2a);transform:rotate(14deg)}
+.pr-l5{top:30px;left:-14px;width:18px;height:12px;background:radial-gradient(ellipse,#4a9a4a,#3a7a3a);transform:rotate(-10deg);border-color:#3a7a3a}
+.pr-l6{top:30px;right:-14px;width:18px;height:12px;background:radial-gradient(ellipse,#4a9a4a,#3a7a3a);transform:rotate(10deg);border-color:#3a7a3a}
+
+/* === Rice / 벼 (4단, center) === */
+.rice-plant{left:75px;top:430px;width:40px;height:60px}
+/* 3 stems growing from soil, each bending at top with grain cluster */
+.r-stem{position:absolute;bottom:0;width:2px;background:#7aaa4a;transform-origin:bottom center}
+.r-s1{left:10px;height:55px;transform:rotate(-5deg)}
+.r-s2{left:20px;height:50px;transform:rotate(3deg)}
+.r-s3{left:30px;height:52px;transform:rotate(-2deg)}
+/* Drooping grain heads */
+.r-head{position:absolute;transform-origin:left center}
+.r-h1{left:8px;top:2px;transform:rotate(25deg)}
+.r-h2{left:19px;top:6px;transform:rotate(-20deg)}
+.r-h3{left:29px;top:4px;transform:rotate(15deg)}
+.r-grains{display:flex;gap:1px;transform:rotate(5deg)}
+.r-g{width:4px;height:6px;background:linear-gradient(180deg,#e8c840,#d0a830);border-radius:2px 2px 3px 3px}
+/* Leaves: long thin blades arching out */
+.r-leaf{position:absolute;height:3px;border-radius:0 6px 6px 0;background:#6aaa4a}
+.r-lf1{left:4px;bottom:20px;width:22px;transform:rotate(-20deg);transform-origin:left}
+.r-lf2{left:26px;bottom:18px;width:20px;transform:rotate(15deg) scaleX(-1);transform-origin:left;background:#7aba5a}
+.r-lf3{left:8px;bottom:35px;width:18px;transform:rotate(-12deg);transform-origin:left}
+.r-lf4{left:24px;bottom:32px;width:16px;transform:rotate(10deg) scaleX(-1);transform-origin:left;background:#7aba5a}
+
+/* Shelves: 4 tiers */
+.gh-shelf{position:absolute;left:12px;right:12px;height:3px;background:#4a3520;z-index:2}
+.gh-shelf1{top:118px}
+.gh-shelf2{top:248px}
+.gh-shelf3{top:378px}
+.gh-shelf4{top:505px}
+.gh-tray{position:absolute;left:18px;right:18px;height:20px;background:linear-gradient(180deg,#4a3020,#3a2518);border-radius:3px;z-index:2}
+.gh-tray1{top:98px}
+.gh-tray2{top:228px}
+.gh-tray3{top:358px}
+.gh-tray4{top:485px}
+
+/* Water pipe */
+.gh-pipe{position:absolute;left:50%;transform:translateX(-50%);width:4px;background:#4a6a8a;z-index:2;border-radius:2px}
+.gh-pipe1{top:121px;height:107px}
+.gh-pipe2{top:251px;height:107px}
+.gh-pipe3{top:381px;height:104px}
+
+/* Water drip animation */
+.gh-drip{position:absolute;z-index:4;pointer-events:none;opacity:0}
+.gh-drip-drop{width:3px;height:5px;background:#6af;border-radius:0 50% 50% 50%;transform:rotate(45deg)}
+@keyframes dripFall{0%{opacity:1;transform:rotate(45deg) translateY(0)}100%{opacity:0;transform:rotate(45deg) translateY(30px)}}
+
+/* Temp/humidity display */
+.gh-display{position:absolute;bottom:20px;left:15px;right:15px;height:50px;background:#0a1a0a;border:1px solid #2a4a2a;border-radius:4px;z-index:2;padding:6px 8px;font-family:monospace;font-size:9px;color:#5a5}
+.gh-display-row{display:flex;justify-content:space-between;margin-bottom:2px}
 .room{position:absolute;border:3px solid #3d2b1a;overflow:hidden}
 .room-label{position:absolute;top:6px;left:50%;transform:translateX(-50%);font-size:12px;color:rgba(255,255,255,.3);letter-spacing:2px;z-index:1;white-space:nowrap}
 
@@ -196,10 +314,122 @@ body{background:#1a1a2e;font-family:'Jua',sans-serif;overflow:hidden;height:100v
 .sp.cat{background:rgba(255,220,240,.95);font-size:12px}
 .sp.cat::after{border-top-color:rgba(255,220,240,.95)}
 
+
+/* ======== CONTROL PANEL ======== */
+.ctrl-panel{position:fixed;left:12px;top:50%;transform:translateY(-50%);width:170px;background:#1a2a1a;border:2px solid #3a5a3a;border-radius:10px;padding:12px;z-index:300;box-shadow:0 4px 20px rgba(0,0,0,.5);font-family:'Jua',sans-serif}
+.ctrl-title{text-align:center;color:#7aba7a;font-size:13px;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid #2a3a2a}
+.ctrl-section{margin-bottom:10px}
+.ctrl-label{color:#8a8a8a;font-size:10px;margin-bottom:4px}
+.ctrl-row{display:flex;align-items:center;gap:6px;margin-bottom:6px}
+.ctrl-btn{background:#2a4a2a;color:#aadaaa;border:1px solid #3a5a3a;border-radius:6px;padding:4px 10px;font-size:11px;cursor:pointer;font-family:'Jua',sans-serif;transition:all .2s;user-select:none}
+.ctrl-btn:hover{background:#3a5a3a}
+.ctrl-btn:active{background:#4a6a4a;transform:scale(.95)}
+.ctrl-btn.on{background:#3a6a3a;color:#cfc;box-shadow:0 0 8px rgba(100,200,100,.3)}
+.ctrl-btn.water{background:#2a3a5a;color:#aadaff;border-color:#3a5a8a}
+.ctrl-btn.water:hover{background:#3a4a6a}
+.ctrl-btn.water:active{background:#4a5a7a}
+.ctrl-slider{-webkit-appearance:none;appearance:none;width:100%;height:6px;background:#2a3a2a;border-radius:3px;outline:none}
+.ctrl-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:14px;height:14px;background:#7aba7a;border-radius:50%;cursor:pointer}
+.ctrl-slider.light-slider::-webkit-slider-thumb{background:#ff8c30}
+.ctrl-val{color:#aaa;font-size:10px;min-width:28px;text-align:right}
+.npk-row{display:flex;align-items:center;gap:4px;margin-bottom:5px}
+.npk-label{width:16px;font-size:11px;font-weight:bold}
+.npk-label.n{color:#5adf5a}
+.npk-label.p{color:#df8a5a}
+.npk-label.k{color:#5aaadf}
+.npk-slider{-webkit-appearance:none;appearance:none;flex:1;height:5px;background:#2a3a2a;border-radius:3px;outline:none}
+.npk-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:12px;height:12px;border-radius:50%;cursor:pointer}
+.npk-slider.n-slider::-webkit-slider-thumb{background:#5adf5a}
+.npk-slider.p-slider::-webkit-slider-thumb{background:#df8a5a}
+.npk-slider.k-slider::-webkit-slider-thumb{background:#5aaadf}
+.npk-val{font-size:9px;color:#aaa;min-width:30px;text-align:right}
+.ctrl-btn.npk-btn{background:#3a3a2a;color:#dda;border-color:#5a5a3a;font-size:10px;padding:4px 8px}
+.ctrl-btn.npk-btn:hover{background:#4a4a3a}
+.ctrl-status{margin-top:8px;padding-top:6px;border-top:1px solid #2a3a2a}
+.status-bar{height:4px;background:#2a3a2a;border-radius:2px;margin-top:3px;overflow:hidden}
+.status-fill{height:100%;border-radius:2px;transition:width .5s}
+.status-fill.water-fill{background:linear-gradient(90deg,#3a6aaa,#6af);width:50%}
+.status-fill.growth-fill{background:linear-gradient(90deg,#3a8a3a,#5ade5a);width:20%}
+
 .house::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,transparent 30%,rgba(0,0,0,.15) 100%);z-index:50;pointer-events:none}
 </style>
 </head>
 <body>
+<div class="world">
+<!-- GREENHOUSE -->
+<div class="greenhouse" id="greenhouse">
+  <div class="gh-label">PLANT LAB</div>
+  <div class="gh-floor"></div>
+  <div class="gh-led" id="ghLed"></div>
+  <div class="gh-led-beam" id="ghBeam"></div>
+
+  <!-- Shelf 1: Tomato -->
+  <div class="gh-tray gh-tray1"></div>
+  <div class="gh-shelf gh-shelf1"></div>
+  <div class="gh-plant tomato-plant">
+    <div class="t-f1"></div><div class="t-f2"></div><div class="t-f3"></div>
+    <div class="t-leaf t-l1"></div><div class="t-leaf t-l2"></div>
+    <div class="t-leaf t-l3"></div><div class="t-leaf t-l4"></div>
+    <div class="t-leaf t-l5"></div><div class="t-leaf t-l6"></div>
+    <div class="stem tomato-stem"></div>
+    <div class="pot-label">Tomato</div>
+  </div>
+
+  <!-- Shelf 2: Paprika -->
+  <div class="gh-tray gh-tray2"></div>
+  <div class="gh-shelf gh-shelf2"></div>
+  <div class="gh-plant paprika-plant">
+    <div class="pk-f1"></div><div class="pk-f2"></div><div class="pk-f3"></div>
+    <div class="pk-leaf pk-l1"></div><div class="pk-leaf pk-l2"></div>
+    <div class="pk-leaf pk-l3"></div><div class="pk-leaf pk-l4"></div>
+    <div class="stem paprika-stem"></div>
+    <div class="pot-label">Paprika</div>
+  </div>
+
+  <!-- Shelf 3: Perilla -->
+  <div class="gh-tray gh-tray3"></div>
+  <div class="gh-shelf gh-shelf3"></div>
+  <div class="gh-plant perilla-plant">
+    <div class="pr-leaf pr-l1"></div><div class="pr-leaf pr-l2"></div>
+    <div class="pr-leaf pr-l3"></div><div class="pr-leaf pr-l4"></div>
+    <div class="pr-leaf pr-l5"></div><div class="pr-leaf pr-l6"></div>
+    <div class="stem perilla-stem"></div>
+    <div class="pot-label">Perilla</div>
+  </div>
+
+  <!-- Shelf 4: Rice -->
+  <div class="gh-tray gh-tray4"></div>
+  <div class="gh-shelf gh-shelf4"></div>
+  <div class="gh-plant rice-plant">
+    <div class="r-head r-h1"><div class="r-grains"><div class="r-g"></div><div class="r-g"></div><div class="r-g"></div><div class="r-g"></div><div class="r-g"></div></div></div>
+    <div class="r-head r-h2"><div class="r-grains"><div class="r-g"></div><div class="r-g"></div><div class="r-g"></div><div class="r-g"></div></div></div>
+    <div class="r-head r-h3"><div class="r-grains"><div class="r-g"></div><div class="r-g"></div><div class="r-g"></div><div class="r-g"></div><div class="r-g"></div></div></div>
+    <div class="r-leaf r-lf1"></div><div class="r-leaf r-lf2"></div>
+    <div class="r-leaf r-lf3"></div><div class="r-leaf r-lf4"></div>
+    <div class="r-stem r-s1"></div><div class="r-stem r-s2"></div><div class="r-stem r-s3"></div>
+    <div class="pot-label" style="position:absolute;bottom:-8px;left:6px">Rice</div>
+  </div>
+
+  <!-- Water pipes -->
+  <div class="gh-pipe gh-pipe1"></div>
+  <div class="gh-pipe gh-pipe2"></div>
+  <div class="gh-pipe gh-pipe3"></div>
+
+  <!-- Drip points (1 per shelf) -->
+  <div class="gh-drip" id="drip1" style="left:95px;top:90px"><div class="gh-drip-drop"></div></div>
+  <div class="gh-drip" id="drip2" style="left:95px;top:220px"><div class="gh-drip-drop"></div></div>
+  <div class="gh-drip" id="drip3" style="left:95px;top:350px"><div class="gh-drip-drop"></div></div>
+  <div class="gh-drip" id="drip4" style="left:95px;top:478px"><div class="gh-drip-drop"></div></div>
+
+  <!-- Status display -->
+  <div class="gh-display" id="ghDisplay">
+    <div class="gh-display-row"><span>TEMP</span><span id="ghTemp">24.2C</span></div>
+    <div class="gh-display-row"><span>HUMID</span><span id="ghHumid">65%</span></div>
+    <div class="gh-display-row"><span>WATER</span><span id="ghWater">50%</span></div>
+    <div class="gh-display-row"><span>NPK</span><span id="ghNpk">0/0/0</span></div>
+  </div>
+</div>
+
 <div class="house" id="house">
   <!-- ROOMS (backgrounds only) -->
   <div class="room bedroom"><div class="room-label">BEDROOM</div></div>
@@ -258,6 +488,67 @@ body{background:#1a1a2e;font-family:'Jua',sans-serif;overflow:hidden;height:100v
   <div class="door door-lk"></div>
   <div class="door door-le"></div>
   <div class="door door-ke"></div>
+</div>
+</div><!-- /world -->
+
+<!-- CONTROL PANEL -->
+<div class="ctrl-panel">
+  <div class="ctrl-title">Plant Cultivator</div>
+
+  <!-- Light -->
+  <div class="ctrl-section">
+    <div class="ctrl-label">GROW LIGHT</div>
+    <div class="ctrl-row">
+      <button class="ctrl-btn" id="lightBtn" onclick="toggleLight()">OFF</button>
+      <input type="range" class="ctrl-slider light-slider" id="lightSlider" min="0" max="100" value="70" oninput="setLightLevel(this.value)">
+      <span class="ctrl-val" id="lightVal">70%</span>
+    </div>
+  </div>
+
+  <!-- Water -->
+  <div class="ctrl-section">
+    <div class="ctrl-label">WATER</div>
+    <div class="ctrl-row">
+      <button class="ctrl-btn water" onclick="giveWater()">Water</button>
+      <div style="flex:1">
+        <div class="status-bar"><div class="status-fill water-fill" id="waterBar"></div></div>
+      </div>
+      <span class="ctrl-val" id="waterVal">50%</span>
+    </div>
+  </div>
+
+  <!-- NPK Fertilizer -->
+  <div class="ctrl-section">
+    <div class="ctrl-label">FERTILIZER (NPK)</div>
+    <div class="npk-row">
+      <span class="npk-label n">N</span>
+      <input type="range" class="npk-slider n-slider" id="nSlider" min="0" max="100" value="30">
+      <span class="npk-val" id="nVal">30</span>
+    </div>
+    <div class="npk-row">
+      <span class="npk-label p">P</span>
+      <input type="range" class="npk-slider p-slider" id="pSlider" min="0" max="100" value="20">
+      <span class="npk-val" id="pVal">20</span>
+    </div>
+    <div class="npk-row">
+      <span class="npk-label k">K</span>
+      <input type="range" class="npk-slider k-slider" id="kSlider" min="0" max="100" value="25">
+      <span class="npk-val" id="kVal">25</span>
+    </div>
+    <div class="ctrl-row" style="justify-content:center">
+      <button class="ctrl-btn npk-btn" onclick="giveFertilizer()">Apply Fertilizer</button>
+    </div>
+  </div>
+
+  <!-- Status -->
+  <div class="ctrl-status">
+    <div class="ctrl-label">GROWTH</div>
+    <div class="status-bar"><div class="status-fill growth-fill" id="growthBar"></div></div>
+    <div style="display:flex;justify-content:space-between;margin-top:3px">
+      <span class="ctrl-val" id="growthVal" style="text-align:left">20%</span>
+      <span class="ctrl-val" id="growthStage" style="color:#5a5;font-size:9px">Sprout</span>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -563,6 +854,129 @@ function loop(t){
   requestAnimationFrame(loop);
 }
 requestAnimationFrame(loop);
+
+// ========== GREENHOUSE LOGIC ==========
+let lightOn = false;
+let lightLevel = 70;
+let waterLevel = 50;
+let growth = 20;
+let totalN = 0, totalP = 0, totalK = 0;
+
+const ghLed = document.getElementById('ghLed');
+const ghBeam = document.getElementById('ghBeam');
+const waterBar = document.getElementById('waterBar');
+const growthBar = document.getElementById('growthBar');
+
+function toggleLight() {
+  lightOn = !lightOn;
+  const btn = document.getElementById('lightBtn');
+  btn.textContent = lightOn ? 'ON' : 'OFF';
+  btn.classList.toggle('on', lightOn);
+  updateLight();
+}
+
+function setLightLevel(val) {
+  lightLevel = parseInt(val);
+  document.getElementById('lightVal').textContent = val + '%';
+  updateLight();
+}
+
+function updateLight() {
+  const opacity = lightLevel / 100;
+  if (lightOn) {
+    ghLed.className = 'gh-led on';
+    ghLed.style.opacity = opacity;
+    ghLed.style.boxShadow = `0 0 ${12*opacity}px rgba(255,140,48,${opacity*0.7}),0 0 ${30*opacity}px rgba(255,140,48,${opacity*0.3})`;
+    ghBeam.className = 'gh-led-beam on';
+    ghBeam.style.opacity = opacity;
+  } else {
+    ghLed.className = 'gh-led';
+    ghLed.style.opacity = '';
+    ghLed.style.boxShadow = '';
+    ghBeam.className = 'gh-led-beam';
+    ghBeam.style.opacity = '';
+  }
+}
+
+function giveWater() {
+  waterLevel = Math.min(100, waterLevel + 15);
+  document.getElementById('ghWater').textContent = Math.round(waterLevel) + '%';
+  waterBar.style.width = waterLevel + '%';
+
+  // drip animation on all 4 drip points
+  for (let i = 1; i <= 4; i++) {
+    const drip = document.getElementById('drip' + i);
+    const drop = drip.querySelector('.gh-drip-drop');
+    drip.style.opacity = '1';
+    drop.style.animation = 'none';
+    drop.offsetHeight;
+    drop.style.animation = `dripFall 0.8s ${i * 0.15}s ease-in forwards`;
+  }
+  setTimeout(() => {
+    for (let i = 1; i <= 4; i++) document.getElementById('drip' + i).style.opacity = '0';
+  }, 1500);
+
+  // humidity bump
+  const humEl = document.getElementById('ghHumid');
+  const hum = Math.min(95, 65 + waterLevel * 0.3);
+  humEl.textContent = Math.round(hum) + '%';
+
+  checkGrowth();
+}
+
+function giveFertilizer() {
+  const n = parseInt(document.getElementById('nSlider').value);
+  const p = parseInt(document.getElementById('pSlider').value);
+  const k = parseInt(document.getElementById('kSlider').value);
+  totalN += n; totalP += p; totalK += k;
+
+  document.getElementById('ghNpk').textContent = `${totalN}/${totalP}/${totalK}`;
+  checkGrowth();
+}
+
+document.getElementById('nSlider').oninput = function() { document.getElementById('nVal').textContent = this.value; };
+document.getElementById('pSlider').oninput = function() { document.getElementById('pVal').textContent = this.value; };
+document.getElementById('kSlider').oninput = function() { document.getElementById('kVal').textContent = this.value; };
+
+function checkGrowth() {
+  let bonus = 0;
+  if (lightOn) bonus += lightLevel * 0.03;
+  if (waterLevel > 30) bonus += 3;
+  bonus += Math.min(totalN, 300) * 0.015;
+  bonus += Math.min(totalP, 300) * 0.012;
+  bonus += Math.min(totalK, 300) * 0.012;
+
+  growth = Math.min(100, growth + bonus);
+  growthBar.style.width = growth + '%';
+  document.getElementById('growthVal').textContent = Math.round(growth) + '%';
+
+  // Scale all plants based on growth
+  const scale = 0.6 + growth / 100 * 0.5;
+  document.querySelectorAll('.gh-plant').forEach(p => {
+    p.style.transform = `scale(${scale})`;
+    p.style.transformOrigin = 'bottom center';
+  });
+
+  // Growth stage
+  const stageEl = document.getElementById('growthStage');
+  if (growth < 25) stageEl.textContent = 'Seedling';
+  else if (growth < 50) stageEl.textContent = 'Growing';
+  else if (growth < 75) stageEl.textContent = 'Mature';
+  else if (growth < 95) stageEl.textContent = 'Fruiting';
+  else stageEl.textContent = 'Harvest!';
+}
+
+// Water drain & temp fluctuation
+setInterval(() => {
+  if (waterLevel > 0) {
+    waterLevel = Math.max(0, waterLevel - 0.5);
+    document.getElementById('ghWater').textContent = Math.round(waterLevel) + '%';
+    waterBar.style.width = waterLevel + '%';
+  }
+  // temp fluctuation
+  const temp = (23.5 + Math.random() * 1.5 + (lightOn ? lightLevel * 0.02 : 0)).toFixed(1);
+  document.getElementById('ghTemp').textContent = temp + 'C';
+}, 2000);
 </script>
 </body>
 </html>
