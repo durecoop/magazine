@@ -5,978 +5,543 @@
 <title>Potato's House</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1a2e;font-family:'Jua',sans-serif;overflow:hidden;height:100vh;display:flex;align-items:center;justify-content:center}
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-  background: #1a1a2e;
-  font-family: 'Jua', sans-serif;
-  overflow: hidden;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+.house{position:relative;width:900px;height:620px;background:#2a1f14;border-radius:12px;border:4px solid #3d2b1a;box-shadow:0 0 60px rgba(0,0,0,.5),0 0 120px rgba(0,0,0,.3);overflow:hidden}
+.room{position:absolute;border:3px solid #3d2b1a;overflow:hidden}
+.room-label{position:absolute;top:6px;left:50%;transform:translateX(-50%);font-size:12px;color:rgba(255,255,255,.3);letter-spacing:2px;z-index:1;white-space:nowrap}
 
-/* House container */
-.house {
-  position: relative;
-  width: 900px;
-  height: 620px;
-  background: #2a1f14;
-  border-radius: 12px;
-  border: 4px solid #3d2b1a;
-  box-shadow: 0 0 60px rgba(0,0,0,0.5), 0 0 120px rgba(0,0,0,0.3);
-  overflow: hidden;
-}
+/* === ROOMS === */
+.bedroom{left:0;top:0;width:360px;height:310px;background:#2d2545}
+.closet{left:360px;top:0;width:220px;height:190px;background:#2b2040}
+.bathroom{left:360px;top:190px;width:220px;height:120px;background:#1e3a3a}
+.livingroom{left:580px;top:0;width:320px;height:410px;background:#2e2418}
+.kitchen{left:0;top:310px;width:580px;height:310px;background:#33291e}
+.entrance{left:580px;top:410px;width:320px;height:210px;background:#2a2a2a}
 
-/* Room base */
-.room {
-  position: absolute;
-  border: 3px solid #3d2b1a;
-  overflow: hidden;
-}
-.room-label {
-  position: absolute;
-  top: 6px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 13px;
-  color: rgba(255,255,255,0.35);
-  letter-spacing: 2px;
-  z-index: 1;
-  white-space: nowrap;
-}
+/* === DOORS === */
+.door{position:absolute;z-index:2}
+.door-bk{left:130px;top:308px;width:60px;height:8px;background:#5a4a30}
+.door-bc{left:358px;top:70px;width:8px;height:50px;background:#5a4a30}
+.door-btk{left:420px;top:308px;width:50px;height:8px;background:#5a4a30}
+.door-lk{left:578px;top:320px;width:8px;height:50px;background:#5a4a30}
+.door-le{left:650px;top:408px;width:50px;height:8px;background:#5a4a30}
+.door-ke{left:578px;top:480px;width:8px;height:50px;background:#5a4a30}
 
-/* Rooms */
-.bedroom {
-  left: 0; top: 0;
-  width: 360px; height: 320px;
-  background: #2d2545;
-}
-.closet {
-  left: 360px; top: 0;
-  width: 220px; height: 200px;
-  background: #2b2040;
-}
-.bathroom {
-  left: 360px; top: 200px;
-  width: 220px; height: 120px;
-  background: #1e3a3a;
-}
-.livingroom {
-  left: 580px; top: 0;
-  width: 320px; height: 420px;
-  background: #2e2418;
-}
-.hallway {
-  left: 0; top: 320px;
-  width: 580px; height: 300px;
-  background: #33291e;
-}
-.entrance {
-  left: 580px; top: 420px;
-  width: 320px; height: 200px;
-  background: #2a2a2a;
-}
+.f{position:absolute;z-index:1}
 
-/* Doors (gaps in walls) */
-.door {
-  position: absolute;
-  background: #44382a;
-  z-index: 2;
-}
-/* bedroom -> hallway */
-.door-bh { left: 140px; top: 318px; width: 60px; height: 8px; }
-/* closet -> bedroom */
-.door-cb { left: 358px; top: 80px; width: 8px; height: 50px; }
-/* bathroom -> hallway */
-.door-bth { left: 430px; top: 318px; width: 50px; height: 8px; }
-/* livingroom -> hallway */
-.door-lh { left: 578px; top: 330px; width: 8px; height: 50px; }
-/* livingroom -> entrance */
-.door-le { left: 650px; top: 418px; width: 50px; height: 8px; }
-/* hallway -> entrance */
-.door-he { left: 578px; top: 480px; width: 8px; height: 50px; }
+/* ======== BEDROOM ======== */
+.bed{left:20px;top:50px;width:120px;height:180px;background:#5c4a8a;border-radius:8px;border:2px solid #4a3870}
+.bed::before{content:'';position:absolute;top:0;left:8px;right:8px;height:50px;background:#7a6aaa;border-radius:6px 6px 0 0}
+.bed::after{content:'';position:absolute;top:55px;left:12px;width:94px;height:110px;background:repeating-linear-gradient(45deg,#6b5a9a,#6b5a9a 8px,#7264a0 8px,#7264a0 16px);border-radius:4px}
+.pillow1{left:35px;top:58px;width:40px;height:22px;background:#c8b8e8;border-radius:10px}
+.pillow2{left:82px;top:58px;width:40px;height:22px;background:#b8a8d8;border-radius:10px}
+.nightstand{left:155px;top:100px;width:40px;height:40px;background:#5a4020;border-radius:4px;border:1px solid #6a5030}
+.lamp{left:163px;top:78px;width:24px;height:26px}
+.lamp::before{content:'';position:absolute;bottom:0;left:9px;width:6px;height:12px;background:#8a7050}
+.lamp::after{content:'';position:absolute;top:0;left:2px;width:20px;height:14px;background:#ffdd44;border-radius:10px 10px 2px 2px;box-shadow:0 0 15px #ffdd44aa,0 0 30px #ffdd4444}
+.desk{left:220px;top:50px;width:115px;height:50px;background:#5a4020;border-radius:3px;border:1px solid #6a5030}
+.monitor{left:245px;top:30px;width:60px;height:36px;background:#111;border-radius:3px;border:2px solid #444}
+.monitor::after{content:'> _';position:absolute;top:8px;left:8px;color:#0f0;font-size:10px;font-family:monospace;animation:blink 1s step-end infinite}
+@keyframes blink{50%{opacity:0}}
+.monitor-stand{left:268px;top:66px;width:14px;height:6px;background:#444;border-radius:0 0 3px 3px}
+.desk-chair{left:252px;top:108px;width:36px;height:36px;background:#3a3a3a;border-radius:50%;border:2px solid #555}
+.bedroom-rug{left:160px;top:200px;width:100px;height:70px;background:radial-gradient(ellipse,#4a3870,#3a2860);border-radius:50%;opacity:.4}
+.alarm-clock{left:160px;top:105px;width:14px;height:12px;background:#c44;border-radius:3px}
+.alarm-clock::after{content:'';position:absolute;top:2px;left:4px;width:6px;height:6px;border:1px solid #fff;border-radius:50%}
 
-/* ===== FURNITURE (CSS art) ===== */
-.furniture {
-  position: absolute;
-  z-index: 1;
-}
+/* ======== CLOSET ======== */
+.wardrobe{left:375px;top:25px;width:190px;height:50px;background:#6a4d70;border-radius:4px;border:2px solid #5a3d60}
+.wardrobe::before{content:'';position:absolute;top:4px;left:4px;width:88px;height:40px;background:#5a3d60;border-radius:2px;border:1px solid #7a5d80}
+.wardrobe::after{content:'';position:absolute;top:4px;right:4px;width:88px;height:40px;background:#5a3d60;border-radius:2px;border:1px solid #7a5d80}
+.wardrobe-knob1{left:460px;top:43px;width:6px;height:6px;background:#c0a080;border-radius:50%}
+.wardrobe-knob2{left:474px;top:43px;width:6px;height:6px;background:#c0a080;border-radius:50%}
+.hanger-rod{left:380px;top:85px;width:120px;height:3px;background:#8a7050}
+.hanger-rod::before{content:'';position:absolute;left:0;top:-2px;width:3px;height:7px;background:#8a7050}
+.hanger-rod::after{content:'';position:absolute;right:0;top:-2px;width:3px;height:7px;background:#8a7050}
+.shirt1{left:390px;top:88px;width:22px;height:28px;background:#e66;border-radius:3px 3px 0 0}
+.shirt2{left:418px;top:88px;width:22px;height:32px;background:#69c;border-radius:3px 3px 0 0}
+.shirt3{left:446px;top:88px;width:22px;height:26px;background:#6b6;border-radius:3px 3px 0 0}
+.dress1{left:474px;top:88px;width:22px;height:38px;background:#c6a;border-radius:3px 3px 8px 8px}
+.mirror{left:520px;top:80px;width:40px;height:60px;background:linear-gradient(135deg,#668,#aac,#779);border-radius:20px 20px 4px 4px;border:3px solid #8a7050}
+.mirror::after{content:'';position:absolute;top:8px;left:8px;width:12px;height:20px;background:rgba(255,255,255,.15);border-radius:8px;transform:rotate(-15deg)}
+.closet-drawer{left:380px;top:140px;width:80px;height:35px;background:#5a3d60;border-radius:3px;border:1px solid #7a5d80}
+.closet-drawer::before{content:'';position:absolute;top:8px;left:5px;right:5px;height:8px;background:#4a2d50;border-radius:2px}
+.closet-drawer::after{content:'';position:absolute;bottom:5px;left:5px;right:5px;height:8px;background:#4a2d50;border-radius:2px}
 
-/* BEDROOM furniture */
-.bed {
-  left: 20px; top: 60px;
-  width: 120px; height: 180px;
-  background: #5c4a8a;
-  border-radius: 8px;
-  border: 2px solid #4a3870;
-}
-.bed::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 10px; right: 10px;
-  height: 50px;
-  background: #7a6aaa;
-  border-radius: 6px 6px 0 0;
-}
-.bed::after {
-  content: '';
-  position: absolute;
-  top: 60px; left: 15px;
-  width: 88px; height: 100px;
-  background: #6b5a9a;
-  border-radius: 4px;
-  border: 1px solid #5a4888;
-}
-.nightstand {
-  left: 155px; top: 80px;
-  width: 40px; height: 40px;
-  background: #5a4020;
-  border-radius: 4px;
-  border: 1px solid #6a5030;
-}
-.nightstand::after {
-  content: '';
-  position: absolute;
-  top: 5px; left: 10px;
-  width: 18px; height: 18px;
-  background: #ffdd44;
-  border-radius: 50%;
-  box-shadow: 0 0 12px #ffdd44aa;
-}
-.desk {
-  left: 220px; top: 60px;
-  width: 110px; height: 55px;
-  background: #5a4020;
-  border-radius: 3px;
-  border: 1px solid #6a5030;
-}
-.desk-monitor {
-  left: 248px; top: 40px;
-  width: 55px; height: 35px;
-  background: #222;
-  border-radius: 3px;
-  border: 2px solid #444;
-}
-.desk-monitor::after {
-  content: '>';
-  position: absolute;
-  top: 6px; left: 8px;
-  color: #0f0;
-  font-size: 12px;
-  font-family: monospace;
-}
-.desk-chair {
-  left: 250px; top: 120px;
-  width: 36px; height: 36px;
-  background: #3a3a3a;
-  border-radius: 50%;
-  border: 2px solid #555;
-}
-.bookshelf {
-  left: 250px; top: 250px;
-  width: 80px; height: 28px;
-  background: #5a4020;
-  border-radius: 2px;
-}
-.bookshelf::before {
-  content: '';
-  position: absolute;
-  left: 4px; top: 3px;
-  width: 10px; height: 20px;
-  background: #c44;
-  border-radius: 1px;
-  box-shadow: 14px 0 0 #49a, 28px 0 0 #4a4, 42px 0 0 #aa4, 56px 0 0 #94a;
-}
+/* ======== BATHROOM ======== */
+.bathtub{left:375px;top:210px;width:100px;height:50px;background:#e8e8e8;border-radius:25px;border:3px solid #ccc}
+.bathtub::before{content:'';position:absolute;top:8px;left:8px;right:8px;bottom:8px;background:linear-gradient(180deg,#a0d8ef,#80c0df);border-radius:20px;opacity:.6}
+.bathtub::after{content:'';position:absolute;top:3px;right:12px;width:8px;height:8px;background:#bbb;border-radius:50%;border:1px solid #999}
+.bath-bubbles{left:395px;top:220px;width:60px;height:20px}
+.bath-bubbles::before{content:'';position:absolute;left:0;top:0;width:12px;height:12px;background:rgba(255,255,255,.3);border-radius:50%;box-shadow:15px 3px 0 rgba(255,255,255,.25),30px -2px 0 rgba(255,255,255,.2),45px 1px 0 rgba(255,255,255,.15)}
+.toilet{left:500px;top:218px;width:32px;height:40px;background:#e8e8e8;border-radius:8px 8px 14px 14px;border:2px solid #ccc}
+.toilet::before{content:'';position:absolute;top:-12px;left:2px;width:26px;height:16px;background:#ddd;border-radius:4px 4px 0 0;border:2px solid #ccc}
+.toilet::after{content:'';position:absolute;top:6px;left:8px;width:14px;height:8px;background:#cde;border-radius:50%;opacity:.5}
+.toilet-paper{left:536px;top:228px;width:14px;height:16px;background:#f5f5f0;border-radius:3px;border:1px solid #ddd}
+.toilet-paper::after{content:'';position:absolute;bottom:-6px;left:3px;width:8px;height:8px;background:#f5f5f0;border-radius:0 0 2px 2px}
+.bath-sink{left:550px;top:210px;width:22px;height:30px;background:#e8e8e8;border-radius:4px 4px 12px 12px;border:2px solid #ccc}
+.bath-sink::before{content:'';position:absolute;top:-8px;left:6px;width:8px;height:10px;background:#bbb;border-radius:2px}
+.towel-rack{left:548px;top:270px;width:24px;height:4px;background:#8a7050}
+.towel-rack::after{content:'';position:absolute;top:4px;left:2px;width:20px;height:12px;background:#7ac;border-radius:0 0 3px 3px;opacity:.8}
+.bath-mat{left:485px;top:270px;width:40px;height:24px;background:#5a8a8a;border-radius:3px;opacity:.4}
 
-/* CLOSET furniture */
-.wardrobe {
-  left: 380px; top: 30px;
-  width: 180px; height: 45px;
-  background: #5a3d60;
-  border-radius: 3px;
-  border: 1px solid #6a4d70;
-}
-.wardrobe::before {
-  content: '';
-  position: absolute;
-  top: 5px; left: 5px;
-  width: 80px; height: 33px;
-  background: #4a2d50;
-  border-radius: 2px;
-}
-.wardrobe::after {
-  content: '';
-  position: absolute;
-  top: 5px; right: 5px;
-  width: 80px; height: 33px;
-  background: #4a2d50;
-  border-radius: 2px;
-}
-.mirror {
-  left: 440px; top: 100px;
-  width: 50px; height: 70px;
-  background: linear-gradient(135deg, #668, #aac, #668);
-  border-radius: 25px 25px 4px 4px;
-  border: 3px solid #8a7050;
-}
-.clothes-rack {
-  left: 390px; top: 140px;
-  width: 30px; height: 50px;
-  border-left: 3px solid #6a5030;
-}
-.clothes-rack::before {
-  content: '';
-  position: absolute;
-  top: 0; left: -10px;
-  width: 30px; height: 3px;
-  background: #6a5030;
-}
-.clothes-rack::after {
-  content: '';
-  position: absolute;
-  top: 8px; left: -8px;
-  width: 20px; height: 14px;
-  background: #c66;
-  border-radius: 2px;
-  box-shadow: 6px 18px 0 #6a6;
-}
+/* ======== LIVING ROOM ======== */
+.sofa{left:610px;top:40px;width:160px;height:65px;background:#8b5e3c;border-radius:12px;border:2px solid #6b4020}
+.sofa::before{content:'';position:absolute;top:8px;left:8px;width:65px;height:45px;background:#a07050;border-radius:8px}
+.sofa::after{content:'';position:absolute;top:8px;right:8px;width:65px;height:45px;background:#a07050;border-radius:8px}
+.sofa-pillow{left:658px;top:48px;width:20px;height:20px;background:#c9a;border-radius:4px;transform:rotate(15deg)}
+.tv-stand{left:650px;top:148px;width:100px;height:30px;background:#4a3520;border-radius:3px;border:1px solid #5a4530}
+.tv{left:658px;top:120px;width:84px;height:32px;background:#111;border-radius:3px;border:2px solid #333;overflow:hidden}
+.tv::after{content:'';position:absolute;inset:0;background:linear-gradient(45deg,#236,#325,#234);animation:tvFlicker 3s infinite}
+@keyframes tvFlicker{0%,100%{opacity:.5}50%{opacity:.8}}
+.tv-remote{left:700px;top:195px;width:10px;height:22px;background:#333;border-radius:3px}
+.coffee-table{left:640px;top:210px;width:80px;height:50px;background:#5a4020;border-radius:6px;border:1px solid #6a5030}
+.coffee-mug{left:660px;top:222px;width:12px;height:10px;background:#ddd;border-radius:2px;border:1px solid #bbb}
+.coffee-mug::after{content:'';position:absolute;top:1px;right:-5px;width:5px;height:6px;border:1px solid #bbb;border-left:none;border-radius:0 3px 3px 0}
+.lr-bookshelf{left:845px;top:40px;width:40px;height:120px;background:#5a4020;border-radius:3px;border:1px solid #6a5030}
+.lr-bookshelf::before{content:'';position:absolute;top:5px;left:4px;width:12px;height:28px;background:#c44;border-radius:1px;box-shadow:14px 0 0 #49a,0 35px 0 #4a4,14px 35px 0 #a8a,0 70px 0 #aa4,14px 70px 0 #68c}
+.plant1{left:830px;top:180px;width:35px;height:45px}
+.plant1::before{content:'';position:absolute;bottom:0;left:8px;width:20px;height:16px;background:#8b5e3c;border-radius:2px 2px 5px 5px;border:1px solid #7a4e2c}
+.plant1::after{content:'';position:absolute;top:0;left:5px;width:26px;height:30px;background:radial-gradient(ellipse,#4a9a4a,#3a7a3a);border-radius:50% 50% 30% 30%}
+.plant2{left:600px;top:350px;width:30px;height:38px}
+.plant2::before{content:'';position:absolute;bottom:0;left:6px;width:16px;height:13px;background:#c0a080;border-radius:2px 2px 4px 4px}
+.plant2::after{content:'';position:absolute;top:0;left:4px;width:22px;height:26px;background:radial-gradient(ellipse,#5aaa5a,#3a8a3a);border-radius:50% 50% 30% 30%}
+.lr-rug{left:630px;top:280px;width:120px;height:80px;background:radial-gradient(ellipse,#6a4030,#4a2a1a);border-radius:50%;opacity:.4}
+.floor-lamp{left:785px;top:40px;width:16px;height:50px}
+.floor-lamp::before{content:'';position:absolute;bottom:0;left:6px;width:4px;height:40px;background:#555}
+.floor-lamp::after{content:'';position:absolute;top:0;left:0;width:16px;height:12px;background:#dda;border-radius:8px 8px 2px 2px;box-shadow:0 0 12px #dda8}
 
-/* BATHROOM furniture */
-.bathtub {
-  left: 380px; top: 220px;
-  width: 90px; height: 50px;
-  background: #e8e8e8;
-  border-radius: 25px;
-  border: 3px solid #ccc;
-}
-.bathtub::after {
-  content: '';
-  position: absolute;
-  top: 8px; left: 8px; right: 8px; bottom: 8px;
-  background: #a0d8ef;
-  border-radius: 20px;
-  opacity: 0.5;
-}
-.toilet {
-  left: 500px; top: 230px;
-  width: 30px; height: 36px;
-  background: #e8e8e8;
-  border-radius: 8px 8px 12px 12px;
-  border: 2px solid #ccc;
-}
-.toilet::before {
-  content: '';
-  position: absolute;
-  top: -10px; left: 3px;
-  width: 22px; height: 14px;
-  background: #ddd;
-  border-radius: 4px 4px 0 0;
-  border: 2px solid #ccc;
-}
-.sink {
-  left: 545px; top: 240px;
-  width: 25px; height: 25px;
-  background: #e0e0e0;
-  border-radius: 50%;
-  border: 2px solid #ccc;
-}
+/* ======== KITCHEN ======== */
+.k-counter{left:10px;top:330px;width:55px;height:240px;background:#555;border-radius:3px;border:1px solid #666}
+.k-stove1{left:22px;top:355px;width:30px;height:30px;background:#333;border-radius:50%;border:2px solid #444}
+.k-stove1::after{content:'';position:absolute;top:8px;left:8px;width:10px;height:10px;background:#555;border-radius:50%}
+.k-stove2{left:22px;top:400px;width:30px;height:30px;background:#333;border-radius:50%;border:2px solid #444}
+.k-stove2::after{content:'';position:absolute;top:8px;left:8px;width:10px;height:10px;background:#555;border-radius:50%}
+.k-sink{left:18px;top:450px;width:38px;height:30px;background:#889;border-radius:4px;border:2px solid #778}
+.k-sink::before{content:'';position:absolute;top:4px;left:6px;right:6px;bottom:4px;background:#667;border-radius:3px}
+.k-sink::after{content:'';position:absolute;top:-10px;left:14px;width:8px;height:12px;background:#aab;border-radius:2px}
+.k-shelf{left:10px;top:495px;width:55px;height:18px;background:#6a5030;border-radius:2px}
+.k-shelf::before{content:'';position:absolute;top:2px;left:5px;width:8px;height:13px;background:#a94;border-radius:2px;box-shadow:12px 0 0 #9a4,24px 0 0 #a49,36px 0 0 #49a}
+.fridge{left:10px;top:525px;width:55px;height:75px;background:#d0d0d0;border-radius:4px;border:2px solid #bbb}
+.fridge::before{content:'';position:absolute;top:3px;left:3px;right:3px;height:28px;background:#c4c4c4;border-radius:2px}
+.fridge::after{content:'';position:absolute;right:6px;top:10px;width:3px;height:12px;background:#999;border-radius:2px;box-shadow:0 24px 0 #999}
+.dining-table{left:200px;top:420px;width:160px;height:100px;background:#6a5030;border-radius:8px;border:2px solid #7a6040}
+.ramen1{left:235px;top:440px;width:30px;height:25px;background:#f5f5dc;border-radius:50%;border:2px solid #ddd}
+.ramen1::before{content:'';position:absolute;top:3px;left:4px;right:4px;bottom:3px;background:#e8c840;border-radius:50%}
+.ramen1::after{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:repeating-conic-gradient(transparent 0deg,transparent 8deg,rgba(200,160,50,.3) 8deg,rgba(200,160,50,.3) 10deg);border-radius:50%}
+.ramen2{left:305px;top:445px;width:28px;height:23px;background:#f5f5dc;border-radius:50%;border:2px solid #ddd}
+.ramen2::before{content:'';position:absolute;top:3px;left:3px;right:3px;bottom:3px;background:#e8c840;border-radius:50%}
+.chopstick1{left:270px;top:438px;width:2px;height:30px;background:#8b6914;transform:rotate(20deg)}
+.chopstick2{left:276px;top:438px;width:2px;height:30px;background:#8b6914;transform:rotate(-10deg)}
+.egg{left:240px;top:445px;width:10px;height:8px;background:#fff;border-radius:50%;border:1px solid #eee}
+.egg::after{content:'';position:absolute;top:1px;left:2px;width:6px;height:5px;background:#f5a623;border-radius:50%}
+.steam1{left:245px;top:428px;width:4px;height:10px;opacity:.4;animation:steam 2s ease-in-out infinite}
+.steam2{left:255px;top:430px;width:4px;height:10px;opacity:.4;animation:steam 2s ease-in-out infinite .5s}
+.steam3{left:250px;top:426px;width:4px;height:10px;opacity:.4;animation:steam 2s ease-in-out infinite 1s}
+@keyframes steam{0%{opacity:0;transform:translateY(0) scaleX(1)}50%{opacity:.5}100%{opacity:0;transform:translateY(-12px) scaleX(1.5)}}
+.steam1::after,.steam2::after,.steam3::after{content:'~';color:rgba(255,255,255,.5);font-size:10px}
+.d-chair1{left:240px;top:396px;width:26px;height:20px;background:#8b5e3c;border-radius:5px;border:1px solid #7a4e2c}
+.d-chair2{left:300px;top:396px;width:26px;height:20px;background:#8b5e3c;border-radius:5px;border:1px solid #7a4e2c}
+.d-chair3{left:240px;top:524px;width:26px;height:20px;background:#8b5e3c;border-radius:5px;border:1px solid #7a4e2c}
+.d-chair4{left:300px;top:524px;width:26px;height:20px;background:#8b5e3c;border-radius:5px;border:1px solid #7a4e2c}
+.water-disp{left:100px;top:330px;width:30px;height:50px;background:#aae;border-radius:4px;border:1px solid #99d}
+.water-disp::before{content:'';position:absolute;top:-10px;left:5px;width:20px;height:14px;background:rgba(100,150,255,.3);border-radius:3px 3px 0 0}
+.k-rug{left:400px;top:450px;width:90px;height:55px;background:#5a3a2a;border-radius:4px;opacity:.35}
+.k-clock{left:200px;top:335px;width:22px;height:22px;background:#444;border-radius:50%;border:2px solid #555}
+.k-clock::after{content:'';position:absolute;top:4px;left:9px;width:2px;height:7px;background:#fff;transform-origin:bottom;transform:rotate(30deg)}
+.k-window{left:420px;top:338px;width:60px;height:50px;background:linear-gradient(180deg,#1a2a4a,#2a3a5a);border:3px solid #5a4a30;border-radius:2px}
+.k-window::before{content:'';position:absolute;top:0;left:50%;width:2px;height:100%;background:#5a4a30}
+.k-window::after{content:'';position:absolute;top:50%;left:0;width:100%;height:2px;background:#5a4a30}
+.k-curtain-l{left:415px;top:335px;width:12px;height:56px;background:#a86;border-radius:0 0 4px 0;opacity:.7}
+.k-curtain-r{left:478px;top:335px;width:12px;height:56px;background:#a86;border-radius:0 0 0 4px;opacity:.7}
 
-/* LIVINGROOM furniture */
-.sofa {
-  left: 620px; top: 50px;
-  width: 140px; height: 60px;
-  background: #8b5e3c;
-  border-radius: 10px;
-  border: 2px solid #6b4020;
-}
-.sofa::before {
-  content: '';
-  position: absolute;
-  top: 8px; left: 8px;
-  width: 55px; height: 40px;
-  background: #a07050;
-  border-radius: 6px;
-}
-.sofa::after {
-  content: '';
-  position: absolute;
-  top: 8px; right: 8px;
-  width: 55px; height: 40px;
-  background: #a07050;
-  border-radius: 6px;
-}
-.tv-stand {
-  left: 660px; top: 150px;
-  width: 80px; height: 30px;
-  background: #4a3520;
-  border-radius: 3px;
-}
-.tv {
-  left: 665px; top: 125px;
-  width: 70px; height: 28px;
-  background: #111;
-  border-radius: 3px;
-  border: 2px solid #333;
-  overflow: hidden;
-}
-.tv::after {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: linear-gradient(45deg, #236, #325, #234);
-  animation: tvFlicker 3s infinite;
-}
-@keyframes tvFlicker {
-  0%, 100% { opacity: 0.6; }
-  50% { opacity: 0.9; }
-}
-.coffee-table {
-  left: 650px; top: 210px;
-  width: 70px; height: 45px;
-  background: #5a4020;
-  border-radius: 6px;
-  border: 1px solid #6a5030;
-}
-.coffee-table::after {
-  content: '';
-  position: absolute;
-  top: 10px; left: 15px;
-  width: 18px; height: 18px;
-  background: #a08060;
-  border-radius: 50%;
-  border: 1px solid #806040;
-}
-.plant {
-  left: 850px; top: 50px;
-  width: 30px; height: 30px;
-}
-.plant::before {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 5px;
-  width: 20px; height: 14px;
-  background: #8b5e3c;
-  border-radius: 2px 2px 4px 4px;
-}
-.plant::after {
-  content: '';
-  position: absolute;
-  top: 0; left: 8px;
-  width: 14px; height: 18px;
-  background: #3a7a3a;
-  border-radius: 50% 50% 30% 30%;
-}
-.rug {
-  left: 630px; top: 280px;
-  width: 120px; height: 80px;
-  background: radial-gradient(ellipse, #6a4030, #4a2a1a);
-  border-radius: 50%;
-  opacity: 0.5;
-}
-
-/* HALLWAY furniture */
-.dining-table {
-  left: 180px; top: 420px;
-  width: 150px; height: 90px;
-  background: #5a4020;
-  border-radius: 8px;
-  border: 2px solid #6a5030;
-}
-.dining-chair1 {
-  left: 215px; top: 395px;
-  width: 24px; height: 20px;
-  background: #8b5e3c;
-  border-radius: 4px;
-}
-.dining-chair2 {
-  left: 275px; top: 395px;
-  width: 24px; height: 20px;
-  background: #8b5e3c;
-  border-radius: 4px;
-}
-.dining-chair3 {
-  left: 215px; top: 515px;
-  width: 24px; height: 20px;
-  background: #8b5e3c;
-  border-radius: 4px;
-}
-.dining-chair4 {
-  left: 275px; top: 515px;
-  width: 24px; height: 20px;
-  background: #8b5e3c;
-  border-radius: 4px;
-}
-.kitchen-counter {
-  left: 10px; top: 400px;
-  width: 50px; height: 180px;
-  background: #555;
-  border-radius: 3px;
-  border: 1px solid #666;
-}
-.kitchen-counter::before {
-  content: '';
-  position: absolute;
-  top: 15px; left: 10px;
-  width: 30px; height: 30px;
-  background: #333;
-  border-radius: 50%;
-  border: 2px solid #444;
-}
-.kitchen-counter::after {
-  content: '';
-  position: absolute;
-  top: 60px; left: 10px;
-  width: 30px; height: 30px;
-  background: #333;
-  border-radius: 50%;
-  border: 2px solid #444;
-}
-.fridge {
-  left: 75px; top: 540px;
-  width: 50px; height: 65px;
-  background: #d0d0d0;
-  border-radius: 4px;
-  border: 2px solid #bbb;
-}
-.fridge::before {
-  content: '';
-  position: absolute;
-  top: 3px; left: 3px; right: 3px;
-  height: 25px;
-  background: #c4c4c4;
-  border-radius: 2px;
-}
-.fridge::after {
-  content: '';
-  position: absolute;
-  right: 6px; top: 12px;
-  width: 3px; height: 10px;
-  background: #999;
-  border-radius: 2px;
-}
-.hall-rug {
-  left: 380px; top: 440px;
-  width: 100px; height: 60px;
-  background: #5a3030;
-  border-radius: 4px;
-  opacity: 0.4;
-}
-
-/* ENTRANCE */
-.shoe-rack {
-  left: 600px; top: 560px;
-  width: 120px; height: 30px;
-  background: #5a4020;
-  border-radius: 3px;
-}
-.shoe-rack::before {
-  content: '';
-  position: absolute;
-  top: 4px; left: 8px;
-  width: 20px; height: 10px;
-  background: #666;
-  border-radius: 3px;
-  box-shadow: 28px 0 0 #855, 56px 0 0 #558, 84px 0 0 #585;
-}
-.door-mat {
-  left: 680px; top: 590px;
-  width: 80px; height: 20px;
-  background: #6a5a3a;
-  border-radius: 3px;
-}
-.door-mat::after {
-  content: 'WELCOME';
-  position: absolute;
-  top: 3px; left: 50%;
-  transform: translateX(-50%);
-  font-size: 8px;
-  color: #aaa;
-  letter-spacing: 1px;
-}
-.umbrella-stand {
-  left: 860px; top: 500px;
-  width: 24px; height: 40px;
-  background: #5a4020;
-  border-radius: 3px;
-  border: 1px solid #6a5030;
-}
-.umbrella-stand::before {
-  content: '';
-  position: absolute;
-  top: -18px; left: 6px;
-  width: 4px; height: 22px;
-  background: #e44;
-}
-.umbrella-stand::after {
-  content: '';
-  position: absolute;
-  top: -22px; left: -2px;
-  width: 20px; height: 10px;
-  background: #e44;
-  border-radius: 10px 10px 0 0;
-}
-.entrance-light {
-  left: 750px; top: 440px;
-  width: 20px; height: 20px;
-  background: #ffdd44;
-  border-radius: 50%;
-  box-shadow: 0 0 20px #ffdd44aa, 0 0 40px #ffdd4444;
-}
-.coat-hook {
-  left: 770px; top: 430px;
-  width: 80px; height: 15px;
-  background: #5a4020;
-  border-radius: 2px;
-}
+/* ======== ENTRANCE ======== */
+.shoe-rack{left:595px;top:560px;width:140px;height:35px;background:#5a4020;border-radius:3px;border:1px solid #6a5030}
+.shoe1{left:605px;top:565px;width:18px;height:12px;background:#555;border-radius:4px 8px 2px 2px;transform:rotate(-5deg)}
+.shoe2{left:628px;top:567px;width:18px;height:12px;background:#557;border-radius:4px 8px 2px 2px;transform:rotate(5deg)}
+.shoe3{left:655px;top:565px;width:20px;height:13px;background:#a55;border-radius:4px 8px 2px 2px}
+.shoe4{left:682px;top:567px;width:16px;height:11px;background:#5a5;border-radius:4px 8px 2px 2px;transform:rotate(-3deg)}
+.shoe5{left:703px;top:565px;width:18px;height:12px;background:#888;border-radius:4px 8px 2px 2px}
+.slipper1{left:620px;top:510px;width:14px;height:20px;background:#f9a;border-radius:8px 8px 3px 3px;transform:rotate(-10deg)}
+.slipper2{left:638px;top:512px;width:14px;height:20px;background:#f9a;border-radius:8px 8px 3px 3px;transform:rotate(10deg)}
+.door-mat{left:680px;top:597px;width:80px;height:18px;background:#6a5a3a;border-radius:3px}
+.door-mat::after{content:'WELCOME';position:absolute;top:2px;left:50%;transform:translateX(-50%);font-size:7px;color:#aaa;letter-spacing:1px}
+.umbrella-stand{left:855px;top:510px;width:28px;height:44px;background:#5a4020;border-radius:4px;border:1px solid #6a5030}
+.umbrella1{left:859px;top:488px;width:4px;height:26px;background:#e44}
+.umbrella1::after{content:'';position:absolute;top:-4px;left:-6px;width:16px;height:8px;background:#e44;border-radius:8px 8px 0 0}
+.umbrella2{left:869px;top:492px;width:4px;height:22px;background:#49e}
+.umbrella2::after{content:'';position:absolute;top:-4px;left:-6px;width:16px;height:8px;background:#49e;border-radius:8px 8px 0 0}
+.coat-hook{left:780px;top:425px;width:90px;height:12px;background:#5a4020;border-radius:2px}
+.coat1{left:790px;top:437px;width:20px;height:30px;background:#668;border-radius:0 0 5px 5px;opacity:.8}
+.coat2{left:820px;top:437px;width:22px;height:35px;background:#864;border-radius:0 0 5px 5px;opacity:.8}
+.e-light{left:750px;top:435px;width:16px;height:16px;background:#ffdd44;border-radius:50%;box-shadow:0 0 15px #ffdd44aa,0 0 30px #ffdd4444}
+.e-mirror{left:740px;top:460px;width:35px;height:50px;background:linear-gradient(135deg,#556,#889,#667);border-radius:3px;border:2px solid #5a4020}
+.e-key-hook{left:600px;top:430px;width:30px;height:8px;background:#6a5030;border-radius:2px}
+.e-key-hook::after{content:'';position:absolute;top:8px;left:6px;width:8px;height:12px;background:#cc0;border-radius:0 0 3px 3px;box-shadow:14px 0 0 #aaa}
+.e-rug{left:640px;top:480px;width:80px;height:40px;background:#4a3525;border-radius:3px;opacity:.35}
 
 /* ===== CHARACTERS ===== */
-.character {
-  position: absolute;
-  z-index: 100;
-  pointer-events: none;
-  transition: none;
-}
+.ch{position:absolute;z-index:100;pointer-events:none}
+.sp{position:absolute;z-index:200;background:rgba(255,255,255,.95);color:#333;font-family:'Jua',sans-serif;font-size:13px;padding:5px 12px;border-radius:12px;white-space:nowrap;pointer-events:none;opacity:0;transform:translateY(5px);transition:opacity .3s,transform .3s;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.sp.show{opacity:1;transform:translateY(0)}
+.sp::after{content:'';position:absolute;bottom:-6px;left:18px;border-left:6px solid transparent;border-right:6px solid transparent;border-top:7px solid rgba(255,255,255,.95)}
+.sp.cat{background:rgba(255,220,240,.95);font-size:12px}
+.sp.cat::after{border-top-color:rgba(255,220,240,.95)}
 
-/* Speech bubble */
-.speech {
-  position: absolute;
-  z-index: 200;
-  background: rgba(255,255,255,0.95);
-  color: #333;
-  font-family: 'Jua', sans-serif;
-  font-size: 13px;
-  padding: 5px 12px;
-  border-radius: 12px;
-  white-space: nowrap;
-  pointer-events: none;
-  opacity: 0;
-  transform: translateY(5px);
-  transition: opacity 0.3s, transform 0.3s;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-}
-.speech.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-.speech::after {
-  content: '';
-  position: absolute;
-  bottom: -6px;
-  left: 18px;
-  width: 0; height: 0;
-  border-left: 6px solid transparent;
-  border-right: 6px solid transparent;
-  border-top: 7px solid rgba(255,255,255,0.95);
-}
-
-/* Cat speech */
-.cat-speech {
-  background: rgba(255,220,240,0.95);
-  font-size: 12px;
-}
-.cat-speech::after {
-  border-top-color: rgba(255,220,240,0.95);
-}
-
-/* Night overlay for ambience */
-.house::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at 50% 50%, transparent 30%, rgba(0,0,0,0.15) 100%);
-  z-index: 50;
-  pointer-events: none;
-}
+.house::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,transparent 30%,rgba(0,0,0,.15) 100%);z-index:50;pointer-events:none}
 </style>
 </head>
 <body>
-
 <div class="house" id="house">
-  <!-- ROOMS -->
-  <div class="room bedroom">
-    <div class="room-label">BEDROOM</div>
-    <div class="furniture bed"></div>
-    <div class="furniture nightstand"></div>
-    <div class="furniture desk"></div>
-    <div class="furniture desk-monitor"></div>
-    <div class="furniture desk-chair"></div>
-    <div class="furniture bookshelf"></div>
+  <!-- BEDROOM -->
+  <div class="room bedroom"><div class="room-label">BEDROOM</div>
+    <div class="f bed"></div><div class="f pillow1"></div><div class="f pillow2"></div>
+    <div class="f nightstand"></div><div class="f lamp"></div><div class="f alarm-clock"></div>
+    <div class="f desk"></div><div class="f monitor"></div><div class="f monitor-stand"></div><div class="f desk-chair"></div>
+    <div class="f bedroom-rug"></div>
   </div>
-
-  <div class="room closet">
-    <div class="room-label">CLOSET</div>
-    <div class="furniture wardrobe"></div>
-    <div class="furniture mirror"></div>
-    <div class="furniture clothes-rack"></div>
+  <!-- CLOSET -->
+  <div class="room closet"><div class="room-label">CLOSET</div>
+    <div class="f wardrobe"></div><div class="f wardrobe-knob1"></div><div class="f wardrobe-knob2"></div>
+    <div class="f hanger-rod"></div><div class="f shirt1"></div><div class="f shirt2"></div><div class="f shirt3"></div><div class="f dress1"></div>
+    <div class="f mirror"></div><div class="f closet-drawer"></div>
   </div>
-
-  <div class="room bathroom">
-    <div class="room-label">BATHROOM</div>
-    <div class="furniture bathtub"></div>
-    <div class="furniture toilet"></div>
-    <div class="furniture sink"></div>
+  <!-- BATHROOM -->
+  <div class="room bathroom"><div class="room-label">BATHROOM</div>
+    <div class="f bathtub"></div><div class="f bath-bubbles"></div>
+    <div class="f toilet"></div><div class="f toilet-paper"></div>
+    <div class="f bath-sink"></div><div class="f towel-rack"></div><div class="f bath-mat"></div>
   </div>
-
-  <div class="room livingroom">
-    <div class="room-label">LIVING ROOM</div>
-    <div class="furniture sofa"></div>
-    <div class="furniture tv-stand"></div>
-    <div class="furniture tv"></div>
-    <div class="furniture coffee-table"></div>
-    <div class="furniture plant"></div>
-    <div class="furniture rug"></div>
+  <!-- LIVING ROOM -->
+  <div class="room livingroom"><div class="room-label">LIVING ROOM</div>
+    <div class="f sofa"></div><div class="f sofa-pillow"></div>
+    <div class="f tv"></div><div class="f tv-stand"></div><div class="f tv-remote"></div>
+    <div class="f coffee-table"></div><div class="f coffee-mug"></div>
+    <div class="f lr-bookshelf"></div><div class="f floor-lamp"></div>
+    <div class="f plant1"></div><div class="f plant2"></div><div class="f lr-rug"></div>
   </div>
-
-  <div class="room hallway">
-    <div class="room-label">KITCHEN & DINING</div>
-    <div class="furniture kitchen-counter"></div>
-    <div class="furniture fridge"></div>
-    <div class="furniture dining-table"></div>
-    <div class="furniture dining-chair1"></div>
-    <div class="furniture dining-chair2"></div>
-    <div class="furniture dining-chair3"></div>
-    <div class="furniture dining-chair4"></div>
-    <div class="furniture hall-rug"></div>
+  <!-- KITCHEN -->
+  <div class="room kitchen"><div class="room-label">KITCHEN & DINING</div>
+    <div class="f k-counter"></div><div class="f k-stove1"></div><div class="f k-stove2"></div>
+    <div class="f k-sink"></div><div class="f k-shelf"></div><div class="f fridge"></div>
+    <div class="f water-disp"></div>
+    <div class="f dining-table"></div>
+    <div class="f ramen1"></div><div class="f egg"></div><div class="f chopstick1"></div><div class="f chopstick2"></div>
+    <div class="f steam1"></div><div class="f steam2"></div><div class="f steam3"></div>
+    <div class="f ramen2"></div>
+    <div class="f d-chair1"></div><div class="f d-chair2"></div><div class="f d-chair3"></div><div class="f d-chair4"></div>
+    <div class="f k-rug"></div><div class="f k-clock"></div>
+    <div class="f k-window"></div><div class="f k-curtain-l"></div><div class="f k-curtain-r"></div>
   </div>
-
-  <div class="room entrance">
-    <div class="room-label">ENTRANCE</div>
-    <div class="furniture shoe-rack"></div>
-    <div class="furniture door-mat"></div>
-    <div class="furniture umbrella-stand"></div>
-    <div class="furniture entrance-light"></div>
-    <div class="furniture coat-hook"></div>
+  <!-- ENTRANCE -->
+  <div class="room entrance"><div class="room-label">ENTRANCE</div>
+    <div class="f shoe-rack"></div>
+    <div class="f shoe1"></div><div class="f shoe2"></div><div class="f shoe3"></div><div class="f shoe4"></div><div class="f shoe5"></div>
+    <div class="f slipper1"></div><div class="f slipper2"></div>
+    <div class="f door-mat"></div><div class="f umbrella-stand"></div>
+    <div class="f umbrella1"></div><div class="f umbrella2"></div>
+    <div class="f coat-hook"></div><div class="f coat1"></div><div class="f coat2"></div>
+    <div class="f e-light"></div><div class="f e-mirror"></div>
+    <div class="f e-key-hook"></div><div class="f e-rug"></div>
   </div>
-
   <!-- DOORS -->
-  <div class="door door-bh"></div>
-  <div class="door door-cb"></div>
-  <div class="door door-bth"></div>
-  <div class="door door-lh"></div>
+  <div class="door door-bk"></div>
+  <div class="door door-bc"></div>
+  <div class="door door-btk"></div>
+  <div class="door door-lk"></div>
   <div class="door door-le"></div>
-  <div class="door door-he"></div>
-
-  <!-- CHARACTERS (injected by JS) -->
+  <div class="door door-ke"></div>
 </div>
 
 <script>
 const house = document.getElementById('house');
 
-// ===== WAYPOINTS (walkable positions) =====
-const waypoints = {
-  bedroom: [
-    { x: 200, y: 180 }, { x: 280, y: 150 }, { x: 300, y: 260 },
-    { x: 170, y: 280 }, { x: 170, y: 150 }
-  ],
-  closet: [
-    { x: 420, y: 100 }, { x: 500, y: 90 }, { x: 470, y: 160 }
-  ],
-  bathroom: [
-    { x: 430, y: 270 }, { x: 520, y: 260 }
-  ],
-  livingroom: [
-    { x: 680, y: 120 }, { x: 750, y: 200 }, { x: 700, y: 310 },
-    { x: 820, y: 280 }, { x: 680, y: 260 }
-  ],
-  hallway: [
-    { x: 170, y: 350 }, { x: 300, y: 470 }, { x: 420, y: 470 },
-    { x: 500, y: 400 }, { x: 140, y: 470 }, { x: 350, y: 380 },
-    { x: 450, y: 550 }
-  ],
-  entrance: [
-    { x: 680, y: 500 }, { x: 750, y: 530 }, { x: 820, y: 480 }
-  ]
+// ===== ROOM GRAPH WITH DOOR-ONLY MOVEMENT =====
+// Each room: walkable waypoints inside.
+// Doors: connection points between exactly 2 rooms.
+// Character must go: current room waypoints -> door -> next room waypoints
+
+const rooms = {
+  bedroom:    { pts: [{x:180,y:180},{x:280,y:160},{x:300,y:260},{x:180,y:260},{x:200,y:130}] },
+  closet:     { pts: [{x:420,y:110},{x:500,y:100},{x:470,y:160},{x:430,y:160}] },
+  bathroom:   { pts: [{x:420,y:260},{x:500,y:250},{x:540,y:260}] },
+  livingroom: { pts: [{x:680,y:130},{x:760,y:200},{x:700,y:300},{x:820,y:300},{x:680,y:260},{x:750,y:370}] },
+  kitchen:    { pts: [{x:160,y:360},{x:300,y:480},{x:440,y:470},{x:500,y:400},{x:160,y:480},{x:350,y:380},{x:440,y:560},{x:160,y:560}] },
+  entrance:   { pts: [{x:680,y:500},{x:750,y:530},{x:820,y:490},{x:680,y:560}] }
 };
 
-// Door connections for pathfinding between rooms
-const doorLinks = [
-  { from: 'bedroom', to: 'hallway', pos: { x: 170, y: 325 } },
-  { from: 'bedroom', to: 'closet', pos: { x: 365, y: 105 } },
-  { from: 'bathroom', to: 'hallway', pos: { x: 455, y: 325 } },
-  { from: 'livingroom', to: 'hallway', pos: { x: 585, y: 355 } },
-  { from: 'livingroom', to: 'entrance', pos: { x: 675, y: 425 } },
-  { from: 'hallway', to: 'entrance', pos: { x: 585, y: 505 } }
+// Doors: each connects two rooms with a position on each side
+const doors = [
+  { id:'bk',  rooms:['bedroom','kitchen'],    posA:{x:160,y:305}, posB:{x:160,y:318} },
+  { id:'bc',  rooms:['bedroom','closet'],      posA:{x:355,y:95},  posB:{x:368,y:95}  },
+  { id:'btk', rooms:['bathroom','kitchen'],    posA:{x:445,y:305}, posB:{x:445,y:318} },
+  { id:'lk',  rooms:['livingroom','kitchen'],  posA:{x:582,y:345}, posB:{x:575,y:345} },
+  { id:'le',  rooms:['livingroom','entrance'], posA:{x:675,y:405}, posB:{x:675,y:415} },
+  { id:'ke',  rooms:['kitchen','entrance'],    posA:{x:575,y:505}, posB:{x:585,y:505} }
 ];
 
-// Get all walkable points
-function getAllPoints() {
-  const points = [];
-  for (const room in waypoints) {
-    for (const wp of waypoints[room]) {
-      points.push({ ...wp, room });
+// Build adjacency graph
+const adj = {};
+for (const r in rooms) adj[r] = [];
+for (const d of doors) {
+  adj[d.rooms[0]].push({ to: d.rooms[1], door: d });
+  adj[d.rooms[1]].push({ to: d.rooms[0], door: d });
+}
+
+// BFS to find room path
+function findRoomPath(fromRoom, toRoom) {
+  if (fromRoom === toRoom) return [fromRoom];
+  const visited = new Set([fromRoom]);
+  const queue = [[fromRoom]];
+  while (queue.length) {
+    const path = queue.shift();
+    const cur = path[path.length - 1];
+    for (const edge of adj[cur]) {
+      if (!visited.has(edge.to)) {
+        const np = [...path, edge.to];
+        if (edge.to === toRoom) return np;
+        visited.add(edge.to);
+        queue.push(np);
+      }
     }
   }
-  for (const door of doorLinks) {
-    points.push({ ...door.pos, room: door.from + '|' + door.to });
+  return [fromRoom]; // fallback
+}
+
+// Get door positions for transitioning between two adjacent rooms
+function getDoorPositions(roomA, roomB) {
+  for (const d of doors) {
+    if ((d.rooms[0]===roomA && d.rooms[1]===roomB)) return { exit: d.posA, enter: d.posB };
+    if ((d.rooms[1]===roomA && d.rooms[0]===roomB)) return { exit: d.posB, enter: d.posA };
   }
-  return points;
+  return null;
 }
 
-const allPoints = getAllPoints();
-
-function pickRandomPoint() {
-  return allPoints[Math.floor(Math.random() * allPoints.length)];
+// Determine which room a point is in
+function whichRoom(x, y) {
+  const bounds = {
+    bedroom:    {x1:0,y1:0,x2:360,y2:310},
+    closet:     {x1:360,y1:0,x2:580,y2:190},
+    bathroom:   {x1:360,y1:190,x2:580,y2:310},
+    livingroom: {x1:580,y1:0,x2:900,y2:410},
+    kitchen:    {x1:0,y1:310,x2:580,y2:620},
+    entrance:   {x1:580,y1:410,x2:900,y2:620}
+  };
+  for (const r in bounds) {
+    const b = bounds[r];
+    if (x >= b.x1 && x <= b.x2 && y >= b.y1 && y <= b.y2) return r;
+  }
+  return 'kitchen';
 }
 
-// ===== CREATE POTATO =====
+// Build full waypoint path from current pos/room to a target room+point
+function buildPath(fromX, fromY, fromRoom, targetRoom) {
+  const targetPt = rooms[targetRoom].pts[Math.floor(Math.random() * rooms[targetRoom].pts.length)];
+  const roomPath = findRoomPath(fromRoom, targetRoom);
+
+  const waypoints = [];
+  let curRoom = fromRoom;
+
+  for (let i = 1; i < roomPath.length; i++) {
+    const nextRoom = roomPath[i];
+    const dp = getDoorPositions(curRoom, nextRoom);
+    if (dp) {
+      waypoints.push({ ...dp.exit, room: curRoom });
+      waypoints.push({ ...dp.enter, room: nextRoom });
+    }
+    curRoom = nextRoom;
+  }
+
+  waypoints.push({ ...targetPt, room: targetRoom });
+  return waypoints;
+}
+
+// ===== CHARACTERS =====
 const potato = document.createElement('div');
-potato.className = 'character';
-potato.innerHTML = `
-<svg width="40" height="48" viewBox="0 0 40 48">
-  <ellipse cx="20" cy="44" rx="12" ry="3" fill="#000" opacity="0.25"/>
-  <g class="p-legs">
-    <rect class="p-leg-l" x="12" y="35" width="5" height="9" rx="2.5" fill="#b8903a"/>
-    <rect class="p-leg-r" x="23" y="35" width="5" height="9" rx="2.5" fill="#b8903a"/>
-  </g>
-  <g class="p-arms">
-    <rect x="1" y="20" width="6" height="4" rx="2" fill="#b8903a" transform="rotate(-15 4 22)"/>
-    <rect x="33" y="20" width="6" height="4" rx="2" fill="#b8903a" transform="rotate(15 36 22)"/>
-  </g>
+potato.className = 'ch';
+potato.innerHTML = `<svg width="40" height="48" viewBox="0 0 40 48">
+  <ellipse cx="20" cy="44" rx="12" ry="3" fill="#000" opacity=".25"/>
+  <rect class="pl" x="12" y="35" width="5" height="9" rx="2.5" fill="#b8903a"/>
+  <rect class="pr" x="23" y="35" width="5" height="9" rx="2.5" fill="#b8903a"/>
+  <rect x="1" y="20" width="6" height="4" rx="2" fill="#b8903a" transform="rotate(-15 4 22)"/>
+  <rect x="33" y="20" width="6" height="4" rx="2" fill="#b8903a" transform="rotate(15 36 22)"/>
   <ellipse cx="20" cy="22" rx="15" ry="17" fill="#d4a843"/>
-  <ellipse cx="20" cy="30" rx="12" ry="7" fill="#c49b38" opacity="0.2"/>
-  <circle cx="12" cy="16" r="2" fill="#c49b38" opacity="0.4"/>
-  <circle cx="28" cy="26" r="1.8" fill="#c49b38" opacity="0.3"/>
+  <ellipse cx="20" cy="30" rx="12" ry="7" fill="#c49b38" opacity=".2"/>
+  <circle cx="12" cy="16" r="2" fill="#c49b38" opacity=".4"/>
+  <circle cx="28" cy="26" r="1.8" fill="#c49b38" opacity=".3"/>
+  <circle cx="33" cy="18" r="1.5" fill="#c49b38" opacity=".3"/>
   <ellipse cx="14" cy="20" rx="3.5" ry="4" fill="#fff"/>
   <ellipse cx="26" cy="20" rx="3.5" ry="4" fill="#fff"/>
-  <circle cx="15" cy="20" r="2.2" fill="#2c2c2c" id="pEyeL"/>
-  <circle cx="27" cy="20" r="2.2" fill="#2c2c2c" id="pEyeR"/>
-  <circle cx="16" cy="18.5" r="0.9" fill="#fff" opacity="0.8"/>
-  <circle cx="28" cy="18.5" r="0.9" fill="#fff" opacity="0.8"/>
-  <path d="M11 15 Q14 12 18 15" stroke="#5a3a20" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-  <path d="M22 15 Q26 12 29 15" stroke="#5a3a20" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-  <ellipse cx="8" cy="25" rx="3" ry="2" fill="#e8896e" opacity="0.5"/>
-  <ellipse cx="32" cy="25" rx="3" ry="2" fill="#e8896e" opacity="0.5"/>
-  <path d="M16 28 Q20 32 24 28" stroke="#6b3a2a" stroke-width="1.5" fill="none" stroke-linecap="round" id="pMouth"/>
-</svg>
-`;
+  <circle cx="15" cy="20" r="2.2" fill="#2c2c2c"/>
+  <circle cx="27" cy="20" r="2.2" fill="#2c2c2c"/>
+  <circle cx="16" cy="18.5" r=".9" fill="#fff" opacity=".8"/>
+  <circle cx="28" cy="18.5" r=".9" fill="#fff" opacity=".8"/>
+  <path d="M11 15Q14 12 18 15" stroke="#5a3a20" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+  <path d="M22 15Q26 12 29 15" stroke="#5a3a20" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+  <ellipse cx="8" cy="25" rx="3" ry="2" fill="#e8896e" opacity=".5"/>
+  <ellipse cx="32" cy="25" rx="3" ry="2" fill="#e8896e" opacity=".5"/>
+  <path d="M16 28Q20 32 24 28" stroke="#6b3a2a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+</svg>`;
 house.appendChild(potato);
 
-// ===== CREATE CAT =====
 const cat = document.createElement('div');
-cat.className = 'character';
-cat.innerHTML = `
-<svg width="32" height="36" viewBox="0 0 32 36">
-  <ellipse cx="16" cy="34" rx="8" ry="2" fill="#000" opacity="0.2"/>
-  <!-- Tail -->
-  <path d="M26 24 Q34 18 30 10" stroke="#888" stroke-width="3" fill="none" stroke-linecap="round" class="cat-tail"/>
-  <!-- Legs -->
-  <rect class="c-leg-l" x="9" y="27" width="4" height="7" rx="2" fill="#999"/>
-  <rect class="c-leg-r" x="19" y="27" width="4" height="7" rx="2" fill="#999"/>
-  <!-- Body -->
+cat.className = 'ch';
+cat.innerHTML = `<svg width="32" height="36" viewBox="0 0 32 36">
+  <ellipse cx="16" cy="34" rx="8" ry="2" fill="#000" opacity=".2"/>
+  <path class="ct" d="M26 24Q34 18 30 10" stroke="#888" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <rect class="cl" x="9" y="27" width="4" height="7" rx="2" fill="#999"/>
+  <rect class="cr" x="19" y="27" width="4" height="7" rx="2" fill="#999"/>
   <ellipse cx="16" cy="22" rx="11" ry="10" fill="#aaa"/>
-  <!-- Head -->
   <circle cx="16" cy="13" r="9" fill="#bbb"/>
-  <!-- Ears -->
-  <polygon points="7,8 5,0 12,6" fill="#bbb"/>
-  <polygon points="25,8 27,0 20,6" fill="#bbb"/>
-  <polygon points="8,7 6.5,2 11,6" fill="#f9a"/>
-  <polygon points="24,7 25.5,2 21,6" fill="#f9a"/>
-  <!-- Eyes -->
+  <polygon points="7,8 5,0 12,6" fill="#bbb"/><polygon points="25,8 27,0 20,6" fill="#bbb"/>
+  <polygon points="8,7 6.5,2 11,6" fill="#f9a"/><polygon points="24,7 25.5,2 21,6" fill="#f9a"/>
   <ellipse cx="12" cy="12" rx="2.5" ry="3" fill="#2c2c2c"/>
   <ellipse cx="20" cy="12" rx="2.5" ry="3" fill="#2c2c2c"/>
-  <ellipse cx="12" cy="12" rx="1.2" ry="2.8" fill="#4a8" id="cEyeL"/>
-  <ellipse cx="20" cy="12" rx="1.2" ry="2.8" fill="#4a8" id="cEyeR"/>
-  <circle cx="12.5" cy="10.5" r="0.8" fill="#fff" opacity="0.7"/>
-  <circle cx="20.5" cy="10.5" r="0.8" fill="#fff" opacity="0.7"/>
-  <!-- Nose & mouth -->
+  <ellipse cx="12" cy="12" rx="1.2" ry="2.8" fill="#4a8"/>
+  <ellipse cx="20" cy="12" rx="1.2" ry="2.8" fill="#4a8"/>
+  <circle cx="12.5" cy="10.5" r=".8" fill="#fff" opacity=".7"/>
+  <circle cx="20.5" cy="10.5" r=".8" fill="#fff" opacity=".7"/>
   <polygon points="15,15 17,15 16,16.5" fill="#f9a"/>
-  <path d="M13 17.5 Q16 20 19 17.5" stroke="#888" stroke-width="0.8" fill="none"/>
-  <!-- Whiskers -->
-  <line x1="2" y1="14" x2="10" y2="15" stroke="#999" stroke-width="0.5"/>
-  <line x1="2" y1="16" x2="10" y2="16" stroke="#999" stroke-width="0.5"/>
-  <line x1="22" y1="15" x2="30" y2="14" stroke="#999" stroke-width="0.5"/>
-  <line x1="22" y1="16" x2="30" y2="16" stroke="#999" stroke-width="0.5"/>
-</svg>
-`;
+  <path d="M13 17.5Q16 20 19 17.5" stroke="#888" stroke-width=".8" fill="none"/>
+  <line x1="2" y1="14" x2="10" y2="15" stroke="#999" stroke-width=".5"/>
+  <line x1="2" y1="16" x2="10" y2="16" stroke="#999" stroke-width=".5"/>
+  <line x1="22" y1="15" x2="30" y2="14" stroke="#999" stroke-width=".5"/>
+  <line x1="22" y1="16" x2="30" y2="16" stroke="#999" stroke-width=".5"/>
+</svg>`;
 house.appendChild(cat);
 
-// ===== SPEECH BUBBLES =====
-const potatoSpeech = document.createElement('div');
-potatoSpeech.className = 'speech';
-house.appendChild(potatoSpeech);
+const pSp = document.createElement('div'); pSp.className='sp'; house.appendChild(pSp);
+const cSp = document.createElement('div'); cSp.className='sp cat'; house.appendChild(cSp);
 
-const catSpeech = document.createElement('div');
-catSpeech.className = 'speech cat-speech';
-house.appendChild(catSpeech);
-
-// ===== POTATO SAYINGS =====
-const potatoSayings = [
-  '배고프다...', '졸리다 zzZ', '심심해~', '퇴근하고싶다',
-  '뭐 먹을까', '아 피곤해', '넷플릭스 볼까', '오늘 뭐하지...',
-  '치킨 먹고싶다', '주말 언제 오냐', '하...월요일',
-  '커피 마셔야돼', '아 집이 최고야', '게임하고싶다',
-  '냥이야 밥 줬지?', '이불 밖은 위험해', '라면 끓일까...'
+const pSayings = [
+  '배고프다...','졸리다 zzZ','심심해~','퇴근하고싶다',
+  '뭐 먹을까','아 피곤해','넷플릭스 볼까','오늘 뭐하지...',
+  '치킨 먹고싶다','주말 언제 오냐','하...월요일',
+  '커피 마셔야돼','아 집이 최고야','게임하고싶다',
+  '냥이야 밥 줬지?','이불 밖은 위험해','라면 끓일까...',
+  '아까 산 옷 입어볼까','샤워하고싶다','소파에 눕고싶어'
 ];
-const catSayings = [
-  '야옹~', '냐옹!', '야옹야옹~', '뿌르르르',
-  '냐~', '야옹..', '미야옹~', '그르릉'
-];
+const cSayings = ['야옹~','냐옹!','야옹야옹~','뿌르르르','냐~','야옹..','미야옹~','그르릉','냥!','빠르르'];
 
-// ===== ANIMATION STATE =====
-let pX = 300, pY = 460;
-let pTargetX = 300, pTargetY = 460;
-let pFacingLeft = false;
-let pWalking = false;
-let pIdleTime = 0;
-let pSpeechTimer = 2000;
-
-// Cat follows potato with delay
-const catHistory = [];
-const CAT_DELAY = 40; // frames behind
-let cX = 320, cY = 480;
-let cFacingLeft = false;
-let cSpeechTimer = 4000;
-let cWalking = false;
-
-// Leg animation
-let legFrame = 0;
-
-function setPos(el, x, y, facingLeft) {
-  el.style.left = x + 'px';
-  el.style.top = y + 'px';
-  const svg = el.querySelector('svg');
-  if (facingLeft) svg.style.transform = 'scaleX(-1)';
-  else svg.style.transform = '';
-}
-
-function showSpeech(el, text, x, y) {
-  el.textContent = text;
-  el.style.left = (x - 10) + 'px';
-  el.style.top = (y - 35) + 'px';
+function showSp(el,txt,x,y){
+  el.textContent=txt;
+  el.style.left=(x-10)+'px';
+  el.style.top=(y-40)+'px';
   el.classList.add('show');
-  setTimeout(() => el.classList.remove('show'), 2500);
+  clearTimeout(el._t);
+  el._t=setTimeout(()=>el.classList.remove('show'),2500);
 }
 
-function pickNewTarget() {
-  const pt = pickRandomPoint();
-  pTargetX = pt.x;
-  pTargetY = pt.y;
+// ===== MOVEMENT STATE =====
+let pX=300, pY=480, pRoom='kitchen';
+let pPath=[], pWalking=false, pFacing=false, pIdle=0, pSpT=2000;
+const catHist=[];
+const CAT_DELAY=45;
+let cX=320,cY=500,cFacing=false,cSpT=4000,cWalking=false;
+let legF=0,tailF=0;
+
+function pickDest(){
+  const roomNames=Object.keys(rooms);
+  const dest=roomNames[Math.floor(Math.random()*roomNames.length)];
+  pPath=buildPath(pX,pY,pRoom,dest);
 }
 
-function animateLegs(walking) {
-  if (walking) {
-    legFrame++;
-    const angle = Math.sin(legFrame * 0.3) * 18;
-    // Potato legs
-    const pll = potato.querySelector('.p-leg-l');
-    const plr = potato.querySelector('.p-leg-r');
-    if (pll) pll.style.transform = `rotate(${angle}deg)`;
-    if (plr) plr.style.transform = `rotate(${-angle}deg)`;
-    // Cat legs
-    const cll = cat.querySelector('.c-leg-l');
-    const clr = cat.querySelector('.c-leg-r');
-    if (cll) cll.style.transform = `rotate(${angle * 0.8}deg)`;
-    if (clr) clr.style.transform = `rotate(${-angle * 0.8}deg)`;
-  } else {
-    potato.querySelector('.p-leg-l').style.transform = '';
-    potato.querySelector('.p-leg-r').style.transform = '';
-  }
-}
+pickDest();
 
-// Tail wag
-let tailFrame = 0;
-function animateTail() {
-  tailFrame++;
-  const tail = cat.querySelector('.cat-tail');
-  if (tail) {
-    const sw = Math.sin(tailFrame * 0.08) * 6;
-    tail.setAttribute('d', `M26 24 Q${34 + sw} 18 ${30 + sw} 10`);
-  }
-}
+let lastT=performance.now();
+function loop(t){
+  const dt=t-lastT; lastT=t;
 
-pickNewTarget();
-
-let lastT = performance.now();
-function loop(t) {
-  const dt = t - lastT;
-  lastT = t;
-
-  // Potato movement
-  const dx = pTargetX - pX;
-  const dy = pTargetY - pY;
-  const dist = Math.sqrt(dx * dx + dy * dy);
-
-  if (dist > 4) {
-    const speed = 1.0;
-    pX += (dx / dist) * speed;
-    pY += (dy / dist) * speed;
-    pFacingLeft = dx < 0;
-    pWalking = true;
-    pIdleTime = 0;
-  } else {
-    pWalking = false;
-    pIdleTime += dt;
-    if (pIdleTime > 1500 + Math.random() * 2000) {
-      pickNewTarget();
-      pIdleTime = 0;
-    }
-  }
-
-  // Record history for cat
-  catHistory.push({ x: pX, y: pY });
-  if (catHistory.length > CAT_DELAY + 5) catHistory.shift();
-
-  // Cat follows
-  if (catHistory.length > CAT_DELAY) {
-    const target = catHistory[0];
-    const cdx = target.x - cX;
-    const cdy = target.y - cY;
-    const cdist = Math.sqrt(cdx * cdx + cdy * cdy);
-    if (cdist > 6) {
-      const cspeed = 0.9;
-      cX += (cdx / cdist) * cspeed;
-      cY += (cdy / cdist) * cspeed;
-      cFacingLeft = cdx < 0;
-      cWalking = true;
+  // Potato follows path
+  if(pPath.length>0){
+    const wp=pPath[0];
+    const dx=wp.x-pX, dy=wp.y-pY;
+    const dist=Math.sqrt(dx*dx+dy*dy);
+    if(dist<3){
+      pRoom=wp.room;
+      pPath.shift();
+      pWalking=pPath.length>0;
+      if(!pWalking) pIdle=0;
     } else {
-      cWalking = false;
+      const spd=1.2;
+      pX+=dx/dist*spd;
+      pY+=dy/dist*spd;
+      pFacing=dx<0;
+      pWalking=true;
+      pIdle=0;
+    }
+  } else {
+    pWalking=false;
+    pIdle+=dt;
+    if(pIdle>2000+Math.random()*2500){
+      pickDest();
+      pIdle=0;
     }
   }
 
-  // Potato speech
-  pSpeechTimer -= dt;
-  if (pSpeechTimer <= 0) {
-    showSpeech(potatoSpeech,
-      potatoSayings[Math.floor(Math.random() * potatoSayings.length)],
-      pX, pY);
-    pSpeechTimer = 4000 + Math.random() * 6000;
+  // Cat follows potato through recorded path
+  catHist.push({x:pX,y:pY});
+  if(catHist.length>CAT_DELAY+5) catHist.shift();
+
+  if(catHist.length>CAT_DELAY){
+    const tgt=catHist[0];
+    const cdx=tgt.x-cX,cdy=tgt.y-cY;
+    const cd=Math.sqrt(cdx*cdx+cdy*cdy);
+    if(cd>5){cX+=cdx/cd*1.1;cY+=cdy/cd*1.1;cFacing=cdx<0;cWalking=true}
+    else cWalking=false;
   }
 
-  // Cat speech
-  cSpeechTimer -= dt;
-  if (cSpeechTimer <= 0) {
-    showSpeech(catSpeech,
-      catSayings[Math.floor(Math.random() * catSayings.length)],
-      cX, cY);
-    cSpeechTimer = 5000 + Math.random() * 7000;
+  // Speech
+  pSpT-=dt;
+  if(pSpT<=0){showSp(pSp,pSayings[Math.floor(Math.random()*pSayings.length)],pX,pY);pSpT=4000+Math.random()*6000}
+  cSpT-=dt;
+  if(cSpT<=0){showSp(cSp,cSayings[Math.floor(Math.random()*cSayings.length)],cX,cY);cSpT=5000+Math.random()*7000}
+
+  // Render positions
+  potato.style.left=(pX-20)+'px';
+  potato.style.top=(pY-24)+'px';
+  cat.style.left=(cX-16)+'px';
+  cat.style.top=(cY-18)+'px';
+
+  const pSvg=potato.querySelector('svg');
+  const cSvg=cat.querySelector('svg');
+
+  if(pWalking){
+    legF++;
+    const a=Math.sin(legF*.3)*18;
+    potato.querySelector('.pl').style.transform=`rotate(${a}deg)`;
+    potato.querySelector('.pr').style.transform=`rotate(${-a}deg)`;
+    pSvg.style.transform=pFacing?'scaleX(-1)':'';
+  } else {
+    potato.querySelector('.pl').style.transform='';
+    potato.querySelector('.pr').style.transform='';
+    const b=Math.sin(t*.003)*3;
+    pSvg.style.transform=(pFacing?'scaleX(-1) ':'')+`translateY(${b}px)`;
   }
 
-  // Render
-  setPos(potato, pX - 20, pY - 24, pFacingLeft);
-  setPos(cat, cX - 16, cY - 18, cFacingLeft);
-
-  // Idle bounce for potato
-  if (!pWalking) {
-    const bounce = Math.sin(t * 0.003) * 3;
-    potato.querySelector('svg').style.transform =
-      (pFacingLeft ? 'scaleX(-1) ' : '') + `translateY(${bounce}px)`;
-  }
-  // Idle sit for cat
-  if (!cWalking) {
-    const bounce = Math.sin(t * 0.004) * 2;
-    cat.querySelector('svg').style.transform =
-      (cFacingLeft ? 'scaleX(-1) ' : '') + `translateY(${bounce}px)`;
+  if(cWalking){
+    const a=Math.sin(legF*.3)*14;
+    cat.querySelector('.cl').style.transform=`rotate(${a}deg)`;
+    cat.querySelector('.cr').style.transform=`rotate(${-a}deg)`;
+    cSvg.style.transform=cFacing?'scaleX(-1)':'';
+  } else {
+    cat.querySelector('.cl').style.transform='';
+    cat.querySelector('.cr').style.transform='';
+    const b=Math.sin(t*.004)*2;
+    cSvg.style.transform=(cFacing?'scaleX(-1) ':'')+`translateY(${b}px)`;
   }
 
-  animateLegs(pWalking || cWalking);
-  animateTail();
+  // Tail wag
+  tailF++;
+  const tw=Math.sin(tailF*.08)*6;
+  const tail=cat.querySelector('.ct');
+  if(tail) tail.setAttribute('d',`M26 24Q${34+tw} 18 ${30+tw} 10`);
 
   requestAnimationFrame(loop);
 }
 requestAnimationFrame(loop);
 </script>
-
 </body>
 </html>
