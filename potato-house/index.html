@@ -108,6 +108,17 @@ body{background:#1a1a2e;font-family:'Jua',sans-serif;overflow:hidden;height:100v
 .plant2{left:600px;top:350px;width:30px;height:38px}
 .plant2::before{content:'';position:absolute;bottom:0;left:6px;width:16px;height:13px;background:#c0a080;border-radius:2px 2px 4px 4px}
 .plant2::after{content:'';position:absolute;top:0;left:4px;width:22px;height:26px;background:radial-gradient(ellipse,#5aaa5a,#3a8a3a);border-radius:50% 50% 30% 30%}
+/* Cat tower */
+.cat-tower{left:840px;top:240px;width:36px;height:90px}
+.cat-tower::before{content:'';position:absolute;bottom:0;left:14px;width:8px;height:90px;background:#8a7050;border-radius:2px}
+.cat-tower::after{content:'';position:absolute;top:0;left:2px;width:32px;height:10px;background:#a08060;border-radius:4px;box-shadow:6px 30px 0 #a08060,-6px 58px 0 #a08060}
+.cat-tower-top{left:838px;top:232px;width:40px;height:14px;background:#a08060;border-radius:6px;border:1px solid #8a7050}
+.cat-tower-rope{left:832px;top:280px;width:8px;height:22px;background:repeating-linear-gradient(0deg,#c8b080,#c8b080 3px,#b0a070 3px,#b0a070 6px);border-radius:2px}
+/* Cat bed */
+.cat-bed{left:820px;top:350px;width:50px;height:30px;background:#c9a;border-radius:50%;border:3px solid #b88}
+.cat-bed::before{content:'';position:absolute;top:5px;left:8px;right:8px;bottom:5px;background:#dab;border-radius:50%}
+.cat-bed::after{content:'';position:absolute;top:8px;left:14px;width:20px;height:12px;background:#ebc;border-radius:50%;opacity:.6}
+
 .lr-rug{left:630px;top:280px;width:120px;height:80px;background:radial-gradient(ellipse,#6a4030,#4a2a1a);border-radius:50%;opacity:.4}
 .floor-lamp{left:785px;top:40px;width:16px;height:50px}
 .floor-lamp::before{content:'';position:absolute;bottom:0;left:6px;width:4px;height:40px;background:#555}
@@ -151,11 +162,6 @@ body{background:#1a1a2e;font-family:'Jua',sans-serif;overflow:hidden;height:100v
 .k-rug{left:400px;top:450px;width:90px;height:55px;background:#5a3a2a;border-radius:4px;opacity:.35}
 .k-clock{left:200px;top:335px;width:22px;height:22px;background:#444;border-radius:50%;border:2px solid #555}
 .k-clock::after{content:'';position:absolute;top:4px;left:9px;width:2px;height:7px;background:#fff;transform-origin:bottom;transform:rotate(30deg)}
-.k-window{left:420px;top:338px;width:60px;height:50px;background:linear-gradient(180deg,#1a2a4a,#2a3a5a);border:3px solid #5a4a30;border-radius:2px}
-.k-window::before{content:'';position:absolute;top:0;left:50%;width:2px;height:100%;background:#5a4a30}
-.k-window::after{content:'';position:absolute;top:50%;left:0;width:100%;height:2px;background:#5a4a30}
-.k-curtain-l{left:415px;top:335px;width:12px;height:56px;background:#a86;border-radius:0 0 4px 0;opacity:.7}
-.k-curtain-r{left:478px;top:335px;width:12px;height:56px;background:#a86;border-radius:0 0 0 4px;opacity:.7}
 
 /* ======== ENTRANCE ======== */
 .shoe-rack{left:595px;top:560px;width:140px;height:35px;background:#5a4020;border-radius:3px;border:1px solid #6a5030}
@@ -195,57 +201,56 @@ body{background:#1a1a2e;font-family:'Jua',sans-serif;overflow:hidden;height:100v
 </head>
 <body>
 <div class="house" id="house">
-  <!-- BEDROOM -->
-  <div class="room bedroom"><div class="room-label">BEDROOM</div>
-    <div class="f bed"></div><div class="f pillow1"></div><div class="f pillow2"></div>
-    <div class="f nightstand"></div><div class="f lamp"></div><div class="f alarm-clock"></div>
-    <div class="f desk"></div><div class="f monitor"></div><div class="f monitor-stand"></div><div class="f desk-chair"></div>
-    <div class="f bedroom-rug"></div>
-  </div>
-  <!-- CLOSET -->
-  <div class="room closet"><div class="room-label">CLOSET</div>
-    <div class="f wardrobe"></div><div class="f wardrobe-knob1"></div><div class="f wardrobe-knob2"></div>
-    <div class="f hanger-rod"></div><div class="f shirt1"></div><div class="f shirt2"></div><div class="f shirt3"></div><div class="f dress1"></div>
-    <div class="f mirror"></div><div class="f closet-drawer"></div>
-  </div>
-  <!-- BATHROOM -->
-  <div class="room bathroom"><div class="room-label">BATHROOM</div>
-    <div class="f bathtub"></div><div class="f bath-bubbles"></div>
-    <div class="f toilet"></div><div class="f toilet-paper"></div>
-    <div class="f bath-sink"></div><div class="f towel-rack"></div><div class="f bath-mat"></div>
-  </div>
-  <!-- LIVING ROOM -->
-  <div class="room livingroom"><div class="room-label">LIVING ROOM</div>
-    <div class="f sofa"></div><div class="f sofa-pillow"></div>
-    <div class="f tv"></div><div class="f tv-stand"></div><div class="f tv-remote"></div>
-    <div class="f coffee-table"></div><div class="f coffee-mug"></div>
-    <div class="f lr-bookshelf"></div><div class="f floor-lamp"></div>
-    <div class="f plant1"></div><div class="f plant2"></div><div class="f lr-rug"></div>
-  </div>
-  <!-- KITCHEN -->
-  <div class="room kitchen"><div class="room-label">KITCHEN & DINING</div>
-    <div class="f k-counter"></div><div class="f k-stove1"></div><div class="f k-stove2"></div>
-    <div class="f k-sink"></div><div class="f k-shelf"></div><div class="f fridge"></div>
-    <div class="f water-disp"></div>
-    <div class="f dining-table"></div>
-    <div class="f ramen1"></div><div class="f egg"></div><div class="f chopstick1"></div><div class="f chopstick2"></div>
-    <div class="f steam1"></div><div class="f steam2"></div><div class="f steam3"></div>
-    <div class="f ramen2"></div>
-    <div class="f d-chair1"></div><div class="f d-chair2"></div><div class="f d-chair3"></div><div class="f d-chair4"></div>
-    <div class="f k-rug"></div><div class="f k-clock"></div>
-    <div class="f k-window"></div><div class="f k-curtain-l"></div><div class="f k-curtain-r"></div>
-  </div>
-  <!-- ENTRANCE -->
-  <div class="room entrance"><div class="room-label">ENTRANCE</div>
-    <div class="f shoe-rack"></div>
-    <div class="f shoe1"></div><div class="f shoe2"></div><div class="f shoe3"></div><div class="f shoe4"></div><div class="f shoe5"></div>
-    <div class="f slipper1"></div><div class="f slipper2"></div>
-    <div class="f door-mat"></div><div class="f umbrella-stand"></div>
-    <div class="f umbrella1"></div><div class="f umbrella2"></div>
-    <div class="f coat-hook"></div><div class="f coat1"></div><div class="f coat2"></div>
-    <div class="f e-light"></div><div class="f e-mirror"></div>
-    <div class="f e-key-hook"></div><div class="f e-rug"></div>
-  </div>
+  <!-- ROOMS (backgrounds only) -->
+  <div class="room bedroom"><div class="room-label">BEDROOM</div></div>
+  <div class="room closet"><div class="room-label">CLOSET</div></div>
+  <div class="room bathroom"><div class="room-label">BATHROOM</div></div>
+  <div class="room livingroom"><div class="room-label">LIVING ROOM</div></div>
+  <div class="room kitchen"><div class="room-label">KITCHEN & DINING</div></div>
+  <div class="room entrance"><div class="room-label">ENTRANCE</div></div>
+
+  <!-- ALL FURNITURE (house-absolute coordinates) -->
+  <!-- Bedroom -->
+  <div class="f bed"></div><div class="f pillow1"></div><div class="f pillow2"></div>
+  <div class="f nightstand"></div><div class="f lamp"></div><div class="f alarm-clock"></div>
+  <div class="f desk"></div><div class="f monitor"></div><div class="f monitor-stand"></div><div class="f desk-chair"></div>
+  <div class="f bedroom-rug"></div>
+  <!-- Closet -->
+  <div class="f wardrobe"></div><div class="f wardrobe-knob1"></div><div class="f wardrobe-knob2"></div>
+  <div class="f hanger-rod"></div><div class="f shirt1"></div><div class="f shirt2"></div><div class="f shirt3"></div><div class="f dress1"></div>
+  <div class="f mirror"></div><div class="f closet-drawer"></div>
+  <!-- Bathroom -->
+  <div class="f bathtub"></div><div class="f bath-bubbles"></div>
+  <div class="f toilet"></div><div class="f toilet-paper"></div>
+  <div class="f bath-sink"></div><div class="f towel-rack"></div><div class="f bath-mat"></div>
+  <!-- Living Room -->
+  <div class="f sofa"></div><div class="f sofa-pillow"></div>
+  <div class="f tv"></div><div class="f tv-stand"></div><div class="f tv-remote"></div>
+  <div class="f coffee-table"></div><div class="f coffee-mug"></div>
+  <div class="f lr-bookshelf"></div><div class="f floor-lamp"></div>
+  <div class="f plant1"></div><div class="f plant2"></div>
+  <div class="f cat-tower"></div><div class="f cat-tower-top"></div><div class="f cat-tower-rope"></div>
+  <div class="f cat-bed"></div>
+  <div class="f lr-rug"></div>
+  <!-- Kitchen -->
+  <div class="f k-counter"></div><div class="f k-stove1"></div><div class="f k-stove2"></div>
+  <div class="f k-sink"></div><div class="f k-shelf"></div><div class="f fridge"></div>
+  <div class="f water-disp"></div>
+  <div class="f dining-table"></div>
+  <div class="f ramen1"></div><div class="f egg"></div><div class="f chopstick1"></div><div class="f chopstick2"></div>
+  <div class="f steam1"></div><div class="f steam2"></div><div class="f steam3"></div>
+  <div class="f ramen2"></div>
+  <div class="f d-chair1"></div><div class="f d-chair2"></div><div class="f d-chair3"></div><div class="f d-chair4"></div>
+  <div class="f k-rug"></div><div class="f k-clock"></div>
+  <!-- Entrance -->
+  <div class="f shoe-rack"></div>
+  <div class="f shoe1"></div><div class="f shoe2"></div><div class="f shoe3"></div><div class="f shoe4"></div><div class="f shoe5"></div>
+  <div class="f slipper1"></div><div class="f slipper2"></div>
+  <div class="f door-mat"></div><div class="f umbrella-stand"></div>
+  <div class="f umbrella1"></div><div class="f umbrella2"></div>
+  <div class="f coat-hook"></div><div class="f coat1"></div><div class="f coat2"></div>
+  <div class="f e-light"></div><div class="f e-mirror"></div>
+  <div class="f e-key-hook"></div><div class="f e-rug"></div>
   <!-- DOORS -->
   <div class="door door-bk"></div>
   <div class="door door-bc"></div>
@@ -390,25 +395,41 @@ const cat = document.createElement('div');
 cat.className = 'ch';
 cat.innerHTML = `<svg width="32" height="36" viewBox="0 0 32 36">
   <ellipse cx="16" cy="34" rx="8" ry="2" fill="#000" opacity=".2"/>
-  <path class="ct" d="M26 24Q34 18 30 10" stroke="#888" stroke-width="3" fill="none" stroke-linecap="round"/>
-  <rect class="cl" x="9" y="27" width="4" height="7" rx="2" fill="#999"/>
-  <rect class="cr" x="19" y="27" width="4" height="7" rx="2" fill="#999"/>
-  <ellipse cx="16" cy="22" rx="11" ry="10" fill="#aaa"/>
-  <circle cx="16" cy="13" r="9" fill="#bbb"/>
-  <polygon points="7,8 5,0 12,6" fill="#bbb"/><polygon points="25,8 27,0 20,6" fill="#bbb"/>
-  <polygon points="8,7 6.5,2 11,6" fill="#f9a"/><polygon points="24,7 25.5,2 21,6" fill="#f9a"/>
+  <!-- Tail: calico orange+white -->
+  <path class="ct" d="M26 24Q34 18 30 10" stroke="#e8943a" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M28 16Q32 13 30 10" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" opacity=".5"/>
+  <!-- Legs: white with orange/black patches -->
+  <rect class="cl" x="9" y="27" width="4" height="7" rx="2" fill="#f5f0e8"/>
+  <rect class="cr" x="19" y="27" width="4" height="7" rx="2" fill="#e8943a"/>
+  <!-- Body: white base with calico patches -->
+  <ellipse cx="16" cy="22" rx="11" ry="10" fill="#f5f0e8"/>
+  <ellipse cx="10" cy="20" rx="5" ry="4" fill="#e8943a" opacity=".8"/>
+  <ellipse cx="22" cy="24" rx="5" ry="4" fill="#3a3a3a" opacity=".7"/>
+  <ellipse cx="16" cy="26" rx="4" ry="3" fill="#e8943a" opacity=".5"/>
+  <!-- Head: white with calico patches -->
+  <circle cx="16" cy="13" r="9" fill="#f5f0e8"/>
+  <ellipse cx="10" cy="10" rx="5" ry="4" fill="#e8943a" opacity=".8"/>
+  <ellipse cx="22" cy="11" rx="4" ry="3.5" fill="#3a3a3a" opacity=".7"/>
+  <!-- Ears -->
+  <polygon points="7,8 5,0 12,6" fill="#f5f0e8"/>
+  <polygon points="25,8 27,0 20,6" fill="#3a3a3a" opacity=".8"/>
+  <polygon points="8,7 6.5,2 11,6" fill="#f9a"/>
+  <polygon points="24,7 25.5,2 21,6" fill="#f9a"/>
+  <!-- Eyes -->
   <ellipse cx="12" cy="12" rx="2.5" ry="3" fill="#2c2c2c"/>
   <ellipse cx="20" cy="12" rx="2.5" ry="3" fill="#2c2c2c"/>
-  <ellipse cx="12" cy="12" rx="1.2" ry="2.8" fill="#4a8"/>
-  <ellipse cx="20" cy="12" rx="1.2" ry="2.8" fill="#4a8"/>
-  <circle cx="12.5" cy="10.5" r=".8" fill="#fff" opacity=".7"/>
-  <circle cx="20.5" cy="10.5" r=".8" fill="#fff" opacity=".7"/>
+  <ellipse cx="12" cy="12" rx="1.2" ry="2.8" fill="#5a2"/>
+  <ellipse cx="20" cy="12" rx="1.2" ry="2.8" fill="#5a2"/>
+  <circle cx="12.5" cy="10.5" r=".8" fill="#fff" opacity=".8"/>
+  <circle cx="20.5" cy="10.5" r=".8" fill="#fff" opacity=".8"/>
+  <!-- Nose & mouth -->
   <polygon points="15,15 17,15 16,16.5" fill="#f9a"/>
-  <path d="M13 17.5Q16 20 19 17.5" stroke="#888" stroke-width=".8" fill="none"/>
-  <line x1="2" y1="14" x2="10" y2="15" stroke="#999" stroke-width=".5"/>
-  <line x1="2" y1="16" x2="10" y2="16" stroke="#999" stroke-width=".5"/>
-  <line x1="22" y1="15" x2="30" y2="14" stroke="#999" stroke-width=".5"/>
-  <line x1="22" y1="16" x2="30" y2="16" stroke="#999" stroke-width=".5"/>
+  <path d="M13 17.5Q16 20 19 17.5" stroke="#b88" stroke-width=".8" fill="none"/>
+  <!-- Whiskers -->
+  <line x1="2" y1="14" x2="10" y2="15" stroke="#ccc" stroke-width=".5"/>
+  <line x1="2" y1="16" x2="10" y2="16" stroke="#ccc" stroke-width=".5"/>
+  <line x1="22" y1="15" x2="30" y2="14" stroke="#ccc" stroke-width=".5"/>
+  <line x1="22" y1="16" x2="30" y2="16" stroke="#ccc" stroke-width=".5"/>
 </svg>`;
 house.appendChild(cat);
 
