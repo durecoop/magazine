@@ -3,431 +3,260 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cozy Home - SlGi & SangHun & Coji</title>
+<title>Cozy Isometric Home</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
 *{margin:0;padding:0;box-sizing:border-box;}
-body{background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);display:flex;justify-content:center;align-items:center;min-height:100vh;font-family:'Gowun Dodum',sans-serif;overflow:hidden;}
+body{background:linear-gradient(180deg,#87CEEB 0%,#B0E0FF 50%,#D0F0FF 100%);
+  display:flex;justify-content:center;align-items:center;min-height:100vh;
+  font-family:'Gowun Dodum',sans-serif;overflow:hidden;}
 
-/* ===== HOUSE ===== */
-.house{position:relative;width:1020px;height:720px;background:#f5e6d0;border:5px solid #8b7355;border-radius:10px;
-  box-shadow:0 10px 50px rgba(0,0,0,0.6),inset 0 0 60px rgba(139,105,20,0.08);}
+.game{position:relative;width:950px;height:620px;}
+canvas{position:absolute;top:0;left:0;}
 
-/* ===== WALLS ===== */
-.wall{position:absolute;background:linear-gradient(180deg,#b89a70,#a08060);z-index:3;}
-.wall-h{height:7px;border-radius:1px;} .wall-v{width:7px;border-radius:1px;}
-
-/* ===== DOOR GAPS ===== */
-.door-gap{position:absolute;z-index:4;}
-.door-gap-h{height:7px;background:#e8d5b0;border-radius:2px;box-shadow:inset 0 0 4px rgba(0,0,0,0.1);}
-.door-gap-v{width:7px;background:#e8d5b0;border-radius:2px;box-shadow:inset 0 0 4px rgba(0,0,0,0.1);}
-
-/* ===== FLOORS ===== */
-.room-floor{position:absolute;z-index:0;}
-.floor-bedroom{left:0;top:0;width:410px;height:360px;
-  background:repeating-linear-gradient(90deg,#deb887 0px,#d2a870 20px,#deb887 22px);}
-.floor-closet{left:410px;top:0;width:300px;height:360px;
-  background:#f0dde8;background-image:radial-gradient(circle,#e8cedd 1px,transparent 1px);background-size:10px 10px;}
-.floor-bathroom{left:710px;top:0;width:310px;height:360px;
-  background:#dceef0;background-image:linear-gradient(rgba(180,210,215,0.5) 1px,transparent 1px),linear-gradient(90deg,rgba(180,210,215,0.5) 1px,transparent 1px);background-size:28px 28px;}
-.floor-kitchen{left:0;top:360px;width:350px;height:360px;
-  background:#f5edd8;background-image:linear-gradient(45deg,#ece0c4 25%,transparent 25%,transparent 75%,#ece0c4 75%),linear-gradient(45deg,#ece0c4 25%,transparent 25%,transparent 75%,#ece0c4 75%);background-size:32px 32px;background-position:0 0,16px 16px;}
-.floor-living{left:350px;top:360px;width:360px;height:360px;
-  background:#e8dcc8;background-image:radial-gradient(ellipse,#ddd0b8 1px,transparent 1px);background-size:14px 14px;}
-.floor-entrance{left:710px;top:360px;width:310px;height:360px;
-  background:#c8baa4;background-image:linear-gradient(rgba(160,145,125,0.4) 1px,transparent 1px),linear-gradient(90deg,rgba(160,145,125,0.4) 1px,transparent 1px);background-size:44px 44px;}
-
-/* ===== ROOM LABELS ===== */
-.room-name{position:absolute;z-index:2;font-size:11px;font-weight:bold;color:rgba(120,90,50,0.6);letter-spacing:3px;text-transform:uppercase;}
-
-/* ===== FURNITURE ===== */
-.furn{position:absolute;z-index:2;}
-
-/* -- Bedroom -- */
-.f-bed{left:25px;top:35px;width:130px;height:170px;background:linear-gradient(135deg,#c8a8e0,#b090d0);border-radius:10px;
-  border:3px solid #9a78b8;box-shadow:4px 4px 0 rgba(100,60,140,0.3);}
-.f-bed::before{content:'';position:absolute;top:10px;left:12px;right:12px;height:45px;background:linear-gradient(135deg,#fff,#f0e8f8);border-radius:8px;/* pillows */}
-.f-bed::after{content:'';position:absolute;bottom:10px;left:18px;right:18px;height:65px;background:rgba(255,255,255,0.25);border-radius:6px;}
-.f-nightstand{left:165px;top:55px;width:44px;height:44px;background:linear-gradient(135deg,#c4a882,#a88a60);border-radius:5px;
-  border:2px solid #8a7050;box-shadow:3px 3px 0 rgba(100,70,30,0.3);}
-.f-nightstand::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:8px;height:4px;background:#d4b896;border-radius:2px;}
-.f-lamp{left:174px;top:38px;width:26px;height:26px;background:radial-gradient(circle,#fffbe0,#ffe680);border-radius:50%;
-  box-shadow:0 0 20px 8px rgba(255,230,100,0.25);border:1px solid #f0d060;}
-.f-desk{left:240px;top:170px;width:120px;height:55px;background:linear-gradient(135deg,#e8d8c0,#d0c0a0);border-radius:4px;
-  border:2px solid #b8a888;box-shadow:3px 3px 0 rgba(140,120,80,0.3);}
-.f-desk::before{content:'';position:absolute;top:8px;right:10px;width:35px;height:25px;background:linear-gradient(135deg,#b8c8d8,#90a0b0);border-radius:3px;border:1px solid #8090a0;/* laptop */}
-.f-desk::after{content:'';position:absolute;top:12px;right:14px;width:27px;height:17px;background:linear-gradient(135deg,#d0e0f0,#a0c0e0);border-radius:2px;}
-.f-chair{left:280px;top:235px;width:38px;height:38px;background:linear-gradient(135deg,#f0a080,#e08060);border-radius:50%;
-  border:2px solid #c06848;box-shadow:2px 2px 0 rgba(160,70,40,0.3);}
-.f-rug1{left:170px;top:120px;width:90px;height:110px;background:radial-gradient(ellipse,rgba(200,160,220,0.35),rgba(180,130,200,0.15));border-radius:50%;}
-.f-photo{left:30px;top:220px;width:22px;height:28px;background:linear-gradient(135deg,#f0e8d8,#e0d0b8);border:3px solid #c9a96e;border-radius:2px;box-shadow:1px 1px 0 rgba(0,0,0,0.15);}
-.f-cactus{left:220px;top:40px;width:16px;height:24px;background:#6db86d;border-radius:8px 8px 2px 2px;position:relative;}
-.f-cactus::after{content:'';position:absolute;bottom:-1px;left:50%;transform:translateX(-50%);width:14px;height:10px;background:#c08050;border-radius:0 0 3px 3px;}
-.f-cactus::before{content:'';position:absolute;top:4px;right:-6px;width:6px;height:10px;background:#5da85d;border-radius:4px;}
-
-/* -- Closet -- */
-.f-wardrobe{left:440px;top:25px;width:120px;height:55px;background:linear-gradient(135deg,#c9a87c,#b08858);border-radius:5px;
-  border:3px solid #907040;box-shadow:4px 4px 0 rgba(100,60,20,0.3);}
-.f-wardrobe::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:2px;height:38px;background:#705028;}
-.f-wardrobe::after{content:'';position:absolute;top:50%;left:28%;transform:translateY(-50%);width:5px;height:5px;background:#e8c880;border-radius:50%;box-shadow:32px 0 0 #e8c880;}
-.f-rack{left:580px;top:25px;width:6px;height:150px;background:linear-gradient(180deg,#999,#777);border-radius:3px;box-shadow:-35px 0 0 2px rgba(150,150,150,0.4);}
-.f-dress1{left:552px;top:35px;width:20px;height:35px;background:linear-gradient(180deg,#ff7eb3,#ff4081);border-radius:0 0 8px 8px;box-shadow:0 2px 4px rgba(0,0,0,0.15);}
-.f-dress2{left:568px;top:32px;width:20px;height:40px;background:linear-gradient(180deg,#7ec8e3,#4a9cc8);border-radius:0 0 8px 8px;box-shadow:0 2px 4px rgba(0,0,0,0.15);}
-.f-dress3{left:584px;top:38px;width:20px;height:30px;background:linear-gradient(180deg,#ffe066,#ffc107);border-radius:0 0 8px 8px;box-shadow:0 2px 4px rgba(0,0,0,0.15);}
-.f-dress4{left:555px;top:80px;width:18px;height:32px;background:linear-gradient(180deg,#b8e6b8,#66bb6a);border-radius:0 0 6px 6px;box-shadow:0 2px 4px rgba(0,0,0,0.15);}
-.f-mirror{left:450px;top:120px;width:50px;height:70px;background:linear-gradient(135deg,#e8f4ff,#c8e0f0,#e0f0ff);
-  border:4px solid #d4b896;border-radius:25px 25px 5px 5px;box-shadow:3px 3px 0 rgba(160,130,80,0.3);}
-.f-mirror::after{content:'';position:absolute;top:8px;left:8px;width:12px;height:18px;background:rgba(255,255,255,0.4);border-radius:50%;transform:rotate(-20deg);}
-.f-dresser{left:520px;top:200px;width:80px;height:45px;background:linear-gradient(135deg,#d4b896,#c0a070);border-radius:4px;
-  border:2px solid #a08050;box-shadow:3px 3px 0 rgba(120,80,30,0.3);}
-.f-dresser::before{content:'';position:absolute;top:10px;left:15px;width:50px;height:3px;background:#e8d0a8;border-radius:2px;box-shadow:0 14px 0 #e8d0a8;}
-.f-dresser::after{content:'';position:absolute;top:7px;left:50%;transform:translateX(-50%);width:6px;height:3px;background:#c8a870;border-radius:1px;box-shadow:0 14px 0 #c8a870;}
-.f-perfume{left:530px;top:188px;width:10px;height:14px;background:linear-gradient(180deg,#f8b0d0,#e880a8);border-radius:2px 2px 4px 4px;border:1px solid #d070a0;}
-.f-perfume::before{content:'';position:absolute;top:-4px;left:50%;transform:translateX(-50%);width:4px;height:5px;background:#d4b896;border-radius:1px;}
-.f-bag{left:620px;top:260px;width:22px;height:20px;background:linear-gradient(135deg,#e8c0a0,#d0a080);border-radius:3px 3px 5px 5px;border:1px solid #c09070;}
-.f-bag::before{content:'';position:absolute;top:-5px;left:50%;transform:translateX(-50%);width:14px;height:6px;border:2px solid #c09070;border-bottom:none;border-radius:6px 6px 0 0;}
-
-/* -- Bathroom -- */
-.f-bathtub{left:730px;top:35px;width:90px;height:150px;background:linear-gradient(135deg,#f0f0f0,#e0e0e0);border-radius:45px;
-  border:4px solid #ccc;box-shadow:4px 4px 0 rgba(150,150,150,0.3);}
-.f-bathtub::after{content:'';position:absolute;top:22px;left:50%;transform:translateX(-50%);width:58px;height:90px;
-  background:linear-gradient(180deg,rgba(135,206,235,0.5),rgba(100,180,220,0.3));border-radius:30px;}
-.f-bathtub::before{content:'';position:absolute;top:8px;left:50%;transform:translateX(-50%);width:10px;height:10px;background:#bbb;border-radius:50%;border:2px solid #999;}
-.f-toilet{left:850px;top:50px;width:45px;height:55px;background:linear-gradient(135deg,#fafafa,#e8e8e8);
-  border-radius:8px 8px 22px 22px;border:3px solid #ddd;box-shadow:3px 3px 0 rgba(150,150,150,0.3);}
-.f-toilet::before{content:'';position:absolute;top:-12px;left:50%;transform:translateX(-50%);width:40px;height:16px;background:#eee;border-radius:8px;border:2px solid #ddd;}
-.f-sink{left:920px;top:70px;width:50px;height:40px;background:linear-gradient(135deg,#f0f0f0,#ddd);
-  border-radius:22px 22px 8px 8px;border:3px solid #ccc;box-shadow:3px 3px 0 rgba(150,150,150,0.3);}
-.f-sink::before{content:'';position:absolute;top:8px;left:50%;transform:translateX(-50%);width:28px;height:18px;background:#c8dce0;border-radius:12px;border:1px solid #b0c4c8;}
-.f-sink::after{content:'';position:absolute;top:-10px;left:50%;transform:translateX(-50%);width:8px;height:12px;background:#bbb;border-radius:3px 3px 0 0;}
-.f-bathmat{left:740px;top:210px;width:65px;height:45px;background:linear-gradient(135deg,rgba(135,206,235,0.4),rgba(100,180,220,0.3));border-radius:14px;}
-.f-towel1{left:900px;top:180px;width:44px;height:8px;background:linear-gradient(90deg,#ffd0e0,#ffb0c8);border-radius:2px;}
-.f-towel2{left:900px;top:195px;width:44px;height:8px;background:linear-gradient(90deg,#d0e8ff,#b0d0f0);border-radius:2px;}
-.f-candle{left:860px;top:130px;width:12px;height:18px;background:linear-gradient(180deg,#fff8e0,#f0e0c0);border-radius:2px;border:1px solid #e0d0b0;}
-.f-candle::before{content:'';position:absolute;top:-6px;left:50%;transform:translateX(-50%);width:4px;height:6px;background:radial-gradient(circle,#ffe680,#ff9900);border-radius:50%;animation:flicker 1s infinite alternate;}
-@keyframes flicker{0%{opacity:0.7;transform:translateX(-50%) scale(0.9);}100%{opacity:1;transform:translateX(-50%) scale(1.1);}}
-.f-plant-bath{left:930px;top:130px;width:14px;height:20px;background:#5dba5d;border-radius:7px 7px 2px 2px;}
-.f-plant-bath::after{content:'';position:absolute;bottom:-1px;left:50%;transform:translateX(-50%);width:12px;height:8px;background:#c8a870;border-radius:0 0 3px 3px;}
-
-/* -- Kitchen -- */
-.f-fridge{left:18px;top:380px;width:55px;height:90px;background:linear-gradient(135deg,#f8f8f8,#e8e8e8);border-radius:6px;
-  border:3px solid #d0d0d0;box-shadow:4px 4px 0 rgba(150,150,150,0.3);}
-.f-fridge::before{content:'';position:absolute;top:48%;left:0;width:100%;height:3px;background:#d0d0d0;}
-.f-fridge::after{content:'';position:absolute;top:22%;right:6px;width:4px;height:14px;background:#b0b0b0;border-radius:2px;box-shadow:0 24px 0 #b0b0b0;}
-.f-counter{left:18px;top:490px;width:140px;height:45px;background:linear-gradient(135deg,#808890,#606870);border-radius:4px;
-  border:2px solid #505860;box-shadow:3px 3px 0 rgba(60,60,60,0.3);}
-.f-stove1{left:25px;top:498px;width:32px;height:32px;background:radial-gradient(circle,#333,#444);border-radius:50%;
-  border:2px solid #555;box-shadow:inset 0 0 0 5px rgba(230,80,60,0.6);}
-.f-stove2{left:65px;top:498px;width:32px;height:32px;background:radial-gradient(circle,#333,#444);border-radius:50%;
-  border:2px solid #555;box-shadow:inset 0 0 0 5px rgba(230,80,60,0.6);}
-.f-ksink{left:108px;top:498px;width:40px;height:32px;background:#a0a8b0;border-radius:4px;border:2px solid #808890;}
-.f-ksink::before{content:'';position:absolute;top:4px;left:50%;transform:translateX(-50%);width:24px;height:16px;background:#b8c0c8;border-radius:3px;border:1px solid #909898;}
-.f-table{left:175px;top:440px;width:110px;height:85px;background:linear-gradient(135deg,#d4b896,#c0a070);border-radius:10px;
-  border:3px solid #a08050;box-shadow:4px 4px 0 rgba(120,80,30,0.3);}
-.f-ramen{left:200px;top:455px;width:50px;height:50px;background:#fff;border-radius:50%;
-  border:2px solid #eee;box-shadow:2px 2px 0 rgba(0,0,0,0.1);overflow:hidden;}
-.f-ramen::before{content:'';position:absolute;top:10px;left:6px;right:6px;height:18px;
-  background:repeating-linear-gradient(90deg,#f5d442 0px,#f5d442 2px,transparent 2px,transparent 5px);border-radius:2px;}
-.f-ramen::after{content:'';position:absolute;top:12px;right:8px;width:12px;height:12px;background:#fff;border-radius:50%;border:1px solid #eee;
-  box-shadow:inset 4px 3px 0 #f5a623;}
-.f-chopstick{left:255px;top:450px;width:2px;height:35px;background:#c8a060;transform:rotate(18deg);box-shadow:6px 2px 0 #c8a060;}
-.f-kettle{left:90px;top:378px;width:28px;height:22px;background:linear-gradient(135deg,#f0f0f0,#d0d0d0);border-radius:4px;border:2px solid #bbb;}
-.f-kettle::before{content:'';position:absolute;top:4px;right:-8px;width:8px;height:10px;background:#d0d0d0;border-radius:0 4px 4px 0;border:2px solid #bbb;border-left:none;}
-.f-mug{left:258px;top:480px;width:14px;height:14px;background:#e8e0d0;border-radius:3px;border:2px solid #c8b8a0;}
-.f-mug::after{content:'';position:absolute;top:2px;right:-6px;width:5px;height:8px;border:2px solid #c8b8a0;border-left:none;border-radius:0 4px 4px 0;}
-
-/* -- Living Room -- */
-.f-sofa{left:385px;top:570px;width:150px;height:55px;background:linear-gradient(135deg,#b8d8b0,#90c088);border-radius:12px;
-  border:3px solid #70a068;box-shadow:4px 4px 0 rgba(60,100,50,0.3);}
-.f-sofa::before{content:'';position:absolute;top:6px;left:6px;width:34px;height:40px;background:#80b078;border-radius:8px;}
-.f-sofa::after{content:'';position:absolute;top:6px;right:6px;width:34px;height:40px;background:#80b078;border-radius:8px;}
-.f-coffeetable{left:410px;top:520px;width:90px;height:40px;background:linear-gradient(135deg,#d4c0a0,#c0a880);border-radius:6px;
-  border:2px solid #a89068;box-shadow:3px 3px 0 rgba(120,90,40,0.2);}
-.f-coffeetable::before{content:'';position:absolute;top:8px;left:12px;width:25px;height:25px;background:#f8f0e0;border-radius:4px;border:1px solid #e0d0b8;/* book */}
-.f-coffeetable::after{content:'';position:absolute;top:10px;right:15px;width:16px;height:16px;background:rgba(200,160,100,0.4);border-radius:50%;/* coaster */}
-.f-tvstand{left:400px;top:378px;width:100px;height:14px;background:linear-gradient(135deg,#555,#444);border-radius:3px;box-shadow:2px 2px 0 rgba(0,0,0,0.2);}
-.f-tvscreen{left:408px;top:392px;width:85px;height:52px;background:#111;border-radius:4px;border:3px solid #2a2a2a;overflow:hidden;}
-.f-tvglow{position:absolute;top:3px;left:3px;right:3px;bottom:3px;background:linear-gradient(135deg,#1a2a5e,#3a4aae);border-radius:2px;animation:tvGlow 3s infinite alternate;}
-@keyframes tvGlow{0%{opacity:0.4}100%{opacity:1}}
-.f-bookshelf{left:570px;top:375px;width:90px;height:35px;background:linear-gradient(135deg,#8a6a4a,#6a4a2a);border-radius:4px;
-  border:2px solid #5a3a1a;box-shadow:3px 3px 0 rgba(60,30,0,0.3);display:flex;gap:3px;padding:5px 8px;align-items:center;}
-.f-bookshelf span{display:block;width:8px;height:23px;border-radius:1px;}
-.f-plant-big{left:580px;top:450px;width:20px;height:28px;position:relative;}
-.f-plant-big-leaf{position:absolute;width:14px;height:20px;background:linear-gradient(135deg,#4caf50,#2e7d32);border-radius:50% 0;}
-.f-plant-big-pot{left:582px;top:474px;width:20px;height:16px;background:linear-gradient(135deg,#e8c8a0,#d4a870);border-radius:0 0 6px 6px;border:2px solid #c09060;}
-.f-plant2{left:640px;top:460px;width:14px;height:18px;background:#66bb6a;border-radius:7px 7px 2px 2px;}
-.f-plant2::after{content:'';position:absolute;bottom:-1px;left:50%;transform:translateX(-50%);width:12px;height:8px;background:#d4a870;border-radius:0 0 3px 3px;}
-.f-cushion1{left:550px;top:540px;width:28px;height:28px;background:linear-gradient(135deg,#ffcc80,#ffa726);border-radius:50%;opacity:0.75;box-shadow:1px 1px 0 rgba(200,120,0,0.3);}
-.f-cushion2{left:520px;top:555px;width:24px;height:24px;background:linear-gradient(135deg,#ce93d8,#ab47bc);border-radius:50%;opacity:0.7;box-shadow:1px 1px 0 rgba(140,40,160,0.3);}
-.f-rug2{left:395px;top:490px;width:170px;height:85px;background:radial-gradient(ellipse,rgba(200,180,150,0.3),rgba(180,155,120,0.1));border-radius:50%;}
-.f-speaker{left:640px;top:385px;width:18px;height:30px;background:linear-gradient(180deg,#333,#222);border-radius:3px;border:1px solid #444;}
-.f-speaker::after{content:'';position:absolute;top:8px;left:50%;transform:translateX(-50%);width:10px;height:10px;background:#444;border-radius:50%;border:1px solid #555;}
-
-/* -- Entrance -- */
-.f-doorframe{left:878px;top:540px;width:90px;height:90px;border:5px solid #6d5030;border-bottom:none;border-radius:5px 5px 0 0;
-  background:linear-gradient(135deg,rgba(109,76,46,0.25),rgba(80,50,20,0.3));}
-.f-frontdoor{left:880px;top:625px;width:86px;height:10px;background:linear-gradient(90deg,#8b6914,#6d5030);border-radius:2px;}
-.f-shoerack{left:740px;top:570px;width:80px;height:40px;background:linear-gradient(135deg,#8a6a4a,#6a4a2a);border-radius:5px;
-  border:2px solid #5a3a1a;box-shadow:3px 3px 0 rgba(60,30,0,0.3);}
-.f-shoe1{left:748px;top:577px;width:14px;height:10px;background:linear-gradient(135deg,#ff7070,#e04040);border-radius:3px 7px 3px 3px;transform:rotate(-8deg);}
-.f-shoe2{left:766px;top:580px;width:14px;height:10px;background:#fff;border-radius:3px 7px 3px 3px;border:1px solid #ddd;}
-.f-shoe3{left:784px;top:577px;width:14px;height:10px;background:linear-gradient(135deg,#70a0ff,#4080e0);border-radius:3px 7px 3px 3px;transform:rotate(5deg);}
-.f-shoe4{left:750px;top:593px;width:14px;height:10px;background:linear-gradient(135deg,#ffd060,#f0b030);border-radius:3px 7px 3px 3px;}
-.f-shoe5{left:770px;top:595px;width:14px;height:10px;background:linear-gradient(135deg,#a0d0a0,#60b060);border-radius:3px 7px 3px 3px;transform:rotate(-3deg);}
-.f-umbrella{left:840px;top:550px;width:5px;height:44px;background:#e06060;border-radius:2px;}
-.f-umbrella::before{content:'';position:absolute;top:-6px;left:-9px;width:24px;height:12px;background:linear-gradient(135deg,#e06060,#c04040);border-radius:14px 14px 0 0;}
-.f-mat{left:890px;top:648px;width:65px;height:28px;background:linear-gradient(135deg,#a08a6a,#8a7050);border-radius:4px;
-  text-align:center;line-height:28px;font-size:8px;color:#d4c0a0;font-weight:bold;letter-spacing:2px;}
-.f-coathook{left:730px;top:390px;width:48px;height:7px;background:linear-gradient(90deg,#888,#666);border-radius:3px;}
-.f-coat1{left:735px;top:397px;width:16px;height:28px;background:linear-gradient(180deg,#5c88c0,#3a6aa0);border-radius:0 0 5px 5px;box-shadow:0 1px 3px rgba(0,0,0,0.15);}
-.f-coat2{left:756px;top:397px;width:16px;height:24px;background:linear-gradient(180deg,#c07088,#a05068);border-radius:0 0 5px 5px;box-shadow:0 1px 3px rgba(0,0,0,0.15);}
-.f-keyholder{left:730px;top:440px;width:30px;height:20px;background:linear-gradient(135deg,#d4c0a0,#c0a880);border-radius:3px;border:1px solid #b0987a;}
-.f-keyholder::after{content:'';position:absolute;bottom:-6px;left:8px;width:6px;height:8px;background:#d4b896;border-radius:0 0 3px 3px;box-shadow:10px 0 0 #c0a880;}
+/* clouds */
+.cloud{position:absolute;background:#fff;border-radius:50%;opacity:0.6;z-index:0;animation:drift 30s linear infinite;}
+.cloud::before,.cloud::after{content:'';position:absolute;background:#fff;border-radius:50%;}
+.c1{width:80px;height:30px;top:30px;left:100px;}
+.c1::before{width:40px;height:25px;top:-12px;left:15px;}
+.c1::after{width:50px;height:20px;top:-8px;left:35px;}
+.c2{width:60px;height:22px;top:60px;left:600px;animation-delay:-12s;}
+.c2::before{width:35px;height:18px;top:-10px;left:10px;}
+.c2::after{width:30px;height:15px;top:-6px;left:28px;}
+.c3{width:70px;height:26px;top:15px;left:400px;animation-delay:-20s;}
+.c3::before{width:45px;height:22px;top:-14px;left:12px;}
+.c3::after{width:35px;height:16px;top:-8px;left:30px;}
+@keyframes drift{0%{transform:translateX(0)}100%{transform:translateX(120px)}}
 
 /* ===== CHARACTERS ===== */
-.character{position:absolute;z-index:10;pointer-events:none;filter:drop-shadow(2px 5px 4px rgba(0,0,0,0.3));}
+.character{position:absolute;z-index:10;pointer-events:none;
+  filter:drop-shadow(1px 4px 3px rgba(0,0,0,0.3)) drop-shadow(0 0 1px rgba(255,255,255,0.15));}
+.name-tag{position:absolute;bottom:-16px;left:50%;transform:translateX(-50%);
+  background:rgba(255,255,255,0.9);color:#5a4020;padding:1px 7px;border-radius:8px;
+  font-size:9px;font-weight:bold;white-space:nowrap;border:1.5px solid #e0c8a0;
+  box-shadow:0 1px 3px rgba(0,0,0,0.1);letter-spacing:1px;}
 
-/* ===== NAME TAG ===== */
-.name-tag{
-  position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);
-  background:linear-gradient(135deg,#fff,#f8f0e8);color:#6b4a2a;
-  padding:1px 8px;border-radius:8px;font-size:10px;font-weight:bold;
-  white-space:nowrap;border:1.5px solid #e0c8a0;
-  box-shadow:0 1px 4px rgba(0,0,0,0.12);letter-spacing:1px;
-}
-.name-tag-boy{background:linear-gradient(135deg,#fffff0,#f8f0d8);border-color:#e0d080;}
-.name-tag-dog{background:linear-gradient(135deg,#fff8f0,#f8e8d8);border-color:#e0c0a0;font-size:9px;}
+/* ===== 3D DISNEY-STYLE CHARACTERS ===== */
 
-/* ===== GIRL - SlGi (Orange Pajama, Long Straight Hair) ===== */
-.ch-girl{width:52px;text-align:center;position:relative;}
-.ch-girl::after{content:'';position:absolute;bottom:-5px;left:50%;transform:translateX(-50%);width:28px;height:7px;background:rgba(0,0,0,0.12);border-radius:50%;}
-/* Head */
-.sg-head{width:40px;height:38px;background:#fde8d0;border-radius:50%;margin:0 auto;position:relative;border:2px solid #f0c8a0;}
-/* Long straight dark hair */
-.sg-hair-back{position:absolute;top:0;left:-5px;width:50px;height:48px;background:linear-gradient(180deg,#2a1a0a,#1a0e05);border-radius:50% 50% 8px 8px;z-index:-1;}
-.sg-hair-long-l{position:absolute;top:22px;left:-7px;width:10px;height:50px;background:linear-gradient(180deg,#2a1a0a,#1a0e05);border-radius:4px 2px 6px 6px;z-index:-1;}
-.sg-hair-long-r{position:absolute;top:22px;right:-7px;width:10px;height:50px;background:linear-gradient(180deg,#2a1a0a,#1a0e05);border-radius:2px 4px 6px 6px;z-index:-1;}
-.sg-hair-top{position:absolute;top:-8px;left:-2px;width:44px;height:22px;background:#2a1a0a;border-radius:50%;}
-.sg-hair-bangs{position:absolute;top:6px;left:4px;width:32px;height:10px;background:#2a1a0a;border-radius:0 0 40% 40%;z-index:1;
-  clip-path:polygon(0 0,100% 0,95% 100%,70% 60%,50% 100%,30% 60%,5% 100%);}
-/* Eyes */
-.sg-eyes{position:absolute;top:16px;left:6px;width:28px;display:flex;justify-content:space-between;z-index:2;}
-.sg-eye{width:10px;height:10px;background:#1a0a00;border-radius:50%;position:relative;box-shadow:inset 2px 2px 0 rgba(255,255,255,0.5);}
-.sg-eye::after{content:'';position:absolute;top:1px;right:1px;width:3px;height:3px;background:#fff;border-radius:50%;}
-/* Blush */
-.sg-blush-l,.sg-blush-r{position:absolute;top:24px;width:8px;height:5px;background:rgba(255,140,140,0.45);border-radius:50%;z-index:2;}
-.sg-blush-l{left:2px;} .sg-blush-r{right:2px;}
-/* Mouth */
-.sg-mouth{position:absolute;top:28px;left:50%;transform:translateX(-50%);width:5px;height:3px;background:#e07060;border-radius:0 0 50% 50%;z-index:2;}
-/* Body - Orange pajama top */
-.sg-body{width:30px;height:20px;background:linear-gradient(135deg,#ff9050,#f07030);margin:-2px auto 0;border-radius:6px 6px 2px 2px;
-  border:2px solid #d86020;position:relative;z-index:0;}
-.sg-body::before{content:'';position:absolute;top:4px;left:50%;transform:translateX(-50%);width:14px;height:2px;background:rgba(255,255,255,0.4);border-radius:1px;box-shadow:0 5px 0 rgba(255,255,255,0.3);}
-/* Orange pajama pants */
-.sg-pants{width:30px;height:8px;background:linear-gradient(135deg,#ff9050,#f07030);margin:0 auto;border:2px solid #d86020;border-top:none;}
-/* Legs */
+/* Girl: SlGi - orange pajama, long straight black hair, Disney 3D */
+.ch-girl{width:48px;text-align:center;position:relative;transform-style:preserve-3d;}
+.ch-girl::after{content:'';position:absolute;bottom:-5px;left:50%;transform:translateX(-50%);
+  width:28px;height:8px;background:radial-gradient(ellipse,rgba(0,0,0,0.18),transparent 70%);border-radius:50%;}
+.sg-head{width:38px;height:36px;
+  background:radial-gradient(circle at 35% 35%,#fff5e6,#fde8d0 40%,#f0c8a0 100%);
+  border-radius:50%;margin:0 auto;position:relative;
+  box-shadow:inset -3px -4px 6px rgba(180,120,60,0.15),inset 2px 2px 4px rgba(255,255,255,0.5),
+    0 2px 4px rgba(0,0,0,0.1);}
+.sg-hair-back{position:absolute;top:-2px;left:-6px;width:50px;height:44px;
+  background:radial-gradient(ellipse at 40% 30%,#2a1a0a,#1a0e05 50%,#0e0804);
+  border-radius:50% 50% 8px 8px;z-index:-1;
+  box-shadow:inset 3px 3px 6px rgba(60,40,20,0.4),inset -1px -1px 3px rgba(80,50,20,0.2);}
+.sg-hair-long-l{position:absolute;top:20px;left:-7px;width:10px;height:48px;
+  background:linear-gradient(90deg,#0e0804,#2a1a0a 40%,#1a0e05);
+  border-radius:4px 2px 6px 6px;z-index:-1;
+  box-shadow:inset 1px 0 2px rgba(60,40,20,0.3);}
+.sg-hair-long-r{position:absolute;top:20px;right:-7px;width:10px;height:48px;
+  background:linear-gradient(270deg,#0e0804,#2a1a0a 40%,#1a0e05);
+  border-radius:2px 4px 6px 6px;z-index:-1;
+  box-shadow:inset -1px 0 2px rgba(60,40,20,0.3);}
+.sg-hair-top{position:absolute;top:-9px;left:-2px;width:42px;height:22px;
+  background:radial-gradient(ellipse at 50% 60%,#2a1a0a,#1a0e05);
+  border-radius:50%;
+  box-shadow:0 -1px 3px rgba(40,25,10,0.3);}
+.sg-hair-bangs{position:absolute;top:5px;left:3px;width:32px;height:11px;
+  background:linear-gradient(180deg,#1a0e05,#2a1a10);border-radius:0 0 40% 40%;z-index:1;
+  clip-path:polygon(0 0,100% 0,95% 100%,72% 50%,50% 100%,28% 50%,5% 100%);
+  box-shadow:0 1px 2px rgba(0,0,0,0.2);}
+.sg-eyes{position:absolute;top:14px;left:4px;width:30px;display:flex;justify-content:space-between;z-index:2;}
+.sg-eye{width:11px;height:11px;
+  background:radial-gradient(circle at 40% 40%,#6b3a1a,#3a1a08 60%,#1a0a00);
+  border-radius:50%;position:relative;
+  box-shadow:0 0 0 1.5px #fde8d0,0 1px 2px rgba(0,0,0,0.2);}
+.sg-eye::before{content:'';position:absolute;top:1px;left:2px;width:4px;height:4px;
+  background:radial-gradient(circle,#1a0a00,#3a1a08);border-radius:50%;}
+.sg-eye::after{content:'';position:absolute;top:1.5px;right:2px;width:3px;height:3px;
+  background:#fff;border-radius:50%;box-shadow:1px 2px 0 0.5px rgba(255,255,255,0.5);}
+.sg-blush-l,.sg-blush-r{position:absolute;top:22px;width:9px;height:5px;
+  background:radial-gradient(ellipse,rgba(255,130,130,0.5),transparent);border-radius:50%;z-index:2;}
+.sg-blush-l{left:0px;}.sg-blush-r{right:0px;}
+.sg-mouth{position:absolute;top:26px;left:50%;transform:translateX(-50%);
+  width:5px;height:3px;background:radial-gradient(ellipse,#e8706a,#d06058);
+  border-radius:0 0 50% 50%;z-index:2;
+  box-shadow:0 0.5px 1px rgba(0,0,0,0.1);}
+.sg-body{width:28px;height:19px;
+  background:linear-gradient(135deg,#ffaa70 0%,#ff9050 30%,#f07030 70%,#d86828 100%);
+  margin:-2px auto 0;border-radius:7px 7px 3px 3px;position:relative;z-index:0;
+  box-shadow:inset 2px 2px 4px rgba(255,200,150,0.4),inset -2px -2px 4px rgba(180,80,30,0.2),
+    0 2px 3px rgba(0,0,0,0.1);}
+.sg-body::before{content:'';position:absolute;top:3px;left:50%;transform:translateX(-50%);
+  width:14px;height:2px;background:rgba(255,255,255,0.4);border-radius:2px;
+  box-shadow:0 5px 0 rgba(255,255,255,0.3);}
+.sg-body::after{content:'';position:absolute;top:1px;left:3px;width:8px;height:6px;
+  background:linear-gradient(180deg,rgba(255,255,255,0.25),transparent);border-radius:4px;}
+.sg-pants{width:28px;height:7px;
+  background:linear-gradient(180deg,#f07030,#e06828);
+  margin:0 auto;border-radius:0 0 2px 2px;
+  box-shadow:inset 0 -1px 2px rgba(180,80,30,0.3);}
 .sg-legs{display:flex;justify-content:center;gap:4px;}
-.sg-leg{width:9px;height:10px;background:linear-gradient(135deg,#ff9050,#f07030);border-radius:0 0 4px 4px;border:1px solid #d86020;}
-/* Slippers */
+.sg-leg{width:9px;height:9px;
+  background:linear-gradient(135deg,#ff9050,#e06828);
+  border-radius:0 0 4px 4px;
+  box-shadow:inset 1px 0 2px rgba(255,200,150,0.3),0 1px 2px rgba(0,0,0,0.1);}
 .sg-slippers{display:flex;justify-content:center;gap:4px;margin-top:-1px;}
-.sg-slipper{width:12px;height:5px;background:linear-gradient(135deg,#ffb880,#ff9050);border-radius:3px 6px 3px 3px;border:1px solid #e08040;}
-/* Walk */
-.walking .sg-legs{animation:legWalk 0.4s infinite;}
-@keyframes legWalk{0%,100%{transform:none}25%{transform:skewX(8deg)}75%{transform:skewX(-8deg)}}
-.idle .ch-girl{animation:idleBounce 2s ease-in-out infinite;}
-@keyframes idleBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+.sg-slipper{width:11px;height:5px;
+  background:linear-gradient(180deg,#ffc898,#ffb078);
+  border-radius:4px 6px 4px 4px;
+  box-shadow:inset 1px 0 2px rgba(255,255,255,0.4),0 1px 2px rgba(0,0,0,0.1);}
+.walking .sg-legs{animation:walk .4s infinite;}
+@keyframes walk{0%,100%{transform:none}25%{transform:skewX(8deg)}75%{transform:skewX(-8deg)}}
+.idle .ch-girl{animation:bounce 2s ease-in-out infinite;}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
 
-/* ===== BOY - SangHun (Yellow Pajama, Short Hair) ===== */
-.ch-boy{width:52px;text-align:center;position:relative;}
-.ch-boy::after{content:'';position:absolute;bottom:-5px;left:50%;transform:translateX(-50%);width:28px;height:7px;background:rgba(0,0,0,0.12);border-radius:50%;}
-.sh-head{width:40px;height:38px;background:#fde0c0;border-radius:50%;margin:0 auto;position:relative;border:2px solid #e8c8a0;}
-/* Short dark hair */
-.sh-hair-back{position:absolute;top:-2px;left:-3px;width:46px;height:26px;background:#2a1a0a;border-radius:50% 50% 0 0;z-index:-1;}
-.sh-hair-top{position:absolute;top:-8px;left:0;width:40px;height:20px;background:#1a0e05;border-radius:50%;z-index:1;}
-.sh-hair-spike{position:absolute;top:-10px;left:12px;width:8px;height:10px;background:#2a1a0a;border-radius:50% 50% 0 0;transform:rotate(-10deg);z-index:2;}
-/* Eyes */
-.sh-eyes{position:absolute;top:16px;left:7px;width:26px;display:flex;justify-content:space-between;z-index:2;}
-.sh-eye{width:8px;height:8px;background:#1a0a00;border-radius:50%;position:relative;box-shadow:inset 2px 1px 0 rgba(255,255,255,0.4);}
-.sh-eye::after{content:'';position:absolute;top:1px;right:1px;width:2px;height:2px;background:#fff;border-radius:50%;}
-/* Mouth */
-.sh-mouth{position:absolute;top:27px;left:50%;transform:translateX(-50%);width:6px;height:3px;background:#d08060;border-radius:0 0 50% 50%;z-index:2;}
-/* Body - Yellow pajama */
-.sh-body{width:32px;height:22px;background:linear-gradient(135deg,#ffe566,#ffd020);margin:-2px auto 0;border-radius:6px 6px 2px 2px;
-  border:2px solid #e0b800;position:relative;z-index:0;}
-.sh-body::before{content:'';position:absolute;top:5px;left:50%;transform:translateX(-50%);width:16px;height:2px;background:rgba(255,255,255,0.5);border-radius:1px;box-shadow:0 5px 0 rgba(255,255,255,0.4);}
-/* Yellow pajama pants */
-.sh-pants{width:32px;height:8px;background:linear-gradient(135deg,#ffe566,#ffd020);margin:0 auto;border:2px solid #e0b800;border-top:none;}
-/* Legs */
-.sh-legs{display:flex;justify-content:center;gap:5px;}
-.sh-leg{width:9px;height:10px;background:linear-gradient(135deg,#ffe566,#ffd020);border-radius:0 0 4px 4px;border:1px solid #e0b800;}
-/* Slippers */
-.sh-slippers{display:flex;justify-content:center;gap:5px;margin-top:-1px;}
-.sh-slipper{width:12px;height:5px;background:linear-gradient(135deg,#fff0a0,#ffe566);border-radius:3px 6px 3px 3px;border:1px solid #e0c830;}
-.walking .sh-legs{animation:legWalk 0.4s infinite;}
-.idle .ch-boy{animation:idleBounce 2s ease-in-out infinite;}
+/* Boy: SangHun - yellow pajama, short hair, Disney 3D */
+.ch-boy{width:48px;text-align:center;position:relative;transform-style:preserve-3d;}
+.ch-boy::after{content:'';position:absolute;bottom:-5px;left:50%;transform:translateX(-50%);
+  width:28px;height:8px;background:radial-gradient(ellipse,rgba(0,0,0,0.18),transparent 70%);border-radius:50%;}
+.sh-head{width:38px;height:36px;
+  background:radial-gradient(circle at 35% 35%,#fff2e0,#fde0c0 40%,#e8c8a0 100%);
+  border-radius:50%;margin:0 auto;position:relative;
+  box-shadow:inset -3px -4px 6px rgba(180,120,60,0.15),inset 2px 2px 4px rgba(255,255,255,0.5),
+    0 2px 4px rgba(0,0,0,0.1);}
+.sh-hair-back{position:absolute;top:-3px;left:-3px;width:44px;height:26px;
+  background:radial-gradient(ellipse at 50% 60%,#2a1a0a,#1a0e05);
+  border-radius:50% 50% 0 0;z-index:-1;
+  box-shadow:inset 2px 2px 4px rgba(60,40,20,0.3);}
+.sh-hair-top{position:absolute;top:-9px;left:0px;width:38px;height:20px;
+  background:radial-gradient(ellipse at 45% 50%,#2a1810,#0e0804);
+  border-radius:50%;z-index:1;
+  box-shadow:0 -1px 3px rgba(30,15,5,0.3);}
+.sh-hair-spike{position:absolute;top:-12px;left:10px;width:10px;height:12px;
+  background:radial-gradient(ellipse at 50% 80%,#2a1a0a,#1a0e05);
+  border-radius:50% 50% 0 0;transform:rotate(-10deg);z-index:2;
+  box-shadow:1px -1px 2px rgba(40,25,10,0.3);}
+.sh-eyes{position:absolute;top:14px;left:5px;width:28px;display:flex;justify-content:space-between;z-index:2;}
+.sh-eye{width:10px;height:10px;
+  background:radial-gradient(circle at 40% 40%,#5a3018,#3a1a08 60%,#1a0a00);
+  border-radius:50%;position:relative;
+  box-shadow:0 0 0 1.5px #fde0c0,0 1px 2px rgba(0,0,0,0.2);}
+.sh-eye::before{content:'';position:absolute;top:1px;left:2px;width:3.5px;height:3.5px;
+  background:radial-gradient(circle,#1a0a00,#3a1a08);border-radius:50%;}
+.sh-eye::after{content:'';position:absolute;top:1.5px;right:1.5px;width:2.5px;height:2.5px;
+  background:#fff;border-radius:50%;box-shadow:1px 2px 0 0.5px rgba(255,255,255,0.4);}
+.sh-mouth{position:absolute;top:26px;left:50%;transform:translateX(-50%);
+  width:6px;height:3px;background:radial-gradient(ellipse,#d08060,#c07050);
+  border-radius:0 0 50% 50%;z-index:2;
+  box-shadow:0 0.5px 1px rgba(0,0,0,0.1);}
+.sh-body{width:30px;height:20px;
+  background:linear-gradient(135deg,#fff088 0%,#ffe566 30%,#ffd020 70%,#e0b800 100%);
+  margin:-2px auto 0;border-radius:7px 7px 3px 3px;position:relative;z-index:0;
+  box-shadow:inset 2px 2px 4px rgba(255,245,180,0.5),inset -2px -2px 4px rgba(200,160,0,0.2),
+    0 2px 3px rgba(0,0,0,0.1);}
+.sh-body::before{content:'';position:absolute;top:4px;left:50%;transform:translateX(-50%);
+  width:16px;height:2px;background:rgba(255,255,255,0.5);border-radius:2px;
+  box-shadow:0 5px 0 rgba(255,255,255,0.35);}
+.sh-body::after{content:'';position:absolute;top:1px;left:3px;width:9px;height:7px;
+  background:linear-gradient(180deg,rgba(255,255,255,0.3),transparent);border-radius:4px;}
+.sh-pants{width:30px;height:7px;
+  background:linear-gradient(180deg,#ffd020,#e8c010);
+  margin:0 auto;border-radius:0 0 2px 2px;
+  box-shadow:inset 0 -1px 2px rgba(200,160,0,0.3);}
+.sh-legs{display:flex;justify-content:center;gap:4px;}
+.sh-leg{width:9px;height:9px;
+  background:linear-gradient(135deg,#ffe566,#e0b800);
+  border-radius:0 0 4px 4px;
+  box-shadow:inset 1px 0 2px rgba(255,245,180,0.3),0 1px 2px rgba(0,0,0,0.1);}
+.sh-slippers{display:flex;justify-content:center;gap:4px;margin-top:-1px;}
+.sh-slipper{width:11px;height:5px;
+  background:linear-gradient(180deg,#fff8c0,#fff0a0);
+  border-radius:4px 6px 4px 4px;
+  box-shadow:inset 1px 0 2px rgba(255,255,255,0.4),0 1px 2px rgba(0,0,0,0.1);}
+.walking .sh-legs{animation:walk .4s infinite;}
+.idle .ch-boy{animation:bounce 2s ease-in-out infinite;}
 
-/* ===== BICHON - Coji (White fluffy, GRAY ears, chubby) ===== */
-.ch-dog{width:40px;text-align:center;position:relative;}
-.ch-dog::after{content:'';position:absolute;bottom:-3px;left:50%;transform:translateX(-50%);width:26px;height:6px;background:rgba(0,0,0,0.1);border-radius:50%;}
-/* Head - bigger, rounder, fluffier */
-.cj-head{width:30px;height:28px;background:#fff;border-radius:50%;margin:0 auto;position:relative;border:1px solid #e8e8e8;
-  box-shadow:-5px -3px 0 #fff,5px -3px 0 #fff,0 -6px 0 #fff,-3px -5px 0 #fff,3px -5px 0 #fff;}
-/* Extra fluff */
-.cj-fluff1,.cj-fluff2,.cj-fluff3,.cj-fluff4{position:absolute;background:#fff;border-radius:50%;}
-.cj-fluff1{top:-7px;left:2px;width:12px;height:10px;}
-.cj-fluff2{top:-8px;left:9px;width:12px;height:11px;}
-.cj-fluff3{top:-6px;right:2px;width:10px;height:9px;}
-.cj-fluff4{top:-4px;left:50%;transform:translateX(-50%);width:14px;height:8px;}
-/* GRAY ears */
-.cj-ear-l,.cj-ear-r{position:absolute;top:1px;width:11px;height:13px;
-  background:linear-gradient(180deg,#9a9a9a,#787878);border-radius:50%;z-index:-1;}
+/* Bichon: Coji - white fluffy, gray ears, chubby, Disney 3D */
+.ch-dog{width:38px;text-align:center;position:relative;transform-style:preserve-3d;}
+.ch-dog::after{content:'';position:absolute;bottom:-4px;left:50%;transform:translateX(-50%);
+  width:26px;height:7px;background:radial-gradient(ellipse,rgba(0,0,0,0.12),transparent 70%);border-radius:50%;}
+.cj-head{width:30px;height:28px;
+  background:radial-gradient(circle at 40% 35%,#ffffff,#f8f8f8 50%,#e8e8e8 100%);
+  border-radius:50%;margin:0 auto;position:relative;
+  box-shadow:inset -2px -3px 5px rgba(0,0,0,0.06),inset 2px 2px 4px rgba(255,255,255,0.8),
+    -5px -3px 0 #fff,5px -3px 0 #fff,0 -6px 0 #fff,-3px -5px 0 #fff,3px -5px 0 #fff,
+    0 2px 4px rgba(0,0,0,0.08);}
+.cj-fluff1,.cj-fluff2,.cj-fluff3{position:absolute;border-radius:50%;
+  background:radial-gradient(circle at 40% 40%,#fff,#f0f0f0);
+  box-shadow:0 0 3px rgba(255,255,255,0.8),inset 1px 1px 2px rgba(255,255,255,0.9);}
+.cj-fluff1{top:-8px;left:1px;width:14px;height:11px;}
+.cj-fluff2{top:-9px;left:9px;width:13px;height:12px;}
+.cj-fluff3{top:-7px;right:1px;width:11px;height:10px;}
+.cj-ear-l,.cj-ear-r{position:absolute;top:1px;width:12px;height:14px;
+  background:radial-gradient(ellipse at 50% 40%,#b0b0b0,#9a9a9a 40%,#787878);
+  border-radius:50%;z-index:-1;
+  box-shadow:inset 1px 1px 3px rgba(255,255,255,0.2),inset -1px -1px 2px rgba(0,0,0,0.15),
+    0 1px 2px rgba(0,0,0,0.1);}
 .cj-ear-l{left:-5px;transform:rotate(-15deg);}
 .cj-ear-r{right:-5px;transform:rotate(15deg);}
-/* Eyes - big cute */
 .cj-eyes{position:absolute;top:10px;left:4px;width:22px;display:flex;justify-content:space-between;z-index:1;}
-.cj-eye{width:6px;height:6px;background:#111;border-radius:50%;box-shadow:inset 1px 1px 0 rgba(255,255,255,0.5);}
-.cj-eye::after{content:'';position:absolute;top:1px;right:0;width:2px;height:2px;background:#fff;border-radius:50%;}
-/* Nose */
-.cj-nose{position:absolute;top:16px;left:50%;transform:translateX(-50%);width:6px;height:4px;background:#333;border-radius:50%;z-index:1;}
-/* Tongue */
-.cj-tongue{position:absolute;top:20px;left:50%;transform:translateX(-50%);width:5px;height:5px;background:#ff8888;
-  border-radius:0 0 50% 50%;z-index:1;animation:pant 0.5s infinite alternate;}
+.cj-eye{width:7px;height:7px;
+  background:radial-gradient(circle at 40% 35%,#444,#111 60%,#000);
+  border-radius:50%;position:relative;
+  box-shadow:0 0 0 1px #f8f8f8,0 1px 2px rgba(0,0,0,0.15);}
+.cj-eye::after{content:'';position:absolute;top:1px;right:1px;width:2.5px;height:2.5px;
+  background:#fff;border-radius:50%;box-shadow:0.5px 1.5px 0 0.5px rgba(255,255,255,0.4);}
+.cj-nose{position:absolute;top:17px;left:50%;transform:translateX(-50%);
+  width:6px;height:4px;
+  background:radial-gradient(ellipse at 40% 35%,#555,#222);
+  border-radius:50%;z-index:1;
+  box-shadow:0 0.5px 1px rgba(0,0,0,0.2),inset 1px 0.5px 1px rgba(255,255,255,0.15);}
+.cj-tongue{position:absolute;top:21px;left:50%;transform:translateX(-50%);
+  width:5px;height:5px;
+  background:radial-gradient(ellipse at 50% 30%,#ffaaaa,#ff7788);
+  border-radius:0 0 50% 50%;z-index:1;animation:pant .5s infinite alternate;
+  box-shadow:0 1px 1px rgba(0,0,0,0.1);}
 @keyframes pant{0%{height:4px}100%{height:7px}}
-/* Chubby body */
-.cj-body{width:34px;height:20px;background:#fff;margin:-4px auto 0;border-radius:14px;
-  border:1px solid #e8e8e8;position:relative;}
-.cj-body::before{content:'';position:absolute;top:-3px;left:-4px;right:-4px;bottom:-3px;
-  background:#fff;border-radius:14px;z-index:-1;box-shadow:0 0 0 1px rgba(0,0,0,0.04);}
-/* Tail - fluffy pom */
-.cj-tail{position:absolute;top:-10px;right:-7px;width:12px;height:14px;background:#fff;border-radius:50%;
-  border:1px solid #e8e8e8;animation:wag 0.35s infinite alternate;transform-origin:bottom center;
-  box-shadow:-1px -1px 0 #fff,1px -1px 0 #fff;}
+.cj-body{width:34px;height:20px;
+  background:radial-gradient(ellipse at 40% 40%,#ffffff,#f5f5f5 60%,#e8e8e8);
+  margin:-4px auto 0;border-radius:14px;position:relative;
+  box-shadow:inset 2px 2px 4px rgba(255,255,255,0.7),inset -2px -2px 4px rgba(0,0,0,0.05),
+    0 2px 3px rgba(0,0,0,0.08);}
+.cj-body::before{content:'';position:absolute;top:-2px;left:-4px;right:-4px;bottom:-3px;
+  background:radial-gradient(ellipse at 35% 35%,rgba(255,255,255,0.8),rgba(245,245,245,0.4));
+  border-radius:14px;z-index:-1;
+  box-shadow:0 0 0 1px rgba(0,0,0,0.03);}
+.cj-tail{position:absolute;top:-10px;right:-7px;width:12px;height:14px;
+  background:radial-gradient(circle at 40% 40%,#fff,#f0f0f0);
+  border-radius:50%;animation:wag .35s infinite alternate;transform-origin:bottom center;
+  box-shadow:inset 1px 1px 2px rgba(255,255,255,0.8),0 1px 2px rgba(0,0,0,0.08);}
 @keyframes wag{0%{transform:rotate(-25deg)}100%{transform:rotate(25deg)}}
-/* Chubby legs */
-.cj-legs{display:flex;justify-content:center;gap:2px;margin-top:-2px;}
-.cj-leg{width:7px;height:8px;background:#fff;border-radius:0 0 4px 4px;border:1px solid #e8e8e8;}
-.walking .cj-legs{animation:dogWalk 0.3s infinite;}
+.cj-legs{display:flex;justify-content:center;gap:3px;margin-top:-1px;}
+.cj-leg{width:7px;height:8px;
+  background:linear-gradient(135deg,#fff,#e8e8e8);
+  border-radius:0 0 4px 4px;
+  box-shadow:inset 1px 0 2px rgba(255,255,255,0.5),0 1px 2px rgba(0,0,0,0.08);}
+.walking .cj-legs{animation:dogWalk .3s infinite;}
 @keyframes dogWalk{0%,100%{transform:none}25%{transform:skewX(10deg)}75%{transform:skewX(-10deg)}}
 .idle .ch-dog{animation:dogBounce 1.5s ease-in-out infinite;}
 @keyframes dogBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
 
-/* ===== SPEECH BUBBLES ===== */
-.speech-bubble{position:absolute;top:-44px;left:50%;transform:translateX(-50%);
-  background:#fff;color:#555;padding:5px 12px;border-radius:14px;font-size:12px;font-weight:bold;white-space:nowrap;
-  opacity:0;transition:opacity 0.3s;z-index:20;box-shadow:0 2px 10px rgba(0,0,0,0.12);border:2px solid #ffc8d8;}
-.speech-bubble::after{content:'';position:absolute;bottom:-7px;left:50%;transform:translateX(-50%);
-  border-left:7px solid transparent;border-right:7px solid transparent;border-top:7px solid #fff;}
+/* Speech bubbles */
+.speech-bubble{position:absolute;top:-38px;left:50%;transform:translateX(-50%);
+  background:#fff;color:#555;padding:4px 10px;border-radius:12px;font-size:11px;font-weight:bold;
+  white-space:nowrap;opacity:0;transition:opacity .3s;z-index:20;
+  box-shadow:0 2px 8px rgba(0,0,0,0.1);border:1.5px solid #ffc8d8;}
+.speech-bubble::after{content:'';position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);
+  border-left:6px solid transparent;border-right:6px solid transparent;border-top:6px solid #fff;}
 .speech-bubble.show{opacity:1;}
 .boy-bubble{border-color:#ffe080;}
-.boy-bubble::after{border-top-color:#fff;}
-.dog-bubble{background:#fff8f0;border-color:#f0d0a0;font-size:11px;}
+.dog-bubble{background:#fff8f0;border-color:#f0d0a0;font-size:10px;}
 .dog-bubble::after{border-top-color:#fff8f0;}
 </style>
 </head>
 <body>
-<div class="house" id="house">
-  <!-- Floors -->
-  <div class="room-floor floor-bedroom"></div>
-  <div class="room-floor floor-closet"></div>
-  <div class="room-floor floor-bathroom"></div>
-  <div class="room-floor floor-kitchen"></div>
-  <div class="room-floor floor-living"></div>
-  <div class="room-floor floor-entrance"></div>
+<div class="game" id="game">
+  <div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div>
+  <canvas id="c" width="950" height="620"></canvas>
 
-  <!-- Walls -->
-  <div class="wall wall-h" style="left:0;top:0;width:1020px;"></div>
-  <div class="wall wall-h" style="left:0;bottom:0;width:1020px;"></div>
-  <div class="wall wall-v" style="left:0;top:0;height:720px;"></div>
-  <div class="wall wall-v" style="right:0;top:0;height:720px;"></div>
-  <!-- Horizontal middle -->
-  <div class="wall wall-h" style="left:0;top:357px;width:140px;"></div>
-  <div class="wall wall-h" style="left:200px;top:357px;width:150px;"></div>
-  <div class="wall wall-h" style="left:410px;top:357px;width:190px;"></div>
-  <div class="wall wall-h" style="left:660px;top:357px;width:100px;"></div>
-  <div class="wall wall-h" style="left:820px;top:357px;width:200px;"></div>
-  <!-- bedroom|closet -->
-  <div class="wall wall-v" style="left:407px;top:0;height:120px;"></div>
-  <div class="wall wall-v" style="left:407px;top:185px;height:175px;"></div>
-  <!-- closet|bathroom -->
-  <div class="wall wall-v" style="left:707px;top:0;height:100px;"></div>
-  <div class="wall wall-v" style="left:707px;top:165px;height:195px;"></div>
-  <!-- kitchen|living -->
-  <div class="wall wall-v" style="left:347px;top:360px;height:130px;"></div>
-  <div class="wall wall-v" style="left:347px;top:550px;height:170px;"></div>
-  <!-- living|entrance -->
-  <div class="wall wall-v" style="left:707px;top:360px;height:110px;"></div>
-  <div class="wall wall-v" style="left:707px;top:530px;height:190px;"></div>
-
-  <!-- Door gaps -->
-  <div class="door-gap door-gap-h" style="left:140px;top:357px;width:60px;"></div>
-  <div class="door-gap door-gap-h" style="left:600px;top:357px;width:60px;"></div>
-  <div class="door-gap door-gap-h" style="left:760px;top:357px;width:60px;"></div>
-  <div class="door-gap door-gap-v" style="left:407px;top:120px;height:65px;"></div>
-  <div class="door-gap door-gap-v" style="left:707px;top:100px;height:65px;"></div>
-  <div class="door-gap door-gap-v" style="left:347px;top:490px;height:60px;"></div>
-  <div class="door-gap door-gap-v" style="left:707px;top:470px;height:60px;"></div>
-
-  <!-- Room names -->
-  <div class="room-name" style="left:155px;top:12px;">bedroom</div>
-  <div class="room-name" style="left:510px;top:12px;">closet</div>
-  <div class="room-name" style="left:810px;top:12px;">bathroom</div>
-  <div class="room-name" style="left:120px;top:368px;">kitchen</div>
-  <div class="room-name" style="left:460px;top:368px;">living room</div>
-  <div class="room-name" style="left:790px;top:368px;">entrance</div>
-
-  <!-- ===== FURNITURE ===== -->
-  <!-- Bedroom -->
-  <div class="furn f-bed"></div><div class="furn f-nightstand"></div><div class="furn f-lamp"></div>
-  <div class="furn f-desk"></div><div class="furn f-chair"></div><div class="furn f-rug1"></div>
-  <div class="furn f-photo"></div><div class="furn f-cactus"></div>
-
-  <!-- Closet -->
-  <div class="furn f-wardrobe"></div><div class="furn f-rack"></div>
-  <div class="furn f-dress1"></div><div class="furn f-dress2"></div><div class="furn f-dress3"></div><div class="furn f-dress4"></div>
-  <div class="furn f-mirror"></div><div class="furn f-dresser"></div>
-  <div class="furn f-perfume"></div><div class="furn f-bag"></div>
-
-  <!-- Bathroom -->
-  <div class="furn f-bathtub"></div><div class="furn f-toilet"></div><div class="furn f-sink"></div>
-  <div class="furn f-bathmat"></div><div class="furn f-towel1"></div><div class="furn f-towel2"></div>
-  <div class="furn f-candle"></div><div class="furn f-plant-bath"></div>
-
-  <!-- Kitchen -->
-  <div class="furn f-fridge"></div><div class="furn f-counter"></div>
-  <div class="furn f-stove1"></div><div class="furn f-stove2"></div><div class="furn f-ksink"></div>
-  <div class="furn f-table"></div><div class="furn f-ramen"></div><div class="furn f-chopstick"></div>
-  <div class="furn f-kettle"></div><div class="furn f-mug"></div>
-
-  <!-- Living Room -->
-  <div class="furn f-rug2"></div><div class="furn f-sofa"></div><div class="furn f-coffeetable"></div>
-  <div class="furn f-tvstand"></div><div class="furn f-tvscreen"><div class="f-tvglow"></div></div>
-  <div class="furn f-bookshelf">
-    <span style="background:#e74c3c"></span><span style="background:#4a9cc8"></span>
-    <span style="background:#2ecc71"></span><span style="background:#f39c12"></span>
-    <span style="background:#9b59b6"></span><span style="background:#e67e22"></span>
-    <span style="background:#1abc9c"></span>
-  </div>
-  <div class="furn f-plant-big">
-    <div class="f-plant-big-leaf" style="top:3px;left:0;transform:rotate(-25deg);"></div>
-    <div class="f-plant-big-leaf" style="top:0;left:6px;transform:rotate(8deg);"></div>
-    <div class="f-plant-big-leaf" style="top:5px;left:12px;transform:rotate(30deg);"></div>
-  </div>
-  <div class="furn f-plant-big-pot"></div>
-  <div class="furn f-plant2"></div>
-  <div class="furn f-cushion1"></div><div class="furn f-cushion2"></div>
-  <div class="furn f-speaker"></div>
-
-  <!-- Entrance -->
-  <div class="furn f-doorframe"></div><div class="furn f-frontdoor"></div>
-  <div class="furn f-shoerack"></div>
-  <div class="furn f-shoe1"></div><div class="furn f-shoe2"></div><div class="furn f-shoe3"></div>
-  <div class="furn f-shoe4"></div><div class="furn f-shoe5"></div>
-  <div class="furn f-umbrella"></div><div class="furn f-mat">WELCOME</div>
-  <div class="furn f-coathook"></div><div class="furn f-coat1"></div><div class="furn f-coat2"></div>
-  <div class="furn f-keyholder"></div>
-
-  <!-- ===== CHARACTERS ===== -->
-  <!-- Girl: SlGi -->
+  <!-- Girl: 슬기 -->
   <div class="character idle" id="girl">
     <div class="speech-bubble" id="girlBubble"></div>
     <div class="ch-girl">
@@ -444,7 +273,7 @@ body{background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);display:flex;jus
     </div>
   </div>
 
-  <!-- Boy: SangHun -->
+  <!-- Boy: 상훈 -->
   <div class="character idle" id="boy">
     <div class="speech-bubble boy-bubble" id="boyBubble"></div>
     <div class="ch-boy">
@@ -456,28 +285,30 @@ body{background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);display:flex;jus
       <div class="sh-body"></div><div class="sh-pants"></div>
       <div class="sh-legs"><div class="sh-leg"></div><div class="sh-leg"></div></div>
       <div class="sh-slippers"><div class="sh-slipper"></div><div class="sh-slipper"></div></div>
-      <div class="name-tag name-tag-boy">상훈</div>
+      <div class="name-tag">상훈</div>
     </div>
   </div>
 
-  <!-- Dog: Coji -->
+  <!-- Dog: 코지 -->
   <div class="character idle" id="bichon">
     <div class="speech-bubble dog-bubble" id="dogBubble"></div>
     <div class="ch-dog">
       <div class="cj-head">
-        <div class="cj-fluff1"></div><div class="cj-fluff2"></div><div class="cj-fluff3"></div><div class="cj-fluff4"></div>
+        <div class="cj-fluff1"></div><div class="cj-fluff2"></div><div class="cj-fluff3"></div>
         <div class="cj-ear-l"></div><div class="cj-ear-r"></div>
         <div class="cj-eyes"><div class="cj-eye"></div><div class="cj-eye"></div></div>
         <div class="cj-nose"></div><div class="cj-tongue"></div>
       </div>
       <div class="cj-body"><div class="cj-tail"></div></div>
       <div class="cj-legs"><div class="cj-leg"></div><div class="cj-leg"></div><div class="cj-leg"></div><div class="cj-leg"></div></div>
-      <div class="name-tag name-tag-dog">코지</div>
+      <div class="name-tag">코지</div>
     </div>
   </div>
 </div>
 
 <script>
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
 const girlEl = document.getElementById('girl');
 const boyEl = document.getElementById('boy');
 const bichonEl = document.getElementById('bichon');
@@ -485,82 +316,302 @@ const girlBubble = document.getElementById('girlBubble');
 const boyBubble = document.getElementById('boyBubble');
 const dogBubble = document.getElementById('dogBubble');
 
-const roomCenters = {
-  bedroom:    { x: 205, y: 200 },
-  closet:     { x: 545, y: 185 },
-  bathroom:   { x: 840, y: 200 },
-  kitchen:    { x: 185, y: 530 },
-  livingroom: { x: 510, y: 520 },
-  entrance:   { x: 840, y: 520 },
-};
+// === ISOMETRIC CONSTANTS ===
+const TW = 200, TH = 100, WH = 95;
+const OX = 475, OY = 195;
 
-const doors = {
-  'bedroom-closet':      { x: 410, y: 152 },
-  'closet-bathroom':     { x: 710, y: 132 },
-  'bedroom-kitchen':     { x: 170, y: 360 },
-  'closet-livingroom':   { x: 630, y: 360 },
-  'bathroom-entrance':   { x: 790, y: 360 },
-  'kitchen-livingroom':  { x: 350, y: 520 },
-  'livingroom-entrance': { x: 710, y: 500 },
-};
-
-const adjacency = {
-  bedroom:['closet','kitchen'], closet:['bedroom','bathroom','livingroom'],
-  bathroom:['closet','entrance'], kitchen:['bedroom','livingroom'],
-  livingroom:['closet','kitchen','entrance'], entrance:['bathroom','livingroom'],
-};
-
-function findPath(from,to){
-  if(from===to)return[from];
-  const q=[[from]],v=new Set([from]);
-  while(q.length){const p=q.shift(),c=p[p.length-1];
-    for(const n of adjacency[c]){if(n===to)return[...p,n];if(!v.has(n)){v.add(n);q.push([...p,n]);}}}
-  return[from,to];
+function ts(gx, gy, gz=0) {
+  return { x: (gx-gy)*TW/2+OX, y: (gx+gy)*TH/2-gz+OY };
 }
-function getDoorPos(a,b){return doors[a+'-'+b]||doors[b+'-'+a];}
-function buildWaypoints(path){
-  const wp=[];
-  for(let i=0;i<path.length;i++){
-    const c=roomCenters[path[i]];
-    wp.push({x:c.x+(Math.random()-0.5)*50,y:c.y+(Math.random()-0.5)*35,room:path[i]});
-    if(i<path.length-1){const dp=getDoorPos(path[i],path[i+1]);wp.push({x:dp.x,y:dp.y,door:true});}
+
+// === CANVAS DRAWING ===
+function drawPoly(pts, fill, stroke) {
+  ctx.fillStyle = fill;
+  ctx.beginPath();
+  ctx.moveTo(pts[0].x, pts[0].y);
+  for (let i=1;i<pts.length;i++) ctx.lineTo(pts[i].x, pts[i].y);
+  ctx.closePath();
+  ctx.fill();
+  if (stroke) { ctx.strokeStyle = stroke; ctx.lineWidth = 1; ctx.stroke(); }
+}
+
+function drawFloor(gx, gy, color) {
+  drawPoly([ts(gx,gy),ts(gx+1,gy),ts(gx+1,gy+1),ts(gx,gy+1)], color, 'rgba(0,0,0,0.06)');
+}
+
+function drawWall(x1,y1,x2,y2,h,baseC,stripeC) {
+  const bl=ts(x1,y1),br=ts(x2,y2),tr=ts(x2,y2,h),tl=ts(x1,y1,h);
+  drawPoly([bl,br,tr,tl], baseC, 'rgba(0,0,0,0.08)');
+  if (stripeC) {
+    ctx.save();
+    ctx.beginPath();ctx.moveTo(bl.x,bl.y);ctx.lineTo(br.x,br.y);ctx.lineTo(tr.x,tr.y);ctx.lineTo(tl.x,tl.y);ctx.closePath();ctx.clip();
+    ctx.fillStyle = stripeC;
+    const mnX=Math.min(bl.x,br.x,tr.x,tl.x)-5, mxX=Math.max(bl.x,br.x,tr.x,tl.x)+5;
+    const mnY=Math.min(bl.y,br.y,tr.y,tl.y)-5, mxY=Math.max(bl.y,br.y,tr.y,tl.y)+5;
+    for (let sx=mnX;sx<mxX;sx+=14) ctx.fillRect(sx,mnY,7,mxY-mnY);
+    ctx.restore();
+    // baseboard
+    ctx.fillStyle = 'rgba(0,0,0,0.06)';
+    ctx.beginPath();ctx.moveTo(bl.x,bl.y);ctx.lineTo(br.x,br.y);
+    ctx.lineTo(br.x,br.y-8);ctx.lineTo(bl.x,bl.y-8);ctx.closePath();ctx.fill();
   }
-  return wp;
 }
+
+function drawBox(gx,gy,w,d,z,h,tc,lc,rc) {
+  const tt=ts(gx,gy,z+h),tr_=ts(gx+w,gy,z+h),tb=ts(gx+w,gy+d,z+h),tl_=ts(gx,gy+d,z+h);
+  const rbl=ts(gx+w,gy,z),lbr=ts(gx+w,gy+d,z),lbl=ts(gx,gy+d,z);
+  // left face
+  drawPoly([tl_,lbl,lbr,tb], lc, 'rgba(0,0,0,0.06)');
+  // right face
+  drawPoly([tr_,rbl,lbr,tb], rc, 'rgba(0,0,0,0.06)');
+  // top face
+  drawPoly([tt,tr_,tb,tl_], tc, 'rgba(0,0,0,0.04)');
+}
+
+function drawCircleOnFloor(gx,gy,r,z,color) {
+  const c = ts(gx, gy, z);
+  ctx.fillStyle = color;
+  ctx.beginPath();
+  ctx.ellipse(c.x, c.y, r*TW/2, r*TH/2, 0, 0, Math.PI*2);
+  ctx.fill();
+}
+
+function renderHouse() {
+  ctx.clearRect(0,0,950,620);
+
+  // === OUTER WALLS (back) ===
+  // Back-right wall (along gy=0, from gx=0 to gx=3)
+  drawWall(0,0, 3,0, WH, '#b8e6d4', '#d0f0e0');
+  // Back-left wall (along gx=0, from gy=0 to gy=2)
+  drawWall(0,0, 0,2, WH, '#98d4be', '#b8dcc8');
+
+  // === INTERIOR WALLS ===
+  // Vertical wall gx=1 (bedroom|closet, kitchen|living) with door gaps
+  drawWall(1,0, 1,0.35, WH, '#a8dcc8', '#c4ecd8');
+  drawWall(1,0.65, 1,1.0, WH, '#a8dcc8', '#c4ecd8');
+  drawWall(1,1.0, 1,1.35, WH, '#a8dcc8', '#c4ecd8');
+  drawWall(1,1.65, 1,2.0, WH, '#a8dcc8', '#c4ecd8');
+
+  // Vertical wall gx=2 (closet|bathroom, living|entrance) with door gaps
+  drawWall(2,0, 2,0.35, WH, '#a8dcc8', '#c4ecd8');
+  drawWall(2,0.65, 2,1.0, WH, '#a8dcc8', '#c4ecd8');
+  drawWall(2,1.0, 2,1.35, WH, '#a8dcc8', '#c4ecd8');
+  drawWall(2,1.65, 2,2.0, WH, '#a8dcc8', '#c4ecd8');
+
+  // Horizontal wall gy=1 (top row|bottom row) with door gaps
+  drawWall(0,1, 0.35,1, WH, '#b0dcc8', '#ccecd8');
+  drawWall(0.65,1, 1.0,1, WH, '#b0dcc8', '#ccecd8');
+  // closet-livingroom gap
+  drawWall(1.0,1, 1.85,1, WH, '#b0dcc8', '#ccecd8');
+  drawWall(2.15,1, 2.35,1, WH, '#b0dcc8', '#ccecd8');
+  // bathroom-entrance gap
+  drawWall(2.65,1, 3.0,1, WH, '#b0dcc8', '#ccecd8');
+
+  // === ROOM FLOORS ===
+  // Draw back-to-front (by gx+gy)
+  drawFloor(0,0,'#f0dcc0'); // bedroom - warm wood
+  drawFloor(1,0,'#f5d8e8'); // closet - pink
+  drawFloor(0,1,'#f5ecd4'); // kitchen - warm tile
+  drawFloor(2,0,'#d8eef0'); // bathroom - blue tile
+  drawFloor(1,1,'#e8dcc8'); // living - beige
+  drawFloor(2,1,'#d4c8b0'); // entrance - stone
+
+  // Floor tile patterns
+  // Bathroom tiles
+  for (let tx=0;tx<4;tx++) for(let ty=0;ty<4;ty++){
+    const cx=2+tx*0.25+0.125, cy=ty*0.25+0.125;
+    drawCircleOnFloor(cx,cy,0.02,0,'rgba(180,210,215,0.3)');
+  }
+  // Living room rug
+  drawCircleOnFloor(1.5,1.5,0.35,0.5,'rgba(180,210,180,0.2)');
+  drawCircleOnFloor(1.5,1.5,0.25,0.5,'rgba(180,210,180,0.15)');
+
+  // === FURNITURE (back to front order) ===
+
+  // --- Bedroom (0,0) ---
+  // Bed
+  drawBox(0.05,0.15, 0.35,0.6, 0,14, '#c8a8e0','#a088c0','#b498d0');
+  // Pillow
+  drawBox(0.1,0.18, 0.25,0.15, 14,4, '#fff','#e8e0f0','#f0e8f8');
+  // Blanket detail
+  drawBox(0.08,0.4, 0.3,0.3, 14,2, '#ddc8f0','#c0a8d8','#d0b8e4');
+  // Nightstand
+  drawBox(0.45,0.2, 0.15,0.15, 0,12, '#c4a882','#a08060','#b49070');
+  // Lamp glow
+  drawCircleOnFloor(0.52,0.27,0.06,16,'rgba(255,235,100,0.5)');
+  drawBox(0.49,0.24, 0.07,0.07, 12,8, '#ffe880','#e8d060','#f0d868');
+  // Desk
+  drawBox(0.55,0.6, 0.35,0.2, 0,12, '#d4c0a0','#b0a080','#c0b090');
+  // Laptop on desk
+  drawBox(0.6,0.64, 0.18,0.12, 12,2, '#a0b8c8','#8098a8','#90a8b8');
+  // Chair
+  drawCircleOnFloor(0.72,0.88,0.06,6,'#e08060');
+
+  // --- Closet (1,0) ---
+  // Wardrobe
+  drawBox(1.05,0.05, 0.4,0.18, 0,35, '#c9a87c','#a08050','#b49068');
+  // Clothes on rack
+  drawBox(1.55,0.08, 0.06,0.04, 15,18, '#ff7eb3','#e060a0','#f070b0');
+  drawBox(1.65,0.08, 0.06,0.04, 15,20, '#7ec8e3','#60a8c0','#70b8d0');
+  drawBox(1.75,0.08, 0.06,0.04, 15,16, '#ffe066','#e0c040','#f0d050');
+  // Mirror
+  drawBox(1.1,0.4, 0.08,0.2, 0,30, '#e0f0ff','#c0d8e8','#d0e4f0');
+  // Dresser
+  drawBox(1.4,0.55, 0.3,0.15, 0,14, '#d4b896','#b09870','#c0a880');
+  // Perfume bottle
+  drawBox(1.5,0.58, 0.04,0.04, 14,6, '#f8b0d0','#e090b0','#f0a0c0');
+
+  // --- Kitchen (0,1) ---
+  // Fridge
+  drawBox(0.05,1.05, 0.15,0.25, 0,32, '#f0f0f0','#d0d0d0','#e0e0e0');
+  // Counter
+  drawBox(0.05,1.4, 0.35,0.12, 0,14, '#808890','#606870','#707880');
+  // Stove circles
+  drawCircleOnFloor(0.15,1.46,0.04,14.5,'#444');
+  drawCircleOnFloor(0.28,1.46,0.04,14.5,'#444');
+  // Table
+  drawBox(0.45,1.25, 0.35,0.3, 0,12, '#d4b896','#b09870','#c0a880');
+  // Ramen bowl
+  drawCircleOnFloor(0.62,1.4,0.06,13,'#fff');
+  drawCircleOnFloor(0.62,1.4,0.04,13.5,'#f5d442');
+  // Chairs
+  drawCircleOnFloor(0.45,1.55,0.04,5,'#90c8b8');
+  drawCircleOnFloor(0.75,1.25,0.04,5,'#90c8b8');
+
+  // --- Bathroom (2,0) ---
+  // Bathtub
+  drawBox(2.05,0.1, 0.25,0.5, 0,12, '#e8e8e8','#c8c8c8','#d8d8d8');
+  drawBox(2.08,0.15, 0.19,0.4, 4,9, '#c8e8f0','#a0c8d8','#b8d8e8');
+  // Toilet
+  drawBox(2.5,0.15, 0.15,0.2, 0,12, '#f5f5f5','#d8d8d8','#e8e8e8');
+  drawBox(2.52,0.12, 0.11,0.08, 12,3, '#eee','#d0d0d0','#ddd');
+  // Sink
+  drawBox(2.6,0.55, 0.2,0.12, 0,14, '#eee','#ccc','#ddd');
+  // Bath mat
+  drawCircleOnFloor(2.2,0.7,0.1,0.5,'rgba(135,206,235,0.3)');
+  // Candle
+  drawBox(2.75,0.45, 0.04,0.04, 0,8, '#fff8e0','#e8e0c0','#f0e8d0');
+  drawCircleOnFloor(2.77,0.47,0.015,9,'rgba(255,200,50,0.7)');
+
+  // --- Living Room (1,1) ---
+  // TV stand
+  drawBox(1.1,1.05, 0.35,0.1, 0,10, '#555','#333','#444');
+  // TV
+  drawBox(1.12,1.06, 0.31,0.08, 10,18, '#222','#111','#1a1a1a');
+  // TV screen glow
+  drawBox(1.14,1.07, 0.27,0.06, 12,14, '#3050a0','#2040a0','#2848a0');
+  // Sofa
+  drawBox(1.15,1.65, 0.5,0.2, 0,14, '#b8e0b0','#88c080','#a0d098');
+  // Sofa back
+  drawBox(1.15,1.65, 0.5,0.05, 14,8, '#a0d098','#80b878','#90c888');
+  // Sofa arms
+  drawBox(1.15,1.65, 0.06,0.2, 14,6, '#a0d098','#80b878','#90c888');
+  drawBox(1.59,1.65, 0.06,0.2, 14,6, '#a0d098','#80b878','#90c888');
+  // Coffee table
+  drawBox(1.25,1.4, 0.3,0.12, 0,8, '#d4c0a0','#b0a080','#c0b090');
+  // Bookshelf
+  drawBox(1.7,1.08, 0.2,0.08, 0,28, '#8a6a4a','#604828','#755838');
+  // Books
+  drawBox(1.72,1.09, 0.04,0.06, 8,18, '#e74c3c','#c03020','#d04030');
+  drawBox(1.77,1.09, 0.04,0.06, 8,16, '#3498db','#2080b8','#2890c8');
+  drawBox(1.82,1.09, 0.04,0.06, 8,20, '#2ecc71','#20a058','#28b068');
+  // Plant
+  drawBox(1.75,1.45, 0.06,0.06, 0,8, '#8B6530','#6d4c1e','#7a5828');
+  drawCircleOnFloor(1.78,1.48,0.04,12,'#4caf50');
+  drawCircleOnFloor(1.78,1.48,0.03,15,'#66bb6a');
+  // Cushions
+  drawCircleOnFloor(1.3,1.55,0.04,1,'rgba(255,180,80,0.6)');
+  drawCircleOnFloor(1.45,1.58,0.035,1,'rgba(180,120,200,0.5)');
+
+  // --- Entrance (2,1) ---
+  // Door frame on back wall
+  drawBox(2.6,1.0, 0.25,0.01, 0,35, '#6d5030','#5a3a1e','#604020');
+  // Shoe rack
+  drawBox(2.1,1.6, 0.3,0.12, 0,10, '#8a6a4a','#604828','#755838');
+  // Shoes
+  drawBox(2.14,1.62, 0.06,0.04, 10,2, '#e74c3c','#c03020','#d04030');
+  drawBox(2.22,1.63, 0.06,0.04, 10,2, '#fff','#ddd','#eee');
+  drawBox(2.3,1.62, 0.06,0.04, 10,2, '#4a9cc8','#3080a8','#4090b8');
+  // Coat hook area
+  drawBox(2.05,1.1, 0.02,0.15, 20,2, '#888','#666','#777');
+  drawBox(2.06,1.12, 0.05,0.08, 8,14, '#5c88c0','#3a6aa0','#4878b0');
+  // Welcome mat
+  drawBox(2.5,1.7, 0.25,0.12, 0,1, '#a08a6a','#807050','#908060');
+  // Umbrella
+  drawBox(2.8,1.4, 0.03,0.03, 0,18, '#e06060','#c04040','#d05050');
+  // Key holder
+  drawBox(2.1,1.25, 0.1,0.03, 18,3, '#d4c0a0','#b0a080','#c0b090');
+
+  // === ROOM LABELS ===
+  ctx.font = 'bold 11px "Gowun Dodum", sans-serif';
+  ctx.fillStyle = 'rgba(100,80,50,0.35)';
+  ctx.textAlign = 'center';
+  const labels = [
+    [0.5,0.5,'침실'],[1.5,0.5,'옷방'],[2.5,0.5,'욕실'],
+    [0.5,1.5,'주방'],[1.5,1.5,'거실'],[2.5,1.5,'현관']
+  ];
+  labels.forEach(([gx,gy,name]) => {
+    const p = ts(gx, gy, 0);
+    ctx.fillText(name, p.x, p.y + 6);
+  });
+}
+
+renderHouse();
+
+// === CHARACTER MOVEMENT ===
+const roomCenters = {
+  bedroom:{gx:0.5,gy:0.5}, closet:{gx:1.5,gy:0.5}, bathroom:{gx:2.5,gy:0.5},
+  kitchen:{gx:0.5,gy:1.5}, livingroom:{gx:1.5,gy:1.5}, entrance:{gx:2.5,gy:1.5}
+};
+const doors = {
+  'bedroom-closet':{gx:1.0,gy:0.5},'closet-bathroom':{gx:2.0,gy:0.5},
+  'bedroom-kitchen':{gx:0.5,gy:1.0},'closet-livingroom':{gx:1.5,gy:1.0},
+  'bathroom-entrance':{gx:2.5,gy:1.0},'kitchen-livingroom':{gx:1.0,gy:1.5},
+  'livingroom-entrance':{gx:2.0,gy:1.5}
+};
+const adjacency = {
+  bedroom:['closet','kitchen'],closet:['bedroom','bathroom','livingroom'],
+  bathroom:['closet','entrance'],kitchen:['bedroom','livingroom'],
+  livingroom:['closet','kitchen','entrance'],entrance:['bathroom','livingroom']
+};
+
+function findPath(f,t){if(f===t)return[f];const q=[[f]],v=new Set([f]);while(q.length){const p=q.shift(),c=p[p.length-1];for(const n of adjacency[c]){if(n===t)return[...p,n];if(!v.has(n)){v.add(n);q.push([...p,n]);}}}return[f,t];}
+function getDoorPos(a,b){return doors[a+'-'+b]||doors[b+'-'+a];}
+function buildWaypoints(path){const wp=[];for(let i=0;i<path.length;i++){const c=roomCenters[path[i]];wp.push({gx:c.gx+(Math.random()-0.5)*0.3,gy:c.gy+(Math.random()-0.5)*0.2,room:path[i]});if(i<path.length-1){const dp=getDoorPos(path[i],path[i+1]);wp.push({gx:dp.gx,gy:dp.gy,door:true});}}return wp;}
 
 const girlSayings={
-  bedroom:["졸리다 zzZ","잠이 안와...","이불 밖은 위험해...","5분만 더...","꿈나라 가고싶다"],
-  closet:["오늘 뭐 입지?","옷이 없어...","이거 입을까?","쇼핑가고 싶다","이 원피스 귀엽다~"],
-  bathroom:["씻어야지~","목욕하고 싶다","거울아 거울아~","세수해야지","따뜻한 물~"],
-  kitchen:["배고프다...","라면 먹자!","치킨 먹고싶다","오늘 뭐 먹지?","커피 마시고싶다"],
-  livingroom:["심심해~","넷플릭스 볼까?","퇴근하고싶다...","아 집이 최고야","책 읽을까?"],
-  entrance:["나갈까 말까...","택배 왔나?","내일도 출근이라니...","하... 월요일...","산책 갈까?"],
+  bedroom:["졸리다 zzZ","잠이 안와...","이불 밖은 위험해...","5분만 더..."],
+  closet:["오늘 뭐 입지?","옷이 없어...","쇼핑가고 싶다","이 원피스 귀엽다~"],
+  bathroom:["씻어야지~","목욕하고 싶다","거울아 거울아~","따뜻한 물~"],
+  kitchen:["배고프다...","라면 먹자!","치킨 먹고싶다","커피 마시고싶다"],
+  livingroom:["심심해~","넷플릭스 볼까?","퇴근하고싶다...","아 집이 최고야"],
+  entrance:["나갈까 말까...","택배 왔나?","내일도 출근이라니...","산책 갈까?"]
 };
 const boySayings={
-  bedroom:["자고싶다...","알람 끄고싶어","이불 속이 천국","코 골았나?","침대가 최고야"],
-  closet:["뭐 입어도 똑같아","후드 어디갔지?","옷장 정리 해야되는데...","양말 짝이 없어"],
-  bathroom:["양치해야지","면도해야지...","샤워하자","거울 김서린다","이빨 안 닦을래..."],
-  kitchen:["배고파 죽겠다","라면 끓여줘~","맥주 마실까?","야식 먹고싶다","밥 뭐야?"],
-  livingroom:["게임하고 싶다","TV 리모컨 어딨어?","낮잠 잘까","소파가 내 자리","유튜브 보자"],
-  entrance:["택배 왔다!","밖에 비 오나?","나가기 싫다...","운동 가야되는데...","슬리퍼 어딨지?"],
+  bedroom:["자고싶다...","이불 속이 천국","알람 끄고싶어","코 골았나?"],
+  closet:["뭐 입어도 똑같아","후드 어디갔지?","양말 짝이 없어"],
+  bathroom:["양치해야지","면도해야지...","샤워하자"],
+  kitchen:["배고파 죽겠다","라면 끓여줘~","야식 먹고싶다","밥 뭐야?"],
+  livingroom:["게임하고 싶다","TV 리모컨 어딨어?","낮잠 잘까","유튜브 보자"],
+  entrance:["택배 왔다!","나가기 싫다...","운동 가야되는데..."]
 };
-const dogSounds=['멍멍~!','왈왈!','낑낑~','멍!','헥헥..','꼬리살랑~','킁킁!','깨갱!','앙!'];
+const dogSounds=['멍멍~!','왈왈!','낑낑~','멍!','헥헥..','꼬리살랑~','킁킁!','깨갱!'];
 
 const roomNames=Object.keys(roomCenters);
-let girlRoom='livingroom', boyRoom='bedroom';
-let girlMoving=false, boyMoving=false;
-let girlX,girlY,boyX,boyY,dogX,dogY;
+let girlRoom='livingroom',boyRoom='bedroom',girlMoving=false,boyMoving=false;
+let girlGx,girlGy,boyGx,boyGy,dogGx,dogGy;
 const girlHistory=[];
 const DOG_DELAY=1200;
+const CHAR_H=80, CHAR_W=24, DOG_H=60, DOG_W=19;
+
+function posChar(el,gx,gy,w,h){const s=ts(gx,gy);el.style.left=(s.x-w)+'px';el.style.top=(s.y-h)+'px';}
 
 function initPositions(){
-  const gc=roomCenters.livingroom, bc=roomCenters.bedroom;
-  girlX=gc.x-26; girlY=gc.y-50;
-  boyX=bc.x-26; boyY=bc.y-50;
-  dogX=girlX+6; dogY=girlY+60;
-  girlEl.style.left=girlX+'px'; girlEl.style.top=girlY+'px';
-  boyEl.style.left=boyX+'px'; boyEl.style.top=boyY+'px';
-  bichonEl.style.left=dogX+'px'; bichonEl.style.top=dogY+'px';
+  const gc=roomCenters.livingroom,bc=roomCenters.bedroom;
+  girlGx=gc.gx;girlGy=gc.gy;boyGx=bc.gx;boyGy=bc.gy;dogGx=gc.gx;dogGy=gc.gy;
+  posChar(girlEl,girlGx,girlGy,CHAR_W,CHAR_H);
+  posChar(boyEl,boyGx,boyGy,CHAR_W,CHAR_H);
+  posChar(bichonEl,girlGx,girlGy+0.15,DOG_W,DOG_H);
 }
 
 function showBubble(b,t,d=2500){b.textContent=t;b.classList.add('show');setTimeout(()=>b.classList.remove('show'),d);}
@@ -571,10 +622,9 @@ function updateDogPosition(){
   if(girlHistory.length>0){
     const tgt=girlHistory[0];
     const spd=0.055;
-    dogX+=(tgt.x-dogX)*spd;
-    dogY+=(tgt.y+50-dogY)*spd;
-    bichonEl.style.left=dogX+'px';
-    bichonEl.style.top=dogY+'px';
+    dogGx+=(tgt.gx-dogGx)*spd;
+    dogGy+=(tgt.gy+0.15-dogGy)*spd;
+    posChar(bichonEl,dogGx,dogGy,DOG_W,DOG_H);
   }
   requestAnimationFrame(updateDogPosition);
 }
@@ -583,24 +633,24 @@ async function walkChar(el,waypoints,isGirl){
   el.classList.remove('idle');el.classList.add('walking');
   if(isGirl){bichonEl.classList.remove('idle');bichonEl.classList.add('walking');}
   for(let i=1;i<waypoints.length;i++){
-    const fx=parseFloat(el.style.left),fy=parseFloat(el.style.top);
-    const tx=waypoints[i].x-26,ty=waypoints[i].y-50;
-    const dist=Math.sqrt((tx-fx)**2+(ty-fy)**2);
-    const dur=Math.max(600,dist*8);
+    const fgx=isGirl?girlGx:boyGx, fgy=isGirl?girlGy:boyGy;
+    const tgx=waypoints[i].gx, tgy=waypoints[i].gy;
+    const dist=Math.sqrt((tgx-fgx)**2+(tgy-fgy)**2);
+    const dur=Math.max(600,dist*2500);
     const st=performance.now();
     await new Promise(res=>{
       function step(now){
         const t=Math.min((now-st)/dur,1);
         const e=t<0.5?2*t*t:-1+(4-2*t)*t;
-        const cx=fx+(tx-fx)*e, cy=fy+(ty-fy)*e;
-        el.style.left=cx+'px'; el.style.top=cy+'px';
-        if(isGirl){girlX=cx;girlY=cy;girlHistory.push({x:cx,y:cy,time:now});if(girlHistory.length>500)girlHistory.splice(0,200);}
-        else{boyX=cx;boyY=cy;}
+        const cx=fgx+(tgx-fgx)*e, cy=fgy+(tgy-fgy)*e;
+        if(isGirl){girlGx=cx;girlGy=cy;girlHistory.push({gx:cx,gy:cy,time:now});if(girlHistory.length>500)girlHistory.splice(0,200);}
+        else{boyGx=cx;boyGy=cy;}
+        posChar(el,cx,cy,CHAR_W,CHAR_H);
         if(t<1)requestAnimationFrame(step);else res();
       }
       requestAnimationFrame(step);
     });
-    if(waypoints[i].door)await new Promise(r=>setTimeout(r,300));
+    if(waypoints[i].door)await new Promise(r=>setTimeout(r,250));
   }
   el.classList.remove('walking');el.classList.add('idle');
   if(isGirl)setTimeout(()=>{bichonEl.classList.remove('walking');bichonEl.classList.add('idle');},DOG_DELAY+500);
@@ -609,8 +659,7 @@ async function walkChar(el,waypoints,isGirl){
 async function moveGirl(){
   if(girlMoving)return;girlMoving=true;
   let next;do{next=roomNames[Math.floor(Math.random()*roomNames.length)];}while(next===girlRoom);
-  const path=findPath(girlRoom,next);
-  await walkChar(girlEl,buildWaypoints(path),true);
+  await walkChar(girlEl,buildWaypoints(findPath(girlRoom,next)),true);
   girlRoom=next;
   showBubble(girlBubble,girlSayings[girlRoom][Math.floor(Math.random()*girlSayings[girlRoom].length)],3000);
   setTimeout(()=>showBubble(dogBubble,dogSounds[Math.floor(Math.random()*dogSounds.length)],2000),1400);
@@ -621,8 +670,7 @@ async function moveGirl(){
 async function moveBoy(){
   if(boyMoving)return;boyMoving=true;
   let next;do{next=roomNames[Math.floor(Math.random()*roomNames.length)];}while(next===boyRoom);
-  const path=findPath(boyRoom,next);
-  await walkChar(boyEl,buildWaypoints(path),false);
+  await walkChar(boyEl,buildWaypoints(findPath(boyRoom,next)),false);
   boyRoom=next;
   showBubble(boyBubble,boySayings[boyRoom][Math.floor(Math.random()*boySayings[boyRoom].length)],3000);
   await new Promise(r=>setTimeout(r,4000+Math.random()*3000));
@@ -631,13 +679,12 @@ async function moveBoy(){
 
 async function mainLoop(){
   initPositions();
-  girlHistory.push({x:girlX,y:girlY,time:performance.now()});
+  girlHistory.push({gx:girlGx,gy:girlGy,time:performance.now()});
   requestAnimationFrame(updateDogPosition);
   setTimeout(()=>showBubble(girlBubble,'아 집이 최고야~',2500),600);
   setTimeout(()=>showBubble(boyBubble,'배고파~',2500),1000);
   setTimeout(()=>showBubble(dogBubble,'멍멍~!',2000),1600);
   await new Promise(r=>setTimeout(r,3500));
-  // Two independent loops
   (async()=>{while(true)await moveGirl();})();
   (async()=>{while(true)await moveBoy();})();
 }
