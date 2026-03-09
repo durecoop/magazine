@@ -1,0 +1,1441 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>의성 상생의 사과 | 두레생협</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    font-size: 18px;
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: #fdf8f4;
+    color: #3a2a1f;
+    overflow-x: hidden;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    line-height: 1.7;
+  }
+
+  /* ── 폰트 크기 조절 패널 ── */
+  .font-control {
+    position: fixed;
+    top: 16px; left: 50%;
+    transform: translateX(-50%);
+    z-index: 200;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 16px;
+    padding: 12px 20px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: opacity 0.4s, transform 0.4s;
+  }
+  .font-control.hidden {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-20px);
+    pointer-events: none;
+  }
+  .font-control .fc-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #2c1810;
+    white-space: nowrap;
+  }
+  .font-control .fc-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 110px;
+    height: 6px;
+    border-radius: 3px;
+    background: linear-gradient(90deg, #e8d5c8, #c0392b);
+    outline: none;
+  }
+  .font-control .fc-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: #c0392b;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(192,57,43,0.3);
+  }
+  .font-control .fc-value {
+    font-size: 13px;
+    font-weight: 800;
+    color: #c0392b;
+    min-width: 36px;
+    text-align: center;
+  }
+  .font-control .fc-close {
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: #999;
+    cursor: pointer;
+    padding: 0 0 0 4px;
+    line-height: 1;
+  }
+  .font-control .fc-close:hover { color: #333; }
+
+  /* 폰트 조절 토글 버튼 */
+  .font-toggle {
+    position: fixed;
+    top: 16px; left: 16px;
+    z-index: 200;
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.9);
+    border: 1px solid rgba(0,0,0,0.08);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 800;
+    color: #c0392b;
+    transition: opacity 0.4s, transform 0.4s;
+  }
+  .font-toggle.hidden {
+    opacity: 0;
+    transform: scale(0.8);
+    pointer-events: none;
+  }
+
+  /* ── 스크롤 애니메이션 ── */
+  .reveal {
+    opacity: 0; transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal-left {
+    opacity: 0; transform: translateX(-40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal-right {
+    opacity: 0; transform: translateX(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal-scale {
+    opacity: 0; transform: scale(0.85);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible, .reveal-left.visible, .reveal-right.visible, .reveal-scale.visible {
+    opacity: 1; transform: none;
+  }
+
+  /* ── 타임라인 네비게이션 ── */
+  .timeline-nav {
+    position: fixed; right: 12px; top: 50%;
+    transform: translateY(-50%); z-index: 100;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .timeline-nav .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: rgba(0,0,0,0.12);
+    transition: all 0.3s; cursor: pointer;
+  }
+  .timeline-nav .dot.active {
+    background: #d4453b;
+    box-shadow: 0 0 8px rgba(212,69,59,0.4);
+    transform: scale(1.3);
+  }
+
+  /* ── 히어로 ── */
+  .hero {
+    position: relative; min-height: 100vh;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    text-align: center; padding: 60px 24px;
+    background: linear-gradient(180deg, #fff5ee 0%, #fdf8f4 100%);
+    overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      radial-gradient(circle at 30% 40%, rgba(212,69,59,0.06) 0%, transparent 50%),
+      radial-gradient(circle at 70% 60%, rgba(255,160,100,0.06) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: rgba(212,69,59,0.08);
+    border: 1px solid rgba(212,69,59,0.2);
+    color: #c0392b; padding: 6px 18px;
+    border-radius: 30px; font-size: 0.85rem;
+    font-weight: 600; letter-spacing: 1px;
+    margin-bottom: 28px;
+    animation: badgePulse 2.5s ease-in-out infinite;
+  }
+  @keyframes badgePulse {
+    0%,100% { box-shadow: 0 0 0 0 rgba(212,69,59,0.15); }
+    50% { box-shadow: 0 0 20px 4px rgba(212,69,59,0.08); }
+  }
+
+  .hero-apple {
+    font-size: 4rem; margin-bottom: 20px;
+    animation: appleBounce 3s ease-in-out infinite;
+  }
+  @keyframes appleBounce {
+    0%,100% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(-8px) rotate(-3deg); }
+    75% { transform: translateY(-4px) rotate(3deg); }
+  }
+
+  .hero-title {
+    font-size: 1.65rem; font-weight: 900;
+    line-height: 1.55; color: #2c1810;
+    margin-bottom: 20px;
+  }
+  .hero-title .hl { color: #c0392b; }
+  .hero-sub {
+    font-size: 1.05rem;
+    color: #8a6e5e;
+    line-height: 1.7; max-width: 340px;
+  }
+
+  .scroll-hint {
+    position: absolute; bottom: 30px; left: 50%;
+    transform: translateX(-50%);
+    display: flex; flex-direction: column;
+    align-items: center; gap: 8px;
+    animation: scrollB 2s ease-in-out infinite;
+  }
+  .scroll-hint span {
+    font-size: 0.75rem; color: rgba(0,0,0,0.2);
+    letter-spacing: 2px;
+  }
+  .scroll-arrow {
+    width: 18px; height: 18px;
+    border-right: 2px solid rgba(0,0,0,0.15);
+    border-bottom: 2px solid rgba(0,0,0,0.15);
+    transform: rotate(45deg);
+  }
+  @keyframes scrollB {
+    0%,100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+  }
+
+  /* ── 섹션 공통 ── */
+  section { padding: 70px 24px; max-width: 480px; margin: 0 auto; }
+  .section-label {
+    display: inline-block; font-size: 0.78rem;
+    color: #c0392b; letter-spacing: 3px;
+    font-weight: 700; margin-bottom: 16px;
+    position: relative; padding-left: 20px;
+  }
+  .section-label::before {
+    content: ''; position: absolute; left: 0; top: 50%;
+    transform: translateY(-50%);
+    width: 12px; height: 2px; background: #c0392b;
+  }
+  .section-title {
+    font-size: 1.45rem; font-weight: 800;
+    line-height: 1.55; color: #2c1810; margin-bottom: 20px;
+  }
+  .section-title .em { color: #c0392b; }
+  .section-text {
+    font-size: 1rem; color: #6b5245;
+    line-height: 1.85; margin-bottom: 16px;
+  }
+
+  /* ── 의성 사과 소개 카드 ── */
+  .apple-intro-card {
+    background: #fff;
+    border: 1px solid rgba(212,69,59,0.12);
+    border-radius: 20px; padding: 28px 22px;
+    margin: 28px 0;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+  }
+  .apple-intro-card .emoji-row {
+    font-size: 1.6rem; margin-bottom: 14px;
+  }
+  .apple-intro-card h3 {
+    font-size: 1.15rem; font-weight: 800;
+    color: #2c1810; margin-bottom: 12px; line-height: 1.5;
+  }
+  .apple-intro-card p {
+    font-size: 0.95rem; color: #6b5245;
+    line-height: 1.8;
+  }
+
+  /* ── 특징 카드 ── */
+  .feature-cards { display: flex; flex-direction: column; gap: 14px; margin: 24px 0; }
+  .feature-card {
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.05);
+    border-radius: 14px; padding: 22px; text-align: center;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.03);
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  .feature-card:hover {
+    border-color: rgba(212,69,59,0.15);
+    box-shadow: 0 4px 20px rgba(212,69,59,0.06);
+  }
+  .feature-icon { font-size: 1.8rem; margin-bottom: 10px; }
+  .feature-title {
+    font-size: 1.05rem; font-weight: 700;
+    color: #2c1810; margin-bottom: 8px;
+  }
+  .feature-desc {
+    font-size: 0.92rem; color: #8a6e5e;
+    line-height: 1.65;
+  }
+
+  /* ── 상생 스토리 ── */
+  .story-section {
+    background: linear-gradient(180deg, #fdf8f4, #fef0e6, #fdf8f4);
+    padding: 70px 24px; text-align: center;
+  }
+  .story-emoji { font-size: 2.8rem; margin-bottom: 20px; }
+  .story-title {
+    font-size: 1.4rem; font-weight: 800;
+    color: #2c1810; line-height: 1.6;
+    margin-bottom: 16px; max-width: 360px;
+    margin-left: auto; margin-right: auto;
+  }
+  .story-title .em { color: #c0392b; }
+  .story-text {
+    font-size: 0.98rem; color: #7a5e4f;
+    line-height: 1.85; max-width: 360px;
+    margin: 0 auto 12px;
+  }
+  .divider {
+    width: 40px; height: 2px;
+    background: rgba(212,69,59,0.25);
+    margin: 24px auto 0; border-radius: 1px;
+  }
+
+  /* ── 기획전 하이라이트 ── */
+  .promo-highlight {
+    background: linear-gradient(135deg, #c0392b 0%, #e74c3c 50%, #d35400 100%);
+    border-radius: 18px; padding: 32px 24px;
+    text-align: center; margin: 28px 0;
+    position: relative; overflow: hidden;
+    box-shadow: 0 8px 30px rgba(212,69,59,0.2);
+  }
+  .promo-highlight::before {
+    content: ''; position: absolute;
+    top: -50%; left: -50%; width: 200%; height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
+    animation: shine 4s ease-in-out infinite;
+  }
+  @keyframes shine {
+    0%,100% { transform: translate(-30%,-30%); }
+    50% { transform: translate(30%,30%); }
+  }
+  .promo-highlight .promo-num {
+    position: relative; z-index: 1;
+    font-size: 2.5rem; font-weight: 900;
+    color: #fff; line-height: 1.3;
+  }
+  .promo-highlight .promo-num small {
+    font-size: 1.1rem; font-weight: 700;
+  }
+  .promo-highlight .promo-msg {
+    position: relative; z-index: 1;
+    font-size: 1.08rem; font-weight: 700;
+    color: rgba(255,255,255,0.95);
+    margin-top: 12px; line-height: 1.6;
+  }
+  .promo-highlight .promo-sub {
+    position: relative; z-index: 1;
+    font-size: 0.92rem; color: rgba(255,255,255,0.8);
+    margin-top: 8px; line-height: 1.6;
+  }
+
+  /* ── 인용문 ── */
+  .quote-block {
+    border-left: 3px solid #c0392b;
+    padding: 18px 20px;
+    background: rgba(212,69,59,0.04);
+    border-radius: 0 12px 12px 0;
+    margin: 24px 0;
+  }
+  .quote-block p {
+    font-size: 1rem; color: #4a3428;
+    line-height: 1.75; font-weight: 500;
+  }
+
+  /* ── 참여 혜택 ── */
+  .benefit-row {
+    display: flex; gap: 12px; margin: 20px 0;
+  }
+  .benefit-item {
+    flex: 1; background: #fff;
+    border: 1px solid rgba(212,69,59,0.1);
+    border-radius: 14px; padding: 20px 14px;
+    text-align: center;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.03);
+  }
+  .benefit-item .b-icon { font-size: 1.5rem; margin-bottom: 8px; }
+  .benefit-item .b-title {
+    font-size: 0.95rem; font-weight: 700;
+    color: #2c1810; margin-bottom: 4px;
+  }
+  .benefit-item .b-desc {
+    font-size: 0.85rem; color: #8a6e5e;
+    line-height: 1.5;
+  }
+
+  /* ── 스텝 카드 ── */
+  .step-card {
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.05);
+    border-radius: 20px;
+    padding: 26px 22px;
+    margin: 20px 0;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    position: relative;
+  }
+  .step-card.primary {
+    border: 2px solid rgba(212,69,59,0.2);
+    box-shadow: 0 6px 28px rgba(212,69,59,0.08);
+  }
+  .step-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: rgba(212,69,59,0.1);
+    color: #c0392b;
+    font-size: 0.88rem;
+    font-weight: 900;
+    margin-bottom: 14px;
+  }
+  .step-card.primary .step-num {
+    background: #c0392b;
+    color: #fff;
+  }
+  .step-card h3 {
+    font-size: 1.15rem; font-weight: 800;
+    color: #2c1810; margin-bottom: 10px; line-height: 1.5;
+  }
+  .step-card p {
+    font-size: 0.95rem; color: #6b5245;
+    line-height: 1.8;
+  }
+  .step-card .step-tag {
+    display: inline-block;
+    background: #c0392b;
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+
+  /* ── 상품 카드 ── */
+  .product-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 18px 0 0;
+  }
+  .product-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: #fef8f4;
+    border: 1px solid rgba(212,69,59,0.08);
+    border-radius: 14px;
+    padding: 16px;
+  }
+  .product-item .prod-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+  }
+  .product-item .prod-info {
+    flex: 1;
+  }
+  .product-item .prod-name {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #2c1810;
+    margin-bottom: 4px;
+  }
+  .product-item .prod-spec {
+    font-size: 0.82rem;
+    color: #8a6e5e;
+    margin-bottom: 6px;
+  }
+  .product-item .prod-price-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .product-item .prod-original {
+    font-size: 0.82rem;
+    color: #b0a098;
+    text-decoration: line-through;
+  }
+  .product-item .prod-price {
+    font-size: 1.05rem;
+    font-weight: 900;
+    color: #c0392b;
+  }
+  .product-item .prod-discount {
+    display: inline-block;
+    background: #c0392b;
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 6px;
+  }
+
+  /* ── 1004기금 안내 ── */
+  .fund-info {
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 16px; padding: 24px 20px;
+    margin: 28px 0;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.03);
+  }
+  .fund-info .fund-badge {
+    display: inline-block;
+    background: rgba(212,69,59,0.08);
+    border: 1px solid rgba(212,69,59,0.15);
+    color: #c0392b; padding: 4px 12px;
+    border-radius: 20px; font-size: 0.82rem;
+    font-weight: 700; letter-spacing: 0.5px;
+    margin-bottom: 14px;
+  }
+  .fund-info h4 {
+    font-size: 1.08rem; font-weight: 700;
+    color: #2c1810; margin-bottom: 10px; line-height: 1.5;
+  }
+  .fund-info p {
+    font-size: 0.95rem; color: #7a5e4f;
+    line-height: 1.75;
+  }
+  .account-box {
+    background: #fef5f0;
+    border: 1px solid rgba(212,69,59,0.1);
+    border-radius: 10px; padding: 14px;
+    margin-top: 14px;
+  }
+  .account-box .bank {
+    font-size: 0.88rem; font-weight: 700;
+    color: #c0392b; margin-bottom: 3px;
+  }
+  .account-box .acct {
+    font-size: 1rem; font-weight: 800;
+    color: #2c1810; letter-spacing: 0.5px;
+    margin-bottom: 3px;
+  }
+  .account-box .acct-name {
+    font-size: 0.85rem; color: #8a6e5e;
+  }
+
+  /* ── CTA ── */
+  .cta-section {
+    text-align: center; padding: 50px 24px 80px;
+    max-width: 480px; margin: 0 auto;
+  }
+  .cta-top {
+    font-size: 0.82rem; color: #8a6e5e;
+    margin-bottom: 14px; line-height: 1.7;
+  }
+  .cta-button {
+    display: inline-block; width: 100%; max-width: 360px;
+    padding: 20px 24px;
+    background: linear-gradient(135deg, #d4453b, #c0392b);
+    color: #fff; font-size: 1.15rem; font-weight: 800;
+    text-decoration: none; border-radius: 14px;
+    text-align: center; line-height: 1.5;
+    box-shadow: 0 4px 24px rgba(212,69,59,0.25);
+    transition: transform 0.2s; position: relative;
+    overflow: hidden;
+  }
+  .cta-button::before {
+    content: ''; position: absolute;
+    top: 0; left: -100%; width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+    animation: ctaShine 3s ease-in-out infinite;
+  }
+  @keyframes ctaShine {
+    0% { left: -100%; } 50%,100% { left: 100%; }
+  }
+  .cta-button:active { transform: scale(0.97); }
+  .cta-sub {
+    font-size: 0.85rem; color: #a08878;
+    margin-top: 12px; line-height: 1.5;
+  }
+
+  /* ── 풋터 ── */
+  .footer {
+    text-align: center; padding: 30px 24px 50px;
+    border-top: 1px solid rgba(0,0,0,0.05);
+  }
+  .footer-logo {
+    font-size: 1rem; font-weight: 700;
+    color: #b09888; margin-bottom: 6px;
+  }
+  .footer-text {
+    font-size: 0.82rem; color: #c0a898;
+    line-height: 1.5;
+  }
+
+  /* ── 이미지 카드 ── */
+  .img-card {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    margin: 28px 0;
+    box-shadow: 0 6px 30px rgba(0,0,0,0.1);
+  }
+  .img-card img {
+    width: 100%;
+    display: block;
+  }
+  .img-card .img-caption {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 16px 18px;
+    background: linear-gradient(transparent, rgba(0,0,0,0.65));
+    color: #fff; font-size: 0.88rem;
+    font-weight: 500; line-height: 1.5;
+  }
+
+  /* 히어로 이미지 (풀폭) */
+  .hero-img-wrap {
+    position: relative;
+    margin: 28px -24px 0;
+    overflow: hidden;
+  }
+  .hero-img-wrap img {
+    width: 100%;
+    display: block;
+    max-height: 260px;
+    object-fit: cover;
+  }
+  .hero-img-wrap .img-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 50%, rgba(253,248,244,1) 100%);
+    pointer-events: none;
+  }
+
+  /* 사과 누끼 (플로팅) */
+  .apple-cutout {
+    text-align: center;
+    margin: 20px 0;
+  }
+  .apple-cutout img {
+    max-width: 280px;
+    width: 80%;
+    display: inline-block;
+    filter: drop-shadow(0 8px 20px rgba(0,0,0,0.1));
+    animation: floatApple 4s ease-in-out infinite;
+  }
+  @keyframes floatApple {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  /* 생산자 카드 */
+  .producer-card {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    background: #fff;
+    border-radius: 16px;
+    padding: 18px;
+    margin: 24px auto;
+    max-width: 380px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    border: 1px solid rgba(0,0,0,0.05);
+  }
+  .producer-card .producer-photo {
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 3px solid rgba(212,69,59,0.15);
+  }
+  .producer-card .producer-info h4 {
+    font-size: 1.02rem; font-weight: 700;
+    color: #2c1810; margin-bottom: 4px;
+  }
+  .producer-card .producer-info p {
+    font-size: 0.9rem; color: #8a6e5e;
+    line-height: 1.5;
+  }
+
+  /* 그룹 사진 카드 */
+  .group-photo {
+    border-radius: 16px;
+    overflow: hidden;
+    margin: 24px auto;
+    max-width: 380px;
+    box-shadow: 0 6px 30px rgba(0,0,0,0.08);
+    position: relative;
+  }
+  .group-photo img {
+    width: 100%;
+    display: block;
+  }
+  .group-photo .photo-label {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 14px 16px;
+    background: linear-gradient(transparent, rgba(0,0,0,0.6));
+    color: #fff;
+    font-size: 0.88rem;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  /* ── 떨어지는 사과 & 나뭇잎 ── */
+  .falling-bg {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .falling-item {
+    position: absolute;
+    top: -60px;
+    animation: fallingDown linear infinite;
+    will-change: transform;
+    filter: blur(0.3px);
+  }
+
+  .falling-item.layer-back {
+    opacity: 0.12;
+    filter: blur(1.5px);
+    z-index: 0;
+  }
+  .falling-item.layer-mid {
+    opacity: 0.2;
+    filter: blur(0.5px);
+    z-index: 1;
+  }
+  .falling-item.layer-front {
+    opacity: 0.3;
+    z-index: 2;
+  }
+
+  @keyframes fallingDown {
+    0% {
+      transform: translateY(-60px) rotate(0deg) translateX(0px);
+      opacity: 0;
+    }
+    5% { opacity: 1; }
+    90% { opacity: 1; }
+    100% {
+      transform: translateY(calc(100vh + 60px)) rotate(var(--rot)) translateX(var(--sway));
+      opacity: 0;
+    }
+  }
+
+  /* 나뭇잎 SVG */
+  .leaf-svg {
+    width: var(--size);
+    height: var(--size);
+  }
+
+  /* 콘텐츠가 떨어지는 배경 위에 오도록 */
+  .hero, section, .story-section, .cta-section, .footer {
+    position: relative;
+    z-index: 1;
+  }
+  .timeline-nav { z-index: 100; }
+
+  /* ── 미니게임: 산지 복구 ── */
+  .game-area {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+    aspect-ratio: 16 / 10;
+    border-radius: 16px;
+    overflow: hidden;
+    margin: 20px auto;
+    cursor: pointer;
+    box-shadow: 0 6px 30px rgba(0,0,0,0.12);
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+  }
+  .game-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .game-burned {
+    z-index: 1;
+    filter: grayscale(0.2) brightness(0.75);
+    transition: opacity 1s ease;
+  }
+  .game-restored {
+    z-index: 0;
+    filter: brightness(1.05) saturate(1.15);
+  }
+  .game-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: rgba(0,0,0,0.3);
+    transition: background 1s ease;
+  }
+  .game-area.done .game-overlay {
+    background: rgba(0,0,0,0);
+  }
+  .game-trees {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    pointer-events: none;
+  }
+  .game-tree {
+    position: absolute;
+    font-size: 0;
+    opacity: 0;
+    animation: treePlant 0.6s ease forwards;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+  }
+  @keyframes treePlant {
+    0% { font-size: 0; opacity: 0; transform: translateY(10px) scale(0); }
+    50% { font-size: inherit; opacity: 1; transform: translateY(-5px) scale(1.3); }
+    100% { font-size: inherit; opacity: 1; transform: translateY(0) scale(1); }
+  }
+  .game-counter {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 5;
+    background: rgba(0,0,0,0.55);
+    backdrop-filter: blur(6px);
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 6px 14px;
+    border-radius: 20px;
+  }
+  .game-hint {
+    position: absolute;
+    bottom: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+    background: rgba(255,255,255,0.9);
+    color: #2c1810;
+    font-size: 0.82rem;
+    font-weight: 700;
+    padding: 8px 18px;
+    border-radius: 20px;
+    animation: hintPulse 1.5s ease-in-out infinite;
+    white-space: nowrap;
+  }
+  @keyframes hintPulse {
+    0%, 100% { transform: translateX(-50%) scale(1); }
+    50% { transform: translateX(-50%) scale(1.05); box-shadow: 0 2px 12px rgba(0,0,0,0.1); }
+  }
+  .game-hint.hidden { display: none; }
+
+  /* 완료 메시지 */
+  .game-complete {
+    max-width: 420px;
+    margin: 0 auto;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+    pointer-events: none;
+    height: 0;
+    overflow: hidden;
+  }
+  .game-complete.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: all;
+    height: auto;
+    margin-top: 24px;
+    padding-bottom: 10px;
+  }
+  .game-complete-emoji {
+    font-size: 3rem;
+    margin-bottom: 12px;
+    animation: celebBounce 0.8s ease;
+  }
+  @keyframes celebBounce {
+    0% { transform: scale(0); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1); }
+  }
+  .game-complete-title {
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: #c0392b;
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+  .game-complete-msg {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #6b5245;
+    line-height: 1.7;
+  }
+
+  /* ── 반응형 ── */
+  @media (max-width: 360px) {
+    .hero-title { font-size: 1.45rem; }
+    .section-title { font-size: 1.3rem; }
+    .story-title { font-size: 1.25rem; }
+    .promo-highlight .promo-num { font-size: 2.2rem; }
+  }
+  @media (min-width: 481px) {
+    section { padding: 80px 32px; }
+    .hero-title { font-size: 1.9rem; }
+    .section-title { font-size: 1.6rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- 폰트 크기 조절 -->
+<div class="font-control" id="fontControl">
+  <span class="fc-label">글씨 크기</span>
+  <input type="range" class="fc-slider" id="fontSlider" min="14" max="24" value="18" step="1">
+  <span class="fc-value" id="fontValue">18px</span>
+  <button class="fc-close" id="fontClose" title="닫기">&times;</button>
+</div>
+<div class="font-toggle hidden" id="fontToggle" title="글씨 크기 조절">가</div>
+
+<!-- 떨어지는 사과 & 나뭇잎 배경 -->
+<div class="falling-bg" id="fallingBg"></div>
+
+<!-- 네비게이션 -->
+<nav class="timeline-nav" id="timelineNav">
+  <div class="dot active" data-section="0"></div>
+  <div class="dot" data-section="1"></div>
+  <div class="dot" data-section="2"></div>
+  <div class="dot" data-section="3"></div>
+  <div class="dot" data-section="4"></div>
+  <div class="dot" data-section="5"></div>
+  <div class="dot" data-section="6"></div>
+  <div class="dot" data-section="7"></div>
+</nav>
+
+<!-- ════════ 히어로 ════════ -->
+<header class="hero" data-nav="0">
+  <div class="hero-badge reveal">두레생협 상생 기획전</div>
+  <div class="hero-apple">🍎</div>
+
+  <h1 class="hero-title reveal">
+    <span class="hl">갑작스러운 화재</span>로<br>
+    멈춰 선 <strong>두레의성</strong>,<br>
+    그 어느 때보다<br>
+    <span class="hl">따뜻한 연대</span>가<br>
+    필요합니다.
+  </h1>
+
+  <p class="hero-sub reveal">
+    의성 상생의 사과 기획전<br>
+    마지막 3,000박스
+  </p>
+
+  <div class="hero-img-wrap reveal">
+    <img src="img/tip249t017547.jpg" alt="나무 상자에 담긴 의성 사과">
+    <div class="img-overlay"></div>
+  </div>
+
+  <div class="scroll-hint">
+    <span>SCROLL</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</header>
+
+<!-- ════════ 의성 사과 이야기 ════════ -->
+<section data-nav="1">
+  <h2 class="section-title reveal">
+    <span class="em">의성의 자연</span>이<br>
+    키워낸 사과
+  </h2>
+
+  <p class="section-text reveal">
+    경북 의성은 일교차가 크고
+    맑은 공기와 깨끗한 물이 흐르는
+    천혜의 과일 산지입니다.
+  </p>
+
+  <p class="section-text reveal">
+    두레생협 의성생산자회의
+    생산자님들은 오랜 세월
+    이 땅에서 정성을 다해
+    사과를 길러 왔습니다.
+  </p>
+
+  <div class="img-card reveal-scale">
+    <img src="img/tc00240025690.jpg" alt="의성 사과 수확 현장">
+    <div class="img-caption">정성껏 수확한 의성 사과, 조합원님의 식탁에 오를 날을 기다립니다</div>
+  </div>
+
+  <div class="feature-cards">
+    <div class="feature-card reveal-left">
+      <div class="feature-icon">🏔️</div>
+      <div class="feature-title">전국 3대 사과 산지, 의성</div>
+      <div class="feature-desc">
+        경북 내륙 분지 특유의 큰 일교차와
+        비옥한 토양이 만들어낸
+        높은 당도와 아삭한 식감,
+        의성 사과만의 자부심입니다.
+      </div>
+    </div>
+
+    <div class="feature-card reveal-right">
+      <div class="feature-icon">🤲</div>
+      <div class="feature-title">생산자의 정직한 손길</div>
+      <div class="feature-desc">
+        두레생협과 함께해 온
+        생산자님들의 신뢰와 정성이
+        한 알 한 알에 담겨 있습니다.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ 화재 이야기 ════════ -->
+<div class="story-section" data-nav="2">
+  <div class="story-emoji reveal-scale">🔥</div>
+
+  <h2 class="story-title reveal">
+    지난 <span class="em">1월 20일</span>,<br>
+    예기치 못한 화마가<br>
+    의성 생산지의 평온했던<br>
+    시간을 멈춰 세웠습니다.
+  </h2>
+
+  <p class="story-text reveal">
+    수확의 기쁨이 머물러야 할 자리에
+    차가운 재만 남은
+    절망적인 상황이었지만,
+    두레 의성 생산자님들은
+    조합원님들과의 소중한 약속을 지키기 위해
+    다시 운동화 끈을 꽉 매고
+    일어서고 계십니다.
+  </p>
+
+  <div class="group-photo reveal-scale" style="margin-top:24px;">
+    <img src="img/KakaoTalk_20260120_094224910_01.jpg" alt="의성 생산지 화재 현장">
+    <div class="photo-label">1월 20일, 의성 생산지 화재 현장</div>
+  </div>
+
+  <div class="producer-card reveal">
+    <img class="producer-photo" src="img/27694C.png" alt="박연목 생산자">
+    <div class="producer-info">
+      <h4>두레의성 박연목 생산자</h4>
+      <p>
+        조합원님들과의 약속,<br>
+        반드시 지키겠습니다.
+      </p>
+    </div>
+  </div>
+
+  <div class="group-photo reveal-scale">
+    <img src="img/IMG_5073.JPG" alt="의성생산자회 생산자님들">
+    <div class="photo-label">의성생산자회 생산자님들</div>
+  </div>
+
+  <div class="divider"></div>
+</div>
+
+<!-- ════════ 기획전 ════════ -->
+<section data-nav="3">
+  <div class="section-label reveal">SPECIAL EVENT</div>
+
+  <h2 class="section-title reveal">
+    <span class="em">상생의 사과</span>,<br>
+    함께 나누는 기획전
+  </h2>
+
+  <p class="section-text reveal">
+    지금, 의성 생산지가
+    다시 일어설 수 있도록 돕는
+    <strong>마지막 사과 3,000박스</strong>가
+    주인을 기다립니다.
+  </p>
+
+  <div class="apple-cutout reveal-scale">
+    <img src="img/ti357a9816_01.png" alt="의성 사과">
+  </div>
+
+  <div class="promo-highlight reveal-scale">
+    <div class="promo-num">3,000<small>박스</small></div>
+    <div class="promo-msg">
+      의성 상생의 사과가<br>
+      주인을 기다리고 있습니다
+    </div>
+    <div class="promo-sub">
+      단순한 이용을 넘어,<br>
+      생산자의 내일을 함께 만드는<br>
+      상생의 기획전입니다.
+    </div>
+  </div>
+
+  <div class="quote-block reveal">
+    <p>
+      이번 기획전은 단순한 이용을 넘어,
+      1004 기금과 연계로 생산자가
+      다시 내일을 준비할 수 있는
+      실질적인 복구의 밑거름이 됩니다.
+    </p>
+  </div>
+
+  <div class="benefit-row reveal">
+    <div class="benefit-item">
+      <div class="b-icon">🍎</div>
+      <div class="b-title">맛있는 사과</div>
+      <div class="b-desc">
+        의성의 자연이 키운<br>
+        달콤하고 아삭한 사과
+      </div>
+    </div>
+    <div class="benefit-item">
+      <div class="b-icon">💛</div>
+      <div class="b-title">의미 있는 소비</div>
+      <div class="b-desc">
+        내 이용 하나가<br>
+        생산자의 희망이 되는<br>
+        상생의 가치
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ 참여 방법 ════════ -->
+<section data-nav="4">
+  <div class="section-label reveal">HOW TO JOIN</div>
+
+  <h2 class="section-title reveal">
+    <span class="em">상생의 사과</span>,<br>
+    이렇게 함께해 주세요
+  </h2>
+
+  <!-- 첫 번째: 사과 기획전 이용 -->
+  <div class="step-card primary reveal">
+    <div>
+      <span class="step-num">1</span>
+      <span class="step-tag">가장 큰 응원</span>
+    </div>
+    <h3>🍎 의성 사과 기획전 이용하기</h3>
+    <p>
+      아래 링크를 클릭하여 접속한 뒤,
+      두레생협 쇼핑몰에서
+      의성 사과(5kg)를 주문해 주세요.
+      조합원님의 이용 하나하나가
+      생산자에게 가장 큰 힘이 됩니다.
+    </p>
+
+    <div class="product-list">
+      <div class="product-item">
+        <div class="prod-icon">🍎</div>
+        <div class="prod-info">
+          <div class="prod-name">두레 사과 (5kg)</div>
+          <div class="prod-price-row">
+            <span class="prod-original">58,500원</span>
+            <span class="prod-price">54,900원</span>
+            <span class="prod-discount">6% 할인</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 두 번째: 1004기금 -->
+  <div class="step-card reveal">
+    <span class="step-num">2</span>
+    <h3>💛 1004기금으로 더 깊은 연대</h3>
+    <p>
+      생활재 주문과 동일하게
+      1004기금을 주문하시거나,
+      계좌이체로도 참여 가능합니다.
+    </p>
+    <div class="account-box" style="margin-top:14px;">
+      <div class="bank">농협</div>
+      <div class="acct">301-0259-8505-71</div>
+      <div class="acct-name">
+        예금주: 사단법인 두레생산자회 기부금
+      </div>
+    </div>
+  </div>
+
+  <p class="section-text reveal" style="text-align:center; margin-top:20px; font-size:0.92rem; color:#a08878;">
+    모금 기간: ~2026.3.15(일)까지
+  </p>
+</section>
+
+<!-- ════════ 연대 메시지 ════════ -->
+<div class="story-section" data-nav="5">
+  <div class="story-emoji reveal-scale">🤝</div>
+
+  <h2 class="story-title reveal">
+    조합원님의<br>
+    <span class="em">가치 있는 선택 한 번</span>으로<br>
+    멈춰 선 의성 산지를<br>
+    다시 움직이는<br>
+    <span class="em">진정한 힘</span>이<br>
+    되어주세요.
+  </h2>
+
+  <p class="story-text reveal">
+    여러분의 따뜻한 연대가
+    의성 땅이 길러낸
+    정직한 결실을 지켜낼 수 있습니다.
+  </p>
+
+  <div class="divider"></div>
+</div>
+
+<!-- ════════ 미니게임: 의성 창고 복구하기 ════════ -->
+<section data-nav="6" style="text-align:center; padding-bottom:40px;">
+
+  <h2 class="section-title reveal" style="text-align:center;">
+    <span class="em">빈 창고</span>를<br>
+    다시 사과로 채워주세요
+  </h2>
+
+  <p class="section-text reveal" style="text-align:center;">
+    화재로 비워진 창고를 터치해서<br>
+    사과 상자를 채워보세요! 📦
+  </p>
+
+  <!-- 게임 영역 -->
+  <div class="game-area reveal-scale" id="gameArea">
+    <img class="game-bg game-burned" id="gameBurned" src="img/KakaoTalk_20260120_094224910_01.jpg" alt="화재 현장">
+    <img class="game-bg game-restored" id="gameRestored" src="img/tc00240025690.jpg" alt="가득 찬 창고">
+    <div class="game-overlay" id="gameOverlay"></div>
+    <div class="game-trees" id="gameTrees"></div>
+    <div class="game-counter" id="gameCounter">📦 0 / 10</div>
+    <div class="game-hint" id="gameHint">여기를 터치하세요!</div>
+  </div>
+
+  <!-- 복구 완료 메시지 -->
+  <div class="game-complete" id="gameComplete">
+    <div class="game-complete-emoji">🎉</div>
+    <div class="game-complete-title">
+      의성 창고가<br>다시 사과로 가득 찼습니다!
+    </div>
+    <div class="game-complete-msg">
+      소비가 곧 돕기입니다.<br>
+      조합원님의 작은 선택이<br>
+      생산자의 내일을 만듭니다.
+    </div>
+  </div>
+</section>
+
+<!-- ════════ CTA ════════ -->
+<div class="cta-section" data-nav="7">
+  <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1644#book4" class="cta-button reveal-scale">
+    🍎 상생의 사과 기획전<br>주문하러 가기
+  </a>
+
+  <div class="cta-sub reveal">
+    산안마을 · 의성생산자회 피해복구 1004기금 연계
+  </div>
+</div>
+
+<!-- ════════ 풋터 ════════ -->
+<footer class="footer">
+  <div class="footer-logo">두레생협</div>
+  <div class="footer-text">
+    생산자와 조합원이 함께 만드는 상생의 먹거리
+  </div>
+</footer>
+
+<script>
+  // ── 폰트 크기 조절 ──
+  (function() {
+    const slider = document.getElementById('fontSlider');
+    const value = document.getElementById('fontValue');
+    const control = document.getElementById('fontControl');
+    const toggle = document.getElementById('fontToggle');
+    const close = document.getElementById('fontClose');
+
+    slider.addEventListener('input', function() {
+      const size = this.value;
+      document.documentElement.style.fontSize = size + 'px';
+      value.textContent = size + 'px';
+    });
+
+    close.addEventListener('click', function() {
+      control.classList.add('hidden');
+      toggle.classList.remove('hidden');
+    });
+
+    toggle.addEventListener('click', function() {
+      control.classList.remove('hidden');
+      toggle.classList.add('hidden');
+    });
+
+    // 3초 후 자동 숨김
+    setTimeout(function() {
+      control.classList.add('hidden');
+      toggle.classList.remove('hidden');
+    }, 5000);
+  })();
+
+  // ── 떨어지는 사과 & 나뭇잎 생성 ──
+  (function() {
+    const container = document.getElementById('fallingBg');
+    const items = [
+      // 사과들
+      { type: 'emoji', content: '🍎' },
+      { type: 'emoji', content: '🍏' },
+      // 나뭇잎 SVG (다양한 색상)
+      { type: 'leaf', color: '#4a8c3f' },
+      { type: 'leaf', color: '#6aad5a' },
+      { type: 'leaf', color: '#c8762e' },
+      { type: 'leaf', color: '#d4943a' },
+      { type: 'leaf', color: '#9b5b2a' },
+      { type: 'leaf', color: '#e6a840' },
+    ];
+
+    const layers = ['layer-back', 'layer-mid', 'layer-front'];
+    const count = 16;
+
+    for (let i = 0; i < count; i++) {
+      const item = items[Math.floor(Math.random() * items.length)];
+      const layer = layers[Math.floor(Math.random() * 3)];
+      const el = document.createElement('div');
+      el.className = 'falling-item ' + layer;
+
+      const size = layer === 'layer-back' ? (14 + Math.random() * 10) :
+                   layer === 'layer-mid' ? (18 + Math.random() * 12) :
+                   (22 + Math.random() * 14);
+      const duration = layer === 'layer-back' ? (10 + Math.random() * 8) :
+                       layer === 'layer-mid' ? (7 + Math.random() * 6) :
+                       (5 + Math.random() * 5);
+
+      el.style.left = (Math.random() * 100) + '%';
+      el.style.animationDuration = duration + 's';
+      el.style.animationDelay = (Math.random() * 15) + 's';
+      el.style.setProperty('--rot', (180 + Math.random() * 360) + 'deg');
+      el.style.setProperty('--sway', (-40 + Math.random() * 80) + 'px');
+
+      if (item.type === 'emoji') {
+        el.style.fontSize = size + 'px';
+        el.style.lineHeight = '1';
+        el.textContent = item.content;
+      } else {
+        // 나뭇잎 SVG
+        el.innerHTML = '<svg class="leaf-svg" style="--size:' + size + 'px" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">' +
+          '<path d="M20 2C20 2 8 12 8 24C8 32 13.5 38 20 38C26.5 38 32 32 32 24C32 12 20 2 20 2Z" fill="' + item.color + '" opacity="0.85"/>' +
+          '<path d="M20 8V34" stroke="rgba(255,255,255,0.25)" stroke-width="0.8"/>' +
+          '<path d="M20 14L14 20" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>' +
+          '<path d="M20 18L26 24" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>' +
+          '<path d="M20 24L15 28" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>' +
+          '</svg>';
+      }
+
+      container.appendChild(el);
+    }
+  })();
+
+  // 스크롤 reveal
+  const revealEls = document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.reveal-scale');
+  const rObs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.15, rootMargin: '0px 0px -30px 0px' });
+  revealEls.forEach(el => rObs.observe(el));
+
+  // 타임라인 네비게이션
+  const dots = document.querySelectorAll('.timeline-nav .dot');
+  const secs = document.querySelectorAll('[data-nav]');
+  const nObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const idx = e.target.getAttribute('data-nav');
+        dots.forEach(d => d.classList.remove('active'));
+        const ad = document.querySelector(`.dot[data-section="${idx}"]`);
+        if (ad) ad.classList.add('active');
+      }
+    });
+  }, { threshold: 0.3 });
+  secs.forEach(s => nObs.observe(s));
+  dots.forEach(d => d.addEventListener('click', () => {
+    const t = document.querySelector(`[data-nav="${d.getAttribute('data-section')}"]`);
+    if (t) t.scrollIntoView({ behavior: 'smooth' });
+  }));
+
+  // ── 미니게임: 사과 상자 채우기 ──
+  (function() {
+    const area = document.getElementById('gameArea');
+    const burned = document.getElementById('gameBurned');
+    const trees = document.getElementById('gameTrees');
+    const counter = document.getElementById('gameCounter');
+    const hint = document.getElementById('gameHint');
+    const overlay = document.getElementById('gameOverlay');
+    const complete = document.getElementById('gameComplete');
+    const total = 10;
+    let planted = 0;
+    let done = false;
+
+    const boxEmojis = ['📦', '🍎', '🍎', '📦', '🍏', '🧃'];
+
+    area.addEventListener('click', function(e) {
+      if (done) return;
+
+      // 터치/클릭 위치 계산
+      const rect = area.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+
+      // 상자 채우기
+      planted++;
+      const box = document.createElement('div');
+      box.className = 'game-tree';
+      box.textContent = boxEmojis[Math.floor(Math.random() * boxEmojis.length)];
+      const size = 1.4 + Math.random() * 1;
+      box.style.fontSize = size + 'rem';
+      box.style.left = Math.max(5, Math.min(90, x)) + '%';
+      box.style.top = Math.max(10, Math.min(85, y)) + '%';
+      box.style.transform = 'translate(-50%, -50%)';
+      trees.appendChild(box);
+
+      // 힌트 숨기기
+      if (planted >= 2) hint.classList.add('hidden');
+
+      // 카운터 업데이트
+      counter.textContent = '📦 ' + Math.min(planted, total) + ' / ' + total;
+
+      // 배경 서서히 복구
+      const progress = Math.min(planted / total, 1);
+      burned.style.opacity = 1 - progress;
+      overlay.style.background = 'rgba(0,0,0,' + (0.3 * (1 - progress)) + ')';
+
+      // 완료
+      if (planted >= total && !done) {
+        done = true;
+        area.classList.add('done');
+        counter.textContent = '🎉 복구 완료!';
+
+        setTimeout(() => {
+          complete.classList.add('show');
+        }, 600);
+      }
+    });
+  })();
+</script>
+</body>
+</html>
