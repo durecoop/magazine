@@ -10,7 +10,7 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   html {
-    font-size: 18px;
+    font-size: 24px;
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
   }
@@ -294,6 +294,35 @@
     line-height: 1.65;
   }
 
+  /* ── 이렇게 드세요 카드 ── */
+  .enjoy-cards { display: flex; flex-direction: column; gap: 14px; margin: 24px 0; }
+  .enjoy-card {
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.05);
+    border-radius: 14px; padding: 22px; text-align: center;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.03);
+    transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+  }
+  .enjoy-card:hover {
+    border-color: rgba(212,69,59,0.15);
+    box-shadow: 0 4px 20px rgba(212,69,59,0.06);
+    transform: translateY(-2px);
+  }
+  .enjoy-card img {
+    width: 100%; border-radius: 10px;
+    margin-bottom: 12px; object-fit: cover;
+    max-height: 200px;
+  }
+  .enjoy-icon { font-size: 1.8rem; margin-bottom: 10px; }
+  .enjoy-title {
+    font-size: 1.05rem; font-weight: 700;
+    color: #2c1810; margin-bottom: 8px;
+  }
+  .enjoy-desc {
+    font-size: 0.92rem; color: #8a6e5e;
+    line-height: 1.65;
+  }
+
   /* ── 상생 스토리 ── */
   .story-section {
     background: linear-gradient(180deg, #fdf8f4, #fef0e6, #fdf8f4);
@@ -442,6 +471,75 @@
   }
 
   /* ── 상품 카드 ── */
+  /* ── 가격 비교 ── */
+  .price-compare {
+    background: #fef8f4;
+    border: 1px solid rgba(212,69,59,0.1);
+    border-radius: 14px;
+    padding: 20px 16px;
+    margin-top: 16px;
+    text-align: center;
+  }
+  .compare-title {
+    font-size: 0.88rem; font-weight: 700;
+    color: #8a6e5e; margin-bottom: 14px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .compare-row {
+    display: flex; align-items: center;
+    justify-content: center; gap: 10px;
+  }
+  .compare-item {
+    flex: 1; background: #fff;
+    border-radius: 10px; padding: 14px 10px;
+    border: 1px solid rgba(0,0,0,0.05);
+  }
+  .compare-item.highlight {
+    border-color: rgba(212,69,59,0.25);
+    background: rgba(212,69,59,0.04);
+  }
+  .compare-label {
+    font-size: 0.82rem; color: #8a6e5e;
+    margin-bottom: 6px;
+  }
+  .compare-price {
+    font-size: 0.95rem; color: #2c1810;
+  }
+  .compare-price strong { color: #c0392b; }
+  .compare-item.highlight .compare-price strong {
+    font-size: 1.05rem;
+  }
+  .compare-sub {
+    font-size: 0.78rem; color: #a08878;
+    margin-top: 4px;
+  }
+  .compare-arrow {
+    font-size: 1.2rem; color: #c0392b;
+    font-weight: 700; flex-shrink: 0;
+  }
+  .compare-saving {
+    margin-top: 12px;
+    font-size: 0.88rem; color: #6b5245;
+  }
+  .compare-saving strong { color: #c0392b; }
+
+  /* ── 가격 비교 깜빡임 ── */
+  .blink-price {
+    font-size: 1.3rem;
+    animation: priceGlow 1.5s ease-in-out infinite;
+  }
+  @keyframes priceGlow {
+    0%, 100% { opacity: 1; text-shadow: 0 0 0 transparent; }
+    50% { opacity: 0.6; text-shadow: 0 0 12px rgba(192,57,43,0.5); }
+  }
+  .pulse-glow {
+    animation: boxPulse 2s ease-in-out infinite;
+  }
+  @keyframes boxPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(192,57,43,0); border-color: rgba(212,69,59,0.1); }
+    50% { box-shadow: 0 0 16px 2px rgba(192,57,43,0.12); border-color: rgba(212,69,59,0.3); }
+  }
+
   .product-list {
     display: flex;
     flex-direction: column;
@@ -916,8 +1014,8 @@
 <!-- 폰트 크기 조절 -->
 <div class="font-control" id="fontControl">
   <span class="fc-label">글씨 크기</span>
-  <input type="range" class="fc-slider" id="fontSlider" min="14" max="24" value="18" step="1">
-  <span class="fc-value" id="fontValue">18px</span>
+  <input type="range" class="fc-slider" id="fontSlider" min="14" max="24" value="24" step="1">
+  <span class="fc-value" id="fontValue">24px</span>
   <button class="fc-close" id="fontClose" title="닫기">&times;</button>
 </div>
 <div class="font-toggle hidden" id="fontToggle" title="글씨 크기 조절">가</div>
@@ -974,16 +1072,8 @@
   </h2>
 
   <p class="section-text reveal">
-    경북 의성은 일교차가 크고
-    맑은 공기와 깨끗한 물이 흐르는
-    천혜의 과일 산지입니다.
-  </p>
-
-  <p class="section-text reveal">
-    두레생협 의성생산자회의
-    생산자님들은 오랜 세월
-    이 땅에서 정성을 다해
-    사과를 길러 왔습니다.
+    큰 일교차와 맑은 공기, 비옥한 토양.
+    의성 생산자님들이 정성으로 길러낸 사과입니다.
   </p>
 
   <div class="img-card reveal-scale">
@@ -991,25 +1081,27 @@
     <div class="img-caption">정성껏 수확한 의성 사과, 조합원님의 식탁에 오를 날을 기다립니다</div>
   </div>
 
+  <div class="img-card reveal-scale">
+    <img src="img/tip004t102164.jpg" alt="의성 사과나무">
+    <div class="img-caption">의성의 맑은 공기 속에서 탐스럽게 익어가는 사과</div>
+  </div>
+
   <div class="feature-cards">
     <div class="feature-card reveal-left">
-      <div class="feature-icon">🏔️</div>
+      <img src="img/cm260037368.jpg" alt="의성 사과" style="width:100%; border-radius:10px; margin-bottom:12px; object-fit:cover; max-height:180px;">
       <div class="feature-title">전국 3대 사과 산지, 의성</div>
       <div class="feature-desc">
-        경북 내륙 분지 특유의 큰 일교차와
-        비옥한 토양이 만들어낸
-        높은 당도와 아삭한 식감,
-        의성 사과만의 자부심입니다.
+        큰 일교차가 만들어낸
+        높은 당도와 아삭한 식감
       </div>
     </div>
 
     <div class="feature-card reveal-right">
-      <div class="feature-icon">🤲</div>
+      <img src="img/tc02500000202.jpg" alt="생산자의 손길" style="width:100%; border-radius:10px; margin-bottom:12px; object-fit:cover; max-height:180px;">
       <div class="feature-title">생산자의 정직한 손길</div>
       <div class="feature-desc">
         두레생협과 함께해 온
-        생산자님들의 신뢰와 정성이
-        한 알 한 알에 담겨 있습니다.
+        신뢰와 정성이 담긴 한 알
       </div>
     </div>
   </div>
@@ -1027,13 +1119,8 @@
   </h2>
 
   <p class="story-text reveal">
-    수확의 기쁨이 머물러야 할 자리에
-    차가운 재만 남은
-    절망적인 상황이었지만,
-    두레 의성 생산자님들은
-    조합원님들과의 소중한 약속을 지키기 위해
-    다시 운동화 끈을 꽉 매고
-    일어서고 계십니다.
+    절망적인 상황 속에서도
+    생산자님들은 다시 일어서고 계십니다.
   </p>
 
   <div class="group-photo reveal-scale" style="margin-top:24px;">
@@ -1052,10 +1139,6 @@
     </div>
   </div>
 
-  <div class="group-photo reveal-scale">
-    <img src="img/IMG_5073.JPG" alt="의성생산자회 생산자님들">
-    <div class="photo-label">의성생산자회 생산자님들</div>
-  </div>
 
   <div class="divider"></div>
 </div>
@@ -1070,10 +1153,7 @@
   </h2>
 
   <p class="section-text reveal">
-    지금, 의성 생산지가
-    다시 일어설 수 있도록 돕는
-    <strong>마지막 사과 3,000박스</strong>가
-    주인을 기다립니다.
+    <strong>마지막 3,000박스</strong>가 주인을 기다립니다.
   </p>
 
   <div class="apple-cutout reveal-scale">
@@ -1083,42 +1163,26 @@
   <div class="promo-highlight reveal-scale">
     <div class="promo-num">3,000<small>박스</small></div>
     <div class="promo-msg">
-      의성 상생의 사과가<br>
-      주인을 기다리고 있습니다
-    </div>
-    <div class="promo-sub">
-      단순한 이용을 넘어,<br>
       생산자의 내일을 함께 만드는<br>
-      상생의 기획전입니다.
+      상생의 기획전
     </div>
   </div>
 
-  <div class="quote-block reveal">
-    <p>
-      이번 기획전은 단순한 이용을 넘어,
-      1004 기금과 연계로 생산자가
-      다시 내일을 준비할 수 있는
-      실질적인 복구의 밑거름이 됩니다.
-    </p>
+  <div class="img-card reveal-scale">
+    <img src="img/tip004t102196.jpg" alt="사과 수확 상자">
+    <div class="img-caption">수확한 사과가 가득 담긴 의성 과수원</div>
   </div>
 
   <div class="benefit-row reveal">
     <div class="benefit-item">
       <div class="b-icon">🍎</div>
       <div class="b-title">맛있는 사과</div>
-      <div class="b-desc">
-        의성의 자연이 키운<br>
-        달콤하고 아삭한 사과
-      </div>
+      <div class="b-desc">달콤하고 아삭한 의성 사과</div>
     </div>
     <div class="benefit-item">
       <div class="b-icon">💛</div>
       <div class="b-title">의미 있는 소비</div>
-      <div class="b-desc">
-        내 이용 하나가<br>
-        생산자의 희망이 되는<br>
-        상생의 가치
-      </div>
+      <div class="b-desc">내 이용 하나가 생산자의 희망</div>
     </div>
   </div>
 </section>
@@ -1140,11 +1204,8 @@
     </div>
     <h3>🍎 의성 사과 기획전 이용하기</h3>
     <p>
-      아래 링크를 클릭하여 접속한 뒤,
       두레생협 쇼핑몰에서
       의성 사과(5kg)를 주문해 주세요.
-      조합원님의 이용 하나하나가
-      생산자에게 가장 큰 힘이 됩니다.
     </p>
 
     <div class="product-list">
@@ -1160,24 +1221,21 @@
         </div>
       </div>
     </div>
+
+    <div class="price-compare reveal pulse-glow">
+      <p style="font-size:0.9rem; color:#6b5245; line-height:1.7; margin:0;">
+        기존 해찬 사과(1.5kg) 17,900원 대비
+      </p>
+      <p style="font-size:1.05rem; color:#c0392b; font-weight:800; margin:6px 0 0;">
+        약 <span class="blink-price">4,800원</span> 더 저렴합니다
+      </p>
+    </div>
   </div>
 
-  <!-- 두 번째: 1004기금 -->
-  <div class="step-card reveal">
-    <span class="step-num">2</span>
-    <h3>💛 1004기금으로 더 깊은 연대</h3>
-    <p>
-      생활재 주문과 동일하게
-      1004기금을 주문하시거나,
-      계좌이체로도 참여 가능합니다.
-    </p>
-    <div class="account-box" style="margin-top:14px;">
-      <div class="bank">농협</div>
-      <div class="acct">301-0259-8505-71</div>
-      <div class="acct-name">
-        예금주: 사단법인 두레생산자회 기부금
-      </div>
-    </div>
+
+  <div class="img-card reveal-scale" style="margin-top:24px;">
+    <img src="img/tip004t102200.jpg" alt="사과 수확하는 손">
+    <div class="img-caption">한 알 한 알, 생산자의 정성이 담긴 손길</div>
   </div>
 
   <p class="section-text reveal" style="text-align:center; margin-top:20px; font-size:0.92rem; color:#a08878;">
@@ -1185,27 +1243,34 @@
   </p>
 </section>
 
-<!-- ════════ 연대 메시지 ════════ -->
-<div class="story-section" data-nav="5">
-  <div class="story-emoji reveal-scale">🤝</div>
+<!-- ════════ 이렇게 드세요 ════════ -->
+<section data-nav="5">
+  <div class="section-label reveal">HOW TO ENJOY</div>
 
-  <h2 class="story-title reveal">
-    조합원님의<br>
-    <span class="em">가치 있는 선택 한 번</span>으로<br>
-    멈춰 선 의성 산지를<br>
-    다시 움직이는<br>
-    <span class="em">진정한 힘</span>이<br>
-    되어주세요.
+  <h2 class="section-title reveal">
+    의성 사과,<br>
+    <span class="em">이렇게 드세요</span>
   </h2>
 
-  <p class="story-text reveal">
-    여러분의 따뜻한 연대가
-    의성 땅이 길러낸
-    정직한 결실을 지켜낼 수 있습니다.
-  </p>
+  <div class="enjoy-cards">
+    <div class="enjoy-card reveal">
+      <img src="img/tis101e15060063.jpg" alt="사과 주스">
+      <h3 class="enjoy-title">귀리유와 함께 갈아 마시기</h3>
+      <p class="enjoy-desc">사과 + 귀리유 한 컵, 블렌더에 갈면 고소달콤한 아침 한 잔</p>
+    </div>
+    <div class="enjoy-card reveal">
+      <img src="img/cm08067965.jpg" alt="탐스러운 사과 한 상자">
+      <h3 class="enjoy-title">마음 담은 선물로</h3>
+      <p class="enjoy-desc">건강과 상생의 마음을 함께 전하는 선물</p>
+    </div>
+    <div class="enjoy-card reveal">
+      <img src="img/cm08640600.jpg" alt="사과 샐러드">
+      <h3 class="enjoy-title">샐러드에 곁들여서</h3>
+      <p class="enjoy-desc">얇게 썰어 채소 샐러드에 올리면 한 끼가 풍성</p>
+    </div>
+  </div>
+</section>
 
-  <div class="divider"></div>
-</div>
 
 <!-- ════════ 미니게임: 의성 창고 복구하기 ════════ -->
 <section data-nav="6" style="text-align:center; padding-bottom:40px;">
@@ -1272,10 +1337,14 @@
     const toggle = document.getElementById('fontToggle');
     const close = document.getElementById('fontClose');
 
-    slider.addEventListener('input', function() {
-      const size = this.value;
+    function applyFontSize(size) {
       document.documentElement.style.fontSize = size + 'px';
       value.textContent = size + 'px';
+    }
+    applyFontSize(slider.value);
+
+    slider.addEventListener('input', function() {
+      applyFontSize(this.value);
     });
 
     close.addEventListener('click', function() {
