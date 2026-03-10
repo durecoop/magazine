@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>수요특가 - 11주차</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            font-size: 18px;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            min-height: 100dvh;
+            padding: 0;
+            word-break: keep-all;
+        }
+
+        .card-container {
+            width: 100%;
+            max-width: 480px;
+            background: #ffffff;
+            overflow: hidden;
+            min-height: 100vh;
+            min-height: 100dvh;
+        }
+
+        @media (min-width: 481px) {
+            body { padding: 20px; align-items: center; }
+            .card-container {
+                border-radius: 24px;
+                min-height: auto;
+                box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12);
+            }
+        }
+
+        /* ===== 헤더 ===== */
+        .slide-header {
+            background: linear-gradient(135deg, #e84430, #ff6b50, #ff8c60);
+            padding: 36px 20px 28px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide-header::before {
+            content: '';
+            position: absolute;
+            top: -40px;
+            right: -40px;
+            width: 120px;
+            height: 120px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .slide-header::after {
+            content: '';
+            position: absolute;
+            bottom: -30px;
+            left: -20px;
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+        }
+
+        .badge-wed {
+            display: inline-block;
+            background: #fff;
+            color: #e84430;
+            font-size: 15px;
+            font-weight: 700;
+            padding: 7px 20px;
+            border-radius: 50px;
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+            box-shadow: 0 2px 8px rgba(232, 68, 48, 0.2);
+        }
+
+        .date-text {
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .header-title {
+            color: #fff;
+            font-size: 28px;
+            font-weight: 900;
+            line-height: 1.35;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-title .highlight {
+            display: block;
+            font-size: 38px;
+            margin-top: 6px;
+        }
+
+        /* ===== 타이머 ===== */
+        .timer-bar {
+            background: #FFF5F0;
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .timer-label {
+            font-size: 16px;
+            font-weight: 700;
+            color: #e84430;
+        }
+
+        .timer-display {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+        }
+
+        .timer-box {
+            background: #e84430;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 900;
+            padding: 5px 10px;
+            border-radius: 6px;
+            min-width: 36px;
+            text-align: center;
+        }
+
+        .timer-colon {
+            color: #e84430;
+            font-weight: 900;
+            font-size: 18px;
+            line-height: 32px;
+        }
+
+        .timer-end-note {
+            font-size: 14px;
+            color: #e84430;
+            font-weight: 600;
+        }
+
+        /* ===== 상품 카드 ===== */
+        .product-block {
+            padding: 28px 20px 8px;
+            background: #fff;
+        }
+
+        .product-image-wrap {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .product-image-wrap img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            display: block;
+        }
+
+        .product-image-wrap .discount-sticker {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            width: 90px;
+            height: 90px;
+            background: #e84430;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(232, 68, 48, 0.5);
+            animation: stickerPulse 2s ease-in-out infinite;
+        }
+
+        .discount-sticker .disc-num {
+            font-size: 34px;
+            font-weight: 900;
+            color: #fff;
+            line-height: 1;
+        }
+
+        .discount-sticker .disc-label {
+            font-size: 13px;
+            font-weight: 700;
+            color: rgba(255,255,255,0.9);
+            letter-spacing: 1px;
+        }
+
+        @keyframes stickerPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+
+        .product-image-wrap .limit-badge {
+            position: absolute;
+            bottom: 14px;
+            left: 14px;
+            background: rgba(0,0,0,0.7);
+            color: #ffd700;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 6px 14px;
+            border-radius: 20px;
+            backdrop-filter: blur(4px);
+        }
+
+        .product-detail {
+            margin-bottom: 8px;
+        }
+
+        .product-detail-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            margin-bottom: 2px;
+        }
+
+        .product-name {
+            font-size: 20px;
+            font-weight: 800;
+            color: #222;
+        }
+
+        .product-desc {
+            font-size: 14px;
+            color: #999;
+            font-weight: 500;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .product-price-area {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .price-original {
+            font-size: 18px;
+            color: #bbb;
+            text-decoration: line-through;
+        }
+
+        .price-sale {
+            font-size: 36px;
+            font-weight: 900;
+            color: #e84430;
+            line-height: 1.1;
+        }
+
+        .price-sale .won {
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .savings-tag {
+            display: inline-block;
+            margin-left: 4px;
+            background: #FFF0F0;
+            color: #e84430;
+            font-size: 14px;
+            font-weight: 700;
+            padding: 5px 12px;
+            border-radius: 12px;
+        }
+
+        /* ===== 구분선 ===== */
+        .divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, #eee, transparent);
+            margin: 0 20px;
+        }
+
+        .section-divider {
+            height: 10px;
+            background: #f7f7f7;
+        }
+
+        /* ===== 보너스 ===== */
+        .bonus-block {
+            padding: 28px 20px;
+            background: #fff;
+        }
+
+        .bonus-header {
+            text-align: center;
+            margin-bottom: 18px;
+        }
+
+        .bonus-badge {
+            display: inline-block;
+            background: #E8F5E9;
+            color: #2E7D32;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 6px 16px;
+            border-radius: 20px;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .bonus-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: #222;
+        }
+
+        .bonus-title .accent {
+            color: #2E7D32;
+        }
+
+        .bonus-card {
+            border-radius: 16px;
+            overflow: hidden;
+            border: 2px solid #C8E6C9;
+            background: #F0FAF0;
+        }
+
+        .bonus-card-img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            display: block;
+        }
+
+        .bonus-card-body {
+            padding: 20px;
+        }
+
+        .bonus-name {
+            font-size: 20px;
+            font-weight: 800;
+            color: #222;
+            margin-bottom: 6px;
+        }
+
+        .bonus-discount-tag {
+            display: inline-block;
+            background: #2E7D32;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 700;
+            padding: 4px 14px;
+            border-radius: 8px;
+            margin-bottom: 14px;
+        }
+
+        .bonus-features {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .bonus-feature {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            font-size: 15px;
+            color: #444;
+            font-weight: 500;
+            line-height: 1.55;
+        }
+
+        .bonus-feature .bf-icon {
+            font-size: 18px;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .bonus-feature strong {
+            color: #222;
+            font-weight: 700;
+        }
+
+        /* ===== CTA ===== */
+        .slide-cta {
+            padding: 24px 20px 32px;
+            text-align: center;
+        }
+
+        .cta-button {
+            display: block;
+            width: 100%;
+            padding: 18px 20px;
+            background: linear-gradient(135deg, #e84430, #d63020);
+            color: #fff;
+            font-size: 20px;
+            font-weight: 800;
+            border: none;
+            border-radius: 14px;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            box-shadow: 0 6px 20px rgba(232, 68, 48, 0.35);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button:hover, .cta-button:active {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(232, 68, 48, 0.45);
+        }
+
+        .cta-button::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            50% { left: 100%; }
+            100% { left: 100%; }
+        }
+
+        .cta-sub {
+            margin-top: 12px;
+            font-size: 14px;
+            color: #999;
+            font-weight: 500;
+        }
+
+        /* ===== 하단 safe area ===== */
+        .bottom-safe {
+            height: env(safe-area-inset-bottom, 0px);
+        }
+    </style>
+</head>
+<body>
+    <div class="card-container">
+
+        <!-- 헤더 -->
+        <div class="slide-header">
+            <div class="badge-wed">수요 특가</div>
+            <div class="date-text">2026. 3. 11 (수) 오후 7시 마감!</div>
+            <div class="header-title">
+                매주 수요일,<br>놓치면 후회하는
+                <span class="highlight">수요특가</span>
+            </div>
+        </div>
+
+        <!-- 타이머 -->
+        <div class="timer-bar">
+            <span class="timer-label">마감까지</span>
+            <div class="timer-display">
+                <span class="timer-box" id="hours">00</span>
+                <span class="timer-colon">:</span>
+                <span class="timer-box" id="minutes">00</span>
+                <span class="timer-colon">:</span>
+                <span class="timer-box" id="seconds">00</span>
+            </div>
+            <span class="timer-end-note">3/11(수) 오후 7시</span>
+        </div>
+
+        <!-- ===== 상품 1: 파김치 ===== -->
+        <div class="product-block">
+            <div class="product-image-wrap">
+                <img src="img/59123A.jpg" alt="파김치">
+                <div class="discount-sticker">
+                    <span class="disc-num">20%</span>
+                    <span class="disc-label">할인</span>
+                </div>
+            </div>
+            <div class="product-detail">
+                <div class="product-detail-top">
+                    <div class="product-name">파김치 (1kg)</div>
+                </div>
+                <div class="product-desc">아삭한 파, 감칠맛 양념의 밥도둑</div>
+                <div class="product-price-area">
+                    <span class="price-original">16,900원</span>
+                    <span class="price-sale">13,500<span class="won">원</span></span>
+                    <span class="savings-tag">3,400원 절약</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- ===== 상품 2: 식혜 ===== -->
+        <div class="product-block">
+            <div class="product-image-wrap">
+                <img src="img/40137C.png" alt="식혜">
+                <div class="discount-sticker">
+                    <span class="disc-num">30%</span>
+                    <span class="disc-label">할인</span>
+                </div>
+                <div class="limit-badge">한정 300세트</div>
+            </div>
+            <div class="product-detail">
+                <div class="product-detail-top">
+                    <div class="product-name">식혜 3병 (알뜰)</div>
+                </div>
+                <div class="product-desc">엿기름 발효 전통 음료, 온 가족 간식</div>
+                <div class="product-price-area">
+                    <span class="price-original">14,100원</span>
+                    <span class="price-sale">9,900<span class="won">원</span></span>
+                    <span class="savings-tag">4,200원 절약</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- ===== 상품 3: 콤부차 ===== -->
+        <div class="product-block">
+            <div class="product-image-wrap">
+                <img src="img/52075C.jpg" alt="유기농 녹차 콤부차">
+                <div class="discount-sticker">
+                    <span class="disc-num">31%</span>
+                    <span class="disc-label">할인</span>
+                </div>
+            </div>
+            <div class="product-detail">
+                <div class="product-detail-top">
+                    <div class="product-name">유기농 녹차 콤부차</div>
+                </div>
+                <div class="product-desc">톡 쏘는 탄산감, 은은한 녹차 향</div>
+                <div class="product-price-area">
+                    <span class="price-original">5,800원</span>
+                    <span class="price-sale">4,000<span class="won">원</span></span>
+                    <span class="savings-tag">1,800원 절약</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- ===== 보너스: 채식자장면 ===== -->
+        <div class="bonus-block">
+            <div class="bonus-header">
+                <div class="bonus-badge">이번 주 함께 할인</div>
+                <div class="bonus-title">수요특가 생활재와 함께 즐기는 <span class="accent">채식자장면</span></div>
+            </div>
+            <div class="bonus-card">
+                <img class="bonus-card-img" src="img/51488C.jpg" alt="채식자장면">
+                <div class="bonus-card-body">
+                    <div class="bonus-name">채식자장면 (4종)</div>
+                    <div class="bonus-discount-tag" style="font-size:18px; padding:8px 20px; animation: stickerPulse 2s ease-in-out infinite;">10% 할인</div>
+                    <div class="bonus-features">
+                        <div class="bonus-feature">
+                            <span class="bf-icon">🌿</span>
+                            <span><strong>100% 식물성 재료</strong>로 만든 건강한 자장면</span>
+                        </div>
+                        <div class="bonus-feature">
+                            <span class="bf-icon">🍜</span>
+                            <span><strong>국내산 감자와 쌀</strong>을 주재료로 쫄깃~하게 만든 면</span>
+                        </div>
+                        <div class="bonus-feature">
+                            <span class="bf-icon">🥡</span>
+                            <span>고기 없이 <strong>채소만으로 감칠맛을 낸 자장소스</strong>와 풍미유</span>
+                        </div>
+                        <div class="bonus-feature">
+                            <span class="bf-icon">👨‍👩‍👧‍👦</span>
+                            <span>아이부터 어른까지, <strong>온 가족 간편식</strong>으로 추천</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- CTA -->
+        <div class="slide-cta">
+            <a href="https://ecoop.or.kr" class="cta-button" target="_blank">
+                지금 주문하기 &gt;
+            </a>
+            <p class="cta-sub">* 3/11(수) 오후 7시까지 진행되는 한정 특가입니다</p>
+        </div>
+
+        <div class="bottom-safe"></div>
+    </div>
+
+    <script>
+        function updateTimer() {
+            const now = new Date();
+            const deadline = new Date(2026, 2, 11, 19, 0, 0);
+            const diff = deadline - now;
+
+            if (diff <= 0) {
+                document.getElementById('hours').textContent = '00';
+                document.getElementById('minutes').textContent = '00';
+                document.getElementById('seconds').textContent = '00';
+                return;
+            }
+
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+        }
+
+        updateTimer();
+        setInterval(updateTimer, 1000);
+    </script>
+</body>
+</html>
