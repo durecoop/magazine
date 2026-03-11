@@ -25,14 +25,16 @@
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
 body {
   font-family: 'Noto Sans KR', sans-serif;
   background: var(--bg);
   color: var(--text);
   overflow-x: hidden;
   word-break: keep-all;
+  overflow-wrap: break-word;
 }
+.section, .hero { overflow: hidden; }
 
 /* ========== WEEK BADGE ========== */
 .week-badge {
@@ -1013,6 +1015,14 @@ document.querySelectorAll('.tilt-card').forEach(card => {
 });
 
 // ========== GO SHOP ==========
+
+// ========== FONT SIZE (24px scale 고정) ==========
+(function() {
+  const scale = 24 / 16;
+  document.querySelectorAll('.product-card-name, .product-card-price, .price-sale, .price-original, .discount-badge, .section-title, .section-desc, .section-label, .featured-info h3, .featured-info .desc, .featured-info .price-row, .hero-sub, .hero h1, .hero-label, .order-info-item .value, .order-info-item .label, .set-menu-title, .set-menu-sub, .set-menu-item .name, .set-menu-item .price, .mega-deal .mega-label, .countdown-label, .cta-btn, p, h2, h3, span:not(.countdown-num):not(.mega-percent)').forEach(el => {
+    el.style.fontSize = (parseFloat(window.getComputedStyle(el).fontSize) * scale) + 'px';
+  });
+})();
 
 
 // ========== SCROLL STRIP FAN-OUT ==========
