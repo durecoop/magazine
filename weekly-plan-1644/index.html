@@ -826,7 +826,7 @@ body {
   </div>
 
   <div class="reveal-scale" style="margin-top:36px; text-align:center;">
-    <video src="Downloads/KakaoTalk_20260227_155224814.mp4" controls autoplay muted loop playsinline
+    <video src="video.mp4" controls autoplay muted loop playsinline
       style="width:100%; max-width:480px; border-radius:var(--radius); box-shadow:var(--shadow);"></video>
     <p style="margin-top:12px; font-size:13px; color:#999;">현재 공급일 기준 미간장은 준비된 물량 소진으로 공급 종료되었습니다.</p>
   </div>
@@ -1019,9 +1019,9 @@ document.querySelectorAll('.tilt-card').forEach(card => {
 
 // ========== GO SHOP ==========
 
-// ========== FONT SIZE (24px scale 고정) ==========
+// ========== FONT SIZE (반응형 스케일) ==========
 (function() {
-  const scale = 24 / 16;
+  const scale = window.innerWidth > 600 ? 24 / 16 : 20 / 16;
   document.querySelectorAll('.product-card-name, .product-card-price, .price-sale, .price-original, .discount-badge, .section-title, .section-desc, .section-label, .featured-info h3, .featured-info .desc, .featured-info .price-row, .hero-sub, .hero h1, .hero-label, .order-info-item .value, .order-info-item .label, .set-menu-title, .set-menu-sub, .set-menu-item .name, .set-menu-item .price, .mega-deal .mega-label, .countdown-label, .cta-btn, p, h2, h3, span:not(.countdown-num):not(.mega-percent)').forEach(el => {
     el.style.fontSize = (parseFloat(window.getComputedStyle(el).fontSize) * scale) + 'px';
   });
