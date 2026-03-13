@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>두레추천 — 이번 주, 두레가 고른 먹거리</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Serif+KR:wght@400;600;700&display=swap');
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #faf7f2;
+  --card: #ffffff;
+  --text: #2c2c2c;
+  --sub: #888;
+  --accent: #c4763a;
+  --green: #4a7c59;
+  --green-light: #eef4f0;
+  --border: #ece6dc;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  word-break: keep-all;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== PROGRESS ===== */
+.progress {
+  position: fixed; top: 0; left: 0; height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--green));
+  z-index: 100; transition: width 0.1s linear;
+}
+
+/* ===== HERO ===== */
+.hero {
+  min-height: 70vh;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  text-align: center;
+  padding: 48px 20px 40px;
+  background: linear-gradient(160deg, #faf7f2, #f0e8db, #e6ddd0);
+  position: relative; overflow: hidden;
+}
+.hero::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: url('Downloads/tc02500001770.jpg') center/cover no-repeat;
+  opacity: 0.35;
+  z-index: 0;
+}
+
+.hero::before {
+  content: ''; position: absolute;
+  top: -80px; right: -80px;
+  width: 300px; height: 300px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(196,118,58,0.07), transparent 70%);
+  animation: drift 8s ease-in-out infinite;
+}
+
+@keyframes drift {
+  0%,100% { transform: translate(0,0); }
+  50% { transform: translate(15px,-20px); }
+}
+
+.badge {
+  display: inline-block;
+  padding: 6px 16px;
+  background: var(--green);
+  color: #fff;
+  border-radius: 100px;
+  font-size: 14px; font-weight: 500;
+  letter-spacing: 0.3px;
+  margin-bottom: 20px;
+  position: relative; z-index: 1;
+  opacity: 0; animation: up .6s .2s ease forwards;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+}
+
+.hero h1 {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 38px; font-weight: 700;
+  line-height: 1.3;
+  position: relative; z-index: 1;
+  opacity: 0; animation: up .6s .35s ease forwards;
+  text-shadow: 0 1px 8px rgba(255,255,255,0.9), 0 0 20px rgba(255,255,255,0.7);
+}
+
+.hero h1 em { font-style: normal; color: var(--accent); }
+
+.hero-sub {
+  font-size: 17px; color: #444;
+  font-weight: 500;
+  margin-top: 12px; line-height: 1.7;
+  position: relative; z-index: 1;
+  opacity: 0; animation: up .6s .5s ease forwards;
+  text-shadow: 0 1px 8px rgba(255,255,255,0.9), 0 0 20px rgba(255,255,255,0.7);
+}
+
+@keyframes up {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== PRODUCT CARD ===== */
+.cards {
+  padding: 24px 16px 40px;
+  max-width: 520px;
+  margin: 0 auto;
+  display: flex; flex-direction: column;
+  gap: 20px;
+}
+
+.card {
+  background: var(--card);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.05);
+  opacity: 0; transform: translateY(24px);
+  transition: all .6s cubic-bezier(.16,1,.3,1);
+}
+
+.card.show {
+  opacity: 1; transform: translateY(0);
+}
+
+.card-img {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+}
+
+.card-img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform .5s ease;
+}
+
+.card:active .card-img img {
+  transform: scale(1.03);
+}
+
+.card-badge {
+  position: absolute; top: 12px; left: 12px;
+  background: var(--accent); color: #fff;
+  padding: 6px 16px; border-radius: 100px;
+  font-size: 16px; font-weight: 800;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.card-name {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 24px; font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.card-tagline {
+  font-size: 16px; color: var(--accent);
+  font-weight: 500;
+  margin-bottom: 14px;
+}
+
+.card-desc {
+  font-size: 15px; color: var(--sub);
+  line-height: 1.8;
+  margin-bottom: 16px;
+}
+
+.chips {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  margin-bottom: 18px;
+}
+
+.chip {
+  padding: 6px 14px;
+  background: var(--green-light);
+  color: var(--green);
+  border-radius: 100px;
+  font-size: 14px; font-weight: 500;
+}
+
+.card-price {
+  display: flex; align-items: baseline; gap: 8px;
+  margin-bottom: 16px; flex-wrap: wrap;
+}
+
+.card-price .orig {
+  font-size: 16px; color: #bbb;
+  text-decoration: line-through;
+}
+
+.card-price .now {
+  font-size: 28px; font-weight: 900;
+  color: #a05e2c;
+}
+
+.card-price .unit {
+  font-size: 16px; font-weight: 400;
+}
+
+.card-price .off {
+  background: #fff0e6; color: var(--accent);
+  padding: 4px 12px; border-radius: 6px;
+  font-size: 14px; font-weight: 700;
+}
+
+.card-btn {
+  display: flex; align-items: center; justify-content: center;
+  gap: 8px; width: 100%;
+  padding: 14px;
+  background: var(--green); color: #fff;
+  border: none; border-radius: 14px;
+  font-size: 16px; font-weight: 600;
+  text-decoration: none;
+  transition: background .2s;
+  cursor: pointer;
+}
+
+.card-btn:active { background: #3d6a4a; }
+
+.card-btn svg { width: 16px; height: 16px; fill: #fff; }
+
+/* ===== PAIRING (marquee) ===== */
+.pairing {
+  background: var(--card);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.05);
+  padding: 20px;
+  opacity: 0; transform: translateY(24px);
+  transition: all .6s cubic-bezier(.16,1,.3,1);
+}
+
+.pairing.show {
+  opacity: 1; transform: translateY(0);
+}
+
+.pairing-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 14px;
+}
+
+.pairing-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 14s linear infinite;
+}
+
+.pairing-track:hover,
+.pairing-track:active {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.pairing-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  margin-right: 16px;
+  background: var(--bg);
+  border-radius: 14px;
+  text-decoration: none;
+  color: var(--text);
+  flex-shrink: 0;
+  transition: background .2s;
+}
+
+.pairing-item:active {
+  background: var(--border);
+}
+
+.pairing-item img {
+  width: 52px; height: 52px;
+  border-radius: 10px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.pairing-item-name {
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  margin-bottom: 2px;
+}
+
+.pairing-item-price {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+@media (min-width: 600px) {
+  .pairing-item img { width: 60px; height: 60px; }
+  .pairing-item-name { font-size: 15px; }
+}
+
+/* ===== INSET CIRCLE ===== */
+.card-img .inset-circle {
+  position: absolute;
+  bottom: 12px; right: 12px;
+  width: 100px; height: 100px;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+  object-fit: cover;
+  z-index: 2;
+}
+
+@media (min-width: 600px) {
+  .card-img .inset-circle { width: 120px; height: 120px; border-width: 4px; }
+}
+
+/* ===== FOOTER CTA ===== */
+.cta {
+  text-align: center;
+  padding: 48px 20px 36px;
+  background: linear-gradient(180deg, var(--bg), #ede6da);
+}
+
+.cta h2 {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 26px; font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.cta p {
+  font-size: 16px; color: var(--sub);
+  margin-bottom: 28px;
+}
+
+.cta-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 36px;
+  background: var(--accent); color: #fff;
+  border: none; border-radius: 14px;
+  font-size: 17px; font-weight: 700;
+  text-decoration: none;
+  transition: background .2s;
+}
+
+.cta-btn:active { background: #a05e2c; }
+
+/* ===== FOOTER ===== */
+footer {
+  text-align: center;
+  padding: 28px 20px;
+  font-size: 12px; color: #bbb;
+  background: #2c2c2c;
+}
+footer a { color: #ddd; text-decoration: none; }
+
+/* ===== DESKTOP ===== */
+@media (min-width: 600px) {
+  .hero { min-height: 60vh; }
+  .hero h1 { font-size: 44px; }
+  .cards { max-width: 900px; gap: 28px; }
+
+  .card { display: grid; grid-template-columns: 1fr 1fr; }
+  .card:nth-child(even) .card-img { order: 2; }
+  .card:nth-child(even) .card-body { order: 1; }
+  .card-img { aspect-ratio: 1/1; }
+  .card-body { padding: 32px; display: flex; flex-direction: column; justify-content: center; }
+  .card-name { font-size: 24px; }
+  .card-desc { font-size: 14px; }
+  .card-price .now { font-size: 28px; }
+  .card-btn { width: auto; align-self: flex-start; padding: 14px 32px; }
+}
+
+@media (min-width: 1024px) {
+  .hero h1 { font-size: 52px; }
+  .cards { max-width: 1000px; }
+  .card-body { padding: 40px; }
+}
+</style>
+</head>
+<body>
+
+<div class="progress" id="prog"></div>
+
+<!-- HERO -->
+<section class="hero">
+  <span class="badge">🌿 두레생협 큐레이션</span>
+  <h1>이번 주,<br>두레가 <em>고른</em> 먹거리</h1>
+  <p class="hero-sub">제철의 맛을 담은<br>이번 주 두레추천</p>
+</section>
+
+<!-- CARDS -->
+<div class="cards">
+
+  <!-- 1. 쑥버무리 -->
+  <article class="card">
+    <div class="card-img">
+      <span class="card-badge">6%</span>
+      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/54286C.jpg" alt="쑥버무리" loading="lazy">
+    </div>
+    <div class="card-body">
+      <h2 class="card-name">쑥버무리</h2>
+      <p class="card-tagline">봄 생쑥 37%, 향긋한 한 입</p>
+      <p class="card-desc">첫 수확한 생쑥을 한소콤 쪄냈습니다.<br>국산 밤과 대추를 듬뿍 넣어 달콤하고 영양도 든든합니다.</p>
+      <div class="chips">
+        <span class="chip">국산 생쑥 37%</span>
+        <span class="chip">밤·대추</span>
+        <span class="chip">250g</span>
+      </div>
+      <div class="card-price">
+        <span class="orig">4,800원</span>
+        <span class="now">4,500<span class="unit">원</span></span>
+        <span class="off">6% 할인</span>
+      </div>
+      <a href="https://ecoop.or.kr/DureShop/recommend.do" class="card-btn">
+        <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.16 14.26l.04-.12L8.1 12h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0020 3H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 14.37 5.48 16 7 16h12v-2H7.42c-.14 0-.25-.11-.25-.25z"/></svg>
+        장보기
+      </a>
+    </div>
+  </article>
+
+  <!-- 2. 포항가자미 -->
+  <article class="card">
+    <div class="card-img">
+      <span class="card-badge">10%</span>
+      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/46113C.jpg" alt="포항가자미" loading="lazy">
+    </div>
+    <div class="card-body">
+      <h2 class="card-name">포항가자미</h2>
+      <p class="card-tagline">겨울 동해, 알 찬 가자미</p>
+      <p class="card-desc">겨울 동해바다에서 어획한 알가자미.<br>손질·무염처리 되어 있어 기호에 맞게 소금이나 양념해 조리하세요.</p>
+      <div class="chips">
+        <span class="chip">동해 포항산</span>
+        <span class="chip">손질 완료</span>
+        <span class="chip">600g / 2~4미</span>
+      </div>
+      <div class="card-price">
+        <span class="orig">18,200원</span>
+        <span class="now">16,300<span class="unit">원</span></span>
+        <span class="off">10% 할인</span>
+      </div>
+      <a href="https://ecoop.or.kr/DureShop/recommend.do" class="card-btn">
+        <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.16 14.26l.04-.12L8.1 12h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0020 3H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 14.37 5.48 16 7 16h12v-2H7.42c-.14 0-.25-.11-.25-.25z"/></svg>
+        장보기
+      </a>
+    </div>
+  </article>
+
+  <!-- 3. 한우보양탕 -->
+  <article class="card">
+    <div class="card-img">
+      <span class="card-badge">20%</span>
+      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/54638C.jpg" alt="한우보양탕" loading="lazy">
+    </div>
+    <div class="card-body">
+      <h2 class="card-name">한우보양탕</h2>
+      <p class="card-tagline">한우 양지, 약재로 끓인 보양 한 그릇</p>
+      <p class="card-desc">한우 양지와 국내산 약재를 푹 삶아 진하게 우려냈습니다.<br>된장과 사골액으로 깊은 감칠맛, 데우기만 하면 완성!</p>
+      <div class="chips">
+        <span class="chip">한우 양지</span>
+        <span class="chip">국내산 약재</span>
+        <span class="chip">간편조리</span>
+      </div>
+      <div class="card-price">
+        <span class="orig">13,000원</span>
+        <span class="now">10,400<span class="unit">원</span></span>
+        <span class="off">20% 할인</span>
+      </div>
+      <a href="https://ecoop.or.kr/DureShop/recommend.do" class="card-btn">
+        <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.16 14.26l.04-.12L8.1 12h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0020 3H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 14.37 5.48 16 7 16h12v-2H7.42c-.14 0-.25-.11-.25-.25z"/></svg>
+        장보기
+      </a>
+    </div>
+  </article>
+
+  <!-- 4. 청견 -->
+  <article class="card">
+    <div class="card-img">
+      <span class="card-badge" style="background:var(--green); font-size:18px; padding:8px 20px;">햇출하</span>
+      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/288C.jpg" alt="청견" loading="lazy">
+      <img class="inset-circle" src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/288A.jpg" alt="청견 품목" loading="lazy">
+    </div>
+    <div class="card-body">
+      <h2 class="card-name">제주 오렌지 청견(1kg/국내산)</h2>
+      <p class="card-tagline">오렌지 + 감귤, 지금이 제철</p>
+      <p class="card-desc">오렌지의 달콤함과 감귤의 부드러운 과육을 동시에.<br>국내산 햇출하, 껍질 얇아 손으로 쉽게 까집니다.</p>
+      <div class="chips">
+        <span class="chip">국내산 햇출하</span>
+        <span class="chip">1kg</span>
+      </div>
+      <div class="card-price">
+        <span class="now">11,900<span class="unit">원</span></span>
+      </div>
+      <a href="https://ecoop.or.kr/DureShop/recommend.do" class="card-btn">
+        <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.16 14.26l.04-.12L8.1 12h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0020 3H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 14.37 5.48 16 7 16h12v-2H7.42c-.14 0-.25-.11-.25-.25z"/></svg>
+        장보기
+      </a>
+    </div>
+  </article>
+
+  <!-- 5. 제주순메밀국수 -->
+  <article class="card">
+    <div class="card-img">
+      <span class="card-badge">10%</span>
+      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/28818C.jpg" alt="제주순메밀국수" loading="lazy">
+    </div>
+    <div class="card-body">
+      <h2 class="card-name">제주순메밀국수</h2>
+      <p class="card-tagline">제주산 메밀 100%, 밀가루 無</p>
+      <p class="card-desc">제주 화산 토양에서 자란 메밀만 사용.<br>구수한 향과 쫄깃한 면발, 냉면·온면·비빔 어디든 잘 어울립니다.</p>
+      <div class="chips">
+        <span class="chip">제주산 메밀 100%</span>
+        <span class="chip">밀가루 무첨가</span>
+      </div>
+      <div class="card-price">
+        <span class="orig">15,300원</span>
+        <span class="now">13,800<span class="unit">원</span></span>
+        <span class="off">10% 할인</span>
+      </div>
+      <a href="https://ecoop.or.kr/DureShop/recommend.do" class="card-btn">
+        <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.16 14.26l.04-.12L8.1 12h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0020 3H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 14.37 5.48 16 7 16h12v-2H7.42c-.14 0-.25-.11-.25-.25z"/></svg>
+        장보기
+      </a>
+    </div>
+  </article>
+
+  <!-- 6. 통닭다리 누룽지삼계탕 -->
+  <article class="card">
+    <div class="card-img">
+      <span class="card-badge">10%</span>
+      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/54730C.jpg" alt="통닭다리 누룽지삼계탕" loading="lazy">
+    </div>
+    <div class="card-body">
+      <h2 class="card-name">통닭다리 누룽지삼계탕</h2>
+      <p class="card-tagline">국산 통닭다리 한 끼, 누룽지로 구수하게</p>
+      <p class="card-desc">국산 통닭다리를 통째로 넣어 든든한 한 끼.<br>누룽지를 더해 구수한 맛이 살아있습니다.</p>
+      <div class="chips">
+        <span class="chip">오동통한 닭다리살</span>
+        <span class="chip">누룽지</span>
+      </div>
+      <div class="card-price">
+        <span class="orig">8,300원</span>
+        <span class="now">7,500<span class="unit">원</span></span>
+        <span class="off">10% 할인</span>
+      </div>
+      <a href="https://ecoop.or.kr/DureShop/recommend.do" class="card-btn">
+        <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.16 14.26l.04-.12L8.1 12h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0020 3H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 14.37 5.48 16 7 16h12v-2H7.42c-.14 0-.25-.11-.25-.25z"/></svg>
+        장보기
+      </a>
+    </div>
+  </article>
+
+  <!-- 7. 훈제오리 -->
+  <article class="card">
+    <div class="card-img">
+      <span class="card-badge">25%</span>
+      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/40549C.jpg" alt="훈제오리" loading="lazy">
+    </div>
+    <div class="card-body">
+      <h2 class="card-name">훈제오리</h2>
+      <p class="card-tagline">무항생제 오리, 참나무 훈연</p>
+      <p class="card-desc">무항생제 오리를 참나무로 훈연해 향긋하게.<br>간장·마늘·생강·양파 등 두레생협 생활재 재료만으로 조미했습니다.</p>
+      <div class="chips">
+        <span class="chip">무항생제</span>
+        <span class="chip">참나무 훈연</span>
+      </div>
+      <div class="card-price">
+        <span class="orig">13,300원</span>
+        <span class="now">10,000<span class="unit">원</span></span>
+        <span class="off">25% 할인</span>
+      </div>
+      <a href="https://ecoop.or.kr/DureShop/recommend.do" class="card-btn">
+        <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.16 14.26l.04-.12L8.1 12h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0020 3H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 14.37 5.48 16 7 16h12v-2H7.42c-.14 0-.25-.11-.25-.25z"/></svg>
+        장보기
+      </a>
+    </div>
+  </article>
+
+  <!-- 8. 보리물냉면 -->
+  <article class="card">
+    <div class="card-img">
+      <span class="card-badge">15%</span>
+      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/30779C.jpg" alt="보리물냉면" loading="lazy">
+    </div>
+    <div class="card-body">
+      <h2 class="card-name">보리물냉면</h2>
+      <p class="card-tagline">볶은 보리향, 동치미·한우 육수</p>
+      <p class="card-desc">볶은 보리로 만들어 보리향이 살아있는 면발.<br>동치미 육수에 한우 육수의 감칠맛을 더해 깔끔합니다.</p>
+      <div class="chips">
+        <span class="chip">볶은 보리</span>
+        <span class="chip">동치미+한우 육수</span>
+      </div>
+      <div class="card-price">
+        <span class="orig">6,500원</span>
+        <span class="now">5,500<span class="unit">원</span></span>
+        <span class="off">15% 할인</span>
+      </div>
+      <a href="https://ecoop.or.kr/DureShop/recommend.do" class="card-btn">
+        <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.16 14.26l.04-.12L8.1 12h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0020 3H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 14.37 5.48 16 7 16h12v-2H7.42c-.14 0-.25-.11-.25-.25z"/></svg>
+        장보기
+      </a>
+    </div>
+  </article>
+
+  <!-- 보리물냉면 연계 추천 -->
+  <div class="pairing">
+    <div class="pairing-title">함께 즐겨보세요!</div>
+    <div class="pairing-track">
+      <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=47663&returnPlanNo=0" class="pairing-item">
+        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/47663C.png" alt="맛들찬 울외장아찌(500g)">
+        <div>
+          <div class="pairing-item-name">맛들찬 울외장아찌(500g)</div>
+          <div class="pairing-item-price">장보기 →</div>
+        </div>
+      </a>
+      <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=47665&returnPlanNo=0" class="pairing-item">
+        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/47665C.png" alt="맛들찬 청참외장아찌(500g)">
+        <div>
+          <div class="pairing-item-name">맛들찬 청참외장아찌(500g)</div>
+          <div class="pairing-item-price">장보기 →</div>
+        </div>
+      </a>
+      <!-- 복제 (무한 루프용) -->
+      <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=47663&returnPlanNo=0" class="pairing-item">
+        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/47663C.png" alt="맛들찬 울외장아찌(500g)">
+        <div>
+          <div class="pairing-item-name">맛들찬 울외장아찌(500g)</div>
+          <div class="pairing-item-price">장보기 →</div>
+        </div>
+      </a>
+      <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=47665&returnPlanNo=0" class="pairing-item">
+        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/47665C.png" alt="맛들찬 청참외장아찌(500g)">
+        <div>
+          <div class="pairing-item-name">맛들찬 청참외장아찌(500g)</div>
+          <div class="pairing-item-price">장보기 →</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 9. 보리비빔냉면 -->
+  <article class="card">
+    <div class="card-img">
+      <span class="card-badge">15%</span>
+      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/31454C.jpg" alt="보리비빔냉면" loading="lazy">
+    </div>
+    <div class="card-body">
+      <h2 class="card-name">보리비빔냉면</h2>
+      <p class="card-tagline">국산 과일·채소로 새콤달콤하게</p>
+      <p class="card-desc">볶은 보리로 만든 냉면사리.<br>직접 갈아넣은 국산 과일과 채소로 새콤달콤한 비빔장을 더했습니다.</p>
+      <div class="chips">
+        <span class="chip">볶은 보리</span>
+        <span class="chip">국산 과일·채소 비빔장</span>
+      </div>
+      <div class="card-price">
+        <span class="orig">6,500원</span>
+        <span class="now">5,500<span class="unit">원</span></span>
+        <span class="off">15% 할인</span>
+      </div>
+      <a href="https://ecoop.or.kr/DureShop/recommend.do" class="card-btn">
+        <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.16 14.26l.04-.12L8.1 12h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0020 3H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 14.37 5.48 16 7 16h12v-2H7.42c-.14 0-.25-.11-.25-.25z"/></svg>
+        장보기
+      </a>
+    </div>
+  </article>
+
+  <!-- 보리비빔냉면 연계 추천 -->
+  <div class="pairing">
+    <div class="pairing-title">함께 즐겨보세요!</div>
+    <div class="pairing-track">
+      <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=28996&returnPlanNo=0" class="pairing-item">
+        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/28996C.jpg" alt="오이소박이(1kg)">
+        <div>
+          <div class="pairing-item-name">오이소박이(1kg)</div>
+          <div class="pairing-item-price">장보기 →</div>
+        </div>
+      </a>
+      <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=47664&returnPlanNo=0" class="pairing-item">
+        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/47664C.png" alt="맛들찬 무장아찌(500g)">
+        <div>
+          <div class="pairing-item-name">맛들찬 무장아찌(500g)</div>
+          <div class="pairing-item-price">장보기 →</div>
+        </div>
+      </a>
+      <!-- 복제 (무한 루프용) -->
+      <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=28996&returnPlanNo=0" class="pairing-item">
+        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/28996C.jpg" alt="오이소박이(1kg)">
+        <div>
+          <div class="pairing-item-name">오이소박이(1kg)</div>
+          <div class="pairing-item-price">장보기 →</div>
+        </div>
+      </a>
+      <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=47664&returnPlanNo=0" class="pairing-item">
+        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/47664C.png" alt="맛들찬 무장아찌(500g)">
+        <div>
+          <div class="pairing-item-name">맛들찬 무장아찌(500g)</div>
+          <div class="pairing-item-price">장보기 →</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 10. 흑염소탕 -->
+  <article class="card">
+    <div class="card-img">
+      <span class="card-badge">13%</span>
+      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/54255C.jpg" alt="흑염소탕" loading="lazy">
+    </div>
+    <div class="card-body">
+      <h2 class="card-name">흑염소탕</h2>
+      <p class="card-tagline">국산 흑염소, 직화 솥에 푹 고아</p>
+      <p class="card-desc">국산 흑염소를 통째로 직화 솥에 고아냈습니다.<br>잡내 없이 부드러운 육질과 깊은 국물 맛입니다.</p>
+      <div class="chips">
+        <span class="chip">국산 흑염소</span>
+        <span class="chip">직화 솥</span>
+      </div>
+      <div class="card-price">
+        <span class="orig">20,500원</span>
+        <span class="now">17,900<span class="unit">원</span></span>
+        <span class="off">13% 할인</span>
+      </div>
+      <a href="https://ecoop.or.kr/DureShop/recommend.do" class="card-btn">
+        <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.16 14.26l.04-.12L8.1 12h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0020 3H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 14.37 5.48 16 7 16h12v-2H7.42c-.14 0-.25-.11-.25-.25z"/></svg>
+        장보기
+      </a>
+    </div>
+  </article>
+
+  <!-- 흑염소탕 연계 추천 -->
+  <div class="pairing">
+    <div class="pairing-title">함께 즐겨보세요!</div>
+    <div class="pairing-track">
+      <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=16653&returnPlanNo=0" class="pairing-item">
+        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/16653C.jpg" alt="부추(180g/무농약)">
+        <div>
+          <div class="pairing-item-name">부추(180g/무농약)</div>
+          <div class="pairing-item-price">장보기 →</div>
+        </div>
+      </a>
+      <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=56899&returnPlanNo=0" class="pairing-item">
+        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56899C.jpg" alt="부추장아찌(200g/냉장)">
+        <div>
+          <div class="pairing-item-name">부추장아찌(200g/냉장)</div>
+          <div class="pairing-item-price">장보기 →</div>
+        </div>
+      </a>
+      <!-- 복제 (무한 루프용) -->
+      <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=16653&returnPlanNo=0" class="pairing-item">
+        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/16653C.jpg" alt="부추(180g/무농약)">
+        <div>
+          <div class="pairing-item-name">부추(180g/무농약)</div>
+          <div class="pairing-item-price">장보기 →</div>
+        </div>
+      </a>
+      <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=56899&returnPlanNo=0" class="pairing-item">
+        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56899C.jpg" alt="부추장아찌(200g/냉장)">
+        <div>
+          <div class="pairing-item-name">부추장아찌(200g/냉장)</div>
+          <div class="pairing-item-price">장보기 →</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 11. 토종닭 -->
+  <article class="card">
+    <div class="card-img">
+      <span class="card-badge">10%</span>
+      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56259C.jpg" alt="토종닭" loading="lazy">
+    </div>
+    <div class="card-body">
+      <h2 class="card-name">토종닭</h2>
+      <p class="card-tagline">90일 이상 키운 전통 토종닭</p>
+      <p class="card-desc">일반 닭과는 다른 풍부한 고소함과 쫄깃한 식감.<br>씹는 맛이 살아있습니다.</p>
+      <div class="chips">
+        <span class="chip">토종닭</span>
+        <span class="chip">1.4kg / 냉동</span>
+      </div>
+      <div class="card-price">
+        <span class="orig">15,900원</span>
+        <span class="now">14,300<span class="unit">원</span></span>
+        <span class="off">10% 할인</span>
+      </div>
+      <a href="https://ecoop.or.kr/DureShop/recommend.do" class="card-btn">
+        <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.16 14.26l.04-.12L8.1 12h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0020 3H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 14.37 5.48 16 7 16h12v-2H7.42c-.14 0-.25-.11-.25-.25z"/></svg>
+        장보기
+      </a>
+    </div>
+  </article>
+
+  <!-- 토종닭 연계 추천 -->
+  <div class="pairing">
+    <div class="pairing-title">함께 즐겨보세요!</div>
+    <div class="pairing-track">
+      <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=1241&returnPlanNo=0" class="pairing-item">
+        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/1241C.jpg" alt="삼계탕용건재모음(103g)">
+        <div>
+          <div class="pairing-item-name">삼계탕용건재모음(103g)</div>
+          <div class="pairing-item-price">장보기 →</div>
+        </div>
+      </a>
+      <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=295&returnPlanNo=0" class="pairing-item">
+        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/295C.png" alt="건대추(200g/특초)">
+        <div>
+          <div class="pairing-item-name">건대추(200g/특초)</div>
+          <div class="pairing-item-price">장보기 →</div>
+        </div>
+      </a>
+      <!-- 복제 (무한 루프용) -->
+      <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=1241&returnPlanNo=0" class="pairing-item">
+        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/1241C.jpg" alt="삼계탕용건재모음(103g)">
+        <div>
+          <div class="pairing-item-name">삼계탕용건재모음(103g)</div>
+          <div class="pairing-item-price">장보기 →</div>
+        </div>
+      </a>
+      <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=295&returnPlanNo=0" class="pairing-item">
+        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/295C.png" alt="건대추(200g/특초)">
+        <div>
+          <div class="pairing-item-name">건대추(200g/특초)</div>
+          <div class="pairing-item-price">장보기 →</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 12. 순우유 -->
+  <article class="card">
+    <div class="card-img">
+      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/28485C.png" alt="순우유" loading="lazy">
+    </div>
+    <div class="card-body">
+      <h2 class="card-name">순우유</h2>
+      <p class="card-tagline">무항생제 젖소, 순수한 고소함</p>
+      <p class="card-desc">무항생제 인증 젖소의 순수하고 진한 고소함.<br>텁텁하지 않고 산뜻하게 마무리됩니다.</p>
+      <div class="chips">
+        <span class="chip">무항생제</span>
+        <span class="chip">900ml</span>
+      </div>
+      <div class="card-price">
+        <span class="now">4,400<span class="unit">원</span></span>
+      </div>
+      <a href="https://ecoop.or.kr/DureShop/recommend.do" class="card-btn">
+        <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.16 14.26l.04-.12L8.1 12h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0020 3H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 14.37 5.48 16 7 16h12v-2H7.42c-.14 0-.25-.11-.25-.25z"/></svg>
+        장보기
+      </a>
+    </div>
+  </article>
+
+</div>
+
+<!-- CTA -->
+<section class="cta">
+  <h2>두레추천이 마음에 드셨나요?</h2>
+  <p>매주 새로운 제철 먹거리를 소개합니다</p>
+  <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1646" class="cta-btn">두레추천 더 보기 →</a>
+</section>
+
+<footer>
+  <p>두레생협연합회 · <a href="https://ecoop.or.kr">ecoop.or.kr</a></p>
+</footer>
+
+<script>
+// Progress bar
+const prog = document.getElementById('prog');
+window.addEventListener('scroll', () => {
+  const pct = (window.scrollY / (document.documentElement.scrollHeight - innerHeight)) * 100;
+  prog.style.width = pct + '%';
+});
+
+// Card reveal
+const cards = document.querySelectorAll('.card, .pairing');
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
+}, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+cards.forEach(c => io.observe(c));
+</script>
+
+</body>
+</html>
