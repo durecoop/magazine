@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>두레맛찬 — 오늘 뭐 먹지? 고민될 땐 두레맛찬</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Serif+KR:wght@400;600;700&display=swap');
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #faf7f2;
+  --card: #ffffff;
+  --text: #2c2c2c;
+  --sub: #888;
+  --accent: #e05a20;
+  --accent-dark: #c44a15;
+  --green: #4a7c59;
+  --green-light: #eef4f0;
+  --border: #ece6dc;
+  --warm: #fff8f3;
+  --scale: 1.3;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  word-break: keep-all;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== PROGRESS ===== */
+.progress {
+  position: fixed; top: 0; left: 0; height: 3px;
+  background: linear-gradient(90deg, var(--accent), #f4a261);
+  z-index: 100; transition: width 0.1s linear;
+}
+
+/* ===== HERO ===== */
+.hero {
+  min-height: 65vh;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  text-align: center;
+  padding: 48px 20px 40px;
+  background: url('img_matchan_hero.jpg') center/cover no-repeat;
+  position: relative; overflow: hidden;
+}
+
+.hero::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: rgba(255,248,243,0.82);
+  z-index: 0;
+}
+
+.hero::before {
+  content: ''; position: absolute;
+  top: -80px; right: -80px;
+  width: 300px; height: 300px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(224,90,32,0.06), transparent 70%);
+  animation: drift 8s ease-in-out infinite;
+}
+
+@keyframes drift {
+  0%,100% { transform: translate(0,0); }
+  50% { transform: translate(15px,-20px); }
+}
+
+.badge {
+  display: inline-block;
+  padding: 6px 16px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 100px;
+  font-size: calc(14px * var(--scale)); font-weight: 500;
+  margin-bottom: 20px;
+  position: relative; z-index: 1;
+  opacity: 0; animation: up .6s .2s ease forwards;
+}
+
+.hero h1 {
+  font-family: 'Noto Serif KR', serif;
+  font-size: calc(38px * var(--scale)); font-weight: 700;
+  line-height: 1.3;
+  position: relative; z-index: 1;
+  opacity: 0; animation: up .6s .35s ease forwards;
+}
+
+.hero h1 em { font-style: normal; color: var(--accent); }
+
+.hero-sub {
+  font-size: calc(17px * var(--scale)); color: var(--sub);
+  margin-top: 12px; line-height: 1.7;
+  position: relative; z-index: 1;
+  opacity: 0; animation: up .6s .5s ease forwards;
+}
+
+@keyframes up {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== SECTION BANNER ===== */
+.section-banner {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.section-banner img {
+  width: 100%;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+/* ===== SECTION TITLE ===== */
+.section-title {
+  max-width: 520px;
+  margin: 40px auto 8px;
+  padding: 0 16px;
+  opacity: 0; transform: translateY(16px);
+  transition: all .6s cubic-bezier(.16,1,.3,1);
+}
+
+.section-title.show {
+  opacity: 1; transform: translateY(0);
+}
+
+.section-title h2 {
+  font-family: 'Noto Serif KR', serif;
+  font-size: calc(22px * var(--scale)); font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.section-title .sub {
+  font-size: calc(14px * var(--scale));
+  color: var(--sub);
+}
+
+.section-title .date-badge {
+  display: inline-block;
+  padding: 8px 20px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 100px;
+  font-size: calc(18px * var(--scale));
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+/* ===== PRODUCT CARD ===== */
+.cards {
+  padding: 16px 16px 40px;
+  max-width: 520px;
+  margin: 0 auto;
+  display: flex; flex-direction: column;
+  gap: 20px;
+}
+
+.card {
+  background: var(--card);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.05);
+  opacity: 0; transform: translateY(24px);
+  transition: all .6s cubic-bezier(.16,1,.3,1);
+}
+
+.card.show {
+  opacity: 1; transform: translateY(0);
+}
+
+.card-img {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+}
+
+.card-img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform .5s ease;
+}
+
+.card:active .card-img img {
+  transform: scale(1.03);
+}
+
+.card-badge {
+  position: absolute; top: 12px; left: 12px;
+  background: var(--accent); color: #fff;
+  padding: 6px 16px; border-radius: 100px;
+  font-size: calc(16px * var(--scale)); font-weight: 800;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.card-name {
+  font-family: 'Noto Serif KR', serif;
+  font-size: calc(24px * var(--scale)); font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.card-tagline {
+  font-size: calc(16px * var(--scale)); color: var(--accent);
+  font-weight: 500;
+  margin-bottom: 14px;
+}
+
+.card-desc {
+  font-size: calc(15px * var(--scale)); color: var(--sub);
+  line-height: 1.8;
+  margin-bottom: 16px;
+}
+
+.chips {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  margin-bottom: 18px;
+}
+
+.chip {
+  padding: 6px 14px;
+  background: var(--green-light);
+  color: var(--green);
+  border-radius: 100px;
+  font-size: calc(14px * var(--scale)); font-weight: 500;
+}
+
+.chip.warm {
+  background: #fff0e6;
+  color: var(--accent);
+}
+
+.card-price {
+  display: flex; align-items: baseline; gap: 8px;
+  margin-bottom: 16px; flex-wrap: wrap;
+}
+
+.card-price .orig {
+  font-size: calc(16px * var(--scale)); color: #bbb;
+  text-decoration: line-through;
+}
+
+.card-price .now {
+  font-size: calc(28px * var(--scale)); font-weight: 900;
+  color: var(--accent-dark);
+}
+
+.card-price .unit {
+  font-size: calc(16px * var(--scale)); font-weight: 400;
+}
+
+.card-price .off {
+  background: #fff0e6; color: var(--accent);
+  padding: 4px 12px; border-radius: 6px;
+  font-size: calc(14px * var(--scale)); font-weight: 700;
+}
+
+.card-btn {
+  display: flex; align-items: center; justify-content: center;
+  gap: 8px; width: 100%;
+  padding: 14px;
+  background: var(--accent); color: #fff;
+  border: none; border-radius: 14px;
+  font-size: calc(16px * var(--scale)); font-weight: 600;
+  text-decoration: none;
+  transition: background .2s;
+  cursor: pointer;
+}
+
+.card-btn:active { background: var(--accent-dark); }
+
+.card-btn svg { width: 16px; height: 16px; fill: #fff; }
+
+.gold-btn {
+  background: linear-gradient(135deg, #d4a017, #f0c850, #d4a017);
+  background-size: 200% 200%;
+  animation: gold-shimmer 2.5s ease-in-out infinite;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+.gold-btn:active { background: #c49515; }
+
+@keyframes gold-shimmer {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ===== MINI CARD (소량 반찬) ===== */
+.mini-grid {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 0 16px 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.mini-card {
+  background: var(--card);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  text-decoration: none;
+  color: var(--text);
+  opacity: 0; transform: translateY(20px);
+  transition: all .6s cubic-bezier(.16,1,.3,1);
+}
+
+.mini-card.show {
+  opacity: 1; transform: translateY(0);
+}
+
+.mini-card-img {
+  width: 100%;
+  aspect-ratio: 1/1;
+  overflow: hidden;
+}
+
+.mini-card-img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+
+.mini-card-body {
+  padding: 14px;
+}
+
+.mini-card-name {
+  font-size: calc(14px * var(--scale));
+  font-weight: 600;
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+
+.mini-card-price {
+  font-size: calc(16px * var(--scale));
+  font-weight: 800;
+  color: var(--accent-dark);
+}
+
+.mini-card-price .mini-orig {
+  font-size: calc(12px * var(--scale));
+  color: #bbb;
+  text-decoration: line-through;
+  font-weight: 400;
+  margin-right: 4px;
+}
+
+/* ===== FOOTER CTA ===== */
+.cta {
+  text-align: center;
+  padding: 48px 20px 36px;
+  background: linear-gradient(180deg, var(--bg), #f0e0d0);
+}
+
+.cta h2 {
+  font-family: 'Noto Serif KR', serif;
+  font-size: calc(26px * var(--scale)); font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.cta p {
+  font-size: calc(16px * var(--scale)); color: var(--sub);
+  margin-bottom: 28px;
+}
+
+.cta-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 36px;
+  background: var(--accent); color: #fff;
+  border: none; border-radius: 14px;
+  font-size: calc(17px * var(--scale)); font-weight: 700;
+  text-decoration: none;
+  transition: background .2s;
+}
+
+.cta-btn:active { background: var(--accent-dark); }
+
+footer {
+  text-align: center;
+  padding: 28px 20px 72px;
+  font-size: calc(12px * var(--scale)); color: #bbb;
+  background: #2c2c2c;
+}
+footer a { color: #ddd; text-decoration: none; }
+
+/* ===== DESKTOP ===== */
+@media (min-width: 600px) {
+  .hero h1 { font-size: calc(48px * var(--scale)); }
+  .cards { max-width: 900px; gap: 28px; }
+  .card { display: grid; grid-template-columns: 1fr 1fr; }
+  .card:nth-child(even) .card-img { order: 2; }
+  .card:nth-child(even) .card-body { order: 1; }
+  .card-img { aspect-ratio: 1/1; }
+  .card-body { padding: 32px; display: flex; flex-direction: column; justify-content: center; }
+  .card-name { font-size: calc(26px * var(--scale)); }
+  .card-btn { width: auto; align-self: flex-start; padding: 14px 32px; }
+  .section-banner, .section-title { max-width: 900px; }
+  .mini-grid { max-width: 900px; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+}
+
+@media (min-width: 1024px) {
+  .hero h1 { font-size: calc(52px * var(--scale)); }
+  .cards { max-width: 1000px; }
+  .section-banner, .section-title { max-width: 1000px; }
+  .mini-grid { max-width: 1000px; grid-template-columns: repeat(3, 1fr); }
+}
+
+/* ===== FONT SIZE CONTROL ===== */
+.font-control {
+  position: fixed;
+  bottom: 16px; right: 16px;
+  z-index: 200;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--text);
+  transition: opacity 0.3s;
+}
+
+.font-control .label-sm { font-size: 12px; color: var(--sub); }
+.font-control .label-lg { font-size: 18px; font-weight: 700; color: var(--sub); }
+
+.font-control input[type="range"] {
+  -webkit-appearance: none;
+  width: 100px;
+  height: 4px;
+  border-radius: 2px;
+  background: #ddd;
+  outline: none;
+}
+
+.font-control input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: var(--accent);
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+
+.font-control .size-val {
+  font-size: 12px;
+  color: var(--accent);
+  font-weight: 700;
+  min-width: 32px;
+  text-align: center;
+}
+</style>
+</head>
+<body>
+
+<div class="progress" id="prog"></div>
+
+<!-- FONT SIZE CONTROL -->
+<div class="font-control" id="fontControl">
+  <span class="label-sm">가</span>
+  <input type="range" id="fontSlider" min="80" max="150" value="130" step="5">
+  <span class="label-lg">가</span>
+  <span class="size-val" id="sizeVal">130%</span>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <span class="badge">두레맛찬</span>
+  <h1>오늘 뭐 먹지?<br>고민될 땐 <em>두레맛찬</em></h1>
+  <p class="hero-sub">매일의 식탁을 정갈하게 채우는<br>두레생협 반찬을 소개합니다.</p>
+</section>
+
+<!-- ========== 섹션 1: 인기 두레맛찬 모음전 ========== -->
+<div class="section-banner" style="margin-top:32px;">
+  <img src="https://ecoop.or.kr:443/DureMallAdmin/upload/SP/planDetail_1646/11/UF_202603121103531920.jpg" alt="인기 두레맛찬 모음전">
+</div>
+
+<div class="section-title">
+  <h2>[누적 판매 1위] 인기 두레맛찬</h2>
+  <p class="sub">가장 많이 사랑받은 반찬을 모았습니다</p>
+</div>
+
+<div class="cards">
+  <article class="card">
+    <div class="card-img">
+      <span class="card-badge">5% 할인</span>
+      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59024C.jpg" alt="꼬막양념무침" loading="lazy">
+    </div>
+    <div class="card-body">
+      <h2 class="card-name">꼬막양념무침</h2>
+      <p class="card-tagline">탱글탱글 꼬막에 매콤새콤 양념</p>
+      <p class="card-desc">신선한 꼬막을 하나하나 손질해 양념했습니다.<br>밥 위에 올려 비벼 먹으면 한 그릇 뚝딱입니다.</p>
+      <div class="chips">
+        <span class="chip warm">인기 1위</span>
+      </div>
+      <div class="card-price">
+        <span class="orig">8,800원</span>
+        <span class="now">8,400<span class="unit">원</span></span>
+        <span class="off">5% 할인</span>
+      </div>
+      <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1646#book11" class="card-btn">
+        <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.16 14.26l.04-.12L8.1 12h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0020 3H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 14.37 5.48 16 7 16h12v-2H7.42c-.14 0-.25-.11-.25-.25z"/></svg>
+        장보기
+      </a>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="card-img">
+      <span class="card-badge">5% 할인</span>
+      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58065C.png" alt="도라지초무침" loading="lazy">
+    </div>
+    <div class="card-body">
+      <h2 class="card-name">도라지초무침</h2>
+      <p class="card-tagline">아삭한 도라지, 새콤달콤하게</p>
+      <p class="card-desc">국산 도라지를 초무침으로 상큼하게 무쳤습니다.<br>입맛 없을 때 한 젓가락이면 입맛이 돌아옵니다.</p>
+      <div class="card-price">
+        <span class="orig">5,900원</span>
+        <span class="now">5,600<span class="unit">원</span></span>
+        <span class="off">5% 할인</span>
+      </div>
+      <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1646#book11" class="card-btn">
+        <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.16 14.26l.04-.12L8.1 12h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0020 3H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 14.37 5.48 16 7 16h12v-2H7.42c-.14 0-.25-.11-.25-.25z"/></svg>
+        장보기
+      </a>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="card-img">
+      <span class="card-badge">5% 할인</span>
+      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58425C.png" alt="산채나물비빔세트" loading="lazy">
+    </div>
+    <div class="card-body">
+      <h2 class="card-name">산채나물비빔세트</h2>
+      <p class="card-tagline">봄 산채나물 한 상, 비빔으로</p>
+      <p class="card-desc">다양한 산채나물을 한 세트에 담았습니다.<br>고추장과 참기름만 넣으면 비빔밥 완성입니다.</p>
+      <div class="card-price">
+        <span class="orig">14,200원</span>
+        <span class="now">13,500<span class="unit">원</span></span>
+        <span class="off">5% 할인</span>
+      </div>
+      <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1646#book11" class="card-btn">
+        <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.16 14.26l.04-.12L8.1 12h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0020 3H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 14.37 5.48 16 7 16h12v-2H7.42c-.14 0-.25-.11-.25-.25z"/></svg>
+        장보기
+      </a>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="card-img">
+      <span class="card-badge">5% 할인</span>
+      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58634C.jpg" alt="생깻잎무침" loading="lazy">
+    </div>
+    <div class="card-body">
+      <h2 class="card-name">생깻잎무침</h2>
+      <p class="card-tagline">향긋한 깻잎, 밥도둑 반찬</p>
+      <p class="card-desc">싱싱한 깻잎을 양념에 무쳐 향긋합니다.<br>밥 위에 올려 먹으면 반찬이 필요 없습니다.</p>
+      <div class="card-price">
+        <span class="orig">6,100원</span>
+        <span class="now">5,800<span class="unit">원</span></span>
+        <span class="off">5% 할인</span>
+      </div>
+      <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1646#book11" class="card-btn">
+        <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.16 14.26l.04-.12L8.1 12h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0020 3H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 14.37 5.48 16 7 16h12v-2H7.42c-.14 0-.25-.11-.25-.25z"/></svg>
+        장보기
+      </a>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="card-img">
+      <span class="card-badge">5% 할인</span>
+      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58033C.png" alt="우엉조림" loading="lazy">
+    </div>
+    <div class="card-body">
+      <h2 class="card-name">우엉조림</h2>
+      <p class="card-tagline">달콤짭짤, 아이들도 좋아하는 반찬</p>
+      <p class="card-desc">국산 우엉을 간장에 달콤하게 졸였습니다.<br>도시락 반찬으로도 좋습니다.</p>
+      <div class="card-price">
+        <span class="orig">5,200원</span>
+        <span class="now">5,000<span class="unit">원</span></span>
+        <span class="off">5% 할인</span>
+      </div>
+      <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1646#book11" class="card-btn">
+        <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.16 14.26l.04-.12L8.1 12h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0020 3H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 14.37 5.48 16 7 16h12v-2H7.42c-.14 0-.25-.11-.25-.25z"/></svg>
+        장보기
+      </a>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="card-img">
+      <span class="card-badge">5% 할인</span>
+      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58030C.png" alt="지리멸치볶음" loading="lazy">
+    </div>
+    <div class="card-body">
+      <h2 class="card-name">지리멸치볶음</h2>
+      <p class="card-tagline">바삭하고 고소한 멸치볶음</p>
+      <p class="card-desc">국산 지리멸치를 바삭하게 볶아냈습니다.<br>짭짤한 감칠맛이 밥반찬으로 딱입니다.</p>
+      <div class="card-price">
+        <span class="orig">4,200원</span>
+        <span class="now">4,000<span class="unit">원</span></span>
+        <span class="off">5% 할인</span>
+      </div>
+      <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1646#book11" class="card-btn">
+        <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.16 14.26l.04-.12L8.1 12h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0020 3H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 14.37 5.48 16 7 16h12v-2H7.42c-.14 0-.25-.11-.25-.25z"/></svg>
+        장보기
+      </a>
+    </div>
+  </article>
+</div>
+
+<!-- ========== 섹션 2: 하루특선 코다리조림 ========== -->
+<div class="section-title">
+  <span class="date-badge">3/18(수) 단 하루 공급</span>
+  <h2>[하루특선] 코다리조림</h2>
+  <p class="sub">이 날만 만날 수 있는 특별한 반찬</p>
+</div>
+
+<div class="cards">
+  <article class="card">
+    <div class="card-img">
+      <span class="card-badge">5% 할인</span>
+      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58059C.png" alt="코다리조림" loading="lazy">
+    </div>
+    <div class="card-body">
+      <h2 class="card-name">코다리조림</h2>
+      <p class="card-tagline">쫄깃한 코다리, 양념이 쏙 배어</p>
+      <p class="card-desc">반건조 코다리를 매콤달콤한 양념에 졸였습니다.<br>살이 쫄깃하고 양념이 깊이 배어 밥 한 공기가 금방입니다.</p>
+      <div class="chips">
+        <span class="chip warm">3/18 하루특선</span>
+      </div>
+      <div class="card-price">
+        <span class="orig">13,700원</span>
+        <span class="now">13,000<span class="unit">원</span></span>
+        <span class="off">5% 할인</span>
+      </div>
+      <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1646#book13" class="card-btn">
+        <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.16 14.26l.04-.12L8.1 12h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0020 3H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 14.37 5.48 16 7 16h12v-2H7.42c-.14 0-.25-.11-.25-.25z"/></svg>
+        장보기
+      </a>
+    </div>
+  </article>
+</div>
+
+<!-- ========== 섹션 3: 하루특선 고등어무조림 ========== -->
+<div class="section-title">
+  <span class="date-badge">3/20(금) 단 하루 공급</span>
+  <h2>[하루특선] 고등어무조림</h2>
+  <p class="sub">금요일, 특별한 생선 반찬 한 접시</p>
+</div>
+
+<div class="cards">
+  <article class="card">
+    <div class="card-img">
+      <span class="card-badge">5% 할인</span>
+      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58803C.jpg" alt="고등어무조림" loading="lazy">
+    </div>
+    <div class="card-body">
+      <h2 class="card-name">고등어무조림</h2>
+      <p class="card-tagline">고등어와 무의 깊은 조화</p>
+      <p class="card-desc">기름진 고등어와 시원한 무를 함께 졸였습니다.<br>국물까지 깊은 맛, 온 가족이 좋아하는 반찬입니다.</p>
+      <div class="chips">
+        <span class="chip warm">3/20 하루특선</span>
+      </div>
+      <div class="card-price">
+        <span class="orig">18,500원</span>
+        <span class="now">17,600<span class="unit">원</span></span>
+        <span class="off">5% 할인</span>
+      </div>
+      <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1646#book14" class="card-btn">
+        <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.16 14.26l.04-.12L8.1 12h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0020 3H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 14.37 5.48 16 7 16h12v-2H7.42c-.14 0-.25-.11-.25-.25z"/></svg>
+        장보기
+      </a>
+    </div>
+  </article>
+</div>
+
+<!-- ========== 섹션 4: 대용량 맛찬 & 비빔한우고추장 ========== -->
+<div class="section-title">
+  <span class="date-badge">3/18(수)·3/20(금) 이틀만</span>
+  <h2>대용량 맛찬 & 비빔한우고추장</h2>
+  <p class="sub">한우고추장과 함께 비벼 온 가족이 함께!</p>
+</div>
+
+<div class="mini-grid">
+  <a class="mini-card" href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1646#book15">
+    <div class="mini-card-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59065C.jpg" alt="고사리나물" loading="lazy"></div>
+    <div class="mini-card-body">
+      <div class="mini-card-name">고사리나물 (200g)</div>
+      <div class="mini-card-price"><span class="mini-orig">14,400원</span>13,700원</div>
+    </div>
+  </a>
+  <a class="mini-card" href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1646#book15">
+    <div class="mini-card-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59058C.png" alt="깻잎순들깨볶음" loading="lazy"></div>
+    <div class="mini-card-body">
+      <div class="mini-card-name">깻잎순들깨볶음 (200g)</div>
+      <div class="mini-card-price"><span class="mini-orig">12,600원</span>12,000원</div>
+    </div>
+  </a>
+  <a class="mini-card" href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1646#book15">
+    <div class="mini-card-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59063C.png" alt="도라지나물" loading="lazy"></div>
+    <div class="mini-card-body">
+      <div class="mini-card-name">도라지나물 (200g)</div>
+      <div class="mini-card-price"><span class="mini-orig">14,600원</span>13,900원</div>
+    </div>
+  </a>
+  <a class="mini-card" href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1646#book15">
+    <div class="mini-card-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59060C.png" alt="도라지초무침" loading="lazy"></div>
+    <div class="mini-card-body">
+      <div class="mini-card-name">도라지초무침 (220g)</div>
+      <div class="mini-card-price"><span class="mini-orig">11,600원</span>11,000원</div>
+    </div>
+  </a>
+  <a class="mini-card" href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1646#book15">
+    <div class="mini-card-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59061C.jpg" alt="생깻잎무침" loading="lazy"></div>
+    <div class="mini-card-body">
+      <div class="mini-card-name">생깻잎무침 (240g)</div>
+      <div class="mini-card-price"><span class="mini-orig">11,800원</span>11,200원</div>
+    </div>
+  </a>
+  <a class="mini-card" href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1646#book15">
+    <div class="mini-card-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59062C.jpg" alt="시금치나물" loading="lazy"></div>
+    <div class="mini-card-body">
+      <div class="mini-card-name">시금치나물 (200g/섬초)</div>
+      <div class="mini-card-price"><span class="mini-orig">12,800원</span>12,200원</div>
+    </div>
+  </a>
+  <a class="mini-card" href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1646#book15">
+    <div class="mini-card-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59059C.png" alt="우엉조림" loading="lazy"></div>
+    <div class="mini-card-body">
+      <div class="mini-card-name">우엉조림 (200g)</div>
+      <div class="mini-card-price"><span class="mini-orig">10,200원</span>9,700원</div>
+    </div>
+  </a>
+  <a class="mini-card" href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1646#book15">
+    <div class="mini-card-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58638C.jpg" alt="비빔한우고추장" loading="lazy"></div>
+    <div class="mini-card-body">
+      <div class="mini-card-name">비빔한우고추장</div>
+      <div class="mini-card-price"><span class="mini-orig">8,000원</span>7,600원</div>
+    </div>
+  </a>
+  <a class="mini-card" href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1646#book15">
+    <div class="mini-card-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58072C.png" alt="열무얼갈이 물김치" loading="lazy"></div>
+    <div class="mini-card-body">
+      <div class="mini-card-name">열무얼갈이 물김치</div>
+      <div class="mini-card-price"><span class="mini-orig">18,800원</span>17,900원</div>
+    </div>
+  </a>
+</div>
+
+<!-- ========== 섹션 5: 오늘의 맛찬 ========== -->
+<div class="section-banner">
+  <img src="https://ecoop.or.kr:443/DureMallAdmin/upload/SP/planDetail_1646/16/UF_202603121059386370.jpg" alt="오늘의 맛찬">
+</div>
+
+<div class="mini-grid">
+  <a class="mini-card" href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1646#book16">
+    <div class="mini-card-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58068C.png" alt="곤드레나물" loading="lazy"></div>
+    <div class="mini-card-body">
+      <div class="mini-card-name">곤드레나물</div>
+      <div class="mini-card-price">6,200원</div>
+    </div>
+  </a>
+  <a class="mini-card" href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1646#book16">
+    <div class="mini-card-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58064C.png" alt="깻잎순들깨볶음" loading="lazy"></div>
+    <div class="mini-card-body">
+      <div class="mini-card-name">깻잎순들깨볶음</div>
+      <div class="mini-card-price">6,300원</div>
+    </div>
+  </a>
+  <a class="mini-card" href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1646#book16">
+    <div class="mini-card-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58635A.jpg" alt="꽈리고추멸치조림" loading="lazy"></div>
+    <div class="mini-card-body">
+      <div class="mini-card-name">꽈리고추멸치조림</div>
+      <div class="mini-card-price">6,300원</div>
+    </div>
+  </a>
+  <a class="mini-card" href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1646#book16">
+    <div class="mini-card-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58945C.jpg" alt="냉이무침" loading="lazy"></div>
+    <div class="mini-card-body">
+      <div class="mini-card-name">냉이무침</div>
+      <div class="mini-card-price">6,700원</div>
+    </div>
+  </a>
+  <a class="mini-card" href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1646#book16">
+    <div class="mini-card-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58946C.jpg" alt="달래무침" loading="lazy"></div>
+    <div class="mini-card-body">
+      <div class="mini-card-name">달래무침</div>
+      <div class="mini-card-price">6,400원</div>
+    </div>
+  </a>
+  <a class="mini-card" href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1646#book16">
+    <div class="mini-card-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59166C.jpg" alt="봄동나물" loading="lazy"></div>
+    <div class="mini-card-body">
+      <div class="mini-card-name">봄동나물</div>
+      <div class="mini-card-price">5,200원</div>
+    </div>
+  </a>
+  <a class="mini-card" href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1646#book16">
+    <div class="mini-card-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58067C.png" alt="부지깽이나물" loading="lazy"></div>
+    <div class="mini-card-body">
+      <div class="mini-card-name">부지깽이나물</div>
+      <div class="mini-card-price">6,200원</div>
+    </div>
+  </a>
+  <a class="mini-card" href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1646#book16">
+    <div class="mini-card-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58066C.png" alt="오미자미역초무침" loading="lazy"></div>
+    <div class="mini-card-body">
+      <div class="mini-card-name">오미자미역초무침</div>
+      <div class="mini-card-price">5,000원</div>
+    </div>
+  </a>
+  <a class="mini-card" href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1646#book16">
+    <div class="mini-card-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58944C.jpg" alt="참나물무침" loading="lazy"></div>
+    <div class="mini-card-body">
+      <div class="mini-card-name">참나물무침</div>
+      <div class="mini-card-price">4,500원</div>
+    </div>
+  </a>
+</div>
+
+<!-- ========== 섹션 6: 봄김치 ========== -->
+<div class="section-banner">
+  <img src="https://ecoop.or.kr:443/DureMallAdmin/upload/SP/planDetail_1646/17/UF_202603121100152350.jpg" alt="봄김치">
+</div>
+
+<div class="cards">
+  <article class="card">
+    <div class="card-img">
+      <span class="card-badge">15% 할인</span>
+      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/32957C.png" alt="포기김치" loading="lazy">
+    </div>
+    <div class="card-body">
+      <h2 class="card-name">포기김치 (5kg)</h2>
+      <p class="card-tagline">봄김치로 채우는 우리 집 김치통</p>
+      <p class="card-desc">아삭한 신선함으로 김치통을 가득 채워보세요.<br>넉넉한 5kg, 온 가족이 함께 즐기기 좋습니다.</p>
+      <div class="chips">
+        <span class="chip warm">5kg 대용량</span>
+      </div>
+      <div class="card-price">
+        <span class="orig">38,300원</span>
+        <span class="now">32,600<span class="unit">원</span></span>
+        <span class="off">15% 할인</span>
+      </div>
+      <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1646#book17" class="card-btn">
+        <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.16 14.26l.04-.12L8.1 12h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0020 3H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 14.37 5.48 16 7 16h12v-2H7.42c-.14 0-.25-.11-.25-.25z"/></svg>
+        장보기
+      </a>
+    </div>
+  </article>
+
+  <article class="card">
+    <div class="card-img">
+      <span class="card-badge">6% 할인</span>
+      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/44215C.png" alt="총각김치" loading="lazy">
+    </div>
+    <div class="card-body">
+      <h2 class="card-name">총각김치 (3kg)</h2>
+      <p class="card-tagline">아삭한 소리까지 맛있는, 봄 총각무의 맛</p>
+      <p class="card-desc">봄 총각무로 담근 아삭하고 시원한 총각김치입니다.<br>밥반찬은 물론 국수와 곁들여도 잘 어울립니다.</p>
+      <div class="card-price">
+        <span class="orig">29,700원</span>
+        <span class="now">27,900<span class="unit">원</span></span>
+        <span class="off">6% 할인</span>
+      </div>
+      <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1646#book17" class="card-btn">
+        <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.16 14.26l.04-.12L8.1 12h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0020 3H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 14.37 5.48 16 7 16h12v-2H7.42c-.14 0-.25-.11-.25-.25z"/></svg>
+        장보기
+      </a>
+    </div>
+  </article>
+</div>
+
+<!-- ========== 섹션 7: 겨울 무 된장찌개 ========== -->
+<div class="section-banner">
+  <img src="https://ecoop.or.kr:443/DureMallAdmin/upload/SP/planDetail_1646/18/UF_202603121100296590.jpg" alt="겨울 무 된장찌개">
+</div>
+
+<div class="cards">
+  <article class="card">
+    <div class="card-img">
+      <span class="card-badge">11% 할인</span>
+      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/50542C.jpg" alt="무우" loading="lazy">
+    </div>
+    <div class="card-body">
+      <h2 class="card-name">무우 (1kg/무농약)</h2>
+      <p class="card-tagline">추위를 견딘 무, 단맛이 깊어지는 이유</p>
+      <p class="card-desc">겨울 추위를 견디며 전분이 당분으로 바뀌어 단맛이 깊습니다.<br>조직이 치밀해 된장찌개에 넣으면 국물 맛이 일품입니다.</p>
+      <div class="chips">
+        <span class="chip">무농약</span>
+        <span class="chip">1kg</span>
+      </div>
+      <div class="card-price">
+        <span class="orig">2,800원</span>
+        <span class="now">2,500<span class="unit">원</span></span>
+        <span class="off">11% 할인</span>
+      </div>
+      <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1646#book18" class="card-btn gold-btn">
+        무 된장찌개 황금레시피 ✨
+      </a>
+    </div>
+  </article>
+</div>
+
+<!-- CTA -->
+<section class="cta">
+  <h2>오늘 뭐먹지? 고민이라면,<br>두레맛찬!</h2>
+  <p>매주 새로운 반찬을 준비합니다</p>
+  <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1646#book11" class="cta-btn">기획전 바로가기 →</a>
+</section>
+
+<footer>
+  <p>두레생협 조합원 상담실 <a href="tel:1661-5110">1661-5110</a></p>
+</footer>
+
+<script>
+// Progress bar
+const prog = document.getElementById('prog');
+window.addEventListener('scroll', () => {
+  const pct = (window.scrollY / (document.documentElement.scrollHeight - innerHeight)) * 100;
+  prog.style.width = pct + '%';
+});
+
+// Reveal
+const els = document.querySelectorAll('.card, .mini-card, .section-title');
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
+}, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+els.forEach(c => io.observe(c));
+
+// Font size control
+const slider = document.getElementById('fontSlider');
+const sizeVal = document.getElementById('sizeVal');
+slider.addEventListener('input', () => {
+  const v = slider.value;
+  document.documentElement.style.setProperty('--scale', v / 100);
+  sizeVal.textContent = v + '%';
+});
+</script>
+
+</body>
+</html>
