@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>하진수에게 선물을 줘! 🎁</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    color: #fff;
+  }
+
+  .game-container {
+    width: 100%;
+    max-width: 500px;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+  }
+
+  .title {
+    font-family: 'Jua', sans-serif;
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+    background: linear-gradient(90deg, #f9d423, #ff4e50);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .subtitle {
+    font-size: 0.85rem;
+    color: #8892b0;
+    margin-bottom: 24px;
+  }
+
+  /* 캐릭터 영역 */
+  .character-area {
+    position: relative;
+    width: 220px;
+    height: 260px;
+    margin: 0 auto 20px;
+  }
+
+  .character {
+    width: 220px;
+    height: 260px;
+    position: relative;
+    transition: transform 0.3s;
+  }
+
+  .character.happy { animation: bounce 0.5s ease 3; }
+  .character.angry { animation: shake 0.4s ease 3; }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0) rotate(0); }
+    25% { transform: translateX(-10px) rotate(-5deg); }
+    75% { transform: translateX(10px) rotate(5deg); }
+  }
+
+  /* 캐릭터 SVG 바디 */
+  .char-body {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* 말풍선 */
+  .speech-bubble {
+    position: absolute;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff;
+    color: #333;
+    padding: 10px 18px;
+    border-radius: 20px;
+    font-family: 'Jua', sans-serif;
+    font-size: 1rem;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s;
+    z-index: 10;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  }
+
+  .speech-bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 10px 8px 0;
+    border-style: solid;
+    border-color: #fff transparent transparent;
+  }
+
+  .speech-bubble.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-5px);
+  }
+
+  /* 점수 */
+  .score-board {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 24px;
+  }
+
+  .score-item {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 16px;
+    padding: 12px 24px;
+    min-width: 110px;
+  }
+
+  .score-label {
+    font-size: 0.75rem;
+    color: #8892b0;
+    margin-bottom: 4px;
+  }
+
+  .score-value {
+    font-family: 'Jua', sans-serif;
+    font-size: 1.8rem;
+  }
+
+  .score-value.good { color: #4ade80; }
+  .score-value.bad { color: #f87171; }
+
+  /* 기분 게이지 */
+  .mood-bar-container {
+    margin-bottom: 24px;
+    padding: 0 10px;
+  }
+
+  .mood-label {
+    font-size: 0.8rem;
+    color: #8892b0;
+    margin-bottom: 6px;
+  }
+
+  .mood-bar-bg {
+    width: 100%;
+    height: 16px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .mood-bar-fill {
+    height: 100%;
+    width: 50%;
+    border-radius: 10px;
+    transition: width 0.5s ease, background 0.5s ease;
+    background: linear-gradient(90deg, #f87171, #fbbf24, #4ade80);
+  }
+
+  .mood-emoji {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.75rem;
+  }
+
+  /* 아이템 그리드 */
+  .items-label {
+    font-size: 0.85rem;
+    color: #8892b0;
+    margin-bottom: 12px;
+    font-family: 'Jua', sans-serif;
+  }
+
+  .items-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .item-btn {
+    background: rgba(255,255,255,0.06);
+    border: 2px solid rgba(255,255,255,0.12);
+    border-radius: 16px;
+    padding: 14px 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .item-btn:hover {
+    background: rgba(255,255,255,0.12);
+    border-color: rgba(255,255,255,0.3);
+    transform: translateY(-3px);
+  }
+
+  .item-btn:active {
+    transform: scale(0.92);
+  }
+
+  .item-btn .emoji {
+    font-size: 2rem;
+    line-height: 1;
+  }
+
+  .item-btn .name {
+    font-size: 0.7rem;
+    color: #ccc;
+  }
+
+  .item-btn.like { border-color: rgba(74, 222, 128, 0.3); }
+  .item-btn.like:hover { border-color: rgba(74, 222, 128, 0.6); background: rgba(74,222,128,0.08); }
+  .item-btn.dislike { border-color: rgba(248, 113, 113, 0.3); }
+  .item-btn.dislike:hover { border-color: rgba(248,113,113,0.6); background: rgba(248,113,113,0.08); }
+
+  /* 플로팅 이모지 */
+  .floating-emoji {
+    position: fixed;
+    font-size: 2rem;
+    pointer-events: none;
+    animation: floatUp 1.5s ease forwards;
+    z-index: 100;
+  }
+
+  @keyframes floatUp {
+    0% { opacity: 1; transform: translateY(0) scale(1); }
+    100% { opacity: 0; transform: translateY(-120px) scale(1.5); }
+  }
+
+  /* 배경 파티클 */
+  .particle {
+    position: fixed;
+    pointer-events: none;
+    opacity: 0.15;
+    font-size: 1.5rem;
+    animation: drift linear infinite;
+  }
+
+  @keyframes drift {
+    0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.15; }
+    90% { opacity: 0.15; }
+    100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+  }
+
+  /* 리셋 버튼 */
+  .reset-btn {
+    background: none;
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #8892b0;
+    padding: 8px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-family: 'Noto Sans KR', sans-serif;
+    transition: all 0.2s;
+  }
+
+  .reset-btn:hover {
+    border-color: rgba(255,255,255,0.5);
+    color: #fff;
+  }
+
+  /* 엔딩 모달 */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+    backdrop-filter: blur(6px);
+  }
+
+  .modal-overlay.show { display: flex; }
+
+  .modal {
+    background: #1e293b;
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 24px;
+    padding: 40px 30px;
+    text-align: center;
+    max-width: 360px;
+    width: 90%;
+    animation: modalIn 0.4s ease;
+  }
+
+  @keyframes modalIn {
+    from { opacity: 0; transform: scale(0.8) translateY(30px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  .modal h2 {
+    font-family: 'Jua', sans-serif;
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+  }
+
+  .modal p {
+    color: #8892b0;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    word-break: keep-all;
+  }
+
+  .modal button {
+    background: linear-gradient(135deg, #f9d423, #ff4e50);
+    border: none;
+    color: #fff;
+    padding: 12px 32px;
+    border-radius: 25px;
+    font-family: 'Jua', sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+
+  .modal button:hover { transform: scale(1.05); }
+
+  /* 콤보 표시 */
+  .combo {
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Jua', sans-serif;
+    font-size: 1.2rem;
+    color: #fbbf24;
+    opacity: 0;
+    transition: opacity 0.3s;
+    text-shadow: 0 0 10px rgba(251,191,36,0.5);
+  }
+
+  .combo.show { opacity: 1; animation: comboPulse 0.5s ease; }
+
+  @keyframes comboPulse {
+    0% { transform: translateX(-50%) scale(1); }
+    50% { transform: translateX(-50%) scale(1.3); }
+    100% { transform: translateX(-50%) scale(1); }
+  }
+</style>
+</head>
+<body>
+
+<div class="game-container">
+  <h1 class="title">하진수에게 선물을 줘!</h1>
+  <p class="subtitle">두레생협 채소 담당자 하진수의 기분을 맞춰보세요</p>
+
+  <div class="score-board">
+    <div class="score-item">
+      <div class="score-label">좋아요</div>
+      <div class="score-value good" id="likeScore">0</div>
+    </div>
+    <div class="score-item">
+      <div class="score-label">싫어요</div>
+      <div class="score-value bad" id="dislikeScore">0</div>
+    </div>
+  </div>
+
+  <div class="mood-bar-container">
+    <div class="mood-label">기분 게이지</div>
+    <div class="mood-bar-bg">
+      <div class="mood-bar-fill" id="moodBar"></div>
+      <span class="mood-emoji" id="moodEmoji">😐</span>
+    </div>
+  </div>
+
+  <div class="character-area">
+    <div class="combo" id="combo"></div>
+    <div class="speech-bubble" id="speech">반갑습니다~</div>
+    <div class="character" id="character">
+      <svg class="char-body" viewBox="0 0 220 260" width="220" height="260">
+        <!-- 몸통 (셔츠) -->
+        <rect x="65" y="130" width="90" height="90" rx="12" fill="#3b82f6"/>
+        <!-- 넥타이 -->
+        <polygon points="110,135 105,170 110,180 115,170" fill="#1e40af"/>
+        <!-- 이름표 -->
+        <rect x="120" y="148" width="28" height="14" rx="3" fill="#fff" opacity="0.9"/>
+        <text x="134" y="159" text-anchor="middle" font-size="7" fill="#333" font-family="Jua">하진수</text>
+        <!-- 머리 -->
+        <circle cx="110" cy="90" r="50" fill="#fcd34d"/>
+        <!-- 머리카락 -->
+        <ellipse cx="110" cy="52" rx="42" ry="18" fill="#92400e"/>
+        <ellipse cx="82" cy="62" rx="10" ry="14" fill="#92400e"/>
+        <ellipse cx="138" cy="62" rx="10" ry="14" fill="#92400e"/>
+        <!-- 눈 -->
+        <g id="eyes">
+          <circle cx="92" cy="88" r="6" fill="#1e293b"/>
+          <circle cx="128" cy="88" r="6" fill="#1e293b"/>
+          <circle cx="94" cy="86" r="2" fill="#fff"/>
+          <circle cx="130" cy="86" r="2" fill="#fff"/>
+        </g>
+        <!-- 기본 입 -->
+        <g id="mouth">
+          <path d="M100,108 Q110,116 120,108" stroke="#1e293b" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </g>
+        <!-- 팔 -->
+        <rect x="40" y="138" width="25" height="12" rx="6" fill="#3b82f6"/>
+        <rect x="155" y="138" width="25" height="12" rx="6" fill="#3b82f6"/>
+        <!-- 손 -->
+        <circle cx="40" cy="144" r="10" fill="#fcd34d"/>
+        <circle cx="180" cy="144" r="10" fill="#fcd34d"/>
+        <!-- 다리 -->
+        <rect x="80" y="218" width="20" height="30" rx="6" fill="#1e293b"/>
+        <rect x="120" y="218" width="20" height="30" rx="6" fill="#1e293b"/>
+        <!-- 신발 -->
+        <rect x="75" y="243" width="28" height="12" rx="6" fill="#64748b"/>
+        <rect x="117" y="243" width="28" height="12" rx="6" fill="#64748b"/>
+        <!-- 볼터치 -->
+        <g id="blush" opacity="0">
+          <ellipse cx="78" cy="100" rx="10" ry="6" fill="#f87171" opacity="0.4"/>
+          <ellipse cx="142" cy="100" rx="10" ry="6" fill="#f87171" opacity="0.4"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <div class="items-label">아이템을 선택하세요</div>
+  <div class="items-grid" id="itemsGrid"></div>
+
+  <button class="reset-btn" onclick="resetGame()">다시 시작</button>
+</div>
+
+<!-- 엔딩 모달 -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <h2 id="modalTitle"></h2>
+    <p id="modalText"></p>
+    <button onclick="resetGame(); document.getElementById('modalOverlay').classList.remove('show');">다시 하기</button>
+  </div>
+</div>
+
+<script>
+const items = [
+  { emoji: '⚾', name: '야구공', type: 'like', reactions: ['우와 야구공!', '캐치볼 하자!', '직구 던질게!'] },
+  { emoji: '🎫', name: '야구표', type: 'like', reactions: ['오늘 야구 보러 가자!', '앗싸! 야구장!', '좌석이 어디야?!'] },
+  { emoji: '🧢', name: '야구모자', type: 'like', reactions: ['이거 두산 모자?!', '모자 컬렉션 추가!', '캡 돌려쓰기~'] },
+  { emoji: '🏟️', name: '야구장', type: 'like', reactions: ['잠실 가자!!', '치맥 준비!', '내야석으로!'] },
+  { emoji: '🥕', name: '당근', type: 'dislike', reactions: ['또 당근이야...', '회사에서도 보는데...', '당근 그만 줘...'] },
+  { emoji: '🥬', name: '배추', type: 'dislike', reactions: ['배추는 질렸어...', '김장은 싫어...', '배추값 얘기 하지마...'] },
+  { emoji: '🥦', name: '브로콜리', type: 'dislike', reactions: ['브로콜리 싫어!', '이거 발주만 해도...', '더는 못 봐...'] },
+  { emoji: '🫑', name: '피망', type: 'dislike', reactions: ['피망은 진짜...', '안 먹어! 절대!', '냄새만 맡아도...'] },
+];
+
+let likeCount = 0;
+let dislikeCount = 0;
+let mood = 50;
+let combo = 0;
+let lastType = '';
+let totalGifts = 0;
+
+const grid = document.getElementById('itemsGrid');
+const speech = document.getElementById('speech');
+const character = document.getElementById('character');
+const moodBar = document.getElementById('moodBar');
+const moodEmoji = document.getElementById('moodEmoji');
+const comboEl = document.getElementById('combo');
+const eyes = document.getElementById('eyes');
+const mouth = document.getElementById('mouth');
+const blush = document.getElementById('blush');
+
+// 아이템 버튼 생성
+items.forEach((item, i) => {
+  const btn = document.createElement('button');
+  btn.className = `item-btn ${item.type}`;
+  btn.innerHTML = `<span class="emoji">${item.emoji}</span><span class="name">${item.name}</span>`;
+  btn.onclick = () => giveItem(item, btn);
+  grid.appendChild(btn);
+});
+
+// 배경 파티클
+function createParticles() {
+  const emojis = ['⚾', '🥕', '🎫', '🥬', '🏟️', '🥦'];
+  for (let i = 0; i < 8; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    p.style.left = Math.random() * 100 + 'vw';
+    p.style.animationDuration = (8 + Math.random() * 12) + 's';
+    p.style.animationDelay = (Math.random() * 10) + 's';
+    document.body.appendChild(p);
+  }
+}
+createParticles();
+
+function giveItem(item, btn) {
+  totalGifts++;
+  const reaction = item.reactions[Math.floor(Math.random() * item.reactions.length)];
+
+  // 콤보
+  if (item.type === lastType) {
+    combo++;
+  } else {
+    combo = 1;
+  }
+  lastType = item.type;
+
+  if (item.type === 'like') {
+    likeCount++;
+    const pts = combo >= 3 ? 15 : 10;
+    mood = Math.min(100, mood + pts);
+    character.className = 'character happy';
+    showFloatingEmoji(item.emoji, btn);
+    // 표정 변경 - 행복
+    updateFace('happy');
+  } else {
+    dislikeCount++;
+    const pts = combo >= 3 ? 20 : 12;
+    mood = Math.max(0, mood - pts);
+    character.className = 'character angry';
+    showFloatingEmoji('😤', btn);
+    // 표정 변경 - 화남
+    updateFace('angry');
+  }
+
+  // 콤보 표시
+  if (combo >= 3) {
+    comboEl.textContent = `${combo} COMBO!`;
+    comboEl.className = 'combo show';
+    setTimeout(() => comboEl.className = 'combo', 800);
+  }
+
+  // 말풍선
+  speech.textContent = reaction;
+  speech.className = 'speech-bubble show';
+  setTimeout(() => speech.className = 'speech-bubble', 2000);
+
+  // 점수 업데이트
+  document.getElementById('likeScore').textContent = likeCount;
+  document.getElementById('dislikeScore').textContent = dislikeCount;
+
+  // 기분 게이지
+  moodBar.style.width = mood + '%';
+  if (mood >= 70) {
+    moodEmoji.textContent = '😆';
+    moodBar.style.background = 'linear-gradient(90deg, #4ade80, #22d3ee)';
+  } else if (mood >= 40) {
+    moodEmoji.textContent = '😐';
+    moodBar.style.background = 'linear-gradient(90deg, #fbbf24, #4ade80)';
+  } else {
+    moodEmoji.textContent = '😡';
+    moodBar.style.background = 'linear-gradient(90deg, #f87171, #fbbf24)';
+  }
+
+  // 애니메이션 리셋
+  setTimeout(() => character.className = 'character', 1500);
+  setTimeout(() => updateFace('neutral'), 2000);
+
+  // 엔딩 체크
+  checkEnding();
+}
+
+function updateFace(state) {
+  if (state === 'happy') {
+    eyes.innerHTML = `
+      <path d="M86,88 Q92,80 98,88" stroke="#1e293b" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="M122,88 Q128,80 134,88" stroke="#1e293b" stroke-width="3" fill="none" stroke-linecap="round"/>
+    `;
+    mouth.innerHTML = `<path d="M95,105 Q110,122 125,105" stroke="#1e293b" stroke-width="2.5" fill="#f87171" stroke-linecap="round"/>`;
+    blush.setAttribute('opacity', '1');
+  } else if (state === 'angry') {
+    eyes.innerHTML = `
+      <line x1="86" y1="82" x2="98" y2="88" stroke="#1e293b" stroke-width="3" stroke-linecap="round"/>
+      <line x1="86" y1="92" x2="98" y2="86" stroke="#1e293b" stroke-width="3" stroke-linecap="round"/>
+      <line x1="122" y1="88" x2="134" y2="82" stroke="#1e293b" stroke-width="3" stroke-linecap="round"/>
+      <line x1="122" y1="86" x2="134" y2="92" stroke="#1e293b" stroke-width="3" stroke-linecap="round"/>
+    `;
+    mouth.innerHTML = `<path d="M98,115 Q110,105 122,115" stroke="#1e293b" stroke-width="2.5" fill="none" stroke-linecap="round"/>`;
+    blush.setAttribute('opacity', '0');
+  } else {
+    eyes.innerHTML = `
+      <circle cx="92" cy="88" r="6" fill="#1e293b"/>
+      <circle cx="128" cy="88" r="6" fill="#1e293b"/>
+      <circle cx="94" cy="86" r="2" fill="#fff"/>
+      <circle cx="130" cy="86" r="2" fill="#fff"/>
+    `;
+    mouth.innerHTML = `<path d="M100,108 Q110,116 120,108" stroke="#1e293b" stroke-width="2.5" fill="none" stroke-linecap="round"/>`;
+    blush.setAttribute('opacity', '0');
+  }
+}
+
+function showFloatingEmoji(emoji, btn) {
+  const el = document.createElement('div');
+  el.className = 'floating-emoji';
+  el.textContent = emoji;
+  const rect = btn.getBoundingClientRect();
+  el.style.left = (rect.left + rect.width / 2 - 16) + 'px';
+  el.style.top = (rect.top) + 'px';
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 1500);
+}
+
+function checkEnding() {
+  if (totalGifts < 8) return;
+
+  const overlay = document.getElementById('modalOverlay');
+  const title = document.getElementById('modalTitle');
+  const text = document.getElementById('modalText');
+
+  if (mood >= 80) {
+    title.textContent = '🏟️ 야구장 직행!';
+    text.textContent = '하진수가 너무 기분이 좋아서 오늘 야구장에 가겠답니다! 채소 발주는 내일 하겠대요...';
+    overlay.classList.add('show');
+  } else if (mood <= 15) {
+    title.textContent = '😤 퇴근합니다!';
+    text.textContent = '하진수가 화가 나서 조기 퇴근해 버렸습니다! 채소는 누가 관리하지...?';
+    overlay.classList.add('show');
+  } else if (totalGifts >= 16) {
+    title.textContent = mood >= 50 ? '😊 오늘 하루 끝!' : '😑 겨우 버텼다...';
+    text.textContent = mood >= 50
+      ? '하진수가 기분 좋게 하루를 마쳤습니다! 내일도 채소 담당은 계속됩니다~'
+      : '하진수가 힘든 하루를 겨우 마쳤습니다. 내일은 야구표 좀 주세요...';
+    overlay.classList.add('show');
+  }
+}
+
+function resetGame() {
+  likeCount = 0;
+  dislikeCount = 0;
+  mood = 50;
+  combo = 0;
+  lastType = '';
+  totalGifts = 0;
+
+  document.getElementById('likeScore').textContent = '0';
+  document.getElementById('dislikeScore').textContent = '0';
+  moodBar.style.width = '50%';
+  moodBar.style.background = 'linear-gradient(90deg, #fbbf24, #4ade80)';
+  moodEmoji.textContent = '😐';
+  character.className = 'character';
+  updateFace('neutral');
+  speech.className = 'speech-bubble';
+  comboEl.className = 'combo';
+  document.getElementById('modalOverlay').classList.remove('show');
+}
+
+// 시작 인사
+setTimeout(() => {
+  speech.textContent = '안녕! 나 하진수야~';
+  speech.className = 'speech-bubble show';
+  setTimeout(() => speech.className = 'speech-bubble', 2500);
+}, 500);
+</script>
+
+</body>
+</html>
