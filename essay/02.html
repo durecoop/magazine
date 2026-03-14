@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>그 여름, 작정</title>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #f9f6f1;
+  color: #3a3a3a;
+  font-family: 'Nanum Myeongjo', serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 64px 28px 80px;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: -1px;
+  margin-bottom: 10px;
+  line-height: 1.3;
+  color: #1a1a1a;
+}
+
+.subtitle {
+  font-size: 13px;
+  color: #aaa;
+  margin-bottom: 52px;
+  letter-spacing: 2px;
+}
+
+.divider {
+  width: 40px;
+  height: 2px;
+  background: #c9b99a;
+  margin-bottom: 52px;
+}
+
+.essay p {
+  font-size: 17px;
+  line-height: 2.05;
+  margin-bottom: 28px;
+  word-break: keep-all;
+  color: #3a3a3a;
+  letter-spacing: -0.2px;
+}
+
+.essay .hero {
+  font-size: 24px;
+  font-weight: 800;
+  color: #1a1a1a;
+  line-height: 1.7;
+  margin: 56px 0;
+  text-align: center;
+  letter-spacing: -0.5px;
+}
+
+.essay .turning-point {
+  font-size: 19px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 44px 0;
+  padding: 16px 0 16px 22px;
+  border-left: 3px solid #c9b99a;
+  line-height: 1.85;
+}
+
+.essay .dialogue {
+  font-style: italic;
+  color: #5a4a3a;
+  padding: 20px 24px;
+  background: rgba(201, 185, 154, 0.12);
+  border-radius: 8px;
+  margin: 36px 0;
+}
+
+.essay .emotion {
+  background: linear-gradient(180deg, transparent 55%, rgba(201, 185, 154, 0.25) 55%);
+  padding: 0 4px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.essay .insight {
+  background: rgba(201, 185, 154, 0.15);
+  border-radius: 12px;
+  padding: 28px 24px;
+  margin: 44px 0;
+  font-size: 18px;
+  line-height: 2;
+  color: #2c2c2c;
+}
+
+.essay .finale {
+  font-size: 22px;
+  font-weight: 800;
+  color: #1a1a1a;
+  text-align: center;
+  margin: 56px 0 0;
+  line-height: 1.8;
+  padding: 32px 0;
+  border-top: 1px solid #e5ddd0;
+  border-bottom: 1px solid #e5ddd0;
+}
+
+.scene-break {
+  text-align: center;
+  margin: 44px 0;
+  color: #c9b99a;
+  font-size: 18px;
+  letter-spacing: 14px;
+}
+
+.essay .short {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 20px;
+  line-height: 1.8;
+}
+
+/* 편집 제안 */
+.suggestion {
+  position: relative;
+  margin: -12px 0 32px;
+}
+
+.suggestion-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #fff;
+  border: 1.5px solid #e8a87c;
+  color: #d48a5a;
+  font-size: 12px;
+  font-family: -apple-system, sans-serif;
+  padding: 5px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  letter-spacing: 0;
+  transition: all 0.2s;
+}
+
+.suggestion-toggle:hover { background: #fef6f0; }
+
+.suggestion-content {
+  display: none;
+  margin-top: 10px;
+  padding: 16px 18px;
+  background: #fff;
+  border: 1.5px solid #e8a87c;
+  border-radius: 12px;
+  font-family: -apple-system, 'Apple SD Gothic Neo', sans-serif;
+  font-size: 13.5px;
+  line-height: 1.75;
+  color: #6b5040;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+}
+
+.suggestion-content .label {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: #e8a87c;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+
+.suggestion-content .original {
+  text-decoration: line-through;
+  color: #bbb;
+}
+
+.suggestion-content .revised {
+  color: #c0613a;
+  font-weight: 600;
+}
+
+.suggestion-content .reason {
+  margin-top: 8px;
+  font-size: 12.5px;
+  color: #999;
+  padding-top: 8px;
+  border-top: 1px solid #f0e8e0;
+}
+
+.suggestion.open .suggestion-content { display: block; }
+.suggestion.open .suggestion-toggle { background: #fef6f0; }
+
+.editor-bar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(249, 246, 241, 0.95);
+  backdrop-filter: blur(8px);
+  padding: 12px 0;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #e5ddd0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: -apple-system, sans-serif;
+}
+
+.editor-bar .title-text {
+  font-size: 12px;
+  color: #c9b99a;
+  letter-spacing: 1px;
+}
+
+.editor-bar .toggle-all {
+  font-size: 12px;
+  color: #d48a5a;
+  background: #fff;
+  border: 1px solid #e8a87c;
+  padding: 4px 14px;
+  border-radius: 16px;
+  cursor: pointer;
+}
+
+.editor-bar .toggle-all:hover { background: #fef6f0; }
+
+.nav {
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid #e5ddd0;
+  text-align: center;
+}
+
+.nav a {
+  font-family: -apple-system, sans-serif;
+  font-size: 13px;
+  color: #c9b99a;
+  text-decoration: none;
+  letter-spacing: 1px;
+}
+
+.nav a:hover { color: #a89070; }
+
+.footer {
+  margin-top: 32px;
+  text-align: center;
+  color: #ccc;
+  font-size: 13px;
+}
+
+@media (max-width: 480px) {
+  .container { padding: 48px 22px 60px; }
+  .title { font-size: 26px; }
+  .essay p { font-size: 16px; line-height: 2; }
+  .essay .hero { font-size: 21px; }
+  .essay .turning-point { font-size: 17px; }
+  .essay .finale { font-size: 19px; }
+  .essay .insight { font-size: 16px; padding: 24px 20px; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="editor-bar">
+    <span class="title-text">📝 편집 제안 6개</span>
+    <button class="toggle-all" onclick="toggleAll()">전체 열기</button>
+  </div>
+
+  <h1 class="title">그 여름, 작정</h1>
+  <p class="subtitle">에세이 · 두 번째</p>
+  <div class="divider"></div>
+
+  <div class="essay">
+
+    <p class="hero">그 여름,<br>나는 작정을 하고 나갔다.</p>
+
+    <!-- 시선의 시작 -->
+
+    <p>처음 그를 눈여겨본 건 아주 작은 장면이었다.</p>
+
+    <p>사무실을 나가려던 그가 문 앞에서 멈췄다. 들어오는 사람이 있었다. 그는 문을 잡고 기다렸다. <span class="emotion">직급이 낮은 사람한테도.</span></p>
+
+    <p>그 전 회사 상사들한테서 본 적 없는 모습이었다.</p>
+
+    <div class="insight">
+      그때부터 그를 보게 됐다.<br>
+      천천히 말하는 말투,<br>
+      작은 걸 물어봐도 무시하지 않는 사람.
+    </div>
+
+    <p>처음엔 그냥 좋은 사람이라고 생각했다. 그게 좋아하는 마음이 된 건 세 번째 계절쯤 됐을까.</p>
+
+    <p class="turning-point">그 마음을 어디에도 두지 못한 채.</p>
+
+    <div class="scene-break">· · ·</div>
+
+    <!-- 강의, 기다림 -->
+
+    <p>에어콘 바람으로 시원해진 거실에서 나는 사이버 대학 강의를 듣고 있었다. 이 시간을 위해 집안일을 빠르게 해치웠는데도, 강의를 틀어놓고 딴짓을 참 많이 했다.</p>
+
+    <p>책상 정리는 기본이고 핸드폰의 작은 알람도 놓치지 않았다. <span class="emotion">그에게 연락이 오지 않을까, 기다리면서.</span></p>
+
+    <div class="suggestion" onclick="this.classList.toggle('open')">
+      <button class="suggestion-toggle">💡 제안 1</button>
+      <div class="suggestion-content">
+        <span class="label">여운 살리기</span><br>
+        <span class="original">그에게 연락이 오지 않을까, 기다리면서.</span><br>
+        <span class="revised">→ 그에게 연락이 올까 봐. 안 올까 봐.</span>
+        <div class="reason">기다림의 양면성 — 오면 설레고, 안 오면 실망. 짧은 두 문장으로 그 마음의 흔들림을 담을 수 있어요. 물론 원문의 담담함도 좋습니다.</div>
+      </div>
+    </div>
+
+    <!-- 상품권 -->
+
+    <p class="dialogue">"띠링"</p>
+
+    <p>이번에도 광고겠거니 하고 봤는데 팀장님이었다. 이마트 상품권이 생겼는데 자기는 안 쓴다며 나보고 쓰라고. 만 원.</p>
+
+    <p>혼자 쓰기엔 애매한 돈이었다. 회사 근처 이마트에서 간식을 사다 팀원들이랑 나눠 먹었다.</p>
+
+    <p>간식을 나눠 주고 나니 팀장님에게 또 카톡이 왔다.</p>
+
+    <p class="dialogue">"제일 더운 시간에 마트까지 다녀오시고 너무 고생 많으셨어요. 맛있는 간식 사드리고 싶어요. 어떤 거 좋아하세요?"</p>
+
+    <p class="dialogue">"어차피 점심 먹고 산책하잖아요. 겸사겸사 다녀왔어요. 덕분에 달달하게 오후를 보낼 수 있게 되었네요."</p>
+
+    <div class="suggestion" onclick="this.classList.toggle('open')">
+      <button class="suggestion-toggle">💡 제안 2</button>
+      <div class="suggestion-content">
+        <span class="label">대화 구분</span><br>
+        <span class="revised">→ 두 사람의 카톡 앞에 각각 화자 표시를 넣는 건 어떨까요?</span><br>
+        예: 팀장님: "제일 더운 시간에…" / 나: "어차피 점심 먹고…"
+        <div class="reason">두 대사가 연속으로 오면 누가 한 말인지 살짝 헷갈릴 수 있어요. 다만 에세이 톤을 지키고 싶다면, 대사 사이에 "나는 별것 아닌 듯 답했다" 같은 한 줄을 넣는 방법도 있어요.</div>
+      </div>
+    </div>
+
+    <div class="scene-break">· · ·</div>
+
+    <!-- 타로, 결심 -->
+
+    <p>퇴근길. 팀장님이 보낸 카톡을 다시 한번 읽었다.</p>
+
+    <p>지난달 만난 타로 마스터님의 말이 떠올랐다.</p>
+
+    <p class="dialogue">"연애운이 들어왔는데 행동하지 않으면 아무 소용이 없어요."</p>
+
+    <p>평소의 나라면 그냥 덮었을 거다. 근데 그날은 달랐다. <span class="emotion">손가락이 먼저 움직였다.</span></p>
+
+    <p>팀장님께 카톡을 보냈다.</p>
+
+    <p class="dialogue">"팀장님. 저 맥주 사주세요."</p>
+
+    <p class="turning-point">전송을 누르고 나서야<br>내가 한 일을 알았다.</p>
+
+    <p class="short">사적으로 커피 한 잔 마신 적 없었던 사이었는데.</p>
+    <p class="short">캔맥주 사다 주시는 거 아닐까?</p>
+    <p class="short">너무 부담스러워하시는 건 아닐까?</p>
+
+    <p class="dialogue">"네. 알겠어요. 그럴게요. 편한 시간 얘기해주세요."</p>
+
+    <p style="text-align:center; font-size:19px; font-weight:700; color:#1a1a1a; margin:36px 0;">와우.</p>
+
+    <div class="suggestion" onclick="this.classList.toggle('open')">
+      <button class="suggestion-toggle">💡 제안 3</button>
+      <div class="suggestion-content">
+        <span class="label">임팩트</span><br>
+        <span class="revised">→ "와우." 이 한마디가 정말 좋아요. 그대로 두세요.</span>
+        <div class="reason">이건 수정 제안이 아니라 칭찬이에요. 긴 긴장 후에 터지는 이 한마디가 독자의 웃음과 안도를 동시에 끌어냅니다. 완벽한 배치예요.</div>
+      </div>
+    </div>
+
+    <div class="scene-break">· · ·</div>
+
+    <!-- 만남 -->
+
+    <p>카페에 그가 먼저 와 있었다. 시원한 음료를 주문해놓고.</p>
+
+    <p>처음 둘이 마주 앉으니 어색했다. 작정하고 나온 사람이 맞나 싶을 만큼. 음료를 20분 만에 다 마셨다.</p>
+
+    <p>그렇게 맥주집으로 자리를 옮겼다.</p>
+
+    <p>괜찮은 곳으로 갔다. 세계맥주를 파는 곳이었는데, 그가 술을 못 마신다는 걸 알고 있었다. 논알콜 맥주도 서너 종류 있는 곳이었다.</p>
+
+    <div class="suggestion" onclick="this.classList.toggle('open')">
+      <button class="suggestion-toggle">💡 제안 4</button>
+      <div class="suggestion-content">
+        <span class="label">시점 명확화</span><br>
+        <span class="original">괜찮은 곳으로 갔다.</span><br>
+        <span class="revised">→ 내가 골라둔 곳이었다.</span>
+        <div class="reason">뒤에 "논알콜 맥주도 있는 곳"이라는 디테일이 나오는데, 이건 미리 알아본 사람만 아는 정보예요. "내가 골라둔"으로 바꾸면 '작정'의 치밀함이 더 드러나요.</div>
+      </div>
+    </div>
+
+    <p>맥주 창고는 냉장고 온도였다. 거기서 직접 골라 나오면 직원이 그 맥주회사 잔에 따라줬다.</p>
+
+    <div class="insight">
+      전날 마스카라를 샀다.<br>
+      원래 화장을 안 하는데.<br>
+      눈을 더 예쁘게 보여야겠다는 생각을 했다.
+    </div>
+
+    <p>저녁시간이지만 대낮처럼 밝은 그날. 그의 이야기에 시선을 고정하고, 고개를 끄덕이고, 잘 웃었다.</p>
+
+    <div class="suggestion" onclick="this.classList.toggle('open')">
+      <button class="suggestion-toggle">💡 제안 5</button>
+      <div class="suggestion-content">
+        <span class="label">배치 제안</span><br>
+        <span class="revised">→ "전날 마스카라를 샀다" 단락을 맥주집 도착 직후가 아니라, "카페에 그가 먼저 와 있었다" 바로 앞으로 옮기는 건 어떨까요?</span>
+        <div class="reason">시간순으로는 마스카라를 산 게 만남 전이에요. 카페에 들어가기 직전에 이 고백을 놓으면, "처음 둘이 마주 앉으니 어색했다"가 더 긴장감 있게 읽혀요. 다만 지금 위치도 '회상이 끼어드는 느낌'으로 매력이 있어서 취향 차이입니다.</div>
+      </div>
+    </div>
+
+    <!-- 반말 -->
+
+    <p>그러다 어느 순간 느꼈다. <span class="emotion">이대로 끝나면 내일 회사에서 똑같이 팀장님이라고 부를 것 같다는 걸.</span> 좋은 동료로, 그냥 그렇게.</p>
+
+    <p>그게 싫었다. 조금 더 가까운 사이가 되고 싶었다.</p>
+
+    <p class="short" style="color:#999;">사실 이것도 준비해간 카드였다. 어색해지면 꺼내야겠다고.</p>
+
+    <p class="dialogue">"팀장님, 우리 반말할래요?"</p>
+
+    <p>약간 불편한 기색이 비쳤다. 바로 "10분만 해요"라고 했는데, 헤어지기 전까지 계속 반말로 했다.</p>
+
+    <div class="scene-break">· · ·</div>
+
+    <!-- 문래동 밤 -->
+
+    <p>맥주집을 나왔다. 조금 취했다.</p>
+
+    <p>금요일 밤 문래동. 좁은 골목마다 사람들로 북적였다. 다들 기분 좋아 보였다. <span class="emotion">나도 기분이 좋아서 그런가, 온 거리가 축제 같았다.</span></p>
+
+    <p>편의점 앞을 지나치다 아이스크림 사달라고 했다.</p>
+
+    <p class="short" style="color:#999;">마지막 카드였다. 더 있고 싶었다.</p>
+
+    <p>근데 그는 택시를 잡아줬다. 그의 집이 먼 걸 알았다. 계속 붙잡고 있을 수 없었다.</p>
+
+    <div class="suggestion" onclick="this.classList.toggle('open')">
+      <button class="suggestion-toggle">💡 제안 6</button>
+      <div class="suggestion-content">
+        <span class="label">여운</span><br>
+        <span class="original">계속 붙잡고 있을 수 없었다.</span><br>
+        <span class="revised">→ 계속 붙잡고 있을 수는 없었다.</span>
+        <div class="reason">"수는"을 넣으면 '붙잡고 싶었지만'이라는 마음이 한 글자에 실려요. 아주 미세한 차이지만 여운이 달라집니다.</div>
+      </div>
+    </div>
+
+    <div class="scene-break">· · ·</div>
+
+    <p>집에 도착하자 카톡이 왔다.</p>
+
+    <p>반말로.</p>
+
+    <p class="dialogue">"잘 들어갔어? 오늘 너무 귀여웠어. 술 마시고 메롱하는 모습."</p>
+
+    <p class="finale">그는 이제<br>자기야라고 부르는 사이가 됐다.</p>
+
+  </div>
+
+  <div class="nav">
+    <a href="index.html">← 첫 번째 이야기: 그 여름, 모퉁이</a>
+  </div>
+
+  <div class="footer">✦</div>
+</div>
+
+<script>
+let allOpen = false;
+function toggleAll() {
+  allOpen = !allOpen;
+  document.querySelectorAll('.suggestion').forEach(el => {
+    if (allOpen) el.classList.add('open');
+    else el.classList.remove('open');
+  });
+  document.querySelector('.toggle-all').textContent = allOpen ? '전체 닫기' : '전체 열기';
+}
+</script>
+
+</body>
+</html>
