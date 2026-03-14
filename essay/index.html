@@ -35,7 +35,6 @@ body {
   color: #aaa;
   margin-bottom: 52px;
   letter-spacing: 2px;
-  text-transform: uppercase;
 }
 
 .divider {
@@ -54,19 +53,16 @@ body {
   letter-spacing: -0.2px;
 }
 
-/* 핵심 문장 - 큰 글씨 강조 */
 .essay .hero {
   font-size: 24px;
   font-weight: 800;
   color: #1a1a1a;
   line-height: 1.7;
   margin: 56px 0;
-  padding: 0;
   text-align: center;
   letter-spacing: -0.5px;
 }
 
-/* 전환점 강조 - 왼쪽 라인 */
 .essay .turning-point {
   font-size: 19px;
   font-weight: 700;
@@ -77,7 +73,6 @@ body {
   line-height: 1.85;
 }
 
-/* 대사 */
 .essay .dialogue {
   font-style: italic;
   color: #5a4a3a;
@@ -87,7 +82,6 @@ body {
   margin: 36px 0;
 }
 
-/* 감정 하이라이트 - 배경 */
 .essay .emotion {
   background: linear-gradient(180deg, transparent 55%, rgba(201, 185, 154, 0.25) 55%);
   padding: 0 4px;
@@ -95,7 +89,6 @@ body {
   color: #1a1a1a;
 }
 
-/* 깨달음/성장 - 따뜻한 박스 */
 .essay .insight {
   background: rgba(201, 185, 154, 0.15);
   border-radius: 12px;
@@ -106,7 +99,6 @@ body {
   color: #2c2c2c;
 }
 
-/* 마지막 문장 - 최대 강조 */
 .essay .finale {
   font-size: 22px;
   font-weight: 800;
@@ -127,6 +119,121 @@ body {
   letter-spacing: 14px;
 }
 
+/* 편집 제안 스타일 */
+.suggestion {
+  position: relative;
+  margin: -12px 0 32px;
+}
+
+.suggestion-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #fff;
+  border: 1.5px solid #e8a87c;
+  color: #d48a5a;
+  font-size: 12px;
+  font-family: -apple-system, sans-serif;
+  padding: 5px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  letter-spacing: 0;
+  transition: all 0.2s;
+}
+
+.suggestion-toggle:hover {
+  background: #fef6f0;
+}
+
+.suggestion-content {
+  display: none;
+  margin-top: 10px;
+  padding: 16px 18px;
+  background: #fff;
+  border: 1.5px solid #e8a87c;
+  border-radius: 12px;
+  font-family: -apple-system, 'Apple SD Gothic Neo', sans-serif;
+  font-size: 13.5px;
+  line-height: 1.75;
+  color: #6b5040;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+}
+
+.suggestion-content .label {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: #e8a87c;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+
+.suggestion-content .original {
+  text-decoration: line-through;
+  color: #bbb;
+  margin-right: 4px;
+}
+
+.suggestion-content .revised {
+  color: #c0613a;
+  font-weight: 600;
+}
+
+.suggestion-content .reason {
+  margin-top: 8px;
+  font-size: 12.5px;
+  color: #999;
+  padding-top: 8px;
+  border-top: 1px solid #f0e8e0;
+}
+
+.suggestion.open .suggestion-content {
+  display: block;
+}
+
+.suggestion.open .suggestion-toggle {
+  background: #fef6f0;
+}
+
+/* 전체 제안 토글 */
+.editor-bar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(249, 246, 241, 0.95);
+  backdrop-filter: blur(8px);
+  padding: 12px 0;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #e5ddd0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: -apple-system, sans-serif;
+}
+
+.editor-bar .title-text {
+  font-size: 12px;
+  color: #c9b99a;
+  letter-spacing: 1px;
+}
+
+.editor-bar .toggle-all {
+  font-size: 12px;
+  color: #d48a5a;
+  background: #fff;
+  border: 1px solid #e8a87c;
+  padding: 4px 14px;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.editor-bar .toggle-all:hover {
+  background: #fef6f0;
+}
+
 .footer {
   margin-top: 64px;
   text-align: center;
@@ -143,12 +250,19 @@ body {
   .essay .turning-point { font-size: 17px; }
   .essay .finale { font-size: 19px; }
   .essay .insight { font-size: 16px; padding: 24px 20px; }
+  .editor-bar { padding: 10px 0; }
 }
 </style>
 </head>
 <body>
 
 <div class="container">
+
+  <div class="editor-bar">
+    <span class="title-text">📝 편집 제안 7개</span>
+    <button class="toggle-all" onclick="toggleAll()">전체 열기</button>
+  </div>
+
   <h1 class="title">그 여름, 모퉁이</h1>
   <p class="subtitle">에세이</p>
   <div class="divider"></div>
@@ -159,11 +273,31 @@ body {
 
     <p>회사 근처 모퉁이에 있는 편의점을 보며 슬쩍 몸을 돌렸던, 그렇게 작아졌던 그 날의 나를 떠올린다.</p>
 
+    <div class="suggestion" onclick="this.classList.toggle('open')">
+      <button class="suggestion-toggle">💡 제안 1</button>
+      <div class="suggestion-content">
+        <span class="label">문장 다듬기</span><br>
+        <span class="original">뜨거운 햇빛이 거리에 있는 사람들을 밀어내는 계절이었다.</span><br>
+        <span class="revised">→ 뜨거운 햇빛이 거리의 사람들을 밀어내는 계절이었다.</span>
+        <div class="reason">"거리에 있는"보다 "거리의"가 리듬이 간결합니다. 에세이 전체가 짧고 건조한 호흡인데, 이 문장만 살짝 늘어져요.</div>
+      </div>
+    </div>
+
     <p>뜨거운 햇빛이 거리에 있는 사람들을 밀어내는 계절이었다. 점심시간, 나는 그늘만 골라 산책하고 회사로 들어가는 길이었다.</p>
 
     <p>신호등에서 기다리고 있었는데, 건너편 편의점에서 그가 동료와 음료수를 마시고 있었다.</p>
 
     <p>그를 발견하자마자 <span class="emotion">심장이 너무 빨리 뛰고 얼굴이 화끈거렸다.</span> 이런 모습으로 그 앞을 지나가며 아무렇지 않게 인사할 수 없었다.</p>
+
+    <div class="suggestion" onclick="this.classList.toggle('open')">
+      <button class="suggestion-toggle">💡 제안 2</button>
+      <div class="suggestion-content">
+        <span class="label">감정 밀도</span><br>
+        <span class="original">심장이 너무 빨리 뛰고 얼굴이 화끈거렸다.</span><br>
+        <span class="revised">→ 심장이 빨리 뛰었고 얼굴이 화끈거렸다.</span>
+        <div class="reason">"너무"를 빼면 오히려 감정이 더 직접적으로 와닿아요. 담담하게 회상하는 화자의 톤과도 맞고요. 선택이지만, 이 글의 절제된 분위기에는 "너무" 없는 쪽이 어울립니다.</div>
+      </div>
+    </div>
 
     <p class="turning-point">그렇게 난 발을 돌렸다.</p>
 
@@ -183,7 +317,28 @@ body {
 
     <p>예상보다 빠른 내 대답에 상무님은 흠칫하셨다. 예상외의 답변이었나? 그 말을 한 나도 놀랐다. 생각해 본다고 먼저 할 걸 그랬나? 달리기를 내가 할 수 있을까? 너무 생각없이 결정한 거 아닐까?</p>
 
+    <div class="suggestion" onclick="this.classList.toggle('open')">
+      <button class="suggestion-toggle">💡 제안 3</button>
+      <div class="suggestion-content">
+        <span class="label">반복 줄이기</span><br>
+        <span class="original">예상보다 빠른 내 대답에 상무님은 흠칫하셨다. 예상외의 답변이었나?</span><br>
+        <span class="revised">→ 예상보다 빠른 내 대답에 상무님은 흠칫하셨다. 놀라셨나?</span>
+        <div class="reason">"예상"이 연달아 두 번 나와요. 두 번째를 바꾸면 흐름이 더 자연스럽습니다.</div>
+      </div>
+    </div>
+
     <p>사실 나는 달리기를 떠올리면 고통스러운 기억밖에 떠오르지 않았다. 어렸을 때 얼음 땡, 술래잡기 등을 할 때면 갈비뼈가 아파 놀이 도중 집으로 들어간 적이 많았다. 학교에서 오래달리기를 한다고 하면 나 같은 친구들과 '열심히 뛰지 말자.'를 약속하곤 했다.</p>
+
+    <div class="suggestion" onclick="this.classList.toggle('open')">
+      <button class="suggestion-toggle">💡 제안 4</button>
+      <div class="suggestion-content">
+        <span class="label">호흡 분리</span><br>
+        <span class="revised">→ 이 문단을 두 개로 나누는 건 어떨까요?</span><br><br>
+        "사실 나는 달리기를 떠올리면 고통스러운 기억밖에 떠오르지 않았다."<br><br>
+        "어렸을 때 얼음 땡, 술래잡기 등을 할 때면…"
+        <div class="reason">첫 문장이 과거 회상의 입구인데, 바로 구체적인 에피소드로 이어지면서 묻혀요. 한 줄 띄우면 "고통스러운 기억밖에"가 더 울림 있게 남습니다.</div>
+      </div>
+    </div>
 
     <p>어른이 되어 운동을 선택하며 할 수 있게 됐을 때 난 달리기를 제외한 운동을 배우곤 했다.</p>
 
@@ -194,6 +349,16 @@ body {
     <p>상무님과 어쩔 수 없이 따라나온 직원 2명, 그리고 나. 이렇게 4명이서 회사 근처를 뛰기 시작했다.</p>
 
     <p>8월의 저녁 6시는 대낮과 다르지 않았다. 뜨거운 햇빛 아래 뛰기 시작했다. 잘해보고 싶었다. 근데 몸은 예상대로였다. 뜨거운 햇빛 아래 얼마 못 가 갈비뼈가 아프고 숨이 턱 막혔다.</p>
+
+    <div class="suggestion" onclick="this.classList.toggle('open')">
+      <button class="suggestion-toggle">💡 제안 5</button>
+      <div class="suggestion-content">
+        <span class="label">반복 표현</span><br>
+        <span class="original">뜨거운 햇빛 아래 뛰기 시작했다. … 뜨거운 햇빛 아래 얼마 못 가</span><br>
+        <span class="revised">→ 뜨거운 햇빛 아래 뛰기 시작했다. 잘해보고 싶었다. 근데 몸은 예상대로였다. 얼마 못 가 갈비뼈가 아프고 숨이 턱 막혔다.</span>
+        <div class="reason">"뜨거운 햇빛 아래"가 두 문장 사이에 연달아 반복돼요. 두 번째를 빼도 이미 독자는 그 뜨거움 속에 있습니다.</div>
+      </div>
+    </div>
 
     <p class="dialogue">"조금만 더 뛰어. 우리 1키로도 안 뛰었어."</p>
 
@@ -217,6 +382,16 @@ body {
 
     <p>지금 나는 여럿이 달리기도 하고 혼자 달리기도 한다. 한강을 달리기도 하고, 동네를 달리기도 한다. 여전히 달리기 자체는 재미없고 힘들다.</p>
 
+    <div class="suggestion" onclick="this.classList.toggle('open')">
+      <button class="suggestion-toggle">💡 제안 6</button>
+      <div class="suggestion-content">
+        <span class="label">리듬 강화</span><br>
+        <span class="original">지금 나는 여럿이 달리기도 하고 혼자 달리기도 한다. 한강을 달리기도 하고, 동네를 달리기도 한다.</span><br>
+        <span class="revised">→ 지금 나는 여럿이 뛰기도 하고, 혼자 뛰기도 한다. 한강을 뛰기도 하고, 동네를 뛰기도 한다.</span>
+        <div class="reason">"달리기도 하고"가 네 번 반복되는데, "뛰기도"로 바꾸면 글자 수가 짧아지면서 리듬감이 더 경쾌해져요. 달리기를 실제로 하고 있는 느낌이 살아납니다.</div>
+      </div>
+    </div>
+
     <p>크루들의 칭찬에 어깨가 으쓱해지고, 조금씩 나아지는 기록을 보며 <span class="emotion">내가 괜찮은 사람이 된 것 같다는 생각을 한다.</span> 신나는 음악에 맞춰 달릴 때는 이 구역 주인공이 된 것 같기도 하고.</p>
 
     <div class="insight">
@@ -225,12 +400,39 @@ body {
       우울한 마음을 단순하게 해줬던 그 시간들.
     </div>
 
+    <div class="suggestion" onclick="this.classList.toggle('open')">
+      <button class="suggestion-toggle">💡 제안 7</button>
+      <div class="suggestion-content">
+        <span class="label">구조 제안</span><br>
+        <span class="revised">→ "우울한 마음을 단순하게 해줬던" 다음에 한 문장 추가를 고려해보세요.</span>
+        <div class="reason">노을 장면이 이 글에서 가장 아름다운 순간인데, 한 박자 더 머물면 좋겠어요. 예를 들어 "멈춰 서서 한참을 봤다." 같은 짧은 한 줄이면 충분합니다. 물론 지금처럼 여운만 남기는 것도 좋은 선택이에요.</div>
+      </div>
+    </div>
+
     <p class="finale">터질 것 같은 마음을<br>어디에도 두지 못하는 나에게,<br>달리기가 준 선물이다.</p>
 
   </div>
 
   <div class="footer">✦</div>
 </div>
+
+<script>
+document.querySelectorAll('.suggestion').forEach(el => {
+  el.addEventListener('click', function(e) {
+    // handled by onclick in HTML
+  });
+});
+
+let allOpen = false;
+function toggleAll() {
+  allOpen = !allOpen;
+  document.querySelectorAll('.suggestion').forEach(el => {
+    if (allOpen) el.classList.add('open');
+    else el.classList.remove('open');
+  });
+  document.querySelector('.toggle-all').textContent = allOpen ? '전체 닫기' : '전체 열기';
+}
+</script>
 
 </body>
 </html>
