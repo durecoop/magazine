@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>클로드 코드 실무편 — 기억·팀·서브에이전트·스킬</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0f0f0f;
+  color: #e0e0e0;
+  font-family: 'Noto Sans KR', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.8;
+}
+.container { max-width: 720px; margin: 0 auto; padding: 48px 24px 80px; }
+
+.header { text-align: center; margin-bottom: 56px; }
+.header .badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #7c3aed, #a78bfa);
+  color: #fff; font-size: 12px; font-weight: 700;
+  padding: 4px 14px; border-radius: 20px; margin-bottom: 20px; letter-spacing: 1px;
+}
+.header h1 { font-size: 34px; font-weight: 900; color: #fff; line-height: 1.3; margin-bottom: 12px; }
+.header h1 span { background: linear-gradient(135deg, #7c3aed, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.header .desc { font-size: 16px; color: #888; font-weight: 300; }
+
+.section { margin-bottom: 48px; }
+.section-num {
+  display: inline-block; background: linear-gradient(135deg, #7c3aed, #a78bfa);
+  color: #fff; font-size: 13px; font-weight: 700;
+  width: 28px; height: 28px; line-height: 28px; text-align: center; border-radius: 50%; margin-bottom: 12px;
+}
+.section h2 { font-size: 24px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+.section .lead { font-size: 15px; color: #999; margin-bottom: 20px; font-weight: 300; }
+.section h3 { font-size: 18px; font-weight: 700; color: #a78bfa; margin: 28px 0 12px; }
+.section p { font-size: 15.5px; margin-bottom: 16px; color: #ccc; word-break: keep-all; }
+
+.card {
+  background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 12px;
+  padding: 20px; margin-bottom: 16px;
+}
+.card .card-title { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+.card .card-title .icon { margin-right: 8px; }
+.card p { font-size: 14.5px; color: #aaa; margin-bottom: 8px; }
+
+.code-block {
+  background: #1a1a1a; border: 1px solid #333; border-radius: 10px;
+  padding: 16px 20px; margin: 16px 0;
+  font-family: 'SF Mono', 'Fira Code', monospace; font-size: 14px;
+  color: #a78bfa; overflow-x: auto; white-space: pre-wrap; position: relative;
+}
+.code-block .comment { color: #666; }
+.code-block .label {
+  position: absolute; top: 8px; right: 12px; font-size: 10px; color: #555;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+.code-block .file { color: #60a5fa; }
+.code-block .key { color: #f59e0b; }
+
+.tip {
+  background: rgba(124, 58, 237, 0.1); border: 1px solid rgba(124, 58, 237, 0.3);
+  border-radius: 10px; padding: 16px 20px; margin: 16px 0; font-size: 14px; color: #c4b5fd;
+}
+.tip .tip-title { font-weight: 700; margin-bottom: 4px; }
+
+.warn {
+  background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.25);
+  border-radius: 10px; padding: 16px 20px; margin: 16px 0; font-size: 14px; color: #fca5a5;
+}
+
+.divider { height: 1px; background: #222; margin: 48px 0; }
+
+.flow {
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  margin: 16px 0; font-size: 14px;
+}
+.flow .box {
+  background: #1a1a1a; border: 1px solid #333; border-radius: 8px;
+  padding: 8px 14px; color: #a78bfa; font-weight: 500;
+}
+.flow .arrow { color: #555; font-size: 18px; }
+
+table {
+  width: 100%; border-collapse: collapse; font-size: 14px; margin: 16px 0;
+}
+th {
+  background: #1a1a1a; color: #a78bfa; font-weight: 700;
+  padding: 12px 16px; text-align: left; border-bottom: 2px solid #333;
+}
+td { padding: 12px 16px; border-bottom: 1px solid #222; color: #ccc; }
+
+.compare { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0; }
+.compare .bad, .compare .good {
+  background: #1a1a1a; border-radius: 10px; padding: 16px; font-size: 14px;
+}
+.compare .bad { border: 1px solid #ef4444; }
+.compare .good { border: 1px solid #22c55e; }
+.compare .bad .tag { font-size: 12px; color: #ef4444; font-weight: 700; margin-bottom: 8px; }
+.compare .good .tag { font-size: 12px; color: #22c55e; font-weight: 700; margin-bottom: 8px; }
+
+.nav-bottom {
+  margin-top: 48px; padding-top: 24px; border-top: 1px solid #222;
+  text-align: center;
+}
+.nav-bottom a {
+  display: inline-block; background: #1a1a1a; border: 1px solid #333;
+  color: #a78bfa; text-decoration: none; padding: 10px 24px; border-radius: 8px;
+  font-size: 14px;
+}
+.footer { margin-top: 32px; text-align: center; color: #555; font-size: 13px; }
+.footer a { color: #a78bfa; text-decoration: none; }
+
+@media (max-width: 480px) {
+  .header h1 { font-size: 26px; }
+  .section h2 { font-size: 20px; }
+  .compare { grid-template-columns: 1fr; }
+  .code-block { font-size: 13px; padding: 14px 16px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+  <div class="badge">공식 매뉴얼 기반 · 실무편</div>
+  <h1><span>클로드 코드</span><br>실무 완전 정복</h1>
+  <p class="desc">기억 · 팀 협업 · 서브에이전트 · 스킬 · 꿀팁</p>
+</div>
+
+<!-- ====== 1. 기억 시스템 ====== -->
+<div class="section">
+  <span class="section-num">1</span>
+  <h2>🧠 기억 시스템 — AI가 어떻게 기억하나요?</h2>
+  <p class="lead">클로드 코드는 매 세션 새로 시작합니다. 하지만 "기억"을 파일로 남길 수 있어요.</p>
+
+  <h3>두 가지 기억 방식</h3>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">📝</span>CLAUDE.md — 내가 직접 쓰는 기억</div>
+    <p>프로젝트 폴더에 <code>CLAUDE.md</code> 파일을 만들면, 클로드가 <strong>매 세션 시작할 때 자동으로 읽습니다.</strong></p>
+    <p>"우리 프로젝트 규칙", "빌드 방법", "코딩 스타일" 등을 적어두면 매번 설명할 필요 없어요!</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🤖</span>Auto Memory — AI가 스스로 쓰는 기억</div>
+    <p>여러분이 "아니, 그렇게 하지 말고 이렇게 해"라고 교정하면, 클로드가 <strong>자동으로 메모</strong>해둡니다.</p>
+    <p>다음 세션에서 같은 실수를 반복하지 않아요! (첫 200줄 자동 로드)</p>
+  </div>
+
+  <table>
+    <tr><th></th><th>CLAUDE.md</th><th>Auto Memory</th></tr>
+    <tr><td>누가 쓰나</td><td>내가 직접</td><td>AI가 자동으로</td></tr>
+    <tr><td>뭘 저장하나</td><td>규칙, 표준, 워크플로</td><td>빌드 명령어, 디버깅 인사이트, 선호도</td></tr>
+    <tr><td>적용 범위</td><td>프로젝트/개인/조직</td><td>현재 작업 트리</td></tr>
+    <tr><td>언제 불러오나</td><td>매 세션 시작</td><td>매 세션 시작 (200줄)</td></tr>
+  </table>
+
+  <h3>CLAUDE.md 실전 작성법</h3>
+
+  <div class="code-block"><span class="label">CLAUDE.md 예시</span><span class="comment"># 프로젝트 규칙</span>
+
+<span class="key">## 빌드 & 테스트</span>
+- 빌드: <span class="file">npm run build</span>
+- 테스트: <span class="file">npm test</span>
+- 커밋 전 반드시 테스트 통과 확인
+
+<span class="key">## 코딩 스타일</span>
+- TypeScript 사용
+- 들여쓰기: 스페이스 2칸
+- 함수명: camelCase
+- 한국어 주석 사용
+
+<span class="key">## 프로젝트 구조</span>
+- API 핸들러: <span class="file">src/api/handlers/</span>
+- DB 모델: <span class="file">src/models/</span>
+- 테스트: <span class="file">tests/</span>
+
+<span class="key">## 주의사항</span>
+- .env 파일 절대 커밋하지 말 것
+- API 키를 코드에 직접 넣지 말 것</div>
+
+  <h3>📂 CLAUDE.md 저장 위치별 범위</h3>
+
+  <table>
+    <tr><th>위치</th><th>적용 범위</th><th>공유 대상</th></tr>
+    <tr><td><code>./CLAUDE.md</code></td><td>이 프로젝트만</td><td>팀원 전체 (Git)</td></tr>
+    <tr><td><code>~/.claude/CLAUDE.md</code></td><td>내 모든 프로젝트</td><td>나만</td></tr>
+    <tr><td><code>/etc/claude-code/</code></td><td>조직 전체</td><td>전 직원</td></tr>
+  </table>
+
+  <div class="tip">
+    <div class="tip-title">💡 꿀팁: /init 명령어</div>
+    프로젝트 폴더에서 <code>/init</code> 을 실행하면 클로드가 <strong>코드를 분석해서 CLAUDE.md를 자동 생성</strong>해줘요! 빌드 명령어, 프로젝트 구조, 코딩 규칙을 자동으로 파악합니다.
+  </div>
+
+  <h3>📁 Rules — 파일별 규칙 분리</h3>
+  <p>프로젝트가 커지면 CLAUDE.md 하나로 부족할 수 있어요. <code>.claude/rules/</code> 폴더에 주제별로 분리하세요!</p>
+
+  <div class="code-block"><span class="label">폴더 구조</span>프로젝트/
+├── .claude/
+│   ├── CLAUDE.md              <span class="comment"># 메인 규칙</span>
+│   └── rules/
+│       ├── code-style.md      <span class="comment"># 코딩 스타일</span>
+│       ├── testing.md         <span class="comment"># 테스트 규칙</span>
+│       ├── api-design.md      <span class="comment"># API 설계 원칙</span>
+│       └── frontend/
+│           └── react.md       <span class="comment"># 프론트 전용 규칙</span></div>
+
+  <div class="tip">
+    <div class="tip-title">💡 @import 기능</div>
+    CLAUDE.md에서 <code>@docs/guide.md</code> 처럼 다른 파일을 불러올 수 있어요. README나 package.json도 가져올 수 있습니다!
+  </div>
+
+  <div class="warn">
+    ⚠️ CLAUDE.md는 200줄 이하로! 너무 길면 토큰을 많이 먹고, AI가 규칙을 놓칠 확률이 높아져요.
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ====== 2. 서브에이전트 ====== -->
+<div class="section">
+  <span class="section-num">2</span>
+  <h2>🤝 서브에이전트 — AI 부하직원 만들기</h2>
+  <p class="lead">메인 AI가 전문가 AI를 불러서 일을 시킵니다. 사람 팀처럼!</p>
+
+  <h3>서브에이전트가 뭔가요?</h3>
+  <p>클로드 코드 안에서 <strong>전문 분야별 AI 직원</strong>을 만들 수 있어요. 각각 독립된 역할, 도구, 권한을 가지고 일합니다.</p>
+
+  <div class="flow">
+    <div class="box">👤 나 (사용자)</div>
+    <div class="arrow">→</div>
+    <div class="box">🤖 메인 클로드</div>
+    <div class="arrow">→</div>
+    <div class="box">🔍 탐색 에이전트</div>
+  </div>
+  <div class="flow">
+    <div class="box" style="visibility:hidden">👤</div>
+    <div class="arrow" style="visibility:hidden">→</div>
+    <div class="box" style="visibility:hidden">🤖</div>
+    <div class="arrow">→</div>
+    <div class="box">📋 코드 리뷰어</div>
+  </div>
+  <div class="flow">
+    <div class="box" style="visibility:hidden">👤</div>
+    <div class="arrow" style="visibility:hidden">→</div>
+    <div class="box" style="visibility:hidden">🤖</div>
+    <div class="arrow">→</div>
+    <div class="box">🐛 디버거</div>
+  </div>
+
+  <h3>기본 내장 서브에이전트 3개</h3>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🔍</span>Explore (탐색)</div>
+    <p><strong>모델:</strong> Haiku (빠르고 저렴) | <strong>권한:</strong> 읽기 전용</p>
+    <p>코드 검색, 파일 찾기, 구조 분석용. 빠르게 훑어볼 때 자동으로 호출됩니다.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">📋</span>Plan (계획)</div>
+    <p><strong>모델:</strong> 메인과 동일 | <strong>권한:</strong> 읽기 전용</p>
+    <p>플랜 모드에서 코드를 분석하고 계획을 세울 때 사용됩니다.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🔧</span>General-purpose (범용)</div>
+    <p><strong>모델:</strong> 메인과 동일 | <strong>권한:</strong> 전체</p>
+    <p>복잡한 멀티스텝 작업. 탐색 + 수정 + 실행을 한꺼번에 처리합니다.</p>
+  </div>
+
+  <h3>🛠️ 나만의 서브에이전트 만들기</h3>
+
+  <p><strong>방법 1: 대화형 만들기 (추천)</strong></p>
+  <div class="code-block"><span class="label">클로드 코드 내</span>/agents</div>
+  <p>"Create new agent" → 범위 선택 → Claude가 자동 생성! 도구 접근 권한, 모델, 색상까지 설정 가능.</p>
+
+  <p><strong>방법 2: 파일로 직접 만들기</strong></p>
+  <div class="code-block"><span class="label">.claude/agents/code-reviewer.md</span>---
+name: code-reviewer
+description: 코드 품질과 보안을 검토합니다
+tools: Read, Glob, Grep
+model: sonnet
+---
+
+코드 리뷰어입니다. 호출되면 코드를 분석하고
+품질, 보안, 모범 사례에 대한 구체적이고
+실행 가능한 피드백을 제공하세요.</div>
+
+  <p><strong>방법 3: 명령줄에서 즉석 생성</strong></p>
+  <div class="code-block"><span class="label">터미널</span>claude --agents '{
+  "reviewer": {
+    "description": "코드 리뷰 전문가",
+    "prompt": "시니어 코드 리뷰어입니다. 품질, 보안, 모범 사례에 집중하세요.",
+    "tools": ["Read", "Grep", "Glob", "Bash"],
+    "model": "sonnet"
+  }
+}'</div>
+
+  <h3>서브에이전트 호출 방법</h3>
+  <p>직접 부르거나, AI가 알아서 판단해서 부릅니다!</p>
+
+  <div class="compare">
+    <div class="good">
+      <div class="tag">🤖 AI가 자동 판단</div>
+      "최근 변경사항 보안 이슈 검토해줘"<br>→ AI가 알아서 리뷰어 서브에이전트 호출
+    </div>
+    <div class="good">
+      <div class="tag">👤 직접 지정</div>
+      "code-reviewer 에이전트로 인증 모듈 검토해줘"<br>→ 특정 에이전트 직접 호출
+    </div>
+  </div>
+
+  <h3>📂 서브에이전트 저장 위치</h3>
+  <table>
+    <tr><th>위치</th><th>범위</th><th>용도</th></tr>
+    <tr><td><code>.claude/agents/</code></td><td>이 프로젝트</td><td>팀과 공유 (Git)</td></tr>
+    <tr><td><code>~/.claude/agents/</code></td><td>내 모든 프로젝트</td><td>개인 전용</td></tr>
+    <tr><td><code>--agents</code> 플래그</td><td>이번 세션만</td><td>테스트/자동화</td></tr>
+  </table>
+
+  <div class="tip">
+    <div class="tip-title">💡 비용 절감 팁</div>
+    탐색용 에이전트는 <code>model: haiku</code>로 설정하면 빠르고 저렴하게! 실제 코드 수정만 비싼 모델 쓰세요.
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ====== 3. 스킬 ====== -->
+<div class="section">
+  <span class="section-num">3</span>
+  <h2>⚡ 스킬 — 나만의 명령어 만들기</h2>
+  <p class="lead">/deploy, /review-pr 같은 커스텀 명령어를 만들 수 있어요!</p>
+
+  <h3>스킬이 뭔가요?</h3>
+  <p>반복적인 작업을 <strong>SKILL.md 파일 하나로 패키지</strong>한 것. <code>/스킬이름</code>으로 호출하거나, AI가 상황에 맞게 자동으로 불러옵니다.</p>
+
+  <h3>내장 스킬 5개</h3>
+
+  <table>
+    <tr><th>스킬</th><th>하는 일</th></tr>
+    <tr><td><code>/batch</code></td><td>대규모 변경을 병렬로 처리 (5~30개 단위로 쪼개서 동시 작업!)</td></tr>
+    <tr><td><code>/claude-api</code></td><td>Claude API 레퍼런스 로드</td></tr>
+    <tr><td><code>/debug</code></td><td>현재 세션 문제 진단</td></tr>
+    <tr><td><code>/loop</code></td><td>일정 간격으로 반복 실행 (배포 모니터링 등)</td></tr>
+    <tr><td><code>/simplify</code></td><td>최근 변경 코드 품질 리뷰 + 자동 수정</td></tr>
+  </table>
+
+  <h3>🛠️ 나만의 스킬 만들기</h3>
+
+  <div class="code-block"><span class="label">~/.claude/skills/deploy/SKILL.md</span>---
+name: deploy
+description: 프로덕션 배포 절차를 실행합니다
+---
+
+배포 시 다음 순서를 따르세요:
+
+1. <span class="file">npm test</span> 실행 — 전체 통과 확인
+2. <span class="file">npm run build</span> — 빌드 성공 확인
+3. <span class="file">git tag</span>로 버전 태그 생성
+4. <span class="file">npm run deploy</span> 실행
+5. 배포 후 헬스체크 URL 확인
+6. 결과 요약 보고</div>
+
+  <p>이제 <code>/deploy</code> 라고만 치면 위 순서대로 자동 실행!</p>
+
+  <h3>스킬 저장 위치</h3>
+  <table>
+    <tr><th>위치</th><th>범위</th></tr>
+    <tr><td><code>.claude/skills/</code></td><td>이 프로젝트 (팀 공유)</td></tr>
+    <tr><td><code>~/.claude/skills/</code></td><td>내 모든 프로젝트</td></tr>
+  </table>
+
+  <h3>실전 스킬 예시들</h3>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🔍</span>/review-pr</div>
+    <p>PR 변경사항을 자동 리뷰. 보안 이슈, 성능 문제, 코드 스타일 체크.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">📊</span>/report</div>
+    <p>주간 코드 변경 리포트 자동 생성. 커밋 수, 변경 파일, 주요 변경사항 요약.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🌐</span>/translate</div>
+    <p>다국어 번역 자동화. 새 문자열을 감지해서 번역 파일 업데이트.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">📝</span>/changelog</div>
+    <p>최근 커밋 기반으로 CHANGELOG.md 자동 업데이트.</p>
+  </div>
+
+  <div class="tip">
+    <div class="tip-title">💡 스킬 vs 규칙(Rules) 차이</div>
+    <strong>Rules</strong> = 항상 로드됨 (코딩 스타일처럼 매번 필요한 것)<br>
+    <strong>Skills</strong> = 필요할 때만 로드 (배포, 리뷰처럼 가끔 필요한 것)<br>
+    → 토큰 절약!
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ====== 4. 팀 프로젝트 공유 ====== -->
+<div class="section">
+  <span class="section-num">4</span>
+  <h2>👥 팀 프로젝트 공유</h2>
+  <p class="lead">팀원 모두가 같은 AI 규칙, 같은 에이전트, 같은 스킬을 쓸 수 있어요!</p>
+
+  <h3>Git으로 공유하는 것들</h3>
+
+  <div class="flow">
+    <div class="box">📝 CLAUDE.md</div>
+    <div class="box">📁 .claude/rules/</div>
+    <div class="box">🤖 .claude/agents/</div>
+    <div class="box">⚡ .claude/skills/</div>
+  </div>
+  <p>이 파일들을 <strong>Git에 커밋</strong>하면, 팀원 누구나 <code>git pull</code> 후 동일한 AI 환경을 사용!</p>
+
+  <h3>팀 프로젝트 셋업 예시</h3>
+
+  <div class="code-block"><span class="label">프로젝트 구조</span>우리-프로젝트/
+├── CLAUDE.md                    <span class="comment"># 팀 공통 규칙</span>
+├── .claude/
+│   ├── rules/
+│   │   ├── code-style.md        <span class="comment"># 코딩 스타일</span>
+│   │   ├── git-workflow.md      <span class="comment"># Git 워크플로</span>
+│   │   └── security.md          <span class="comment"># 보안 규칙</span>
+│   ├── agents/
+│   │   ├── reviewer.md          <span class="comment"># 코드 리뷰어</span>
+│   │   └── tester.md            <span class="comment"># 테스트 작성자</span>
+│   └── skills/
+│       ├── deploy/SKILL.md      <span class="comment"># 배포 절차</span>
+│       └── review-pr/SKILL.md   <span class="comment"># PR 리뷰</span>
+├── src/
+└── tests/</div>
+
+  <h3>개인 설정 vs 팀 설정 분리</h3>
+
+  <div class="compare">
+    <div class="good">
+      <div class="tag">📁 팀 공유 (Git 커밋)</div>
+      <code>./CLAUDE.md</code><br>
+      <code>.claude/rules/</code><br>
+      <code>.claude/agents/</code><br>
+      <code>.claude/skills/</code>
+    </div>
+    <div class="good">
+      <div class="tag">🔒 개인만 (Git 무시)</div>
+      <code>~/.claude/CLAUDE.md</code><br>
+      <code>~/.claude/agents/</code><br>
+      <code>~/.claude/skills/</code><br>
+      Auto Memory
+    </div>
+  </div>
+
+  <div class="tip">
+    <div class="tip-title">💡 개인 설정을 팀 규칙에 연결하기</div>
+    팀 CLAUDE.md에 <code>@~/.claude/my-project-rules.md</code>를 넣으면, 개인 설정 파일을 import할 수 있어요. 파일 자체는 Git에 안 올라가니까 안전!
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ====== 5. 실무 꿀팁 ====== -->
+<div class="section">
+  <span class="section-num">5</span>
+  <h2>🍯 실무 꿀팁 모음</h2>
+  <p class="lead">공식 매뉴얼 + 실제 사용자들이 발견한 팁</p>
+
+  <h3>① 검증 수단을 꼭 알려주세요</h3>
+  <p>클로드 코드가 가장 잘 일하는 조건: <strong>스스로 결과를 확인할 수 있을 때!</strong></p>
+
+  <div class="compare">
+    <div class="bad">
+      <div class="tag">❌ 검증 없는 요청</div>
+      "이메일 검증 함수 만들어줘"
+    </div>
+    <div class="good">
+      <div class="tag">✅ 검증 있는 요청</div>
+      "이메일 검증 함수 만들어줘. user@example.com은 true, invalid는 false로 테스트하고 실행까지 해줘"
+    </div>
+  </div>
+
+  <h3>② 4단계 워크플로</h3>
+  <p>복잡한 작업은 이 순서로!</p>
+
+  <div class="flow">
+    <div class="box">🔍 탐색</div>
+    <div class="arrow">→</div>
+    <div class="box">📋 계획</div>
+    <div class="arrow">→</div>
+    <div class="box">💻 구현</div>
+    <div class="arrow">→</div>
+    <div class="box">📦 커밋</div>
+  </div>
+
+  <div class="code-block"><span class="comment"># 1. 플랜 모드로 탐색</span>
+<span class="key">[플랜 모드]</span> src/auth 읽고 세션 관리 방식 이해해줘
+
+<span class="comment"># 2. 계획 세우기</span>
+<span class="key">[플랜 모드]</span> Google OAuth 추가하려면 어떤 파일을 바꿔야 해?
+
+<span class="comment"># 3. 실행</span>
+<span class="key">[일반 모드]</span> 계획대로 OAuth 구현하고 테스트 작성해서 돌려봐
+
+<span class="comment"># 4. 커밋</span>
+<span class="key">[일반 모드]</span> 설명 넣어서 커밋하고 PR 올려줘</div>
+
+  <h3>③ 컨텍스트 관리가 핵심</h3>
+  <p>클로드의 <strong>대화 창(컨텍스트 윈도우)</strong>은 한정적이에요. 꽉 차면 성능이 떨어집니다!</p>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🧹</span>컨텍스트 절약 팁</div>
+    <p>• 하나의 세션에서 너무 많은 작업 X → 주제별로 세션 나누기</p>
+    <p>• <code>/clear</code>로 대화 초기화 후 새 주제 시작</p>
+    <p>• 탐색은 Haiku 서브에이전트에게 (메인 컨텍스트 절약)</p>
+    <p>• CLAUDE.md 200줄 이하로 유지</p>
+    <p>• Rules는 주제별로 분리 (필요한 것만 로드)</p>
+  </div>
+
+  <h3>④ /batch로 대규모 작업 병렬 처리</h3>
+  <div class="code-block"><span class="label">터미널</span>/batch src/ 폴더의 모든 React 컴포넌트를 TypeScript로 변환해줘</div>
+  <p>AI가 작업을 5~30개로 쪼개고, 각각 별도 에이전트가 동시에 처리! PR도 자동 생성.</p>
+
+  <h3>⑤ 파이프라인으로 자동화</h3>
+  <div class="code-block"><span class="comment"># 로그 실시간 모니터링</span>
+tail -f app.log | claude -p "이상 징후 발견하면 알려줘"
+
+<span class="comment"># 변경 파일 보안 검토</span>
+git diff main --name-only | claude -p "보안 이슈 확인"
+
+<span class="comment"># CI에서 번역 자동화</span>
+claude -p "새 문자열을 프랑스어로 번역하고 PR 올려줘"</div>
+
+  <h3>⑥ 리모트 컨트롤</h3>
+  <p>PC에서 시작한 작업을 <strong>아이폰이나 다른 컴퓨터</strong>에서 이어서 할 수 있어요!</p>
+  <div class="code-block"><span class="comment"># PC 터미널에서 서버 시작</span>
+claude remote-control --name "내 프로젝트"
+
+<span class="comment"># 아이폰 Claude 앱이나 claude.ai에서 접속하면 이어서 작업!</span></div>
+
+  <h3>⑦ Slack에서 바로 코딩</h3>
+  <p>Slack 채널에서 <code>@Claude</code> 멘션 + 버그 리포트 → 자동으로 코드 수정 + PR 생성!</p>
+
+  <h3>⑧ 반복 실행</h3>
+  <div class="code-block"><span class="comment"># 5분마다 배포 상태 체크</span>
+/loop 5m 배포 완료됐는지 확인해줘</div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ====== 6. 실전 시나리오 ====== -->
+<div class="section">
+  <span class="section-num">6</span>
+  <h2>🎬 실전 시나리오</h2>
+  <p class="lead">실제 업무에서 이렇게 쓰세요</p>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🏢</span>시나리오 1: 신입이 프로젝트 파악</div>
+    <p><strong>상황:</strong> 새 프로젝트에 투입됨. 코드 구조를 빨리 이해해야 함</p>
+    <div class="code-block">이 프로젝트 전체 개요 설명해줘
+→ 메인 아키텍처 패턴이 뭐야?
+→ 인증은 어떻게 처리하고 있어?
+→ 로그인 과정을 프론트엔드부터 DB까지 추적해줘</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🐛</span>시나리오 2: 긴급 버그 수정</div>
+    <p><strong>상황:</strong> 프로덕션에서 에러 발생!</p>
+    <div class="code-block"><span class="comment"># 에러 로그 넣고 바로 분석</span>
+cat error.log | claude -p "이 에러 원인 찾아서 고쳐줘"
+
+<span class="comment"># 또는 대화형으로</span>
+npm test 하면 에러 나는데 봐줘
+→ 수정 방법 몇 가지 제안해줘
+→ 두 번째 방법으로 수정하고 테스트 돌려봐</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">👥</span>시나리오 3: 팀 코드 리뷰 자동화</div>
+    <p><strong>상황:</strong> 매 PR마다 코드 리뷰 필요</p>
+    <div class="code-block"><span class="comment"># .claude/agents/reviewer.md 만들고</span>
+<span class="comment"># GitHub Actions에 연결하면</span>
+<span class="comment"># PR 올릴 때마다 자동 리뷰!</span>
+
+<span class="comment"># 또는 수동으로:</span>
+/review-pr
+→ "보안 이슈 2개, 성능 개선점 1개 발견"</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="icon">🔄</span>시나리오 4: 레거시 코드 대규모 리팩토링</div>
+    <p><strong>상황:</strong> 100개 파일의 콜백을 async/await로 변환</p>
+    <div class="code-block"><span class="comment"># /batch가 알아서 30개 단위로 쪼개고</span>
+<span class="comment"># 각각 별도 에이전트가 동시에 처리!</span>
+/batch src/ 의 모든 콜백 패턴을 async/await로 리팩토링해줘</div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ====== 7. 한눈에 정리 ====== -->
+<div class="section">
+  <span class="section-num">7</span>
+  <h2>📋 한눈에 정리</h2>
+
+  <table>
+    <tr><th>기능</th><th>핵심 포인트</th><th>파일 위치</th></tr>
+    <tr><td>🧠 기억</td><td>CLAUDE.md (내가 쓰기) + Auto Memory (AI가 쓰기)</td><td><code>./CLAUDE.md</code></td></tr>
+    <tr><td>📁 규칙</td><td>파일별·주제별 규칙 분리</td><td><code>.claude/rules/</code></td></tr>
+    <tr><td>🤖 서브에이전트</td><td>전문가 AI 직원, 자동 or 직접 호출</td><td><code>.claude/agents/</code></td></tr>
+    <tr><td>⚡ 스킬</td><td>/명령어로 반복 작업 자동화</td><td><code>.claude/skills/</code></td></tr>
+    <tr><td>👥 팀 공유</td><td>위 파일들 Git 커밋 → 팀 동일 환경</td><td>Git으로 관리</td></tr>
+  </table>
+</div>
+
+<div class="nav-bottom">
+  <a href="index.html">← 기본편 보기</a>
+</div>
+
+<div class="footer">
+  <p>공식 문서: <a href="https://code.claude.com" target="_blank">code.claude.com</a></p>
+  <p style="margin-top:8px;">두레생협 · 2026년 3월</p>
+</div>
+
+</div>
+</body>
+</html>
