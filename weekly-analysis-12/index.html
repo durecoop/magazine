@@ -255,8 +255,9 @@ body {
     <h2 class="section-title">수익성 분석 TOP 20 <span class="badge">매출·마진</span></h2>
     <p style="color:#888;font-size:0.85rem;margin-bottom:16px;">수량 순위와 매출·마진 순위는 다릅니다. 단가가 높은 품목이 실제 수익에 더 크게 기여합니다.</p>
     <div class="tab-bar" id="profitTabs">
-      <button class="tab-btn active" data-view="revenue">매출액 순위</button>
+      <button class="tab-btn active" data-view="revenue">출고매출 순위</button>
       <button class="tab-btn" data-view="margin">마진 기여 순위</button>
+      <button class="tab-btn" data-view="marginrate">연합마진율 순위</button>
       <button class="tab-btn" data-view="compare">수량 vs 매출 비교</button>
     </div>
     <div class="chart-container" id="profitChartWrap">
@@ -502,13 +503,59 @@ function renderProfitView(view) {
   let sorted;
   if (view === 'revenue') sorted = [...items].sort((a,b) => b.무점포출고매출 - a.무점포출고매출);
   else if (view === 'margin') sorted = [...items].sort((a,b) => b.무점포연합마진합 - a.무점포연합마진합);
+  else if (view === 'marginrate') sorted = [...items].filter(d => d.무점포합계주문 >= 5).sort((a,b) => b.연합마진율 - a.연합마진율);
   else sorted = [...items].sort((a,b) => b.무점포합계주문 - a.무점포합계주문);
 
   const top20p = sorted.slice(0, 20);
   const maxRevenue = Math.max(...top20p.map(d => d.무점포출고매출));
   const maxMargin = Math.max(...top20p.map(d => d.무점포연합마진합));
 
-  if (view === 'compare') {
+  if (view === 'marginrate') {
+    // 연합마진율 높은 순 (무점포 5건 이상만)
+    const maxRate = top20p[0].연합마진율;
+    document.getElementById('profitChart').innerHTML =
+      '<div style="margin-bottom:12px;font-size:0.82rem;color:#888">무점포 5건 이상 품목 중 연합마진율이 높은 순. <span style="color:#ff9f43">마진율이 높을수록</span> 같은 수량을 팔아도 연합회 수익이 큽니다.</div>' +
+      top20p.map((d,i) => {
+        const w = ((d.연합마진율 / maxRate) * 100).toFixed(0);
+        const 기여 = d.무점포합계주문 * d.연합마진;
+        return `<div style="display:grid;grid-template-columns:24px 180px 1fr 120px;gap:8px;align-items:center;font-size:0.82rem;padding:6px 0;border-bottom:1px solid #1e2130">
+          <span style="color:${i<3?'#ff9f43':'#888'};font-weight:700;text-align:right">${i+1}</span>
+          <span style="color:#ccc;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${d.name}">${d.name}</span>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div style="flex:1;height:22px;background:#252830;border-radius:4px;overflow:hidden">
+              <div style="width:${w}%;height:100%;background:linear-gradient(90deg,#ff9f43,#ffbe76);border-radius:4px;display:flex;align-items:center;padding-left:8px;font-size:0.75rem;color:#fff;font-weight:700">${d.연합마진율}%</div>
+            </div>
+          </div>
+          <span style="text-align:right;font-size:0.78rem">
+            <span style="color:#888">${d.입고.toLocaleString()}→${d.출고.toLocaleString()}</span>
+            <span style="color:#50c878;font-weight:700;margin-left:6px">+${d.연합마진.toLocaleString()}</span>
+          </span>
+        </div>
+        <div style="display:grid;grid-template-columns:24px 180px 1fr 120px;gap:8px;font-size:0.72rem;color:#666;padding:0 0 4px;border-bottom:1px solid #151720">
+          <span></span>
+          <span></span>
+          <span>무점포 ${d.무점포합계주문}건 × ${d.연합마진.toLocaleString()}원 = 마진기여 <strong style="color:#50c878">${(기여/10000).toFixed(1)}만원</strong></span>
+          <span></span>
+        </div>`;
+      }).join('');
+    // table
+    document.querySelector('#profitTable tbody').innerHTML = top20p.map((d,i) => {
+      const 기여 = d.무점포합계주문 * d.연합마진;
+      return `<tr>
+        <td class="num">${i+1}</td>
+        <td>${d.name}</td>
+        <td class="num">${d.무점포합계주문}</td>
+        <td class="num" style="color:#888">${d.입고.toLocaleString()}</td>
+        <td class="num">${d.출고.toLocaleString()}</td>
+        <td class="num" style="color:#a855f7">${d.조합원가.toLocaleString()}</td>
+        <td class="num" style="color:#4a9eff;font-weight:700">${(d.무점포출고매출/10000).toFixed(1)}만</td>
+        <td class="num" style="color:#ff9f43;font-weight:700">${d.연합마진.toLocaleString()} (${d.연합마진율}%)</td>
+        <td class="num" style="color:#50c878;font-weight:700">${(기여/10000).toFixed(1)}만</td>
+        <td style="font-size:0.78rem;color:#888">${d.대분류}</td>
+      </tr>`;
+    }).join('');
+    return;
+  } else if (view === 'compare') {
     // dual bar: 수량 rank vs 매출 rank
     const byQty = [...items].sort((a,b) => b.무점포합계주문 - a.무점포합계주문);
     const byRev = [...items].sort((a,b) => b.무점포출고매출 - a.무점포출고매출);
