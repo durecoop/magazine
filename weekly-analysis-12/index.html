@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>12주차 기획주문 분석 — 두레생협</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  background: #0f1117;
+  color: #e0e0e0;
+  word-break: keep-all;
+  line-height: 1.6;
+}
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+/* Header */
+.hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  padding: 60px 0 40px;
+  text-align: center;
+  border-bottom: 2px solid #e94560;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(circle at 20% 50%, rgba(233,69,96,0.1) 0%, transparent 50%),
+              radial-gradient(circle at 80% 50%, rgba(15,52,96,0.3) 0%, transparent 50%);
+}
+.hero h1 {
+  font-size: 2.4rem; font-weight: 900; color: #fff;
+  position: relative; z-index: 1;
+}
+.hero h1 span { color: #e94560; }
+.hero .subtitle {
+  font-size: 1.1rem; color: #8899aa; margin-top: 8px;
+  position: relative; z-index: 1;
+}
+.hero .period {
+  display: inline-block; background: rgba(233,69,96,0.15); border: 1px solid rgba(233,69,96,0.3);
+  padding: 6px 20px; border-radius: 30px; margin-top: 16px;
+  font-size: 0.95rem; color: #e94560; position: relative; z-index: 1;
+}
+
+/* KPI Cards */
+.kpi-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px; margin: 30px 0 40px; position: relative; z-index: 2;
+}
+.kpi-card {
+  background: #1a1d28; border: 1px solid #2a2d3a; border-radius: 16px;
+  padding: 24px; text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.kpi-card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(0,0,0,0.4); }
+.kpi-card .label { font-size: 0.85rem; color: #888; margin-bottom: 4px; }
+.kpi-card .value { font-size: 2rem; font-weight: 900; color: #fff; }
+.kpi-card .value.red { color: #e94560; }
+.kpi-card .value.blue { color: #4a9eff; }
+.kpi-card .value.green { color: #50c878; }
+.kpi-card .value.orange { color: #ff9f43; }
+
+/* Section */
+.section { margin: 50px 0; }
+.section-title {
+  font-size: 1.5rem; font-weight: 700; color: #fff; margin-bottom: 20px;
+  padding-left: 16px; border-left: 4px solid #e94560;
+  display: flex; align-items: center; gap: 10px;
+}
+.section-title .badge {
+  font-size: 0.75rem; background: #e94560; color: #fff; padding: 2px 10px;
+  border-radius: 12px; font-weight: 500;
+}
+
+/* Chart container */
+.chart-container {
+  background: #1a1d28; border: 1px solid #2a2d3a; border-radius: 16px;
+  padding: 24px; margin-bottom: 20px;
+}
+
+/* Horizontal bar chart */
+.bar-chart { display: flex; flex-direction: column; gap: 8px; }
+.bar-row {
+  display: grid; grid-template-columns: 30px 1fr 80px; gap: 10px; align-items: center;
+  font-size: 0.85rem;
+}
+.bar-row .rank {
+  font-weight: 700; color: #e94560; text-align: right; font-size: 0.9rem;
+}
+.bar-row .rank.top3 { color: #ff6b6b; font-size: 1.1rem; }
+.bar-row .bar-wrap {
+  display: flex; align-items: center; gap: 10px;
+}
+.bar-row .bar-label {
+  min-width: 160px; max-width: 200px; white-space: nowrap; overflow: hidden;
+  text-overflow: ellipsis; font-size: 0.85rem; color: #ccc;
+}
+.bar-row .bar-track {
+  flex: 1; height: 24px; background: #252830; border-radius: 6px; overflow: hidden;
+  position: relative;
+}
+.bar-row .bar-fill {
+  height: 100%; border-radius: 6px; transition: width 1s ease;
+  display: flex; align-items: center; padding-left: 8px;
+  font-size: 0.75rem; color: #fff; font-weight: 500; white-space: nowrap;
+}
+.bar-row .bar-value {
+  font-weight: 700; color: #fff; text-align: right; font-size: 0.9rem;
+}
+
+/* Category donut placeholder - use CSS pie */
+.cat-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+}
+@media (max-width: 768px) { .cat-grid { grid-template-columns: 1fr; } }
+.cat-list { display: flex; flex-direction: column; gap: 6px; }
+.cat-item {
+  display: grid; grid-template-columns: 12px 1fr 70px 50px; gap: 10px; align-items: center;
+  padding: 8px 12px; border-radius: 8px; background: #1e2130;
+  font-size: 0.85rem;
+}
+.cat-dot { width: 12px; height: 12px; border-radius: 50%; }
+.cat-name { color: #ccc; }
+.cat-val { color: #fff; font-weight: 700; text-align: right; }
+.cat-pct { color: #888; text-align: right; }
+
+/* Insight cards */
+.insight-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 16px;
+}
+.insight-card {
+  background: #1a1d28; border: 1px solid #2a2d3a; border-radius: 16px;
+  padding: 24px; position: relative; overflow: hidden;
+}
+.insight-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+}
+.insight-card.red::before { background: linear-gradient(90deg, #e94560, #ff6b6b); }
+.insight-card.blue::before { background: linear-gradient(90deg, #4a9eff, #6cb4ff); }
+.insight-card.green::before { background: linear-gradient(90deg, #50c878, #7ddf9b); }
+.insight-card.orange::before { background: linear-gradient(90deg, #ff9f43, #ffbe76); }
+.insight-card h3 { font-size: 1.1rem; color: #fff; margin-bottom: 12px; }
+.insight-card p { font-size: 0.9rem; color: #aaa; line-height: 1.7; }
+.insight-card ul { list-style: none; padding: 0; }
+.insight-card li {
+  padding: 6px 0; border-bottom: 1px solid #252830; font-size: 0.85rem; color: #bbb;
+}
+.insight-card li:last-child { border: none; }
+.insight-card li strong { color: #fff; }
+.insight-tag {
+  display: inline-block; font-size: 0.7rem; padding: 2px 8px; border-radius: 10px;
+  margin-right: 4px; font-weight: 500;
+}
+.tag-up { background: rgba(80,200,120,0.15); color: #50c878; }
+.tag-potential { background: rgba(74,158,255,0.15); color: #4a9eff; }
+.tag-warn { background: rgba(255,159,67,0.15); color: #ff9f43; }
+.tag-hot { background: rgba(233,69,96,0.15); color: #e94560; }
+
+/* Table */
+.data-table-wrap {
+  overflow-x: auto; background: #1a1d28; border: 1px solid #2a2d3a;
+  border-radius: 16px; margin-top: 20px;
+}
+.data-table {
+  width: 100%; border-collapse: collapse; font-size: 0.82rem;
+}
+.data-table th {
+  background: #252830; color: #aaa; padding: 12px 14px; text-align: left;
+  position: sticky; top: 0; font-weight: 500; cursor: pointer;
+  border-bottom: 2px solid #2a2d3a; white-space: nowrap;
+}
+.data-table th:hover { color: #e94560; }
+.data-table td {
+  padding: 10px 14px; border-bottom: 1px solid #1e2130;
+}
+.data-table tr:hover td { background: #1e2235; }
+.data-table .num { text-align: right; font-variant-numeric: tabular-nums; }
+.pct-bar {
+  display: inline-block; height: 6px; border-radius: 3px; background: #e94560;
+  margin-right: 6px; vertical-align: middle;
+}
+
+/* Potential table */
+.potential-row td:first-child { color: #4a9eff; font-weight: 500; }
+
+/* Footer */
+.footer {
+  text-align: center; padding: 40px 0; color: #555; font-size: 0.85rem;
+  border-top: 1px solid #1e2130; margin-top: 60px;
+}
+
+/* Scroll animation */
+.fade-in {
+  opacity: 0; transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+
+/* Tabs */
+.tab-bar {
+  display: flex; gap: 4px; margin-bottom: 20px; flex-wrap: wrap;
+}
+.tab-btn {
+  padding: 8px 18px; border: 1px solid #2a2d3a; border-radius: 8px;
+  background: transparent; color: #888; cursor: pointer; font-size: 0.85rem;
+  font-family: inherit; transition: all 0.2s;
+}
+.tab-btn.active { background: #e94560; color: #fff; border-color: #e94560; }
+.tab-btn:hover:not(.active) { border-color: #e94560; color: #e94560; }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* Responsive */
+@media (max-width: 600px) {
+  .hero h1 { font-size: 1.6rem; }
+  .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+  .bar-row { grid-template-columns: 24px 1fr 60px; }
+  .bar-row .bar-label { min-width: 100px; max-width: 120px; font-size: 0.75rem; }
+  .insight-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="container">
+    <h1>12주차 기획주문 <span>분석 리포트</span></h1>
+    <p class="subtitle">무점포 주문 데이터 기반 인사이트</p>
+    <div class="period">2026. 3. 16 ~ 3. 21</div>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- KPI -->
+  <div class="kpi-grid fade-in" id="kpiGrid"></div>
+
+  <!-- TOP 20 Bar Chart -->
+  <section class="section fade-in">
+    <h2 class="section-title">무점포 주문 TOP 20 <span class="badge">핵심 품목</span></h2>
+    <p style="color:#888;font-size:0.85rem;margin-bottom:16px;" id="topChartDesc"></p>
+    <div class="chart-container">
+      <div class="bar-chart" id="topChart"></div>
+    </div>
+  </section>
+
+  <!-- Category Analysis -->
+  <section class="section fade-in">
+    <h2 class="section-title">대분류별 주문 비중 <span class="badge">카테고리</span></h2>
+    <div class="chart-container">
+      <div class="cat-grid">
+        <div>
+          <div id="catBars" style="display:flex;flex-direction:column;gap:4px;"></div>
+        </div>
+        <div class="cat-list" id="catList"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Insights -->
+  <section class="section fade-in">
+    <h2 class="section-title">핵심 인사이트 <span class="badge">분석</span></h2>
+    <div class="insight-grid" id="insights"></div>
+  </section>
+
+  <!-- 무점포 강세 품목 -->
+  <section class="section fade-in">
+    <h2 class="section-title">무점포 > 매장 품목 <span class="badge">온라인 강세</span></h2>
+    <p style="color:#888;font-size:0.9rem;margin-bottom:16px;">매장주문보다 무점포 주문이 더 많은 품목입니다. 온라인 조합원이 특히 선호하는 품목으로, 무점포 채널의 핵심 경쟁력입니다.</p>
+    <div class="chart-container">
+      <div id="onlineStrongChart" style="display:flex;flex-direction:column;gap:6px;"></div>
+    </div>
+    <div class="data-table-wrap">
+      <table class="data-table" id="onlineStrongTable">
+        <thead><tr>
+          <th>품목명</th>
+          <th class="num">무점포</th>
+          <th class="num">매장</th>
+          <th class="num">합계</th>
+          <th class="num">무점포 비중</th>
+          <th class="num">무점포/매장 배율</th>
+          <th>대분류</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Potential Items -->
+  <section class="section fade-in">
+    <h2 class="section-title">무점포 성장 잠재 품목 <span class="badge">기회</span></h2>
+    <p style="color:#888;font-size:0.9rem;margin-bottom:16px;">매장에서는 잘 팔리지만 무점포 주문이 적은 품목 — 온라인 홍보 시 성장 가능성이 높습니다.</p>
+    <div class="data-table-wrap">
+      <table class="data-table" id="potentialTable">
+        <thead><tr>
+          <th>품목명</th><th class="num">무점포</th><th class="num">매장</th>
+          <th class="num">합계</th><th class="num">무점포 비중</th><th>대분류</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Full Ranking Table -->
+  <section class="section fade-in">
+    <h2 class="section-title">전체 품목 순위표 <span class="badge">160개 품목</span></h2>
+    <div class="tab-bar" id="catTabs"></div>
+    <div class="data-table-wrap" style="max-height: 600px; overflow-y: auto;">
+      <table class="data-table" id="fullTable">
+        <thead><tr>
+          <th class="num">#</th><th>품목명</th><th class="num" data-sort="무점포합계주문">무점포 주문</th>
+          <th class="num" data-sort="합계주문">합계 주문</th><th class="num">무점포 비중</th>
+          <th class="num">무점포 점유율</th><th>대분류</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 홍보 전략 -->
+  <section class="section fade-in">
+    <h2 class="section-title">홍보 전략 제안 <span class="badge">ACTION</span></h2>
+    <div class="insight-grid" id="strategy"></div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  두레생협 조합원 상담실 1661-5110
+</footer>
+
+<script>
+// === DATA ===
+const rawData = {"items":[{"code":6940,"name":"원주 메주(무농약/한말)","무점포합계주문":17,"합계주문":20,"매장주문":3,"결품율":0,"대분류":"쌀/잡곡","중분류":"잡곡류"},{"code":17324,"name":"검정찰보리(800g/유기)","무점포합계주문":52,"합계주문":282,"매장주문":230,"결품율":0,"대분류":"쌀/잡곡","중분류":"잡곡류"},{"code":19722,"name":"검은깨(300g)","무점포합계주문":4,"합계주문":59,"매장주문":55,"결품율":0,"대분류":"쌀/잡곡","중분류":"잡곡류"},{"code":14144,"name":"쥐눈이콩(500g/무농약)","무점포합계주문":31,"합계주문":159,"매장주문":128,"결품율":0,"대분류":"쌀/잡곡","중분류":"잡곡류"},{"code":33894,"name":"원주 메주(무농약/반말)","무점포합계주문":7,"합계주문":7,"매장주문":0,"결품율":0,"대분류":"쌀/잡곡","중분류":"잡곡류"},{"code":43,"name":"서리콩(500g/무농약)","무점포합계주문":32,"합계주문":158,"매장주문":126,"결품율":0,"대분류":"쌀/잡곡","중분류":"잡곡류"},{"code":14142,"name":"서리콩(500g)","무점포합계주문":34,"합계주문":185,"매장주문":151,"결품율":0,"대분류":"쌀/잡곡","중분류":"잡곡류"},{"code":35,"name":"친환경 흑향미(800g)","무점포합계주문":82,"합계주문":355,"매장주문":273,"결품율":0,"대분류":"쌀/잡곡","중분류":"쌀"},{"code":58651,"name":"한입호박고구마(1kg/국내산)","무점포합계주문":9,"합계주문":81,"매장주문":72,"결품율":0,"대분류":"채소/버섯","중분류":"뿌리채소"},{"code":17124,"name":"안깐도라지(300g/무농약)","무점포합계주문":8,"합계주문":41,"매장주문":33,"결품율":0,"대분류":"채소/버섯","중분류":"뿌리채소"},{"code":13006,"name":"호박고구마(3kg/국내산)","무점포합계주문":11,"합계주문":26,"매장주문":15,"결품율":0,"대분류":"채소/버섯","중분류":"뿌리채소"},{"code":58684,"name":"호박고구마(1kg/국내산)","무점포합계주문":7,"합계주문":91,"매장주문":84,"결품율":0,"대분류":"채소/버섯","중분류":"뿌리채소"},{"code":50542,"name":"무우(1kg/무농약)","무점포합계주문":419,"합계주문":988,"매장주문":569,"결품율":0,"대분류":"채소/버섯","중분류":"뿌리채소"},{"code":1295,"name":"애호박(1개/무농약)","무점포합계주문":236,"합계주문":601,"매장주문":365,"결품율":0,"대분류":"채소/버섯","중분류":"열매채소"},{"code":27430,"name":"루꼴라(100g/무농약)","무점포합계주문":42,"합계주문":250,"매장주문":208,"결품율":0,"대분류":"채소/버섯","중분류":"잎채소"},{"code":41342,"name":"겨울노지시금치(250g/무농약)","무점포합계주문":264,"합계주문":1414,"매장주문":1150,"결품율":0,"대분류":"채소/버섯","중분류":"잎채소"},{"code":20772,"name":"양배추(1kg/무농약)","무점포합계주문":217,"합계주문":1031,"매장주문":814,"결품율":0,"대분류":"채소/버섯","중분류":"잎채소"},{"code":20115,"name":"쌈추(150g)","무점포합계주문":11,"합계주문":291,"매장주문":280,"결품율":0,"대분류":"채소/버섯","중분류":"잎채소"},{"code":30642,"name":"로메인상추(120g/무농약)","무점포합계주문":92,"합계주문":479,"매장주문":387,"결품율":0,"대분류":"채소/버섯","중분류":"잎채소"},{"code":22215,"name":"봄쑥(100g/유기)","무점포합계주문":160,"합계주문":408,"매장주문":248,"결품율":0,"대분류":"채소/버섯","중분류":"잎채소"},{"code":4222,"name":"적근대(100g/무농약)","무점포합계주문":14,"합계주문":33,"매장주문":19,"결품율":0,"대분류":"채소/버섯","중분류":"잎채소"},{"code":1277,"name":"왕케일(300g/주스용)","무점포합계주문":0,"합계주문":65,"매장주문":65,"결품율":0,"대분류":"채소/버섯","중분류":"잎채소"},{"code":30641,"name":"생채(120g/무농약)","무점포합계주문":90,"합계주문":456,"매장주문":366,"결품율":0,"대분류":"채소/버섯","중분류":"잎채소"},{"code":14466,"name":"양배추(500g/무농약)","무점포합계주문":117,"합계주문":326,"매장주문":209,"결품율":0,"대분류":"채소/버섯","중분류":"잎채소"},{"code":15888,"name":"상추(120g)","무점포합계주문":247,"합계주문":899,"매장주문":652,"결품율":0.11,"대분류":"채소/버섯","중분류":"잎채소"},{"code":21415,"name":"적치커리(150g)","무점포합계주문":0,"합계주문":77,"매장주문":77,"결품율":0,"대분류":"채소/버섯","중분류":"잎채소"},{"code":47974,"name":"달래(80g/유기)","무점포합계주문":103,"합계주문":266,"매장주문":163,"결품율":0,"대분류":"채소/버섯","중분류":"잎채소"},{"code":37942,"name":"미나리(200g/무농약)","무점포합계주문":98,"합계주문":240,"매장주문":142,"결품율":0,"대분류":"채소/버섯","중분류":"잎채소"},{"code":9827,"name":"통연근(400g/무농약)","무점포합계주문":46,"합계주문":56,"매장주문":10,"결품율":0,"대분류":"채소/버섯","중분류":"손질채소/특용채소"},{"code":288,"name":"제주 오렌지 청견(1kg/국내산)","무점포합계주문":36,"합계주문":364,"매장주문":328,"결품율":0,"대분류":"과일/견과","중분류":"열대/제주과일"},{"code":58970,"name":"한우찜갈비(800g/냉동/국내산)","무점포합계주문":7,"합계주문":10,"매장주문":3,"결품율":0,"대분류":"정육/유정란","중분류":"한우(냉동)"},{"code":49675,"name":"생통닭(6호)","무점포합계주문":25,"합계주문":75,"매장주문":50,"결품율":0,"대분류":"정육/유정란","중분류":"닭/오리/양"},{"code":48376,"name":"생통닭(11호)","무점포합계주문":29,"합계주문":188,"매장주문":159,"결품율":0,"대분류":"정육/유정란","중분류":"닭/오리/양"},{"code":23358,"name":"오리슬라이스(400g/냉동)","무점포합계주문":83,"합계주문":236,"매장주문":153,"결품율":0,"대분류":"정육/유정란","중분류":"닭/오리/양"},{"code":56259,"name":"토종닭(1.4kg/냉동)","무점포합계주문":21,"합계주문":43,"매장주문":22,"결품율":0,"대분류":"정육/유정란","중분류":"닭/오리/양"},{"code":23770,"name":"구운유정란(10입)","무점포합계주문":93,"합계주문":1106,"매장주문":1013,"결품율":0,"대분류":"정육/유정란","중분류":"유정란/알"},{"code":22957,"name":"순살삼치(1kg)","무점포합계주문":71,"합계주문":283,"매장주문":212,"결품율":0,"대분류":"수산/건어물","중분류":"냉동어류"},{"code":46113,"name":"포항가자미(600g/2~4미)","무점포합계주문":79,"합계주문":1218,"매장주문":1139,"결품율":0,"대분류":"수산/건어물","중분류":"냉동어류"},{"code":10906,"name":"새우살(300g)","무점포합계주문":25,"합계주문":100,"매장주문":75,"결품율":0,"대분류":"수산/건어물","중분류":"어패/갑각/연체류"},{"code":10907,"name":"홍합살(300g)","무점포합계주문":12,"합계주문":79,"매장주문":67,"결품율":0,"대분류":"수산/건어물","중분류":"어패/갑각/연체류"},{"code":57261,"name":"해물모듬(300g)","무점포합계주문":0,"합계주문":44,"매장주문":44,"결품율":0,"대분류":"수산/건어물","중분류":"어패/갑각/연체류"},{"code":32581,"name":"바지락살(250g)","무점포합계주문":33,"합계주문":91,"매장주문":58,"결품율":0,"대분류":"수산/건어물","중분류":"어패/갑각/연체류"},{"code":59127,"name":"울릉도 자연산 못난이미역","무점포합계주문":0,"합계주문":720,"매장주문":720,"결품율":0,"대분류":"수산/건어물","중분류":"건어물"},{"code":57159,"name":"훈연멸치(200g)","무점포합계주문":31,"합계주문":47,"매장주문":16,"결품율":31.91,"대분류":"수산/건어물","중분류":"건어물"},{"code":28818,"name":"제주순메밀국수","무점포합계주문":60,"합계주문":1777,"매장주문":1717,"결품율":0,"대분류":"식사대용/간편식","중분류":"라면/면류"},{"code":49401,"name":"비빔막국수","무점포합계주문":45,"합계주문":691,"매장주문":646,"결품율":0,"대분류":"식사대용/간편식","중분류":"라면/면류"},{"code":49400,"name":"물막국수","무점포합계주문":25,"합계주문":544,"매장주문":519,"결품율":0,"대분류":"식사대용/간편식","중분류":"라면/면류"},{"code":31454,"name":"보리비빔냉면","무점포합계주문":44,"합계주문":577,"매장주문":533,"결품율":0,"대분류":"식사대용/간편식","중분류":"라면/면류"},{"code":31403,"name":"보리냉면사리","무점포합계주문":86,"합계주문":1358,"매장주문":1272,"결품율":0,"대분류":"식사대용/간편식","중분류":"라면/면류"},{"code":38996,"name":"비빔쫄면","무점포합계주문":68,"합계주문":590,"매장주문":522,"결품율":0,"대분류":"식사대용/간편식","중분류":"라면/면류"},{"code":31452,"name":"냉면육수(300g)","무점포합계주문":68,"합계주문":983,"매장주문":915,"결품율":0,"대분류":"식사대용/간편식","중분류":"라면/면류"},{"code":30779,"name":"보리물냉면","무점포합계주문":38,"합계주문":570,"매장주문":532,"결품율":0,"대분류":"식사대용/간편식","중분류":"라면/면류"},{"code":53708,"name":"새알품은 옛날팥죽(300g)","무점포합계주문":26,"합계주문":638,"매장주문":612,"결품율":0,"대분류":"식사대용/간편식","중분류":"밥/죽/스프"},{"code":54286,"name":"쑥버무리(250g)","무점포합계주문":399,"합계주문":6739,"매장주문":6340,"결품율":0,"대분류":"식사대용/간편식","중분류":"밥/죽/스프"},{"code":52180,"name":"치킨안심가스(냉장)","무점포합계주문":2,"합계주문":336,"매장주문":334,"결품율":0,"대분류":"식사대용/간편식","중분류":"육가공"},{"code":10581,"name":"김밥용햄","무점포합계주문":49,"합계주문":125,"매장주문":76,"결품율":0,"대분류":"식사대용/간편식","중분류":"육가공"},{"code":57240,"name":"(동물복지)통살수제등심돈가스","무점포합계주문":18,"합계주문":145,"매장주문":127,"결품율":0,"대분류":"식사대용/간편식","중분류":"육가공"},{"code":57241,"name":"(동물복지)고추장 불고기","무점포합계주문":2,"합계주문":80,"매장주문":78,"결품율":0,"대분류":"식사대용/간편식","중분류":"육가공"},{"code":57242,"name":"(동물복지)간장 불고기","무점포합계주문":4,"합계주문":47,"매장주문":43,"결품율":0,"대분류":"식사대용/간편식","중분류":"육가공"},{"code":40549,"name":"훈제오리","무점포합계주문":307,"합계주문":553,"매장주문":246,"결품율":0,"대분류":"식사대용/간편식","중분류":"육가공"},{"code":54730,"name":"통닭다리 누룽지삼계탕","무점포합계주문":84,"합계주문":887,"매장주문":803,"결품율":0,"대분류":"식사대용/간편식","중분류":"간편식"},{"code":41834,"name":"오리주물럭세트","무점포합계주문":3,"합계주문":136,"매장주문":133,"결품율":0,"대분류":"식사대용/간편식","중분류":"간편식"},{"code":54638,"name":"한우보양탕","무점포합계주문":67,"합계주문":232,"매장주문":165,"결품율":0,"대분류":"식사대용/간편식","중분류":"간편식"},{"code":54255,"name":"흑염소탕","무점포합계주문":30,"합계주문":248,"매장주문":218,"결품율":0,"대분류":"식사대용/간편식","중분류":"간편식"},{"code":58609,"name":"까르보나라 파스타소스","무점포합계주문":31,"합계주문":66,"매장주문":35,"결품율":0,"대분류":"식사대용/간편식","중분류":"간편 양념소스"},{"code":58608,"name":"토마토미트 파스타소스","무점포합계주문":51,"합계주문":89,"매장주문":38,"결품율":0,"대분류":"식사대용/간편식","중분류":"간편 양념소스"},{"code":57183,"name":"배추겉절이(1kg)","무점포합계주문":8,"합계주문":141,"매장주문":133,"결품율":0,"대분류":"반찬","중분류":"김치/밑반찬"},{"code":32424,"name":"포기김치(2kg)","무점포합계주문":50,"합계주문":354,"매장주문":304,"결품율":0,"대분류":"반찬","중분류":"김치/밑반찬"},{"code":56011,"name":"바로먹는 삼색나물(고사리,도라지,참취나물/210g)","무점포합계주문":31,"합계주문":181,"매장주문":150,"결품율":0,"대분류":"반찬","중분류":"김치/밑반찬"},{"code":47665,"name":"맛들찬 청참외장아찌(500g)","무점포합계주문":9,"합계주문":579,"매장주문":570,"결품율":0,"대분류":"반찬","중분류":"김치/밑반찬"},{"code":44215,"name":"총각김치(3kg)","무점포합계주문":26,"합계주문":76,"매장주문":50,"결품율":0,"대분류":"반찬","중분류":"김치/밑반찬"},{"code":47664,"name":"맛들찬 무장아찌(500g)","무점포합계주문":7,"합계주문":577,"매장주문":570,"결품율":0,"대분류":"반찬","중분류":"김치/밑반찬"},{"code":56990,"name":"건파래무침","무점포합계주문":23,"합계주문":280,"매장주문":257,"결품율":0,"대분류":"반찬","중분류":"김치/밑반찬"},{"code":47663,"name":"맛들찬 울외장아찌(500g)","무점포합계주문":19,"합계주문":849,"매장주문":830,"결품율":0,"대분류":"반찬","중분류":"김치/밑반찬"},{"code":56606,"name":"바로먹는 삼색나물(토란대, 호박나물,시래기/210g)","무점포합계주문":29,"합계주문":168,"매장주문":139,"결품율":0,"대분류":"반찬","중분류":"김치/밑반찬"},{"code":32957,"name":"포기김치(5kg)","무점포합계주문":52,"합계주문":178,"매장주문":126,"결품율":0,"대분류":"반찬","중분류":"김치/밑반찬"},{"code":41928,"name":"봄동겉절이","무점포합계주문":13,"합계주문":53,"매장주문":40,"결품율":0,"대분류":"반찬","중분류":"김치/밑반찬"},{"code":28996,"name":"오이소박이(1kg)","무점포합계주문":60,"합계주문":534,"매장주문":474,"결품율":0,"대분류":"반찬","중분류":"김치/밑반찬"},{"code":58945,"name":"(맛찬)냉이무침","무점포합계주문":18,"합계주문":64,"매장주문":46,"결품율":0,"대분류":"반찬","중분류":"두레맛찬"},{"code":58067,"name":"(맛찬)부지깽이나물","무점포합계주문":9,"합계주문":38,"매장주문":29,"결품율":0,"대분류":"반찬","중분류":"두레맛찬"},{"code":58030,"name":"(맛찬)지리멸치볶음","무점포합계주문":14,"합계주문":52,"매장주문":38,"결품율":0,"대분류":"반찬","중분류":"두레맛찬"},{"code":58068,"name":"(맛찬)곤드레나물","무점포합계주문":7,"합계주문":27,"매장주문":20,"결품율":0,"대분류":"반찬","중분류":"두레맛찬"},{"code":59058,"name":"(맛찬)깻잎순들깨볶음(200g)","무점포합계주문":6,"합계주문":9,"매장주문":3,"결품율":0,"대분류":"반찬","중분류":"두레맛찬"},{"code":58946,"name":"(맛찬)달래무침","무점포합계주문":20,"합계주문":56,"매장주문":36,"결품율":0,"대분류":"반찬","중분류":"두레맛찬"},{"code":59166,"name":"(맛찬)봄동나물","무점포합계주문":19,"합계주문":35,"매장주문":16,"결품율":0,"대분류":"반찬","중분류":"두레맛찬"},{"code":58072,"name":"(맛찬)열무얼갈이 물김치","무점포합계주문":11,"합계주문":46,"매장주문":35,"결품율":0,"대분류":"반찬","중분류":"두레맛찬"},{"code":59024,"name":"(맛찬)꼬막양념무침","무점포합계주문":18,"합계주문":143,"매장주문":125,"결품율":0,"대분류":"반찬","중분류":"두레맛찬"},{"code":58635,"name":"(맛찬)꽈리고추멸치조림","무점포합계주문":8,"합계주문":34,"매장주문":26,"결품율":0,"대분류":"반찬","중분류":"두레맛찬"},{"code":58065,"name":"(맛찬)도라지초무침","무점포합계주문":19,"합계주문":61,"매장주문":42,"결품율":0,"대분류":"반찬","중분류":"두레맛찬"},{"code":59065,"name":"(맛찬)고사리나물(200g)","무점포합계주문":8,"합계주문":10,"매장주문":2,"결품율":0,"대분류":"반찬","중분류":"두레맛찬"},{"code":59060,"name":"(맛찬)도라지초무침(220g)","무점포합계주문":4,"합계주문":7,"매장주문":3,"결품율":0,"대분류":"반찬","중분류":"두레맛찬"},{"code":58064,"name":"(맛찬)깻잎순들깨볶음","무점포합계주문":11,"합계주문":37,"매장주문":26,"결품율":0,"대분류":"반찬","중분류":"두레맛찬"},{"code":59062,"name":"(맛찬)시금치나물(200g/섬초)","무점포합계주문":4,"합계주문":6,"매장주문":2,"결품율":0,"대분류":"반찬","중분류":"두레맛찬"},{"code":58425,"name":"(맛찬)산채나물비빔세트","무점포합계주문":31,"합계주문":68,"매장주문":37,"결품율":0,"대분류":"반찬","중분류":"두레맛찬"},{"code":58634,"name":"(맛찬)생깻잎무침","무점포합계주문":18,"합계주문":72,"매장주문":54,"결품율":0,"대분류":"반찬","중분류":"두레맛찬"},{"code":59063,"name":"(맛찬)도라지나물(200g)","무점포합계주문":3,"합계주문":5,"매장주문":2,"결품율":0,"대분류":"반찬","중분류":"두레맛찬"},{"code":58033,"name":"(맛찬)우엉조림","무점포합계주문":14,"합계주문":57,"매장주문":43,"결품율":0,"대분류":"반찬","중분류":"두레맛찬"},{"code":59059,"name":"(맛찬)우엉조림(200g)","무점포합계주문":3,"합계주문":6,"매장주문":3,"결품율":0,"대분류":"반찬","중분류":"두레맛찬"},{"code":58066,"name":"(맛찬)오미자미역초무침","무점포합계주문":17,"합계주문":34,"매장주문":17,"결품율":0,"대분류":"반찬","중분류":"두레맛찬"},{"code":58638,"name":"(맛찬)비빔한우고추장","무점포합계주문":2,"합계주문":2,"매장주문":0,"결품율":0,"대분류":"반찬","중분류":"두레맛찬"},{"code":59061,"name":"(맛찬)생깻잎무침(240g)","무점포합계주문":7,"합계주문":10,"매장주문":3,"결품율":0,"대분류":"반찬","중분류":"두레맛찬"},{"code":58059,"name":"(맛찬)코다리조림","무점포합계주문":3,"합계주문":11,"매장주문":8,"결품율":0,"대분류":"반찬","중분류":"두레맛찬"},{"code":58944,"name":"(맛찬)참나물무침","무점포합계주문":3,"합계주문":16,"매장주문":13,"결품율":0,"대분류":"반찬","중분류":"두레맛찬"},{"code":55463,"name":"감향초청포도340g","무점포합계주문":2,"합계주문":4,"매장주문":2,"결품율":0,"대분류":"양념/조미","중분류":"소금/식초"},{"code":59081,"name":"된장&간장만들기세트","무점포합계주문":1,"합계주문":8,"매장주문":7,"결품율":0,"대분류":"양념/조미","중분류":"장류"},{"code":59135,"name":"5년숙성 자연미간장(1.8L)","무점포합계주문":79,"합계주문":2000,"매장주문":1921,"결품율":0,"대분류":"양념/조미","중분류":"장류"},{"code":59082,"name":"고추장만들기세트","무점포합계주문":47,"합계주문":69,"매장주문":22,"결품율":0,"대분류":"양념/조미","중분류":"장류"},{"code":55054,"name":"순우리콩 된장(1.5kg)","무점포합계주문":9,"합계주문":561,"매장주문":552,"결품율":0,"대분류":"양념/조미","중분류":"장류"},{"code":39707,"name":"장아찌 혼합장(1000ml)","무점포합계주문":10,"합계주문":87,"매장주문":77,"결품율":0,"대분류":"양념/조미","중분류":"장류"},{"code":58943,"name":"오색담은 맛있는 청국장(4입)","무점포합계주문":21,"합계주문":402,"매장주문":381,"결품율":0,"대분류":"양념/조미","중분류":"장류"},{"code":39230,"name":"순우리찹쌀고추장(1.5kg)","무점포합계주문":8,"합계주문":1096,"매장주문":1088,"결품율":0,"대분류":"양념/조미","중분류":"장류"},{"code":58992,"name":"발아생들기름(스틱/20개)","무점포합계주문":25,"합계주문":59,"매장주문":34,"결품율":0,"대분류":"양념/조미","중분류":"기름류"},{"code":44219,"name":"유기농팝짱백미","무점포합계주문":12,"합계주문":19,"매장주문":7,"결품율":0,"대분류":"간식","중분류":"과자"},{"code":9783,"name":"찐테이토","무점포합계주문":0,"합계주문":120,"매장주문":120,"결품율":0,"대분류":"간식","중분류":"과자"},{"code":32413,"name":"유기농 튀밥과자","무점포합계주문":3,"합계주문":22,"매장주문":19,"결품율":0,"대분류":"간식","중분류":"과자"},{"code":29044,"name":"웨하스(딸기맛)","무점포합계주문":62,"합계주문":609,"매장주문":547,"결품율":0,"대분류":"간식","중분류":"과자"},{"code":44221,"name":"유기농팝짱단호박","무점포합계주문":10,"합계주문":45,"매장주문":35,"결품율":0,"대분류":"간식","중분류":"과자"},{"code":32412,"name":"유기농 쌀떡과자","무점포합계주문":62,"합계주문":132,"매장주문":70,"결품율":0,"대분류":"간식","중분류":"과자"},{"code":29045,"name":"보드레웨하스","무점포합계주문":56,"합계주문":271,"매장주문":215,"결품율":0,"대분류":"간식","중분류":"과자"},{"code":44218,"name":"유기농팝짱자색고구마","무점포합계주문":13,"합계주문":38,"매장주문":25,"결품율":0,"대분류":"간식","중분류":"과자"},{"code":59129,"name":"팥양갱(40g)","무점포합계주문":162,"합계주문":542,"매장주문":380,"결품율":0,"대분류":"간식","중분류":"캔디/초콜릿"},{"code":59130,"name":"고구마양갱(40g)","무점포합계주문":123,"합계주문":323,"매장주문":200,"결품율":0,"대분류":"간식","중분류":"캔디/초콜릿"},{"code":59131,"name":"단호박양갱(40g)","무점포합계주문":86,"합계주문":346,"매장주문":260,"결품율":0,"대분류":"간식","중분류":"캔디/초콜릿"},{"code":27555,"name":"유기농 볶은현미","무점포합계주문":2,"합계주문":2,"매장주문":0,"결품율":0,"대분류":"간식","중분류":"잼류/기타간식"},{"code":57664,"name":"유기농 보리차 간편티백(2g*20)","무점포합계주문":5,"합계주문":9,"매장주문":4,"결품율":0,"대분류":"음료/차/유제품","중분류":"음료"},{"code":57665,"name":"유기농 옥수수차 간편티백(2g*20)","무점포합계주문":1,"합계주문":9,"매장주문":8,"결품율":0,"대분류":"음료/차/유제품","중분류":"음료"},{"code":25414,"name":"딸기주스(낱개)","무점포합계주문":105,"합계주문":1035,"매장주문":930,"결품율":0,"대분류":"음료/차/유제품","중분류":"음료"},{"code":57926,"name":"올리브유 스틱","무점포합계주문":12,"합계주문":256,"매장주문":244,"결품율":0,"대분류":"음료/차/유제품","중분류":"음료"},{"code":45769,"name":"유기요기 유기농식혜","무점포합계주문":98,"합계주문":482,"매장주문":384,"결품율":0,"대분류":"음료/차/유제품","중분류":"음료"},{"code":33628,"name":"발아옥수수차","무점포합계주문":18,"합계주문":65,"매장주문":47,"결품율":0,"대분류":"음료/차/유제품","중분류":"차류"},{"code":56325,"name":"제주 순진한 레몬차(380g)","무점포합계주문":7,"합계주문":11,"매장주문":4,"결품율":0,"대분류":"음료/차/유제품","중분류":"차류"},{"code":28485,"name":"순우유(900ml/무항생제)","무점포합계주문":610,"합계주문":1182,"매장주문":572,"결품율":0,"대분류":"음료/차/유제품","중분류":"우유/두유"},{"code":5477,"name":"우리콩두유(박스)","무점포합계주문":95,"합계주문":159,"매장주문":64,"결품율":0,"대분류":"음료/차/유제품","중분류":"우유/두유"},{"code":55479,"name":"무항생제플레인요구르트(무가당)","무점포합계주문":5,"합계주문":61,"매장주문":56,"결품율":0,"대분류":"음료/차/유제품","중분류":"요구르트/치즈/빙과류"},{"code":56191,"name":"후레쉬 모짜렐라 치즈 보코치니(120g)","무점포합계주문":30,"합계주문":234,"매장주문":204,"결품율":0,"대분류":"음료/차/유제품","중분류":"요구르트/치즈/빙과류"},{"code":43509,"name":"건강한요리술900ml","무점포합계주문":25,"합계주문":58,"매장주문":33,"결품율":0,"대분류":"음료/차/유제품","중분류":"주류"},{"code":43052,"name":"오산막걸리(500ml)","무점포합계주문":10,"합계주문":16,"매장주문":6,"결품율":0,"대분류":"음료/차/유제품","중분류":"주류"},{"code":58008,"name":"배도라지모과즙(10개입)","무점포합계주문":7,"합계주문":912,"매장주문":905,"결품율":0,"대분류":"건강식품/꿀","중분류":"엑기스/건강즙"},{"code":55891,"name":"제주레몬 프로폴리스 캔디","무점포합계주문":37,"합계주문":120,"매장주문":83,"결품율":0,"대분류":"건강식품/꿀","중분류":"엑기스/건강즙"},{"code":57223,"name":"방울토마토 마리네이드","무점포합계주문":6,"합계주문":19,"매장주문":13,"결품율":0,"대분류":"건강식품/꿀","중분류":"엑기스/건강즙"},{"code":53585,"name":"작두콩 순아이티(30개)","무점포합계주문":15,"합계주문":95,"매장주문":80,"결품율":0,"대분류":"건강식품/꿀","중분류":"분말/환/건강차"},{"code":12214,"name":"쌍화차(가루)","무점포합계주문":38,"합계주문":451,"매장주문":413,"결품율":0,"대분류":"건강식품/꿀","중분류":"분말/환/건강차"},{"code":14035,"name":"쌍화차(가루/선물)","무점포합계주문":1,"합계주문":18,"매장주문":17,"결품율":0,"대분류":"건강식품/꿀","중분류":"분말/환/건강차"},{"code":26956,"name":"손찬락 액상 생강차","무점포합계주문":20,"합계주문":138,"매장주문":118,"결품율":0,"대분류":"건강식품/꿀","중분류":"분말/환/건강차"},{"code":940,"name":"아카시아꿀(1kg)","무점포합계주문":14,"합계주문":200,"매장주문":186,"결품율":0,"대분류":"건강식품/꿀","중분류":"꿀/화분"},{"code":8060,"name":"아카시아꿀(500g)","무점포합계주문":114,"합계주문":448,"매장주문":334,"결품율":0,"대분류":"건강식품/꿀","중분류":"꿀/화분"},{"code":25515,"name":"아카시아 생꿀(500g)","무점포합계주문":26,"합계주문":196,"매장주문":170,"결품율":0,"대분류":"건강식품/꿀","중분류":"꿀/화분"},{"code":13098,"name":"숯칫솔(어린이용/1개)","무점포합계주문":12,"합계주문":112,"매장주문":100,"결품율":0,"대분류":"생활용품","중분류":"휴지/티슈/위생용품"},{"code":46604,"name":"물맑은 치약","무점포합계주문":212,"합계주문":707,"매장주문":495,"결품율":0,"대분류":"생활용품","중분류":"휴지/티슈/위생용품"},{"code":48066,"name":"(G)친환경칫솔(4개)","무점포합계주문":64,"합계주문":258,"매장주문":194,"결품율":0,"대분류":"생활용품","중분류":"휴지/티슈/위생용품"},{"code":40569,"name":"아임오뉴 대형","무점포합계주문":72,"합계주문":1088,"매장주문":1016,"결품율":0,"대분류":"생활용품","중분류":"휴지/티슈/위생용품"},{"code":49249,"name":"주방휴지(6롤)","무점포합계주문":63,"합계주문":364,"매장주문":301,"결품율":0,"대분류":"생활용품","중분류":"휴지/티슈/위생용품"},{"code":49248,"name":"(G)3겹둥근휴지(18롤)","무점포합계주문":126,"합계주문":714,"매장주문":588,"결품율":0,"대분류":"생활용품","중분류":"휴지/티슈/위생용품"},{"code":40568,"name":"아임오뉴 중형","무점포합계주문":162,"합계주문":1332,"매장주문":1170,"결품율":0,"대분류":"생활용품","중분류":"휴지/티슈/위생용품"},{"code":48311,"name":"프로폴리치약","무점포합계주문":56,"합계주문":390,"매장주문":334,"결품율":0,"대분류":"생활용품","중분류":"휴지/티슈/위생용품"},{"code":40567,"name":"아임오뉴 소형","무점포합계주문":104,"합계주문":993,"매장주문":889,"결품율":0,"대분류":"생활용품","중분류":"휴지/티슈/위생용품"},{"code":15587,"name":"숯칫솔(성인용/4개)","무점포합계주문":136,"합계주문":586,"매장주문":450,"결품율":0,"대분류":"생활용품","중분류":"휴지/티슈/위생용품"},{"code":41987,"name":"그레인 수면팩","무점포합계주문":6,"합계주문":8,"매장주문":2,"결품율":0,"대분류":"화장품/바디/헤어","중분류":"세안제/비누/팩"},{"code":57618,"name":"유기농 통밀 스파게티 500g","무점포합계주문":22,"합계주문":58,"매장주문":36,"결품율":0,"대분류":"공정무역(민중교역)","중분류":"기타 공정무역"},{"code":57621,"name":"피오르피오레 듀럼밀 스파게티 500g","무점포합계주문":39,"합계주문":72,"매장주문":33,"결품율":0,"대분류":"공정무역(민중교역)","중분류":"기타 공정무역"}],"total무점포":8272,"total합계":55846};
+
+const items = rawData.items;
+const total무점포 = rawData.total무점포;
+const total합계 = rawData.total합계;
+
+// Sort by 무점포
+items.sort((a, b) => b.무점포합계주문 - a.무점포합계주문);
+
+const catColors = ['#e94560','#4a9eff','#50c878','#ff9f43','#a855f7','#14b8a6','#f59e0b','#ec4899','#8b5cf6','#06b6d4','#84cc16','#f43f5e','#6366f1','#22d3ee'];
+
+// === KPI ===
+const top1 = items[0];
+const top5Total = items.slice(0, 5).reduce((s, d) => s + d.무점포합계주문, 0);
+const 무점포비중전체 = ((total무점포 / total합계) * 100).toFixed(1);
+
+document.getElementById('kpiGrid').innerHTML = `
+  <div class="kpi-card"><div class="label">총 기획 품목</div><div class="value">${items.length}<small style="font-size:0.8rem;color:#888"> 개</small></div></div>
+  <div class="kpi-card"><div class="label">무점포 총 주문</div><div class="value red">${total무점포.toLocaleString()}</div></div>
+  <div class="kpi-card"><div class="label">전체 합계 주문</div><div class="value blue">${total합계.toLocaleString()}</div></div>
+  <div class="kpi-card"><div class="label">무점포 비중</div><div class="value orange">${무점포비중전체}%</div></div>
+  <div class="kpi-card"><div class="label">1위 품목</div><div class="value green" style="font-size:1.2rem">${top1.name}</div></div>
+  <div class="kpi-card"><div class="label">TOP5 집중도</div><div class="value">${((top5Total / total무점포) * 100).toFixed(1)}%</div></div>
+`;
+
+// === TOP 20 BAR ===
+document.getElementById('topChartDesc').textContent = `바 안의 % = 무점포 전체 주문(${total무점포.toLocaleString()}건) 중 해당 품목이 차지하는 점유율`;
+const top20 = items.slice(0, 20);
+const maxVal = top20[0].무점포합계주문;
+document.getElementById('topChart').innerHTML = top20.map((d, i) => {
+  const pct = ((d.무점포합계주문 / maxVal) * 100).toFixed(0);
+  const sharePct = ((d.무점포합계주문 / total무점포) * 100).toFixed(1);
+  const color = i < 3 ? '#e94560' : i < 10 ? '#4a9eff' : '#3a3d4a';
+  const labelInBar = pct > 15 ? `${sharePct}%` : '';
+  return `<div class="bar-row">
+    <span class="rank ${i < 3 ? 'top3' : ''}">${i + 1}</span>
+    <div class="bar-wrap">
+      <span class="bar-label" title="${d.name}">${d.name}</span>
+      <div class="bar-track">
+        <div class="bar-fill" style="width:${pct}%;background:${color}">${labelInBar}</div>
+      </div>
+    </div>
+    <span class="bar-value">${d.무점포합계주문}</span>
+  </div>`;
+}).join('');
+
+// === CATEGORY ===
+const catMap = {};
+items.forEach(d => {
+  if (!catMap[d.대분류]) catMap[d.대분류] = { 무점포: 0, 합계: 0, count: 0 };
+  catMap[d.대분류].무점포 += d.무점포합계주문;
+  catMap[d.대분류].합계 += d.합계주문;
+  catMap[d.대분류].count++;
+});
+const cats = Object.entries(catMap).sort((a, b) => b[1].무점포 - a[1].무점포);
+const maxCat = cats[0][1].무점포;
+
+document.getElementById('catBars').innerHTML = cats.map(([name, v], i) => {
+  const pct = ((v.무점포 / total무점포) * 100).toFixed(1);
+  const w = ((v.무점포 / maxCat) * 100).toFixed(0);
+  return `<div style="display:grid;grid-template-columns:120px 1fr 50px;gap:8px;align-items:center;font-size:0.82rem;padding:4px 0;">
+    <span style="color:#ccc;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${name}</span>
+    <div style="height:20px;background:#252830;border-radius:4px;overflow:hidden">
+      <div style="width:${w}%;height:100%;background:${catColors[i]};border-radius:4px;transition:width 1s"></div>
+    </div>
+    <span style="color:#fff;font-weight:700;text-align:right">${pct}%</span>
+  </div>`;
+}).join('');
+
+document.getElementById('catList').innerHTML = cats.map(([name, v], i) => {
+  const pct = ((v.무점포 / total무점포) * 100).toFixed(1);
+  return `<div class="cat-item">
+    <span class="cat-dot" style="background:${catColors[i]}"></span>
+    <span class="cat-name">${name} (${v.count})</span>
+    <span class="cat-val">${v.무점포.toLocaleString()}</span>
+    <span class="cat-pct">${pct}%</span>
+  </div>`;
+}).join('');
+
+// === INSIGHTS ===
+const seasonItems = items.filter(d => ['봄쑥','달래','미나리','겨울노지시금치'].some(k => d.name.includes(k)));
+const seasonTotal = seasonItems.reduce((s, d) => s + d.무점포합계주문, 0);
+
+document.getElementById('insights').innerHTML = `
+  <div class="insight-card red">
+    <h3>TOP5 집중도가 높다</h3>
+    <p>상위 5개 품목이 무점포 주문의 <strong style="color:#e94560">${((top5Total / total무점포) * 100).toFixed(1)}%</strong>를 차지합니다. 특히 순우유(610)와 무우(419)가 압도적입니다.</p>
+    <ul>
+      ${items.slice(0, 5).map(d => `<li><strong>${d.name}</strong> — ${d.무점포합계주문}건 (${((d.무점포합계주문 / total무점포) * 100).toFixed(1)}%)</li>`).join('')}
+    </ul>
+  </div>
+  <div class="insight-card green">
+    <h3>봄 제철 채소 수요 강세</h3>
+    <p>봄쑥·달래·미나리 등 제철 품목이 총 <strong style="color:#50c878">${seasonTotal}건</strong>으로 무점포에서 선전 중입니다. 무점포 비중도 39~41%로 높아 온라인 조합원의 제철 관심이 뚜렷합니다.</p>
+    <ul>
+      ${seasonItems.map(d => `<li><strong>${d.name}</strong> — ${d.무점포합계주문}건 <span class="insight-tag tag-hot">제철</span></li>`).join('')}
+    </ul>
+  </div>
+  <div class="insight-card blue">
+    <h3>생활용품 무점포 의존도 높음</h3>
+    <p>치약·칫솔·휴지·생리대 등 생활용품 카테고리는 무점포 비중이 <strong style="color:#4a9eff">12.2%</strong>로 4위이지만, 개별 품목 무점포 비중이 23~30%로 안정적입니다. 정기 배송 패턴이 보입니다.</p>
+  </div>
+  <div class="insight-card orange">
+    <h3>매장 강세 → 무점포 잠재력</h3>
+    <p>고추장(매장 1,088), 장아찌류(매장 500~800대), 못난이미역(매장 720) 등은 매장에서 큰 인기지만 무점포 주문은 한 자릿수입니다. 온라인 노출만 늘려도 전환이 기대됩니다.</p>
+  </div>
+`;
+
+// === ONLINE STRONG (무점포 > 매장) ===
+const onlineStrong = items
+  .filter(d => d.무점포합계주문 > d.매장주문 && d.무점포합계주문 > 0)
+  .sort((a, b) => b.무점포합계주문 - a.무점포합계주문);
+
+const osMax = onlineStrong.length > 0 ? onlineStrong[0].무점포합계주문 : 1;
+
+// Bar chart
+document.getElementById('onlineStrongChart').innerHTML = onlineStrong.map((d, i) => {
+  const wStore = ((d.무점포합계주문 / osMax) * 100).toFixed(0);
+  const wShop = ((d.매장주문 / osMax) * 100).toFixed(0);
+  const multiplier = d.매장주문 > 0 ? (d.무점포합계주문 / d.매장주문).toFixed(1) : '∞';
+  return `<div style="display:grid;grid-template-columns:180px 1fr 60px;gap:10px;align-items:center;font-size:0.82rem;padding:6px 0;border-bottom:1px solid #1e2130">
+    <span style="color:#fff;font-weight:${i < 5 ? '700' : '400'};white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="${d.name}">${d.name}</span>
+    <div style="display:flex;flex-direction:column;gap:2px">
+      <div style="display:flex;align-items:center;gap:6px">
+        <span style="color:#e94560;font-size:0.7rem;min-width:36px">무점포</span>
+        <div style="height:14px;background:#252830;border-radius:3px;flex:1;overflow:hidden">
+          <div style="width:${wStore}%;height:100%;background:linear-gradient(90deg,#e94560,#ff6b6b);border-radius:3px;display:flex;align-items:center;padding-left:6px;font-size:0.7rem;color:#fff;font-weight:600">${d.무점포합계주문}</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px">
+        <span style="color:#4a9eff;font-size:0.7rem;min-width:36px">매장</span>
+        <div style="height:14px;background:#252830;border-radius:3px;flex:1;overflow:hidden">
+          <div style="width:${wShop}%;height:100%;background:linear-gradient(90deg,#4a9eff,#6cb4ff);border-radius:3px;display:flex;align-items:center;padding-left:6px;font-size:0.7rem;color:#fff;font-weight:600">${d.매장주문}</div>
+        </div>
+      </div>
+    </div>
+    <span style="color:#50c878;font-weight:700;text-align:right;font-size:0.85rem">${multiplier}x</span>
+  </div>`;
+}).join('');
+
+// Table
+document.querySelector('#onlineStrongTable tbody').innerHTML = onlineStrong.map(d => {
+  const ratio = d.합계주문 > 0 ? ((d.무점포합계주문 / d.합계주문) * 100).toFixed(1) : '0';
+  const multiplier = d.매장주문 > 0 ? (d.무점포합계주문 / d.매장주문).toFixed(1) + 'x' : '∞';
+  const mColor = d.매장주문 === 0 ? '#a855f7' : parseFloat(multiplier) >= 2 ? '#e94560' : '#50c878';
+  return `<tr>
+    <td style="font-weight:500;color:#fff">${d.name}</td>
+    <td class="num" style="color:#e94560;font-weight:700">${d.무점포합계주문}</td>
+    <td class="num" style="color:#4a9eff">${d.매장주문}</td>
+    <td class="num">${d.합계주문.toLocaleString()}</td>
+    <td class="num"><span class="pct-bar" style="width:${Math.min(ratio * 0.6, 60)}px"></span>${ratio}%</td>
+    <td class="num" style="color:${mColor};font-weight:700">${multiplier}</td>
+    <td style="font-size:0.78rem;color:#888">${d.대분류}</td>
+  </tr>`;
+}).join('');
+
+// === POTENTIAL ===
+const potential = items
+  .filter(d => d.무점포합계주문 < 30 && d.매장주문 > 50)
+  .sort((a, b) => b.매장주문 - a.매장주문);
+
+document.querySelector('#potentialTable tbody').innerHTML = potential.slice(0, 15).map(d => {
+  const ratio = d.합계주문 > 0 ? ((d.무점포합계주문 / d.합계주문) * 100).toFixed(1) : '0';
+  return `<tr class="potential-row">
+    <td>${d.name}</td>
+    <td class="num">${d.무점포합계주문}</td>
+    <td class="num" style="color:#50c878;font-weight:700">${d.매장주문.toLocaleString()}</td>
+    <td class="num">${d.합계주문.toLocaleString()}</td>
+    <td class="num"><span class="pct-bar" style="width:${ratio * 0.5}px"></span>${ratio}%</td>
+    <td>${d.대분류}</td>
+  </tr>`;
+}).join('');
+
+// === FULL TABLE with tabs ===
+const allCats = ['전체', ...cats.map(c => c[0])];
+document.getElementById('catTabs').innerHTML = allCats.map((c, i) =>
+  `<button class="tab-btn ${i === 0 ? 'active' : ''}" data-cat="${c}">${c}</button>`
+).join('');
+
+function renderFullTable(cat) {
+  let filtered = cat === '전체' ? items : items.filter(d => d.대분류 === cat);
+  filtered.sort((a, b) => b.무점포합계주문 - a.무점포합계주문);
+  document.querySelector('#fullTable tbody').innerHTML = filtered.map((d, i) => {
+    const ratio = d.합계주문 > 0 ? ((d.무점포합계주문 / d.합계주문) * 100).toFixed(1) : '0';
+    const share = ((d.무점포합계주문 / total무점포) * 100).toFixed(1);
+    return `<tr>
+      <td class="num">${i + 1}</td>
+      <td>${d.name}</td>
+      <td class="num" style="font-weight:700">${d.무점포합계주문}</td>
+      <td class="num">${d.합계주문.toLocaleString()}</td>
+      <td class="num">${ratio}%</td>
+      <td class="num"><span class="pct-bar" style="width:${Math.min(share * 8, 60)}px"></span>${share}%</td>
+      <td style="font-size:0.78rem;color:#888">${d.대분류}</td>
+    </tr>`;
+  }).join('');
+}
+renderFullTable('전체');
+
+document.getElementById('catTabs').addEventListener('click', e => {
+  if (!e.target.classList.contains('tab-btn')) return;
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  e.target.classList.add('active');
+  renderFullTable(e.target.dataset.cat);
+});
+
+// === STRATEGY ===
+document.getElementById('strategy').innerHTML = `
+  <div class="insight-card red">
+    <h3>1. 즉시 집중 홍보 품목</h3>
+    <ul>
+      <li><span class="insight-tag tag-hot">1순위</span> <strong>쑥버무리</strong> — 합계 6,739건으로 이번 주 전체 1위이지만 무점포 비중은 6%에 불과. 무점포 조합원에게 거의 노출이 안 되고 있을 가능성. 메인 배너급 홍보 필요</li>
+      <li><span class="insight-tag tag-hot">1순위</span> <strong>훈제오리</strong> — 무점포 비중 56%로 온라인 친화도 최상급. 307건으로 4위. 추가 푸시로 500건 이상 도달 가능</li>
+      <li><span class="insight-tag tag-hot">1순위</span> <strong>봄쑥·달래·미나리</strong> — 제철 키워드와 결합하여 "봄 밥상 기획전" 형태의 묶음 홍보 권장</li>
+    </ul>
+  </div>
+  <div class="insight-card blue">
+    <h3>2. 매장→무점포 전환 타겟</h3>
+    <ul>
+      <li><span class="insight-tag tag-potential">전환</span> <strong>순우리찹쌀고추장</strong> — 매장 1,088건 vs 무점포 8건. 온라인 상세페이지 제작 및 SNS 후기 유도 시 폭발적 성장 기대</li>
+      <li><span class="insight-tag tag-potential">전환</span> <strong>보리냉면사리</strong> — 합계 1,358건(매장 1,272) 대비 무점포 86건. 곧 다가올 봄·여름 시즌에 맞춰 선제 홍보</li>
+      <li><span class="insight-tag tag-potential">전환</span> <strong>장아찌류(울외/청참외/무)</strong> — 매장 합산 1,970건. "밥상 반찬 세트" 기획으로 무점포 유입 가능</li>
+      <li><span class="insight-tag tag-potential">전환</span> <strong>구운유정란</strong> — 합계 1,106건 대비 무점포 93건(8%). 유정란은 온라인 정기 배송 적합 품목</li>
+    </ul>
+  </div>
+  <div class="insight-card green">
+    <h3>3. 다음 주 성장 예측</h3>
+    <ul>
+      <li><span class="insight-tag tag-up">상승</span> <strong>봄 제철 채소</strong> — 3월 중순~하순 쑥·달래·미나리 수요 정점 예상. 이번 주보다 20~30% 추가 성장 여력</li>
+      <li><span class="insight-tag tag-up">상승</span> <strong>냉면·면류</strong> — 기온 상승에 따라 냉면사리(86건) 추가 상승세 예상</li>
+      <li><span class="insight-tag tag-up">상승</span> <strong>양갱 시리즈</strong> — 팥(162)+고구마(123)+단호박(86)=371건. 간식류 중 독보적. 세트 구성 시 추가 상승</li>
+      <li><span class="insight-tag tag-warn">주의</span> <strong>순우유</strong> — 이미 1위(610건)로 포화 상태. 점유율 유지에 초점</li>
+    </ul>
+  </div>
+  <div class="insight-card orange">
+    <h3>4. 홍보 채널별 추천</h3>
+    <ul>
+      <li><strong>카카오톡/앱 푸시</strong> — 쑥버무리, 보리냉면 등 합계 대비 무점포 비중 극히 낮은 품목 → "매장에서 인기 폭발, 온라인에서도 만나보세요" 메시지</li>
+      <li><strong>상세 홍보페이지</strong> — 훈제오리, 순우유, 봄쑥 등 이미 무점포 상위 품목 → 스토리텔링형 페이지로 충성도 강화</li>
+      <li><strong>SNS/커뮤니티</strong> — 양갱 시리즈, 고추장 등 → 조합원 후기·레시피 콘텐츠 유도</li>
+      <li><strong>기획전 묶음</strong> — "봄 밥상 세트" (쑥+달래+미나리+시금치), "든든 반찬 세트" (장아찌류+청국장)</li>
+    </ul>
+  </div>
+`;
+
+// === SCROLL ANIMATION ===
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
