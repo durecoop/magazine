@@ -385,12 +385,62 @@ body {
 
 .cta-btn:active { background: #a05e2c; }
 
+/* ===== COUNTDOWN ===== */
+.countdown {
+  text-align: center;
+  padding: 36px 20px;
+  background: #2c2c2c;
+}
+
+.countdown-label {
+  font-size: 13px; color: #aaa;
+  margin-bottom: 14px;
+  letter-spacing: 1px;
+}
+
+.countdown-timer {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.countdown-box {
+  display: flex; flex-direction: column;
+  align-items: center;
+  min-width: 60px;
+}
+
+.countdown-box .num {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 36px; font-weight: 900;
+  color: #fff;
+  line-height: 1;
+}
+
+.countdown-box .unit {
+  font-size: 12px; color: #999;
+  margin-top: 6px;
+}
+
+.countdown-sep {
+  font-size: 28px; font-weight: 700;
+  color: #555;
+  align-self: flex-start;
+  margin-top: 4px;
+}
+
+.countdown-end {
+  font-size: 15px; color: var(--red);
+  font-weight: 700;
+}
+
 /* ===== FOOTER ===== */
 footer {
   text-align: center;
   padding: 28px 20px;
   font-size: 12px; color: #bbb;
   background: #2c2c2c;
+  border-top: 1px solid #3a3a3a;
 }
 footer a { color: #ddd; text-decoration: none; }
 
@@ -540,6 +590,20 @@ footer a { color: #ddd; text-decoration: none; }
   <a href="https://ecoop.or.kr/DureShop/recommend.do" class="cta-btn">장보러 가기 →</a>
 </section>
 
+<!-- COUNTDOWN -->
+<section class="countdown" id="countdown">
+  <p class="countdown-label">주문 마감까지 남은 시간</p>
+  <div class="countdown-timer" id="countdownTimer">
+    <div class="countdown-box"><span class="num" id="cd-d">0</span><span class="unit">일</span></div>
+    <span class="countdown-sep">:</span>
+    <div class="countdown-box"><span class="num" id="cd-h">0</span><span class="unit">시간</span></div>
+    <span class="countdown-sep">:</span>
+    <div class="countdown-box"><span class="num" id="cd-m">0</span><span class="unit">분</span></div>
+    <span class="countdown-sep">:</span>
+    <div class="countdown-box"><span class="num" id="cd-s">0</span><span class="unit">초</span></div>
+  </div>
+</section>
+
 <footer>
   <p>두레생협 조합원 상담실 1661-5110</p>
 </footer>
@@ -558,6 +622,36 @@ const io = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
 }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
 cards.forEach(c => io.observe(c));
+
+// Countdown — 3월 20일 목요일 오후 7시 마감
+const deadline = new Date('2025-03-20T19:00:00+09:00').getTime();
+const cdD = document.getElementById('cd-d');
+const cdH = document.getElementById('cd-h');
+const cdM = document.getElementById('cd-m');
+const cdS = document.getElementById('cd-s');
+const countdownTimer = document.getElementById('countdownTimer');
+const countdownSection = document.getElementById('countdown');
+
+function updateCountdown() {
+  const now = Date.now();
+  const diff = deadline - now;
+  if (diff <= 0) {
+    countdownSection.querySelector('.countdown-label').textContent = '';
+    countdownTimer.innerHTML = '<p class="countdown-end">주문이 마감되었습니다</p>';
+    return;
+  }
+  const d = Math.floor(diff / 86400000);
+  const h = Math.floor((diff % 86400000) / 3600000);
+  const m = Math.floor((diff % 3600000) / 60000);
+  const s = Math.floor((diff % 60000) / 1000);
+  cdD.textContent = d;
+  cdH.textContent = String(h).padStart(2, '0');
+  cdM.textContent = String(m).padStart(2, '0');
+  cdS.textContent = String(s).padStart(2, '0');
+}
+
+updateCountdown();
+setInterval(updateCountdown, 1000);
 </script>
 
 </body>
