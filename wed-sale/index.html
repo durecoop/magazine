@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>수요특가 — 3월 18일, 놓치면 아쉬운 가격</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Serif+KR:wght@400;600;700&display=swap');
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #faf7f2;
+  --card: #ffffff;
+  --text: #2c2c2c;
+  --sub: #888;
+  --accent: #c4763a;
+  --green: #4a7c59;
+  --green-light: #eef4f0;
+  --border: #ece6dc;
+  --red: #d94040;
+  --red-light: #fff0f0;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  word-break: keep-all;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== TICKER ===== */
+.ticker {
+  background: var(--red);
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 10px 0;
+}
+
+.ticker-track {
+  display: inline-block;
+  animation: ticker 18s linear infinite;
+}
+
+.ticker-track span {
+  display: inline-block;
+  padding: 0 40px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.5px;
+}
+
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ===== PROGRESS ===== */
+.progress {
+  position: fixed; top: 0; left: 0; height: 3px;
+  background: linear-gradient(90deg, var(--red), var(--accent));
+  z-index: 100; transition: width 0.1s linear;
+}
+
+/* ===== HERO ===== */
+.hero {
+  min-height: 55vh;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  text-align: center;
+  padding: 60px 20px 44px;
+  background: linear-gradient(160deg, #faf7f2, #f0e8db, #e6ddd0);
+  position: relative; overflow: hidden;
+}
+
+.hero::before {
+  content: ''; position: absolute;
+  top: -80px; right: -80px;
+  width: 300px; height: 300px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(217,64,64,0.06), transparent 70%);
+  animation: drift 8s ease-in-out infinite;
+}
+
+@keyframes drift {
+  0%,100% { transform: translate(0,0); }
+  50% { transform: translate(15px,-20px); }
+}
+
+.badge {
+  display: inline-block;
+  padding: 6px 16px;
+  background: var(--red);
+  color: #fff;
+  border-radius: 100px;
+  font-size: 14px; font-weight: 500;
+  letter-spacing: 0.3px;
+  margin-bottom: 20px;
+  position: relative; z-index: 1;
+  opacity: 0; animation: up .6s .2s ease forwards;
+  box-shadow: 0 2px 12px rgba(217,64,64,0.25);
+}
+
+.hero-top {
+  font-size: 16px; color: #666;
+  font-weight: 500;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+  position: relative; z-index: 1;
+  opacity: 0; animation: up .6s .3s ease forwards;
+}
+
+.hero h1 {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 46px; font-weight: 700;
+  line-height: 1.25;
+  position: relative; z-index: 1;
+  opacity: 0; animation: up .6s .45s ease forwards;
+}
+
+.hero h1 em { font-style: normal; color: var(--red); }
+
+.hero h1 .sparkle {
+  position: relative;
+  display: inline-block;
+}
+
+.hero h1 .sparkle::before,
+.hero h1 .sparkle::after,
+.hero h1 .sparkle .s {
+  content: '✦';
+  position: absolute;
+  font-size: 14px;
+  color: var(--accent);
+  animation: sparkle 2.4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.hero h1 .sparkle::before {
+  top: -8px; right: -16px;
+  font-size: 16px;
+  animation-delay: 0s;
+}
+
+.hero h1 .sparkle::after {
+  bottom: 2px; left: -18px;
+  font-size: 12px;
+  animation-delay: 0.8s;
+}
+
+.hero h1 .sparkle .s {
+  top: -4px; left: 40%;
+  font-size: 10px;
+  color: var(--red);
+  animation-delay: 1.6s;
+}
+
+@keyframes sparkle {
+  0%, 100% { opacity: 0; transform: scale(0.5) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1.2) rotate(20deg); }
+}
+
+.hero-sub {
+  font-size: 17px; color: #444;
+  font-weight: 500;
+  margin-top: 12px; line-height: 1.7;
+  position: relative; z-index: 1;
+  opacity: 0; animation: up .6s .6s ease forwards;
+}
+
+.hero-date {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 8px 20px;
+  background: rgba(255,255,255,0.7);
+  border-radius: 12px;
+  font-size: 15px; font-weight: 600;
+  color: var(--text);
+  position: relative; z-index: 1;
+  opacity: 0; animation: up .6s .65s ease forwards;
+  backdrop-filter: blur(8px);
+}
+
+.hero-limited {
+  margin-top: 10px;
+  font-size: 13px; color: var(--sub);
+  position: relative; z-index: 1;
+  opacity: 0; animation: up .6s .8s ease forwards;
+}
+
+@keyframes up {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== PRODUCT CARD ===== */
+.cards {
+  padding: 24px 16px 40px;
+  max-width: 520px;
+  margin: 0 auto;
+  display: flex; flex-direction: column;
+  gap: 20px;
+}
+
+.card {
+  background: var(--card);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.05);
+  opacity: 0; transform: translateY(24px);
+  transition: all .6s cubic-bezier(.16,1,.3,1);
+}
+
+.card.show {
+  opacity: 1; transform: translateY(0);
+}
+
+.card-img {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1/1;
+  overflow: hidden;
+}
+
+.card-img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform .5s ease;
+}
+
+.card:active .card-img img {
+  transform: scale(1.03);
+}
+
+.card-badge {
+  position: absolute; top: 12px; left: 12px;
+  background: var(--red); color: #fff;
+  padding: 6px 16px; border-radius: 100px;
+  font-size: 16px; font-weight: 800;
+}
+
+.card-limit {
+  position: absolute; top: 12px; right: 12px;
+  background: rgba(0,0,0,0.6); color: #fff;
+  padding: 8px 16px; border-radius: 100px;
+  font-size: 15px; font-weight: 700;
+  backdrop-filter: blur(4px);
+  letter-spacing: 0.3px;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.card-name {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 24px; font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.card-tagline {
+  font-size: 16px; color: var(--accent);
+  font-weight: 500;
+  margin-bottom: 14px;
+}
+
+.card-desc {
+  font-size: 15px; color: var(--sub);
+  line-height: 1.8;
+  margin-bottom: 16px;
+}
+
+.chips {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  margin-bottom: 18px;
+}
+
+.chip {
+  padding: 6px 14px;
+  background: var(--green-light);
+  color: var(--green);
+  border-radius: 100px;
+  font-size: 14px; font-weight: 500;
+}
+
+.chip.warn {
+  background: #fff8e6;
+  color: #b8860b;
+}
+
+.card-notice {
+  display: flex; align-items: flex-start; gap: 8px;
+  padding: 12px 14px;
+  background: #f5f0eb;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  font-size: 13px; color: #666;
+  line-height: 1.6;
+}
+
+.card-notice::before {
+  content: 'i';
+  flex-shrink: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 20px; height: 20px;
+  background: var(--accent); color: #fff;
+  border-radius: 50%;
+  font-size: 12px; font-weight: 700;
+  font-style: italic;
+  margin-top: 1px;
+}
+
+.card-price {
+  display: flex; align-items: baseline; gap: 8px;
+  margin-bottom: 16px; flex-wrap: wrap;
+}
+
+.card-price .orig {
+  font-size: 16px; color: #bbb;
+  text-decoration: line-through;
+}
+
+.card-price .now {
+  font-size: 28px; font-weight: 900;
+  color: var(--red);
+}
+
+.card-price .unit {
+  font-size: 16px; font-weight: 400;
+}
+
+.card-price .off {
+  background: var(--red-light); color: var(--red);
+  padding: 4px 12px; border-radius: 6px;
+  font-size: 14px; font-weight: 700;
+}
+
+.card-btn {
+  display: flex; align-items: center; justify-content: center;
+  gap: 8px; width: 100%;
+  padding: 14px;
+  background: var(--red); color: #fff;
+  border: none; border-radius: 14px;
+  font-size: 16px; font-weight: 600;
+  text-decoration: none;
+  transition: background .2s;
+  cursor: pointer;
+}
+
+.card-btn:active { background: #b33030; }
+
+.card-btn svg { width: 16px; height: 16px; fill: #fff; }
+
+/* ===== FOOTER CTA ===== */
+.cta {
+  text-align: center;
+  padding: 48px 20px 36px;
+  background: linear-gradient(180deg, var(--bg), #ede6da);
+}
+
+.cta h2 {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 26px; font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.cta p {
+  font-size: 16px; color: var(--sub);
+  margin-bottom: 28px;
+}
+
+.cta-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 36px;
+  background: var(--accent); color: #fff;
+  border: none; border-radius: 14px;
+  font-size: 17px; font-weight: 700;
+  text-decoration: none;
+  transition: background .2s;
+}
+
+.cta-btn:active { background: #a05e2c; }
+
+/* ===== FOOTER ===== */
+footer {
+  text-align: center;
+  padding: 28px 20px;
+  font-size: 12px; color: #bbb;
+  background: #2c2c2c;
+}
+footer a { color: #ddd; text-decoration: none; }
+
+/* ===== DESKTOP ===== */
+@media (min-width: 600px) {
+  .hero { min-height: 55vh; }
+  .hero h1 { font-size: 52px; }
+  .hero-top { font-size: 18px; }
+  .cards { max-width: 900px; gap: 28px; }
+
+  .card { display: grid; grid-template-columns: 1fr 1fr; }
+  .card:nth-child(even) .card-img { order: 2; }
+  .card:nth-child(even) .card-body { order: 1; }
+  .card-img { aspect-ratio: 1/1; }
+  .card-body { padding: 32px; display: flex; flex-direction: column; justify-content: center; }
+  .card-name { font-size: 24px; }
+  .card-desc { font-size: 14px; }
+  .card-price .now { font-size: 28px; }
+  .card-btn { width: auto; align-self: flex-start; padding: 14px 32px; }
+}
+
+@media (min-width: 1024px) {
+  .hero h1 { font-size: 60px; }
+  .cards { max-width: 1000px; }
+  .card-body { padding: 40px; }
+}
+</style>
+</head>
+<body>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span>✦ 이번 주 최대 40% 할인</span>
+    <span>✦ 이번 주 최대 40% 할인</span>
+    <span>✦ 이번 주 최대 40% 할인</span>
+    <span>✦ 이번 주 최대 40% 할인</span>
+    <span>✦ 이번 주 최대 40% 할인</span>
+    <span>✦ 이번 주 최대 40% 할인</span>
+    <span>✦ 이번 주 최대 40% 할인</span>
+    <span>✦ 이번 주 최대 40% 할인</span>
+  </div>
+</div>
+
+<div class="progress" id="prog"></div>
+
+<!-- HERO -->
+<section class="hero">
+  <span class="badge">12주차 수요특가</span>
+  <p class="hero-top">일주일에 딱 하루, 수요일의 특권</p>
+  <h1><em>수요</em> <span class="sparkle">반짝<span class="s"></span></span> 장터</h1>
+  <span class="hero-date">2025. 3. 18 (수) 하루 한정</span>
+  <p class="hero-limited">품목별 수량 소진 시 조기 마감</p>
+</section>
+
+<!-- CARDS -->
+<div class="cards">
+
+  <!-- 1. 풀빛고운 에센스 -->
+  <article class="card">
+    <div class="card-img">
+      <span class="card-badge">40% 할인</span>
+      <span class="card-limit">한정 122개</span>
+      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/20639C.jpg" alt="풀빛고운 에센스" loading="lazy">
+    </div>
+    <div class="card-body">
+      <h2 class="card-name">풀빛고운 에센스</h2>
+      <p class="card-tagline">10주 타임세일, 한정 수량</p>
+      <p class="card-desc">자연 유래 성분의 촉촉한 에센스.<br>소비기한이 넉넉해 부담 없이 사용하세요. (27년 5월 18일까지)</p>
+      <div class="chips">
+        <span class="chip">풀빛고운</span>
+        <span class="chip warn">소비기한 '27.5.18</span>
+      </div>
+      <div class="card-notice">패키지 리뉴얼 전 품목으로 공급됩니다.</div>
+      <div class="card-price">
+        <span class="orig">40,300원</span>
+        <span class="now">24,200<span class="unit">원</span></span>
+        <span class="off">40% 할인</span>
+      </div>
+      <a href="https://ecoop.or.kr/DureShop/recommend.do" class="card-btn">
+        <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.16 14.26l.04-.12L8.1 12h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0020 3H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 14.37 5.48 16 7 16h12v-2H7.42c-.14 0-.25-.11-.25-.25z"/></svg>
+        장보기
+      </a>
+    </div>
+  </article>
+
+  <!-- 2. 요거트 젤라또 -->
+  <article class="card">
+    <div class="card-img">
+      <span class="card-badge">35% 할인</span>
+      <span class="card-limit">한정 300개</span>
+      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/55804C.jpg" alt="요거트 젤라또 370ml" loading="lazy">
+    </div>
+    <div class="card-body">
+      <h2 class="card-name">요거트 젤라또 370ml</h2>
+      <p class="card-tagline">달콤하고 부드러운 요거트 아이스크림</p>
+      <p class="card-desc">진한 요거트의 새콤달콤함을 젤라또로 즐기세요.<br>370ml 넉넉한 용량으로 온 가족 함께 나누기 좋습니다.</p>
+      <div class="chips">
+        <span class="chip">요거트</span>
+        <span class="chip">370ml</span>
+      </div>
+      <div class="card-price">
+        <span class="orig">12,900원</span>
+        <span class="now">8,400<span class="unit">원</span></span>
+        <span class="off">35% 할인</span>
+      </div>
+      <a href="https://ecoop.or.kr/DureShop/recommend.do" class="card-btn">
+        <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.16 14.26l.04-.12L8.1 12h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0020 3H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 14.37 5.48 16 7 16h12v-2H7.42c-.14 0-.25-.11-.25-.25z"/></svg>
+        장보기
+      </a>
+    </div>
+  </article>
+
+  <!-- 3. 후레쉬 모짜렐라치즈 미니 -->
+  <article class="card">
+    <div class="card-img">
+      <span class="card-badge">30% 할인</span>
+      <span class="card-limit">한정 140개</span>
+      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56191C.jpg" alt="후레쉬 모짜렐라치즈 미니(120g)" loading="lazy">
+    </div>
+    <div class="card-body">
+      <h2 class="card-name">후레쉬 모짜렐라치즈 미니</h2>
+      <p class="card-tagline">쫄깃하고 담백한 생모짜렐라</p>
+      <p class="card-desc">신선한 우유로 만든 부드러운 모짜렐라치즈.<br>샐러드, 파스타, 간식으로 다양하게 활용하세요. (120g)</p>
+      <div class="chips">
+        <span class="chip">모짜렐라</span>
+        <span class="chip">120g</span>
+      </div>
+      <div class="card-price">
+        <span class="orig">10,500원</span>
+        <span class="now">7,300<span class="unit">원</span></span>
+        <span class="off">30% 할인</span>
+      </div>
+      <a href="https://ecoop.or.kr/DureShop/recommend.do" class="card-btn">
+        <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.16 14.26l.04-.12L8.1 12h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0020 3H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 14.37 5.48 16 7 16h12v-2H7.42c-.14 0-.25-.11-.25-.25z"/></svg>
+        장보기
+      </a>
+    </div>
+  </article>
+
+</div>
+
+<!-- CTA -->
+<section class="cta">
+  <h2>수요특가, 매주 수요일마다 특별하게 만나보세요!</h2>
+  <p>한정 수량이니 서둘러 주세요!</p>
+  <a href="https://ecoop.or.kr/DureShop/recommend.do" class="cta-btn">장보러 가기 →</a>
+</section>
+
+<footer>
+  <p>두레생협 조합원 상담실 1661-5110</p>
+</footer>
+
+<script>
+// Progress bar
+const prog = document.getElementById('prog');
+window.addEventListener('scroll', () => {
+  const pct = (window.scrollY / (document.documentElement.scrollHeight - innerHeight)) * 100;
+  prog.style.width = pct + '%';
+});
+
+// Card reveal
+const cards = document.querySelectorAll('.card');
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
+}, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+cards.forEach(c => io.observe(c));
+</script>
+
+</body>
+</html>
