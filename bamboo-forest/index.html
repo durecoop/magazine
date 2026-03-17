@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>두레생협 대나무숲</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: #e8f0e4;
+    min-height: 100vh;
+    word-break: keep-all;
+  }
+
+  /* 대나무 배경 */
+  .bamboo-bg {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .bamboo-stalk {
+    display: none;
+  }
+
+  /* 낙엽 파티클 */
+  .leaf {
+    position: fixed;
+    font-size: 16px;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 0;
+    animation: leafFall linear infinite;
+  }
+
+  @keyframes leafFall {
+    0% { opacity: 0; transform: translateX(0) rotate(0deg); }
+    10% { opacity: 0.5; }
+    90% { opacity: 0.3; }
+    100% { opacity: 0; transform: translateX(80px) rotate(360deg); }
+  }
+
+  /* 헤더 */
+  .header {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 50px 20px 30px;
+  }
+
+  .header-icon {
+    font-size: 52px;
+    margin-bottom: 12px;
+    animation: sway 3s ease-in-out infinite;
+  }
+
+  @keyframes sway {
+    0%, 100% { transform: rotate(-3deg); }
+    50% { transform: rotate(3deg); }
+  }
+
+  .header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #2d5a1e;
+    margin-bottom: 8px;
+  }
+
+  .header p {
+    font-size: 14px;
+    color: #6b8e5a;
+    font-weight: 300;
+  }
+
+  /* 컨테이너 */
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 0 16px 40px;
+  }
+
+  /* 글쓰기 영역 */
+  .write-section {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding: 24px;
+    margin-bottom: 28px;
+    box-shadow: 0 4px 24px rgba(45, 90, 30, 0.08);
+    border: 1px solid rgba(107, 142, 90, 0.15);
+  }
+
+  .write-section textarea {
+    width: 100%;
+    min-height: 120px;
+    border: 2px solid #d4e4cc;
+    border-radius: 14px;
+    padding: 16px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    color: #2d3a28;
+    background: #f7faf5;
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.3s;
+  }
+
+  .write-section textarea::placeholder {
+    color: #a3bfa0;
+  }
+
+  .write-section textarea:focus {
+    border-color: #6b8e5a;
+  }
+
+  .write-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 14px;
+  }
+
+  .char-count {
+    font-size: 12px;
+    color: #a3bfa0;
+  }
+
+  .btn-submit {
+    background: linear-gradient(135deg, #5a8a42, #3d6b2e);
+    color: #fff;
+    border: none;
+    padding: 12px 32px;
+    border-radius: 30px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 14px rgba(61, 107, 46, 0.25);
+  }
+
+  .btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(61, 107, 46, 0.35);
+  }
+
+  .btn-submit:active {
+    transform: translateY(0);
+  }
+
+  .btn-submit:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  /* 게시글 목록 */
+  .posts-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding: 0 4px;
+  }
+
+  .posts-header h2 {
+    font-size: 16px;
+    color: #4a7a3a;
+    font-weight: 500;
+  }
+
+  .post-count {
+    font-size: 13px;
+    color: #a3bfa0;
+  }
+
+  .post-card {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    border-radius: 18px;
+    padding: 22px 24px;
+    margin-bottom: 14px;
+    box-shadow: 0 2px 16px rgba(45, 90, 30, 0.06);
+    border: 1px solid rgba(107, 142, 90, 0.1);
+    animation: fadeUp 0.4s ease-out;
+    transition: transform 0.2s;
+  }
+
+  .post-card:hover {
+    transform: translateY(-1px);
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .post-card .post-label {
+    display: inline-block;
+    font-size: 11px;
+    color: #6b8e5a;
+    background: #e8f0e4;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+
+  .post-card .post-content {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #2d3a28;
+    white-space: pre-wrap;
+  }
+
+  .post-card .post-actions {
+    display: flex;
+    gap: 16px;
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid #e8f0e4;
+  }
+
+  .post-card .post-actions button {
+    background: none;
+    border: none;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 13px;
+    color: #a3bfa0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: color 0.2s;
+    padding: 2px 0;
+  }
+
+  .post-card .post-actions button:hover {
+    color: #5a8a42;
+  }
+
+  .post-card .post-actions button.liked {
+    color: #e06060;
+  }
+
+  /* 빈 상태 */
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #a3bfa0;
+  }
+
+  .empty-state .empty-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+    opacity: 0.6;
+  }
+
+  .empty-state p {
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  /* 토스트 알림 */
+  .toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: #2d5a1e;
+    color: #fff;
+    padding: 14px 28px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 400;
+    z-index: 100;
+    opacity: 0;
+    transition: all 0.4s ease;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.2);
+    pointer-events: none;
+  }
+
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* 삭제 확인 모달 */
+  .modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.35);
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s;
+  }
+
+  .modal-overlay.show {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .modal {
+    background: #fff;
+    border-radius: 20px;
+    padding: 28px;
+    max-width: 320px;
+    width: 90%;
+    text-align: center;
+    transform: scale(0.9);
+    transition: transform 0.3s;
+  }
+
+  .modal-overlay.show .modal {
+    transform: scale(1);
+  }
+
+  .modal p {
+    font-size: 15px;
+    color: #2d3a28;
+    margin-bottom: 22px;
+    line-height: 1.6;
+  }
+
+  .modal-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+  }
+
+  .modal-buttons button {
+    padding: 10px 24px;
+    border-radius: 25px;
+    border: none;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-cancel {
+    background: #e8f0e4;
+    color: #4a7a3a;
+  }
+
+  .btn-delete {
+    background: #e06060;
+    color: #fff;
+  }
+
+  .btn-cancel:hover { background: #d4e4cc; }
+  .btn-delete:hover { background: #c94545; }
+
+  /* 스크롤바 */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #c4d8bc; border-radius: 3px; }
+
+  @media (max-width: 480px) {
+    .header { padding: 36px 16px 24px; }
+    .header h1 { font-size: 24px; }
+    .write-section { padding: 18px; }
+    .post-card { padding: 18px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bamboo-bg">
+  <div class="bamboo-stalk"></div>
+  <div class="bamboo-stalk"></div>
+  <div class="bamboo-stalk"></div>
+  <div class="bamboo-stalk"></div>
+  <div class="bamboo-stalk"></div>
+  <div class="bamboo-stalk"></div>
+</div>
+
+<div class="header">
+  <div class="header-icon">🎋</div>
+  <h1>두레생협 대나무숲</h1>
+  <p>여기선 모두 익명이에요. 자유롭게 이야기해 주세요.</p>
+</div>
+
+<div class="container">
+  <div class="write-section">
+    <textarea id="postInput" placeholder="하고 싶은 말을 적어 주세요..." maxlength="1000"></textarea>
+    <div class="write-footer">
+      <span class="char-count"><span id="charCount">0</span> / 1,000</span>
+      <button class="btn-submit" id="btnSubmit" disabled>바람에 날리기</button>
+    </div>
+  </div>
+
+  <div class="posts-header">
+    <h2>바람에 실려 온 이야기</h2>
+    <span class="post-count" id="postCount"></span>
+  </div>
+
+  <div id="postList"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <p>이 글을 정말 지울까요?<br>지우면 되돌릴 수 없어요.</p>
+    <div class="modal-buttons">
+      <button class="btn-cancel" id="btnModalCancel">취소</button>
+      <button class="btn-delete" id="btnModalDelete">지우기</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  const STORAGE_KEY = 'dure_bamboo_posts';
+  const postInput = document.getElementById('postInput');
+  const btnSubmit = document.getElementById('btnSubmit');
+  const charCount = document.getElementById('charCount');
+  const postList = document.getElementById('postList');
+  const postCountEl = document.getElementById('postCount');
+  const toast = document.getElementById('toast');
+  const modalOverlay = document.getElementById('modalOverlay');
+  const btnModalCancel = document.getElementById('btnModalCancel');
+  const btnModalDelete = document.getElementById('btnModalDelete');
+
+  let posts = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+  let deleteTargetId = null;
+
+  const anonymousLabels = [
+    '익명의 대나무', '바람을 타고', '숲속의 누군가',
+    '이름 없는 잎새', '흔들리는 대나무', '속삭이는 바람',
+    '초록빛 그림자', '조용한 숲길', '이슬 맺힌 잎',
+    '달빛 아래 대숲'
+  ];
+
+  function getRandomLabel() {
+    return anonymousLabels[Math.floor(Math.random() * anonymousLabels.length)];
+  }
+
+  function generateId() {
+    return Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+  }
+
+  function savePosts() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
+  }
+
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2200);
+  }
+
+  function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
+  function renderPosts() {
+    postCountEl.textContent = posts.length > 0 ? posts.length + '개의 이야기' : '';
+
+    if (posts.length === 0) {
+      postList.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-icon">🌿</div>
+          <p>아직 아무도 이야기하지 않았어요.<br>첫 번째 바람이 되어 주세요.</p>
+        </div>
+      `;
+      return;
+    }
+
+    postList.innerHTML = posts.map(post => `
+      <div class="post-card" data-id="${post.id}">
+        <span class="post-label">${escapeHtml(post.label)}</span>
+        <div class="post-content">${escapeHtml(post.content)}</div>
+        <div class="post-actions">
+          <button class="btn-like ${post.liked ? 'liked' : ''}" data-id="${post.id}">
+            ${post.liked ? '❤️' : '🤍'} 공감 ${post.likes > 0 ? post.likes : ''}
+          </button>
+          <button class="btn-del" data-id="${post.id}">🗑️ 지우기</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // 입력
+  postInput.addEventListener('input', function() {
+    const len = this.value.trim().length;
+    charCount.textContent = this.value.length;
+    btnSubmit.disabled = len === 0;
+  });
+
+  // 제출
+  btnSubmit.addEventListener('click', function() {
+    const content = postInput.value.trim();
+    if (!content) return;
+
+    const newPost = {
+      id: generateId(),
+      content: content,
+      label: getRandomLabel(),
+      likes: 0,
+      liked: false
+    };
+
+    posts.unshift(newPost);
+    savePosts();
+    renderPosts();
+
+    postInput.value = '';
+    charCount.textContent = '0';
+    btnSubmit.disabled = true;
+
+    showToast('바람에 실려 보냈어요 🌿');
+  });
+
+  // Ctrl+Enter 제출
+  postInput.addEventListener('keydown', function(e) {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter' && !btnSubmit.disabled) {
+      btnSubmit.click();
+    }
+  });
+
+  // 공감 & 삭제
+  postList.addEventListener('click', function(e) {
+    const btn = e.target.closest('button');
+    if (!btn) return;
+
+    const id = btn.dataset.id;
+
+    if (btn.classList.contains('btn-like')) {
+      const post = posts.find(p => p.id === id);
+      if (post) {
+        if (post.liked) {
+          post.likes--;
+          post.liked = false;
+        } else {
+          post.likes++;
+          post.liked = true;
+        }
+        savePosts();
+        renderPosts();
+      }
+    }
+
+    if (btn.classList.contains('btn-del')) {
+      deleteTargetId = id;
+      modalOverlay.classList.add('show');
+    }
+  });
+
+  // 모달
+  btnModalCancel.addEventListener('click', function() {
+    modalOverlay.classList.remove('show');
+    deleteTargetId = null;
+  });
+
+  btnModalDelete.addEventListener('click', function() {
+    if (deleteTargetId) {
+      posts = posts.filter(p => p.id !== deleteTargetId);
+      savePosts();
+      renderPosts();
+      showToast('바람에 흩어졌어요');
+    }
+    modalOverlay.classList.remove('show');
+    deleteTargetId = null;
+  });
+
+  modalOverlay.addEventListener('click', function(e) {
+    if (e.target === modalOverlay) {
+      modalOverlay.classList.remove('show');
+      deleteTargetId = null;
+    }
+  });
+
+  // 낙엽 파티클
+  function createLeaf() {
+    const leaf = document.createElement('div');
+    leaf.classList.add('leaf');
+    leaf.textContent = ['🍃', '🌿', '🍂'][Math.floor(Math.random() * 3)];
+    leaf.style.left = Math.random() * 100 + 'vw';
+    leaf.style.top = '-20px';
+    leaf.style.fontSize = (12 + Math.random() * 10) + 'px';
+    leaf.style.animationDuration = (8 + Math.random() * 8) + 's';
+    leaf.style.animationDelay = '0s';
+    document.body.appendChild(leaf);
+    setTimeout(() => leaf.remove(), 16000);
+  }
+
+  setInterval(createLeaf, 3000);
+  setTimeout(createLeaf, 500);
+  setTimeout(createLeaf, 1500);
+
+  // 초기 렌더
+  renderPosts();
+})();
+</script>
+</body>
+</html>
