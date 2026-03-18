@@ -1,0 +1,1441 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>12주 기획전 마감 임박 — 두레생협</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Serif+KR:wght@400;600;700&display=swap');
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #faf7f2;
+  --card: #ffffff;
+  --text: #2c2c2c;
+  --sub: #888;
+  --accent: #c4763a;
+  --red: #d94040;
+  --red-light: #fff0ee;
+  --green: #4a7c59;
+  --green-light: #eef4f0;
+  --border: #ece6dc;
+  --base-font: 32px;
+}
+
+html { scroll-behavior: smooth; font-size: var(--base-font); }
+
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  word-break: keep-all;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.6;
+  max-width: 100vw;
+}
+
+section, div, article, footer {
+  max-width: 100vw;
+  overflow-wrap: break-word;
+}
+
+/* ===== FONT SIZE REMOTE ===== */
+.font-remote {
+  position: fixed;
+  top: 12px; right: 12px;
+  z-index: 200;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 16px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.1);
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: opacity .3s, transform .3s;
+}
+
+.font-remote.collapsed {
+  padding: 0;
+  background: none;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+.font-remote.collapsed .font-remote-body {
+  display: none;
+}
+
+.font-remote-toggle {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: var(--green);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  transition: background .2s;
+}
+
+.font-remote-toggle:active { background: #3d6a4a; }
+
+.font-remote-body {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.font-remote-body span {
+  font-size: 12px;
+  color: var(--sub);
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.font-remote-btn {
+  width: 32px; height: 32px;
+  border-radius: 10px;
+  border: 1.5px solid var(--border);
+  background: #fff;
+  color: var(--text);
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .15s;
+}
+
+.font-remote-btn:active { background: #f0f0f0; }
+
+.font-remote-size {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  min-width: 32px;
+  text-align: center;
+}
+
+/* ===== PROGRESS ===== */
+.progress {
+  position: fixed; top: 0; left: 0; height: 3px;
+  background: linear-gradient(90deg, var(--red), var(--accent));
+  z-index: 100; transition: width 0.1s linear;
+}
+
+/* ===== HERO ===== */
+.hero {
+  min-height: 90vh;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  text-align: center;
+  padding: 60px 16px 48px;
+  background: linear-gradient(160deg, #fdf5f0, #f8ece0, #f0e0cc);
+  position: relative; overflow: hidden;
+}
+
+.hero::before {
+  content: ''; position: absolute;
+  top: -100px; right: -100px;
+  width: 350px; height: 350px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(217,64,64,0.06), transparent 70%);
+  animation: drift 8s ease-in-out infinite;
+}
+
+.hero::after {
+  content: ''; position: absolute;
+  bottom: -60px; left: -60px;
+  width: 250px; height: 250px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(196,118,58,0.06), transparent 70%);
+  animation: drift 10s ease-in-out infinite reverse;
+}
+
+@keyframes drift {
+  0%,100% { transform: translate(0,0); }
+  50% { transform: translate(15px,-20px); }
+}
+
+.deadline-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 24px;
+  background: var(--red);
+  color: #fff;
+  border-radius: 100px;
+  font-size: 0.7rem; font-weight: 700;
+  letter-spacing: 0.3px;
+  margin-bottom: 28px;
+  position: relative; z-index: 1;
+  opacity: 0; animation: up .6s .2s ease forwards;
+  box-shadow: 0 2px 16px rgba(217,64,64,0.3);
+}
+
+.deadline-badge .pulse {
+  width: 10px; height: 10px;
+  background: #fff;
+  border-radius: 50%;
+  animation: blink 1.2s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%,100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.hero h1 {
+  font-family: 'Noto Serif KR', serif;
+  font-size: clamp(28px, 1.2rem, 48px); font-weight: 700;
+  line-height: 1.35;
+  position: relative; z-index: 1;
+  opacity: 0; animation: up .6s .35s ease forwards;
+  padding: 0 8px;
+}
+
+.hero h1 em { font-style: normal; color: var(--red); }
+
+.hero-sub {
+  font-size: 0.72rem; color: #555;
+  font-weight: 400;
+  margin-top: 16px; line-height: 1.7;
+  position: relative; z-index: 1;
+  opacity: 0; animation: up .6s .5s ease forwards;
+}
+
+/* ===== DEADLINE DATE — BIG ===== */
+.deadline-date {
+  margin-top: 28px;
+  position: relative; z-index: 1;
+  opacity: 0; animation: up .6s .6s ease forwards;
+  background: var(--card);
+  border-radius: 20px;
+  padding: 20px 24px;
+  box-shadow: 0 4px 24px rgba(217,64,64,0.1);
+  border: 2px solid rgba(217,64,64,0.15);
+  max-width: 92vw;
+}
+
+.deadline-date .label {
+  font-size: 0.45rem;
+  font-weight: 500;
+  color: var(--sub);
+  margin-bottom: 6px;
+}
+
+.deadline-date .date {
+  font-family: 'Noto Serif KR', serif;
+  font-size: clamp(24px, 1.1rem, 42px);
+  font-weight: 700;
+  color: var(--red);
+  line-height: 1.2;
+}
+
+.deadline-date .time {
+  font-size: clamp(28px, 1.3rem, 48px);
+  font-weight: 900;
+  color: var(--red);
+  letter-spacing: 1px;
+}
+
+.deadline-date .day {
+  font-size: 0.5rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin-top: 4px;
+}
+
+/* ===== COUNTDOWN ===== */
+.countdown-wrap {
+  margin-top: 28px;
+  position: relative; z-index: 1;
+  opacity: 0; animation: up .6s .75s ease forwards;
+}
+
+.countdown-label {
+  font-size: 0.55rem;
+  font-weight: 500;
+  color: var(--sub);
+  margin-bottom: 12px;
+  letter-spacing: 0.5px;
+}
+
+.countdown {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 4px;
+  max-width: 90vw;
+  flex-wrap: nowrap;
+}
+
+.cd-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.cd-num {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 36px;
+  font-weight: 900;
+  color: var(--red);
+  line-height: 1;
+  background: var(--card);
+  border-radius: 12px;
+  padding: 10px 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  min-width: 64px;
+  text-align: center;
+  transition: transform .15s;
+}
+
+.cd-num.tick { transform: scale(1.08); }
+
+.cd-sep {
+  font-size: 32px;
+  font-weight: 900;
+  color: var(--red);
+  opacity: 0.4;
+  align-self: center;
+  padding-bottom: 20px;
+  flex-shrink: 0;
+}
+
+.cd-text {
+  font-size: 0.48rem;
+  font-weight: 500;
+  color: var(--sub);
+  margin-top: 6px;
+}
+
+@keyframes up {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== EXPIRED ===== */
+.expired-msg {
+  display: none;
+  text-align: center;
+  padding: 24px;
+  margin-top: 24px;
+  background: #f5f5f5;
+  border-radius: 16px;
+  position: relative; z-index: 1;
+}
+
+.expired-msg h3 {
+  font-size: 0.85rem;
+  color: var(--sub);
+  margin-bottom: 8px;
+}
+
+.expired-msg p {
+  font-size: 0.65rem;
+  color: #aaa;
+}
+
+/* ===== URGENCY MARQUEE ===== */
+.urgency {
+  background: linear-gradient(135deg, #d94040, #c4763a);
+  color: #fff;
+  padding: 16px 0;
+  font-weight: 600;
+  position: relative;
+  overflow: hidden;
+}
+
+.urgency-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 18s linear infinite;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.urgency-item {
+  white-space: nowrap;
+  padding: 0 40px;
+  font-size: 0.7rem;
+  line-height: 1.6;
+}
+
+/* ===== CARROT SECTION ===== */
+.carrot-section {
+  padding: 40px 16px;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.carrot-banner {
+  background: linear-gradient(135deg, #ff8c42, #e6723a);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(230,114,58,0.2);
+  opacity: 0; transform: translateY(24px);
+  transition: all .6s cubic-bezier(.16,1,.3,1);
+}
+
+.carrot-banner.show {
+  opacity: 1; transform: translateY(0);
+}
+
+.carrot-banner-img {
+  width: 100%;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  position: relative;
+}
+
+.carrot-banner-img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+
+.carrot-banner-img .overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 30%, rgba(0,0,0,0.4) 100%);
+}
+
+.carrot-banner-body {
+  padding: 24px;
+  color: #fff;
+}
+
+.carrot-banner-body .icon {
+  font-size: 1rem;
+  margin-bottom: 8px;
+}
+
+.carrot-banner-body h2 {
+  font-family: 'Noto Serif KR', serif;
+  font-size: clamp(22px, 0.85rem, 34px);
+  font-weight: 700;
+  line-height: 1.35;
+  margin-bottom: 10px;
+}
+
+.carrot-banner-body p {
+  font-size: 0.65rem;
+  line-height: 1.7;
+  opacity: 0.9;
+  margin-bottom: 20px;
+}
+
+.carrot-products {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.carrot-product {
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(6px);
+  border-radius: 16px;
+  padding: 14px;
+  text-decoration: none;
+  color: #fff;
+  transition: background .2s;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.carrot-product:active {
+  background: rgba(255,255,255,0.25);
+}
+
+.carrot-product .name {
+  font-size: 0.6rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.carrot-product .price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.carrot-product .orig {
+  font-size: 0.5rem;
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.carrot-product .now {
+  font-size: clamp(18px, 0.65rem, 26px);
+  font-weight: 900;
+}
+
+.carrot-product .off {
+  font-size: 0.48rem;
+  background: rgba(255,255,255,0.25);
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-weight: 700;
+}
+
+.carrot-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 14px;
+  margin-top: 16px;
+  background: #fff;
+  color: #e6723a;
+  border: none;
+  border-radius: 14px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background .2s;
+}
+
+.carrot-cta:active { background: #f5f5f5; }
+
+/* ===== SECTION TITLE ===== */
+.section-title {
+  text-align: center;
+  padding: 48px 20px 8px;
+}
+
+.section-title h2 {
+  font-family: 'Noto Serif KR', serif;
+  font-size: clamp(22px, 0.85rem, 34px);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.section-title p {
+  font-size: 0.65rem;
+  color: var(--sub);
+  line-height: 1.6;
+}
+
+/* ===== PRODUCT CARDS ===== */
+.cards {
+  padding: 24px 16px 40px;
+  max-width: 520px;
+  margin: 0 auto;
+  display: flex; flex-direction: column;
+  gap: 20px;
+}
+
+.card {
+  background: var(--card);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.05);
+  opacity: 0; transform: translateY(24px);
+  transition: all .6s cubic-bezier(.16,1,.3,1);
+}
+
+.card.show { opacity: 1; transform: translateY(0); }
+
+.card-img {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+}
+
+.card-img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform .5s ease;
+}
+
+.card:active .card-img img { transform: scale(1.03); }
+
+.card-badge {
+  position: absolute; top: 12px; left: 12px;
+  background: var(--red); color: #fff;
+  padding: 6px 16px; border-radius: 100px;
+  font-size: 0.7rem; font-weight: 800;
+}
+
+.card-body { padding: 20px; }
+
+.card-name {
+  font-family: 'Noto Serif KR', serif;
+  font-size: clamp(20px, 0.8rem, 30px); font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.card-tagline {
+  font-size: 0.68rem; color: var(--accent);
+  font-weight: 500;
+  margin-bottom: 14px;
+}
+
+.card-desc {
+  font-size: 0.65rem; color: var(--sub);
+  line-height: 1.8;
+  margin-bottom: 16px;
+}
+
+.chips {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  margin-bottom: 18px;
+}
+
+.chip {
+  padding: 6px 14px;
+  background: var(--green-light);
+  color: var(--green);
+  border-radius: 100px;
+  font-size: 0.58rem; font-weight: 500;
+}
+
+.chip.hot {
+  background: var(--red-light);
+  color: var(--red);
+}
+
+.card-price {
+  display: flex; align-items: baseline; gap: 8px;
+  margin-bottom: 16px; flex-wrap: wrap;
+}
+
+.card-price .orig {
+  font-size: 0.65rem; color: #bbb;
+  text-decoration: line-through;
+}
+
+.card-price .now {
+  font-size: clamp(24px, 0.9rem, 34px); font-weight: 900;
+  color: #a05e2c;
+}
+
+.card-price .unit {
+  font-size: 0.68rem; font-weight: 400;
+}
+
+.card-price .off {
+  background: var(--red-light); color: var(--red);
+  padding: 4px 12px; border-radius: 6px;
+  font-size: 0.58rem; font-weight: 700;
+}
+
+.card-btn {
+  display: flex; align-items: center; justify-content: center;
+  gap: 8px; width: 100%;
+  padding: 16px;
+  background: var(--green); color: #fff;
+  border: none; border-radius: 14px;
+  font-size: 0.7rem; font-weight: 600;
+  text-decoration: none;
+  transition: background .2s;
+  cursor: pointer;
+}
+
+.card-btn:active { background: #3d6a4a; }
+.card-btn svg { width: 18px; height: 18px; fill: #fff; }
+
+/* ===== MORE DEALS ===== */
+.more-title {
+  text-align: center;
+  padding: 40px 20px 8px;
+}
+
+.more-title h2 {
+  font-family: 'Noto Serif KR', serif;
+  font-size: clamp(20px, 0.78rem, 30px);
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.more-title p {
+  font-size: 0.6rem;
+  color: var(--sub);
+}
+
+.mini-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  padding: 20px 16px;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.mini-card {
+  background: var(--card);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  text-decoration: none;
+  color: var(--text);
+  opacity: 0; transform: translateY(20px);
+  transition: all .5s cubic-bezier(.16,1,.3,1);
+  display: flex;
+  flex-direction: column;
+}
+
+.mini-card.show { opacity: 1; transform: translateY(0); }
+
+.mini-card-img {
+  width: 100%;
+  aspect-ratio: 1/1;
+  overflow: hidden;
+  position: relative;
+}
+
+.mini-card-img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+
+.mini-card-badge {
+  position: absolute; top: 8px; left: 8px;
+  background: var(--red); color: #fff;
+  padding: 3px 10px; border-radius: 100px;
+  font-size: 0.5rem; font-weight: 800;
+}
+
+.mini-card-body {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+}
+
+.mini-card-name {
+  font-size: 0.6rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  line-height: 1.4;
+  min-height: 2.8em;
+}
+
+.mini-card-price {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: auto;
+}
+
+.mini-card-price .orig {
+  font-size: 0.5rem; color: #bbb;
+  text-decoration: line-through;
+}
+
+.mini-card-price .now {
+  font-size: 0.78rem; font-weight: 900;
+  color: var(--red);
+}
+
+.mini-card-price .unit {
+  font-size: 0.55rem; font-weight: 400;
+}
+
+/* ===== FLOATING CTA ===== */
+.float-cta {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 90;
+  padding: 14px 16px;
+  padding-bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 -2px 20px rgba(0,0,0,0.08);
+  transform: translateY(100%);
+  transition: transform .4s cubic-bezier(.16,1,.3,1);
+}
+
+.float-cta.show { transform: translateY(0); }
+
+.float-cta-inner {
+  max-width: 520px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.float-cta-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.float-cta-text .timer {
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: var(--red);
+  margin-bottom: 2px;
+}
+
+.float-cta-text .label {
+  font-size: 0.5rem;
+  color: var(--sub);
+}
+
+.float-cta-btn {
+  flex-shrink: 0;
+  padding: 14px 28px;
+  background: var(--red);
+  color: #fff;
+  border: none; border-radius: 12px;
+  font-size: 0.65rem; font-weight: 700;
+  text-decoration: none;
+  transition: background .2s;
+  white-space: nowrap;
+}
+
+.float-cta-btn:active { background: #b83333; }
+
+/* ===== CTA SECTION ===== */
+.cta {
+  text-align: center;
+  padding: 48px 20px 110px;
+  background: linear-gradient(180deg, var(--bg), #ede6da);
+}
+
+.cta h2 {
+  font-family: 'Noto Serif KR', serif;
+  font-size: clamp(20px, 0.8rem, 30px); font-weight: 700;
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+
+.cta p {
+  font-size: 0.65rem; color: var(--sub);
+  margin-bottom: 28px;
+  line-height: 1.6;
+}
+
+.cta-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 16px 40px;
+  background: var(--red); color: #fff;
+  border: none; border-radius: 14px;
+  font-size: 0.75rem; font-weight: 700;
+  text-decoration: none;
+  transition: background .2s;
+  box-shadow: 0 4px 20px rgba(217,64,64,0.25);
+}
+
+.cta-btn:active { background: #b83333; }
+
+/* ===== FOOTER ===== */
+footer {
+  text-align: center;
+  padding: 28px 20px;
+  font-size: 0.5rem; color: #bbb;
+  background: #2c2c2c;
+}
+
+/* ===== DESKTOP ===== */
+@media (min-width: 600px) {
+  .hero { min-height: 75vh; }
+  .hero h1 { font-size: 1.8rem; }
+  .cards { max-width: 900px; gap: 28px; }
+  .card { display: grid; grid-template-columns: 1fr 1fr; }
+  .card:nth-child(even) .card-img { order: 2; }
+  .card:nth-child(even) .card-body { order: 1; }
+  .card-img { aspect-ratio: 1/1; }
+  .card-body { padding: 32px; display: flex; flex-direction: column; justify-content: center; }
+  .mini-grid { max-width: 900px; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .float-cta-inner { max-width: 900px; }
+  .carrot-section { max-width: 900px; }
+}
+</style>
+</head>
+<body>
+
+<div class="progress" id="prog"></div>
+
+<!-- FONT SIZE REMOTE -->
+<div class="font-remote" id="fontRemote">
+  <button class="font-remote-toggle" id="fontToggle" aria-label="글씨 크기 조절">가</button>
+  <div class="font-remote-body" id="fontBody">
+    <button class="font-remote-btn" id="fontDown" aria-label="글씨 줄이기">-</button>
+    <span class="font-remote-size" id="fontSizeLabel">32</span>
+    <button class="font-remote-btn" id="fontUp" aria-label="글씨 키우기">+</button>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="deadline-badge">
+    <span class="pulse"></span>
+    주문 마감 임박
+  </div>
+  <h1>이번 주 혜택,<br><em>오늘이면 끝</em>입니다</h1>
+  <p class="hero-sub">이번 주 할인전이 곧 마감됩니다!</p>
+
+  <div class="deadline-date">
+    <p class="label">주문 마감일</p>
+    <p class="date">3월 19일 목요일</p>
+    <p class="time">오전 11:30</p>
+  </div>
+
+  <div class="countdown-wrap" id="countdownWrap">
+    <p class="countdown-label">마감까지 남은 시간</p>
+    <div class="countdown" id="countdown">
+      <div class="cd-unit">
+        <div class="cd-num" id="cdH">00</div>
+        <span class="cd-text">시간</span>
+      </div>
+      <div class="cd-sep">:</div>
+      <div class="cd-unit">
+        <div class="cd-num" id="cdM">00</div>
+        <span class="cd-text">분</span>
+      </div>
+      <div class="cd-sep">:</div>
+      <div class="cd-unit">
+        <div class="cd-num" id="cdS">00</div>
+        <span class="cd-text">초</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="expired-msg" id="expiredMsg">
+    <h3>이번 주 기획전이 마감되었습니다</h3>
+    <p>다음 주 기획전에서 만나요</p>
+  </div>
+</section>
+
+<!-- URGENCY MARQUEE -->
+<div class="urgency">
+  <div class="urgency-track">
+    <span class="urgency-item">마감시간이 지나면 이번 주 할인 혜택이 종료됩니다.</span>
+    <span class="urgency-item">마감시간이 지나면 이번 주 할인 혜택이 종료됩니다.</span>
+    <span class="urgency-item">마감시간이 지나면 이번 주 할인 혜택이 종료됩니다.</span>
+    <span class="urgency-item">마감시간이 지나면 이번 주 할인 혜택이 종료됩니다.</span>
+    <span class="urgency-item">마감시간이 지나면 이번 주 할인 혜택이 종료됩니다.</span>
+    <span class="urgency-item">마감시간이 지나면 이번 주 할인 혜택이 종료됩니다.</span>
+  </div>
+</div>
+
+<!-- CARROT — 산지 응원 -->
+<div class="carrot-section">
+  <div class="carrot-banner">
+    <div class="carrot-banner-img">
+      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/1321C.jpg" alt="당근" loading="lazy">
+      <div class="overlay"></div>
+    </div>
+    <div class="carrot-banner-body">
+      <p class="icon">🥕</p>
+      <h2>산지의 어려움을<br>덜어주는 선택</h2>
+      <p>풍성한 수확이 오히려 걱정이 되지 않도록,<br>우리 생산지를 함께 응원해요!</p>
+      <div class="carrot-products">
+        <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1646" class="carrot-product">
+          <p class="name">당근(1kg)</p>
+          <div class="price-row">
+            <span class="orig">4,600원</span>
+            <span class="now">4,100원</span>
+            <span class="off">11%</span>
+          </div>
+        </a>
+        <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1646" class="carrot-product">
+          <p class="name">당근(500g/무농약)</p>
+          <div class="price-row">
+            <span class="orig">2,600원</span>
+            <span class="now">2,300원</span>
+            <span class="off">12%</span>
+          </div>
+        </a>
+      </div>
+      <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1646" class="carrot-cta">당근 함께 소비해요 →</a>
+    </div>
+  </div>
+</div>
+
+<!-- BEST PICKS -->
+<div class="section-title">
+  <h2>놓치면 아쉬운 이번 주 혜택</h2>
+  <p>최대 25% 할인</p>
+</div>
+
+<div class="cards">
+
+  <!-- 1. 쑥버무리 6% — 강력 추천 -->
+  <article class="card">
+    <div class="card-img">
+      <span class="card-badge" style="background:var(--green)">강력 추천</span>
+      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/54286C.jpg" alt="쑥버무리" loading="lazy">
+    </div>
+    <div class="card-body">
+      <h2 class="card-name">쑥버무리</h2>
+      <p class="card-tagline">봄 생쑥 37%, 향긋한 한 입</p>
+      <p class="card-desc">첫 수확한 생쑥을 한소콤 쪄냈습니다.<br>국산 밤과 대추를 듬뿍 넣어 달콤하고 영양도 든든합니다.</p>
+      <div class="chips">
+        <span class="chip">국산 생쑥 37%</span>
+        <span class="chip">밤·대추</span>
+        <span class="chip">250g</span>
+      </div>
+      <div class="card-price">
+        <span class="orig">4,800원</span>
+        <span class="now">4,500<span class="unit">원</span></span>
+        <span class="off">6% 할인</span>
+      </div>
+      <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1646" class="card-btn">
+        <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.16 14.26l.04-.12L8.1 12h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0020 3H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 14.37 5.48 16 7 16h12v-2H7.42c-.14 0-.25-.11-.25-.25z"/></svg>
+        장보기
+      </a>
+    </div>
+  </article>
+
+  <!-- 2. 훈제오리 25% -->
+  <article class="card">
+    <div class="card-img">
+      <span class="card-badge">25%</span>
+      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/40549C.jpg" alt="훈제오리" loading="lazy">
+    </div>
+    <div class="card-body">
+      <h2 class="card-name">훈제오리</h2>
+      <p class="card-tagline">무항생제 오리, 참나무 훈연</p>
+      <p class="card-desc">무항생제 오리를 참나무로 훈연해 향긋하게.<br>간장·마늘·생강 등 두레생협 재료만으로 조미했습니다.</p>
+      <div class="chips">
+        <span class="chip hot">이번 주 최대 할인</span>
+        <span class="chip">무항생제</span>
+        <span class="chip">참나무 훈연</span>
+      </div>
+      <div class="card-price">
+        <span class="orig">13,300원</span>
+        <span class="now">10,000<span class="unit">원</span></span>
+        <span class="off">25% 할인</span>
+      </div>
+      <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1646" class="card-btn">
+        <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.16 14.26l.04-.12L8.1 12h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0020 3H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 14.37 5.48 16 7 16h12v-2H7.42c-.14 0-.25-.11-.25-.25z"/></svg>
+        장보기
+      </a>
+    </div>
+  </article>
+
+  <!-- 2. 한우보양탕 20% -->
+  <article class="card">
+    <div class="card-img">
+      <span class="card-badge">20%</span>
+      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/54638C.jpg" alt="한우보양탕" loading="lazy">
+    </div>
+    <div class="card-body">
+      <h2 class="card-name">한우보양탕</h2>
+      <p class="card-tagline">한우 양지, 약재로 끓인 보양 한 그릇</p>
+      <p class="card-desc">한우 양지와 국내산 약재를 푹 삶아 진하게 우려냈습니다.<br>된장과 사골액으로 깊은 감칠맛, 데우기만 하면 완성.</p>
+      <div class="chips">
+        <span class="chip">한우 양지</span>
+        <span class="chip">국내산 약재</span>
+        <span class="chip">간편조리</span>
+      </div>
+      <div class="card-price">
+        <span class="orig">13,000원</span>
+        <span class="now">10,400<span class="unit">원</span></span>
+        <span class="off">20% 할인</span>
+      </div>
+      <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1646" class="card-btn">
+        <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.16 14.26l.04-.12L8.1 12h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0020 3H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 14.37 5.48 16 7 16h12v-2H7.42c-.14 0-.25-.11-.25-.25z"/></svg>
+        장보기
+      </a>
+    </div>
+  </article>
+
+  <!-- 3. 비빔쫄면 17% -->
+  <article class="card">
+    <div class="card-img">
+      <span class="card-badge">17%</span>
+      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/38996C.jpg" alt="비빔쫄면" loading="lazy">
+    </div>
+    <div class="card-body">
+      <h2 class="card-name">비빔쫄면</h2>
+      <p class="card-tagline">쫄깃한 면발에 매콤달콤 비빔장</p>
+      <p class="card-desc">볶은 보리로 만든 쫄깃한 면발.<br>국산 과일·채소로 만든 비빔장이 한 끼를 완성합니다.</p>
+      <div class="chips">
+        <span class="chip">볶은 보리</span>
+        <span class="chip">국산 비빔장</span>
+      </div>
+      <div class="card-price">
+        <span class="orig">6,000원</span>
+        <span class="now">5,000<span class="unit">원</span></span>
+        <span class="off">17% 할인</span>
+      </div>
+      <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1646" class="card-btn">
+        <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.16 14.26l.04-.12L8.1 12h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0020 3H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 14.37 5.48 16 7 16h12v-2H7.42c-.14 0-.25-.11-.25-.25z"/></svg>
+        장보기
+      </a>
+    </div>
+  </article>
+
+  <!-- 4. 보리물냉면 15% -->
+  <article class="card">
+    <div class="card-img">
+      <span class="card-badge">15%</span>
+      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/30779C.jpg" alt="보리물냉면" loading="lazy">
+    </div>
+    <div class="card-body">
+      <h2 class="card-name">보리물냉면</h2>
+      <p class="card-tagline">볶은 보리향, 동치미·한우 육수</p>
+      <p class="card-desc">볶은 보리로 만들어 보리향이 살아있는 면발.<br>동치미 육수에 한우 육수의 감칠맛을 더해 깔끔합니다.</p>
+      <div class="chips">
+        <span class="chip">볶은 보리</span>
+        <span class="chip">동치미+한우 육수</span>
+      </div>
+      <div class="card-price">
+        <span class="orig">6,500원</span>
+        <span class="now">5,500<span class="unit">원</span></span>
+        <span class="off">15% 할인</span>
+      </div>
+      <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1646" class="card-btn">
+        <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.16 14.26l.04-.12L8.1 12h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0020 3H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 14.37 5.48 16 7 16h12v-2H7.42c-.14 0-.25-.11-.25-.25z"/></svg>
+        장보기
+      </a>
+    </div>
+  </article>
+
+  <!-- 6. 흑염소탕 13% -->
+  <article class="card">
+    <div class="card-img">
+      <span class="card-badge">13%</span>
+      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/54255C.jpg" alt="흑염소탕" loading="lazy">
+    </div>
+    <div class="card-body">
+      <h2 class="card-name">흑염소탕</h2>
+      <p class="card-tagline">국산 흑염소, 직화 솥에 푹 고아</p>
+      <p class="card-desc">국산 흑염소를 통째로 직화 솥에 고아냈습니다.<br>잡내 없이 부드러운 육질과 깊은 국물 맛입니다.</p>
+      <div class="chips">
+        <span class="chip">국산 흑염소</span>
+        <span class="chip">직화 솥</span>
+      </div>
+      <div class="card-price">
+        <span class="orig">20,500원</span>
+        <span class="now">17,900<span class="unit">원</span></span>
+        <span class="off">13% 할인</span>
+      </div>
+      <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1646" class="card-btn">
+        <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.16 14.26l.04-.12L8.1 12h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0020 3H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 14.37 5.48 16 7 16h12v-2H7.42c-.14 0-.25-.11-.25-.25z"/></svg>
+        장보기
+      </a>
+    </div>
+  </article>
+
+</div>
+
+<!-- MORE DEALS -->
+<div class="more-title">
+  <h2>이번 주 기획전 한눈에 보기</h2>
+</div>
+
+<div class="mini-grid">
+
+  <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1646" class="mini-card">
+    <div class="mini-card-img">
+      <span class="mini-card-badge">10%</span>
+      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/46113C.jpg" alt="포항가자미" loading="lazy">
+    </div>
+    <div class="mini-card-body">
+      <p class="mini-card-name">포항가자미(600g)</p>
+      <div class="mini-card-price">
+        <span class="orig">18,200원</span>
+        <span class="now">16,300<span class="unit">원</span></span>
+      </div>
+    </div>
+  </a>
+
+  <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1646" class="mini-card">
+    <div class="mini-card-img">
+      <span class="mini-card-badge">10%</span>
+      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/28818C.jpg" alt="제주순메밀국수" loading="lazy">
+    </div>
+    <div class="mini-card-body">
+      <p class="mini-card-name">제주순메밀국수</p>
+      <div class="mini-card-price">
+        <span class="orig">15,300원</span>
+        <span class="now">13,800<span class="unit">원</span></span>
+      </div>
+    </div>
+  </a>
+
+  <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1646" class="mini-card">
+    <div class="mini-card-img">
+      <span class="mini-card-badge">10%</span>
+      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/54730C.jpg" alt="통닭다리 누룽지삼계탕" loading="lazy">
+    </div>
+    <div class="mini-card-body">
+      <p class="mini-card-name">통닭다리 누룽지삼계탕</p>
+      <div class="mini-card-price">
+        <span class="orig">8,300원</span>
+        <span class="now">7,500<span class="unit">원</span></span>
+      </div>
+    </div>
+  </a>
+
+  <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1646" class="mini-card">
+    <div class="mini-card-img">
+      <span class="mini-card-badge">10%</span>
+      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/32581C.jpg" alt="바지락살" loading="lazy">
+    </div>
+    <div class="mini-card-body">
+      <p class="mini-card-name">바지락살(250g)</p>
+      <div class="mini-card-price">
+        <span class="orig">19,500원</span>
+        <span class="now">17,500<span class="unit">원</span></span>
+      </div>
+    </div>
+  </a>
+
+  <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1646" class="mini-card">
+    <div class="mini-card-img">
+      <span class="mini-card-badge">10%</span>
+      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/10907C.jpg" alt="홍합살" loading="lazy">
+    </div>
+    <div class="mini-card-body">
+      <p class="mini-card-name">홍합살(300g)</p>
+      <div class="mini-card-price">
+        <span class="orig">10,900원</span>
+        <span class="now">9,800<span class="unit">원</span></span>
+      </div>
+    </div>
+  </a>
+
+  <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1646" class="mini-card">
+    <div class="mini-card-img">
+      <span class="mini-card-badge">11%</span>
+      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/47663C.png" alt="맛들찬 울외장아찌" loading="lazy">
+    </div>
+    <div class="mini-card-body">
+      <p class="mini-card-name">맛들찬 울외장아찌(500g)</p>
+      <div class="mini-card-price">
+        <span class="orig">13,500원</span>
+        <span class="now">12,200<span class="unit">원</span></span>
+      </div>
+    </div>
+  </a>
+
+  <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1646" class="mini-card">
+    <div class="mini-card-img">
+      <span class="mini-card-badge">10%</span>
+      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/28996C.jpg" alt="오이소박이" loading="lazy">
+    </div>
+    <div class="mini-card-body">
+      <p class="mini-card-name">오이소박이(1kg)</p>
+      <div class="mini-card-price">
+        <span class="orig">10,200원</span>
+        <span class="now">9,200<span class="unit">원</span></span>
+      </div>
+    </div>
+  </a>
+
+  <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1646" class="mini-card">
+    <div class="mini-card-img">
+      <span class="mini-card-badge">10%</span>
+      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56259C.jpg" alt="토종닭" loading="lazy">
+    </div>
+    <div class="mini-card-body">
+      <p class="mini-card-name">토종닭(1.4kg/냉동)</p>
+      <div class="mini-card-price">
+        <span class="orig">15,900원</span>
+        <span class="now">14,300<span class="unit">원</span></span>
+      </div>
+    </div>
+  </a>
+
+  <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1646" class="mini-card">
+    <div class="mini-card-img">
+      <span class="mini-card-badge">5%</span>
+      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59024C.jpg" alt="(맛찬)꼬막양념무침" loading="lazy">
+    </div>
+    <div class="mini-card-body">
+      <p class="mini-card-name">(맛찬)꼬막양념무침</p>
+      <div class="mini-card-price">
+        <span class="orig">8,800원</span>
+        <span class="now">8,400<span class="unit">원</span></span>
+      </div>
+    </div>
+  </a>
+
+  <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1646" class="mini-card">
+    <div class="mini-card-img">
+      <span class="mini-card-badge">5%</span>
+      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58425C.png" alt="(맛찬)산채나물비빔세트" loading="lazy">
+    </div>
+    <div class="mini-card-body">
+      <p class="mini-card-name">(맛찬)산채나물비빔세트</p>
+      <div class="mini-card-price">
+        <span class="orig">14,200원</span>
+        <span class="now">13,500<span class="unit">원</span></span>
+      </div>
+    </div>
+  </a>
+
+  <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1646" class="mini-card">
+    <div class="mini-card-img">
+      <span class="mini-card-badge">8%</span>
+      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59061C.jpg" alt="(맛찬)생깻잎무침" loading="lazy">
+    </div>
+    <div class="mini-card-body">
+      <p class="mini-card-name">(맛찬)생깻잎무침(240g)</p>
+      <div class="mini-card-price">
+        <span class="orig">12,200원</span>
+        <span class="now">11,200<span class="unit">원</span></span>
+      </div>
+    </div>
+  </a>
+
+  <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1646" class="mini-card">
+    <div class="mini-card-img">
+      <span class="mini-card-badge">5%</span>
+      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58638C.jpg" alt="(맛찬)비빔한우고추장" loading="lazy">
+    </div>
+    <div class="mini-card-body">
+      <p class="mini-card-name">(맛찬)비빔한우고추장</p>
+      <div class="mini-card-price">
+        <span class="orig">8,000원</span>
+        <span class="now">7,600<span class="unit">원</span></span>
+      </div>
+    </div>
+  </a>
+
+</div>
+
+<!-- CTA -->
+<section class="cta">
+  <h2>3월 19일 오전 11:30,<br>이번 주 혜택이 마감됩니다</h2>
+  <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1646" class="cta-btn">기획전 전체 보기 →</a>
+</section>
+
+<footer>
+  <p>두레생협 조합원 상담실 1661-5110</p>
+</footer>
+
+<!-- FLOATING CTA -->
+<div class="float-cta" id="floatCta">
+  <div class="float-cta-inner">
+    <div class="float-cta-text">
+      <div class="timer" id="floatTimer">00:00:00 남음</div>
+      <div class="label">3/19(목) 오전 11:30 마감</div>
+    </div>
+    <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1646" class="float-cta-btn">기획전 보기</a>
+  </div>
+</div>
+
+<script>
+// === FONT SIZE REMOTE ===
+let fontSize = 32;
+const MIN_FONT = 14;
+const MAX_FONT = 32;
+const $html = document.documentElement;
+const $sizeLabel = document.getElementById('fontSizeLabel');
+const $fontRemote = document.getElementById('fontRemote');
+const $fontBody = document.getElementById('fontBody');
+
+function setFontSize(size) {
+  fontSize = Math.max(MIN_FONT, Math.min(MAX_FONT, size));
+  $html.style.setProperty('--base-font', fontSize + 'px');
+  $html.style.fontSize = fontSize + 'px';
+  $sizeLabel.textContent = fontSize;
+}
+
+document.getElementById('fontUp').addEventListener('click', () => setFontSize(fontSize + 2));
+document.getElementById('fontDown').addEventListener('click', () => setFontSize(fontSize - 2));
+document.getElementById('fontToggle').addEventListener('click', () => {
+  $fontRemote.classList.toggle('collapsed');
+});
+
+// === COUNTDOWN ===
+const DEADLINE = new Date('2026-03-19T11:30:00+09:00').getTime();
+
+const $cdH = document.getElementById('cdH');
+const $cdM = document.getElementById('cdM');
+const $cdS = document.getElementById('cdS');
+const $floatTimer = document.getElementById('floatTimer');
+const $countdownWrap = document.getElementById('countdownWrap');
+const $expiredMsg = document.getElementById('expiredMsg');
+const $floatCta = document.getElementById('floatCta');
+
+function pad(n) { return String(n).padStart(2, '0'); }
+
+function tickAnim(el) {
+  el.classList.add('tick');
+  setTimeout(() => el.classList.remove('tick'), 150);
+}
+
+let prevH = '', prevM = '', prevS = '';
+
+function updateCountdown() {
+  const now = Date.now();
+  const diff = DEADLINE - now;
+
+  if (diff <= 0) {
+    $cdH.textContent = '00';
+    $cdM.textContent = '00';
+    $cdS.textContent = '00';
+    $countdownWrap.style.display = 'none';
+    document.querySelector('.deadline-date').style.display = 'none';
+    $expiredMsg.style.display = 'block';
+    $floatCta.classList.remove('show');
+    document.querySelector('.urgency-track').innerHTML =
+      '<span class="urgency-item">이번 주 기획전 주문이 마감되었습니다</span>'.repeat(4);
+    return;
+  }
+
+  const totalSec = Math.floor(diff / 1000);
+  const h = pad(Math.floor(totalSec / 3600));
+  const m = pad(Math.floor((totalSec % 3600) / 60));
+  const s = pad(totalSec % 60);
+
+  if (h !== prevH) { $cdH.textContent = h; tickAnim($cdH); prevH = h; }
+  if (m !== prevM) { $cdM.textContent = m; tickAnim($cdM); prevM = m; }
+  if (s !== prevS) { $cdS.textContent = s; tickAnim($cdS); prevS = s; }
+
+  $floatTimer.textContent = h + ':' + m + ':' + s + ' 남음';
+
+  requestAnimationFrame(() => setTimeout(updateCountdown, 200));
+}
+
+updateCountdown();
+
+// === PROGRESS BAR ===
+const prog = document.getElementById('prog');
+window.addEventListener('scroll', () => {
+  const pct = (window.scrollY / (document.documentElement.scrollHeight - innerHeight)) * 100;
+  prog.style.width = pct + '%';
+});
+
+// === CARD REVEAL ===
+const items = document.querySelectorAll('.card, .mini-card, .carrot-banner');
+const io = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('show'), i * 60);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+items.forEach(c => io.observe(c));
+
+// === FLOATING CTA ===
+const hero = document.querySelector('.hero');
+const floatIO = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) {
+      $floatCta.classList.add('show');
+    } else {
+      $floatCta.classList.remove('show');
+    }
+  });
+}, { threshold: 0 });
+floatIO.observe(hero);
+</script>
+
+</body>
+</html>
