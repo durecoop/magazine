@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="ko" style="--fs: 24px;"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>두레생협 | 봄 보양식 기획전</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&display=swap');
+
+:root { --fs: 20px; --accent: #8C7355; --accent-light: #A6896B; }
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Noto Sans KR', -apple-system, sans-serif;
+  background: #fff; color: #111;
+  word-break: keep-all; -webkit-font-smoothing: antialiased;
+}
+
+/* ===== UTIL ===== */
+.inner { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+.reveal { opacity: 0; transform: translateY(36px); transition: all 0.8s cubic-bezier(0.22,1,0.36,1); }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.d1 { transition-delay: 0.15s; } .d2 { transition-delay: 0.3s; } .d3 { transition-delay: 0.45s; } .d4 { transition-delay: 0.6s; }
+.seq-word {
+  display: inline-block;
+  background: rgba(140,115,85,0.06);
+  border: 1px solid rgba(140,115,85,0.15);
+  border-radius: 40px;
+  padding: 6px 24px;
+  margin: 4px 0;
+}
+
+/* ===== RESIZE PANEL (제작용 — 완성 후 삭제) ===== */
+.resize-panel {
+  display: none; position: fixed; top: 50%; left: 20px;
+  transform: translateY(-50%); z-index: 400;
+  background: #fff; border-radius: 16px; padding: 14px 18px;
+  box-shadow: 0 4px 28px rgba(0,0,0,0.15);
+  border: 1px solid #ddd; min-width: 180px;
+}
+.resize-panel.active { display: block; }
+.resize-panel-title {
+  font-size: 11px; font-weight: 700; color: #888;
+  margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px;
+}
+.resize-panel label {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 12px; color: #555; font-weight: 600; margin-bottom: 6px;
+}
+.resize-panel input[type=range] {
+  flex: 1; accent-color: var(--accent); cursor: pointer;
+}
+.resize-panel .rp-val {
+  font-size: 12px; font-weight: 700; color: var(--accent);
+  min-width: 36px; text-align: right;
+}
+.resize-panel .rp-close {
+  margin-top: 10px; font-size: 11px; color: #bbb;
+  cursor: pointer; text-align: center;
+}
+.resize-panel .rp-close:hover { color: #888; }
+.resizable-emoji {
+  outline: 2px dashed transparent; transition: outline 0.2s;
+}
+.resizable-emoji:hover {
+  outline: 2px dashed var(--accent); border-radius: 8px;
+}
+
+/* ===== EDIT MODE (제작용 — 완성 후 삭제) ===== */
+.edit-toggle {
+  position: fixed; bottom: 20px; left: 20px; z-index: 300;
+  background: #fff; border-radius: 40px; padding: 8px 18px;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+  border: 1px solid #eee; cursor: pointer;
+  font-size: 13px; font-weight: 700; color: #999;
+  transition: all 0.2s; user-select: none;
+}
+.edit-toggle.on { background: var(--accent); color: #fff; border-color: var(--accent); }
+body.edit-mode [contenteditable] {
+  outline: 1px dashed rgba(140,115,85,0.3);
+  border-radius: 4px; cursor: text;
+}
+body.edit-mode [contenteditable]:focus {
+  outline: 2px solid var(--accent);
+  background: rgba(140,115,85,0.04);
+}
+.text-size-bar {
+  display: none; position: fixed; top: 50%; left: 20px;
+  transform: translateY(-50%); z-index: 400;
+  background: #fff; border-radius: 16px; padding: 14px 18px;
+  box-shadow: 0 4px 28px rgba(0,0,0,0.15);
+  border: 1px solid #ddd; min-width: 200px;
+}
+.text-size-bar.active { display: block; }
+.text-size-bar .tsb-title {
+  font-size: 11px; font-weight: 700; color: #888;
+  margin-bottom: 6px; letter-spacing: 1px;
+}
+.text-size-bar .tsb-target {
+  font-size: 11px; color: var(--accent); font-weight: 600;
+  margin-bottom: 10px; max-width: 180px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.text-size-bar label {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 12px; color: #555; font-weight: 600;
+}
+.text-size-bar input[type=range] { flex: 1; accent-color: var(--accent); cursor: pointer; }
+.text-size-bar .tsb-val {
+  font-size: 12px; font-weight: 700; color: var(--accent);
+  min-width: 36px; text-align: right;
+}
+.text-size-bar .tsb-close {
+  margin-top: 10px; font-size: 11px; color: #bbb;
+  cursor: pointer; text-align: center;
+}
+.text-size-bar .tsb-close:hover { color: #888; }
+
+/* ===== FONT REMOTE ===== */
+.font-remote {
+  position: fixed; bottom: 20px; right: 20px; z-index: 300;
+  background: #fff; border-radius: 40px; padding: 8px 14px;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+  display: flex; align-items: center; gap: 6px; border: 1px solid #eee;
+}
+.font-remote .sm { font-size: 11px; color: #999; }
+.font-remote .lg { font-size: 17px; color: #333; font-weight: 700; }
+.font-remote input[type=range] { width: 72px; accent-color: var(--accent); }
+
+/* ============================================================
+   1. HERO — 스픽 스타일 풀스크린
+   ============================================================ */
+.hero {
+  min-height: 100vh; display: flex; align-items: center;
+  justify-content: center; text-align: center;
+  padding: 100px 24px 80px;
+  background: url('img/tc03650000181.jpg') center center / cover no-repeat;
+  position: relative;
+}
+.hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: rgba(255,255,255,0.6);
+}
+.hero-chip {
+  display: inline-block; padding: 8px 20px; border-radius: 30px;
+  border: 1px solid #999; font-size: calc(var(--fs) * 0.75);
+  font-weight: 600; color: #555; letter-spacing: 1px;
+  background: rgba(255,255,255,0.7); backdrop-filter: blur(4px);
+  margin-bottom: 28px;
+}
+.hero h1 {
+  font-size: calc(var(--fs) * 3.2);
+  font-weight: 900; line-height: 1.15;
+  letter-spacing: -2px; margin-bottom: 20px;
+  color: #111;
+}
+.hero h1 .point { color: var(--accent); }
+.hero-sub {
+  font-size: calc(var(--fs) * 1);
+  color: #888; font-weight: 400; line-height: 1.6;
+}
+.sparkle {
+  font-size: 0.4em; font-weight: 700; color: #fff;
+  display: inline-block; margin-bottom: 4px;
+  background: var(--accent); padding: 4px 16px; border-radius: 20px;
+  animation: sparkle 1.5s ease-in-out infinite;
+}
+@keyframes sparkle {
+  0%, 100% { opacity: 1; text-shadow: 0 0 4px rgba(140,115,85,0.3); }
+  50% { opacity: 0.5; text-shadow: 0 0 12px rgba(196,169,106,0.6), 0 0 24px rgba(196,169,106,0.3); }
+}
+.hero-arrow {
+  position: absolute; bottom: 40px; left: 50%;
+  transform: translateX(-50%);
+  font-size: 24px; color: #ccc;
+  animation: floatY 2s ease-in-out infinite;
+}
+@keyframes floatY {
+  0%,100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(10px); }
+}
+
+/* ============================================================
+   2. MESSAGE — 풀폭 강조 텍스트 (스픽 "영어 좀 하는 사람은~")
+   ============================================================ */
+.msg-section {
+  padding: 100px 24px; text-align: center;
+}
+.msg-section.bg-warm { background: #FAF6F0; }
+.msg-section.bg-dark { background: #1A1A1A; color: #fff; }
+.msg-title {
+  font-size: calc(var(--fs) * 2.4);
+  font-weight: 900; line-height: 1.3;
+  letter-spacing: -1px;
+  max-width: 700px; margin: 0 auto;
+}
+.msg-title .point { color: var(--accent); }
+.msg-section.bg-dark .msg-title .point { color: #C4A96A; }
+.msg-sub {
+  font-size: calc(var(--fs) * 0.88);
+  color: #999; line-height: 1.7;
+  margin-top: 16px; max-width: 500px; margin-left: auto; margin-right: auto;
+}
+.msg-section.bg-dark .msg-sub { color: rgba(255,255,255,0.45); }
+
+/* ============================================================
+   3. PRICING GRID — 스픽 가격 카드 스타일
+   ============================================================ */
+.pricing-section {
+  padding: 80px 12px; background: #fff;
+}
+.pricing-header { text-align: center; margin-bottom: 48px; }
+.pricing-header .eyebrow {
+  font-size: calc(var(--fs) * 0.6);
+  font-weight: 600; letter-spacing: 3px;
+  color: var(--accent); text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.pricing-header h2 {
+  font-size: calc(var(--fs) * 2);
+  font-weight: 900; letter-spacing: -1px;
+}
+.pricing-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 12px; max-width: 1080px; margin: 0 auto;
+  padding: 0;
+}
+.price-card {
+  border: 1px solid #E8E4DE; border-radius: 20px;
+  overflow: hidden; background: #fff;
+  transition: all 0.3s; position: relative;
+}
+.price-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.06);
+  transform: translateY(-4px);
+}
+.price-card.featured { border: 2px solid var(--accent); }
+.price-card-badge {
+  position: absolute; top: 16px; left: 16px; z-index: 2;
+  padding: 8px 20px; border-radius: 10px;
+  font-size: 18px; font-weight: 900;
+  background: var(--accent); color: #fff;
+}
+.price-card-img {
+  width: 100%; aspect-ratio: 1/1;
+  background: #F5F2ED; overflow: hidden;
+}
+.price-card-img img { width: 100%; height: 100%; object-fit: cover; }
+.price-card-body { padding: 14px 10px; text-align: center; }
+.price-card-bottom { justify-content: center; }
+.price-card-name {
+  font-size: calc(var(--fs) * 1.7);
+  font-weight: 800; margin-bottom: 8px;
+  word-break: keep-all;
+}
+.price-card-desc {
+  font-size: calc(var(--fs) * 1);
+  color: #999; line-height: 1.6; margin-bottom: 16px;
+  word-break: keep-all;
+  white-space: nowrap;
+}
+.price-card-bottom {
+  display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+}
+.price-now {
+  font-size: calc(var(--fs) * 1.6);
+  font-weight: 900; color: #111;
+}
+.price-was {
+  font-size: calc(var(--fs) * 0.72);
+  color: #bbb; text-decoration: line-through;
+}
+.price-off {
+  display: inline-block; padding: 3px 10px;
+  border-radius: 6px; font-size: calc(var(--fs) * 0.65);
+  font-weight: 800; color: var(--accent);
+  background: rgba(140,115,85,0.08);
+}
+@media (max-width: 768px) {
+  .pricing-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+}
+
+/* ============================================================
+   4. BENEFIT BOX
+   ============================================================ */
+.benefit-box {
+  display: inline-block;
+  border: 2px solid #ddd; border-radius: 20px;
+  padding: 28px 36px; margin-top: 20px;
+  background: #fff;
+}
+.benefit-box-title {
+  font-size: calc(var(--fs) * 1.1);
+  font-weight: 800; color: #333;
+  margin-bottom: 16px; letter-spacing: 0.5px;
+}
+.benefit-box-row {
+  display: flex; align-items: center; gap: 24px;
+  justify-content: center;
+}
+.benefit-box-item { text-align: center; }
+.benefit-box-num {
+  display: block;
+  font-size: calc(var(--fs) * 2);
+  font-weight: 900; color: var(--accent); line-height: 1;
+}
+.benefit-box-label {
+  display: block;
+  font-size: calc(var(--fs) * 0.62);
+  color: #999; margin-top: 6px; font-weight: 500;
+}
+.benefit-box-divider {
+  width: 1px; height: 40px; background: #ddd;
+}
+@media (max-width: 480px) {
+  .benefit-box { padding: 20px 20px; }
+  .benefit-box-row { gap: 16px; }
+}
+
+/* ============================================================
+   5. LIST SECTION — 추천식품
+   ============================================================ */
+.list-section { padding: 80px 8px; background: #fff; }
+.list-header { text-align: center; margin-bottom: 40px; }
+.list-header .eyebrow {
+  font-size: calc(var(--fs) * 0.6);
+  font-weight: 600; letter-spacing: 3px;
+  color: var(--accent); text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.list-header h2 {
+  font-size: calc(var(--fs) * 2);
+  font-weight: 900; letter-spacing: -1px;
+}
+.list-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 12px; max-width: 1080px; margin: 0 auto;
+  padding: 0 8px;
+}
+@media (max-width: 768px) {
+  .list-grid { grid-template-columns: 1fr; max-width: 400px; padding: 0 8px; }
+}
+.list-card {
+  display: flex; align-items: center; gap: 20px;
+  padding: 24px 24px; border-radius: 18px;
+  border: 1px solid #eee; background: #fff;
+  transition: all 0.25s;
+}
+.list-card:hover {
+  border-color: #ddd;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+}
+.list-card-img {
+  width: 160px; height: 160px; border-radius: 16px;
+  overflow: hidden; flex-shrink: 0; background: #F5F2ED;
+  border: 1px solid #E8E4DE;
+}
+.list-card-img img { width: 100%; height: 100%; object-fit: cover; }
+.list-card-name {
+  font-size: calc(var(--fs) * 1.05);
+  font-weight: 700; margin-bottom: 6px;
+}
+.list-card-price {
+  font-size: calc(var(--fs) * 1.1);
+  font-weight: 900; color: #111;
+}
+.list-card-price .was {
+  font-size: calc(var(--fs) * 0.62);
+  color: #ccc; text-decoration: line-through;
+  margin-left: 6px; font-weight: 400;
+}
+.list-card-off {
+  display: inline-block; margin-left: 8px;
+  padding: 4px 12px; border-radius: 6px;
+  font-size: calc(var(--fs) * 1.1); font-weight: 900;
+  color: var(--accent); background: rgba(140,115,85,0.08);
+}
+@media (max-width: 768px) {
+  .list-grid { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   6. CTA SECTION
+   ============================================================ */
+.cta-section {
+  padding: 80px 24px; text-align: center;
+  background: #FAF6F0;
+}
+.cta-title {
+  font-size: calc(var(--fs) * 1.8);
+  font-weight: 900; margin-bottom: 28px;
+  letter-spacing: -0.5px;
+}
+.cta-btn {
+  display: inline-block; padding: 18px 60px;
+  border-radius: 60px; background: var(--accent);
+  color: #fff; font-weight: 800;
+  font-size: calc(var(--fs) * 1.05);
+  text-decoration: none;
+  box-shadow: 0 6px 24px rgba(140,115,85,0.2);
+  transition: all 0.3s;
+}
+.cta-btn:hover {
+  background: var(--accent-light);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 32px rgba(140,115,85,0.25);
+}
+.cta-sub {
+  margin-top: 12px; font-size: calc(var(--fs) * 0.68);
+  color: #aaa;
+}
+
+/* ============================================================
+   7. SCRATCH COUPON
+   ============================================================ */
+.scratch-section { padding: 80px 24px; text-align: center; background: #fff; }
+.scratch-section .eyebrow {
+  font-size: calc(var(--fs) * 0.6); font-weight: 600;
+  letter-spacing: 3px; color: var(--accent); text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.scratch-section h2 {
+  font-size: calc(var(--fs) * 2); font-weight: 900;
+  letter-spacing: -1px; margin-bottom: 8px;
+}
+.scratch-wrapper {
+  display: inline-block; margin-top: 28px; border-radius: 24px;
+  overflow: hidden; box-shadow: 0 8px 40px rgba(0,0,0,0.06);
+}
+.scratch-card {
+  position: relative; width: 320px; height: 200px;
+  border-radius: 24px; overflow: hidden;
+  cursor: pointer; touch-action: none;
+}
+.scratch-result {
+  position: absolute; inset: 0;
+  background: #FAF6F0;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  border: 2px solid #E8E4DE; border-radius: 24px;
+}
+.scratch-result-icon { font-size: 40px; margin-bottom: 6px; }
+.scratch-result-text { font-size: 15px; color: #888; }
+.scratch-result-value { font-size: 36px; font-weight: 900; color: var(--accent); }
+.scratch-canvas { position: absolute; inset: 0; border-radius: 24px; }
+.scratch-hint {
+  margin-top: 14px; font-size: calc(var(--fs) * 0.68);
+  color: #bbb; transition: opacity 0.5s;
+}
+.scratch-cta { display: none; margin-top: 16px; }
+.scratch-cta.show { display: block; }
+.scratch-cta a {
+  display: inline-block; padding: 14px 36px; border-radius: 50px;
+  background: var(--accent); color: #fff;
+  font-weight: 700; font-size: calc(var(--fs) * 0.88);
+  text-decoration: none; transition: all 0.3s;
+}
+.scratch-notice {
+  margin-top: 16px; font-size: calc(var(--fs) * 0.68);
+  color: var(--accent); font-weight: 600;
+  background: rgba(140,115,85,0.06);
+  display: inline-block; padding: 8px 20px; border-radius: 10px;
+}
+
+/* ===== FOOTER ===== */
+footer {
+  text-align: center; padding: 36px 24px;
+  border-top: 1px solid #eee;
+  font-size: calc(var(--fs) * 0.6); color: #bbb;
+}
+
+/* ===== CONFETTI ===== */
+.confetti-box { position: fixed; inset: 0; pointer-events: none; z-index: 9999; overflow: hidden; display: none; }
+.confetti-p { position: absolute; top: -20px; animation: cF linear forwards; }
+@keyframes cF {
+  0% { transform: translateY(-20px) rotate(0); opacity:1; }
+  80% { opacity:1; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity:0; }
+}
+</style>
+</head>
+<body class="">
+
+<div class="font-remote" style="visibility: hidden;">
+  <span class="sm">가</span>
+  <input type="range" id="fontSlider" min="12" max="24" value="24">
+  <span class="lg">가</span>
+</div>
+<div class="confetti-box" id="confettiBox"></div>
+
+<!-- EDIT TOGGLE (제작용 — 완성 후 삭제) -->
+<div class="edit-toggle" id="editToggle" style="visibility: hidden;">✏️ 편집 모드</div>
+<div class="edit-toggle" id="saveBtn" style="left: 140px; display: none; background: var(--accent); color: rgb(255, 255, 255); border-color: var(--accent); visibility: hidden;">💾 저장</div>
+
+<!-- TEXT SIZE BAR (제작용 — 완성 후 삭제) -->
+<div class="text-size-bar active" id="textSizeBar" style="visibility: hidden;">
+  <div class="tsb-title">글씨 크기 조절</div>
+  <div class="tsb-target" id="tsbTarget">"유기농 초록통쌀 1kg"</div>
+  <label>
+    <input type="range" id="tsbSlider" min="8" max="120" value="20">
+    <span class="tsb-val" id="tsbVal">20px</span>
+  </label>
+  <label style="margin-top:10px;">
+    <span style="font-size:12px; color:#555; font-weight:600;">색상</span>
+    <input type="color" id="tsbColor" value="#000000" style="width:32px; height:28px; border:none; cursor:pointer; background:none;">
+  </label>
+  <div class="tsb-close" id="tsbClose">닫기</div>
+</div>
+
+<!-- RESIZE PANEL (제작용 — 완성 후 삭제) -->
+<div class="resize-panel" id="resizePanel" style="visibility: hidden;">
+  <div class="resize-panel-title">크기 조절</div>
+  <label>
+    크기
+    <input type="range" id="rpSize" min="20" max="200" value="80">
+    <span class="rp-val" id="rpVal">136px</span>
+  </label>
+  <div class="rp-close" id="rpClose">닫기</div>
+</div>
+
+<!-- ============================================================
+     1. HERO
+     ============================================================ -->
+<section class="hero">
+  <div style="position:relative; z-index:2;">
+    <div class="hero-chip reveal visible" contenteditable="false">공급일 기준 3월 27일까지</div>
+    <h1 class="reveal d1 visible" contenteditable="false"><span style="font-size:0.7em;">든든하게 채우는<br>3월의 보양식</span><br><span class="sparkle">이번 주만</span><br><span class="point">최대 15% 할인</span></h1>
+  </div>
+  <div class="hero-arrow" style="z-index:2;">↓</div>
+</section>
+
+<!-- ============================================================
+     2. MESSAGE
+     ============================================================ -->
+<div class="msg-section bg-warm">
+  <h2 class="msg-title reveal visible" contenteditable="false">
+    <span class="seq-line" style="font-size:0.65em; font-weight:700; color:#111; line-height:1.4;"><span class="seq-word reveal visible">좋은 식재료를</span><br><span class="seq-word reveal d1 visible">합리적인 가격으로</span><br><span class="seq-word reveal d2 visible">장바구니에 넣는</span></span><br><span class="point reveal d3 visible" style="display:inline-block; margin-top:20px;">가장 확실한 방법</span>
+  </h2>
+  <div class="reveal d4 visible" style="font-size:28px; color:#ccc; margin-top:24px;">↓</div>
+
+  <div class="benefit-box reveal d4 visible">
+    <div class="benefit-box-title" contenteditable="false">두레ON 이번 주 혜택!</div>
+    <div style="margin:16px 0 12px; line-height:1;" contenteditable="false"><span class="resizable-emoji" id="couponEmoji" style="font-size: 136px; cursor: pointer; display: inline-block;">🎫</span></div>
+    <div style="font-size: 27px; color: rgb(51, 51, 51); font-weight: 600; line-height: 1.7;" contenteditable="false">
+      아래 품목 <font color="#f41f1f">3개 이상</font> 구매 시<br><font color="#f22c2c">10% 쿠폰</font> 사용 가능
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     4. PRICING CARDS — 메인 3종
+     ============================================================ -->
+<div class="pricing-section">
+  <div class="pricing-header">
+    <p class="eyebrow reveal visible" contenteditable="false" style="font-size: 33px;">내 입맛대로 골라담는</p>
+    <h2 class="reveal visible" contenteditable="false"><font color="#f26999">봄맞이</font> 든든<div>보양식 3종 모음전</div></h2>
+  </div>
+  <div class="pricing-grid inner">
+    <!-- 사골곰탕 -->
+    <div class="price-card featured reveal visible">
+      <span class="price-card-badge">BEST</span>
+      <div class="price-card-img">
+        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/39157C.jpg" alt="한우사골곰탕">
+      </div>
+      <div class="price-card-body">
+        <div class="price-card-name" contenteditable="false">한우사골곰탕 (냉동)</div>
+        <p class="price-card-desc" contenteditable="false">20시간 고아 만든 진한 사골 국물</p>
+        <div class="price-card-bottom">
+          <span class="price-now" contenteditable="false" style="font-size: 62px;">6,800원</span>
+          <span class="price-was" contenteditable="false" style="font-size: 35px;">7,920원</span>
+          <span class="price-off" contenteditable="false" style="font-size: 29px;">6% 할인</span>
+        </div>
+      </div>
+    </div>
+    <!-- 설렁탕 -->
+    <div class="price-card reveal d1 visible">
+      <div class="price-card-img">
+        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58691C.jpg" alt="한우설렁탕">
+      </div>
+      <div class="price-card-body">
+        <div class="price-card-name" contenteditable="false">한우설렁탕</div>
+        <p class="price-card-desc" contenteditable="false">깊은 감칠맛, 간편 보양 한 끼</p>
+        <div class="price-card-bottom">
+          <span class="price-now" contenteditable="false" style="font-size: 57px;">11,100원</span>
+          <span class="price-was" contenteditable="false" style="font-size: 37px;">12,870원</span>
+          <span class="price-off" contenteditable="false" style="font-size: 29px;">5% 할인</span>
+        </div>
+      </div>
+    </div>
+    <!-- 도가니스지탕 -->
+    <div class="price-card reveal d2 visible">
+      <div class="price-card-img">
+        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58965C.jpg" alt="한우도가니스지탕">
+      </div>
+      <div class="price-card-body">
+        <div class="price-card-name" contenteditable="false">한우도가니스지탕</div>
+        <p class="price-card-desc" contenteditable="false">도가니·스지 듬뿍, 콜라겐 보양탕</p>
+        <div class="price-card-bottom">
+          <span class="price-now" contenteditable="false" style="font-size: 59px;">13,100원</span>
+          <span class="price-was" contenteditable="false" style="font-size: 36px;">15,180원</span>
+          <span class="price-off" contenteditable="false" style="font-size: 29px;">5% 할인</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     5. MESSAGE DARK
+     ============================================================ -->
+<div class="msg-section bg-dark">
+  <h2 class="msg-title reveal visible" contenteditable="false">
+    많이 담을수록<br><span class="point">더 이득입니다</span>
+  </h2>
+  <p class="msg-sub reveal d1 visible" contenteditable="false" style="font-size:calc(var(--fs) * 1.15);">기본 할인 + 쿠폰 추가 할인,<br>합산하면 <span style="color:#E53935; font-weight:900;">최대 15%</span></p>
+</div>
+
+<!-- ============================================================
+     6. SCRATCH COUPON
+     ============================================================ -->
+<div class="scratch-section">
+  <p class="eyebrow reveal visible" contenteditable="false" style="font-size: 30px;">이번 주 기획전에서</p>
+  <h2 class="reveal visible" contenteditable="false">쿠폰을 확인해 보세요</h2>
+  <div class="scratch-wrapper reveal visible">
+    <div class="scratch-card" id="scratchCard">
+      <div class="scratch-result">
+        <div class="scratch-result-icon">🎉</div>
+        <div class="scratch-result-text" contenteditable="false">봄 보양식 3개 이상 구매 시</div>
+        <div class="scratch-result-value" contenteditable="false">추가 10% 할인</div>
+      </div>
+      <canvas class="scratch-canvas" id="scratchCanvas" width="320" height="200"></canvas>
+    </div>
+  </div>
+  <p class="scratch-hint" id="scratchHint" contenteditable="false">클릭(터치)하면 쿠폰이 열립니다</p>
+  <div class="scratch-cta" id="scratchCta">
+    <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&amp;returnNo=1648" target="_blank">기획전에서 쿠폰 받기</a>
+  </div>
+  <p class="scratch-notice reveal visible" contenteditable="false">기획전 페이지 상단에서 반드시 쿠폰을 다운받으셔야 합니다</p>
+</div>
+
+<!-- ============================================================
+     7. SPECIAL LIST
+     ============================================================ -->
+<div class="list-section">
+  <div class="list-header">
+    <p class="eyebrow reveal visible" contenteditable="false" style="font-size: 30px;">이번 주 추천</p>
+    <h2 class="reveal visible" contenteditable="false">함께 담으면 좋은 추천 생활재</h2>
+  </div>
+  <div class="list-grid inner">
+    <div class="list-card reveal visible">
+      <div class="list-card-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/49317C.png" alt="통째로장어"></div>
+      <div>
+        <div class="list-card-name">통째로장어</div>
+        <div class="list-card-price">86,900원 <span class="was">119,570원</span><span class="list-card-off">20%</span></div>
+      </div>
+    </div>
+    <div class="list-card reveal d1 visible">
+      <div class="list-card-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/53633C.jpg" alt="흑염소엑기스"></div>
+      <div>
+        <div class="list-card-name">흑염소엑기스</div>
+        <div class="list-card-price">94,300원 <span class="was">122,100원</span><span class="list-card-off">15%</span></div>
+      </div>
+    </div>
+    <div class="list-card reveal d2 visible">
+      <div class="list-card-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59203C.jpg" alt="톡오미자"></div>
+      <div>
+        <div class="list-card-name">하루담은 톡오미자</div>
+        <div class="list-card-price">11,500원 <span class="was">14,960원</span><span class="list-card-off">15%</span></div>
+      </div>
+    </div>
+    <div class="list-card reveal d3 visible">
+      <div class="list-card-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/30342C.jpg" alt="초록통쌀"></div>
+      <div>
+        <div class="list-card-name">유기농 초록통쌀 1kg</div>
+        <div class="list-card-price">13,900원 <span class="list-card-off" style="background:#E53935; color:#fff;">공급재개</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     8. BOTTOM CTA
+     ============================================================ -->
+<div class="cta-section">
+  <h2 class="cta-title reveal visible" contenteditable="false">지금 바로 확인해 보세요</h2>
+  <a class="cta-btn reveal d1 visible" href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&amp;returnNo=1648" target="_blank">기획전 바로가기</a>
+  <p class="cta-sub reveal d2 visible" contenteditable="false">3.19(수) — 3.26(수)</p>
+</div>
+
+<footer>두레생협 조합원 상담실 1661-5110</footer>
+
+<script>
+/* EDIT MODE (제작용) */
+(function(){
+  var btn = document.getElementById('editToggle');
+  var on = false;
+  var editableSelectors = 'h1, h2, h3, p, .hero-chip, .hero-sub, .msg-title, .msg-sub, .benefit-box-title, .price-card-name, .price-card-desc, .price-now, .price-was, .price-off, .section-eyebrow, .list-card-name, .list-card-price, .cta-title, .cta-sub, .scratch-result-text, .scratch-result-value, .scratch-hint, .scratch-notice, .special-name, .special-price, .eyebrow, [class*="benefit-box"] div';
+
+  var saveBtn = document.getElementById('saveBtn');
+
+  btn.addEventListener('click', function() {
+    on = !on;
+    btn.classList.toggle('on', on);
+    btn.textContent = on ? '✏️ 편집 중' : '✏️ 편집 모드';
+    document.body.classList.toggle('edit-mode', on);
+    saveBtn.style.display = on ? 'block' : 'none';
+    document.querySelectorAll(editableSelectors).forEach(function(el) {
+      el.contentEditable = on ? 'true' : 'false';
+    });
+  });
+
+  saveBtn.addEventListener('click', function() {
+    // 편집 모드 끄고 저장
+    on = false;
+    btn.classList.remove('on');
+    btn.textContent = '✏️ 편집 모드';
+    document.body.classList.remove('edit-mode');
+    saveBtn.style.display = 'none';
+    document.querySelectorAll(editableSelectors).forEach(function(el) {
+      el.contentEditable = 'false';
+    });
+    // 제작용 UI 임시 숨기기
+    var hideEls = [btn, saveBtn, document.querySelector('.font-remote'), document.querySelector('.resize-panel'), document.querySelector('.text-size-bar')];
+    hideEls.forEach(function(el){ if(el) el.style.visibility='hidden'; });
+    // HTML 다운로드
+    setTimeout(function(){
+      var html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+      var blob = new Blob([html], {type:'text/html'});
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'spring_health_promo.html';
+      a.click();
+      URL.revokeObjectURL(a.href);
+      hideEls.forEach(function(el){ if(el) el.style.visibility='visible'; });
+    }, 100);
+  });
+})();
+
+/* TEXT SIZE BAR (제작용) — 클릭 한 번으로 패널 오픈 */
+(function(){
+  var bar = document.getElementById('textSizeBar');
+  var slider = document.getElementById('tsbSlider');
+  var valEl = document.getElementById('tsbVal');
+  var targetEl = document.getElementById('tsbTarget');
+  var colorPicker = document.getElementById('tsbColor');
+  var target = null;
+
+  document.addEventListener('click', function(e) {
+    if (!document.body.classList.contains('edit-mode')) return;
+    if (e.target.closest('.text-size-bar') || e.target.closest('.edit-toggle') || e.target.closest('.font-remote') || e.target.closest('.resize-panel')) return;
+    var el = e.target.closest('[contenteditable]');
+    if (!el) { bar.classList.remove('active'); target = null; return; }
+    target = el;
+    var current = Math.round(parseFloat(window.getComputedStyle(el).fontSize));
+    slider.value = current;
+    valEl.textContent = current + 'px';
+    targetEl.textContent = '"' + el.textContent.substring(0, 20) + (el.textContent.length > 20 ? '...' : '') + '"';
+    var rgb = window.getComputedStyle(el).color;
+    var match = rgb.match(/\d+/g);
+    if (match) {
+      colorPicker.value = '#' + match.slice(0,3).map(function(v){ return ('0'+parseInt(v).toString(16)).slice(-2); }).join('');
+    }
+    bar.classList.add('active');
+  });
+
+  slider.addEventListener('input', function() {
+    if (!target) return;
+    target.style.fontSize = this.value + 'px';
+    valEl.textContent = this.value + 'px';
+  });
+
+  colorPicker.addEventListener('input', function() {
+    if (!target) return;
+    var sel = window.getSelection();
+    if (sel.rangeCount > 0 && !sel.isCollapsed && target.contains(sel.anchorNode)) {
+      // 드래그 선택된 텍스트만 색상 변경
+      document.execCommand('foreColor', false, this.value);
+    } else {
+      // 선택 없으면 전체 요소 색상 변경
+      target.style.color = this.value;
+    }
+  });
+
+  document.getElementById('tsbClose').addEventListener('click', function() {
+    bar.classList.remove('active');
+    target = null;
+  });
+})();
+
+/* RESIZE PANEL (제작용) */
+(function(){
+  var panel = document.getElementById('resizePanel');
+  var slider = document.getElementById('rpSize');
+  var valEl = document.getElementById('rpVal');
+  var target = null;
+
+  document.querySelectorAll('.resizable-emoji').forEach(function(el) {
+    el.addEventListener('click', function(e) {
+      e.stopPropagation();
+      target = el;
+      var current = parseInt(window.getComputedStyle(el).fontSize);
+      slider.value = current;
+      valEl.textContent = current + 'px';
+      panel.classList.add('active');
+    });
+  });
+
+  slider.addEventListener('input', function() {
+    if (!target) return;
+    target.style.fontSize = this.value + 'px';
+    valEl.textContent = this.value + 'px';
+  });
+
+  document.getElementById('rpClose').addEventListener('click', function() {
+    panel.classList.remove('active');
+    target = null;
+  });
+})();
+
+/* FONT REMOTE */
+(function(){
+  var sl=document.getElementById('fontSlider');
+  function s(v){document.documentElement.style.setProperty('--fs',v+'px');}
+  s(24);
+  sl.addEventListener('input',function(){s(this.value);});
+})();
+
+/* REVEAL */
+(function(){
+  var obs=new IntersectionObserver(function(es){
+    es.forEach(function(e){if(e.isIntersecting)e.target.classList.add('visible');});
+  },{threshold:0.1});
+  document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
+})();
+
+/* SCRATCH */
+(function(){
+  var cv=document.getElementById('scratchCanvas'),
+      ctx=cv.getContext('2d'),
+      card=document.getElementById('scratchCard'),
+      done=false,clicks=0;
+  function init(){
+    cv.width=card.offsetWidth;cv.height=card.offsetHeight;
+    var g=ctx.createLinearGradient(0,0,cv.width,cv.height);
+    g.addColorStop(0,'#8C7355');g.addColorStop(0.5,'#A6896B');g.addColorStop(1,'#8C7355');
+    ctx.fillStyle=g;
+    var r=24;ctx.beginPath();
+    ctx.moveTo(r,0);ctx.lineTo(cv.width-r,0);
+    ctx.quadraticCurveTo(cv.width,0,cv.width,r);
+    ctx.lineTo(cv.width,cv.height-r);
+    ctx.quadraticCurveTo(cv.width,cv.height,cv.width-r,cv.height);
+    ctx.lineTo(r,cv.height);ctx.quadraticCurveTo(0,cv.height,0,cv.height-r);
+    ctx.lineTo(0,r);ctx.quadraticCurveTo(0,0,r,0);ctx.fill();
+    ctx.strokeStyle='rgba(255,255,255,0.2)';ctx.lineWidth=2;
+    ctx.setLineDash([8,6]);ctx.strokeRect(14,14,cv.width-28,cv.height-28);ctx.setLineDash([]);
+    ctx.fillStyle='#fff';ctx.font='bold 18px "Noto Sans KR",sans-serif';ctx.textAlign='center';
+    ctx.fillText('🎫 COUPON',cv.width/2,cv.height/2-10);
+    ctx.font='12px "Noto Sans KR",sans-serif';ctx.fillStyle='rgba(255,255,255,0.5)';
+    ctx.fillText('클릭해서 열어보세요',cv.width/2,cv.height/2+14);
+  }
+  function go(){
+    if(done)return;clicks++;
+    if(clicks===1){ctx.globalCompositeOperation='destination-out';
+      for(var i=0;i<14;i++){ctx.beginPath();ctx.arc(30+Math.random()*(cv.width-60),20+Math.random()*(cv.height-40),35+Math.random()*25,0,Math.PI*2);ctx.fill();}}
+    setTimeout(function(){if(done)return;done=true;
+      cv.style.transition='opacity 0.4s';cv.style.opacity='0';
+      document.getElementById('scratchHint').style.opacity='0';
+      document.getElementById('scratchCta').classList.add('show');
+      boom();
+    },clicks>=2?0:400);
+  }
+  cv.addEventListener('click',go);
+  cv.addEventListener('touchend',function(e){e.preventDefault();go();},{passive:false});
+  if(document.fonts)document.fonts.ready.then(init);else window.addEventListener('load',init);
+  window.addEventListener('resize',function(){if(!done)init();});
+})();
+
+function boom(){
+  var c=document.getElementById('confettiBox');c.style.display='block';
+  var cols=['#8C7355','#A6896B','#A68B5B','#C4A96A','#E8E4DE','#fff'];
+  for(var i=0;i<50;i++){var p=document.createElement('div');p.className='confetti-p';
+    p.style.left=Math.random()*100+'%';p.style.background=cols[~~(Math.random()*cols.length)];
+    p.style.width=(5+Math.random()*7)+'px';p.style.height=(5+Math.random()*7)+'px';
+    p.style.borderRadius=Math.random()>0.5?'50%':'2px';
+    p.style.animationDuration=(2+Math.random()*3)+'s';
+    p.style.animationDelay=Math.random()*0.5+'s';c.appendChild(p);}
+  setTimeout(function(){c.style.display='none';c.innerHTML='';},4000);
+}
+</script>
+
+
+</body></html>
