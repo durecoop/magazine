@@ -1,0 +1,16 @@
+{
+  "name": "dure-promo-generator",
+  "version": "1.0.0",
+  "description": "두레생협 기획전 홍보 페이지 생성기",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.39.0",
+    "@google/genai": "^1.46.0",
+    "dotenv": "^17.3.1",
+    "express": "^4.21.0",
+    "node-html-parser": "^6.1.13"
+  }
+}

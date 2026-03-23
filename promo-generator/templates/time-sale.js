@@ -1,0 +1,18 @@
+/**
+ * 타임세일 템플릿 — 카운트다운 + 플래시 가격 강조
+ * (2차 구현 대상 — 기본 스켈레톤)
+ */
+
+function render(data) {
+  return `<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<title>${data.meta.title || '두레생협 타임세일'}</title>
+<style>body{background:#faf7f2;color:#2c2c2c;font-family:sans-serif;text-align:center;padding:80px 20px;word-break:keep-all;}
+h1{font-size:32px;margin-bottom:16px;color:#c4763a;}p{color:#999;}</style>
+</head><body>
+<h1>타임세일 템플릿</h1>
+<p>2차 구현 예정입니다.</p>
+</body></html>`;
+}
+
+module.exports = { render };

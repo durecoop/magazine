@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>두레생협 홍보 페이지 생성기</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Noto+Serif+KR:wght@400;700&family=Nanum+Gothic:wght@400;700&family=Nanum+Myeongjo:wght@400;700&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+@font-face { font-family: 'GmarketSans'; font-weight: 400; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff'); }
+@font-face { font-family: 'GmarketSans'; font-weight: 700; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansBold.woff') format('woff'); }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <h1>두레생협 홍보 페이지 생성기</h1>
+  <span class="subtitle">기획전 URL → 홍보 페이지 자동 생성</span>
+</header>
+
+<!-- STEP TABS -->
+<nav class="steps-bar">
+  <button class="step-tab active" data-step="1">
+    <span class="step-num">1</span> URL 입력
+  </button>
+  <button class="step-tab disabled" data-step="2">
+    <span class="step-num">2</span> 상품 확인
+  </button>
+  <button class="step-tab disabled" data-step="3">
+    <span class="step-num">3</span> 카테고리
+  </button>
+  <button class="step-tab disabled" data-step="4">
+    <span class="step-num">4</span> 페이지 설정
+  </button>
+  <button class="step-tab disabled" data-step="5">
+    <span class="step-num">5</span> 미리보기
+  </button>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main class="main">
+
+  <!-- STEP 1: URL 입력 -->
+  <section class="step-panel active" id="step-1">
+    <h2 style="font-size:20px; margin-bottom:16px;">기획전 URL 입력</h2>
+    <p style="color:var(--sub); margin-bottom:20px;">ecoop.or.kr 기획전 페이지 URL을 입력하면 상품을 자동으로 불러옵니다.</p>
+
+    <div class="url-input-group">
+      <input type="url" id="plan-url" placeholder="https://ecoop.or.kr/DureShop/plan/planView.do?..." value="">
+      <button class="btn btn-primary" id="btn-fetch">불러오기</button>
+    </div>
+
+    <div id="fetch-status"></div>
+
+    <div style="margin-top:32px; padding:20px; background:var(--card); border-radius:12px; border:1px solid var(--border);">
+      <h3 style="font-size:15px; margin-bottom:8px;">또는 JSON 직접 입력</h3>
+      <p style="font-size:13px; color:var(--sub); margin-bottom:12px;">
+        상품 데이터를 JSON 형식으로 직접 붙여넣을 수도 있습니다.
+      </p>
+      <textarea id="json-input" rows="6" style="width:100%; padding:12px; border:1px solid var(--border); border-radius:8px; font-family:monospace; font-size:13px;" placeholder='[{"name":"상품명","price":10000,"origPrice":12000,"discountRate":17,"imageUrl":"https://...","category":"카테고리"}]'></textarea>
+      <button class="btn btn-outline btn-sm" id="btn-json-load" style="margin-top:8px;">JSON 불러오기</button>
+    </div>
+  </section>
+
+  <!-- STEP 2: 상품 확인 & 편집 -->
+  <section class="step-panel" id="step-2">
+    <h2 style="font-size:20px; margin-bottom:16px;">상품 확인 및 편집</h2>
+
+    <!-- 검색 + 섹션 필터 -->
+    <div style="display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;align-items:center;">
+      <input type="text" id="product-search" placeholder="상품명 검색 (예: 맛찬)"
+        style="flex:1;min-width:180px;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-size:14px;font-family:inherit;">
+      <select id="section-filter" style="padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-size:14px;font-family:inherit;">
+        <option value="">전체 섹션</option>
+      </select>
+    </div>
+
+    <!-- 섹션 이미지 미리보기 -->
+    <div id="section-images" style="display:flex;gap:8px;overflow-x:auto;padding-bottom:12px;margin-bottom:12px;"></div>
+
+    <div class="product-controls">
+      <button class="btn btn-outline btn-sm" id="btn-select-all">전체 선택</button>
+      <button class="btn btn-secondary btn-sm" id="btn-ai-desc">AI 설명 생성</button>
+      <button class="btn btn-outline btn-sm" id="btn-deselect-all">전체 해제</button>
+      <button class="btn btn-sm" id="btn-select-filtered" style="background:#e8487f;color:#fff;">검색결과 선택</button>
+      <button class="btn btn-outline btn-sm" id="btn-show-all">전체 상품 보기</button>
+      <span class="count" id="product-count"></span>
+    </div>
+
+    <div class="product-table" id="product-table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:40px;"></th>
+            <th style="width:56px;">사진</th>
+            <th>상품명</th>
+            <th>태그라인</th>
+            <th style="width:80px;">원가</th>
+            <th style="width:80px;">할인가</th>
+            <th style="width:50px;">할인</th>
+            <th style="width:100px;">카테고리</th>
+            <th style="width:80px;">등급</th>
+          </tr>
+        </thead>
+        <tbody id="product-tbody"></tbody>
+      </table>
+    </div>
+
+    <div class="step-nav">
+      <button class="btn btn-outline" data-nav="prev">이전</button>
+      <button class="btn btn-primary" data-nav="next">다음: 카테고리 정리</button>
+    </div>
+  </section>
+
+  <!-- STEP 3: 카테고리 & 표시 등급 -->
+  <section class="step-panel" id="step-3">
+    <h2 style="font-size:20px; margin-bottom:16px;">카테고리 및 표시 등급</h2>
+    <p style="color:var(--sub); margin-bottom:12px;">카테고리명을 클릭하여 수정, ▲▼로 순서 변경, 부제를 입력할 수 있습니다.</p>
+
+    <div style="margin-bottom:16px;">
+      <button class="btn btn-secondary btn-sm" id="btn-ai-theme">AI 테마명 추천</button>
+    </div>
+
+    <div id="category-list" class="cat-sortable"></div>
+
+    <div class="step-nav">
+      <button class="btn btn-outline" data-nav="prev">이전</button>
+      <button class="btn btn-primary" data-nav="next">다음: 페이지 설정</button>
+    </div>
+  </section>
+
+  <!-- STEP 4: 페이지 설정 -->
+  <section class="step-panel" id="step-4">
+    <h2 style="font-size:20px; margin-bottom:16px;">페이지 설정</h2>
+
+    <h3 style="font-size:15px; margin-bottom:12px;">페이지 타입</h3>
+    <div class="page-type-selector">
+      <div class="page-type-card selected" data-type="weekly-overview">
+        <div class="type-icon">📋</div>
+        <h4>주간 전체 홍보</h4>
+        <p>기획전 전체 소개 (라이트 테마)</p>
+      </div>
+      <div class="page-type-card" data-type="individual-product">
+        <div class="type-icon">🍅</div>
+        <h4>개별 품목 홍보</h4>
+        <p>단일 품목 스토리텔링 (다크 테마)</p>
+      </div>
+      <div class="page-type-card" data-type="time-sale">
+        <div class="type-icon">⏰</div>
+        <h4>타임세일</h4>
+        <p>긴급/한정 할인 (카운트다운)</p>
+      </div>
+    </div>
+
+    <div class="settings-grid">
+      <div class="settings-card">
+        <h3>기본 정보</h3>
+        <div class="form-group">
+          <label>주차</label>
+          <input type="number" id="set-week" placeholder="13" min="1" max="52">
+        </div>
+        <div class="form-group">
+          <label>기간</label>
+          <input type="text" id="set-period" placeholder="2026.3.19(수) ~ 3.26(수) · 온라인 전용">
+        </div>
+        <div class="form-group">
+          <label>쿠폰 문구 (선택)</label>
+          <input type="text" id="set-coupon" placeholder="3개 이상 구매 시 10% 쿠폰 적용">
+        </div>
+        <div class="form-group">
+          <label>기획전 URL</label>
+          <input type="url" id="set-plan-url" placeholder="https://ecoop.or.kr/...">
+        </div>
+      </div>
+
+      <div class="settings-card">
+        <h3>표시 설정</h3>
+        <div class="form-group">
+          <label>글씨 크기: <span id="fs-value">16</span>px</label>
+          <input type="range" id="set-font-size" min="12" max="36" step="1" value="16"
+            style="width:100%; accent-color:var(--accent); cursor:pointer;">
+          <div style="display:flex; justify-content:space-between; font-size:11px; color:var(--sub); margin-top:4px;">
+            <span>작게 (12px)</span>
+            <span>기본 (16px)</span>
+            <span>크게 (36px)</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>글씨체</label>
+          <select id="set-font-family">
+            <option value="noto-sans" selected>노토 산스 (기본)</option>
+            <option value="noto-serif">노토 세리프 (명조)</option>
+            <option value="pretendard">프리텐다드</option>
+            <option value="gmarket">지마켓 산스</option>
+            <option value="nanumgothic">나눔고딕</option>
+            <option value="nanummyeongjo">나눔명조</option>
+          </select>
+          <div id="font-preview" style="margin-top:10px; padding:16px 20px; background:var(--bg); border-radius:10px; border:1px solid var(--border); transition:font-family 0.3s;">
+            <p style="font-size:18px; font-weight:700; margin-bottom:4px;" id="font-preview-title">두레생협 기획전</p>
+            <p style="font-size:14px; color:var(--sub);" id="font-preview-body">따뜻하고 건강한 한 끼, 두레생협이 함께합니다.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="settings-card" style="grid-column: 1 / -1;">
+        <h3>프로모션 소개</h3>
+        <p style="font-size:13px; color:var(--sub); margin-bottom:12px;">히어로 아래에 기획전 안내 문구가 표시됩니다. 비워두면 생략됩니다.</p>
+        <div class="form-group">
+          <label>프로모션 제목</label>
+          <input type="text" id="set-promo-title" placeholder="예: 이번 주 건강탕 기획전">
+        </div>
+        <div class="form-group">
+          <label>프로모션 설명 (여러 줄 가능)</label>
+          <textarea id="set-promo-desc" rows="4" placeholder="예: 환절기 건강을 지키는 따뜻한 한 끼. 두레생협이 엄선한 건강탕 3종을 만나보세요.&#10;3개 이상 구매 시 장바구니 쿠폰 10% 자동 적용됩니다."></textarea>
+        </div>
+        <div class="form-group">
+          <label>프로모션 안내사항 (줄바꿈으로 구분, 선택)</label>
+          <textarea id="set-promo-notices" rows="3" placeholder="예: 온라인 전용 기획전입니다.&#10;쿠폰은 장바구니에서 자동 적용됩니다.&#10;재고 소진 시 조기 마감될 수 있습니다."></textarea>
+        </div>
+        <div class="form-group">
+          <label>프로모션 이미지 (선택, 여러 장 가능)</label>
+          <input type="file" id="set-promo-images" accept="image/*" multiple
+            style="padding:8px;border:1px dashed var(--border);border-radius:8px;width:100%;cursor:pointer;">
+          <div id="promo-image-preview" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;"></div>
+        </div>
+      </div>
+
+      <div class="settings-card">
+        <h3>히어로 영역</h3>
+        <div class="form-group">
+          <label>제목 (HTML 허용, em 태그로 강조)</label>
+          <textarea id="set-hero-title" rows="2" placeholder='따끈한 <em>건강탕</em> 한 그릇,<br>쿠폰으로 더 든든하게'></textarea>
+        </div>
+        <div class="form-group">
+          <label>부제</label>
+          <textarea id="set-hero-sub" rows="2" placeholder="건강탕 3종 중 3개 이상 담으면 장바구니 쿠폰 10% 할인"></textarea>
+        </div>
+        <div class="form-group">
+          <label>출력 파일명</label>
+          <input type="text" id="set-filename" placeholder="dure_plan_w13.html">
+        </div>
+      </div>
+    </div>
+
+    <div class="step-nav">
+      <button class="btn btn-outline" data-nav="prev">이전</button>
+      <button class="btn btn-primary" data-nav="next">다음: 미리보기</button>
+    </div>
+  </section>
+
+  <!-- STEP 5: 미리보기 & 생성 -->
+  <section class="step-panel" id="step-5">
+    <h2 style="font-size:20px; margin-bottom:16px;">미리보기 및 저장</h2>
+
+    <div class="preview-container">
+      <div class="preview-frame-wrap">
+        <div class="preview-toolbar">
+          <button class="device-btn active" data-device="desktop">데스크톱</button>
+          <button class="device-btn" data-device="mobile">모바일</button>
+          <button class="btn btn-outline btn-sm" id="btn-refresh-preview" style="margin-left:auto;">새로고침</button>
+        </div>
+        <iframe class="preview-frame" id="preview-frame"></iframe>
+      </div>
+
+      <div class="preview-actions">
+        <button class="btn btn-primary" id="btn-save" style="width:100%;">HTML 저장</button>
+        <button class="btn btn-outline" id="btn-copy-html" style="width:100%;">HTML 복사</button>
+        <button class="btn btn-outline" id="btn-new-tab" style="width:100%;">새 탭에서 열기</button>
+        <div id="save-status" style="font-size:13px; color:var(--sub);"></div>
+      </div>
+    </div>
+
+    <div class="step-nav">
+      <button class="btn btn-outline" data-nav="prev">이전</button>
+    </div>
+  </section>
+
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
