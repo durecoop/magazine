@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="두레 ERP">
+  <title>두레생협 ERP</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --header-h: 52px;
+      --nav-h: 50px;
+      --green: #4a9c6d;
+      --blue: #4a7fa5;
+      --blue-dark: #35607a;
+      --bg: #f0f4f7;
+      --white: #fff;
+      --border: #dde6ec;
+      --text: #1a2b36;
+      --text-sub: #6a8898;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+    html, body { height: 100%; overflow: hidden; font-family: 'Noto Sans KR', sans-serif; background: var(--bg); }
+
+    /* ── 헤더 ── */
+    .hdr {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: var(--header-h);
+      background: linear-gradient(90deg, var(--blue-dark), var(--blue));
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 14px;
+      z-index: 200;
+      box-shadow: 0 2px 12px rgba(0,0,0,.25);
+    }
+    @supports (padding: max(0px)) {
+      .hdr { height: calc(var(--header-h) + env(safe-area-inset-top)); padding-top: env(safe-area-inset-top); }
+    }
+
+    .hdr-left { display: flex; align-items: center; gap: 9px; }
+    .hdr-logo { font-size: 22px; line-height:1; }
+    .hdr-title { color: #fff; font-size: 15px; font-weight: 700; letter-spacing: -.3px; }
+    .hdr-sub   { color: rgba(255,255,255,.65); font-size: 11px; }
+
+    .hdr-right { display: flex; align-items: center; gap: 8px; }
+    .hdr-btn {
+      background: rgba(255,255,255,.15); border: none; border-radius: 8px;
+      color: #fff; width: 36px; height: 36px; font-size: 18px;
+      display: flex; align-items: center; justify-content: center; cursor: pointer;
+    }
+    .hdr-btn:active { background: rgba(255,255,255,.28); }
+
+    /* ── 하단 탭 네비 ── */
+    .nav {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      background: var(--white);
+      border-top: 1px solid var(--border);
+      display: flex;
+      z-index: 200;
+      box-shadow: 0 -2px 12px rgba(0,0,0,.08);
+    }
+    @supports (padding: max(0px)) {
+      .nav { height: calc(var(--nav-h) + env(safe-area-inset-bottom)); padding-bottom: env(safe-area-inset-bottom); }
+    }
+
+    .nav-tab {
+      flex: 1;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 3px; cursor: pointer; color: var(--text-sub);
+      font-size: 10px; font-weight: 500;
+      transition: color .15s;
+      border: none; background: none;
+      padding-bottom: 2px;
+    }
+    .nav-tab .n-icon { font-size: 22px; line-height: 1; }
+    .nav-tab.active { color: var(--blue); }
+    .nav-tab.active .n-icon { transform: scale(1.1); }
+
+    /* ── iframe 영역 ── */
+    .frame-wrap {
+      position: fixed;
+      top: var(--header-h);
+      bottom: var(--nav-h);
+      left: 0; right: 0;
+      background: var(--white);
+    }
+    @supports (padding: max(0px)) {
+      .frame-wrap {
+        top: calc(var(--header-h) + env(safe-area-inset-top));
+        bottom: calc(var(--nav-h) + env(safe-area-inset-bottom));
+      }
+    }
+
+    .erp-frame {
+      width: 100%; height: 100%;
+      border: none;
+      display: none;
+      background: var(--white);
+    }
+    .erp-frame.active { display: block; }
+
+    /* ── 로딩 오버레이 ── */
+    .loading-overlay {
+      position: absolute; inset: 0;
+      background: var(--white);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 14px; z-index: 10;
+      transition: opacity .3s;
+    }
+    .loading-overlay.hidden { opacity: 0; pointer-events: none; }
+
+    .spinner {
+      width: 40px; height: 40px;
+      border: 3px solid var(--border);
+      border-top-color: var(--blue);
+      border-radius: 50%;
+      animation: spin .7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .loading-text { font-size: 14px; color: var(--text-sub); font-weight: 500; }
+
+    /* ── 홈 패널 ── */
+    .home-panel {
+      position: absolute; inset: 0;
+      overflow-y: auto; -webkit-overflow-scrolling: touch;
+      padding: 16px;
+      display: none;
+    }
+    .home-panel.active { display: block; }
+
+    .greeting {
+      background: linear-gradient(135deg, var(--blue-dark), var(--green));
+      border-radius: 18px; padding: 20px 20px 22px;
+      color: #fff; margin-bottom: 18px;
+      position: relative; overflow: hidden;
+    }
+    .greeting::after { content:'🌿'; position:absolute; right:14px; bottom:-6px; font-size:60px; opacity:.18; }
+    .g-date  { font-size: 12px; opacity: .7; margin-bottom: 3px; }
+    .g-name  { font-size: 21px; font-weight: 700; letter-spacing: -.4px; }
+    .g-org   { font-size: 13px; opacity: .8; margin-top: 2px; }
+
+    .sec-title { font-size: 12px; font-weight: 700; color: var(--text-sub); letter-spacing: .5px; text-transform: uppercase; margin: 0 2px 10px; }
+
+    /* 빠른메뉴 그리드 */
+    .quick-grid {
+      display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin-bottom: 20px;
+    }
+    .qbtn {
+      background: var(--white); border-radius: 14px; border: 1.5px solid var(--border);
+      padding: 13px 6px 11px; display: flex; flex-direction: column; align-items: center; gap: 5px;
+      cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,.04);
+      transition: transform .12s;
+    }
+    .qbtn:active { transform: scale(.92); background: #eaf3fa; }
+    .qbtn .qi { font-size: 24px; line-height:1; }
+    .qbtn .ql { font-size: 11px; font-weight: 600; color: var(--text); text-align: center; line-height: 1.3; }
+
+    /* 카드 */
+    .card {
+      background: var(--white); border-radius: 16px; border: 1.5px solid var(--border);
+      overflow: hidden; margin-bottom: 14px; box-shadow: 0 2px 8px rgba(0,0,0,.04);
+    }
+    .card-head {
+      padding: 13px 16px; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .card-head-l { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 700; color: var(--text); }
+    .card-more {
+      font-size: 12px; color: var(--blue); font-weight: 600;
+      background: #e6f1f8; padding: 4px 10px; border-radius: 20px;
+      border: none; cursor: pointer;
+    }
+    .card-more:active { background: #cce2f0; }
+
+    .row {
+      padding: 12px 16px; border-bottom: 1px solid #f0f5f7;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .row:last-child { border-bottom: none; }
+    .row-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+    .row-text { flex: 1; font-size: 14px; color: var(--text); line-height: 1.4; }
+    .row-date { font-size: 12px; color: var(--text-sub); flex-shrink: 0; }
+  </style>
+</head>
+<body>
+
+<!-- 헤더 -->
+<div class="hdr">
+  <div class="hdr-left">
+    <span class="hdr-logo">🌿</span>
+    <div>
+      <div class="hdr-title">두레생협 ERP</div>
+      <div class="hdr-sub" id="hdr-user">로딩 중...</div>
+    </div>
+  </div>
+  <div class="hdr-right">
+    <button class="hdr-btn" onclick="reloadFrame()" title="새로고침">↻</button>
+    <button class="hdr-btn" onclick="goLogout()" title="로그아웃">⏏</button>
+  </div>
+</div>
+
+<!-- iframe 컨테이너 -->
+<div class="frame-wrap" id="frameWrap">
+
+  <!-- 홈 패널 (ERP 외 자체 화면) -->
+  <div class="home-panel active" id="homePanel">
+    <div class="greeting">
+      <div class="g-date" id="gDate"></div>
+      <div class="g-name">두레생협 ERP</div>
+      <div class="g-org">아래 메뉴를 선택하세요</div>
+    </div>
+
+    <div class="sec-title">빠른 이동</div>
+    <div class="quick-grid">
+      <div class="qbtn" onclick="loadERP('https://erp.dure-coop.or.kr/DELSYSV2/Main/index.asp','main')">
+        <span class="qi">🖥</span><span class="ql">메인<br>화면</span>
+      </div>
+      <div class="qbtn" onclick="loadERP('https://erp.dure-coop.or.kr/DELSYSV2/Logistics/index.asp','logistics')">
+        <span class="qi">📦</span><span class="ql">물류<br>관리</span>
+      </div>
+      <div class="qbtn" onclick="loadERP('https://erp.dure-coop.or.kr/DELSYSV2/Accounting/index.asp','accounting')">
+        <span class="qi">📊</span><span class="ql">경리<br>회계</span>
+      </div>
+      <div class="qbtn" onclick="loadERP('https://erp.dure-coop.or.kr/DELSYSV2/HR/index.asp','hr')">
+        <span class="qi">👥</span><span class="ql">인사<br>급여</span>
+      </div>
+      <div class="qbtn" onclick="loadERP('https://erp.dure-coop.or.kr/DELSYSV2/System/board.asp','system')">
+        <span class="qi">📋</span><span class="ql">게시판</span>
+      </div>
+      <div class="qbtn" onclick="loadERP('https://erp.dure-coop.or.kr/DELSYSV2/MaPos/index.asp','mapos')">
+        <span class="qi">🗺</span><span class="ql">MaPos</span>
+      </div>
+      <div class="qbtn" onclick="loadERP('https://erp.dure-coop.or.kr/DELSYSV2/System/pw_change.asp','system')">
+        <span class="qi">🔑</span><span class="ql">비밀번호<br>변경</span>
+      </div>
+      <div class="qbtn" onclick="loadERP('https://erp.dure-coop.or.kr/DELSYSV2/System/pc_manage.asp','system')">
+        <span class="qi">🖱</span><span class="ql">PC<br>관리</span>
+      </div>
+    </div>
+
+    <div class="sec-title">최근 이용</div>
+    <div class="card" id="recentCard">
+      <div class="card-head">
+        <div class="card-head-l"><span>🕐</span> 최근 방문 메뉴</div>
+      </div>
+      <div id="recentList">
+        <div class="row"><span class="row-dot" style="background:#ccc"></span>
+          <span class="row-text" style="color:#aaa">아직 방문한 메뉴가 없습니다</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ERP iframe들 -->
+  <iframe class="erp-frame" id="frame-main"       src="" title="메인"></iframe>
+  <iframe class="erp-frame" id="frame-logistics"  src="" title="물류관리"></iframe>
+  <iframe class="erp-frame" id="frame-accounting" src="" title="경리회계"></iframe>
+  <iframe class="erp-frame" id="frame-hr"         src="" title="인사급여"></iframe>
+  <iframe class="erp-frame" id="frame-system"     src="" title="시스템관리"></iframe>
+  <iframe class="erp-frame" id="frame-mapos"      src="" title="MaPos"></iframe>
+
+  <!-- 로딩 오버레이 -->
+  <div class="loading-overlay hidden" id="loadingOverlay">
+    <div class="spinner"></div>
+    <div class="loading-text" id="loadingText">불러오는 중...</div>
+  </div>
+</div>
+
+<!-- 하단 탭 네비게이션 -->
+<nav class="nav">
+  <button class="nav-tab active" id="nav-home"       onclick="switchTab('home')">
+    <span class="n-icon">🏠</span>홈
+  </button>
+  <button class="nav-tab" id="nav-main"              onclick="switchTab('main')">
+    <span class="n-icon">🖥</span>메인
+  </button>
+  <button class="nav-tab" id="nav-logistics"         onclick="switchTab('logistics')">
+    <span class="n-icon">📦</span>물류
+  </button>
+  <button class="nav-tab" id="nav-accounting"        onclick="switchTab('accounting')">
+    <span class="n-icon">📊</span>회계
+  </button>
+  <button class="nav-tab" id="nav-system"            onclick="switchTab('system')">
+    <span class="n-icon">⚙️</span>시스템
+  </button>
+</nav>
+
+<script>
+  const BASE = 'https://erp.dure-coop.or.kr';
+  const TAB_URLS = {
+    main:       BASE + '/DELSYSV2/Main/index.asp',
+    logistics:  BASE + '/DELSYSV2/Logistics/index.asp',
+    accounting: BASE + '/DELSYSV2/Accounting/index.asp',
+    hr:         BASE + '/DELSYSV2/HR/index.asp',
+    system:     BASE + '/DELSYSV2/System/board.asp',
+    mapos:      BASE + '/DELSYSV2/MaPos/index.asp',
+  };
+
+  let currentTab = 'home';
+  let recentItems = JSON.parse(localStorage.getItem('dure_recent') || '[]');
+
+  // 날짜
+  const d = new Date();
+  const days = ['일','월','화','수','목','금','토'];
+  document.getElementById('gDate').textContent =
+    `${d.getFullYear()}년 ${d.getMonth()+1}월 ${d.getDate()}일 (${days[d.getDay()]})`;
+
+  // 최근 이용 렌더
+  function renderRecent() {
+    const el = document.getElementById('recentList');
+    if (!recentItems.length) return;
+    el.innerHTML = recentItems.slice(0,5).map(r =>
+      `<div class="row" onclick="loadERP('${r.url}','${r.tab}')">
+        <span class="row-dot" style="background:var(--blue)"></span>
+        <span class="row-text">${r.label}</span>
+        <span class="row-date">${r.time}</span>
+      </div>`
+    ).join('');
+  }
+  renderRecent();
+
+  function addRecent(label, url, tab) {
+    recentItems = recentItems.filter(r => r.url !== url);
+    const now = new Date();
+    recentItems.unshift({ label, url, tab, time: `${now.getHours()}:${String(now.getMinutes()).padStart(2,'0')}` });
+    if (recentItems.length > 10) recentItems.pop();
+    localStorage.setItem('dure_recent', JSON.stringify(recentItems));
+    renderRecent();
+  }
+
+  // iframe 로드
+  function loadERP(url, tab) {
+    const frameId = 'frame-' + tab;
+    const frame = document.getElementById(frameId);
+    if (!frame) return;
+
+    // 탭 전환
+    switchTab(tab, false);
+
+    // 로딩 표시
+    const overlay = document.getElementById('loadingOverlay');
+    overlay.classList.remove('hidden');
+
+    if (frame.src !== url) {
+      frame.src = url;
+      frame.onload = () => { overlay.classList.add('hidden'); };
+      // 타임아웃 fallback
+      setTimeout(() => overlay.classList.add('hidden'), 8000);
+    } else {
+      overlay.classList.add('hidden');
+    }
+
+    // 최근 이용 기록
+    const labels = {
+      main: '메인 화면', logistics: '물류관리', accounting: '경리회계',
+      hr: '인사급여', system: '시스템관리', mapos: 'MaPos'
+    };
+    addRecent(labels[tab] || tab, url, tab);
+  }
+
+  // 탭 전환
+  function switchTab(tab, loadUrl = true) {
+    // 홈 패널
+    document.getElementById('homePanel').classList.toggle('active', tab === 'home');
+
+    // iframe 패널들
+    document.querySelectorAll('.erp-frame').forEach(f => f.classList.remove('active'));
+    if (tab !== 'home') {
+      const frame = document.getElementById('frame-' + tab);
+      if (frame) {
+        frame.classList.add('active');
+        // 처음 진입 시 URL 로드
+        if (loadUrl && !frame.src && TAB_URLS[tab]) {
+          loadERP(TAB_URLS[tab], tab);
+          return;
+        }
+      }
+    }
+
+    // 네비 메이게이션
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    const navEl = document.getElementById('nav-' + tab);
+    if (navEl) navEl.classList.add('active');
+
+    currentTab = tab;
+  }
+
+  // 새로고침
+  function reloadFrame() {
+    if (currentTab === 'home') return;
+    const frame = document.getElementById('frame-' + currentTab);
+    if (frame && frame.src) {
+      document.getElementById('loadingOverlay').classList.remove('hidden');
+      frame.src = frame.src;
+      frame.onload = () => document.getElementById('loadingOverlay').classList.add('hidden');
+      setTimeout(() => document.getElementById('loadingOverlay').classList.add('hidden'), 8000);
+    }
+  }
+
+  // 로그아웃
+  function goLogout() {
+    if (confirm('로그아웃 하시ꬠ습뜨까?')) {
+      window.location.href = BASE + '/DELSYSV2/login/login.asp?logout=Y';
+    }
+  }
+
+  // 최초 메인 로드
+  loadERP(BASE + '/DELSYSV2/Main/index.asp', 'main');
+</script>
+</body>
+</html>
