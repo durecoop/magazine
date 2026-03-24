@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>두레생협 수요특가 | 13주 3월 25일</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:'Noto Sans KR',sans-serif;
+  background:#f5f0eb;
+  color:#2d2520;
+  line-height:1.7;
+  word-break:keep-all;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+
+.container{max-width:560px;margin:0 auto;padding:0 16px 60px;position:relative;z-index:1}
+
+/* ── 히어로 ── */
+.hero{
+  text-align:center;
+  padding:56px 0 24px;
+}
+.hero-date{
+  display:inline-block;
+  font-size:14px;font-weight:700;
+  color:#b45309;
+  letter-spacing:1.5px;
+  margin-bottom:10px;
+}
+.hero h1{
+  font-size:72px;font-weight:900;
+  color:#1a1a1a;
+  line-height:1.15;
+  letter-spacing:-1px;
+}
+.hero h1 em{
+  font-style:normal;
+  background:linear-gradient(135deg,#dc2626,#ea580c);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  display:inline-block;
+  animation:pulse-scale 2s ease-in-out infinite;
+}
+@keyframes pulse-scale{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.08)}
+}
+.hero-sub{
+  font-size:18px;color:#78716c;
+  margin-top:10px;
+  font-weight:400;
+}
+.hero-divider{
+  width:50px;height:3px;
+  background:linear-gradient(90deg,#f59e0b,#ef4444);
+  margin:20px auto 0;border-radius:2px;
+}
+
+/* ── 타이머 바 ── */
+.timer-bar{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  background:linear-gradient(135deg,#dc2626,#b91c1c);
+  border-radius:16px;
+  padding:16px 24px;
+  margin:28px 0 36px;
+  box-shadow:0 4px 20px rgba(220,38,38,.2);
+}
+.timer-bar .icon{font-size:22px}
+.timer-bar .text{font-size:19px;font-weight:700;color:#fff}
+.timer-bar .date{font-weight:900;text-decoration:underline;text-underline-offset:3px}
+
+/* ── 상품 카드 ── */
+.product-card{
+  background:#fff;
+  border-radius:24px;
+  border:1px solid #e7e0d8;
+  margin-bottom:24px;
+  overflow:hidden;
+  opacity:0;transform:translateY(30px);
+  transition:opacity .5s ease,transform .5s ease;
+  box-shadow:0 2px 16px rgba(0,0,0,.04);
+}
+.product-card.visible{opacity:1;transform:translateY(0)}
+
+/* 이미지 영역 */
+.card-img{
+  width:100%;
+  aspect-ratio:4/3;
+  overflow:hidden;
+  position:relative;
+  background:#f5f0eb;
+}
+.card-img img{
+  width:100%;height:100%;
+  object-fit:cover;
+  display:block;
+  transition:transform .4s ease;
+}
+.product-card:hover .card-img img{transform:scale(1.03)}
+
+.discount-sticker{
+  position:absolute;
+  top:16px;left:16px;
+  min-width:68px;height:68px;
+  border-radius:50%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  font-weight:900;line-height:1.05;
+  z-index:2;
+}
+.discount-sticker .num{font-size:26px}
+.discount-sticker .pct{font-size:12px}
+.discount-sticker.red{
+  background:linear-gradient(135deg,#dc2626,#b91c1c);
+  color:#fff;box-shadow:0 4px 16px rgba(220,38,38,.35);
+}
+.discount-sticker.amber{
+  background:linear-gradient(135deg,#f59e0b,#d97706);
+  color:#fff;box-shadow:0 4px 16px rgba(245,158,11,.3);
+}
+.discount-sticker.mega{
+  min-width:78px;height:78px;
+  background:linear-gradient(135deg,#ef4444,#dc2626);
+  color:#fff;box-shadow:0 4px 24px rgba(239,68,68,.45);
+  animation:pulse-glow 2s ease infinite;
+}
+.discount-sticker.mega .num{font-size:32px}
+@keyframes pulse-glow{
+  0%,100%{box-shadow:0 4px 24px rgba(239,68,68,.35)}
+  50%{box-shadow:0 4px 36px rgba(239,68,68,.6)}
+}
+
+.card-body{padding:28px}
+.card-body h2{font-size:34px;font-weight:800;color:#1a1a1a;line-height:1.3}
+.card-desc{font-size:19px;color:#78716c;margin-top:6px;line-height:1.6}
+.card-body .weight{font-size:16px;color:#78716c;margin-top:4px;font-weight:500}
+
+.price-block{
+  display:flex;align-items:baseline;gap:10px;
+  margin:14px 0 10px;
+}
+.price-old{
+  font-size:24px;color:#a8a29e;
+  text-decoration:line-through;
+}
+.price-arrow{font-size:20px;color:#a8a29e}
+.price-new{font-size:48px;font-weight:900;color:#dc2626}
+.price-won{font-size:24px;font-weight:500;color:#78716c}
+
+.limit-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  background:#fef3c7;border:1px solid #f59e0b;
+  color:#92400e;font-size:16px;font-weight:700;
+  padding:6px 14px;border-radius:10px;
+  margin-top:4px;
+}
+.limit-badge .dot{width:7px;height:7px;border-radius:50%;background:#f59e0b;animation:blink 1s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+
+.card-features{
+  display:flex;flex-wrap:wrap;gap:8px;
+  margin-top:16px;
+  padding-top:16px;
+  border-top:1px solid #f0ebe5;
+}
+.feature-tag{
+  font-size:15px;
+  padding:6px 14px;
+  border-radius:20px;
+  background:#faf5f0;
+  border:1px solid #e7e0d8;
+  color:#57534e;
+  font-weight:500;
+}
+.feature-tag.green{background:#ecfdf5;border-color:#a7f3d0;color:#065f46}
+.feature-tag.orange{background:#fff7ed;border-color:#fed7aa;color:#9a3412}
+
+/* ── BEST DEAL ── */
+.product-card.best{
+  border-color:#fca5a5;
+  background:#fff;
+  position:relative;
+}
+.product-card.best::after{
+  content:'오늘의 최저가';
+  position:absolute;top:20px;right:20px;
+  font-size:14px;font-weight:800;
+  color:#fff;background:linear-gradient(135deg,#ef4444,#dc2626);
+  padding:5px 14px;border-radius:8px;
+  letter-spacing:1px;z-index:3;
+  box-shadow:0 2px 8px rgba(239,68,68,.3);
+}
+
+/* ── 비교 테이블 ── */
+.compare-section{margin-top:40px;opacity:0;transform:translateY(20px);transition:all .5s ease}
+.compare-section.visible{opacity:1;transform:translateY(0)}
+.compare-title{
+  font-size:22px;font-weight:800;color:#1a1a1a;
+  margin-bottom:16px;
+  padding-left:14px;
+  border-left:4px solid #f59e0b;
+}
+.compare-table{
+  width:100%;border-collapse:collapse;
+  background:#fff;border-radius:16px;overflow:hidden;
+  border:1px solid #e7e0d8;
+  box-shadow:0 2px 12px rgba(0,0,0,.03);
+}
+.compare-table th{
+  background:#faf5f0;color:#78716c;
+  font-size:14px;font-weight:600;
+  padding:14px 8px;text-align:center;
+  border-bottom:1px solid #e7e0d8;
+}
+.compare-table td{
+  padding:14px 8px;font-size:16px;
+  text-align:center;color:#57534e;
+  border-bottom:1px solid #f5f0eb;
+}
+.compare-table tr:last-child td{border-bottom:none}
+.compare-table td:first-child{text-align:left;padding-left:16px;font-weight:700;color:#1a1a1a}
+.compare-table .sale{color:#dc2626;font-weight:800}
+.compare-table .best-row{background:#fef2f2}
+.compare-table .best-row .sale{color:#dc2626;font-weight:900;font-size:18px}
+
+/* ── 바로가기 버튼 ── */
+.cta-wrap{
+  text-align:center;
+  margin-top:40px;
+  margin-bottom:8px;
+}
+.cta-btn{
+  display:inline-block;
+  background:linear-gradient(135deg,#dc2626,#b91c1c);
+  color:#fff;
+  font-size:20px;font-weight:800;
+  padding:18px 48px;
+  border-radius:16px;
+  text-decoration:none;
+  box-shadow:0 6px 24px rgba(220,38,38,.3);
+  transition:transform .2s,box-shadow .2s;
+  letter-spacing:.5px;
+}
+.cta-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 32px rgba(220,38,38,.4);
+}
+.cta-btn:active{transform:translateY(0)}
+.cta-sub{
+  font-size:14px;color:#a8a29e;
+  margin-top:10px;
+}
+
+/* ── 푸터 ── */
+.footer{
+  text-align:center;
+  margin-top:44px;
+  padding:24px 0;
+  border-top:1px solid #e7e0d8;
+}
+.footer p{font-size:15px;color:#a8a29e}
+.footer .coop{color:#57534e;font-weight:700;font-size:18px}
+
+/* ── 모바일 최적화 ── */
+@media(max-width:640px){
+  .hero{padding:44px 0 20px}
+  .hero h1{font-size:64px}
+  .hero-sub{font-size:17px}
+  .timer-bar .text{font-size:18px}
+  .card-body h2{font-size:30px}
+  .card-desc{font-size:17px}
+  .card-body .weight{font-size:15px}
+  .price-new{font-size:44px}
+  .price-old{font-size:22px}
+  .feature-tag{font-size:14px}
+  .compare-table td{font-size:15px}
+  .compare-table td:first-child{font-size:14px}
+}
+
+@media(max-width:420px){
+  body{font-size:18px}
+  .container{padding:0 14px 48px}
+  .hero h1{font-size:56px;letter-spacing:-0.5px}
+  .hero-date{font-size:14px}
+  .hero-sub{font-size:16px}
+  .timer-bar{padding:14px 18px;border-radius:14px}
+  .timer-bar .text{font-size:17px}
+  .card-body{padding:24px}
+  .card-body h2{font-size:28px}
+  .card-desc{font-size:17px}
+  .card-body .weight{font-size:15px}
+  .price-block{margin:12px 0 8px}
+  .price-old{font-size:20px}
+  .price-new{font-size:40px}
+  .price-won{font-size:20px}
+  .limit-badge{font-size:15px;padding:6px 14px}
+  .feature-tag{font-size:14px;padding:5px 12px}
+  .discount-sticker{min-width:64px;height:64px;top:14px;left:14px}
+  .discount-sticker .num{font-size:24px}
+  .discount-sticker .pct{font-size:12px}
+  .discount-sticker.mega{min-width:72px;height:72px}
+  .discount-sticker.mega .num{font-size:30px}
+  .product-card.best::after{top:14px;right:14px;font-size:13px;padding:5px 12px}
+  .compare-title{font-size:20px}
+  .compare-table th{font-size:13px;padding:12px 6px}
+  .compare-table td{font-size:14px;padding:12px 6px}
+  .compare-table td:first-child{padding-left:12px;font-size:14px}
+  .compare-table .best-row .sale{font-size:16px}
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- 히어로 -->
+  <div class="hero">
+    <h1><em>수요특가</em></h1>
+    <p class="hero-sub">매주 수요일, 두레생협이 준비한 한정 특가</p>
+    <div class="hero-divider"></div>
+  </div>
+
+  <!-- 타이머 바 -->
+  <div class="timer-bar">
+    <span class="icon">&#9200;</span>
+    <span class="text"><span class="date">3월 25일(수)</span> 단 하루 한정</span>
+  </div>
+
+  <div style="text-align:center;margin-bottom:36px;line-height:1.9;background:#fff;border:2px solid #e7e0d8;border-radius:20px;padding:28px 20px;">
+    <p style="font-size:28px;font-weight:800;color:#1a1a1a"><span style="background:linear-gradient(transparent 55%,#fde68a 55%);padding:0 4px;">오늘의 수요특가 생활재는?</span></p>
+    <p style="font-size:22px;color:#78716c;font-weight:400;margin-top:6px">더 건강한 하루를 위한,<br>든든한 식단! 🥗</p>
+  </div>
+
+  <!-- 상품 1: 방울토마토 마리네이드 (BEST) -->
+  <div class="product-card best" data-delay="0">
+    <div class="card-img">
+      <img src="img/tomato_marinade.png" alt="방울토마토 마리네이드">
+      <div class="discount-sticker mega">
+        <span class="num">50</span>
+        <span class="pct">%</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <h2>방울토마토 마리네이드</h2>
+      <div class="weight">1병</div>
+      <p class="card-desc">새콤달콤 시럽에 통째로 절인 방울토마토!<br>한 병이면 근사한 한 접시 완성</p>
+      <div class="price-block">
+        <span class="price-old">8,400원</span>
+        <span class="price-arrow">&rarr;</span>
+        <span class="price-new">4,200</span>
+        <span class="price-won">원</span>
+      </div>
+      <div class="card-features">
+        <span class="feature-tag orange">반값 특가</span>
+        <span class="feature-tag">통통한 방울토마토 그대로</span>
+        <span class="feature-tag green">빵·샐러드에 곁들이면 완벽</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 상품 2: 양배추 -->
+  <div class="product-card" data-delay="100">
+    <div class="card-img">
+      <img src="img/cabbage.jpg" alt="양배추">
+      <div class="discount-sticker red">
+        <span class="num">31</span>
+        <span class="pct">%</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <h2>양배추 (무농약)</h2>
+      <div class="weight">1kg</div>
+      <p class="card-desc">아삭한 제철 무농약 양배추, 쌈·샐러드·볶음 다 좋아요</p>
+      <div class="price-block">
+        <span class="price-old">4,100원</span>
+        <span class="price-arrow">&rarr;</span>
+        <span class="price-new">2,800</span>
+        <span class="price-won">원</span>
+      </div>
+      <div class="card-features">
+        <span class="feature-tag green">무농약 인증</span>
+        <span class="feature-tag">제철 채소</span>
+        <span class="feature-tag">위 건강에 좋은</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 상품 3: 닭가슴살 -->
+  <div class="product-card" data-delay="200">
+    <div class="card-img">
+      <img src="img/chicken_breast.jpg" alt="닭가슴살">
+      <div class="discount-sticker amber">
+        <span class="num">21</span>
+        <span class="pct">%</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <h2>닭가슴살</h2>
+      <div class="weight">1kg</div>
+      <p class="card-desc">무항생제 닭가슴살을 낱개로 급속 냉동!<br>필요한 만큼 꺼내서 이용하세요.</p>
+      <div class="price-block">
+        <span class="price-old">10,800원</span>
+        <span class="price-arrow">&rarr;</span>
+        <span class="price-new">8,500</span>
+        <span class="price-won">원</span>
+      </div>
+      <div class="limit-badge"><span class="dot"></span>500개 한정</div>
+      <div class="card-features">
+        <span class="feature-tag">낱개 급속 냉동</span>
+        <span class="feature-tag green">필요한 만큼 꺼내 쓰는</span>
+        <span class="feature-tag">고단백 식단</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 상품 4: 닭안심살 -->
+  <div class="product-card" data-delay="300">
+    <div class="card-img">
+      <img src="img/chicken_tender.jpg" alt="닭안심살">
+      <div class="discount-sticker amber">
+        <span class="num">21</span>
+        <span class="pct">%</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <h2>닭안심살</h2>
+      <div class="weight">1kg</div>
+      <p class="card-desc">부드러운 무항생제 닭안심살<br>이유식부터 다이어트 식단까지</p>
+      <div class="price-block">
+        <span class="price-old">10,800원</span>
+        <span class="price-arrow">&rarr;</span>
+        <span class="price-new">8,500</span>
+        <span class="price-won">원</span>
+      </div>
+      <div class="limit-badge"><span class="dot"></span>500개 한정</div>
+      <div class="card-features">
+        <span class="feature-tag">낱개 급속 냉동</span>
+        <span class="feature-tag green">부드러운 식감</span>
+        <span class="feature-tag">이유식·샐러드에</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 비교 테이블 -->
+  <div class="compare-section">
+    <div class="compare-title">한눈에 보는 특가 비교</div>
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>품목</th>
+          <th>정상가</th>
+          <th>특가</th>
+          <th>할인율</th>
+          <th>한정</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="best-row">
+          <td>방울토마토<br>마리네이드</td>
+          <td>8,400</td>
+          <td class="sale">4,200</td>
+          <td class="sale">50%</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>양배추 1kg</td>
+          <td>4,100</td>
+          <td class="sale">2,800</td>
+          <td class="sale">31.7%</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>닭가슴살 1kg</td>
+          <td>10,800</td>
+          <td class="sale">8,500</td>
+          <td class="sale">21.3%</td>
+          <td>500개</td>
+        </tr>
+        <tr>
+          <td>닭안심살 1kg</td>
+          <td>10,800</td>
+          <td class="sale">8,500</td>
+          <td class="sale">21.3%</td>
+          <td>500개</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 바로가기 버튼 -->
+  <div class="cta-wrap">
+    <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1648#book2" class="cta-btn" target="_blank">수요특가 바로가기</a>
+    <p class="cta-sub">두레생협 쇼핑몰에서 바로 구매하실 수 있습니다.</p>
+  </div>
+
+  <!-- 푸터 -->
+  <div class="footer">
+    <p class="coop">두레생협 조합원 상담실 1661-5110</p>
+    <p style="margin-top:6px">수요특가는 매주 수요일 하루만 진행됩니다.</p>
+  </div>
+
+</div>
+
+<script>
+// 스크롤 reveal
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const delay=e.target.dataset.delay||0;
+      setTimeout(()=>e.target.classList.add('visible'),+delay);
+    }
+  });
+},{threshold:0.1});
+
+document.querySelectorAll('.product-card, .compare-section').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
