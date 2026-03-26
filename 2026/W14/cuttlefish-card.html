@@ -154,13 +154,15 @@
         .clean-result{margin-top:16px;padding:14px 24px;background:rgba(255,255,255,.15);border-radius:30px;border:1px solid rgba(255,255,255,.2)}
         .clean-result p{font-size:clamp(15px,4.5vw,17px);color:#fff;font-weight:700}
 
-        /* ── 카드 8: 레시피 비주얼 ── */
+        /* ── 카드 8: 레시피 비주얼 (사진) ── */
         .card-recipe{background:linear-gradient(160deg,#fff,#FFF8F0);padding:30px 16px}
         .card-recipe h2{font-family:'Noto Serif KR',serif;font-size:clamp(20px,6vw,26px);font-weight:600;color:#1a1a1a;margin-bottom:24px}
-        .recipe-grid{max-width:340px;width:100%;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-        .recipe-card{background:#fff;border-radius:16px;padding:16px 10px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.04);border:1px solid #E8E8E8}
-        .recipe-card .r-emoji{font-size:clamp(40px,12vw,56px);line-height:1.2;margin-bottom:8px}
-        .recipe-card .r-name{font-size:clamp(13px,3.8vw,15px);font-weight:700;color:#1a1a1a;margin-bottom:4px}
+        .recipe-grid{max-width:360px;width:100%;display:flex;flex-direction:column;gap:14px}
+        .recipe-card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.06);border:1px solid #E8E8E8;display:flex;align-items:center;gap:14px;padding-right:14px}
+        .recipe-card img{width:clamp(100px,28vw,120px);height:clamp(100px,28vw,120px);object-fit:cover;flex-shrink:0}
+        .recipe-card .r-info{flex:1;text-align:left;padding:10px 0}
+        .recipe-card .r-name{font-size:clamp(15px,4.5vw,17px);font-weight:700;color:#1a1a1a;margin-bottom:4px}
+        .recipe-card .r-desc{font-size:clamp(11px,3.2vw,13px);color:#888;line-height:1.5;margin-bottom:6px}
         .recipe-card .r-time{font-size:10px;color:#1B6B93;font-weight:600;background:#E3F2FD;padding:3px 8px;border-radius:10px;display:inline-block}
 
         /* ── 카드 9: CTA ── */
@@ -234,9 +236,9 @@
         .card-clean.in-view .clean-result{animation:scaleIn .5s 1.4s both}
 
         .card-recipe.in-view h2{animation:fadeInDown .5s .2s both}
-        .card-recipe.in-view .recipe-card:nth-child(1){animation:fadeInUp .5s .5s both}
-        .card-recipe.in-view .recipe-card:nth-child(2){animation:fadeInUp .5s .7s both}
-        .card-recipe.in-view .recipe-card:nth-child(3){animation:fadeInUp .5s .9s both}
+        .card-recipe.in-view .recipe-card:nth-child(1){animation:slideInLeft .5s .5s both}
+        .card-recipe.in-view .recipe-card:nth-child(2){animation:slideInLeft .5s .7s both}
+        .card-recipe.in-view .recipe-card:nth-child(3){animation:slideInLeft .5s .9s both}
 
         .card-cta.in-view .cta-img{animation:scaleIn .6s .2s both}
         .card-cta.in-view .limit-pulse{animation:scaleIn .5s .5s both,pulse 2s 1s infinite}
@@ -271,7 +273,7 @@
                 <path d="M0 50Q50 30 100 50T200 50T300 50T400 50V80H0Z" fill="rgba(255,255,255,.05)"/>
             </svg>
             <img class="hero-img anim" src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56862C.jpg" alt="손질갑오징어">
-            <span class="limit-badge anim">온라인 한정 1,000개</span>
+            <span class="limit-badge anim">누적 11,000개 판매 · 한정 1,000개</span>
             <h1 class="anim">귀해진<br>갑오징어</h1>
             <div class="hero-price anim">
                 <span class="pct">24%</span>
@@ -335,7 +337,7 @@
             <div class="collab-visual anim">
                 <div class="collab-item">
                     <div class="circle sea">🌊</div>
-                    <p>남해 생산지</p>
+                    <p>서풍 (남해)</p>
                 </div>
                 <span class="collab-arrow">→</span>
                 <div class="collab-item">
@@ -357,15 +359,15 @@
                     <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56862C.jpg" alt="손질갑오징어(500g)">
                     <div class="badges">
                         <span class="badge-pct">24% OFF</span>
-                        <span class="badge-limit">1,000개 한정</span>
-                        <span class="badge-haccp">HACCP</span>
+                        <span class="badge-limit">한정 1,000개</span>
+                        <span class="badge-haccp">HACCP · 서풍</span>
                     </div>
                 </div>
                 <p class="name">손질갑오징어 500g</p>
                 <div class="tag-row">
-                    <span class="tag tag-origin">남해산 국내산</span>
+                    <span class="tag tag-origin">남해산 · 서풍</span>
                     <span class="tag tag-size">2~3미 중대형</span>
-                    <span class="tag tag-clean">완벽 손질</span>
+                    <span class="tag tag-clean">HACCP 손질</span>
                 </div>
                 <div class="price-area">
                     <span class="old-price">16,300원</span>
@@ -411,6 +413,7 @@
             <div class="compare-bottom anim">
                 <span class="vs-tag vs-win">마트보다 저렴</span>
                 <span class="vs-tag vs-detail">더 크고 두꺼운 살</span>
+                <span class="vs-tag vs-win">누적 11,000개 판매</span>
             </div>
         </div>
 
@@ -447,24 +450,33 @@
             </div>
         </div>
 
-        <!-- ════ 8. 레시피 비주얼 (큰 이모지) ════ -->
+        <!-- ════ 8. 레시피 비주얼 (실사 사진) ════ -->
         <div class="card card-recipe">
-            <h2 class="anim">꺼내서 바로!</h2>
+            <h2 class="anim">꺼내서 바로 이렇게!</h2>
             <div class="recipe-grid">
                 <div class="recipe-card anim">
-                    <div class="r-emoji">🧈</div>
-                    <p class="r-name">버터구이</p>
-                    <span class="r-time">10분</span>
+                    <img src="recipe-butter.jpg" alt="갑오징어 버터구이">
+                    <div class="r-info">
+                        <p class="r-name">버터구이</p>
+                        <p class="r-desc">버터 + 마늘 + 양파<br>고소한 안주 완성</p>
+                        <span class="r-time">10분</span>
+                    </div>
                 </div>
                 <div class="recipe-card anim">
-                    <div class="r-emoji">🌶️</div>
-                    <p class="r-name">매콤볶음</p>
-                    <span class="r-time">15분</span>
+                    <img src="recipe-bokkeum.jpg" alt="매콤 오징어볶음">
+                    <div class="r-info">
+                        <p class="r-name">매콤 볶음</p>
+                        <p class="r-desc">고추장 양념 + 채소<br>밥도둑 반찬</p>
+                        <span class="r-time">15분</span>
+                    </div>
                 </div>
                 <div class="recipe-card anim">
-                    <div class="r-emoji">🥢</div>
-                    <p class="r-name">숙회</p>
-                    <span class="r-time">5분</span>
+                    <img src="recipe-sukhoe.jpg" alt="갑오징어 숙회">
+                    <div class="r-info">
+                        <p class="r-name">숙회</p>
+                        <p class="r-desc">살짝 데쳐서 초장에<br>쫄깃함이 최고</p>
+                        <span class="r-time">5분</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -472,7 +484,7 @@
         <!-- ════ 9. CTA ════ -->
         <div class="card card-cta">
             <img class="cta-img anim" src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56862C.jpg" alt="손질갑오징어">
-            <span class="limit-pulse anim">1,000개 한정</span>
+            <span class="limit-pulse anim">누적 11,000개 검증 · 1,000개 한정</span>
             <h2 class="anim">이 가격,<br>다시 없습니다</h2>
             <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=56862&returnPlanNo=0" class="cta-btn anim">12,400원에 담기 →</a>
             <div class="cta-sub anim">
