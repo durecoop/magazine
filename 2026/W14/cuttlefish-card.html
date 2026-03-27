@@ -20,7 +20,7 @@
         .header-logo img{height:34px;border-radius:4px}
         .header-order{padding:8px 16px;background:rgba(255,255,255,.95);color:var(--g);text-decoration:none;border-radius:6px;font-size:14px;font-weight:700}
 
-        .promo{position:fixed;top:54px;left:0;right:0;z-index:999;background:linear-gradient(90deg,var(--gl),var(--g));padding:8px 0;text-align:center;font-size:clamp(12px,3.5vw,14px);color:rgba(255,255,255,.85);font-weight:400;letter-spacing:.5px}
+        .promo{position:fixed;top:54px;left:0;right:0;z-index:999;background:linear-gradient(90deg,var(--teal),var(--tl));padding:8px 0;text-align:center;font-size:clamp(12px,3.5vw,14px);color:rgba(255,255,255,.85);font-weight:400;letter-spacing:.5px}
         .promo b{background:rgba(255,255,255,.15);padding:2px 8px;border-radius:12px;font-size:clamp(11px,3vw,12px);margin-right:6px;border:1px solid rgba(255,255,255,.2)}
 
         .cards{height:100vh;overflow-y:scroll;scroll-snap-type:y mandatory;-webkit-overflow-scrolling:touch;padding-top:90px}
@@ -56,15 +56,15 @@
         .big-label{font-size:clamp(14px,4vw,17px);color:rgba(255,255,255,.5);margin-top:6px;font-weight:300}
 
         /* ── 3 왜 ── */
-        .c3{background:linear-gradient(170deg,#111820,#0a0f14);padding:30px 20px;overflow:hidden}
+        .c3{background:linear-gradient(170deg,var(--cream),#EDE8E0);padding:30px 20px;overflow:hidden}
         .c3>*{position:relative;z-index:1}
-        .c3 h2{font-family:'Noto Serif KR',serif;font-size:clamp(30px,9vw,42px);font-weight:700;color:#fff;margin-bottom:28px}
+        .c3 h2{font-family:'Noto Serif KR',serif;font-size:clamp(30px,9vw,42px);font-weight:700;color:#1a1a1a;margin-bottom:28px}
         .wl{max-width:320px;width:100%;display:flex;flex-direction:column;gap:14px}
-        .wi{display:flex;gap:14px;align-items:center;background:rgba(255,255,255,.04);border-radius:16px;padding:18px;border:1px solid rgba(255,255,255,.06)}
+        .wi{display:flex;gap:14px;align-items:center;background:#fff;border-radius:16px;padding:18px;border:1px solid #ece8e2;box-shadow:0 2px 8px rgba(0,0,0,.04)}
         .wi .ic{font-size:clamp(36px,10vw,44px);flex-shrink:0;width:52px;text-align:center}
         .wi .tx{text-align:left;flex:1}
-        .wi .tx p{font-size:clamp(15px,4.5vw,18px);font-weight:600;color:#fff}
-        .wi .tx span{font-size:clamp(11px,3.2vw,13px);color:rgba(255,255,255,.4);font-weight:300}
+        .wi .tx p{font-size:clamp(15px,4.5vw,18px);font-weight:600;color:#1a1a1a}
+        .wi .tx span{font-size:clamp(11px,3.2vw,13px);color:#999;font-weight:300}
 
         /* ── 4 (상생) ── */
         .c4{background:linear-gradient(170deg,var(--gl),var(--gd));overflow:hidden;padding:30px 20px}
@@ -83,24 +83,24 @@
         .sr p{font-family:'Noto Serif KR',serif;font-size:clamp(16px,5vw,20px);color:rgba(168,213,162,.9);font-weight:700}
 
         /* ── 4.5 중대형 맛 ── */
-        .c45{background:linear-gradient(170deg,#111820,#0a0f14);padding:30px 20px;overflow:hidden}
+        .c45{background:linear-gradient(170deg,var(--cream),#fff);padding:30px 20px;overflow:hidden}
         .c45>*{position:relative;z-index:1}
-        .c45 h2{font-family:'Noto Serif KR',serif;font-size:clamp(28px,8.5vw,38px);font-weight:700;color:#fff;margin-bottom:24px;line-height:1.4}
-        .c45 h2 em{font-style:normal;color:var(--gold)}
+        .c45 h2{font-family:'Noto Serif KR',serif;font-size:clamp(28px,8.5vw,38px);font-weight:700;color:#1a1a1a;margin-bottom:24px;line-height:1.4}
+        .c45 h2 em{font-style:normal;color:var(--teal)}
         .size-compare{max-width:300px;width:100%;display:flex;gap:14px;justify-content:center;align-items:flex-end;margin-bottom:24px}
         .sz{text-align:center;flex:1}
-        .sz .circle{margin:0 auto 8px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:clamp(28px,8vw,36px);border:2px solid rgba(255,255,255,.1)}
-        .sz.small .circle{width:clamp(60px,16vw,75px);height:clamp(60px,16vw,75px);background:rgba(255,255,255,.04);opacity:.5}
-        .sz.big .circle{width:clamp(90px,25vw,115px);height:clamp(90px,25vw,115px);background:rgba(197,165,90,.08);border-color:rgba(197,165,90,.25)}
-        .sz .label{font-size:clamp(12px,3.5vw,14px);color:rgba(255,255,255,.5);font-weight:500}
-        .sz.big .label{color:var(--gold);font-weight:700;font-size:clamp(14px,4vw,16px)}
-        .sz .desc{font-size:clamp(10px,3vw,12px);color:rgba(255,255,255,.3);margin-top:2px}
-        .sz.big .desc{color:rgba(197,165,90,.6)}
+        .sz .circle{margin:0 auto 8px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:clamp(28px,8vw,36px);border:2px solid #ece8e2}
+        .sz.small .circle{width:clamp(60px,16vw,75px);height:clamp(60px,16vw,75px);background:#f5f2ed;opacity:.5}
+        .sz.big .circle{width:clamp(90px,25vw,115px);height:clamp(90px,25vw,115px);background:rgba(26,74,94,.06);border-color:var(--teal)}
+        .sz .label{font-size:clamp(12px,3.5vw,14px);color:#999;font-weight:500}
+        .sz.big .label{color:var(--teal);font-weight:700;font-size:clamp(14px,4vw,16px)}
+        .sz .desc{font-size:clamp(10px,3vw,12px);color:#ccc;margin-top:2px}
+        .sz.big .desc{color:var(--tl)}
         .taste-point{max-width:300px;width:100%;display:flex;flex-direction:column;gap:10px}
-        .tp{display:flex;gap:12px;align-items:center;background:rgba(197,165,90,.06);border-radius:14px;padding:14px 16px;border:1px solid rgba(197,165,90,.1)}
+        .tp{display:flex;gap:12px;align-items:center;background:#fff;border-radius:14px;padding:14px 16px;border:1px solid #ece8e2;box-shadow:0 2px 8px rgba(0,0,0,.03)}
         .tp .ti{font-size:clamp(24px,7vw,30px);flex-shrink:0}
-        .tp .tt{text-align:left;flex:1;font-size:clamp(14px,4.2vw,16px);font-weight:600;color:#fff}
-        .tp .tt span{font-weight:300;color:rgba(255,255,255,.45);font-size:clamp(11px,3vw,12px);display:block}
+        .tp .tt{text-align:left;flex:1;font-size:clamp(14px,4.2vw,16px);font-weight:600;color:#1a1a1a}
+        .tp .tt span{font-weight:300;color:#999;font-size:clamp(11px,3vw,12px);display:block}
 
         .c45.in-view h2{animation:fadeUp .6s .2s both}
         .c45.in-view .size-compare{animation:fadeUp .6s .5s both}
@@ -152,7 +152,7 @@
         .pc .pu{font-size:clamp(13px,3.8vw,15px);color:var(--teal);font-weight:600}
 
         /* ── 6 비교 ── */
-        .c6{background:linear-gradient(170deg,#fff,var(--cream));padding:30px 16px}
+        .c6{background:linear-gradient(170deg,#EDE8E0,var(--cream));padding:30px 16px}
         .c6 h2{font-family:'Noto Serif KR',serif;font-size:clamp(24px,7vw,32px);font-weight:700;color:#1a1a1a;margin-bottom:24px}
         .cg{max-width:340px;width:100%;display:flex;flex-direction:column;gap:12px}
         .cw{display:flex;gap:10px;align-items:stretch}
@@ -168,7 +168,7 @@
         .cx.be .ck{background:rgba(45,90,61,.06);color:var(--g)}
 
         /* ── 7 레시피 ── */
-        .c7{background:linear-gradient(170deg,var(--cream),#fff);padding:28px 16px}
+        .c7{background:linear-gradient(170deg,#fff,var(--cream));padding:28px 16px}
         .c7 h2{font-family:'Noto Serif KR',serif;font-size:clamp(24px,7vw,32px);font-weight:700;color:#1a1a1a;margin-bottom:6px}
         .c7 .sub{font-size:clamp(14px,4vw,16px);color:#aaa;margin-bottom:20px;font-weight:300}
         .rg{max-width:360px;width:100%;display:flex;flex-direction:column;gap:12px}
