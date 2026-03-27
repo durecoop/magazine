@@ -23,9 +23,8 @@
         .promo{position:fixed;top:48px;left:0;right:0;z-index:999;background:var(--teal);padding:6px 0;text-align:center;font-size:clamp(11px,3.2vw,13px);color:rgba(255,255,255,.8);font-weight:400;letter-spacing:.3px;box-shadow:0 1px 0 rgba(0,0,0,.1)}
         .promo b{background:rgba(255,255,255,.12);padding:2px 8px;border-radius:10px;font-size:clamp(10px,2.8vw,11px);margin-right:6px;border:1px solid rgba(255,255,255,.15);font-weight:600}
 
-        .cards{height:100vh;height:100dvh;overflow-y:scroll;scroll-snap-type:y mandatory;-webkit-overflow-scrolling:touch}
-        .c{height:100vh;height:100dvh;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:28px 22px;padding-top:calc(28px + 80px);text-align:center;position:relative;overflow:hidden;flex-shrink:0}
-        .c:not(.c1){padding-top:calc(28px + 80px)}
+        .cards{height:100vh;height:100dvh;overflow-y:scroll;scroll-snap-type:y mandatory;-webkit-overflow-scrolling:touch;padding-top:80px;scroll-padding-top:0}
+        .c{min-height:calc(100vh - 80px);min-height:calc(100dvh - 80px);scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:24px 22px;text-align:center;position:relative;overflow:hidden}
 
         /* ══ 1 히어로 ══ */
         .c1{background:var(--bg1);overflow:hidden}
@@ -461,7 +460,7 @@
 
     <script>
         const c=document.getElementById('C'),ds=document.querySelectorAll('.dot');
-        c.addEventListener('scroll',()=>{const i=Math.round(c.scrollTop/innerHeight);ds.forEach((d,j)=>d.classList.toggle('active',j===i))});
+        c.addEventListener('scroll',()=>{const h=c.querySelector('.c').offsetHeight;const i=Math.round(c.scrollTop/h);ds.forEach((d,j)=>d.classList.toggle('active',j===i))});
         new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in-view')})},{root:c,threshold:.3}).observe=function(el){IntersectionObserver.prototype.observe.call(this,el)};
         const o=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in-view')})},{root:c,threshold:.3});
         document.querySelectorAll('.c').forEach(x=>o.observe(x));
