@@ -36,15 +36,11 @@
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   }
   .marquee-top { top: 0; }
-  .marquee-bottom { bottom: 0; }
 
   .marquee-track {
     display: flex;
     width: max-content;
     animation: marquee-scroll 90s linear infinite;
-  }
-  .marquee-bottom .marquee-track {
-    animation-direction: reverse;
   }
 
   @keyframes marquee-scroll {
@@ -332,8 +328,6 @@
   </a>
 </div>
 
-<!-- 하단 스크롤 배너 -->
-<div class="marquee-wrap marquee-bottom" id="marqueeBottom"></div>
 
 <script>
 (function() {
@@ -441,7 +435,6 @@
   }
 
   buildMarquee(document.getElementById('marqueeTop'));
-  buildMarquee(document.getElementById('marqueeBottom'));
 })();
 </script>
 </body>
