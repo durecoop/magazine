@@ -46,7 +46,8 @@ html, body {
   flex: 0 0 100vw; width: 100vw; height: 100%;
   scroll-snap-align: start;
   display: flex; flex-direction: column;
-  overflow-y: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* ========== SLIDE 0: INTRO ========== */
@@ -262,22 +263,24 @@ html, body {
 
 /* ========== MOBILE COMPACT ========== */
 @media (max-width: 767px) {
-  .product-img { height: 28vh; min-height: 140px; max-height: 240px; }
-  .product-img-wrap { height: 28vh; min-height: 140px; max-height: 240px; }
-  .product-body { padding: 14px 18px 14px; }
-  .product-type-tag { font-size: 12px; margin-bottom: 6px; padding: 3px 10px; }
-  .product-name { font-size: 24px; margin-bottom: 4px; }
-  .product-spec { font-size: 13px; }
-  .product-tagline { font-size: 14px; margin-bottom: 8px; }
-  .product-desc { font-size: 15px; line-height: 1.7; margin-bottom: 10px; }
-  .chips { margin-bottom: 10px; }
-  .chip { font-size: 12px; padding: 3px 10px; }
-  .price-row { margin-bottom: 8px; }
-  .price-row .now { font-size: 24px; }
-  .price-row .orig { font-size: 14px; }
-  .price-row .off { font-size: 13px; }
-  .schedule-box { font-size: 13px; padding: 8px 12px; margin-bottom: 10px; }
-  .btn { padding: 13px; font-size: 16px; }
+  .product-img { height: 24vh; min-height: 130px; max-height: 220px; }
+  .product-img-wrap { height: 24vh; min-height: 130px; max-height: 220px; }
+  .product-body { padding: 12px 18px 14px; }
+  .product-type-tag { font-size: 12px; margin-bottom: 4px; padding: 3px 10px; }
+  .product-name { font-size: 22px; margin-bottom: 3px; }
+  .product-spec { font-size: 12px; }
+  .product-tagline { font-size: 13px; margin-bottom: 6px; }
+  .product-desc { font-size: 14px; line-height: 1.65; margin-bottom: 8px; }
+  .chips { margin-bottom: 8px; gap: 4px; }
+  .chip { font-size: 11px; padding: 3px 9px; }
+  .price-row { margin-bottom: 6px; }
+  .price-row .now { font-size: 22px; }
+  .price-row .orig { font-size: 13px; }
+  .price-row .unit { font-size: 13px; }
+  .price-row .off { font-size: 12px; padding: 3px 8px; }
+  .schedule-box { font-size: 12px; padding: 7px 10px; margin-bottom: 8px; line-height: 1.6; }
+  .btn { padding: 12px; font-size: 15px; }
+  .product-spacer { display: none; }
   .slide-product-inner { padding-bottom: calc(50px + env(safe-area-inset-bottom)); }
 }
 
