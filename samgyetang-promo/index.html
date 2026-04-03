@@ -376,6 +376,30 @@ body {
   .photo-card-overlay p { font-size: 14px; }
 }
 
+/* ========== SECTION TITLE ACCENTS ========== */
+.title-accent {
+  background: linear-gradient(135deg, #e8a840, #c8872e);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  position: relative;
+}
+.title-accent::after {
+  content: '';
+  position: absolute; bottom: -4px; left: 0; width: 100%; height: 3px;
+  background: linear-gradient(90deg, #e8a840, rgba(200,135,46,0.1));
+  border-radius: 2px;
+}
+.title-accent-red {
+  background: linear-gradient(135deg, #e85040, #c83020);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  position: relative;
+}
+.title-accent-red::after {
+  content: '';
+  position: absolute; bottom: -4px; left: 0; width: 100%; height: 3px;
+  background: linear-gradient(90deg, #e85040, rgba(232,80,64,0.1));
+  border-radius: 2px;
+}
+
 /* ========== PAIRING SECTION ========== */
 .pairing-section {
   padding: 90px 5%;
@@ -759,7 +783,7 @@ body {
 
 <!-- ===== PAIRING ===== -->
 <section class="pairing-section" id="pairing">
-  <h2 class="pairing-title reveal">함께하면 더 든든한 한 상</h2>
+  <h2 class="pairing-title reveal">함께하면 더 <span class="title-accent">든든한 한 상</span></h2>
   <p class="pairing-sub reveal" style="transition-delay:0.1s;">삼계탕과 함께 즐기면 좋은 이번 주 기획전 생활재</p>
   <div class="pairing-grid">
     <a class="pairing-card reveal-scale" style="transition-delay:0.1s;" href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1652#book3" target="_blank">
@@ -803,7 +827,7 @@ body {
 
 <!-- ===== KIMCHI ===== -->
 <section class="kimchi-section" id="kimchi">
-  <h2 class="kimchi-title reveal">4월의 제철 봄김치</h2>
+  <h2 class="kimchi-title reveal">4월의 <span class="title-accent-red">제철 봄김치</span></h2>
   <p class="kimchi-sub reveal" style="transition-delay:0.1s;">알싸한 봄김치 한 젓가락이면 삼계탕이 더 맛있어집니다</p>
   <div class="kimchi-grid">
     <a class="kimchi-card reveal-scale" style="transition-delay:0.15s;" href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1652#book3" target="_blank">
