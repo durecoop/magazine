@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>두레생협 | 한마리 삼계탕</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;600;700;900&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  background: #2a2420;
+  color: #f0ece4;
+  overflow-x: hidden;
+  word-break: keep-all;
+}
+
+/* ========== WEEK BADGE ========== */
+.week-badge {
+  position: fixed; top: 24px; left: 24px; z-index: 100;
+  background: rgba(10,10,10,0.85); backdrop-filter: blur(16px);
+  padding: 10px 22px; border-radius: 30px;
+  font-size: 13px; font-weight: 600;
+  color: rgba(240,236,228,0.6);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.week-badge span { color: #c8872e; font-weight: 700; }
+
+/* ========== TIMELINE NAV ========== */
+.timeline-nav {
+  position: fixed; right: 24px; top: 50%; transform: translateY(-50%);
+  z-index: 100; display: flex; flex-direction: column; gap: 14px;
+}
+.timeline-dot {
+  width: 12px; height: 12px; border-radius: 50%;
+  background: rgba(255,255,255,0.12); border: 2px solid rgba(255,255,255,0.18);
+  cursor: pointer; transition: all 0.3s;
+}
+.timeline-dot.active {
+  background: #c8872e; border-color: #c8872e;
+  box-shadow: 0 0 14px rgba(200,135,46,0.6);
+}
+@media (max-width: 900px) { .timeline-nav { display: none; } }
+
+/* ========== REVEAL ANIMATION ========== */
+.reveal {
+  opacity: 0; transform: translateY(60px);
+  transition: all 1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-left {
+  opacity: 0; transform: translateX(-80px);
+  transition: all 1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-left.visible { opacity: 1; transform: translateX(0); }
+.reveal-right {
+  opacity: 0; transform: translateX(80px);
+  transition: all 1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-right.visible { opacity: 1; transform: translateX(0); }
+.reveal-scale {
+  opacity: 0; transform: scale(0.85);
+  transition: all 1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-scale.visible { opacity: 1; transform: scale(1); }
+
+/* ========== HERO ========== */
+.hero {
+  position: relative; height: 100vh; min-height: 700px;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  object-fit: cover; opacity: 0.3;
+}
+.hero-overlay {
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background:
+    linear-gradient(180deg, rgba(42,36,32,0.3) 0%, rgba(42,36,32,0.1) 40%, rgba(42,36,32,0.85) 100%),
+    radial-gradient(ellipse at 30% 50%, rgba(200,135,46,0.08), transparent 60%);
+  pointer-events: none;
+}
+
+/* Steam animation */
+.steam-container {
+  position: absolute; top: 10%; left: 50%; transform: translateX(-50%);
+  width: 300px; height: 400px; pointer-events: none; z-index: 1;
+}
+.steam {
+  position: absolute; bottom: 0;
+  width: 8px; border-radius: 50%;
+  background: rgba(255,255,255,0.06);
+  filter: blur(8px);
+  animation: steamRise 4s ease-out infinite;
+}
+@keyframes steamRise {
+  0% { transform: translateY(0) scaleX(1); opacity: 0; }
+  15% { opacity: 0.6; }
+  50% { transform: translateY(-150px) scaleX(2.5); opacity: 0.3; }
+  100% { transform: translateY(-300px) scaleX(4); opacity: 0; }
+}
+
+.hero-inner {
+  position: relative; z-index: 2;
+  display: flex; align-items: center; gap: 60px;
+  max-width: 1200px; width: 100%; padding: 0 5%;
+}
+.hero-text { flex: 1; }
+.hero-badge {
+  display: inline-block; padding: 8px 20px; border-radius: 24px;
+  font-size: 14px; font-weight: 700; margin-bottom: 20px;
+  background: rgba(200,135,46,0.12); color: #e8a840;
+  border: 1px solid rgba(200,135,46,0.2);
+  animation: badgePulse 2s ease-in-out infinite;
+}
+@keyframes badgePulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(200,135,46,0.3); }
+  50% { box-shadow: 0 0 0 8px rgba(200,135,46,0); }
+}
+.hero-title {
+  font-size: clamp(32px, 5vw, 56px); font-weight: 900;
+  line-height: 1.3; margin-bottom: 20px;
+}
+.hero-title .warm {
+  background: linear-gradient(135deg, #e8a840, #c8872e);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.hero-title .golden {
+  background: linear-gradient(135deg, #ffd700, #daa520);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.hero-title em {
+  font-style: normal;
+  background: linear-gradient(135deg, #c8872e, #a06820);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.hero-sub {
+  font-size: clamp(15px, 1.8vw, 18px); font-weight: 300;
+  line-height: 1.8; color: rgba(240,236,228,0.6);
+  margin-bottom: 24px;
+}
+.hero-price-area { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.hero-discount-rate {
+  display: inline-block; padding: 8px 18px;
+  font-size: 20px; font-weight: 900; color: #fff;
+  background: #e03020; border-radius: 10px;
+}
+.hero-discount {
+  display: inline-block; padding: 14px 30px;
+  font-size: 26px; font-weight: 900; color: #fff;
+  background: rgba(232,168,64,0.15);
+  border: 1px solid rgba(232,168,64,0.3);
+  border-radius: 14px;
+  backdrop-filter: blur(8px);
+  position: relative; overflow: hidden;
+  animation: priceGlow 2.5s ease-in-out infinite;
+}
+@keyframes priceGlow {
+  0%, 100% { box-shadow: 0 0 12px rgba(232,168,64,0.15); }
+  50% { box-shadow: 0 0 24px rgba(232,168,64,0.35); }
+}
+.hero-discount::after {
+  content: '';
+  position: absolute; top: 0; left: -100%;
+  width: 60%; height: 100%;
+  background: linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.2) 50%, transparent 70%);
+  animation: shimmer 3s ease-in-out infinite;
+}
+@keyframes shimmer {
+  0% { left: -100%; }
+  50%, 100% { left: 150%; }
+}
+.hero-discount small {
+  font-size: 16px; font-weight: 400; color: rgba(255,220,150,0.7);
+}
+
+.hero-product {
+  position: relative; flex-shrink: 0;
+}
+.hero-product-frame {
+  width: 320px; height: 320px; border-radius: 50%; overflow: hidden;
+  border: 3px solid rgba(255,255,255,0.08);
+  box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 0 100px rgba(200,135,46,0.08);
+}
+.hero-product-frame img {
+  width: 100%; height: 100%; object-fit: cover;
+}
+
+/* Floating ingredients */
+.float-ingredient {
+  position: absolute; width: 60px; height: 60px;
+  border-radius: 50%; overflow: hidden;
+  border: 2px solid rgba(255,255,255,0.06);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 32px; background: rgba(20,15,10,0.6);
+  backdrop-filter: blur(8px);
+}
+.float-i1 {
+  top: -20px; right: -10px;
+  animation: miniFloat1 4s ease-in-out infinite;
+}
+.float-i2 {
+  bottom: 10px; left: -30px;
+  animation: miniFloat2 5s ease-in-out infinite;
+}
+.float-i3 {
+  top: 50%; right: -40px;
+  animation: miniFloat1 4.5s ease-in-out infinite;
+  animation-delay: -1s;
+}
+@keyframes miniFloat1 {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-15px) rotate(10deg); }
+}
+@keyframes miniFloat2 {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(-8deg); }
+}
+
+.scroll-hint {
+  position: absolute; bottom: 40px; left: 50%;
+  transform: translateX(-50%); text-align: center;
+  animation: scrollBounce 2s ease-in-out infinite;
+  color: rgba(255,255,255,0.35); font-size: 13px; z-index: 2;
+}
+.scroll-hint .arrow { display: block; font-size: 24px; margin-top: 4px; }
+@keyframes scrollBounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(10px); }
+}
+
+@media (max-width: 900px) {
+  .week-badge { top: 12px; left: 12px; padding: 8px 16px; font-size: 12px; }
+  .hero { min-height: auto; height: auto; padding: 80px 0 80px; }
+  .hero-inner { flex-direction: column; text-align: center; gap: 32px; padding: 0 6%; }
+  .hero-product { order: -1; }
+  .hero-product-frame { width: 200px; height: 200px; }
+  .float-ingredient { display: none; }
+  .hero-badge { font-size: 15px; padding: 10px 22px; }
+  .hero-title { font-size: 36px; margin-bottom: 16px; }
+  .hero-sub { font-size: 17px; margin-bottom: 20px; }
+  .hero-price-area { justify-content: center; gap: 12px; }
+  .hero-discount-rate { font-size: 22px; padding: 10px 20px; }
+  .hero-discount { font-size: 28px; }
+  .hero-discount small { font-size: 16px; }
+  .scroll-hint { display: none; }
+}
+
+/* ========== STORY SECTIONS ========== */
+.story-section {
+  position: relative; min-height: 100vh;
+  display: flex; align-items: center;
+  padding: 100px 5%; perspective: 1000px; overflow: hidden;
+}
+
+.story-row {
+  display: flex; align-items: center; gap: 70px;
+  max-width: 1200px; margin: 0 auto; width: 100%;
+}
+.story-row.reverse { flex-direction: row-reverse; }
+
+.story-card { max-width: 520px; position: relative; z-index: 2; flex: 1; }
+.story-number {
+  font-size: 140px; font-weight: 900; opacity: 0.04;
+  position: absolute; top: -50px; left: -30px; line-height: 1;
+  pointer-events: none;
+}
+.story-label {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 13px; font-weight: 700; letter-spacing: 3px;
+  margin-bottom: 18px; padding: 6px 18px; border-radius: 20px;
+}
+.label-ingredient { background: rgba(200,135,46,0.15); color: #e8a840; border: 1px solid rgba(200,135,46,0.25); }
+.label-tradition { background: rgba(180,80,40,0.1); color: #e08850; border: 1px solid rgba(180,80,40,0.18); }
+.label-trust { background: rgba(74,138,40,0.1); color: #7cc840; border: 1px solid rgba(74,138,40,0.18); }
+
+.story-title {
+  font-size: clamp(28px, 3.8vw, 44px); font-weight: 900;
+  line-height: 1.35; margin-bottom: 24px;
+}
+.story-desc {
+  font-size: clamp(15px, 1.6vw, 17px); font-weight: 300;
+  line-height: 1.9; color: rgba(240,236,228,0.7);
+}
+.story-desc strong { color: #f0ece4; font-weight: 600; }
+
+/* ===== Photo 3D Cards ===== */
+.story-visual { flex: 1; display: flex; justify-content: center; align-items: center; }
+
+.photo-3d-card {
+  position: relative; border-radius: 24px; overflow: hidden;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.6s;
+  cursor: default;
+}
+.photo-3d-card img {
+  display: block; width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.6s;
+}
+.photo-3d-card:hover img { transform: scale(1.05); }
+
+.photo-card-overlay {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 30px; z-index: 2;
+  background: linear-gradient(transparent, rgba(0,0,0,0.8));
+}
+.photo-card-overlay .tag {
+  display: inline-block; font-size: 11px; font-weight: 700;
+  letter-spacing: 2px; padding: 4px 12px; border-radius: 12px;
+  margin-bottom: 8px;
+}
+.photo-card-overlay h3 {
+  font-size: 20px; font-weight: 700; margin-bottom: 4px;
+}
+.photo-card-overlay p {
+  font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.5;
+}
+
+.card-ingredient {
+  width: 380px; height: 480px;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.5), 0 0 80px rgba(200,135,46,0.08);
+  border: 1px solid rgba(200,135,46,0.15);
+}
+.card-ingredient .tag { background: rgba(200,135,46,0.4); color: #ffe0a0; }
+
+.card-product {
+  width: 380px; height: 380px;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.5), 0 0 80px rgba(180,80,40,0.08);
+  border: 1px solid rgba(180,80,40,0.12);
+}
+.card-product .tag { background: rgba(180,80,40,0.4); color: #ffc0a0; }
+
+.card-trust {
+  width: 380px; height: 480px;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.5), 0 0 80px rgba(74,138,40,0.08);
+  border: 1px solid rgba(74,138,40,0.12);
+}
+.card-trust .tag { background: rgba(74,138,40,0.4); color: #b0ff80; }
+
+/* Section backgrounds */
+.section-ingredient {
+  background: linear-gradient(180deg, #2a2420 0%, #382e24 50%, #3e3428 100%);
+}
+.section-ingredient .bg-texture {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 50%;
+  background:
+    radial-gradient(ellipse at 20% 100%, rgba(200,135,46,0.12), transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(180,120,40,0.1), transparent 40%);
+  pointer-events: none;
+}
+.section-tradition {
+  background: linear-gradient(180deg, #3e3428 0%, #362620 50%, #32241e 100%);
+}
+.section-trust {
+  background: linear-gradient(180deg, #32241e 0%, #2c3224 50%, #283628 100%);
+}
+
+@media (max-width: 900px) {
+  .story-section { min-height: auto; padding: 70px 6%; }
+  .story-row, .story-row.reverse {
+    flex-direction: column; text-align: center; gap: 32px;
+  }
+  .story-number { display: none; }
+  .story-label { font-size: 14px; padding: 8px 20px; margin-bottom: 14px; }
+  .story-title { font-size: 30px; margin-bottom: 18px; }
+  .story-desc { font-size: 17px; line-height: 1.8; }
+  .card-ingredient, .card-product, .card-trust { width: 100%; max-width: 340px; height: auto; }
+  .card-ingredient img, .card-trust img { height: 340px; }
+  .card-product img { height: 280px; }
+  .photo-card-overlay { padding: 20px; }
+  .photo-card-overlay h3 { font-size: 18px; }
+  .photo-card-overlay p { font-size: 14px; }
+}
+
+/* ========== PAIRING SECTION ========== */
+.pairing-section {
+  padding: 90px 5%;
+  background: linear-gradient(180deg, #283628 0%, #2a2420 100%);
+  overflow: hidden;
+}
+.pairing-title {
+  text-align: center;
+  font-size: clamp(24px, 3.5vw, 40px); font-weight: 900;
+  margin-bottom: 8px;
+}
+.pairing-sub {
+  text-align: center;
+  font-size: clamp(15px, 1.6vw, 17px); color: rgba(240,236,228,0.5);
+  margin-bottom: 50px;
+}
+.pairing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.pairing-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px;
+  padding: 28px 20px;
+  text-align: center;
+  transition: all 0.4s cubic-bezier(0.23,1,0.32,1);
+  cursor: pointer;
+  text-decoration: none;
+  color: #f0ece4;
+  display: block;
+}
+.pairing-card:hover {
+  background: rgba(200,135,46,0.08);
+  border-color: rgba(200,135,46,0.25);
+  transform: translateY(-6px);
+}
+.pairing-img {
+  width: 100%; aspect-ratio: 1; border-radius: 14px;
+  object-fit: cover; margin-bottom: 14px;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.pairing-name {
+  font-size: 17px; font-weight: 700; margin-bottom: 4px;
+}
+.pairing-desc {
+  font-size: 13px; color: rgba(240,236,228,0.45); line-height: 1.5;
+  margin-bottom: 10px;
+}
+.pairing-price {
+  font-size: 17px; font-weight: 900; color: #f0ece4;
+  margin-bottom: 6px;
+}
+.pairing-price .original {
+  font-size: 13px; font-weight: 400; color: rgba(240,236,228,0.3);
+  text-decoration: line-through; margin-right: 6px;
+}
+.pairing-price .discount {
+  font-size: 13px; font-weight: 800; color: #e03020;
+  margin-right: 4px;
+}
+
+@media (max-width: 900px) {
+  .pairing-section { padding: 70px 6%; }
+  .pairing-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+  .pairing-card { padding: 22px 14px; }
+  .pairing-img { border-radius: 12px; }
+  .pairing-name { font-size: 16px; }
+  .pairing-title { font-size: 28px; }
+  .pairing-sub { font-size: 16px; margin-bottom: 36px; }
+}
+
+/* ========== KIMCHI SECTION ========== */
+.kimchi-section {
+  padding: 90px 5%;
+  background: linear-gradient(180deg, #2a2420 0%, #2e2822 50%, #2a2420 100%);
+  overflow: hidden;
+}
+.kimchi-title {
+  text-align: center;
+  font-size: clamp(24px, 3.5vw, 40px); font-weight: 900;
+  margin-bottom: 8px;
+}
+.kimchi-sub {
+  text-align: center;
+  font-size: clamp(15px, 1.6vw, 17px); color: rgba(240,236,228,0.5);
+  margin-bottom: 50px;
+}
+.kimchi-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  max-width: 700px;
+  margin: 0 auto;
+}
+.kimchi-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px;
+  padding: 28px 20px;
+  text-align: center;
+  transition: all 0.4s cubic-bezier(0.23,1,0.32,1);
+  cursor: pointer;
+  text-decoration: none;
+  color: #f0ece4;
+  display: block;
+}
+.kimchi-card:hover {
+  background: rgba(180,60,40,0.08);
+  border-color: rgba(180,60,40,0.25);
+  transform: translateY(-6px);
+}
+.kimchi-img {
+  width: 100%; aspect-ratio: 1; border-radius: 14px;
+  object-fit: cover; margin-bottom: 14px;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.kimchi-name {
+  font-size: 18px; font-weight: 700; margin-bottom: 4px;
+}
+.kimchi-desc {
+  font-size: 14px; color: rgba(240,236,228,0.45); line-height: 1.5;
+  margin-bottom: 10px;
+}
+.kimchi-price {
+  font-size: 18px; font-weight: 900; color: #f0ece4;
+}
+.kimchi-price .original {
+  font-size: 13px; font-weight: 400; color: rgba(240,236,228,0.3);
+  text-decoration: line-through; margin-right: 6px;
+}
+.kimchi-price .discount {
+  font-size: 13px; font-weight: 800; color: #e03020;
+  margin-right: 4px;
+}
+
+@media (max-width: 900px) {
+  .kimchi-section { padding: 70px 6%; }
+  .kimchi-grid { gap: 14px; }
+  .kimchi-card { padding: 22px 14px; }
+  .kimchi-title { font-size: 28px; }
+  .kimchi-sub { font-size: 16px; margin-bottom: 36px; }
+  .kimchi-name { font-size: 17px; }
+}
+
+/* ========== CTA SECTION ========== */
+.cta-section {
+  min-height: 100vh; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center; padding: 80px 20px;
+  position: relative; overflow: hidden;
+}
+@media (max-width: 900px) {
+  .cta-section { min-height: auto; padding: 80px 6%; }
+  .cta-title { font-size: 32px; }
+  .cta-sub { font-size: 17px; margin-bottom: 32px; }
+  .cta-price-original { font-size: 17px; }
+  .cta-price-sale { font-size: 34px; }
+  .cta-button { padding: 18px 48px; font-size: 20px; width: 100%; max-width: 340px; }
+  .cta-notice { font-size: 14px; }
+  .footer { font-size: 14px; padding: 32px 20px; }
+}
+.cta-bg {
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(ellipse at 50% 60%, #4a3828 0%, #2a2420 70%);
+}
+.cta-bg-img {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px; height: 500px; border-radius: 50%;
+  overflow: hidden; opacity: 0.08;
+  animation: ctaBgPulse 6s ease-in-out infinite;
+}
+.cta-bg-img img { width: 100%; height: 100%; object-fit: cover; }
+@keyframes ctaBgPulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.08; }
+  50% { transform: translate(-50%, -50%) scale(1.15); opacity: 0.12; }
+}
+
+.cta-title {
+  font-size: clamp(28px, 5vw, 52px); font-weight: 900;
+  line-height: 1.3; margin-bottom: 16px; z-index: 2;
+}
+.cta-title .highlight {
+  background: linear-gradient(135deg, #e8a840, #c8872e);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.cta-sub {
+  font-size: clamp(15px, 2vw, 20px);
+  color: rgba(240,236,228,0.55); margin-bottom: 48px; line-height: 1.7; z-index: 2;
+}
+.cta-price-info {
+  z-index: 2; margin-bottom: 36px;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+}
+.cta-price-original {
+  font-size: 18px; color: rgba(240,236,228,0.3);
+  text-decoration: line-through;
+}
+.cta-price-sale {
+  font-size: 36px; font-weight: 900; color: #e8a840;
+}
+.cta-price-sale small {
+  font-size: 16px; font-weight: 400; color: rgba(240,236,228,0.5);
+}
+.cta-button {
+  display: inline-block; padding: 20px 64px;
+  font-size: 20px; font-weight: 700; color: #fff;
+  background: linear-gradient(135deg, #c8872e, #a06820);
+  border: none; border-radius: 60px; cursor: pointer;
+  text-decoration: none; z-index: 2;
+  box-shadow: 0 8px 0 #7a5018, 0 12px 40px rgba(200,135,46,0.4);
+  transition: all 0.15s ease; transform: translateY(0);
+}
+.cta-button:hover {
+  background: linear-gradient(135deg, #daa040, #c8872e);
+  box-shadow: 0 8px 0 #7a5018, 0 16px 60px rgba(200,135,46,0.6);
+}
+.cta-button:active {
+  transform: translateY(4px);
+  box-shadow: 0 4px 0 #7a5018, 0 6px 20px rgba(200,135,46,0.4);
+}
+.cta-notice {
+  margin-top: 40px; font-size: 14px;
+  color: rgba(240,236,228,0.3); z-index: 2;
+}
+
+/* ========== FOOTER ========== */
+.footer {
+  text-align: center; padding: 40px 20px;
+  font-size: 13px; color: rgba(240,236,228,0.2);
+  border-top: 1px solid rgba(255,255,255,0.04);
+}
+</style>
+</head>
+<body>
+
+<!-- Badge & Nav -->
+<div class="week-badge">두레생협 <span>보양식 기획전</span></div>
+<nav class="timeline-nav">
+  <div class="timeline-dot active" data-target="hero"></div>
+  <div class="timeline-dot" data-target="ingredient"></div>
+  <div class="timeline-dot" data-target="tradition"></div>
+  <div class="timeline-dot" data-target="trust"></div>
+  <div class="timeline-dot" data-target="pairing"></div>
+  <div class="timeline-dot" data-target="kimchi"></div>
+  <div class="timeline-dot" data-target="cta"></div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="hero">
+  <!-- hero bg: warm gradient only, no product image -->
+  <div class="hero-bg" style="background:radial-gradient(ellipse at 50% 60%, rgba(200,135,46,0.15), transparent 70%);"></div>
+  <div class="hero-overlay"></div>
+
+  <!-- Steam effects -->
+  <div class="steam-container">
+    <div class="steam" style="left:30%; height:60px; animation-delay:0s;"></div>
+    <div class="steam" style="left:45%; height:50px; animation-delay:0.8s;"></div>
+    <div class="steam" style="left:60%; height:55px; animation-delay:1.6s;"></div>
+    <div class="steam" style="left:38%; height:45px; animation-delay:2.4s;"></div>
+    <div class="steam" style="left:55%; height:65px; animation-delay:3.2s;"></div>
+  </div>
+
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-badge">한국인의 보양식</div>
+      <h1 class="hero-title">
+        <span class="warm">진하고</span> <span class="golden">담백한</span><br>
+        <em>한마리 삼계탕</em>
+      </h1>
+      <p class="hero-sub">
+        국산 닭 한마리와 수삼, 한방재료로 푹 고아 낸<br>
+        두레생협만의 든든한 보양식입니다.
+      </p>
+      <div class="hero-price-area">
+        <span class="hero-discount-rate">21%</span>
+        <div class="hero-discount"><small>이번 주만</small> 11,000원</div>
+      </div>
+    </div>
+
+    <div class="hero-product">
+      <div class="hero-product-frame">
+        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/54729A.png" alt="한마리 삼계탕">
+      </div>
+      <div class="float-ingredient float-i1">🐔</div>
+      <div class="float-ingredient float-i2">🌿</div>
+      <div class="float-ingredient float-i3">🌰</div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    스크롤하여 이야기를 만나보세요
+    <span class="arrow">&#8595;</span>
+  </div>
+</section>
+
+<!-- ===== SECTION 1: 원재료 ===== -->
+<section class="story-section section-ingredient" id="ingredient">
+  <div class="bg-texture"></div>
+  <div class="story-row">
+    <div class="story-card reveal-left">
+      <div class="story-number">01</div>
+      <div class="story-label label-ingredient">원재료</div>
+      <h2 class="story-title">국산 <span style="color:#e8a840;">무항생제 닭</span><br>한 마리 통째로</h2>
+      <p class="story-desc">
+        항생제 없이 건강하게 키운 <strong>국산 닭 한 마리</strong>를 통째로.<br>
+        여기에 <strong>유기농 찹쌀</strong>까지 꽉 채워 넣었습니다.<br>
+        재료부터 다른, 두레생협의 삼계탕입니다.
+      </p>
+    </div>
+    <div class="story-visual reveal-right">
+      <div class="photo-3d-card card-ingredient">
+        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/54729C.jpg" alt="삼계탕 원재료">
+        <div class="photo-card-overlay">
+          <span class="tag">무항생제</span>
+          <h3>국산 닭 한 마리</h3>
+          <p>항생제 없이 건강하게 키운 국내산 닭</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 2: 전통 보양식 ===== -->
+<section class="story-section section-tradition" id="tradition">
+  <div class="story-row reverse">
+    <div class="story-card reveal-right">
+      <div class="story-number">02</div>
+      <div class="story-label label-tradition">보양</div>
+      <h2 class="story-title"><span style="color:#e08850;">수삼, 황기, 당귀</span><br>전통 한방의 깊은 맛</h2>
+      <p class="story-desc">
+        수삼, 대추, 밤, 황기, 당귀, 은행까지.<br>
+        <strong>국산 한방재료 6가지</strong>가 어우러져<br>
+        한 그릇이면 온몸이 따뜻해지는 보양식입니다.
+      </p>
+    </div>
+    <div class="story-visual reveal-left">
+      <div class="photo-3d-card card-product">
+        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/webAdmin/shop/IDContent/Upload/22(20).gif" alt="삼계탕 조리">
+        <div class="photo-card-overlay">
+          <span class="tag">전통 보양식</span>
+          <h3>깊고 진한 육수</h3>
+          <p>한방재료가 어우러진 담백한 맛</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 3: 간편 조리 ===== -->
+<section class="story-section section-trust" id="trust">
+  <div class="story-row">
+    <div class="story-card reveal-left">
+      <div class="story-number">03</div>
+      <div class="story-label label-trust">간편</div>
+      <h2 class="story-title">냄비 하나면<br><span style="color:#7cc840;">보양식 완성</span></h2>
+      <p class="story-desc">
+        <strong>봉지를 뜯어 냄비에 넣고 끓이기만 하면</strong> 완성.<br>
+        닭, 찹쌀, 한방재료가 이미 다 들어있어<br>
+        따로 준비할 것이 없습니다. 900g, 넉넉한 한 그릇.
+      </p>
+    </div>
+    <div class="story-visual reveal-right">
+      <div class="photo-3d-card card-trust">
+        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/webAdmin/shop/IDContent/Upload/11(35).gif" alt="삼계탕 조리">
+        <div class="photo-card-overlay">
+          <span class="tag">간편 조리</span>
+          <h3>끓이기만 하면 완성</h3>
+          <p>냄비 하나로 든든한 보양식 한 그릇</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PAIRING ===== -->
+<section class="pairing-section" id="pairing">
+  <h2 class="pairing-title reveal">함께 하면 더 든든한 한 상</h2>
+  <p class="pairing-sub reveal" style="transition-delay:0.1s;">삼계탕과 함께 즐기면 좋은 이번 주 기획전 생활재</p>
+  <div class="pairing-grid">
+    <a class="pairing-card reveal-scale" style="transition-delay:0.1s;" href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1652#book3" target="_blank">
+      <img class="pairing-img" src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56259C.jpg" alt="토종닭">
+      <div class="pairing-name">토종닭 1.4kg(냉동)</div>
+      <div class="pairing-desc">직접 삼계탕을 끓이고 싶다면</div>
+      <div class="pairing-price"><span class="discount">31%</span><span class="original">15,900원</span>11,000원</div>
+    </a>
+    <a class="pairing-card reveal-scale" style="transition-delay:0.15s;" href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1652#book3" target="_blank">
+      <img class="pairing-img" src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/48370C.png" alt="유기농 찹쌀누룽지">
+      <div class="pairing-name">유기농 찹쌀누룽지</div>
+      <div class="pairing-desc">삼계탕 육수에 말아 먹는 별미</div>
+      <div class="pairing-price"><span class="discount">11%</span><span class="original">4,600원</span>4,100원</div>
+    </a>
+    <a class="pairing-card reveal-scale" style="transition-delay:0.2s;" href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1652#book3" target="_blank">
+      <img class="pairing-img" src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/43397C.png" alt="참옻진액">
+      <div class="pairing-name">참옻진액 1.5L</div>
+      <div class="pairing-desc">삼계탕에 한 포 넣으면 깊은 풍미</div>
+      <div class="pairing-price"><span class="discount">10%</span><span class="original">10,400원</span>9,400원</div>
+    </a>
+    <a class="pairing-card reveal-scale" style="transition-delay:0.25s;" href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1652#book3" target="_blank">
+      <img class="pairing-img" src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/186C.jpg" alt="쪽파">
+      <div class="pairing-name">쪽파 300g(무농약)</div>
+      <div class="pairing-desc">송송 썰어 올리면 향이 살아나요</div>
+      <div class="pairing-price">4,400원</div>
+    </a>
+    <a class="pairing-card reveal-scale" style="transition-delay:0.3s;" href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1652#book3" target="_blank">
+      <img class="pairing-img" src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/16653C.jpg" alt="부추">
+      <div class="pairing-name">부추 180g(무농약)</div>
+      <div class="pairing-desc">부추겉절이와 삼계탕은 환상 궁합</div>
+      <div class="pairing-price"><span class="discount">19%</span><span class="original">3,700원</span>3,000원</div>
+    </a>
+    <a class="pairing-card reveal-scale" style="transition-delay:0.35s;" href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1652#book3" target="_blank">
+      <img class="pairing-img" src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/37942C.jpg" alt="미나리">
+      <div class="pairing-name">미나리 200g(무농약)</div>
+      <div class="pairing-desc">한 줌 넣으면 개운한 맛 완성</div>
+      <div class="pairing-price"><span class="discount">13%</span><span class="original">4,600원</span>4,000원</div>
+    </a>
+  </div>
+</section>
+
+<!-- ===== KIMCHI ===== -->
+<section class="kimchi-section" id="kimchi">
+  <h2 class="kimchi-title reveal">삼계탕과 더 어울리는,<br>4월의 제철 봄김치</h2>
+  <p class="kimchi-sub reveal" style="transition-delay:0.1s;">알싸한 봄김치 한 젓가락이면 삼계탕이 더 맛있어집니다</p>
+  <div class="kimchi-grid">
+    <a class="kimchi-card reveal-scale" style="transition-delay:0.15s;" href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1652#book3" target="_blank">
+      <img class="kimchi-img" src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59429C.jpg" alt="돌산갓김치">
+      <div class="kimchi-name">돌산갓김치 1kg</div>
+      <div class="kimchi-desc">알싸하면서 감칠맛 나는 봄 별미</div>
+      <div class="kimchi-price"><span class="discount">6%</span><span class="original">10,000원</span>9,400원</div>
+    </a>
+    <a class="kimchi-card reveal-scale" style="transition-delay:0.25s;" href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1652#book3" target="_blank">
+      <img class="kimchi-img" src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59420C.jpg" alt="풋마늘대김치">
+      <div class="kimchi-name">풋마늘대김치 500g</div>
+      <div class="kimchi-desc">아삭한 식감, 삼계탕의 환상 짝꿍</div>
+      <div class="kimchi-price"><span class="discount">6%</span><span class="original">10,500원</span>9,900원</div>
+    </a>
+  </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section class="cta-section" id="cta">
+  <div class="cta-bg"></div>
+  <div class="cta-bg-img">
+    <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/54729A.png" alt="">
+  </div>
+  <h2 class="cta-title reveal">
+    올 봄에는,<br>
+    <span class="highlight">든든한 삼계탕</span> 한 그릇으로<br>
+    기운 차리세요
+  </h2>
+  <p class="cta-sub reveal" style="transition-delay:0.15s;">
+    국산 무항생제 닭과 한방재료로 푹 고아 낸<br>
+    두레생협 한마리 삼계탕
+  </p>
+  <div class="cta-price-info reveal" style="transition-delay:0.2s;">
+    <span class="hero-discount-rate" style="font-size:24px;">21%</span>
+    <span class="cta-price-sale">이번 주만 11,000원</span>
+  </div>
+  <a class="cta-button reveal" style="transition-delay:0.3s;" href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=54729&returnPlanNo=0">
+    지금 주문하기
+  </a>
+</section>
+
+<div class="footer">두레생협 조합원 상담실 1661-5110</div>
+
+<script>
+// Scroll reveal
+const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+revealEls.forEach(el => observer.observe(el));
+
+// Timeline nav
+const sections = ['hero','ingredient','tradition','trust','pairing','kimchi','cta'];
+const dots = document.querySelectorAll('.timeline-dot');
+dots.forEach(dot => {
+  dot.addEventListener('click', () => {
+    document.getElementById(dot.dataset.target).scrollIntoView({ behavior: 'smooth' });
+  });
+});
+window.addEventListener('scroll', () => {
+  let current = 0;
+  sections.forEach((id, i) => {
+    const sec = document.getElementById(id);
+    if (sec && sec.getBoundingClientRect().top <= window.innerHeight * 0.5) current = i;
+  });
+  dots.forEach((d, i) => d.classList.toggle('active', i === current));
+});
+
+// 3D tilt on photo cards
+document.querySelectorAll('.photo-3d-card').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const rect = card.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    const dx = (e.clientX - cx) / (rect.width / 2);
+    const dy = (e.clientY - cy) / (rect.height / 2);
+    card.style.transform = `rotateY(${dx * 10}deg) rotateX(${-dy * 6}deg) scale(1.02)`;
+    card.style.boxShadow = `${-dx*20}px ${dy*20}px 60px rgba(0,0,0,0.5), 0 0 80px rgba(200,135,46,0.06)`;
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = '';
+    card.style.boxShadow = '';
+  });
+});
+
+</script>
+</body>
+</html>
