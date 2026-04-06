@@ -2,422 +2,457 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>두레생협 화요 타임세일 | 후브락스 사과</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>화요특가 — 두레생협</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;600;700;900&family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800;900&display=swap');
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #f5f0eb;
+  --card: #ffffff;
+  --text: #1a1a1a;
+  --sub: #888;
+  --accent: #8b2c2c;
+  --accent-light: #a83838;
+  --warm: #6b4c3b;
+  --green: #4a7c59;
+}
+
 body {
-  font-family: 'Noto Sans KR', sans-serif;
-  background: #fdf8f4;
-  color: #2a2a2a;
-  overflow-x: hidden;
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--bg);
+  color: var(--text);
   word-break: keep-all;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  letter-spacing: -0.3px;
 }
 
-/* ===== TOP BAR ===== */
-.top-bar {
-  background: linear-gradient(90deg, #e84430, #ff6040, #e84430);
-  background-size: 200% 100%;
-  animation: barSlide 3s linear infinite;
-  text-align: center;
-  padding: 10px 16px;
-  font-size: 13px;
-  font-weight: 700;
-  color: #fff;
-  letter-spacing: 1px;
-  position: sticky; top: 0; z-index: 100;
-}
-@keyframes barSlide {
-  0% { background-position: 0% 0; }
-  100% { background-position: 200% 0; }
-}
-
-/* ===== HERO ===== */
+/* HERO */
 .hero {
-  padding: 48px 20px 40px;
+  min-height: 44vh;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
   text-align: center;
+  padding: 56px 24px 48px;
+  background: linear-gradient(160deg, #2d1118 0%, #4a1a25 40%, #2d1118 100%);
   position: relative;
   overflow: hidden;
-  background: linear-gradient(180deg, #fdf8f4 0%, #fff5ee 100%);
 }
-.sale-tag {
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: radial-gradient(ellipse at 30% 50%, rgba(120,30,50,0.2) 0%, transparent 60%),
+              radial-gradient(ellipse at 70% 60%, rgba(180,50,70,0.1) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.hero::after {
+  content: '화요특가';
+  position: absolute;
+  font-size: 140px; font-weight: 900;
+  color: rgba(255,255,255,0.03);
+  letter-spacing: -6px;
+  white-space: nowrap;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%) rotate(-8deg);
+  pointer-events: none;
+}
+
+.hero-badge {
   display: inline-flex; align-items: center; gap: 8px;
-  background: rgba(232,68,48,0.08);
-  border: 1px solid rgba(232,68,48,0.2);
-  border-radius: 24px;
-  padding: 8px 20px;
-  font-size: 14px; font-weight: 700;
-  color: #e84430;
+  font-size: 20px; color: rgba(255,255,255,0.5);
+  font-weight: 500; letter-spacing: 2px;
   margin-bottom: 16px;
-  animation: tagPulse 2s ease-in-out infinite;
+  opacity: 0; animation: fadeUp .5s .1s ease forwards;
 }
-.sale-tag .dot {
-  width: 8px; height: 8px; border-radius: 50%;
-  background: #e84430;
-  animation: dotBlink 1s ease-in-out infinite;
-}
-@keyframes dotBlink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.3; }
-}
-@keyframes tagPulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(232,68,48,0.15); }
-  50% { box-shadow: 0 0 0 8px rgba(232,68,48,0); }
+
+.hero-badge::before, .hero-badge::after {
+  content: '';
+  width: 24px; height: 1px;
+  background: rgba(255,255,255,0.3);
 }
 
 .hero-date {
-  font-size: 15px; color: #555;
-  margin-bottom: 6px; font-weight: 500;
-}
-.hero-title {
-  font-size: clamp(40px, 10vw, 64px);
-  font-weight: 900; line-height: 1.3;
-  margin-bottom: 4px;
-  color: #1a1a1a;
-}
-.hero-title em {
-  font-style: normal; color: #e84430;
-}
-.hero-title .percent {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.3em;
-  color: #e84430;
-  letter-spacing: 2px;
-}
-.hero-title .sparkle {
-  position: relative;
-  display: inline-block;
-  animation: sparkleGlow 1.5s ease-in-out infinite;
-}
-.sparkle::before, .sparkle::after {
-  content: '✦';
-  position: absolute;
-  font-size: 0.35em;
-  color: #ffb800;
-  animation: sparkleStar 1.5s ease-in-out infinite;
-}
-.sparkle::before { top: -8px; left: -6px; animation-delay: 0s; }
-.sparkle::after { top: -4px; right: -10px; animation-delay: 0.5s; }
-@keyframes sparkleGlow {
-  0%, 100% { color: #2a2a2a; text-shadow: none; }
-  50% { color: #e84430; text-shadow: 0 0 12px rgba(255,184,0,0.4); }
-}
-@keyframes sparkleStar {
-  0%, 100% { opacity: 0; transform: scale(0.5) rotate(0deg); }
-  50% { opacity: 1; transform: scale(1.2) rotate(20deg); }
-}
-.hero-week {
-  font-size: 13px; color: #bbb;
-  margin-bottom: 24px;
+  font-size: 26px; color: rgba(255,255,255,0.7);
+  font-weight: 600; letter-spacing: 0.5px;
+  margin-bottom: 10px;
+  opacity: 0; animation: fadeUp .5s .15s ease forwards;
 }
 
-/* ===== PRODUCT CARD ===== */
-.product-card {
-  max-width: 420px;
-  margin: 0 auto 40px;
-  background: #fff;
-  border: 1px solid rgba(0,0,0,0.06);
-  border-radius: 24px;
-  overflow: hidden;
-  transition: transform 0.3s, box-shadow 0.3s;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-}
-.product-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(0,0,0,0.1);
-}
-
-.product-img {
-  width: 100%; aspect-ratio: 1/1;
-  overflow: hidden; position: relative;
-  background: #f9f9f9;
-}
-.product-img img {
-  width: 100%; height: 100%; object-fit: cover;
-  transition: transform 0.5s;
-}
-.product-card:hover .product-img img { transform: scale(1.04); }
-
-.discount-badge {
-  position: absolute; top: 16px; left: 16px;
-  background: #e84430;
+.hero h1 {
+  font-size: 80px; font-weight: 900;
   color: #fff;
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 28px; letter-spacing: 1px;
-  padding: 6px 16px;
-  border-radius: 12px;
-  box-shadow: 0 4px 16px rgba(232,68,48,0.4);
-  line-height: 1;
-}
-.discount-badge small {
-  font-family: 'Noto Sans KR', sans-serif;
-  font-size: 11px; font-weight: 700;
-  display: block; margin-top: 2px; letter-spacing: 0;
+  letter-spacing: -4px;
+  line-height: 1.1;
+  opacity: 0; animation: scaleIn .5s .25s ease forwards;
+  position: relative;
 }
 
-.product-info {
-  padding: 24px;
-}
-.product-name {
-  font-size: 20px; font-weight: 800;
-  margin-bottom: 4px; color: #1a1a1a;
-}
-.product-spec {
-  font-size: 14px; color: #555;
-  margin-bottom: 20px;
+.hero-sub {
+  font-size: 26px; color: rgba(255,255,255,0.65);
+  font-weight: 500;
+  letter-spacing: -0.3px;
+  margin-top: 14px;
+  opacity: 0; animation: fadeUp .5s .35s ease forwards;
 }
 
-.price-block {
-  display: flex; flex-direction: column; align-items: center; gap: 4px;
-}
-.price-original {
-  font-size: 18px; color: #888;
-  text-decoration: line-through;
-  font-weight: 400;
-}
-.price-row {
-  display: flex; align-items: flex-end; gap: 12px; justify-content: center;
-}
-.price-sale {
-  font-size: 52px; font-weight: 900;
-  color: #e84430; line-height: 1;
-}
-.price-won {
-  font-size: 22px; font-weight: 600;
-}
-.price-save-tag {
+.hero-sub .highlight {
+  background: #c8ff00;
+  color: #1a1a1a;
+  font-weight: 800;
+  font-size: 30px;
+  padding: 4px 10px;
+  border-radius: 4px;
   display: inline-block;
-  background: rgba(232,68,48,0.08);
-  border: 1px solid rgba(232,68,48,0.15);
-  color: #e84430;
-  font-size: 13px; font-weight: 700;
-  padding: 4px 12px; border-radius: 16px;
-  align-self: center;
   margin-top: 4px;
 }
 
-/* ===== COUNTDOWN ===== */
-.countdown-section {
-  padding: 0 20px 48px;
-  text-align: center;
+.hero-timer {
+  margin-top: 20px;
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 24px;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 40px;
+  font-size: 22px; font-weight: 600;
+  color: rgba(255,255,255,0.85);
+  letter-spacing: -0.3px;
+  opacity: 0; animation: fadeUp .5s .45s ease forwards;
 }
-.countdown-label {
-  font-size: 24px; font-weight: 800;
-  color: #1a1a1a;
-  margin-bottom: 16px;
-  letter-spacing: 2px;
+
+.hero-timer .dot {
+  width: 8px; height: 8px;
+  background: #e85050;
+  border-radius: 50%;
+  animation: pulse 1.5s ease infinite;
 }
-.countdown {
-  display: inline-flex; gap: 10px;
-}
-.cd-box {
-  background: #fff;
-  border: 1px solid rgba(232,68,48,0.15);
-  border-radius: 14px;
-  padding: 16px 12px;
-  min-width: 72px;
-  text-align: center;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
-}
-.cd-num {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 48px; color: #e84430;
-  line-height: 1;
-  font-variant-numeric: tabular-nums;
-}
-.cd-unit {
-  font-size: 12px; color: #555;
-  margin-top: 4px; font-weight: 600;
-}
-.cd-colon {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 32px; color: rgba(232,68,48,0.3);
-  align-self: center;
-  padding-bottom: 12px;
-  animation: colonBlink 1s step-end infinite;
-}
-@keyframes colonBlink {
+
+@keyframes pulse {
   0%, 100% { opacity: 1; }
-  50% { opacity: 0.2; }
+  50% { opacity: 0.4; }
 }
 
-/* ===== CTA ===== */
-.cta-area {
-  padding: 0 20px 48px;
-  text-align: center;
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
 }
-.cta-btn {
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.85); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* STRIP */
+.strip {
+  background: var(--accent);
+  padding: 13px 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.strip-track {
   display: inline-block;
-  width: 100%; max-width: 420px;
-  padding: 18px 32px;
-  font-size: 18px; font-weight: 800;
-  color: #fff;
-  background: linear-gradient(135deg, #e84430, #d63020);
-  border: none; border-radius: 16px;
-  cursor: pointer; text-decoration: none;
-  box-shadow: 0 6px 0 #901818, 0 8px 28px rgba(232,68,48,0.25);
-  transition: all 0.15s;
-  transform: translateY(0);
-}
-.cta-btn:hover {
-  background: linear-gradient(135deg, #ff5040, #e84430);
-  box-shadow: 0 6px 0 #901818, 0 12px 40px rgba(232,68,48,0.4);
-}
-.cta-btn:active {
-  transform: translateY(3px);
-  box-shadow: 0 3px 0 #901818, 0 4px 12px rgba(232,68,48,0.2);
-}
-.cta-sub {
-  margin-top: 12px;
-  font-size: 12px; color: #bbb;
+  animation: marquee 25s linear infinite;
 }
 
-/* ===== 생산자 ===== */
-.producer-section {
-  padding: 40px 20px;
-  text-align: center;
-  background: #fff;
-  border-top: 1px solid rgba(0,0,0,0.04);
+.strip-track span {
+  display: inline-block;
+  font-size: 24px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.3px;
+  padding: 0 32px;
 }
-.producer-card {
-  max-width: 420px;
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ITEMS */
+.items {
+  max-width: 600px;
   margin: 0 auto;
-  display: flex; align-items: center; gap: 16px;
-  padding: 20px;
-  background: #fdf8f4;
-  border-radius: 20px;
-  border: 1px solid rgba(0,0,0,0.05);
+  padding: 28px 20px 40px;
+  display: flex; flex-direction: column;
+  gap: 24px;
 }
+
+/* CARD */
+.card {
+  background: var(--card);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 32px rgba(0,0,0,0.06);
+  opacity: 0; transform: translateY(30px);
+  transition: all .6s cubic-bezier(.16,1,.3,1);
+}
+
+.card.show { opacity: 1; transform: translateY(0); }
+
+.card-img {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3/2;
+  overflow: hidden;
+  background: #f0ebe5;
+}
+
+.card-img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform .4s ease;
+}
+
+.card:active .card-img img {
+  transform: scale(1.03);
+}
+
+.card-badge {
+  position: absolute; top: 16px; left: 16px;
+  display: flex; gap: 6px;
+}
+
+.card-badge span {
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 18px; font-weight: 700;
+  letter-spacing: -0.3px;
+  backdrop-filter: blur(8px);
+}
+
+.card-badge .sale-type {
+  background: rgba(255,255,255,0.9);
+  color: var(--accent);
+}
+
+.card-discount {
+  position: absolute; bottom: 0; right: 0;
+  background: var(--accent);
+  color: #fff;
+  padding: 10px 24px;
+  font-size: 36px; font-weight: 800;
+  letter-spacing: -1px;
+  border-radius: 16px 0 0 0;
+}
+
+.card-body {
+  padding: 26px 24px 28px;
+}
+
+.card-name {
+  font-size: 28px; font-weight: 800;
+  letter-spacing: -0.8px;
+  margin-bottom: 6px;
+  color: #1a1a1a;
+}
+
+.card-weight {
+  font-size: 22px; color: #aaa;
+  font-weight: 500;
+  margin-bottom: 18px;
+}
+
+.card-desc {
+  font-size: 24px; color: #777;
+  font-weight: 400;
+  line-height: 1.7;
+  letter-spacing: -0.3px;
+  margin-bottom: 22px;
+}
+
+.card-price {
+  display: flex; align-items: baseline; gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 22px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid #f0ebe5;
+}
+
+.card-price .orig {
+  font-size: 34px; color: #ccc;
+  text-decoration: line-through;
+  font-weight: 400;
+}
+
+.card-price .now {
+  font-size: 50px; font-weight: 800;
+  color: var(--accent);
+  letter-spacing: -1.5px;
+}
+
+.card-btn {
+  display: block;
+  text-align: center;
+  padding: 18px;
+  background: var(--accent);
+  color: #fff;
+  border: none; border-radius: 14px;
+  font-size: 24px; font-weight: 700;
+  letter-spacing: -0.5px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background .2s;
+}
+
+.card-btn:active { background: var(--accent-light); }
+
+/* PRODUCER */
+.producer {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 20px 40px;
+}
+
+.producer-box {
+  background: var(--card);
+  border-radius: 24px;
+  padding: 28px 24px;
+  display: flex; align-items: center; gap: 20px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 32px rgba(0,0,0,0.06);
+  opacity: 0; transform: translateY(30px);
+  transition: all .6s cubic-bezier(.16,1,.3,1);
+}
+
+.producer-box.show { opacity: 1; transform: translateY(0); }
+
 .producer-img {
-  width: 120px; height: 120px;
+  width: 100px; height: 100px;
   border-radius: 50%; overflow: hidden;
   flex-shrink: 0;
-  border: 2px solid rgba(232,68,48,0.15);
+  border: 3px solid #f0ebe5;
 }
+
 .producer-img img {
   width: 100%; height: 100%; object-fit: cover;
 }
-.producer-text {
-  text-align: left;
-}
+
 .producer-name {
-  font-size: 18px; font-weight: 700;
+  font-size: 22px; font-weight: 700;
   color: #1a1a1a; margin-bottom: 4px;
 }
+
 .producer-location {
-  font-size: 13px; color: #555;
-  margin-bottom: 6px;
+  font-size: 18px; color: #999;
+  margin-bottom: 10px;
 }
+
 .producer-quote {
-  font-size: 16px; color: #333;
+  font-size: 20px; color: #555;
   line-height: 1.6;
   font-style: italic;
 }
 
-/* ===== 안내 ===== */
-.info-strip {
-  display: flex; justify-content: center; gap: 32px;
-  padding: 32px 20px;
-  background: #fff;
-  border-top: 1px solid rgba(0,0,0,0.04);
-  border-bottom: 1px solid rgba(0,0,0,0.04);
-  flex-wrap: wrap;
-}
-.info-item {
-  display: flex; align-items: center; gap: 10px;
-  font-size: 14px; color: #444;
-}
-.info-icon {
-  width: 36px; height: 36px;
-  background: #fdf8f4;
-  border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 18px;
-}
-
-/* ===== FOOTER ===== */
-.footer {
-  text-align: center; padding: 32px 20px;
-  font-size: 12px; color: #ccc;
-  background: #fdf8f4;
-}
-
-/* ===== 모바일 ===== */
 @media (max-width: 480px) {
-  .hero { padding: 32px 16px 28px; }
-  .product-card { margin: 0 auto 32px; border-radius: 20px; }
-  .product-info { padding: 20px; }
-  .price-sale { font-size: 30px; }
-  .cd-box { min-width: 60px; padding: 12px 8px; }
-  .cd-num { font-size: 32px; }
-  .info-strip { gap: 20px; }
-  .producer-card { flex-direction: column; text-align: center; }
-  .producer-text { text-align: center; }
+  .producer-box { flex-direction: column; text-align: center; }
+}
+
+/* CTA */
+.cta {
+  text-align: center;
+  padding: 48px 24px;
+  border-top: 1px solid #e4ddd5;
+}
+
+.cta-warn {
+  display: inline-block;
+  font-size: 24px; font-weight: 700;
+  color: var(--accent);
+  background: rgba(139,44,44,0.08);
+  padding: 10px 24px;
+  border-radius: 10px;
+  margin-bottom: 24px;
+  letter-spacing: -0.3px;
+  animation: blink 1.5s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.08); opacity: 0.6; }
+}
+
+.cta-btn {
+  display: inline-block;
+  padding: 20px 52px;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+  color: #fff;
+  border-radius: 14px;
+  font-size: 28px; font-weight: 800;
+  letter-spacing: -0.5px;
+  text-decoration: none;
+  transition: transform .2s, box-shadow .2s;
+  box-shadow: 0 4px 20px rgba(139,44,44,0.25);
+}
+
+.cta-btn:active { transform: scale(0.97); }
+
+footer {
+  text-align: center;
+  padding: 28px 20px;
+  font-size: 20px; color: #bbb;
+  font-weight: 400;
+}
+
+@media (min-width: 600px) {
+  .hero h1 { font-size: 72px; }
+  .items, .producer, .cta { max-width: 700px; }
 }
 </style>
 </head>
 <body>
 
-<!-- 상단 긴급 띠 -->
-<div class="top-bar">
-  ⏰ 4월 7일(화) 오후 7시 마감<br>화요 타임세일 진행 중
+<!-- HERO -->
+<section class="hero">
+  <span class="hero-badge">두레생협 온라인</span>
+  <p class="hero-date">4월 7일 화요일</p>
+  <h1>화요특가</h1>
+  <p class="hero-sub">후브락스 사과 <span class="highlight">15% 반짝 특가</span></p>
+  <div class="hero-timer">
+    <span class="dot"></span>
+    <span id="timer">오후 7시 마감</span>
+  </div>
+</section>
+
+<div class="strip">
+  <div class="strip-track">
+    <span>후브락스 사과</span><span>15% 할인</span><span>오후 7시 마감</span><span>1.2kg</span><span>후브락스 사과</span><span>15% 할인</span><span>오후 7시 마감</span><span>1.2kg</span><span>후브락스 사과</span><span>15% 할인</span><span>오후 7시 마감</span><span>1.2kg</span>
+  </div>
 </div>
 
-<!-- 히어로 -->
-<section class="hero">
-  <div class="sale-tag">
-    <span class="dot"></span>
-    LIVE · 화요 타임세일
-  </div>
-  <div class="hero-date">2026년 4월 7일 화요일</div>
-  <h1 class="hero-title"><em>후브락스 사과</em><br><span class="percent">15%</span> <span class="sparkle">반짝</span> 특가</h1>
+<div class="items">
 
-  <!-- 상품 카드 -->
-  <div class="product-card">
-    <div class="product-img">
-      <img src="58721B.jpg" alt="후브락스 사과 1.2kg">
-      <div class="discount-badge">15%<small>타임세일</small></div>
-    </div>
-    <div class="product-info">
-      <div class="product-name">후브락스 사과</div>
-      <div class="product-spec">1.2kg</div>
-      <div class="price-block">
-        <div class="price-row">
-          <span class="price-original">13,700원</span>
-          <span class="price-sale">11,600<span class="price-won">원</span></span>
-        </div>
-        <span class="price-save-tag">2,100원 절약</span>
+  <div class="card">
+    <div class="card-img">
+      <img src="58721B.jpg" alt="후브락스 사과">
+      <div class="card-badge">
+        <span class="sale-type">화요특가</span>
       </div>
+      <div class="card-discount">15%</div>
+    </div>
+    <div class="card-body">
+      <h2 class="card-name">후브락스 사과</h2>
+      <p class="card-weight">1.2kg</p>
+      <p class="card-desc">아삭한 식감과 풍부한 과즙,<br>온 가족이 함께 즐기기 좋은 사과입니다.</p>
+      <div class="card-price">
+        <span class="orig">13,700원</span>
+        <span class="now">11,600원</span>
+      </div>
+      <a href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1652#book2" class="card-btn">장보기</a>
     </div>
   </div>
-</section>
 
-<!-- 카운트다운 -->
-<section class="countdown-section">
-  <div class="countdown-label">타임세일 마감까지</div>
-  <div class="countdown" id="countdown">
-    <div class="cd-box">
-      <div class="cd-num" id="cd-h">00</div>
-      <div class="cd-unit">시간</div>
-    </div>
-    <div class="cd-colon">:</div>
-    <div class="cd-box">
-      <div class="cd-num" id="cd-m">00</div>
-      <div class="cd-unit">분</div>
-    </div>
-    <div class="cd-colon">:</div>
-    <div class="cd-box">
-      <div class="cd-num" id="cd-s">00</div>
-      <div class="cd-unit">초</div>
-    </div>
-  </div>
-</section>
+</div>
 
-<!-- 생산자 -->
-<section class="producer-section">
-  <div class="producer-card">
+<!-- PRODUCER -->
+<div class="producer">
+  <div class="producer-box">
     <div class="producer-img">
       <img src="58721C.jpg" alt="영월 최종익 생산자 부부">
     </div>
@@ -427,50 +462,37 @@ body {
       <div class="producer-quote">"강원도 영월 맑은 공기 속에서<br>한 알 한 알 직접 살피며 키운 사과입니다"</div>
     </div>
   </div>
-</section>
-
-<!-- 간단 안내 -->
-<div class="info-strip">
-  <div class="info-item">
-    <div class="info-icon">📅</div>
-    <span>4/7(화) 오후 7시 마감</span>
-  </div>
-  <div class="info-item">
-    <div class="info-icon">🍎</div>
-    <span>1.2kg 소포장</span>
-  </div>
-  <div class="info-item">
-    <div class="info-icon">🏷️</div>
-    <span>15% 할인</span>
-  </div>
 </div>
 
 <!-- CTA -->
-<section class="cta-area">
-  <a class="cta-btn" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1652#book2" target="_blank">
-    지금 주문하기
-  </a>
+<section class="cta">
+  <p class="cta-warn">오후 7시 마감</p>
+  <a href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1652#book2" class="cta-btn">지금 주문하기</a>
 </section>
 
-<!-- 푸터 -->
-<div class="footer">두레생협 조합원 상담실 1661-5110</div>
+<footer>두레생협 조합원 상담실 1661-5110</footer>
 
 <script>
-function tick() {
-  const end = new Date('2026-04-07T19:00:00+09:00').getTime();
-  const now = Date.now();
-  const d = Math.max(0, end - now);
+// Scroll reveal
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('show'); io.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.card, .producer-box').forEach(el => io.observe(el));
 
-  const h = Math.floor(d / 3600000);
-  const m = Math.floor((d % 3600000) / 60000);
-  const s = Math.floor((d % 60000) / 1000);
-
-  document.getElementById('cd-h').textContent = String(h).padStart(2, '0');
-  document.getElementById('cd-m').textContent = String(m).padStart(2, '0');
-  document.getElementById('cd-s').textContent = String(s).padStart(2, '0');
+// Countdown timer
+function updateTimer() {
+  const end = new Date('2026-04-07T19:00:00+09:00');
+  const now = new Date();
+  const diff = end - now;
+  if (diff <= 0) { document.getElementById('timer').textContent = '마감되었습니다'; return; }
+  const h = Math.floor(diff / 3600000);
+  const m = Math.floor((diff % 3600000) / 60000);
+  const s = Math.floor((diff % 60000) / 1000);
+  document.getElementById('timer').textContent = h + '시간 ' + m + '분 ' + s + '초 남음';
 }
-tick();
-setInterval(tick, 1000);
+updateTimer();
+setInterval(updateTimer, 1000);
 </script>
+
 </body>
 </html>
