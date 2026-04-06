@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>두레생협 화요 타임세일 | 후브락스 사과</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;600;700;900&family=Bebas+Neue&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  background: #fdf8f4;
+  color: #2a2a2a;
+  overflow-x: hidden;
+  word-break: keep-all;
+}
+
+/* ===== TOP BAR ===== */
+.top-bar {
+  background: linear-gradient(90deg, #e84430, #ff6040, #e84430);
+  background-size: 200% 100%;
+  animation: barSlide 3s linear infinite;
+  text-align: center;
+  padding: 10px 16px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 1px;
+  position: sticky; top: 0; z-index: 100;
+}
+@keyframes barSlide {
+  0% { background-position: 0% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* ===== HERO ===== */
+.hero {
+  padding: 48px 20px 40px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, #fdf8f4 0%, #fff5ee 100%);
+}
+.sale-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(232,68,48,0.08);
+  border: 1px solid rgba(232,68,48,0.2);
+  border-radius: 24px;
+  padding: 8px 20px;
+  font-size: 14px; font-weight: 700;
+  color: #e84430;
+  margin-bottom: 16px;
+  animation: tagPulse 2s ease-in-out infinite;
+}
+.sale-tag .dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #e84430;
+  animation: dotBlink 1s ease-in-out infinite;
+}
+@keyframes dotBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+@keyframes tagPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(232,68,48,0.15); }
+  50% { box-shadow: 0 0 0 8px rgba(232,68,48,0); }
+}
+
+.hero-date {
+  font-size: 15px; color: #999;
+  margin-bottom: 6px; font-weight: 400;
+}
+.hero-title {
+  font-size: clamp(34px, 8vw, 56px);
+  font-weight: 900; line-height: 1.3;
+  margin-bottom: 4px;
+  color: #1a1a1a;
+}
+.hero-title em {
+  font-style: normal; color: #e84430;
+}
+.hero-week {
+  font-size: 13px; color: #bbb;
+  margin-bottom: 24px;
+}
+
+/* ===== PRODUCT CARD ===== */
+.product-card {
+  max-width: 420px;
+  margin: 0 auto 40px;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 24px;
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+}
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+}
+
+.product-img {
+  width: 100%; aspect-ratio: 1/1;
+  overflow: hidden; position: relative;
+  background: #f9f9f9;
+}
+.product-img img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.5s;
+}
+.product-card:hover .product-img img { transform: scale(1.04); }
+
+.discount-badge {
+  position: absolute; top: 16px; left: 16px;
+  background: #e84430;
+  color: #fff;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px; letter-spacing: 1px;
+  padding: 6px 16px;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(232,68,48,0.4);
+  line-height: 1;
+}
+.discount-badge small {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 11px; font-weight: 700;
+  display: block; margin-top: 2px; letter-spacing: 0;
+}
+
+.product-info {
+  padding: 24px;
+}
+.product-name {
+  font-size: 20px; font-weight: 800;
+  margin-bottom: 4px; color: #1a1a1a;
+}
+.product-spec {
+  font-size: 14px; color: #999;
+  margin-bottom: 20px;
+}
+
+.price-block {
+  display: flex; align-items: flex-end; gap: 12px;
+  flex-wrap: wrap;
+}
+.price-original {
+  font-size: 18px; color: #bbb;
+  text-decoration: line-through;
+  font-weight: 400;
+}
+.price-sale {
+  font-size: 36px; font-weight: 900;
+  color: #e84430; line-height: 1;
+}
+.price-won {
+  font-size: 18px; font-weight: 600;
+}
+.price-save-tag {
+  display: inline-block;
+  background: rgba(232,68,48,0.08);
+  border: 1px solid rgba(232,68,48,0.15);
+  color: #e84430;
+  font-size: 13px; font-weight: 700;
+  padding: 4px 12px; border-radius: 16px;
+  margin-left: auto;
+}
+
+/* ===== COUNTDOWN ===== */
+.countdown-section {
+  padding: 0 20px 48px;
+  text-align: center;
+}
+.countdown-label {
+  font-size: 14px; font-weight: 600;
+  color: #999;
+  margin-bottom: 16px;
+  letter-spacing: 2px;
+}
+.countdown {
+  display: inline-flex; gap: 10px;
+}
+.cd-box {
+  background: #fff;
+  border: 1px solid rgba(232,68,48,0.15);
+  border-radius: 14px;
+  padding: 16px 12px;
+  min-width: 72px;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+}
+.cd-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 40px; color: #e84430;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.cd-unit {
+  font-size: 11px; color: #aaa;
+  margin-top: 4px; font-weight: 500;
+}
+.cd-colon {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 32px; color: rgba(232,68,48,0.3);
+  align-self: center;
+  padding-bottom: 12px;
+  animation: colonBlink 1s step-end infinite;
+}
+@keyframes colonBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.2; }
+}
+
+/* ===== CTA ===== */
+.cta-area {
+  padding: 0 20px 48px;
+  text-align: center;
+}
+.cta-btn {
+  display: inline-block;
+  width: 100%; max-width: 420px;
+  padding: 18px 32px;
+  font-size: 18px; font-weight: 800;
+  color: #fff;
+  background: linear-gradient(135deg, #e84430, #d63020);
+  border: none; border-radius: 16px;
+  cursor: pointer; text-decoration: none;
+  box-shadow: 0 6px 0 #901818, 0 8px 28px rgba(232,68,48,0.25);
+  transition: all 0.15s;
+  transform: translateY(0);
+}
+.cta-btn:hover {
+  background: linear-gradient(135deg, #ff5040, #e84430);
+  box-shadow: 0 6px 0 #901818, 0 12px 40px rgba(232,68,48,0.4);
+}
+.cta-btn:active {
+  transform: translateY(3px);
+  box-shadow: 0 3px 0 #901818, 0 4px 12px rgba(232,68,48,0.2);
+}
+.cta-sub {
+  margin-top: 12px;
+  font-size: 12px; color: #bbb;
+}
+
+/* ===== 생산자 ===== */
+.producer-section {
+  padding: 40px 20px;
+  text-align: center;
+  background: #fff;
+  border-top: 1px solid rgba(0,0,0,0.04);
+}
+.producer-card {
+  max-width: 420px;
+  margin: 0 auto;
+  display: flex; align-items: center; gap: 16px;
+  padding: 20px;
+  background: #fdf8f4;
+  border-radius: 20px;
+  border: 1px solid rgba(0,0,0,0.05);
+}
+.producer-img {
+  width: 120px; height: 120px;
+  border-radius: 50%; overflow: hidden;
+  flex-shrink: 0;
+  border: 2px solid rgba(232,68,48,0.15);
+}
+.producer-img img {
+  width: 100%; height: 100%; object-fit: cover;
+}
+.producer-text {
+  text-align: left;
+}
+.producer-name {
+  font-size: 16px; font-weight: 700;
+  color: #1a1a1a; margin-bottom: 4px;
+}
+.producer-location {
+  font-size: 13px; color: #999;
+  margin-bottom: 6px;
+}
+.producer-quote {
+  font-size: 14px; color: #666;
+  line-height: 1.6;
+  font-style: italic;
+}
+
+/* ===== 안내 ===== */
+.info-strip {
+  display: flex; justify-content: center; gap: 32px;
+  padding: 32px 20px;
+  background: #fff;
+  border-top: 1px solid rgba(0,0,0,0.04);
+  border-bottom: 1px solid rgba(0,0,0,0.04);
+  flex-wrap: wrap;
+}
+.info-item {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 14px; color: #777;
+}
+.info-icon {
+  width: 36px; height: 36px;
+  background: #fdf8f4;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  text-align: center; padding: 32px 20px;
+  font-size: 12px; color: #ccc;
+  background: #fdf8f4;
+}
+
+/* ===== 모바일 ===== */
+@media (max-width: 480px) {
+  .hero { padding: 32px 16px 28px; }
+  .product-card { margin: 0 auto 32px; border-radius: 20px; }
+  .product-info { padding: 20px; }
+  .price-sale { font-size: 30px; }
+  .cd-box { min-width: 60px; padding: 12px 8px; }
+  .cd-num { font-size: 32px; }
+  .info-strip { gap: 20px; }
+  .producer-card { flex-direction: column; text-align: center; }
+  .producer-text { text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- 상단 긴급 띠 -->
+<div class="top-bar">
+  ⏰ 4월 7일(화) 단 하루 — 화요 타임세일 진행 중
+</div>
+
+<!-- 히어로 -->
+<section class="hero">
+  <div class="sale-tag">
+    <span class="dot"></span>
+    LIVE · 화요 타임세일
+  </div>
+  <div class="hero-date">2026년 4월 7일 화요일</div>
+  <h1 class="hero-title"><em>후브락스 사과</em><br>15% 반짝 특가</h1>
+
+  <!-- 상품 카드 -->
+  <div class="product-card">
+    <div class="product-img">
+      <img src="58721B.jpg" alt="후브락스 사과 1.2kg">
+      <div class="discount-badge">15%<small>타임세일</small></div>
+    </div>
+    <div class="product-info">
+      <div class="product-name">후브락스 사과</div>
+      <div class="product-spec">1.2kg</div>
+      <div class="price-block">
+        <span class="price-original">13,700원</span>
+        <span class="price-sale">11,600<span class="price-won">원</span></span>
+        <span class="price-save-tag">2,100원 절약</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 카운트다운 -->
+<section class="countdown-section">
+  <div class="countdown-label">타임세일 마감까지</div>
+  <div class="countdown" id="countdown">
+    <div class="cd-box">
+      <div class="cd-num" id="cd-h">00</div>
+      <div class="cd-unit">시간</div>
+    </div>
+    <div class="cd-colon">:</div>
+    <div class="cd-box">
+      <div class="cd-num" id="cd-m">00</div>
+      <div class="cd-unit">분</div>
+    </div>
+    <div class="cd-colon">:</div>
+    <div class="cd-box">
+      <div class="cd-num" id="cd-s">00</div>
+      <div class="cd-unit">초</div>
+    </div>
+  </div>
+</section>
+
+<!-- 생산자 -->
+<section class="producer-section">
+  <div class="producer-card">
+    <div class="producer-img">
+      <img src="58721C.jpg" alt="영월 최종익 생산자 부부">
+    </div>
+    <div class="producer-text">
+      <div class="producer-name">영월 최종익 생산자 부부</div>
+      <div class="producer-location">강원 영월</div>
+      <div class="producer-quote">"강원도 영월 맑은 공기 속에서<br>한 알 한 알 직접 살피며 키운 사과입니다"</div>
+    </div>
+  </div>
+</section>
+
+<!-- 간단 안내 -->
+<div class="info-strip">
+  <div class="info-item">
+    <div class="info-icon">📅</div>
+    <span>4/7(화) 하루 한정</span>
+  </div>
+  <div class="info-item">
+    <div class="info-icon">🍎</div>
+    <span>1.2kg 소포장</span>
+  </div>
+  <div class="info-item">
+    <div class="info-icon">🏷️</div>
+    <span>15% 할인</span>
+  </div>
+</div>
+
+<!-- CTA -->
+<section class="cta-area">
+  <a class="cta-btn" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1652#book2" target="_blank">
+    지금 주문하기
+  </a>
+</section>
+
+<!-- 푸터 -->
+<div class="footer">두레생협 조합원 상담실 1661-5110</div>
+
+<script>
+function tick() {
+  const end = new Date('2026-04-07T23:59:59+09:00').getTime();
+  const now = Date.now();
+  const d = Math.max(0, end - now);
+
+  const h = Math.floor(d / 3600000);
+  const m = Math.floor((d % 3600000) / 60000);
+  const s = Math.floor((d % 60000) / 1000);
+
+  document.getElementById('cd-h').textContent = String(h).padStart(2, '0');
+  document.getElementById('cd-m').textContent = String(m).padStart(2, '0');
+  document.getElementById('cd-s').textContent = String(s).padStart(2, '0');
+}
+tick();
+setInterval(tick, 1000);
+</script>
+</body>
+</html>
