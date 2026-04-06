@@ -80,6 +80,34 @@ body {
 .hero-title em {
   font-style: normal; color: #e84430;
 }
+.hero-title .percent {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.3em;
+  color: #e84430;
+  letter-spacing: 2px;
+}
+.hero-title .sparkle {
+  position: relative;
+  display: inline-block;
+  animation: sparkleGlow 1.5s ease-in-out infinite;
+}
+.sparkle::before, .sparkle::after {
+  content: '✦';
+  position: absolute;
+  font-size: 0.35em;
+  color: #ffb800;
+  animation: sparkleStar 1.5s ease-in-out infinite;
+}
+.sparkle::before { top: -8px; left: -6px; animation-delay: 0s; }
+.sparkle::after { top: -4px; right: -10px; animation-delay: 0.5s; }
+@keyframes sparkleGlow {
+  0%, 100% { color: #2a2a2a; text-shadow: none; }
+  50% { color: #e84430; text-shadow: 0 0 12px rgba(255,184,0,0.4); }
+}
+@keyframes sparkleStar {
+  0%, 100% { opacity: 0; transform: scale(0.5) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1.2) rotate(20deg); }
+}
 .hero-week {
   font-size: 13px; color: #bbb;
   margin-bottom: 24px;
@@ -341,7 +369,7 @@ body {
     LIVE · 화요 타임세일
   </div>
   <div class="hero-date">2026년 4월 7일 화요일</div>
-  <h1 class="hero-title"><em>후브락스 사과</em><br>15% 반짝 특가</h1>
+  <h1 class="hero-title"><em>후브락스 사과</em><br><span class="percent">15%</span> <span class="sparkle">반짝</span> 특가</h1>
 
   <!-- 상품 카드 -->
   <div class="product-card">
