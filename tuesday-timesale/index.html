@@ -170,16 +170,18 @@ body {
 }
 
 .price-block {
-  display: flex; align-items: flex-end; gap: 12px;
-  flex-wrap: wrap;
+  display: flex; flex-direction: column; gap: 4px;
 }
 .price-original {
   font-size: 18px; color: #888;
   text-decoration: line-through;
   font-weight: 400;
 }
+.price-row {
+  display: flex; align-items: flex-end; gap: 12px;
+}
 .price-sale {
-  font-size: 36px; font-weight: 900;
+  font-size: 44px; font-weight: 900;
   color: #e84430; line-height: 1;
 }
 .price-won {
@@ -192,7 +194,8 @@ body {
   color: #e84430;
   font-size: 13px; font-weight: 700;
   padding: 4px 12px; border-radius: 16px;
-  margin-left: auto;
+  align-self: flex-start;
+  margin-top: 4px;
 }
 
 /* ===== COUNTDOWN ===== */
@@ -381,8 +384,10 @@ body {
       <div class="product-name">후브락스 사과</div>
       <div class="product-spec">1.2kg</div>
       <div class="price-block">
-        <span class="price-original">13,700원</span>
-        <span class="price-sale">11,600<span class="price-won">원</span></span>
+        <div class="price-row">
+          <span class="price-original">13,700원</span>
+          <span class="price-sale">11,600<span class="price-won">원</span></span>
+        </div>
         <span class="price-save-tag">2,100원 절약</span>
       </div>
     </div>
