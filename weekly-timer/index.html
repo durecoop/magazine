@@ -1,442 +1,584 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>이번 주 주문 마감 임박!</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap');
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이번 주 주문 마감 임박!</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap');
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  body {
-    font-family: 'Noto Sans KR', sans-serif;
-    background: #0a0a0a;
-    color: #fff;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    word-break: keep-all;
-    padding-top: 18vh;
-    border: 2px solid rgba(255, 107, 53, 0.4);
-    box-shadow: inset 0 0 60px rgba(255, 107, 53, 0.06);
-  }
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            word-break: keep-all;
+            padding-top: 24vh;
+            border: 2px solid rgba(255, 107, 53, 0.4);
+            box-shadow: inset 0 0 60px rgba(255, 107, 53, 0.06);
+        }
 
-  /* ── 마퀴 (상단/하단 스크롤 배너) ── */
-  .marquee-wrap {
-    position: fixed;
-    left: 0; right: 0;
-    z-index: 10;
-    overflow: hidden;
-    background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(8px);
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  }
-  .marquee-top { top: 0; height: 18vh; }
+        .marquee-wrap {
+            position: fixed;
+            left: 0;
+            right: 0;
+            z-index: 10;
+            overflow: hidden;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
 
-  .marquee-track {
-    display: flex;
-    width: max-content;
-    animation: marquee-scroll 90s linear infinite;
-  }
+        .marquee-top {
+            top: 0;
+            height: 24vh;
+        }
 
-  @keyframes marquee-scroll {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-  }
+        .marquee-track {
+            display: flex;
+            width: max-content;
+            animation: marquee-scroll 90s linear infinite;
+        }
 
-  .marquee-wrap:hover .marquee-track {
-    animation-play-state: paused;
-  }
+        @keyframes marquee-scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
 
-  .marquee-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.3rem;
-    padding: 0.6rem 0.8rem;
-    flex-shrink: 0;
-    cursor: default;
-    transition: transform 0.2s;
-  }
-  .marquee-item:hover {
-    transform: scale(1.05);
-  }
+        .marquee-wrap:hover .marquee-track {
+            animation-play-state: paused;
+        }
 
-  .marquee-item img {
-    width: 28vw;
-    height: 28vw;
-    max-width: 180px;
-    max-height: 180px;
-    border-radius: 12px;
-    object-fit: cover;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-  }
+        .marquee-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.3rem;
+            padding: 0.6rem 0.8rem;
+            flex-shrink: 0;
+            cursor: default;
+            transition: transform 0.2s;
+        }
 
-  .marquee-info {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1px;
-    white-space: nowrap;
-  }
+        .marquee-item:hover {
+            transform: scale(1.05);
+        }
 
-  .marquee-name {
-    font-size: 0.85rem;
-    color: #ccc;
-    max-width: 28vw;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    text-align: center;
-  }
+        .marquee-item img {
+            width: 28vw;
+            height: 28vw;
+            max-width: 180px;
+            max-height: 180px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
 
-  .marquee-discount {
-    font-size: 0.95rem;
-    font-weight: 900;
-    color: #ff6b35;
-  }
+        .marquee-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1px;
+            white-space: nowrap;
+        }
 
-  .marquee-sep {
-    display: none;
-  }
+        .marquee-name {
+            font-size: 0.85rem;
+            color: #ccc;
+            max-width: 28vw;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-align: center;
+        }
 
-  /* ── 배경 글로우 ── */
-  .bg-glow {
-    position: fixed;
-    width: 600px; height: 600px;
-    border-radius: 50%;
-    filter: blur(150px);
-    opacity: 0.3;
-    pointer-events: none;
-    z-index: 0;
-  }
-  .glow-1 { background: #ff6b35; top: -200px; left: -100px; }
-  .glow-2 { background: #4ecdc4; bottom: -200px; right: -100px; }
+        .marquee-discount {
+            font-size: 0.95rem;
+            font-weight: 900;
+            color: #ff6b35;
+        }
 
-  /* ── 메인 컨테이너 ── */
-  .container {
-    position: relative;
-    z-index: 1;
-    text-align: center;
-    padding: 2rem;
-    max-width: 700px;
-  }
+        .marquee-sep {
+            display: none;
+        }
 
-  .badge {
-    display: inline-block;
-    background: rgba(255, 107, 53, 0.15);
-    border: 1px solid rgba(255, 107, 53, 0.4);
-    color: #ff6b35;
-    padding: 0.4rem 1.2rem;
-    border-radius: 50px;
-    font-size: 0.9rem;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-    animation: pulse-badge 2s ease-in-out infinite;
-  }
+        .bg-glow {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            filter: blur(150px);
+            opacity: 0.3;
+            pointer-events: none;
+            z-index: 0;
+        }
 
-  @keyframes pulse-badge {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(255, 107, 53, 0.3); }
-    50% { box-shadow: 0 0 20px 5px rgba(255, 107, 53, 0.15); }
-  }
+        .glow-1 {
+            background: #ff6b35;
+            top: -200px;
+            left: -100px;
+        }
 
-  .headline {
-    font-size: 2rem;
-    font-weight: 900;
-    line-height: 1.4;
-    margin-bottom: 0.5rem;
-  }
-  .headline .accent { color: #ff6b35; }
+        .glow-2 {
+            background: #4ecdc4;
+            bottom: -200px;
+            right: -100px;
+        }
 
-  .sub {
-    font-size: 1.1rem;
-    color: #aaa;
-    margin-bottom: 2.5rem;
-  }
+        .container {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 2rem;
+            max-width: 700px;
+        }
 
-  .timer {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    margin-bottom: 3rem;
-  }
+        .badge {
+            display: inline-block;
+            background: rgba(255, 107, 53, 0.15);
+            border: 1px solid rgba(255, 107, 53, 0.4);
+            color: #ff6b35;
+            padding: 0.4rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            animation: pulse-badge 2s ease-in-out infinite;
+        }
 
-  .timer-unit {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 16px;
-    padding: 1.2rem 1rem;
-    min-width: 100px;
-    backdrop-filter: blur(10px);
-    transition: transform 0.3s, border-color 0.3s;
-  }
-  .timer-unit:hover {
-    transform: translateY(-4px);
-    border-color: rgba(255, 107, 53, 0.4);
-  }
+        @keyframes pulse-badge {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(255, 107, 53, 0.3); }
+            50% { box-shadow: 0 0 20px 5px rgba(255, 107, 53, 0.15); }
+        }
 
-  .timer-value {
-    font-size: 3.5rem;
-    font-weight: 900;
-    line-height: 1;
-    background: linear-gradient(135deg, #fff 30%, #ff6b35);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
+        .headline {
+            font-size: 2rem;
+            font-weight: 900;
+            line-height: 1.4;
+            margin-bottom: 0.5rem;
+        }
 
-  .timer-label {
-    font-size: 0.8rem;
-    color: #888;
-    margin-top: 0.5rem;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-  }
+        .headline .accent {
+            color: #ff6b35;
+        }
 
-  .colon {
-    font-size: 3rem;
-    font-weight: 900;
-    color: #ff6b35;
-    align-self: center;
-    padding-bottom: 1.2rem;
-    animation: blink 1s step-end infinite;
-  }
-  @keyframes blink {
-    50% { opacity: 0; }
-  }
+        .sub {
+            font-size: 1.1rem;
+            color: #aaa;
+            margin-bottom: 2.5rem;
+        }
 
-  .cta-btn {
-    display: inline-block;
-    background: linear-gradient(135deg, #ff6b35, #e5552a);
-    color: #fff;
-    text-decoration: none;
-    font-size: 1.3rem;
-    font-weight: 700;
-    padding: 1rem 3rem;
-    border-radius: 60px;
-    transition: transform 0.2s, box-shadow 0.2s;
-    box-shadow: 0 4px 30px rgba(255, 107, 53, 0.3);
-  }
-  .cta-btn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 6px 40px rgba(255, 107, 53, 0.5);
-  }
-  .cta-btn:active { transform: scale(0.97); }
+        .timer {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 3rem;
+        }
 
-  .expired .timer-value {
-    background: linear-gradient(135deg, #888, #555);
-    -webkit-background-clip: text;
-    background-clip: text;
-  }
-  .expired-msg {
-    display: none;
-    font-size: 1.2rem;
-    color: #ff6b35;
-    margin-bottom: 2rem;
-    font-weight: 700;
-  }
-  .expired .expired-msg { display: block; }
+        .timer-unit {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 1.2rem 1rem;
+            min-width: 100px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s, border-color 0.3s;
+        }
 
+        .timer-unit:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 107, 53, 0.4);
+        }
 
-  @media (max-width: 600px) {
-    body { justify-content: center; }
+        .timer-value {
+            font-size: 3.5rem;
+            font-weight: 900;
+            line-height: 1;
+            background: linear-gradient(135deg, #fff 30%, #ff6b35);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
 
-    .container { padding: 1rem 0.8rem; }
+        .timer-label {
+            font-size: 0.8rem;
+            color: #888;
+            margin-top: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
 
-    .badge { font-size: 0.95rem; margin-bottom: 1rem; padding: 0.5rem 1.4rem; }
+        .colon {
+            font-size: 3rem;
+            font-weight: 900;
+            color: #ff6b35;
+            align-self: center;
+            padding-bottom: 1.2rem;
+            animation: blink 1s step-end infinite;
+        }
 
-    .headline { font-size: 1.6rem; line-height: 1.35; margin-bottom: 0.4rem; }
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
 
-    .sub { font-size: 1rem; margin-bottom: 1.5rem; }
+        .cta-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff6b35, #e5552a);
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.3rem;
+            font-weight: 700;
+            padding: 1rem 3rem;
+            border-radius: 60px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 30px rgba(255, 107, 53, 0.3);
+        }
 
-    .timer { gap: 0.4rem; margin-bottom: 1.8rem; }
-    .timer-unit {
-      min-width: 0;
-      flex: 1;
-      max-width: 100px;
-      padding: 0.9rem 0.4rem;
-      border-radius: 12px;
-    }
-    .timer-value { font-size: 2.8rem; }
-    .timer-label { font-size: 0.7rem; letter-spacing: 1px; }
-    .colon { font-size: 2.2rem; padding-bottom: 0.8rem; }
+        .cta-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 40px rgba(255, 107, 53, 0.5);
+        }
 
-    .cta-btn {
-      font-size: 1.15rem;
-      padding: 1rem 2.5rem;
-      width: 85%;
-      text-align: center;
-    }
+        .cta-btn:active {
+            transform: scale(0.97);
+        }
 
-    /* 마퀴 */
-    .marquee-item { padding: 0.5rem 0.6rem; }
-    .marquee-item img { width: 26vw; height: 26vw; border-radius: 10px; }
-    .marquee-name { font-size: 0.75rem; max-width: 26vw; }
-    .marquee-discount { font-size: 0.9rem; }
-  }
+        .expired .timer-value {
+            background: linear-gradient(135deg, #888, #555);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
 
-  /* 아주 작은 화면 (375px 이하) */
-  @media (max-width: 375px) {
-    .headline { font-size: 1.35rem; }
-    .timer-value { font-size: 2.4rem; }
-    .cta-btn { width: 90%; font-size: 1.05rem; padding: 0.9rem 1.5rem; }
-    .marquee-item img { width: 26vw; height: 26vw; }
-  }
-</style>
+        .expired-msg {
+            display: none;
+            font-size: 1.2rem;
+            color: #ff6b35;
+            margin-bottom: 2rem;
+            font-weight: 700;
+        }
+
+        .expired .expired-msg {
+            display: block;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                justify-content: center;
+            }
+
+            .container {
+                padding: 1rem 0.8rem;
+            }
+
+            .badge {
+                font-size: 0.95rem;
+                margin-bottom: 1rem;
+                padding: 0.5rem 1.4rem;
+            }
+
+            .headline {
+                font-size: 1.6rem;
+                line-height: 1.35;
+                margin-bottom: 0.4rem;
+            }
+
+            .sub {
+                font-size: 1rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .timer {
+                gap: 0.4rem;
+                margin-bottom: 1.8rem;
+            }
+
+            .timer-unit {
+                min-width: 0;
+                flex: 1;
+                max-width: 100px;
+                padding: 0.9rem 0.4rem;
+                border-radius: 12px;
+            }
+
+            .timer-value {
+                font-size: 2.8rem;
+            }
+
+            .timer-label {
+                font-size: 0.7rem;
+                letter-spacing: 1px;
+            }
+
+            .colon {
+                font-size: 2.2rem;
+                padding-bottom: 0.8rem;
+            }
+
+            .cta-btn {
+                font-size: 1.15rem;
+                padding: 1rem 2.5rem;
+                width: 85%;
+                text-align: center;
+            }
+
+            .marquee-item {
+                padding: 0.5rem 0.6rem;
+            }
+
+            .marquee-item img {
+                width: 26vw;
+                height: 26vw;
+                border-radius: 10px;
+            }
+
+            .marquee-name {
+                font-size: 0.75rem;
+                max-width: 26vw;
+            }
+
+            .marquee-discount {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 375px) {
+            .headline {
+                font-size: 1.35rem;
+            }
+
+            .timer-value {
+                font-size: 2.4rem;
+            }
+
+            .cta-btn {
+                width: 90%;
+                font-size: 1.05rem;
+                padding: 0.9rem 1.5rem;
+            }
+
+            .marquee-item img {
+                width: 26vw;
+                height: 26vw;
+            }
+        }
+    </style>
 </head>
 <body>
+    <div class="bg-glow glow-1"></div>
+    <div class="bg-glow glow-2"></div>
 
-<!-- 상단 스크롤 배너 -->
-<div class="marquee-wrap marquee-top" id="marqueeTop"></div>
+    <div class="marquee-wrap marquee-top" id="marqueeTop"></div>
 
-<div class="bg-glow glow-1"></div>
-<div class="bg-glow glow-2"></div>
+    <div class="container" id="app">
+        <div class="badge">마감 임박</div>
 
-<div class="container" id="app">
-  <div class="badge">주문 마감 임박</div>
-  <h1 class="headline">
-    <span class="accent">4/2(목) 오전 11시 30분</span>,<br>
-    이번 주 쇼핑몰 주문 마감!
-  </h1>
-  <p class="sub">마감 전에 서둘러 주문하세요</p>
+        <h1 class="headline">
+            주문 <span class="accent">마감</span> 시간이 <br>
+            다가오고 있습니다
+        </h1>
 
-  <div class="timer" id="timer">
-    <div class="timer-unit">
-      <div class="timer-value" id="hours">00</div>
-      <div class="timer-label">Hours</div>
+        <p class="sub">4/9(목) 오전 11시 30분, 이번 주 쇼핑몰 주문 마감!</p>
+
+        <div class="timer">
+            <div class="timer-unit">
+                <div class="timer-value" id="hours">00</div>
+                <div class="timer-label">Hours</div>
+            </div>
+            <div class="colon">:</div>
+            <div class="timer-unit">
+                <div class="timer-value" id="minutes">00</div>
+                <div class="timer-label">Minutes</div>
+            </div>
+            <div class="colon">:</div>
+            <div class="timer-unit">
+                <div class="timer-value" id="seconds">00</div>
+                <div class="timer-label">Seconds</div>
+            </div>
+        </div>
+
+        <div class="expired-msg">주문 마감 시간이 지났습니다!</div>
+
+        <a href="https://durecoop.github.io/magazine/weekly-timer/" class="cta-btn">
+            전체보기
+        </a>
     </div>
-    <span class="colon">:</span>
-    <div class="timer-unit">
-      <div class="timer-value" id="minutes">00</div>
-      <div class="timer-label">Minutes</div>
-    </div>
-    <span class="colon">:</span>
-    <div class="timer-unit">
-      <div class="timer-value" id="seconds">00</div>
-      <div class="timer-label">Seconds</div>
-    </div>
-  </div>
 
-  <p class="expired-msg">주문 마감 시간이 지났습니다!</p>
+    <script>
+        (function() {
+            var deadline = new Date(2026, 3, 9, 11, 30, 0);
+            var $h = document.getElementById('hours');
+            var $m = document.getElementById('minutes');
+            var $s = document.getElementById('seconds');
+            var $app = document.getElementById('app');
 
-  <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1651"
-     class="cta-btn" target="_blank" rel="noopener">
-    놓치지 마세요!
-  </a>
-</div>
+            function pad(n) {
+                return String(n).padStart(2, '0');
+            }
 
+            function tick() {
+                var diff = deadline - Date.now();
+                if (diff <= 0) {
+                    $h.textContent = '00';
+                    $m.textContent = '00';
+                    $s.textContent = '00';
+                    $app.classList.add('expired');
+                    return;
+                }
+                var totalSec = Math.floor(diff / 1000);
+                $h.textContent = pad(Math.floor(totalSec / 3600));
+                $m.textContent = pad(Math.floor((totalSec % 3600) / 60));
+                $s.textContent = pad(totalSec % 60);
+                requestAnimationFrame(tick);
+            }
+            tick();
 
-<script>
-(function() {
-  // ── 타이머 ──
-  const deadline = new Date(2026, 3, 2, 11, 30, 0);
-  const $h = document.getElementById('hours');
-  const $m = document.getElementById('minutes');
-  const $s = document.getElementById('seconds');
-  const $app = document.getElementById('app');
+            var items = [
+                { name: "토종닭(1.4kg/냉동)", img: "56259C.jpg", rate: 31 },
+                { name: "그레인 시카크림", img: "48520C.jpg", rate: 30 },
+                { name: "유기농 해바라기씨유 750ml", img: "58220C.png", rate: 25 },
+                { name: "한마리 삼계탕", img: "54729C.jpg", rate: 21 },
+                { name: "백김치(국산/2kg)", img: "58219C.png", rate: 20 },
+                { name: "노스테 아토 로션", img: "59377C.jpg", rate: 20 },
+                { name: "노스테 아토 워시", img: "59376C.jpg", rate: 20 },
+                { name: "노스테 아토 크림", img: "59378C.jpg", rate: 20 },
+                { name: "검정찰보리(800g/유기)", img: "17324C.png", rate: 20 },
+                { name: "유기농 귀리유(YOU)16팩", img: "57232C.png", rate: 20 },
+                { name: "부추(180g/무농약)", img: "16653C.jpg", rate: 19 },
+                { name: "7곡 미숫가루", img: "39867C.png", rate: 19 },
+                { name: "파김치(1kg)", img: "59123C.jpg", rate: 16 },
+                { name: "베이스 선크림40g", img: "59362C.jpg", rate: 16 },
+                { name: "단백질쉐이크", img: "54198C.jpg", rate: 16 },
+                { name: "가자미구이(80g)", img: "56866C.jpg", rate: 16 },
+                { name: "고등어구이(90g)", img: "55747C.png", rate: 16 },
+                { name: "쌀보리강정", img: "53934C.jpg", rate: 16 },
+                { name: "한우찜갈비(800g/냉동/국내산)", img: "58970C.jpg", rate: 15 },
+                { name: "후브락스 사과(1.2kg)", img: "58721C.jpg", rate: 15 },
+                { name: "어성초 약산성 클렌징폼", img: "56936C.png", rate: 15 },
+                { name: "화이트닝 비타앰플", img: "53663C.jpg", rate: 15 },
+                { name: "화이트닝 비타크림", img: "57258C.jpg", rate: 15 },
+                { name: "그레인 남성올인원", img: "58210C.png", rate: 15 },
+                { name: "올리브유 스틱", img: "57926C.png", rate: 15 },
+                { name: "유기농 레몬즙(20ml*14포)", img: "56139C.jpg", rate: 15 },
+                { name: "유기농 매실스틱(20mlx15개)", img: "58781C.jpg", rate: 15 },
+                { name: "손질 참가자미(600g/2~3미)", img: "58197C.png", rate: 15 },
+                { name: "삼치구이(90g)", img: "55748C.png", rate: 15 },
+                { name: "오미자로 쭈", img: "52140C.jpg", rate: 15 },
+                { name: "쌀강정", img: "53932C.jpg", rate: 15 },
+                { name: "미나리(200g/무농약)", img: "37942C.jpg", rate: 13 },
+                { name: "당근(1kg/무농약/쥬스용)", img: "19563C.jpg", rate: 13 },
+                { name: "오이(2개/무농약)", img: "14437C.jpg", rate: 13 },
+                { name: "바나나송송", img: "58892C.jpg", rate: 13 },
+                { name: "냉면육수(300g)", img: "31452C.jpg", rate: 12 },
+                { name: "보리냉면사리", img: "31403C.jpg", rate: 12 },
+                { name: "콩국물(페트/1L)", img: "43396C.jpg", rate: 12 },
+                { name: "유기농우유(1000ml.)", img: "7260C.jpg", rate: 12 },
+                { name: "고구마스틱(67g)", img: "55213C.jpg", rate: 12 },
+                { name: "유기농 찹쌀누룽지", img: "48370C.png", rate: 11 },
+                { name: "미백 마스크팩(발효쌀)5개", img: "56622C.jpg", rate: 11 },
+                { name: "진정 마스크팩(알로에)5개", img: "56621C.jpg", rate: 11 },
+                { name: "탄력 마스크팩(콜라겐)5개", img: "56620C.jpg", rate: 11 },
+                { name: "샐러리(500g/무농약)", img: "33778C.jpg", rate: 11 },
+                { name: "다짐 광어살(120g)", img: "59268C.jpg", rate: 11 },
+                { name: "다짐 참돔살(120g)", img: "59267C.jpg", rate: 11 },
+                { name: "고구마말랭이", img: "54704C.jpg", rate: 11 },
+                { name: "곤약젤리쭈(사과)", img: "40287C.jpg", rate: 11 },
+                { name: "양배추(1kg/무농약)", img: "20772C.jpg", rate: 10 },
+                { name: "양배추(500g/무농약)", img: "14466C.jpg", rate: 10 },
+                { name: "청안마루 유정란(15구)", img: "58687C.png", rate: 10 },
+                { name: "닭다리(북채/500g)", img: "48378C.png", rate: 10 },
+                { name: "대패오리(500g/냉동)", img: "28445C.jpg", rate: 10 },
+                { name: "참옻진액(1.5L)", img: "43397C.png", rate: 10 },
+                { name: "열무김치(1kg)", img: "28224C.png", rate: 10 },
+                { name: "비빔쫄면", img: "38996C.jpg", rate: 10 },
+                { name: "맛들찬 무장아찌(500g)", img: "47664C.png", rate: 10 },
+                { name: "맛들찬 울외장아찌(500g)", img: "47663C.png", rate: 10 },
+                { name: "맛들찬 청참외장아찌(500g)", img: "47665C.png", rate: 10 },
+                { name: "치킨안심가스", img: "59286C.jpg", rate: 10 },
+                { name: "(기획세트)베이스 선크림", img: "59361C.jpg", rate: 10 },
+                { name: "그레인 수분미스트(80ml)", img: "54144C.jpg", rate: 10 },
+                { name: "알로에베라 수딩젤", img: "43842C.png", rate: 10 },
+                { name: "허브염색약(옅은갈색)", img: "57689C.jpg", rate: 10 },
+                { name: "허브염색약(자연흑색)", img: "57691C.jpg", rate: 10 },
+                { name: "허브염색약(짙은갈색)", img: "57690C.jpg", rate: 10 },
+                { name: "햇양파(800g/제주/조생)", img: "54511C.jpg", rate: 10 },
+                { name: "알비트(1kg/무농약)", img: "31221C.jpg", rate: 10 },
+                { name: "서리태쉐이크(200g)", img: "58914C.jpg", rate: 10 },
+                { name: "다짐 대구살(120g)", img: "59265C.jpg", rate: 10 },
+                { name: "손질오징어채", img: "23326C.jpg", rate: 10 },
+                { name: "생생딸기잼", img: "3012C.jpg", rate: 10 },
+                { name: "핫도그(10입)", img: "54270C.jpg", rate: 10 },
+                { name: "물막국수", img: "49400C.jpg", rate: 9 },
+                { name: "보리물냉면", img: "30779C.jpg", rate: 9 },
+                { name: "보리비빔냉면", img: "31454C.jpg", rate: 9 },
+                { name: "비빔막국수", img: "49401C.jpg", rate: 9 },
+                { name: "메밀국수", img: "39667C.jpg", rate: 9 },
+                { name: "오이지(350g)", img: "47363C.png", rate: 9 },
+                { name: "고구마칩", img: "55407C.jpg", rate: 9 },
+                { name: "당근사과주스(낱개)", img: "25413C.png", rate: 8 },
+                { name: "돈가스소스", img: "48792C.png", rate: 7 },
+                { name: "(맛찬)도라지초무침(220g)", img: "59060C.png", rate: 7 },
+                { name: "돌산갓김치(1kg)", img: "59429C.jpg", rate: 6 },
+                { name: "풋마늘대김치(500g)", img: "59420C.jpg", rate: 6 },
+                { name: "(맛찬)봄동나물", img: "59166C.jpg", rate: 6 },
+                { name: "(맛찬)생깻잎무침(240g)", img: "59061C.jpg", rate: 6 },
+                { name: "타르타르소스(140g)", img: "38965C.png", rate: 5 },
+                { name: "(맛찬)얼갈이보리 물김치", img: "59414C.jpg", rate: 5 },
+                { name: "(맛찬)열무얼갈이 물김치", img: "58072C.png", rate: 5 },
+                { name: "(맛찬)곤드레나물", img: "58068C.png", rate: 5 },
+                { name: "(맛찬)꼬막양념무침", img: "59024C.jpg", rate: 5 },
+                { name: "(맛찬)달래무침", img: "58946C.jpg", rate: 5 },
+                { name: "(맛찬)도라지초무침", img: "58065C.png", rate: 5 },
+                { name: "(맛찬)부지깽이나물", img: "58067C.png", rate: 5 },
+                { name: "(맛찬)산채나물비빔세트", img: "58425C.png", rate: 5 },
+                { name: "(맛찬)깻잎순들깨볶음(200g)", img: "59058C.png", rate: 5 },
+                { name: "(맛찬)연근유자피클", img: "58027C.png", rate: 5 },
+                { name: "(맛찬)우엉조림(200g)", img: "59059C.png", rate: 5 },
+                { name: "(맛찬)코다리조림", img: "58059C.png", rate: 5 },
+                { name: "(맛찬)오미자미역초무침", img: "58066C.png", rate: 4 },
+                { name: "(맛찬)취나물", img: "58071C.png", rate: 4 }
+            ];
 
-  function pad(n) { return String(n).padStart(2, '0'); }
+            var BASE = "https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/";
 
-  function tick() {
-    const diff = deadline - Date.now();
-    if (diff <= 0) {
-      $h.textContent = '00';
-      $m.textContent = '00';
-      $s.textContent = '00';
-      $app.classList.add('expired');
-      return;
-    }
-    const totalSec = Math.floor(diff / 1000);
-    $h.textContent = pad(Math.floor(totalSec / 3600));
-    $m.textContent = pad(Math.floor((totalSec % 3600) / 60));
-    $s.textContent = pad(totalSec % 60);
-    requestAnimationFrame(tick);
-  }
-  tick();
+            function buildMarquee(container) {
+                var track = document.createElement('div');
+                track.className = 'marquee-track';
 
-  // ── 마퀴 상품 데이터 (할인율 있는 상품만) ──
-  const items = [
-    { name: "라이스페이퍼", img: "56014C.png", rate: 50 },
-    { name: "포도주스(100ml*15)", img: "55807C.jpg", rate: 40 },
-    { name: "스프레드 초코", img: "57515C.jpg", rate: 40 },
-    { name: "감귤즙(700ml)", img: "5376C.jpg", rate: 30 },
-    { name: "손질갑오징어(500g)", img: "56862C.jpg", rate: 24 },
-    { name: "푸짐한 토막닭(1.4kg)", img: "57259C.jpg", rate: 20 },
-    { name: "순진한 딸기콩포트", img: "57229C.jpg", rate: 18 },
-    { name: "유기농딸기쉐이크", img: "57239C.jpg", rate: 16 },
-    { name: "동물복지 보쌈(500g)", img: "56908C.jpg", rate: 15 },
-    { name: "동물복지 제육(500g)", img: "56907C.jpg", rate: 15 },
-    { name: "동물복지 찌개용(300g)", img: "56906C.jpg", rate: 15 },
-    { name: "유기농 떡볶이떡", img: "44755C.png", rate: 15 },
-    { name: "발아볶은참깨(120g)", img: "21180C.jpg", rate: 15 },
-    { name: "육즙가득 삼겹살(500g)", img: "52933C.jpg", rate: 15 },
-    { name: "유기농딸기요구르트", img: "30020C.png", rate: 15 },
-    { name: "닭가슴살허브", img: "51752C.jpg", rate: 15 },
-    { name: "하루담은 톡오미자", img: "59203C.jpg", rate: 15 },
-    { name: "청경채(200g)", img: "48975C.png", rate: 13 },
-    { name: "웨하스(딸기맛)", img: "29044C.jpg", rate: 13 },
-    { name: "고구마맛탕", img: "56382C.jpg", rate: 12 },
-    { name: "대저토마토(2.5kg)", img: "42324C.jpg", rate: 11 },
-    { name: "대파(500g)", img: "48977C.jpg", rate: 11 },
-    { name: "딸기 유기농잼", img: "56353C.png", rate: 11 },
-    { name: "딸기주스(낱개)", img: "25414C.png", rate: 11 },
-    { name: "쪽파(300g)", img: "186C.jpg", rate: 11 },
-    { name: "생목이버섯(150g)", img: "51322C.jpg", rate: 11 },
-    { name: "유기농딸기요구르트(450ml)", img: "12721C.jpg", rate: 11 },
-    { name: "양파(1kg)", img: "20247C.jpg", rate: 10 },
-    { name: "돌돌대패삼겹살", img: "31451C.jpg", rate: 10 },
-    { name: "돼지삼겹살(400g)", img: "58371C.png", rate: 10 },
-    { name: "돼지통삼겹살(500g)", img: "19330C.png", rate: 10 },
-    { name: "대저토마토(800g)", img: "17091C.jpg", rate: 10 },
-    { name: "탄산수(500ml*20)", img: "55631C.jpg", rate: 10 },
-    { name: "목이버섯(200g)", img: "50459C.jpg", rate: 10 },
-    { name: "흰목이버섯(150g)", img: "56791C.jpg", rate: 10 },
-    { name: "디카페인 콜드브루", img: "59271C.jpg", rate: 10 },
-    { name: "발아참기름(160ml)", img: "20707C.jpg", rate: 10 },
-    { name: "현미국수(6입)", img: "20131C.jpg", rate: 10 },
-    { name: "닭볶음탕 양념소스", img: "56349C.jpg", rate: 10 },
-    { name: "떡볶이 양념소스", img: "56348C.jpg", rate: 10 },
-    { name: "생선조림 양념소스", img: "56350C.jpg", rate: 10 },
-    { name: "생깻잎무침(240g)", img: "59061C.jpg", rate: 10 },
-  ];
+                for (var s = 0; s < 2; s++) {
+                    items.forEach(function(item, i) {
+                        var el = document.createElement('div');
+                        el.className = 'marquee-item';
+                        el.innerHTML = '<img src="' + BASE + item.img + '" alt="' + item.name + '" loading="lazy">' +
+                                      '<div class="marquee-info">' +
+                                      '<span class="marquee-name">' + item.name + '</span>' +
+                                      '<span class="marquee-discount">' + item.rate + '% 할인</span>' +
+                                      '</div>';
+                        track.appendChild(el);
 
-  const BASE = "https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/";
+                        if (i < items.length - 1 || s === 0) {
+                            var sep = document.createElement('span');
+                            sep.className = 'marquee-sep';
+                            sep.textContent = '·';
+                            track.appendChild(sep);
+                        }
+                    });
+                }
+                container.appendChild(track);
+            }
 
-  function buildMarquee(container) {
-    const track = document.createElement('div');
-    track.className = 'marquee-track';
-
-    // 2세트 반복 (무한 스크롤 효과)
-    for (let s = 0; s < 2; s++) {
-      items.forEach((item, i) => {
-        const el = document.createElement('div');
-        el.className = 'marquee-item';
-        el.innerHTML =
-          '<img src="' + BASE + item.img + '" alt="' + item.name + '" loading="lazy">' +
-          '<div class="marquee-info">' +
-            '<span class="marquee-name">' + item.name + '</span>' +
-            '<span class="marquee-discount">' + item.rate + '% 할인</span>' +
-          '</div>';
-        track.appendChild(el);
-
-        if (i < items.length - 1 || s === 0) {
-          const sep = document.createElement('span');
-          sep.className = 'marquee-sep';
-          sep.textContent = '·';
-          track.appendChild(sep);
-        }
-      });
-    }
-
-    container.appendChild(track);
-  }
-
-  buildMarquee(document.getElementById('marqueeTop'));
-})();
-</script>
+            buildMarquee(document.getElementById('marqueeTop'));
+        })();
+    </script>
 </body>
 </html>
