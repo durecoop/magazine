@@ -24,7 +24,7 @@
             justify-content: center;
             overflow: hidden;
             word-break: keep-all;
-            padding-top: 24vh;
+            padding-top: 22vw;
             border: 2px solid rgba(255, 107, 53, 0.4);
             box-shadow: inset 0 0 60px rgba(255, 107, 53, 0.06);
         }
@@ -43,7 +43,7 @@
 
         .marquee-top {
             top: 0;
-            height: 24vh;
+            height: auto;
         }
 
         .marquee-track {
@@ -63,50 +63,25 @@
 
         .marquee-item {
             display: flex;
-            flex-direction: column;
             align-items: center;
-            gap: 0.3rem;
-            padding: 0.6rem 0.8rem;
+            padding: 0.5rem 0.3rem;
             flex-shrink: 0;
             cursor: default;
             transition: transform 0.2s;
         }
 
         .marquee-item:hover {
-            transform: scale(1.05);
+            transform: scale(1.08);
         }
 
         .marquee-item img {
-            width: 28vw;
-            height: 28vw;
-            max-width: 180px;
-            max-height: 180px;
-            border-radius: 12px;
+            width: 20vw;
+            height: 20vw;
+            max-width: 140px;
+            max-height: 140px;
+            border-radius: 10px;
             object-fit: cover;
             border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .marquee-info {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1px;
-            white-space: nowrap;
-        }
-
-        .marquee-name {
-            font-size: 0.85rem;
-            color: #ccc;
-            max-width: 28vw;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            text-align: center;
-        }
-
-        .marquee-discount {
-            font-size: 0.95rem;
-            font-weight: 900;
-            color: #ff6b35;
         }
 
         .marquee-sep {
@@ -333,22 +308,13 @@
             }
 
             .marquee-item {
-                padding: 0.5rem 0.6rem;
+                padding: 0.4rem 0.2rem;
             }
 
             .marquee-item img {
-                width: 26vw;
-                height: 26vw;
-                border-radius: 10px;
-            }
-
-            .marquee-name {
-                font-size: 0.75rem;
-                max-width: 26vw;
-            }
-
-            .marquee-discount {
-                font-size: 0.9rem;
+                width: 18vw;
+                height: 18vw;
+                border-radius: 8px;
             }
         }
 
@@ -368,8 +334,8 @@
             }
 
             .marquee-item img {
-                width: 26vw;
-                height: 26vw;
+                width: 18vw;
+                height: 18vw;
             }
         }
     </style>
@@ -388,7 +354,7 @@
             다가오고 있습니다
         </h1>
 
-        <p class="sub">4/9(목) 오전 11시 30분, 이번 주 쇼핑몰 주문 마감!</p>
+        <p class="sub">4/9(목) 오전 11시 30분,<br>이번 주 쇼핑몰 주문 마감!</p>
 
         <div class="timer">
             <div class="timer-unit">
@@ -559,11 +525,7 @@
                     items.forEach(function(item, i) {
                         var el = document.createElement('div');
                         el.className = 'marquee-item';
-                        el.innerHTML = '<img src="' + BASE + item.img + '" alt="' + item.name + '" loading="lazy">' +
-                                      '<div class="marquee-info">' +
-                                      '<span class="marquee-name">' + item.name + '</span>' +
-                                      '<span class="marquee-discount">' + item.rate + '% 할인</span>' +
-                                      '</div>';
+                        el.innerHTML = '<img src="' + BASE + item.img + '" alt="' + item.name + '" loading="lazy">';
                         track.appendChild(el);
 
                         if (i < items.length - 1 || s === 0) {
