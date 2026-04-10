@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>두레생협 | 5월 가정의달 건강식품 기획전</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;400;500;600;700;900&family=Noto+Sans+KR:wght@100;300;400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ===== RESET & BASE ===== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  background: #faf9f6;
+  color: #2c2c2c;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* ===== LUXURY COLOR PALETTE ===== */
+:root {
+  --gold: #b8956a;
+  --gold-light: #d4b896;
+  --gold-dark: #8a6d4b;
+  --champagne: #f5f0e8;
+  --ivory: #faf9f6;
+  --deep-brown: #3a2a1a;
+  --warm-gray: #5a5048;
+  --soft-white: #fffef9;
+  --accent-red: #8b3a3a;
+  --sage: #7a8b6f;
+}
+
+/* ===== SCROLL ANIMATIONS ===== */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.9s cubic-bezier(0.23, 1, 0.32, 1), transform 0.9s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.15s; }
+.reveal-delay-2 { transition-delay: 0.3s; }
+.reveal-delay-3 { transition-delay: 0.45s; }
+.reveal-delay-4 { transition-delay: 0.6s; }
+
+/* ===== HERO SECTION ===== */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(160deg, #2a1f14 0%, #3d2b1a 30%, #4a3423 60%, #2a1f14 100%);
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(184,149,106,0.15) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 30%, rgba(184,149,106,0.1) 0%, transparent 50%);
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5 L35 25 L55 30 L35 35 L30 55 L25 35 L5 30 L25 25 Z' fill='none' stroke='rgba(184,149,106,0.06)' stroke-width='0.5'/%3E%3C/svg%3E");
+  opacity: 0.5;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 2rem;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.hero-badge {
+  display: inline-block;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  padding: 0.5rem 2rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  margin-bottom: 2.5rem;
+  font-weight: 300;
+  animation: fadeDown 1s 0.3s both;
+}
+.hero-title-sub {
+  font-family: 'Noto Serif KR', serif;
+  color: var(--gold-light);
+  font-size: 1.1rem;
+  font-weight: 300;
+  letter-spacing: 0.3em;
+  margin-bottom: 1rem;
+  animation: fadeDown 1s 0.5s both;
+}
+.hero-title {
+  font-family: 'Noto Serif KR', serif;
+  color: #fff;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 1.5rem;
+  animation: fadeDown 1s 0.7s both;
+}
+.hero-title em {
+  font-style: normal;
+  color: var(--gold);
+}
+.hero-divider {
+  width: 60px;
+  height: 1px;
+  background: var(--gold);
+  margin: 2rem auto;
+  animation: expandWidth 1s 1s both;
+}
+.hero-desc {
+  color: rgba(255,255,255,0.85);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 2;
+  letter-spacing: 0.05em;
+  animation: fadeUp 1s 1.2s both;
+}
+.hero-discount-highlight {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  margin-top: 2rem;
+  padding: 0.8rem 2.5rem;
+  border: 1px solid rgba(184,149,106,0.4);
+  background: rgba(184,149,106,0.08);
+  animation: fadeUp 1s 1.2s both;
+}
+.discount-number {
+  font-family: 'Noto Serif KR', serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700;
+  color: var(--gold);
+  line-height: 1;
+}
+.discount-text {
+  font-family: 'Noto Serif KR', serif;
+  font-size: clamp(1.2rem, 3vw, 1.6rem);
+  font-weight: 300;
+  color: var(--gold-light);
+  line-height: 1;
+}
+.hero-cta {
+  display: inline-block;
+  margin-top: 2rem;
+  padding: 1rem 3rem;
+  background: transparent;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.2em;
+  text-decoration: none;
+  transition: all 0.4s ease;
+  animation: fadeUp 1s 1.4s both;
+  cursor: pointer;
+}
+.hero-cta:hover {
+  background: var(--gold);
+  color: #2a1f14;
+}
+
+
+/* ===== SECTION COMMON ===== */
+section {
+  padding: 7rem 2rem;
+}
+.section-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.section-label {
+  display: inline-block;
+  color: var(--gold);
+  font-size: 0.7rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+.section-title {
+  font-family: 'Noto Serif KR', serif;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 600;
+  color: var(--deep-brown);
+  line-height: 1.4;
+  margin-bottom: 1rem;
+}
+.section-subtitle {
+  font-size: 0.95rem;
+  color: var(--warm-gray);
+  font-weight: 400;
+  line-height: 1.8;
+  max-width: 600px;
+}
+.gold-line {
+  width: 40px;
+  height: 1px;
+  background: var(--gold);
+  margin: 1.5rem 0;
+}
+.gold-line-center {
+  width: 40px;
+  height: 1px;
+  background: var(--gold);
+  margin: 1.5rem auto;
+}
+
+/* ===== INTRO STRIP ===== */
+.intro-strip {
+  background: var(--deep-brown);
+  padding: 1.8rem 2rem;
+  overflow: hidden;
+}
+.intro-strip-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+}
+.strip-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  white-space: nowrap;
+}
+.strip-icon {
+  font-size: 0.9rem;
+  color: var(--gold);
+  line-height: 1;
+}
+.strip-text {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.9);
+  font-weight: 400;
+  letter-spacing: 0.03em;
+}
+.strip-divider {
+  display: none;
+}
+
+/* ===== PRODUCT SECTIONS ===== */
+.products-section {
+  background: var(--ivory);
+}
+.products-section.alt {
+  background: var(--soft-white);
+}
+
+/* Category Header */
+.category-header {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 3.5rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(184,149,106,0.2);
+}
+.category-number {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 4rem;
+  font-weight: 200;
+  color: var(--gold-light);
+  line-height: 1;
+  opacity: 0.6;
+}
+.category-header .section-title {
+  margin-bottom: 0.3rem;
+}
+
+/* Product Grid */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 2.5rem;
+}
+.product-card {
+  background: #fff;
+  border: 1px solid rgba(184,149,106,0.1);
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  position: relative;
+}
+.product-card:hover {
+  border-color: var(--gold);
+  box-shadow: 0 30px 80px rgba(58,42,26,0.08);
+  transform: translateY(-6px);
+}
+
+/* Product Badge */
+.product-badge {
+  position: absolute;
+  top: 1.2rem;
+  left: 1.2rem;
+  z-index: 3;
+  background: var(--accent-red);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 500;
+  padding: 0.3rem 0.8rem;
+  letter-spacing: 0.05em;
+}
+.product-badge.best {
+  background: var(--gold-dark);
+}
+.product-badge.value {
+  background: var(--sage);
+}
+
+/* Product Image */
+.product-image {
+  position: relative;
+  height: 280px;
+  background: linear-gradient(135deg, #f5f0e8, #ede6da);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.product-image img {
+  max-width: 65%;
+  max-height: 75%;
+  object-fit: contain;
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  filter: drop-shadow(0 8px 20px rgba(0,0,0,0.08));
+}
+.product-card:hover .product-image img {
+  transform: scale(1.06);
+}
+.product-image::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40%;
+  background: linear-gradient(to top, rgba(255,255,255,0.4), transparent);
+  pointer-events: none;
+}
+
+/* Product Info */
+.product-info {
+  padding: 1.8rem 2rem 2rem;
+}
+.product-tag {
+  font-size: 0.68rem;
+  color: var(--gold);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 0.6rem;
+  white-space: nowrap;
+}
+.product-name {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--deep-brown);
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+.product-desc {
+  font-size: 0.82rem;
+  color: var(--warm-gray);
+  font-weight: 400;
+  margin-bottom: 1.2rem;
+  line-height: 1.6;
+}
+.product-pricing {
+  display: flex;
+  align-items: baseline;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+.price-original {
+  font-size: 0.85rem;
+  color: #999;
+  text-decoration: line-through;
+  font-weight: 300;
+  white-space: nowrap;
+}
+.price-sale {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--deep-brown);
+  white-space: nowrap;
+}
+.price-discount {
+  font-size: 0.75rem;
+  color: var(--accent-red);
+  font-weight: 500;
+  background: rgba(139,58,58,0.08);
+  padding: 0.2rem 0.6rem;
+  border-radius: 2px;
+  white-space: nowrap;
+}
+
+/* ===== FEATURED PRODUCT (FULL WIDTH) ===== */
+.featured-product {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  background: #fff;
+  border: 1px solid rgba(184,149,106,0.15);
+  margin-bottom: 3rem;
+  overflow: hidden;
+}
+.featured-product .product-image {
+  height: 100%;
+  min-height: 420px;
+}
+.featured-product .product-image img {
+  max-width: 55%;
+}
+.featured-product .product-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 3.5rem;
+}
+.featured-product .product-name {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+}
+.featured-product .product-desc {
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.8;
+}
+.featured-product .price-sale {
+  font-size: 1.8rem;
+}
+.featured-detail-list {
+  list-style: none;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(184,149,106,0.15);
+}
+.featured-detail-list li {
+  font-size: 0.8rem;
+  color: var(--warm-gray);
+  font-weight: 400;
+  padding: 0.3rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.featured-detail-list li::before {
+  content: '';
+  width: 4px;
+  height: 4px;
+  background: var(--gold);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ===== BANNER / CTA SECTION ===== */
+.banner-section {
+  background: linear-gradient(160deg, #2a1f14, #3d2b1a);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.banner-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 30% 50%, rgba(184,149,106,0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 50%, rgba(184,149,106,0.08) 0%, transparent 50%);
+}
+.banner-section .section-inner {
+  position: relative;
+  z-index: 2;
+}
+.banner-section .section-label {
+  color: var(--gold-light);
+}
+.banner-section .section-title {
+  color: #fff;
+}
+.banner-section .section-subtitle {
+  color: rgba(255,255,255,0.8);
+  margin-left: auto;
+  margin-right: auto;
+}
+.banner-benefits {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  margin-top: 3rem;
+  flex-wrap: wrap;
+}
+.banner-benefit {
+  text-align: center;
+}
+.banner-benefit-number {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 2.5rem;
+  font-weight: 200;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+.banner-benefit-text {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.8);
+  letter-spacing: 0.1em;
+  font-weight: 300;
+  white-space: nowrap;
+}
+
+/* ===== GIFT GUIDE ===== */
+.gift-guide {
+  background: var(--champagne);
+}
+.gift-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+.gift-card {
+  background: #fff;
+  padding: 2.5rem;
+  border: 1px solid rgba(184,149,106,0.1);
+  transition: all 0.4s ease;
+}
+.gift-card:hover {
+  border-color: var(--gold);
+}
+.gift-for {
+  font-size: 0.7rem;
+  color: var(--gold);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+.gift-card h3 {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--deep-brown);
+  margin-bottom: 0.8rem;
+}
+.gift-card p {
+  font-size: 0.82rem;
+  color: var(--warm-gray);
+  font-weight: 400;
+  line-height: 1.7;
+  margin-bottom: 1.2rem;
+}
+.gift-items {
+  list-style: none;
+}
+.gift-items li {
+  font-size: 0.8rem;
+  color: var(--deep-brown);
+  padding: 0.4rem 0;
+  border-bottom: 1px solid rgba(184,149,106,0.08);
+  display: flex;
+  justify-content: space-between;
+}
+.gift-items li:last-child { border: none; }
+.gift-items .item-price {
+  color: var(--gold-dark);
+  font-weight: 500;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ===== NOTICE / INFO ===== */
+.notice-section {
+  background: var(--soft-white);
+  padding: 5rem 2rem;
+}
+.notice-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 2.5rem;
+}
+.notice-card {
+  padding: 2rem;
+  border-left: 2px solid var(--gold-light);
+}
+.notice-card h4 {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--deep-brown);
+  margin-bottom: 0.8rem;
+}
+.notice-card p {
+  font-size: 0.82rem;
+  color: var(--warm-gray);
+  font-weight: 400;
+  line-height: 1.8;
+}
+
+/* ===== FOOTER ===== */
+footer {
+  background: var(--deep-brown);
+  padding: 4rem 2rem;
+  text-align: center;
+}
+footer .footer-logo {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 1.3rem;
+  color: var(--gold-light);
+  font-weight: 300;
+  letter-spacing: 0.15em;
+  margin-bottom: 1rem;
+}
+footer p {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.6);
+  font-weight: 400;
+  line-height: 2;
+}
+footer a {
+  color: var(--gold-light);
+  text-decoration: none;
+}
+.footer-order-btn {
+  display: inline-block;
+  padding: 0.9rem 2.5rem;
+  background: var(--gold);
+  color: #fff !important;
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  margin-bottom: 2rem;
+  transition: all 0.3s ease;
+}
+.footer-order-btn:hover {
+  background: var(--gold-light);
+  color: var(--deep-brown) !important;
+}
+
+/* ===== FONT SIZE TOGGLE ===== */
+.font-size-toggle {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 200;
+  display: flex;
+  background: #fff;
+  border: 1px solid rgba(184,149,106,0.3);
+  box-shadow: 0 4px 20px rgba(58,42,26,0.1);
+  overflow: hidden;
+}
+.font-size-toggle button {
+  border: none;
+  background: #fff;
+  color: var(--deep-brown);
+  cursor: pointer;
+  font-family: 'Noto Sans KR', sans-serif;
+  padding: 0.6rem 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.font-size-toggle button:not(:last-child) {
+  border-right: 1px solid rgba(184,149,106,0.2);
+}
+.font-size-toggle button:hover {
+  background: var(--champagne);
+}
+.font-size-toggle button.active {
+  background: var(--gold);
+  color: #fff;
+}
+.font-size-toggle .btn-small { font-size: 0.72rem; }
+.font-size-toggle .btn-medium { font-size: 0.88rem; }
+.font-size-toggle .btn-large { font-size: 1.05rem; }
+
+/* Font size modes */
+html { font-size: 18px; }
+html.font-small { font-size: 14px; }
+html.font-medium { font-size: 16px; }
+html.font-large { font-size: 18px; }
+
+@media (max-width: 480px) {
+  .font-size-toggle {
+    bottom: 1rem;
+    right: 1rem;
+  }
+  .font-size-toggle button {
+    padding: 0.5rem 0.75rem;
+  }
+}
+
+/* ===== FLOATING NAV ===== */
+.floating-nav {
+  position: fixed;
+  top: 50%;
+  right: 1.5rem;
+  transform: translateY(-50%);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.floating-nav a {
+  width: 10px;
+  height: 10px;
+  border: 1px solid var(--gold-light);
+  border-radius: 50%;
+  display: block;
+  transition: all 0.3s ease;
+  position: relative;
+}
+.floating-nav a.active,
+.floating-nav a:hover {
+  background: var(--gold);
+  border-color: var(--gold);
+}
+.floating-nav a .nav-tooltip {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--deep-brown);
+  color: var(--gold-light);
+  font-size: 0.7rem;
+  padding: 0.3rem 0.8rem;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  letter-spacing: 0.05em;
+}
+.floating-nav a:hover .nav-tooltip {
+  opacity: 1;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes expandWidth {
+  from { width: 0; }
+  to { width: 60px; }
+}
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.3; transform: scaleY(0.8); }
+  50% { opacity: 1; transform: scaleY(1); }
+}
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* ===== RESPONSIVE ===== */
+
+/* Tablet */
+@media (max-width: 768px) {
+  section { padding: 4rem 1.2rem; }
+  .floating-nav { display: none; }
+
+  /* Hero */
+  .hero { min-height: 100svh; }
+  .hero-content { padding: 1.5rem; }
+  .hero-badge { padding: 0.4rem 1.2rem; font-size: 0.65rem; letter-spacing: 0.2em; margin-bottom: 1.8rem; }
+  .hero-title-sub { font-size: 0.9rem; letter-spacing: 0.15em; }
+  .hero-title { font-size: 2rem; line-height: 1.4; margin-bottom: 1rem; }
+  .hero-divider { margin: 1.2rem auto; }
+  .hero-desc { font-size: 0.88rem; line-height: 1.8; }
+  .hero-desc br { display: none; }
+  .hero-cta { margin-top: 2rem; padding: 0.9rem 2.2rem; font-size: 0.8rem; }
+  .scroll-indicator { bottom: 1.5rem; }
+
+  /* Intro */
+  .section-title { font-size: 1.5rem; }
+  .section-subtitle { font-size: 0.88rem; }
+  .section-subtitle br:not(.keep) { display: none; }
+  .intro-strip { padding: 1.3rem 1rem; }
+  .intro-strip-inner { gap: 0.5rem; }
+  .strip-text { font-size: 0.78rem; }
+  .hero-discount-highlight { padding: 0.6rem 1.8rem; margin-top: 1.5rem; }
+  .discount-number { font-size: 1.8rem; }
+  .discount-text { font-size: 1.1rem; }
+
+  /* Category Header */
+  .category-header { flex-direction: column; gap: 0.3rem; align-items: flex-start; margin-bottom: 2.5rem; padding-bottom: 1.5rem; }
+  .category-number { font-size: 2.2rem; }
+
+  /* Featured Product */
+  .featured-product { grid-template-columns: 1fr; }
+  .featured-product .product-image { min-height: 260px; }
+  .featured-product .product-info { padding: 1.8rem 1.5rem 2rem; }
+  .featured-product .product-name { font-size: 1.3rem; }
+  .featured-product .product-desc { font-size: 0.85rem; }
+  .featured-product .price-sale { font-size: 1.5rem; }
+
+  /* Product Grid */
+  .product-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+  .product-image { height: 240px; }
+  .product-info { padding: 1.5rem; }
+  .product-name { font-size: 1.1rem; }
+  .product-desc { font-size: 0.8rem; }
+
+  /* Banner */
+  .banner-section { padding: 4rem 1.2rem; }
+  .banner-benefits { gap: 1.5rem; }
+  .banner-benefit-number { font-size: 2rem; }
+  .banner-benefit-text { font-size: 0.75rem; }
+
+  /* Gift Guide */
+  .gift-grid { grid-template-columns: 1fr; gap: 1.2rem; }
+  .gift-card { padding: 1.8rem; }
+  .gift-card h3 { font-size: 1.05rem; }
+  .gift-card p { font-size: 0.8rem; }
+  .gift-items li { font-size: 0.78rem; gap: 0.5rem; }
+
+  /* Notice */
+  .notice-section { padding: 3.5rem 1.2rem; }
+  .notice-grid { grid-template-columns: 1fr; gap: 1.2rem; }
+  .notice-card { padding: 1.5rem; }
+
+  /* Footer */
+  footer { padding: 3rem 1.5rem; }
+}
+
+/* Mobile small */
+@media (max-width: 480px) {
+  section { padding: 3.5rem 1rem; }
+
+  .hero-content { padding: 1rem; }
+  .hero-badge { padding: 0.35rem 1rem; font-size: 0.6rem; margin-bottom: 1.5rem; }
+  .hero-title-sub { font-size: 0.82rem; letter-spacing: 0.1em; margin-bottom: 0.6rem; }
+  .hero-title { font-size: 1.7rem; }
+  .hero-desc { font-size: 0.82rem; line-height: 1.7; }
+  .hero-cta { padding: 0.8rem 1.8rem; font-size: 0.78rem; letter-spacing: 0.1em; }
+
+  .section-label { font-size: 0.63rem; letter-spacing: 0.25em; }
+  .section-title { font-size: 1.3rem; }
+  .section-subtitle { font-size: 0.82rem; }
+
+  .intro-strip-inner { gap: 0.4rem; }
+  .strip-item { gap: 0.4rem; }
+  .strip-icon { font-size: 0.75rem; }
+  .strip-text { font-size: 0.72rem; }
+  .hero-discount-highlight { padding: 0.5rem 1.5rem; }
+  .discount-number { font-size: 1.5rem; }
+  .discount-text { font-size: 1rem; }
+
+  .category-number { font-size: 1.8rem; }
+
+  .featured-product .product-image { min-height: 220px; }
+  .featured-product .product-info { padding: 1.5rem 1.2rem; }
+  .featured-product .product-name { font-size: 1.15rem; }
+  .featured-product .product-desc { font-size: 0.8rem; line-height: 1.7; }
+  .featured-product .price-sale { font-size: 1.3rem; }
+  .featured-detail-list li { font-size: 0.75rem; }
+
+  .product-grid { gap: 1.2rem; }
+  .product-image { height: 200px; }
+  .product-info { padding: 1.2rem; }
+  .product-name { font-size: 1rem; }
+  .product-desc { font-size: 0.78rem; line-height: 1.6; }
+  .price-original { font-size: 0.78rem; }
+  .price-sale { font-size: 1.2rem; }
+  .price-discount { font-size: 0.68rem; }
+  .product-badge { top: 0.8rem; left: 0.8rem; font-size: 0.63rem; padding: 0.25rem 0.6rem; }
+
+  .banner-section { padding: 3.5rem 1rem; }
+  .banner-benefits { gap: 1rem; display: grid; grid-template-columns: 1fr 1fr; }
+  .banner-benefit-number { font-size: 1.8rem; }
+  .banner-benefit-text { font-size: 0.7rem; }
+
+  .gift-card { padding: 1.5rem 1.2rem; }
+  .gift-card h3 { font-size: 1rem; }
+  .gift-items li { font-size: 0.75rem; padding: 0.35rem 0; }
+  .gift-items .item-price { white-space: nowrap; }
+
+  .notice-section { padding: 3rem 1rem; }
+  .notice-card { padding: 1.2rem; }
+  .notice-card h4 { font-size: 0.92rem; }
+  .notice-card p { font-size: 0.78rem; }
+
+  footer { padding: 2.5rem 1rem; }
+  footer .footer-logo { font-size: 1.1rem; }
+  footer p { font-size: 0.7rem; }
+}
+
+/* Mobile extra small (SE, etc.) */
+@media (max-width: 360px) {
+  .hero-title { font-size: 1.5rem; }
+  .hero-title-sub { font-size: 0.75rem; }
+  .section-title { font-size: 1.2rem; }
+  .featured-product .product-name { font-size: 1.05rem; }
+  .product-pricing { gap: 0.5rem; }
+  .price-sale { font-size: 1.1rem; }
+  .banner-benefit-number { font-size: 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- FONT SIZE TOGGLE -->
+<div class="font-size-toggle">
+  <button class="btn-small" onclick="setFontSize('small')" title="작은 글씨">가</button>
+  <button class="btn-medium" onclick="setFontSize('medium')" title="보통 글씨">가</button>
+  <button class="btn-large active" onclick="setFontSize('large')" title="큰 글씨">가</button>
+</div>
+
+<!-- FLOATING NAV -->
+<nav class="floating-nav">
+  <a href="#hero"><span class="nav-tooltip">맨 위로</span></a>
+  <a href="#premium"><span class="nav-tooltip">프리미엄 보양</span></a>
+  <a href="#vitality"><span class="nav-tooltip">원기충전 즙</span></a>
+  <a href="#wellness"><span class="nav-tooltip">건강기능식품</span></a>
+  <a href="#gift"><span class="nav-tooltip">선물 가이드</span></a>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="hero">
+  <div class="hero-content">
+    <div class="hero-badge">26년 봄맞이 빅세일</div>
+    <p class="hero-title-sub">두레생협이 엄선한 건강한 선물</p>
+    <h1 class="hero-title">
+      5월, <em>가정의 달</em><br>
+      미리 알뜰하게 준비하세요
+    </h1>
+    <div class="hero-divider"></div>
+    <p class="hero-desc">
+      사랑하는 가족의 건강을 위해 정성스레 준비한 두레생협 건강식품 특별 기획전
+    </p>
+    <div class="hero-discount-highlight">
+      <span class="discount-number">최대 35%</span>
+      <span class="discount-text">할인</span>
+    </div>
+    <a href="#premium" class="hero-cta">기획전 보러가기</a>
+  </div>
+</section>
+
+<!-- ===== INTRO STRIP ===== -->
+<section class="intro-strip">
+  <div class="intro-strip-inner reveal">
+    <div class="strip-item">
+      <span class="strip-icon">&#9670;</span>
+      <span class="strip-text">엄선된 국내산 원료</span>
+    </div>
+    <div class="strip-divider"></div>
+    <div class="strip-item">
+      <span class="strip-icon">&#9671;</span>
+      <span class="strip-text">전통 방식 정성 제조</span>
+    </div>
+    <div class="strip-divider"></div>
+    <div class="strip-item">
+      <span class="strip-icon">&#9672;</span>
+      <span class="strip-text">최대 35% 특별 할인</span>
+    </div>
+    <div class="strip-divider"></div>
+    <div class="strip-item">
+      <span class="strip-icon">&#9673;</span>
+      <span class="strip-text">믿을 수 있는 생협</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CATEGORY 1: PREMIUM 보양식품 ===== -->
+<section class="products-section" id="premium">
+  <div class="section-inner">
+    <div class="category-header reveal">
+      <span class="category-number">01</span>
+      <div>
+        <span class="section-label">고급 보양식품</span>
+        <h2 class="section-title">프리미엄 보양 식품</h2>
+        <p class="section-subtitle">부모님의 건강을 책임지는 고급 보양 엑기스</p>
+      </div>
+    </div>
+
+    <!-- FEATURED: 6년근 홍삼 -->
+    <div class="featured-product reveal">
+      <div class="product-image">
+        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/6116C.png" alt="6년근홍삼엑기스" loading="lazy">
+      </div>
+      <div class="product-info">
+        <span class="product-tag">인기 상품</span>
+        <h3 class="product-name">6년근 홍삼 엑기스</h3>
+        <div class="gold-line"></div>
+        <p class="product-desc">
+          6년의 세월을 기다려 수확한 국내산 홍삼을 전통 방식으로 정성껏 달여 만든 프리미엄 엑기스. 온 가족의 활력과 면역력을 위한 가정의 달 대표 선물.
+        </p>
+        <div class="product-pricing">
+          <span class="price-original">145,500원</span>
+          <span class="price-sale">119,300원</span>
+          <span class="price-discount">18% 할인</span>
+        </div>
+        <ul class="featured-detail-list">
+          <li>60팩 구성 (약 2개월분)</li>
+          <li>국내산 6년근 홍삼 100% 사용</li>
+          <li>전통 방식 저온 추출</li>
+          <li>간편한 개별 팩 포장</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Product Grid -->
+    <div class="product-grid">
+      <!-- 녹용 남성 -->
+      <div class="product-card reveal reveal-delay-1">
+        <span class="product-badge best">추천</span>
+        <div class="product-image">
+          <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/17756C.jpg" alt="녹용엑기스 남성" loading="lazy">
+        </div>
+        <div class="product-info">
+          <span class="product-tag">남성 보양</span>
+          <h3 class="product-name">녹용 엑기스 (남성용)</h3>
+          <p class="product-desc">뉴질랜드산 녹용과 국내산 약재를 배합한 남성 맞춤 보양 엑기스. 아버지께 드리는 건강한 효도 선물.</p>
+          <div class="product-pricing">
+            <span class="price-original">142,900원</span>
+            <span class="price-sale">125,800원</span>
+            <span class="price-discount">12% 할인</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 녹용 여성 -->
+      <div class="product-card reveal reveal-delay-2">
+        <span class="product-badge best">추천</span>
+        <div class="product-image">
+          <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/3069C.jpg" alt="녹용엑기스 여성" loading="lazy">
+        </div>
+        <div class="product-info">
+          <span class="product-tag">여성 보양</span>
+          <h3 class="product-name">녹용 엑기스 (여성용)</h3>
+          <p class="product-desc">여성 건강에 맞춘 녹용 엑기스. 어머니의 관절과 뼈 건강, 원기 회복을 위한 프리미엄 선물.</p>
+          <div class="product-pricing">
+            <span class="price-original">142,900원</span>
+            <span class="price-sale">125,800원</span>
+            <span class="price-discount">12% 할인</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 흑염소 -->
+      <div class="product-card reveal reveal-delay-3">
+        <div class="product-image">
+          <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/53633C.jpg" alt="흑염소엑기스" loading="lazy">
+        </div>
+        <div class="product-info">
+          <span class="product-tag">전통 보양</span>
+          <h3 class="product-name">흑염소 엑기스</h3>
+          <p class="product-desc">국내 청정 목장에서 자란 흑염소를 한약재와 함께 오랜 시간 달여낸 전통 보양식. 회복기 환자와 어르신께 좋습니다.</p>
+          <div class="product-pricing">
+            <span class="price-original">111,000원</span>
+            <span class="price-sale">94,400원</span>
+            <span class="price-discount">15% 할인</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 어린이 홍삼 -->
+      <div class="product-card reveal reveal-delay-4">
+        <span class="product-badge value">어린이</span>
+        <div class="product-image">
+          <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/31422C.png" alt="어린이튼튼홍삼" loading="lazy">
+        </div>
+        <div class="product-info">
+          <span class="product-tag">어린이 건강</span>
+          <h3 class="product-name">어린이 튼튼 홍삼</h3>
+          <p class="product-desc">아이들 입맛에 맞춘 달콤한 홍삼. 성장기 어린이의 면역력과 체력을 위한 어린이날 선물로 제격입니다.</p>
+          <div class="product-pricing">
+            <span class="price-original">80,900원</span>
+            <span class="price-sale">68,800원</span>
+            <span class="price-discount">15% 할인</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 홍삼절편 -->
+      <div class="product-card reveal">
+        <div class="product-image">
+          <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/15684C.png" alt="6년근 홍삼 절편" loading="lazy">
+        </div>
+        <div class="product-info">
+          <span class="product-tag">홍삼 절편</span>
+          <h3 class="product-name">6년근 홍삼 절편</h3>
+          <p class="product-desc">엄선된 6년근 홍삼을 먹기 좋게 절편한 제품. 간편하게 즐기는 홍삼의 깊은 풍미와 영양.</p>
+          <div class="product-pricing">
+            <span class="price-original">63,000원</span>
+            <span class="price-sale">53,600원</span>
+            <span class="price-discount">15% 할인</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BANNER ===== -->
+<section class="banner-section">
+  <div class="section-inner reveal">
+    <span class="section-label">특별 혜택</span>
+    <h2 class="section-title">봄맞이 빅세일 특별 혜택</h2>
+    <div class="gold-line-center"></div>
+    <p class="section-subtitle">5월 가정의 달, 미리 준비하면 더 알뜰하게</p>
+    <div class="banner-benefits">
+      <div class="banner-benefit reveal reveal-delay-1">
+        <div class="banner-benefit-number">35%</div>
+        <div class="banner-benefit-text">최대 할인율</div>
+      </div>
+      <div class="banner-benefit reveal reveal-delay-2">
+        <div class="banner-benefit-number">60</div>
+        <div class="banner-benefit-text">팩 대용량 구성</div>
+      </div>
+      <div class="banner-benefit reveal reveal-delay-3">
+        <div class="banner-benefit-number">100%</div>
+        <div class="banner-benefit-text">국내산 원료</div>
+      </div>
+      <div class="banner-benefit reveal reveal-delay-4">
+        <div class="banner-benefit-number">12+</div>
+        <div class="banner-benefit-text">엄선 건강식품</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CATEGORY 2: 즙 & 진액 ===== -->
+<section class="products-section alt" id="vitality">
+  <div class="section-inner">
+    <div class="category-header reveal">
+      <span class="category-number">02</span>
+      <div>
+        <span class="section-label">자연 착즙</span>
+        <h2 class="section-title">원기충전 즙 & 진액</h2>
+        <p class="section-subtitle">자연 그대로의 건강함을 담은 착즙 제품</p>
+      </div>
+    </div>
+
+    <div class="product-grid">
+      <!-- 도라지배즙 -->
+      <div class="product-card reveal reveal-delay-1">
+        <div class="product-image">
+          <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56223C.jpg" alt="도라지 배즙" loading="lazy">
+        </div>
+        <div class="product-info">
+          <span class="product-tag">환절기 인기</span>
+          <h3 class="product-name">도라지 배즙</h3>
+          <p class="product-desc">환절기 건강 관리에 좋은 도라지와 배를 함께 달여 만든 즙. 온 가족이 부담 없이 즐기는 건강 음료.</p>
+          <div class="product-pricing">
+            <span class="price-original">20,000원</span>
+            <span class="price-sale">17,000원</span>
+            <span class="price-discount">15% 할인</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 도라지절편세트 -->
+      <div class="product-card reveal reveal-delay-2">
+        <div class="product-image">
+          <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/29038C.png" alt="도라지 절편 세트" loading="lazy">
+        </div>
+        <div class="product-info">
+          <span class="product-tag">선물 세트</span>
+          <h3 class="product-name">도라지 절편 세트</h3>
+          <p class="product-desc">도라지를 정성껏 절편하여 선물용으로 포장한 세트. 명절 및 가정의 달 감사 선물로 안성맞춤.</p>
+          <div class="product-pricing">
+            <span class="price-original">34,500원</span>
+            <span class="price-sale">29,300원</span>
+            <span class="price-discount">15% 할인</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 돌배도라지즙 -->
+      <div class="product-card reveal reveal-delay-3">
+        <span class="product-badge">25% 할인</span>
+        <div class="product-image">
+          <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/32556C.png" alt="돌배 도라지즙" loading="lazy">
+        </div>
+        <div class="product-info">
+          <span class="product-tag">특가 할인</span>
+          <h3 class="product-name">돌배 도라지즙</h3>
+          <p class="product-desc">산지 직송 돌배와 도라지를 저온에서 정성껏 달여낸 즙. 목 건강과 기관지 관리에 좋은 환절기 필수품.</p>
+          <div class="product-pricing">
+            <span class="price-original">37,900원</span>
+            <span class="price-sale">28,400원</span>
+            <span class="price-discount">25% 할인</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CATEGORY 3: 건강기능식품 ===== -->
+<section class="products-section" id="wellness">
+  <div class="section-inner">
+    <div class="category-header reveal">
+      <span class="category-number">03</span>
+      <div>
+        <span class="section-label">건강 보조식품</span>
+        <h2 class="section-title">건강기능식품</h2>
+        <p class="section-subtitle">매일의 건강 루틴을 위한 합리적인 선택</p>
+      </div>
+    </div>
+
+    <div class="product-grid">
+      <!-- 프로바이오틱스 -->
+      <div class="product-card reveal reveal-delay-1">
+        <span class="product-badge">35% 할인</span>
+        <div class="product-image">
+          <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/41515C.png" alt="프로바이오틱스" loading="lazy">
+        </div>
+        <div class="product-info">
+          <span class="product-tag" style="color: var(--sage);">장 건강</span>
+          <h3 class="product-name">프로바이오틱스</h3>
+          <p class="product-desc">장 건강의 기본, 유산균. 온 가족이 매일 간편하게 섭취하는 프로바이오틱스로 건강한 장내 환경을 만들어 보세요.</p>
+          <div class="product-pricing">
+            <span class="price-original">20,500원</span>
+            <span class="price-sale">13,300원</span>
+            <span class="price-discount">35% 할인</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 유기농 멀티비타민 -->
+      <div class="product-card reveal reveal-delay-2">
+        <span class="product-badge">35% 할인</span>
+        <div class="product-image">
+          <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/48969C.jpg" alt="유기농 멀티비타민" loading="lazy">
+        </div>
+        <div class="product-info">
+          <span class="product-tag" style="color: var(--sage);">매일 필수</span>
+          <h3 class="product-name">유기농 멀티비타민</h3>
+          <p class="product-desc">유기농 원료로 만든 종합비타민. 바쁜 현대인의 영양 균형을 위한 매일의 건강 습관.</p>
+          <div class="product-pricing">
+            <span class="price-original">25,900원</span>
+            <span class="price-sale">16,800원</span>
+            <span class="price-discount">35% 할인</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 비타민D -->
+      <div class="product-card reveal reveal-delay-3">
+        <span class="product-badge">35% 할인</span>
+        <div class="product-image">
+          <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/44787C.png" alt="비타민D 2200IU" loading="lazy">
+        </div>
+        <div class="product-info">
+          <span class="product-tag" style="color: var(--sage);">뼈 건강</span>
+          <h3 class="product-name">비타민D 2200IU</h3>
+          <p class="product-desc">햇빛이 부족한 현대인을 위한 고함량 비타민D. 뼈 건강과 면역 체계 유지에 도움을 줍니다.</p>
+          <div class="product-pricing">
+            <span class="price-original">12,200원</span>
+            <span class="price-sale">7,900원</span>
+            <span class="price-discount">35% 할인</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== GIFT GUIDE ===== -->
+<section class="gift-guide" id="gift">
+  <div class="section-inner">
+    <div style="text-align: center;" class="reveal">
+      <span class="section-label">선물 추천</span>
+      <h2 class="section-title">5월 선물 가이드</h2>
+      <div class="gold-line-center"></div>
+      <p class="section-subtitle" style="margin-left:auto;margin-right:auto;">
+        어버이날, 스승의날, 어린이날...<br class="keep">소중한 분께 건강을 선물하세요
+      </p>
+    </div>
+
+    <div class="gift-grid">
+      <div class="gift-card reveal reveal-delay-1">
+        <span class="gift-for">부모님께</span>
+        <h3>부모님께 드리는 보양 선물</h3>
+        <p>세월의 무게를 이겨낼 힘을 드리세요. 전통 보양 엑기스로 부모님의 건강을 지켜드립니다.</p>
+        <ul class="gift-items">
+          <li><span>6년근 홍삼 엑기스 60팩</span><span class="item-price">119,300원</span></li>
+          <li><span>녹용 엑기스 (남성/여성)</span><span class="item-price">125,800원</span></li>
+          <li><span>흑염소 엑기스</span><span class="item-price">94,400원</span></li>
+        </ul>
+      </div>
+
+      <div class="gift-card reveal reveal-delay-2">
+        <span class="gift-for">아이에게</span>
+        <h3>우리 아이 성장 선물</h3>
+        <p>어린이날, 성장기 아이의 건강을 위한 맞춤 건강식품으로 사랑을 표현하세요.</p>
+        <ul class="gift-items">
+          <li><span>어린이 튼튼 홍삼 60팩</span><span class="item-price">68,800원</span></li>
+          <li><span>프로바이오틱스</span><span class="item-price">13,300원</span></li>
+          <li><span>유기농 멀티비타민</span><span class="item-price">16,800원</span></li>
+        </ul>
+      </div>
+
+      <div class="gift-card reveal reveal-delay-3">
+        <span class="gift-for">스승님 &amp; 가족에게</span>
+        <h3>감사한 분께 드리는 건강 즙</h3>
+        <p>스승의 날, 가까운 분께 부담 없이 건네는 정성 가득 건강 선물.</p>
+        <ul class="gift-items">
+          <li><span>돌배 도라지즙</span><span class="item-price">28,400원</span></li>
+          <li><span>도라지 절편 세트</span><span class="item-price">29,300원</span></li>
+          <li><span>도라지 배즙 20팩</span><span class="item-price">17,000원</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== NOTICE ===== -->
+<section class="notice-section">
+  <div class="section-inner">
+    <div style="text-align:center;" class="reveal">
+      <span class="section-label">안내 사항</span>
+      <h2 class="section-title">기획전 안내</h2>
+      <div class="gold-line-center"></div>
+    </div>
+    <div class="notice-grid">
+      <div class="notice-card reveal reveal-delay-1">
+        <h4>행사 기간</h4>
+        <p>4월 16일(목) 오전 11시 30분까지 할인가가 적용됩니다. 기간 내에 서둘러 주문해 주세요.</p>
+      </div>
+      <div class="notice-card reveal reveal-delay-2">
+        <h4>주문 안내</h4>
+        <p>두레생협 온라인 쇼핑몰에서 주문하실 수 있습니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-logo">두레생협</div>
+  <a href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1655#book4" target="_blank" class="footer-order-btn">쇼핑몰에서 주문하기</a>
+  <p>
+    본 페이지는 두레생협 홍보를 위해 제작되었습니다.<br>
+    상담실 1661-5110
+  </p>
+</footer>
+
+<!-- ===== SCRIPTS ===== -->
+<script>
+// Scroll Reveal
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+reveals.forEach(el => observer.observe(el));
+
+// Font Size Toggle
+function setFontSize(size) {
+  const html = document.documentElement;
+  html.classList.remove('font-small', 'font-medium', 'font-large');
+  html.classList.add('font-' + size);
+  document.querySelectorAll('.font-size-toggle button').forEach(btn => btn.classList.remove('active'));
+  document.querySelector('.btn-' + size).classList.add('active');
+  try { localStorage.setItem('fontSize', size); } catch(e) {}
+}
+// 저장된 글씨 크기 복원 (기본값: large)
+try {
+  const saved = localStorage.getItem('fontSize') || 'large';
+  setFontSize(saved);
+} catch(e) {}
+
+// Floating Nav Active State
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.floating-nav a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(section => {
+    const top = section.offsetTop - 200;
+    if (scrollY >= top) current = section.getAttribute('id');
+  });
+  navLinks.forEach(link => {
+    link.classList.remove('active');
+    if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
