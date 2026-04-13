@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>둥근3겹휴지 | 4/15~17 특별 공급</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&display=swap');
+
+  :root {
+    --brown: #4a3228;
+    --brown-mid: #7a5c4a;
+    --brown-light: #a08068;
+    --rose: #d4ad9a;
+    --rose-light: #ecddd4;
+    --rose-pale: #f5ece6;
+    --cream: #faf7f4;
+    --warm-bg: #f3eeea;
+    --white: #ffffff;
+    --text: #3a2a20;
+    --sub: #8a7a70;
+    --soft: #b0a498;
+    --line: #e8e0da;
+    --red: #8a5a3a;
+    --red-light: #f5ece6;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; font-size: 19px; }
+  html.size-down { font-size: 16px; }
+  html.size-sm { font-size: 14px; }
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    color: var(--text);
+    background: var(--cream);
+    max-width: 480px;
+    margin: 0 auto;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  img { display: block; width: 100%; }
+
+  /* 글씨 크기 */
+  .font-ctrl {
+    position: fixed;
+    top: 12px; right: 12px;
+    z-index: 200;
+    display: flex; gap: 4px;
+  }
+  .font-ctrl button {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    background: rgba(255,255,255,.85);
+    backdrop-filter: blur(8px);
+    font-size: 13px; font-weight: 700;
+    color: var(--brown);
+    cursor: pointer;
+    box-shadow: 0 1px 6px rgba(0,0,0,.06);
+  }
+
+  /* 공통 */
+  .label {
+    font-size: 0.65rem; font-weight: 700;
+    color: var(--rose); letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+  }
+  .title {
+    font-size: 1.4rem; font-weight: 800;
+    color: var(--text); line-height: 1.45;
+  }
+  .sub {
+    font-size: 0.8rem; color: var(--sub);
+    line-height: 1.65; margin-top: 0.35rem;
+  }
+  .caption {
+    font-size: 0.65rem; color: var(--soft);
+    text-align: center; margin-top: 0.5rem;
+  }
+  .img-rd { border-radius: 14px; overflow: hidden; }
+
+  /* 하단 바 */
+  .bar {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    z-index: 100; max-width: 480px; margin: 0 auto;
+    background: rgba(255,255,255,.92);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-top: 1px solid var(--line);
+    display: flex; align-items: center;
+    padding: 10px 16px; gap: 12px;
+  }
+  .bar-left { flex: 1; }
+  .bar-date { font-size: 0.85rem; font-weight: 800; color: var(--red); }
+  .bar-sub { font-size: 0.6rem; color: var(--sub); }
+  .bar-btn {
+    background: var(--brown); color: #fff;
+    border: none; padding: 14px 28px;
+    border-radius: 10px; font-size: 0.85rem;
+    font-weight: 700; cursor: pointer;
+  }
+
+  /* ══ 히어로 ══ */
+  .hero {
+    background: linear-gradient(170deg, #f5f0eb 0%, #efe8e0 60%, #e8dfd5 100%);
+    padding: 48px 24px 60px;
+    text-align: center;
+    position: relative;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 0; right: 0;
+    height: 32px;
+    background: var(--white);
+    border-radius: 24px 24px 0 0;
+  }
+  .date-box {
+    background: #e8915a;
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 32px;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  .date-box::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -60%;
+    width: 40%;
+    height: 200%;
+    background: linear-gradient(
+      105deg,
+      transparent 30%,
+      rgba(255,255,255,.25) 45%,
+      rgba(255,255,255,.35) 50%,
+      rgba(255,255,255,.25) 55%,
+      transparent 70%
+    );
+    animation: shimmer 3s infinite;
+  }
+  @keyframes shimmer {
+    0% { left: -60%; }
+    100% { left: 120%; }
+  }
+  .date-box .db-s {
+    font-size: 0.6rem; font-weight: 600;
+    letter-spacing: 2px; opacity: .75;
+    margin-bottom: 5px;
+  }
+  .date-box .db-big { font-size: 1.25rem; font-weight: 900; }
+  .date-box .db-note { font-size: 0.75rem; margin-top: 4px; opacity: .8; }
+  .hero .h-over {
+    color: var(--brown-light);
+    font-size: 0.7rem; letter-spacing: 3px;
+    margin-bottom: 10px;
+  }
+  .hero .h-title {
+    color: var(--brown);
+    font-size: 1.75rem; font-weight: 900;
+    line-height: 1.35; margin-bottom: 12px;
+  }
+  .hero .h-title .hl { color: #e8915a; }
+  .hero .h-desc {
+    color: var(--sub);
+    font-size: 0.8rem; line-height: 1.7;
+    margin-bottom: 24px;
+  }
+  .hero-chips {
+    display: flex; flex-wrap: wrap;
+    justify-content: center; gap: 6px;
+    position: relative; z-index: 1;
+  }
+  .hc {
+    background: rgba(255,255,255,.7);
+    border: 1px solid var(--line);
+    color: var(--brown-mid);
+    padding: 6px 14px; border-radius: 6px;
+    font-size: 0.68rem; font-weight: 500;
+  }
+
+  /* ══ 생활재 상세 ══ */
+  .product-detail {
+    padding: 48px 20px;
+    background: var(--white);
+  }
+  .pd-full {
+    border-radius: 14px; overflow: hidden;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 16px rgba(74,50,40,.08);
+  }
+
+  /* ══ 가격 ══ */
+  .price-section {
+    padding: 48px 20px;
+    background: var(--rose-pale);
+    text-align: center;
+  }
+  .price-hero {
+    background: var(--white);
+    border-radius: 18px;
+    padding: 28px 20px 24px;
+    margin-top: 20px;
+    margin-bottom: 16px;
+    border: 2px solid var(--rose);
+    position: relative;
+  }
+  .ph-badge {
+    position: absolute;
+    top: -14px; left: 50%;
+    transform: translateX(-50%);
+    background: var(--red);
+    color: #fff;
+    font-size: 0.8rem; font-weight: 800;
+    padding: 6px 22px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+  .ph-original {
+    font-size: 0.85rem; color: var(--soft);
+    text-decoration: line-through;
+    margin-top: 8px; margin-bottom: 4px;
+  }
+  .ph-now {
+    font-size: 2.2rem; font-weight: 900;
+    color: var(--red); line-height: 1;
+  }
+  .ph-name {
+    font-size: 0.9rem; font-weight: 600;
+    color: var(--sub); margin-top: 8px;
+  }
+  .price-compare {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px; margin: 16px 0;
+  }
+  .price-box {
+    background: var(--white);
+    border-radius: 14px;
+    padding: 20px 14px;
+    border: 1px solid var(--line);
+    text-align: center;
+  }
+  .price-box.now {
+    border: 2px solid var(--brown);
+    position: relative;
+  }
+  .price-box .pb-badge {
+    position: absolute;
+    top: -10px; left: 50%;
+    transform: translateX(-50%);
+    background: var(--brown);
+    color: #fff;
+    font-size: 0.6rem; font-weight: 700;
+    padding: 3px 12px;
+    border-radius: 10px;
+    white-space: nowrap;
+  }
+  .price-box .pb-label {
+    font-size: 0.7rem; color: var(--soft);
+    margin-bottom: 6px;
+  }
+  .price-box.now .pb-label {
+    color: var(--brown-mid);
+    margin-top: 4px;
+  }
+  .price-box .pb-name {
+    font-size: 1.05rem; font-weight: 800;
+    margin-bottom: 4px;
+  }
+  .price-box .pb-price {
+    font-size: 1.2rem; font-weight: 900;
+    color: var(--sub);
+  }
+  .price-box.now .pb-price {
+    color: var(--red);
+  }
+  .price-highlight {
+    background: var(--white);
+    border-radius: 14px;
+    padding: 22px 20px;
+  }
+  .price-highlight .big-msg {
+    font-size: 1.1rem; font-weight: 800;
+    color: var(--text); line-height: 1.55;
+    margin-bottom: 6px;
+  }
+  .price-highlight .big-msg strong { color: var(--red); }
+  .price-highlight .small-msg {
+    font-size: 0.75rem; color: var(--sub); line-height: 1.5;
+  }
+
+  /* ══ 3無 ══ */
+  .purity {
+    padding: 48px 20px;
+    text-align: center;
+    background: var(--cream);
+  }
+  .pu-cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px; margin-top: 24px;
+  }
+  .pu {
+    background: var(--white);
+    border-radius: 14px;
+    padding: 18px 20px;
+    border: 1px solid var(--line);
+    display: flex; align-items: center;
+    gap: 16px; text-align: left;
+  }
+  .pu-seal {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    background: var(--brown);
+    color: #fff;
+    display: flex; align-items: center;
+    justify-content: center;
+    font-size: 0.65rem; font-weight: 900;
+    line-height: 1.2; text-align: center;
+  }
+  .pu h4 {
+    font-size: 0.95rem; font-weight: 700;
+    color: var(--text); line-height: 1.4;
+  }
+  .pu p {
+    font-size: 0.75rem; color: var(--sub);
+    margin-top: 2px;
+  }
+
+  /* ══ 특장점 ══ */
+  .features {
+    padding: 48px 20px;
+    background: var(--white);
+  }
+  .f-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px; margin-top: 24px;
+  }
+  .fc {
+    background: var(--rose-pale);
+    border-radius: 14px;
+    padding: 20px 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    text-align: left;
+  }
+  .fc .fn {
+    font-size: 1.3rem; font-weight: 900;
+    color: var(--rose); opacity: .6;
+    flex-shrink: 0;
+    width: 48px; text-align: center;
+  }
+  .fc h4 { font-size: 1.05rem; font-weight: 700; margin-bottom: 2px; }
+  .fc p { font-size: 0.8rem; color: var(--sub); line-height: 1.5; }
+
+  /* ══ 친환경 ══ */
+  .eco {
+    padding: 56px 20px;
+    background: var(--brown);
+    color: #fff; text-align: center;
+  }
+  .eco .label { color: var(--rose); }
+  .eco .title { color: #fff; }
+  .eco .title .hl { color: var(--rose); }
+  .eco .sub { color: rgba(255,255,255,.4); }
+  .eco-infographic {
+    margin: 28px 0;
+    border-radius: 14px; overflow: hidden;
+    background: var(--white);
+    box-shadow: 0 4px 20px rgba(0,0,0,.12);
+  }
+  .eco-photos {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px; margin: 20px 0;
+  }
+  .ep {
+    border-radius: 14px; overflow: hidden;
+    border: 1px solid rgba(255,255,255,.08);
+  }
+  .ep img { height: 200px; object-fit: cover; }
+  .eco-cap {
+    font-size: 0.65rem;
+    color: rgba(255,255,255,.3);
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  .eco-quote {
+    background: rgba(255,255,255,.04);
+    border-left: 3px solid var(--rose);
+    border-radius: 0 12px 12px 0;
+    padding: 20px 18px;
+    text-align: left;
+    margin: 20px 0;
+  }
+  .eco-quote p {
+    font-size: 0.8rem; line-height: 1.85;
+    color: rgba(255,255,255,.55);
+  }
+  .eco-quote strong { color: var(--rose); }
+  .eco-facts {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px; margin-top: 20px;
+  }
+  .ef {
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.06);
+    border-radius: 12px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-align: left;
+  }
+  .ef h5 { font-size: 0.9rem; font-weight: 700; white-space: nowrap; }
+  .ef p { font-size: 0.75rem; opacity: .4; }
+
+  /* ══ 생산 현장 ══ */
+  .factory {
+    padding: 48px 20px;
+    background: var(--white);
+    text-align: center;
+  }
+  .fac-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px; margin-top: 24px;
+  }
+  .fg {
+    border-radius: 14px; overflow: hidden;
+    position: relative;
+  }
+  .fg img { height: 200px; object-fit: cover; }
+  .fg-cap {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(74,50,40,.6));
+    color: #fff;
+    padding: 24px 10px 10px;
+    font-size: 0.68rem; font-weight: 600;
+  }
+
+  /* ══ 추천 ══ */
+  .recommend {
+    padding: 48px 20px;
+    background: var(--warm-bg);
+  }
+  .rec-list { margin-top: 24px; }
+  .ri {
+    display: flex; align-items: flex-start;
+    gap: 14px; padding: 16px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .ri:last-child { border-bottom: none; }
+  .ri-dot {
+    flex-shrink: 0; width: 8px; height: 8px;
+    border-radius: 50%; background: var(--brown);
+    margin-top: 7px;
+  }
+  .ri h4 { font-size: 1.05rem; font-weight: 800; margin-bottom: 4px; }
+  .ri p { font-size: 0.85rem; color: var(--sub); line-height: 1.55; }
+
+  /* ══ 안심 포인트 ══ */
+  .trust {
+    padding: 48px 20px;
+    background: var(--cream);
+    text-align: center;
+    border-top: 1px solid var(--line);
+  }
+  .trust .sub { margin-bottom: 24px; }
+  .t-cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .tc {
+    background: var(--white);
+    border-radius: 14px;
+    padding: 18px 20px;
+    border: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    text-align: left;
+  }
+  .tc.full { }
+  .tc-ic {
+    width: 46px; height: 46px;
+    border-radius: 50%;
+    background: var(--rose-pale);
+    flex-shrink: 0;
+    display: flex; align-items: center;
+    justify-content: center;
+  }
+  .tc-ic svg { width: 20px; height: 20px; fill: var(--brown); }
+  .tc h4 { font-size: 1rem; font-weight: 700; margin-bottom: 2px; }
+  .tc p { font-size: 0.8rem; color: var(--sub); line-height: 1.5; }
+
+  /* ══ 최종 ══ */
+  .final {
+    padding: 56px 20px;
+    text-align: center;
+    background: var(--white);
+  }
+  .final .f-sub {
+    font-size: 0.85rem; color: var(--sub);
+    margin: 6px 0 16px;
+  }
+  .final .f-sub strong { color: var(--text); }
+  .final .f-date {
+    display: inline-block;
+    background: var(--red);
+    color: #fff;
+    padding: 12px 28px; border-radius: 10px;
+    font-size: 1rem; font-weight: 800;
+    margin-bottom: 20px;
+  }
+  .final-btn {
+    display: block; width: 100%;
+    background: var(--brown);
+    color: #fff; font-size: 1.05rem;
+    font-weight: 700; padding: 18px;
+    border-radius: 12px;
+    text-decoration: none;
+    box-shadow: 0 4px 16px rgba(74,50,40,.15);
+  }
+  .f-note {
+    margin-top: 12px;
+    font-size: 0.68rem; color: var(--soft);
+  }
+
+  .footer {
+    background: var(--brown);
+    color: rgba(255,255,255,.3);
+    padding: 24px 20px 88px;
+    text-align: center;
+    font-size: 0.6rem; line-height: 1.8;
+  }
+  .footer .fn {
+    color: var(--rose);
+    font-weight: 700; font-size: 0.75rem;
+    letter-spacing: 1px; margin-bottom: 4px;
+  }
+
+  .rv { opacity:0; transform:translateY(20px); transition:opacity .5s,transform .5s; }
+  .rv.vis { opacity:1; transform:translateY(0); }
+
+  /* 휴지 이스터에그 */
+  .tp-wrap {
+    margin-top: 32px;
+    text-align: center;
+    position: relative;
+    min-height: 60px;
+  }
+  .tp-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    padding: 12px 24px;
+    border-radius: 40px;
+    background: var(--rose-pale);
+    border: 1px dashed var(--rose);
+    transition: transform .2s;
+    user-select: none;
+  }
+  .tp-btn:active { transform: scale(.95); }
+  .tp-click {
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: var(--red);
+    animation: clickBlink 1s ease-in-out infinite;
+  }
+  @keyframes clickBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.2; }
+  }
+  .tp-emoji {
+    font-size: 2rem;
+    display: inline-block;
+    transition: transform .3s;
+  }
+  .tp-btn:hover .tp-emoji { transform: rotate(20deg); }
+  .tp-text {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--brown);
+  }
+  .tp-trail {
+    position: relative;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 1.5s ease-out;
+  }
+  .tp-trail.unrolling {
+    max-height: 2000px;
+  }
+  .tp-paper {
+    width: 70%;
+    margin: 0 auto;
+    background: var(--white);
+    border-left: 2px dashed var(--line);
+    border-right: 2px dashed var(--line);
+    position: relative;
+  }
+  .tp-paper-segment {
+    padding: 10px 16px;
+    border-bottom: 1px dotted var(--line);
+    font-size: 0.75rem;
+    color: var(--sub);
+    opacity: 0;
+    animation: paperFadeIn .4s forwards;
+    text-align: center;
+  }
+  .tp-paper-segment:nth-child(1) { animation-delay: .1s; }
+  .tp-paper-segment:nth-child(2) { animation-delay: .3s; }
+  .tp-paper-segment:nth-child(3) { animation-delay: .5s; }
+  .tp-paper-segment:nth-child(4) { animation-delay: .7s; }
+  .tp-paper-segment:nth-child(5) { animation-delay: .9s; }
+  .tp-paper-segment:nth-child(6) { animation-delay: 1.1s; }
+  @keyframes paperFadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .tp-go {
+    display: inline-block;
+    margin-top: 16px;
+    background: var(--brown);
+    color: #fff;
+    padding: 14px 40px;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 800;
+    text-decoration: none;
+    opacity: 0;
+    animation: paperFadeIn .5s 1.4s forwards;
+  }
+  .tp-rolling {
+    animation: rollSpin 1.5s ease-out;
+  }
+  @keyframes rollSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(720deg); }
+  }
+</style>
+</head>
+<body>
+
+<div class="font-ctrl">
+  <button onclick="var h=document.documentElement;h.classList.remove('size-down');h.classList.add('size-sm');">가-</button>
+  <button onclick="var h=document.documentElement;h.classList.remove('size-sm','size-down');h.classList.add('size-down');">가</button>
+  <button onclick="var h=document.documentElement;h.classList.remove('size-sm','size-down');">가+</button>
+</div>
+
+<!-- 히어로 -->
+<section class="hero">
+  <div class="date-box">
+    <div class="db-s">기획 특별 공급</div>
+    <div class="db-big">4월 15일(수) ~ 17일(금)</div>
+    <div class="db-note">단 3일간만 만나볼 수 있습니다</div>
+  </div>
+  <div class="h-over">지구를 생각하는 선택</div>
+  <div class="h-title">우유팩으로 만든<br><span class="hl">둥근 3겹 휴지</span></div>
+  <p class="h-desc">나무 대신 우유팩을 재활용하고<br>형광 &middot; 표백 &middot; 인공향을 넣지 않았습니다</p>
+  <div class="hero-chips">
+    <span class="hc">우유팩 재생펄프</span>
+    <span class="hc">3無 안심</span>
+    <span class="hc">부드러운 3겹</span>
+    <span class="hc">8분의1그루</span>
+  </div>
+</section>
+
+<!-- 생활재 상세 -->
+<section class="product-detail rv">
+  <span class="label" style="text-align:center; display:block;">생활재 상세</span>
+  <div class="title" style="text-align:center; margin-bottom:20px;">한 겹 한 겹, 부드럽게</div>
+  <div class="pd-full">
+    <img src="59402A (1).jpg" alt="클로즈업" style="height:240px; object-fit:cover;">
+  </div>
+  <div class="pd-full">
+    <img src="59402B.jpg" alt="패키지" style="height:280px; object-fit:cover;">
+  </div>
+</section>
+
+<!-- 가격 -->
+<section class="price-section rv">
+  <span class="label">특별 가격</span>
+  <div class="title">이 가격, 다시 없습니다</div>
+  <div class="price-hero">
+    <div class="ph-badge">23% 할인</div>
+    <div class="ph-original">조합원가 24,800원</div>
+    <div class="ph-now">19,000원</div>
+    <div class="ph-name">3겹둥근휴지 30롤</div>
+  </div>
+  <div class="price-compare">
+    <div class="price-box">
+      <div class="pb-label">기존 상시 공급</div>
+      <div class="pb-name">18롤</div>
+      <div class="pb-price">14,900원</div>
+    </div>
+    <div class="price-box now">
+      <div class="pb-badge">이번 기획</div>
+      <div class="pb-label">4/15~17 특별 공급</div>
+      <div class="pb-name">30롤</div>
+      <div class="pb-price">19,000원</div>
+    </div>
+  </div>
+  <div class="price-highlight">
+    <div class="big-msg">
+      기존 18롤 가격에<br><strong>4,100원만 더하면</strong><br><strong>12롤이 더</strong> 옵니다
+    </div>
+    <div class="small-msg">기존 18롤 14,900원 &rarr; 이번 30롤 19,000원</div>
+  </div>
+</section>
+
+<!-- 3無 -->
+<section class="purity rv">
+  <span class="label" style="text-align:center;">안심 원칙</span>
+  <div class="title" style="text-align:center;">유해물질 걱정 없는 3無</div>
+  <div class="sub" style="text-align:center;">휴지심까지 무표백지 사용</div>
+  <div class="pu-cards">
+    <div class="pu">
+      <div class="pu-seal">無<br>형광</div>
+      <div><h4>형광증백제 무첨가</h4><p>피부 자극 없이 안전하게</p></div>
+    </div>
+    <div class="pu">
+      <div class="pu-seal">無<br>표백</div>
+      <div><h4>표백제 무첨가</h4><p>화학 처리 없는 자연 펄프</p></div>
+    </div>
+    <div class="pu">
+      <div class="pu-seal">無<br>향</div>
+      <div><h4>인공향 무첨가</h4><p>민감한 피부도 안심</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 특장점 -->
+<section class="features rv">
+  <span class="label" style="text-align:center; display:block;">생활재 특장점</span>
+  <div class="title" style="text-align:center;">이런 점이 다릅니다</div>
+  <div class="f-grid">
+    <div class="fc"><div class="fn">01</div><div><h4>넉넉한 대용량</h4><p>한 번 주문으로 오래 사용</p></div></div>
+    <div class="fc"><div class="fn">02</div><div><h4>부드러운 3겹</h4><p>도톰하고 펄프급 촉감</p></div></div>
+    <div class="fc"><div class="fn">03</div><div><h4>클린커팅</h4><p>깔끔한 절단면, 깨끗한 사용</p></div></div>
+    <div class="fc"><div class="fn">04</div><div><h4>촘촘한 엠보싱</h4><p>겹이 풀리지 않는 탄탄함</p></div></div>
+  </div>
+</section>
+
+<!-- 친환경 -->
+<section class="eco">
+  <span class="label">친환경 이야기</span>
+  <div class="title" style="font-size:1.4rem;">
+    1팩을 쓰면 나무<br><span class="hl">8분의 1그루</span>를<br>아낄 수 있습니다
+  </div>
+  <div class="sub" style="color:rgba(255,255,255,.4);">나무 대신 우유팩을 재활용하여 만들었습니다</div>
+
+  <div class="eco-infographic rv">
+    <img src="pptx_img/image9.jpeg" alt="우유팩 20개 = 화장지 1개">
+  </div>
+
+  <div class="eco-photos rv">
+    <div class="ep"><img src="pptx_img/image6.jpeg" alt="우유팩 펄프 분리"></div>
+    <div class="ep"><img src="pptx_img/image7.png" alt="재생 펄프 섬유"></div>
+  </div>
+  <p class="eco-cap">우유팩에서 펄프와 코팅면을 분리하는 과정</p>
+
+  <div class="eco-quote rv">
+    <p>
+      가장 좋은 펄프를 사용하는 <strong>우유곽을 재생하여 휴지를 만듭니다.</strong>
+      미국, 호주에서 우유갑을 만들고 남은 짜투리 원지를 수입하고, 국내 수거 우유곽을 모아 사용합니다.
+      <strong>펄프원지에 버금가는 우수한 품질</strong>을 자랑합니다.
+    </p>
+  </div>
+
+</section>
+
+<!-- 생산 현장 -->
+<section class="factory rv">
+  <span class="label">생산 현장</span>
+  <div class="title">생산 현장을 공개합니다</div>
+  <div class="fac-grid">
+    <div class="fg"><img src="pptx_img/image1.jpeg" alt="제조"><div class="fg-cap">제조 공정 라인</div></div>
+    <div class="fg"><img src="pptx_img/image2.jpeg" alt="포장"><div class="fg-cap">포장 라인 점검</div></div>
+    <div class="fg"><img src="pptx_img/image3.jpeg" alt="생산"><div class="fg-cap">생산 현장 견학</div></div>
+    <div class="fg"><img src="pptx_img/image4.jpeg" alt="품질"><div class="fg-cap">품질 관리 회의</div></div>
+  </div>
+</section>
+
+<!-- 추천 -->
+<section class="recommend rv">
+  <span class="label" style="text-align:center; display:block;">추천 대상</span>
+  <div class="title" style="text-align:center;">이런 분께 추천합니다</div>
+  <div class="rec-list">
+    <div class="ri"><div class="ri-dot"></div><div><h4>아이가 있는 가정</h4><p>형광 &middot; 표백 &middot; 향 무첨가로 안심</p></div></div>
+    <div class="ri"><div class="ri-dot"></div><div><h4>피부가 민감하신 분</h4><p>부드러운 3겹, 자극 없는 순수 펄프</p></div></div>
+    <div class="ri"><div class="ri-dot"></div><div><h4>환경을 생각하는 분</h4><p>우유팩 재활용, 나무 보존에 동참</p></div></div>
+    <div class="ri"><div class="ri-dot"></div><div><h4>대용량을 원하는 분</h4><p>넉넉한 구성으로 경제적으로</p></div></div>
+    <div class="ri"><div class="ri-dot"></div><div><h4>품질을 중시하는 분</h4><p>펄프급 촉감, 클린커팅, 엠보싱까지</p></div></div>
+  </div>
+</section>
+
+<!-- 안심 포인트 -->
+<section class="trust rv">
+  <span class="label">안심 포인트</span>
+  <div class="title">안심하고 사용하세요</div>
+  <div class="sub" style="margin-bottom:24px;">일정한 공정으로 생산되며, 날씨 &middot; 펄프에 따라<br>색상 &middot; 질감에 미세한 차이가 있을 수 있습니다.</div>
+  <div class="t-cards">
+    <div class="tc">
+      <div class="tc-ic"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg></div>
+      <div><h4>위생적 생산</h4><p>철저한 위생 관리 하에 생산됩니다</p></div>
+    </div>
+    <div class="tc">
+      <div class="tc-ic"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg></div>
+      <div><h4>우유팩 재생펄프</h4><p>친환경 원료로 만들었습니다</p></div>
+    </div>
+    <div class="tc">
+      <div class="tc-ic"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg></div>
+      <div><h4>3無 원칙</h4><p>형광 &middot; 표백 &middot; 향 무첨가</p></div>
+    </div>
+    <div class="tc">
+      <div class="tc-ic"><svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11zm-3-7H9v-2h6v2zm0 4H9v-2h6v2z"/></svg></div>
+      <div><h4>정기 자주점검</h4><p>현장 점검으로 품질 관리</p></div>
+    </div>
+    <div class="tc">
+      <div class="tc-ic"><svg viewBox="0 0 24 24"><path d="M18 18.5c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5-1.5.67-1.5 1.5.67 1.5 1.5 1.5zM19.96 10H17V4.65c0-.47-.19-.92-.53-1.25l-1.89-1.89A1.74 1.74 0 0013.83 1H7c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h.5c0 1.38 1.12 2.5 2.5 2.5s2.5-1.12 2.5-2.5h3c0 1.38 1.12 2.5 2.5 2.5s2.5-1.12 2.5-2.5H22v-4.34c0-.79-.47-1.51-1.2-1.83L19.96 10zM10 18.5c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5-1.5.67-1.5 1.5.67 1.5 1.5 1.5z"/></svg></div>
+      <div><h4>안전한 배송</h4><p>정돈된 포장으로 안전하게 배송됩니다</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 최종 -->
+<section class="final">
+  <span class="label" style="text-align:center; display:block;">기획 특별 공급</span>
+  <div class="title" style="text-align:center;">지구를 위한 선택,<br>지금 만나보세요</div>
+  <p class="f-sub">단 <strong>3일간</strong>만 진행됩니다</p>
+  <div class="f-date">4월 15일(수) ~ 17일(금)</div>
+  <a href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1655#book14" class="final-btn">주문하러 가기</a>
+  <p class="f-note">수량 소진 시 조기 마감될 수 있습니다</p>
+
+  <!-- 휴지 이스터에그 -->
+  <div class="tp-wrap" id="tpWrap">
+    <div style="display:inline-flex; align-items:center; gap:10px;">
+      <div class="tp-btn" id="tpBtn" onclick="unrollTp()">
+        <span class="tp-emoji">🧻</span>
+        <span class="tp-text">3겹 둥근휴지<br>술술 풀려라 얍!</span>
+      </div>
+      <span class="tp-click">클릭!</span>
+    </div>
+    <div class="tp-trail" id="tpTrail"></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="fn">둥근3겹휴지</div>
+  기획 특별 공급 4/15(수) ~ 4/17(금)<br>
+  우유팩 재생펄프 &middot; 부드러운 3겹 &middot; 無형광 &middot; 無표백 &middot; 無향
+</footer>
+
+<div class="bar">
+  <div class="bar-left">
+    <div class="bar-date">4/15(수) ~ 17(금)</div>
+    <div class="bar-sub">단 3일간 특별 공급</div>
+  </div>
+  <button class="bar-btn" onclick="window.open('https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1655#book14','_blank')">주문하기</button>
+</div>
+
+<script>
+  var io=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting)x.target.classList.add('vis')})},{threshold:.1});
+  document.querySelectorAll('.rv').forEach(function(el){io.observe(el)});
+
+  var tpDone = false;
+  function unrollTp() {
+    if (tpDone) return;
+    tpDone = true;
+
+    var emoji = document.querySelector('.tp-emoji');
+    emoji.classList.add('tp-rolling');
+
+    var trail = document.getElementById('tpTrail');
+    trail.innerHTML =
+      '<div class="tp-paper">' +
+        '<div class="tp-paper-segment">슥 ~</div>' +
+        '<div class="tp-paper-segment">슬슬 풀리는 중...</div>' +
+        '<div class="tp-paper-segment">🧻 돌돌돌돌 ~</div>' +
+        '<div class="tp-paper-segment">부드러운 3겹이 펼쳐집니다!</div>' +
+        '<div class="tp-paper-segment">우유팩이 휴지가 되는 마법 ✨</div>' +
+        '<div class="tp-paper-segment" style="font-size:0.9rem; font-weight:700; color:var(--brown);">자, 이제 주문하러<br>가볼까요?</div>' +
+      '</div>' +
+      '<a href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1655#book14" class="tp-go">기획전 바로가기</a>';
+
+    setTimeout(function(){ trail.classList.add('unrolling'); }, 100);
+  }
+</script>
+</body>
+</html>

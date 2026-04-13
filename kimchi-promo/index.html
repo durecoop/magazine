@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>두레생협 | 제철김치 4종</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&family=Noto+Serif+KR:wght@400;600;700&display=swap');
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #faf7f2;
+  --card: #ffffff;
+  --text: #2c2c2c;
+  --sub: #888;
+  --accent: #c4763a;
+  --green: #4a7c59;
+  --green-light: #eef4f0;
+  --border: #ece6dc;
+}
+
+html, body {
+  height: 100%; overflow: hidden;
+  font-family: 'Noto Sans KR', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  word-break: keep-all;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ========== FULL-SCREEN HORIZONTAL LAYOUT ========== */
+.slides {
+  display: flex;
+  width: 100%; height: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.slides::-webkit-scrollbar { display: none; }
+
+.slide {
+  flex: 0 0 100vw; width: 100vw; height: 100%;
+  scroll-snap-align: start;
+  display: flex; flex-direction: column;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.slide-intro { overflow-y: hidden; }
+
+/* ========== SLIDE 0: INTRO ========== */
+.slide-intro {
+  justify-content: center; align-items: center;
+  text-align: center;
+  background: url('img/ti246a14301.jpg') center top / cover no-repeat;
+  position: relative; overflow: hidden;
+  padding: 40px 24px;
+}
+
+.intro-badge {
+  display: inline-block; padding: 6px 16px;
+  background: var(--green); color: #fff;
+  border-radius: 100px; font-size: 13px; font-weight: 500;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+  opacity: 0; animation: up .6s .2s ease forwards;
+}
+.intro-title {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 48px; font-weight: 700; line-height: 1.35;
+  opacity: 0; animation: up .6s .35s ease forwards;
+}
+.intro-title {
+  color: #2a2a2a; font-weight: 900;
+  text-shadow: 0 1px 8px rgba(255,255,255,0.7), 0 0 20px rgba(255,255,255,0.5);
+}
+.intro-title em { font-style: normal; color: var(--green); }
+.intro-sub {
+  font-size: 19px; color: #5a4a4a; margin-top: 14px; line-height: 1.7;
+  opacity: 0; animation: up .6s .5s ease forwards;
+}
+.intro-hint {
+  margin-top: 32px; font-size: 15px; color: #bbb;
+  opacity: 0; animation: up .6s .65s ease forwards;
+}
+.intro-hint span {
+  display: inline-block;
+  animation: swipe 2s ease-in-out infinite;
+}
+@keyframes swipe { 0%,100%{transform:translateX(0)} 50%{transform:translateX(8px)} }
+@keyframes up { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+
+/* 인트로 김치 버블 */
+.intro-bubbles {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 14px; justify-items: center;
+  margin-top: 24px; position: relative; z-index: 1;
+  opacity: 0; animation: up .6s .6s ease forwards;
+}
+.bubble {
+  width: 100px; height: 100px; border-radius: 50%; overflow: hidden;
+  border: 3px solid rgba(255,255,255,0.8);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+}
+.bubble img { width: 100%; height: 100%; object-fit: cover; }
+.b1 { animation: bFloat1 3s ease-in-out infinite; }
+.b2 { animation: bFloat2 3.5s ease-in-out infinite; }
+.b3 { animation: bFloat3 4s ease-in-out infinite; }
+.b4 { animation: bFloat4 3.2s ease-in-out infinite; }
+@keyframes bFloat1 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+@keyframes bFloat2 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-16px)} }
+@keyframes bFloat3 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+@keyframes bFloat4 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-14px)} }
+
+/* ========== SLIDE PRODUCT ========== */
+.slide-product {
+  background: var(--bg);
+}
+.slide-product-inner {
+  max-width: 520px; width: 100%;
+  margin: 0 auto;
+  padding: 0 0 calc(60px + env(safe-area-inset-bottom));
+  display: flex; flex-direction: column;
+  min-height: 100%;
+}
+
+.product-img {
+  width: 100%; height: 38vh; min-height: 180px; max-height: 340px;
+  object-fit: cover; display: block;
+  flex-shrink: 0;
+}
+
+.product-body {
+  flex: 1; padding: 22px 20px 20px;
+  display: flex; flex-direction: column;
+}
+
+.product-type-tag {
+  display: inline-block; padding: 4px 12px;
+  border-radius: 100px; font-size: 15px; font-weight: 600;
+  margin-bottom: 10px; width: fit-content;
+}
+.type-regular { background: var(--green-light); color: var(--green); }
+.type-reserve { background: #fff0e6; color: var(--accent); }
+
+.product-name {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 32px; font-weight: 700; margin-bottom: 8px;
+}
+.product-spec {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 16px; font-weight: 500; color: var(--sub);
+  vertical-align: baseline;
+}
+.product-tagline {
+  font-size: 17px; color: var(--accent); font-weight: 500;
+  margin-bottom: 14px;
+}
+.product-desc {
+  font-size: 20px; color: var(--sub); line-height: 1.8;
+  margin-bottom: 16px;
+}
+.chips { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 16px; }
+.chip {
+  padding: 5px 14px; background: var(--green-light);
+  color: var(--green); border-radius: 100px;
+  font-size: 15px; font-weight: 500;
+}
+
+.price-row {
+  display: flex; align-items: baseline; gap: 8px;
+  margin-bottom: 14px; flex-wrap: wrap;
+}
+.price-row .orig { font-size: 18px; color: #bbb; text-decoration: line-through; }
+.price-row .now { font-size: 32px; font-weight: 900; color: #a05e2c; }
+.price-row .unit { font-size: 18px; font-weight: 400; }
+.price-row .off {
+  background: #fff0e6; color: var(--accent);
+  padding: 4px 12px; border-radius: 6px;
+  font-size: 16px; font-weight: 700;
+}
+
+.schedule-box {
+  padding: 14px 16px; border-radius: 12px;
+  background: linear-gradient(135deg, #fff8f0, #fff3e6);
+  border: 1px solid rgba(196,118,58,0.2);
+  font-size: 16px; line-height: 1.8; color: #7a6a5a;
+  margin-bottom: 16px;
+}
+.schedule-box strong {
+  color: var(--accent); font-weight: 700;
+}
+.schedule-box .date {
+  color: var(--text); font-weight: 700;
+}
+
+/* 이미지 래퍼 (마감 임박 오버레이용) */
+.product-img-wrap {
+  position: relative; flex-shrink: 0;
+  height: 38vh; min-height: 180px; max-height: 340px;
+}
+.product-img-wrap .product-img {
+  display: block; height: 100%;
+}
+
+/* 마감 임박 배지 — 이미지 위 오버레이 */
+.urgent-badge {
+  position: absolute; bottom: 16px; left: 16px;
+  padding: 8px 18px; border-radius: 10px;
+  font-size: 15px; font-weight: 800; letter-spacing: 0.5px;
+  color: #fff;
+  background: linear-gradient(135deg, #e03030, #c02020);
+  box-shadow: 0 4px 16px rgba(220,40,40,0.4);
+  animation: urgentPulse 1.2s ease-in-out infinite;
+}
+@keyframes urgentPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.88; transform: scale(1.04); }
+}
+
+.product-spacer { flex: 1; }
+
+.btn {
+  display: block; text-align: center;
+  padding: 16px; background: var(--green); color: #fff;
+  border: none; border-radius: 14px;
+  font-size: 18px; font-weight: 600;
+  text-decoration: none; cursor: pointer;
+  flex-shrink: 0;
+}
+.btn:active { opacity: 0.9; transform: translateY(1px); }
+.btn.accent { background: var(--accent); }
+
+/* ========== DOTS / PAGINATION ========== */
+.pagination {
+  position: fixed; bottom: 16px; left: 50%;
+  transform: translateX(-50%); z-index: 100;
+  display: flex; gap: 6px;
+  padding: 8px 14px; border-radius: 20px;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  padding-bottom: calc(8px + env(safe-area-inset-bottom));
+}
+.page-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #ddd; transition: all 0.3s; cursor: pointer;
+}
+.page-dot.active { width: 24px; border-radius: 4px; background: var(--green); }
+
+/* ========== FOOTER SLIDE ========== */
+.slide-footer {
+  justify-content: center; align-items: center;
+  text-align: center;
+  background: linear-gradient(180deg, var(--bg), #ede6da);
+  padding: 40px 24px;
+}
+.footer-text {
+  font-size: 13px; color: #bbb; margin-top: 20px;
+}
+
+/* ========== DESKTOP ========== */
+@media (min-width: 768px) {
+  .intro-title { font-size: 52px; }
+  .product-img { height: 48vh; max-height: 440px; }
+  .product-name { font-size: 32px; }
+  .product-desc { font-size: 17px; }
+}
+</style>
+</head>
+<body>
+
+<div class="slides" id="slides">
+
+  <!-- SLIDE 0: 인트로 -->
+  <div class="slide slide-intro">
+    <span class="intro-badge">봄 제철 김치 4종</span>
+    <h1 class="intro-title">봄이 담긴<br><em>제철김치</em></h1>
+    <p class="intro-sub">
+      지금이 아니면 맛볼 수 없는<br>
+      봄 제철 재료로 담근 김치를 소개합니다
+    </p>
+    <div class="intro-bubbles">
+      <div class="bubble b1"><img src="img/돌산갓김치.jpg" alt=""></div>
+      <div class="bubble b2"><img src="img/풋마늘대김치.jpg" alt=""></div>
+      <div class="bubble b3"><img src="img/민들레김치.jpg" alt=""></div>
+      <div class="bubble b4"><img src="img/열무얼갈이김치.jpg" alt=""></div>
+    </div>
+    <p class="intro-hint"><span>옆으로 넘겨보세요 →</span></p>
+  </div>
+
+  <!-- SLIDE 1: 돌산갓김치 -->
+  <div class="slide slide-product">
+    <div class="slide-product-inner">
+      <img class="product-img" src="img/돌산갓김치.jpg" alt="돌산갓김치">
+      <div class="product-body">
+        <div class="product-type-tag type-regular">상시 · ~4월 16일(목)까지 주문 가능</div>
+        <h2 class="product-name">돌산갓김치</h2>
+        <p class="product-tagline">여수 돌산의 해풍이 키운 부드러운 갓</p>
+        <p class="product-desc">
+          여수 돌산의 넓은 갓 잎은 일반 갓보다 훨씬 부드러워, 쌉싸름한 맛이 자극적이지 않아요.<br>
+          갓 고유의 향긋함과 양념의 감칠맛이 고루 어우러져 남녀노소 누구나 편하게 즐길 수 있는 김치입니다.
+        </p>
+        <div class="chips">
+          <span class="chip">여수 돌산</span>
+          <span class="chip">부드러운 식감</span>
+          <span class="chip">봄 제철</span>
+        </div>
+        <div class="price-row">
+          <span class="off">6%</span>
+          <span class="orig">10,000원</span>
+          <span class="now">9,400<span class="unit">원</span></span>
+        </div>
+        <div class="product-spacer"></div>
+        <a class="btn" href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=59429&returnPlanNo=0" target="_blank">장보기</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 2: 풋마늘대김치 -->
+  <div class="slide slide-product">
+    <div class="slide-product-inner">
+      <img class="product-img" src="img/풋마늘대김치.jpg" alt="풋마늘대김치">
+      <div class="product-body">
+        <div class="product-type-tag type-regular">상시 · ~4월 16일(목)까지 주문 가능</div>
+        <h2 class="product-name">풋마늘대김치</h2>
+        <p class="product-tagline">이른 봄에만 수확하는 풋마늘대의 풋풋함</p>
+        <p class="product-desc">
+          마늘 특유의 알싸한 향은 살리고, 대파처럼 시원하게 아삭한 식감이 입맛을 깨웁니다.<br>
+          숙성될수록 감칠맛이 켜켜이 깊어져, 삼겹살 한 점 위에 올리면 그야말로 찰떡입니다.
+        </p>
+        <div class="chips">
+          <span class="chip">알싸한 마늘 향</span>
+          <span class="chip">아삭한 식감</span>
+          <span class="chip">봄 제철</span>
+        </div>
+        <div class="price-row">
+          <span class="off">6%</span>
+          <span class="orig">10,500원</span>
+          <span class="now">9,900<span class="unit">원</span></span>
+        </div>
+        <div class="product-spacer"></div>
+        <a class="btn" href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=59420&returnPlanNo=0" target="_blank">장보기</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 3: 민들레김치 -->
+  <div class="slide slide-product">
+    <div class="slide-product-inner">
+      <div class="product-img-wrap">
+        <img class="product-img" src="img/민들레김치.jpg" alt="민들레김치">
+        <div class="urgent-badge">1차 예약 마감 임박</div>
+      </div>
+      <div class="product-body">
+        <div class="product-type-tag type-reserve">예약</div>
+        <h2 class="product-name">민들레김치 <span class="product-spec">제철 민들레 / 300g</span></h2>
+        <p class="product-desc">
+          봄 딱 한 철, 들판에서 캐어야만 맛볼 수 있는 귀한 제철 민들레로 담근 김치입니다.<br>
+          예로부터 봄철 원기 회복에 즐겨찾던 민들레, 봄철 나른해진 입맛을 확 살려줍니다.
+        </p>
+        <div class="price-row">
+          <span class="off">8%</span>
+          <span class="orig">11,900원</span>
+          <span class="now">10,900<span class="unit">원</span></span>
+        </div>
+        <div class="schedule-box">
+          <strong>1차</strong> ~<span class="date">4/3(금) 14시</span> → 공급 <span class="date">4/9(목)</span><br>
+          <strong>2차</strong> ~<span class="date">4/10(금) 14시</span> → 공급 <span class="date">4/16(목)</span>
+        </div>
+        <div class="product-spacer"></div>
+        <a class="btn accent" href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=02&returnNo=59421&returnPlanNo=0" target="_blank">예약하기</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 4: 열무얼갈이김치 -->
+  <div class="slide slide-product">
+    <div class="slide-product-inner">
+      <img class="product-img" src="img/열무얼갈이김치.jpg" alt="열무얼갈이김치">
+      <div class="product-body">
+        <div class="product-type-tag type-reserve">예약</div>
+        <h2 class="product-name">열무얼갈이김치 <span class="product-spec">1kg / 생기를담아</span></h2>
+        <p class="product-desc">
+          싱싱한 봄 열무와 얼갈이로 담근 김치입니다.<br>
+          아삭하고 시원한 맛이 특징으로, 국수에 곁들이면 봄 한 그릇 완성!
+        </p>
+        <div class="chips">
+          <span class="chip">열무 + 얼갈이</span>
+          <span class="chip">1kg</span>
+          <span class="chip">생기를담아</span>
+        </div>
+        <div class="price-row">
+          <span class="off">6%</span>
+          <span class="orig">11,000원</span>
+          <span class="now">10,300<span class="unit">원</span></span>
+        </div>
+        <div class="schedule-box">
+          <strong>예약</strong> ~<span class="date">4/10(금) 14시</span><br>
+          <strong>공급</strong> <span class="date">4/16(목)</span>
+        </div>
+        <div class="product-spacer"></div>
+        <a class="btn accent" href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=02&returnNo=35742&returnPlanNo=0" target="_blank">예약하기</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- PAGINATION DOTS -->
+<div class="pagination" id="pagination">
+  <div class="page-dot active" data-index="0"></div>
+  <div class="page-dot" data-index="1"></div>
+  <div class="page-dot" data-index="2"></div>
+  <div class="page-dot" data-index="3"></div>
+  <div class="page-dot" data-index="4"></div>
+</div>
+
+<script>
+const slides = document.getElementById('slides');
+const dots = document.querySelectorAll('.page-dot');
+const slideCount = document.querySelectorAll('.slide').length;
+
+// Update dots on scroll
+slides.addEventListener('scroll', () => {
+  const idx = Math.round(slides.scrollLeft / window.innerWidth);
+  dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+}, { passive: true });
+
+// Click dot to navigate
+dots.forEach(dot => {
+  dot.addEventListener('click', () => {
+    const idx = parseInt(dot.dataset.index);
+    slides.scrollTo({ left: idx * window.innerWidth, behavior: 'smooth' });
+  });
+});
+</script>
+</body>
+</html>

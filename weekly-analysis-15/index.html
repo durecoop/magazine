@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>두레생협 15주차 기획 분석 리포트</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#f5f5f7;color:#1d1d1f;font-family:'Pretendard','Noto Sans KR',sans-serif;word-break:keep-all;line-height:1.6}
+.container{max-width:1200px;margin:0 auto;padding:20px}
+.hero{text-align:center;padding:60px 20px 40px;background:linear-gradient(135deg,#eef2ff 0%,#e0e7ff 50%,#eef2ff 100%);border-bottom:1px solid #c7d2fe;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle at 30% 50%,rgba(99,102,241,0.1) 0%,transparent 50%);animation:heroGlow 8s ease-in-out infinite alternate}
+@keyframes heroGlow{0%{transform:translate(0,0)}100%{transform:translate(5%,3%)}}
+.hero h1{font-size:2.2em;background:linear-gradient(135deg,#4f46e5,#7c3aed);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px;position:relative}
+.hero .sub{color:#4b5563;font-size:1.1em}
+.hero .week-badge{display:inline-block;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;padding:6px 20px;border-radius:20px;font-size:0.9em;margin-top:12px}
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin:30px 0}
+.kpi{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:20px;text-align:center;transition:transform 0.2s;box-shadow:0 1px 3px rgba(0,0,0,0.06)}
+.kpi:hover{transform:translateY(-3px);border-color:#6366f1;box-shadow:0 4px 12px rgba(99,102,241,0.12)}
+.kpi .label{color:#6b7280;font-size:0.85em;margin-bottom:4px}
+.kpi .value{font-size:1.8em;font-weight:700;color:#4f46e5}
+.kpi .unit{font-size:0.7em;color:#6b7280;margin-left:2px}
+.kpi.highlight{border-color:#f59e0b;background:linear-gradient(135deg,#fffbeb,#fef3c7)}
+.kpi.highlight .value{color:#d97706}
+.section{margin:40px 0;padding:30px;background:#fff;border:1px solid #e5e7eb;border-radius:16px;box-shadow:0 1px 3px rgba(0,0,0,0.06)}
+.section h2{font-size:1.5em;color:#7c3aed;margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.section h2::before{content:'';width:4px;height:24px;background:linear-gradient(180deg,#6366f1,#a78bfa);border-radius:2px}
+.bar-chart{margin:20px 0}
+.bar-row{display:flex;align-items:center;margin:6px 0;gap:10px}
+.bar-label{width:220px;flex-shrink:0;font-size:0.85em;text-align:right;color:#374151;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar-track{flex:1;height:28px;background:#e5e7eb;border-radius:6px;overflow:hidden;position:relative}
+.bar-fill{height:100%;border-radius:6px;transition:width 0.8s ease;display:flex;align-items:center;justify-content:flex-end;padding-right:8px;font-size:0.75em;font-weight:600;color:#fff;min-width:fit-content}
+.bar-fill.purple{background:linear-gradient(90deg,#6366f1,#818cf8)}
+.bar-fill.amber{background:linear-gradient(90deg,#d97706,#fbbf24)}
+.bar-fill.emerald{background:linear-gradient(90deg,#059669,#34d399)}
+.bar-fill.rose{background:linear-gradient(90deg,#e11d48,#fb7185)}
+.bar-amt{width:90px;flex-shrink:0;font-size:0.8em;color:#4b5563;text-align:right}
+.table-wrap{overflow-x:auto;margin:10px 0}
+table{width:100%;border-collapse:collapse;font-size:0.85em}
+th{background:#f0f0f5;color:#4f46e5;padding:10px 8px;text-align:left;position:sticky;top:0;border-bottom:2px solid #6366f1}
+td{padding:8px;border-bottom:1px solid #e5e7eb;color:#374151}
+tr:hover td{background:#f5f3ff}
+.text-right{text-align:right}
+.text-center{text-align:center}
+.focus-badge{background:#f59e0b;color:#000;padding:2px 8px;border-radius:10px;font-size:0.75em;font-weight:700}
+.discount-badge{background:#059669;color:#fff;padding:2px 8px;border-radius:10px;font-size:0.75em}
+.type-badge{padding:2px 8px;border-radius:10px;font-size:0.75em;font-weight:600}
+.type-소비촉진{background:#2563eb;color:#fff}
+.type-특별기획{background:#7c3aed;color:#fff}
+.type-예약{background:#0891b2;color:#fff}
+.type-신규{background:#059669;color:#fff}
+.type-공급재개{background:#d97706;color:#fff}
+.type-연계기획{background:#e11d48;color:#fff}
+.type-햇출하{background:#16a34a;color:#fff}
+.tabs{display:flex;gap:4px;margin-bottom:20px;flex-wrap:wrap}
+.tab{padding:8px 16px;background:#f3f4f6;border:1px solid #d1d5db;border-radius:8px;cursor:pointer;color:#6b7280;font-size:0.85em;transition:all 0.2s}
+.tab.active{background:#6366f1;color:#fff;border-color:#6366f1}
+.tab:hover{border-color:#6366f1;color:#4f46e5}
+.tab-content{display:none}
+.tab-content.active{display:block}
+.strategy-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.strategy-card{background:#fafafa;border:1px solid #e5e7eb;border-radius:12px;padding:20px;transition:transform 0.2s}
+.strategy-card:hover{transform:translateY(-2px);border-color:#a78bfa;box-shadow:0 4px 12px rgba(124,58,237,0.08)}
+.strategy-card h3{color:#4f46e5;font-size:1.1em;margin-bottom:10px}
+.strategy-card .priority{display:inline-block;padding:2px 10px;border-radius:10px;font-size:0.75em;font-weight:700;margin-bottom:8px}
+.priority-high{background:#ef4444;color:#fff}
+.priority-mid{background:#f59e0b;color:#000}
+.priority-low{background:#6366f1;color:#fff}
+.strategy-card ul{list-style:none;padding:0}
+.strategy-card li{padding:4px 0;color:#374151;font-size:0.9em}
+.strategy-card li::before{content:'→ ';color:#6366f1}
+.insight-box{background:linear-gradient(135deg,#eef2ff,#e8e0ff);border:1px solid #c4b5fd;border-radius:12px;padding:20px;margin:20px 0}
+.insight-box h3{color:#6d28d9;margin-bottom:10px}
+.insight-box p{color:#4c1d95;font-size:0.95em;line-height:1.7}
+.pred-card{display:flex;gap:16px;padding:16px;background:#fafafa;border-radius:12px;margin:10px 0;align-items:center;border-left:4px solid #6366f1}
+.pred-card.hot{border-left-color:#ef4444}
+.pred-card.warm{border-left-color:#f59e0b}
+.pred-card.stable{border-left-color:#059669}
+.pred-rank{font-size:1.5em;font-weight:800;color:#4f46e5;min-width:40px;text-align:center}
+.pred-info{flex:1}
+.pred-name{font-weight:700;color:#1f2937;font-size:1em}
+.pred-detail{color:#6b7280;font-size:0.85em;margin-top:4px}
+.pred-tags{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap}
+.pred-tag{padding:2px 8px;border-radius:8px;font-size:0.7em;font-weight:600}
+.tag-discount{background:#d1fae5;color:#065f46}
+.tag-focus{background:#fef3c7;color:#92400e}
+.tag-seasonal{background:#e0e7ff;color:#3730a3}
+.tag-new{background:#dbeafe;color:#1e40af}
+.footer{text-align:center;padding:30px;color:#6b7280;font-size:0.85em;border-top:1px solid #e5e7eb;margin-top:40px}
+.price-up{color:#ef4444;font-weight:600}
+@media(max-width:768px){
+  .hero h1{font-size:1.5em}
+  .kpi-grid{grid-template-columns:repeat(2,1fr)}
+  .bar-label{min-width:100px;font-size:0.75em}
+  .strategy-grid{grid-template-columns:1fr}
+  .tabs{gap:2px}
+  .tab{padding:6px 10px;font-size:0.75em}
+}
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<div class="hero">
+  <h1>두레생협 주간 기획 분석 리포트</h1>
+  <div class="sub">2026년 4월 6일 ~ 4월 11일</div>
+  <div class="week-badge">15주차</div>
+</div>
+
+<div class="container">
+
+<!-- KPI -->
+<div class="kpi-grid">
+  <div class="kpi">
+    <div class="label">기획 품목수</div>
+    <div class="value">132<span class="unit">개</span></div>
+  </div>
+  <div class="kpi">
+    <div class="label">테마 수</div>
+    <div class="value">24<span class="unit">개</span></div>
+  </div>
+  <div class="kpi">
+    <div class="label">총 목표금액</div>
+    <div class="value">5억 2,837<span class="unit">만</span></div>
+  </div>
+  <div class="kpi highlight">
+    <div class="label">기획전 주요 카테고리</div>
+    <div class="value">8<span class="unit">개</span></div>
+  </div>
+  <div class="kpi">
+    <div class="label">평균 할인율</div>
+    <div class="value">12<span class="unit">%</span></div>
+  </div>
+</div>
+
+<!-- 15주 온라인 기획전 집중 품목 (ecoop 기획전 기반) -->
+<div class="section">
+  <h2>15주 온라인 기획전 집중 품목</h2>
+  <p style="color:#9ca3af;margin-bottom:16px;font-size:0.9em">ecoop.or.kr 기획전 페이지 기반 · <strong style="color:#c4b5fd">굵은 글씨</strong> = 카테고리별 주력 품목 (목표금액 최대 또는 할인율 상위)</p>
+
+  <!-- 카테고리 1: 봄 보양 닭/오리 -->
+  <h3 style="color:#4f46e5;margin:24px 0 10px;font-size:1.1em">🐔 봄맞이 보양 닭/오리 축산물</h3>
+  <div class="table-wrap">
+    <table>
+      <tr><th>테마</th><th>품목명</th><th class="text-right">상시가</th><th class="text-right">기획가</th><th class="text-center">할인</th><th class="text-right">목표수량</th><th class="text-right">목표금액</th></tr>
+      <tr><td>봄맞이 입맛 돋우는 닭/오리</td><td style="font-weight:700">토종닭(1.4kg/냉동)</td><td class="text-right">15,900</td><td class="text-right" style="font-weight:700">11,000</td><td class="text-center"><span class="discount-badge">31%</span></td><td class="text-right">500</td><td class="text-right">550만</td></tr>
+      <tr><td>삼계탕 20%할인</td><td style="font-weight:700">한마리 삼계탕</td><td class="text-right">14,000</td><td class="text-right" style="font-weight:700">11,000</td><td class="text-center"><span class="discount-badge">21%</span></td><td class="text-right">1,200</td><td class="text-right">1,320만</td></tr>
+      <tr><td>봄맞이 입맛 돋우는 닭/오리</td><td>닭다리(북채/500g)</td><td class="text-right">9,900</td><td class="text-right">8,900</td><td class="text-center"><span class="discount-badge">10%</span></td><td class="text-right">200</td><td class="text-right">178만</td></tr>
+      <tr><td>봄맞이 입맛 돋우는 닭/오리</td><td>대패오리(500g/냉동)</td><td class="text-right">11,900</td><td class="text-right">10,700</td><td class="text-center"><span class="discount-badge">10%</span></td><td class="text-right">200</td><td class="text-right">214만</td></tr>
+    </table>
+  </div>
+
+  <!-- 카테고리 2: 여름시즌 음료·냉면·김치 -->
+  <h3 style="color:#4f46e5;margin:24px 0 10px;font-size:1.1em">🍜 여름시즌 음료·냉면·김치</h3>
+  <div class="table-wrap">
+    <table>
+      <tr><th>테마</th><th>품목명</th><th class="text-right">상시가</th><th class="text-right">기획가</th><th class="text-center">할인</th><th class="text-right">목표수량</th><th class="text-right">목표금액</th></tr>
+      <tr><td>여름시즌 음료와 냉면, 김치</td><td style="font-weight:700">7곡 미숫가루</td><td class="text-right">15,500</td><td class="text-right" style="font-weight:700">12,500</td><td class="text-center"><span class="discount-badge">19%</span></td><td class="text-right">2,000</td><td class="text-right">2,500만</td></tr>
+      <tr><td>여름시즌 음료와 냉면, 김치</td><td>열무김치(1kg)</td><td class="text-right">7,000</td><td class="text-right">6,300</td><td class="text-center"><span class="discount-badge">10%</span></td><td class="text-right">2,000</td><td class="text-right">1,260만</td></tr>
+      <tr><td>여름시즌 음료와 냉면, 김치</td><td>백김치(국산/2kg)</td><td class="text-right">14,500</td><td class="text-right">11,600</td><td class="text-center"><span class="discount-badge">20%</span></td><td class="text-right">400</td><td class="text-right">464만</td></tr>
+      <tr><td>여름시즌 음료와 냉면, 김치</td><td>콩국물(페트/1L)</td><td class="text-right">5,700</td><td class="text-right">5,700</td><td class="text-center">-</td><td class="text-right">1,200</td><td class="text-right">684만</td></tr>
+      <tr><td>여름시즌 음료와 냉면, 김치</td><td>보리물냉면</td><td class="text-right">5,900</td><td class="text-right">5,900</td><td class="text-center">-</td><td class="text-right">1,000</td><td class="text-right">590만</td></tr>
+      <tr><td>여름시즌 음료와 냉면, 김치</td><td>냉면육수(300g)</td><td class="text-right">1,700</td><td class="text-right">1,500</td><td class="text-center"><span class="discount-badge">12%</span></td><td class="text-right">2,500</td><td class="text-right">375만</td></tr>
+      <tr><td>여름시즌 음료와 냉면, 김치</td><td>비빔냉면양념(300g)</td><td class="text-right">1,700</td><td class="text-right">1,500</td><td class="text-center"><span class="discount-badge">12%</span></td><td class="text-right">2,500</td><td class="text-right">375만</td></tr>
+    </table>
+  </div>
+
+  <!-- 카테고리 3: 간편식/소스 (치킨안심가스 등) -->
+  <h3 style="color:#4f46e5;margin:24px 0 10px;font-size:1.1em">🍗 간편식 & 소스</h3>
+  <div class="table-wrap">
+    <table>
+      <tr><th>테마</th><th>품목명</th><th class="text-right">상시가</th><th class="text-right">기획가</th><th class="text-center">할인</th><th class="text-right">목표수량</th><th class="text-right">목표금액</th></tr>
+      <tr><td>치킨안심가스 & 소스</td><td style="font-weight:700">치킨안심가스</td><td class="text-right">10,500</td><td class="text-right" style="font-weight:700">9,500</td><td class="text-center"><span class="discount-badge">10%</span></td><td class="text-right">500</td><td class="text-right">475만</td></tr>
+      <tr><td>치킨안심가스 & 소스</td><td>유기농 해바라기씨유 750ml</td><td class="text-right">11,700</td><td class="text-right" style="font-weight:700">8,800</td><td class="text-center"><span class="discount-badge">25%</span></td><td class="text-right">500</td><td class="text-right">440만</td></tr>
+      <tr><td>치킨안심가스 & 소스</td><td>타르타르소스(140g)</td><td class="text-right">3,700</td><td class="text-right">3,500</td><td class="text-center"><span class="discount-badge">5%</span></td><td class="text-right">350</td><td class="text-right">123만</td></tr>
+      <tr><td>치킨안심가스 & 소스</td><td>돈가스소스</td><td class="text-right">5,600</td><td class="text-right">5,200</td><td class="text-center"><span class="discount-badge">7%</span></td><td class="text-right">450</td><td class="text-right">234만</td></tr>
+    </table>
+  </div>
+
+  <!-- 카테고리 4: 화장품/뷰티 -->
+  <h3 style="color:#4f46e5;margin:24px 0 10px;font-size:1.1em">💆 봄 뷰티 — 선크림·아토·시카·염색</h3>
+  <div class="table-wrap">
+    <table>
+      <tr><th>테마</th><th>품목명</th><th class="text-right">상시가</th><th class="text-right">기획가</th><th class="text-center">할인</th><th class="text-right">목표수량</th><th class="text-right">목표금액</th></tr>
+      <tr><td>[신규]베이스선크림</td><td style="font-weight:700">(기획세트) 베이스 선크림</td><td class="text-right">13,500</td><td class="text-right" style="font-weight:700">12,100</td><td class="text-center"><span class="discount-badge">10%</span></td><td class="text-right">2,000</td><td class="text-right">2,420만</td></tr>
+      <tr><td>봄 나들이 화사한 피부</td><td>베이스 선크림 40g</td><td class="text-right">13,500</td><td class="text-right">11,400</td><td class="text-center"><span class="discount-badge">16%</span></td><td class="text-right">500</td><td class="text-right">570만</td></tr>
+      <tr><td>[신규]대용량 아토 화장품</td><td style="font-weight:700">노스테 아토 로션</td><td class="text-right">48,000</td><td class="text-right" style="font-weight:700">38,400</td><td class="text-center"><span class="discount-badge">20%</span></td><td class="text-right">500</td><td class="text-right">1,920만</td></tr>
+      <tr><td>[신규]대용량 아토 화장품</td><td>노스테 아토 워시</td><td class="text-right">20,000</td><td class="text-right">16,000</td><td class="text-center"><span class="discount-badge">20%</span></td><td class="text-right">500</td><td class="text-right">800만</td></tr>
+      <tr><td>[신규]대용량 아토 화장품</td><td>노스테 아토 크림</td><td class="text-right">46,000</td><td class="text-right">36,800</td><td class="text-center"><span class="discount-badge">20%</span></td><td class="text-right">500</td><td class="text-right">1,840만</td></tr>
+      <tr><td>봄 나들이 화사한 피부</td><td style="font-weight:700">그레인 시카크림</td><td class="text-right">21,700</td><td class="text-right" style="font-weight:700">15,200</td><td class="text-center"><span class="discount-badge">30%</span></td><td class="text-right">600</td><td class="text-right">912만</td></tr>
+      <tr><td>봄 나들이 화사한 피부</td><td>알로에베라 수딩젤</td><td class="text-right">6,900</td><td class="text-right">6,200</td><td class="text-center"><span class="discount-badge">10%</span></td><td class="text-right">300</td><td class="text-right">186만</td></tr>
+      <tr><td>염색약 바르고 팩 한장 착!</td><td>허브염색약(3종)</td><td class="text-right">9,900</td><td class="text-right">8,900</td><td class="text-center"><span class="discount-badge">10%</span></td><td class="text-right">각500</td><td class="text-right">각445만</td></tr>
+    </table>
+  </div>
+
+  <!-- 카테고리 5: 귀리유 택배기획 -->
+  <h3 style="color:#4f46e5;margin:24px 0 10px;font-size:1.1em">🥛 봄맞이 귀리유 택배기획</h3>
+  <div class="table-wrap">
+    <table>
+      <tr><th>테마</th><th>품목명</th><th class="text-right">상시가</th><th class="text-right">기획가</th><th class="text-center">할인</th><th class="text-right">목표수량</th><th class="text-right">목표금액</th></tr>
+      <tr><td>봄맞이 귀리유 택배기획</td><td style="font-weight:700">유기농 귀리유(YOU)16팩</td><td class="text-right">19,200</td><td class="text-right" style="font-weight:700">15,300</td><td class="text-center"><span class="discount-badge">20%</span></td><td class="text-right">3,000</td><td class="text-right">4,590만</td></tr>
+      <tr><td>봄맞이 귀리유 택배기획</td><td>택배 유기농 귀리유(16팩x4개)</td><td class="text-right">76,800</td><td class="text-right">61,200</td><td class="text-center"><span class="discount-badge">20%</span></td><td class="text-right">400</td><td class="text-right">2,448만</td></tr>
+    </table>
+  </div>
+
+  <!-- 카테고리 6: 동물복지 돈육 -->
+  <h3 style="color:#4f46e5;margin:24px 0 10px;font-size:1.1em">🐷 윤리적 소비의 시작! 동물복지 돈육</h3>
+  <div class="table-wrap">
+    <table>
+      <tr><th>테마</th><th>품목명</th><th class="text-right">상시가</th><th class="text-right">기획가</th><th class="text-center">할인</th><th class="text-right">목표수량</th><th class="text-right">목표금액</th></tr>
+      <tr><td>동물복지 돈육</td><td>동물복지 불고기(500g/뒷다리살)</td><td class="text-right">9,400</td><td class="text-right">8,000</td><td class="text-center"><span class="discount-badge">15%</span></td><td class="text-right">180</td><td class="text-right">144만</td></tr>
+      <tr><td>동물복지 돈육</td><td>동물복지 다짐육(300g/뒷다리살)</td><td class="text-right">6,000</td><td class="text-right">5,100</td><td class="text-center"><span class="discount-badge">15%</span></td><td class="text-right">200</td><td class="text-right">102만</td></tr>
+      <tr><td>동물복지 돈육</td><td>동물복지 카레용(300g/뒷다리살)</td><td class="text-right">6,000</td><td class="text-right">5,100</td><td class="text-center"><span class="discount-badge">15%</span></td><td class="text-right">200</td><td class="text-right">102만</td></tr>
+    </table>
+  </div>
+
+  <!-- 카테고리 7: 수산물 -->
+  <h3 style="color:#4f46e5;margin:24px 0 10px;font-size:1.1em">🐟 손질 수산물 & 구이수산물</h3>
+  <div class="table-wrap">
+    <table>
+      <tr><th>테마</th><th>품목명</th><th class="text-right">상시가</th><th class="text-right">기획가</th><th class="text-center">할인</th><th class="text-right">목표수량</th><th class="text-right">목표금액</th></tr>
+      <tr><td>손질 수산물 공급 기획</td><td style="font-weight:700">손질 참가자미(600g)</td><td class="text-right">14,000</td><td class="text-right" style="font-weight:700">11,900</td><td class="text-center"><span class="discount-badge">15%</span></td><td class="text-right">600</td><td class="text-right">714만</td></tr>
+      <tr><td>손질 수산물 공급 기획</td><td>손질오징어채</td><td class="text-right">15,600</td><td class="text-right">14,000</td><td class="text-center"><span class="discount-badge">10%</span></td><td class="text-right">400</td><td class="text-right">560만</td></tr>
+      <tr><td>손질 수산물 공급 기획</td><td>반건조서대(300g)</td><td class="text-right">15,900</td><td class="text-right">14,300</td><td class="text-center"><span class="discount-badge">10%</span></td><td class="text-right">300</td><td class="text-right">429만</td></tr>
+      <tr><td>전자레인지 구이수산물</td><td>고등어구이(90g)</td><td class="text-right">3,200</td><td class="text-right">2,700</td><td class="text-center"><span class="discount-badge">16%</span></td><td class="text-right">500</td><td class="text-right">135만</td></tr>
+      <tr><td>전자레인지 구이수산물</td><td>삼치구이(90g)</td><td class="text-right">3,900</td><td class="text-right">3,300</td><td class="text-center"><span class="discount-badge">15%</span></td><td class="text-right">400</td><td class="text-right">132만</td></tr>
+      <tr><td>전자레인지 구이수산물</td><td>가자미구이(80g)</td><td class="text-right">4,300</td><td class="text-right">3,600</td><td class="text-center"><span class="discount-badge">16%</span></td><td class="text-right">300</td><td class="text-right">108만</td></tr>
+    </table>
+  </div>
+
+  <!-- 카테고리 8: 검정찰보리 (데이터 집중 품목) -->
+  <h3 style="color:#4f46e5;margin:24px 0 10px;font-size:1.1em">🌾 데이터 집중 품목 — 검정찰보리</h3>
+  <div class="table-wrap">
+    <table>
+      <tr><th>테마</th><th>품목명</th><th class="text-right">상시가</th><th class="text-right">기획가</th><th class="text-center">할인</th><th class="text-right">목표수량</th><th class="text-right">목표금액</th></tr>
+      <tr><td>[소비촉진] 검정찰보리 100% 활용하기</td><td><span class="focus-badge">집중</span> 검정찰보리(800g/유기)</td><td class="text-right">9,400</td><td class="text-right" style="font-weight:700">7,500</td><td class="text-center"><span class="discount-badge">20%</span></td><td class="text-right">1,000</td><td class="text-right">750만</td></tr>
+    </table>
+  </div>
+
+  <div style="background:linear-gradient(135deg,#eef2ff,#e0e7ff);border:1px solid #c7d2fe;border-radius:16px;padding:28px 32px;margin-top:24px">
+    <h3 style="font-size:1.2em;color:#4f46e5;margin-bottom:20px;display:flex;align-items:center;gap:8px">
+      <span style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;background:#4f46e5;color:#fff;border-radius:50%;font-size:0.7em">✦</span>
+      15주 기획전 종합 분석
+    </h3>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px">
+      <!-- 카드 1 -->
+      <div style="background:#fff;border-radius:12px;padding:18px 20px;border-left:4px solid #3b82f6;box-shadow:0 1px 4px rgba(0,0,0,0.06)">
+        <div style="font-size:0.8em;color:#3b82f6;font-weight:700;margin-bottom:6px">🍜 여름 시즌 선점</div>
+        <div style="font-size:0.9em;color:#374151;line-height:1.7">
+          7곡 미숫가루 <strong>2,500만</strong>, 열무김치 <strong>1,260만</strong> 등<br>
+          냉면·김치류 합계 <span style="font-weight:800;color:#3b82f6">1억 1,765만원</span><br>
+          <span style="color:#6b7280;font-size:0.85em">→ 가장 큰 비중의 테마</span>
+        </div>
+      </div>
+      <!-- 카드 2 -->
+      <div style="background:#fff;border-radius:12px;padding:18px 20px;border-left:4px solid #8b5cf6;box-shadow:0 1px 4px rgba(0,0,0,0.06)">
+        <div style="font-size:0.8em;color:#8b5cf6;font-weight:700;margin-bottom:6px">💆 뷰티 신규 런칭</div>
+        <div style="font-size:0.9em;color:#374151;line-height:1.7">
+          베이스 선크림 <strong>2,420만</strong>, 아토 3종 <strong>4,560만</strong><br>
+          시카크림 <strong>912만</strong><br>
+          <span style="color:#6b7280;font-size:0.85em">→ 봄 자외선·환절기 피부 케어 공략</span>
+        </div>
+      </div>
+      <!-- 카드 3 -->
+      <div style="background:#fff;border-radius:12px;padding:18px 20px;border-left:4px solid #f59e0b;box-shadow:0 1px 4px rgba(0,0,0,0.06)">
+        <div style="font-size:0.8em;color:#d97706;font-weight:700;margin-bottom:6px">🐔 보양식 수요</div>
+        <div style="font-size:0.9em;color:#374151;line-height:1.7">
+          토종닭 <span style="color:#059669;font-weight:700">31%↓</span> (550만)<br>
+          한마리 삼계탕 <span style="color:#059669;font-weight:700">21%↓</span> (1,320만)<br>
+          <span style="color:#6b7280;font-size:0.85em">→ 봄 보양 트렌드 포착</span>
+        </div>
+      </div>
+      <!-- 카드 4 -->
+      <div style="background:#fff;border-radius:12px;padding:18px 20px;border-left:4px solid #6366f1;box-shadow:0 1px 4px rgba(0,0,0,0.06)">
+        <div style="font-size:0.8em;color:#6366f1;font-weight:700;margin-bottom:6px">🥛 귀리유 택배기획</div>
+        <div style="font-size:0.9em;color:#374151;line-height:1.7">
+          14~15주 연속 기획, 마감 긴급감 조성<br>
+          합계 <span style="font-weight:800;color:#6366f1">7,038만원</span><br>
+          <span style="color:#6b7280;font-size:0.85em">→ 2주 연속 집중 밀어붙이기</span>
+        </div>
+      </div>
+      <!-- 카드 5 -->
+      <div style="background:#fff;border-radius:12px;padding:18px 20px;border-left:4px solid #84cc16;box-shadow:0 1px 4px rgba(0,0,0,0.06)">
+        <div style="font-size:0.8em;color:#65a30d;font-weight:700;margin-bottom:6px">🌾 검정찰보리 집중</div>
+        <div style="font-size:0.9em;color:#374151;line-height:1.7">
+          <span style="color:#059669;font-weight:700">20%↓</span> 할인, 목표 <strong>750만원</strong><br>
+          <span style="color:#6b7280;font-size:0.85em">→ 블랙푸드 건강 트렌드 부합</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 카테고리별 목표금액 비중 파이차트 -->
+<div class="section">
+  <h2>카테고리별 목표금액 비중</h2>
+  <p style="color:#6b7280;font-size:0.9em;margin-bottom:20px">8개 카테고리 합계 약 2억 9,979만원 기준</p>
+  <div style="display:flex;align-items:center;justify-content:center;gap:48px;flex-wrap:wrap">
+    <!-- 파이차트 -->
+    <div style="position:relative;width:280px;height:280px">
+      <div style="width:280px;height:280px;border-radius:50%;background:conic-gradient(
+        #8b5cf6 0% 33.3%,
+        #6366f1 33.3% 56.8%,
+        #3b82f6 56.8% 77.6%,
+        #f59e0b 77.6% 85.1%,
+        #14b8a6 85.1% 92.1%,
+        #ef4444 92.1% 96.3%,
+        #84cc16 96.3% 98.8%,
+        #f97316 98.8% 100%
+      );box-shadow:0 4px 24px rgba(99,102,241,0.18)"></div>
+      <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:120px;height:120px;border-radius:50%;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.08)">
+        <div style="font-size:0.75em;color:#6b7280">합계</div>
+        <div style="font-size:1.3em;font-weight:800;color:#4f46e5">3.0억</div>
+      </div>
+    </div>
+    <!-- 범례 -->
+    <div style="display:flex;flex-direction:column;gap:10px;min-width:240px">
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="width:16px;height:16px;border-radius:4px;background:#8b5cf6;flex-shrink:0"></div>
+        <span style="flex:1;font-size:0.9em;color:#374151">💆 봄 뷰티</span>
+        <span style="font-weight:700;font-size:0.9em;color:#4f46e5">9,983만</span>
+        <span style="font-size:0.8em;color:#6b7280;width:48px;text-align:right">33.3%</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="width:16px;height:16px;border-radius:4px;background:#6366f1;flex-shrink:0"></div>
+        <span style="flex:1;font-size:0.9em;color:#374151">🥛 귀리유 택배</span>
+        <span style="font-weight:700;font-size:0.9em;color:#4f46e5">7,038만</span>
+        <span style="font-size:0.8em;color:#6b7280;width:48px;text-align:right">23.5%</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="width:16px;height:16px;border-radius:4px;background:#3b82f6;flex-shrink:0"></div>
+        <span style="flex:1;font-size:0.9em;color:#374151">🍜 음료·냉면·김치</span>
+        <span style="font-weight:700;font-size:0.9em;color:#4f46e5">6,248만</span>
+        <span style="font-size:0.8em;color:#6b7280;width:48px;text-align:right">20.8%</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="width:16px;height:16px;border-radius:4px;background:#f59e0b;flex-shrink:0"></div>
+        <span style="flex:1;font-size:0.9em;color:#374151">🐔 닭/오리 보양</span>
+        <span style="font-weight:700;font-size:0.9em;color:#4f46e5">2,262만</span>
+        <span style="font-size:0.8em;color:#6b7280;width:48px;text-align:right">7.5%</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="width:16px;height:16px;border-radius:4px;background:#14b8a6;flex-shrink:0"></div>
+        <span style="flex:1;font-size:0.9em;color:#374151">🐟 수산물</span>
+        <span style="font-weight:700;font-size:0.9em;color:#4f46e5">2,078만</span>
+        <span style="font-size:0.8em;color:#6b7280;width:48px;text-align:right">6.9%</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="width:16px;height:16px;border-radius:4px;background:#ef4444;flex-shrink:0"></div>
+        <span style="flex:1;font-size:0.9em;color:#374151">🍗 간편식 & 소스</span>
+        <span style="font-weight:700;font-size:0.9em;color:#4f46e5">1,272만</span>
+        <span style="font-size:0.8em;color:#6b7280;width:48px;text-align:right">4.2%</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="width:16px;height:16px;border-radius:4px;background:#84cc16;flex-shrink:0"></div>
+        <span style="flex:1;font-size:0.9em;color:#374151">🌾 검정찰보리</span>
+        <span style="font-weight:700;font-size:0.9em;color:#4f46e5">750만</span>
+        <span style="font-size:0.8em;color:#6b7280;width:48px;text-align:right">2.5%</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="width:16px;height:16px;border-radius:4px;background:#f97316;flex-shrink:0"></div>
+        <span style="flex:1;font-size:0.9em;color:#374151">🐷 동물복지 돈육</span>
+        <span style="font-weight:700;font-size:0.9em;color:#4f46e5">348만</span>
+        <span style="font-size:0.8em;color:#6b7280;width:48px;text-align:right">1.2%</span>
+      </div>
+    </div>
+  </div>
+  <div class="insight-box" style="margin-top:24px">
+    <h3>비중 분석 인사이트</h3>
+    <p><strong>봄 뷰티(33.3%)</strong>와 <strong>귀리유 택배(23.5%)</strong> 두 카테고리가 전체의 <strong>56.8%</strong>를 차지하며 15주 기획전의 핵심 축입니다. 여기에 <strong>음료·냉면·김치(20.8%)</strong>까지 합치면 상위 3개 카테고리가 <strong>77.6%</strong>를 점유합니다. 반면 동물복지 돈육(1.2%)과 검정찰보리(2.5%)는 목표금액 비중은 작지만, 가치소비·건강 트렌드 메시지를 전달하는 품목으로 기능합니다.</p>
+  </div>
+</div>
+
+<!-- 테마별 목표금액 TOP 10 -->
+<div class="section">
+  <h2>테마별 목표금액 TOP 10</h2>
+  <div class="bar-chart">
+    <div class="bar-row">
+      <div class="bar-label">여름시즌 음료와 냉면, 김치 (22개)</div>
+      <div class="bar-track"><div class="bar-fill purple" style="width:100%">11,765만</div></div>
+      <div class="bar-amt">11,765만</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">봄맞이 귀리유 택배기획 (2개)</div>
+      <div class="bar-track"><div class="bar-fill amber" style="width:60%">7,038만</div></div>
+      <div class="bar-amt">7,038만</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">[농산]큰것이 착하다. (7개)</div>
+      <div class="bar-track"><div class="bar-fill emerald" style="width:44%">5,230만</div></div>
+      <div class="bar-amt">5,230만</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">[신규]대용량 아토 화장품 3종 (3개)</div>
+      <div class="bar-track"><div class="bar-fill rose" style="width:39%">4,560만</div></div>
+      <div class="bar-amt">4,560만</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">봄 나들이 화사한 피부 가꾸기 (8개)</div>
+      <div class="bar-track"><div class="bar-fill purple" style="width:31%">3,618만</div></div>
+      <div class="bar-amt">3,618만</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">[신규]베이스선크림 (1개)</div>
+      <div class="bar-track"><div class="bar-fill amber" style="width:21%">2,420만</div></div>
+      <div class="bar-amt">2,420만</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">봄 나들이 시간절약, 염색약+팩 (6개)</div>
+      <div class="bar-track"><div class="bar-fill emerald" style="width:17%">2,050만</div></div>
+      <div class="bar-amt">2,050만</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">봄 나들이 간식과 음료 (10개)</div>
+      <div class="bar-track"><div class="bar-fill rose" style="width:17%">2,020만</div></div>
+      <div class="bar-amt">2,020만</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">삼계탕 20%할인 외 재료 (3개)</div>
+      <div class="bar-track"><div class="bar-fill purple" style="width:17%">1,977만</div></div>
+      <div class="bar-amt">1,977만</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">손질 수산물 공급 기획 (3개)</div>
+      <div class="bar-track"><div class="bar-fill amber" style="width:14%">1,703만</div></div>
+      <div class="bar-amt">1,703만</div>
+    </div>
+  </div>
+</div>
+
+<!-- 품목별 목표금액 TOP 20 -->
+<div class="section">
+  <h2>품목별 목표금액 TOP 20</h2>
+  <div class="bar-chart">
+    <div class="bar-row">
+      <div class="bar-label">유기농 귀리유(YOU)16팩</div>
+      <div class="bar-track"><div class="bar-fill purple" style="width:100%">4,590만</div></div>
+      <div class="bar-amt">4,590만</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">7곡 미숫가루</div>
+      <div class="bar-track"><div class="bar-fill amber" style="width:54%">2,500만</div></div>
+      <div class="bar-amt">2,500만</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">택배 유기농 귀리유(16팩x4개)</div>
+      <div class="bar-track"><div class="bar-fill emerald" style="width:53%">2,448만</div></div>
+      <div class="bar-amt">2,448만</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">(기획세트) 베이스 선크림</div>
+      <div class="bar-track"><div class="bar-fill rose" style="width:53%">2,420만</div></div>
+      <div class="bar-amt">2,420만</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">노스테 아토 로션</div>
+      <div class="bar-track"><div class="bar-fill purple" style="width:42%">1,920만</div></div>
+      <div class="bar-amt">1,920만</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">노스테 아토 크림</div>
+      <div class="bar-track"><div class="bar-fill amber" style="width:40%">1,840만</div></div>
+      <div class="bar-amt">1,840만</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">(포장저감)브로콜리(25개)</div>
+      <div class="bar-track"><div class="bar-fill emerald" style="width:33%">1,500만</div></div>
+      <div class="bar-amt">1,500만</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">햇양파(800g/제주/조생)</div>
+      <div class="bar-track"><div class="bar-fill rose" style="width:32%">1,449만</div></div>
+      <div class="bar-amt">1,449만</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">한마리 삼계탕</div>
+      <div class="bar-track"><div class="bar-fill purple" style="width:29%">1,320만</div></div>
+      <div class="bar-amt">1,320만</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">열무김치(1kg)</div>
+      <div class="bar-track"><div class="bar-fill amber" style="width:27%">1,260만</div></div>
+      <div class="bar-amt">1,260만</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">오이(50개)</div>
+      <div class="bar-track"><div class="bar-fill emerald" style="width:26%">1,200만</div></div>
+      <div class="bar-amt">1,200만</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">오이(2개/무농약)</div>
+      <div class="bar-track"><div class="bar-fill rose" style="width:23%">1,050만</div></div>
+      <div class="bar-amt">1,050만</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">그레인 시카 크림</div>
+      <div class="bar-track"><div class="bar-fill purple" style="width:20%">912만</div></div>
+      <div class="bar-amt">912만</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">가지(25개/벌크/무농약)</div>
+      <div class="bar-track"><div class="bar-fill amber" style="width:18%">830만</div></div>
+      <div class="bar-amt">830만</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">노스테 아토 워시</div>
+      <div class="bar-track"><div class="bar-fill emerald" style="width:17%">800만</div></div>
+      <div class="bar-amt">800만</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">당근(10kg)</div>
+      <div class="bar-track"><div class="bar-fill rose" style="width:17%">760만</div></div>
+      <div class="bar-amt">760만</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">검정찰보리(800g/유기)</div>
+      <div class="bar-track"><div class="bar-fill purple" style="width:16%">750만</div></div>
+      <div class="bar-amt">750만</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">손질 참가자미(600g)</div>
+      <div class="bar-track"><div class="bar-fill amber" style="width:16%">714만</div></div>
+      <div class="bar-amt">714만</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">콩국물(페트/1L)</div>
+      <div class="bar-track"><div class="bar-fill emerald" style="width:15%">684만</div></div>
+      <div class="bar-amt">684만</div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label">보리물냉면</div>
+      <div class="bar-track"><div class="bar-fill rose" style="width:13%">590만</div></div>
+      <div class="bar-amt">590만</div>
+    </div>
+  </div>
+</div>
+
+<!-- 할인율 & 수익성 (탭) -->
+<div class="section">
+  <h2>할인율 TOP 15 &amp; 수익성 TOP 20</h2>
+  <div class="tabs">
+    <div class="tab active" onclick="switchTab(event,'tab-discount')">할인율 TOP 15</div>
+    <div class="tab" onclick="switchTab(event,'tab-margin')">수익성 TOP 20</div>
+    <div class="tab" onclick="switchTab(event,'tab-growth')">전년대비 성장 TOP 10</div>
+    <div class="tab" onclick="switchTab(event,'tab-pricechange')">가격 변동</div>
+  </div>
+
+  <!-- 할인율 TOP 15 -->
+  <div class="tab-content active" id="tab-discount">
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>#</th><th>테마</th><th>품목명</th><th class="text-right">상시가</th><th class="text-right">기획가</th><th class="text-center">할인</th><th class="text-right">목표수량</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>봄맞이 입맛 돋우는 닭/오리 축산물</td><td>토종닭(1.4kg/냉동)</td><td class="text-right">15,900</td><td class="text-right">11,000</td><td class="text-center"><span class="discount-badge">30%</span></td><td class="text-right">500</td></tr>
+          <tr><td>2</td><td>봄 나들이 화사한 피부 가꾸기</td><td>그레인 시카 크림</td><td class="text-right">21,700</td><td class="text-right">15,200</td><td class="text-center"><span class="discount-badge">30%</span></td><td class="text-right">600</td></tr>
+          <tr><td>3</td><td>삼계탕 20%할인</td><td>한마리 삼계탕</td><td class="text-right">14,000</td><td class="text-right">11,000</td><td class="text-center"><span class="discount-badge">21%</span></td><td class="text-right">1,200</td></tr>
+          <tr><td>4</td><td>봄맞이 귀리유 택배기획</td><td>유기농 귀리유(YOU)16팩</td><td class="text-right">19,200</td><td class="text-right">15,300</td><td class="text-center"><span class="discount-badge">20%</span></td><td class="text-right">3,000</td></tr>
+          <tr><td>5</td><td>봄맞이 귀리유 택배기획</td><td>택배 유기농 귀리유(16팩x4개)</td><td class="text-right">76,800</td><td class="text-right">61,200</td><td class="text-center"><span class="discount-badge">20%</span></td><td class="text-right">400</td></tr>
+          <tr><td>6</td><td>[소비촉진] 검정찰보리</td><td>검정찰보리(800g/유기)</td><td class="text-right">9,400</td><td class="text-right">7,500</td><td class="text-center"><span class="discount-badge">20%</span></td><td class="text-right">1,000</td></tr>
+          <tr><td>7</td><td>[신규]대용량 아토 화장품</td><td>노스테 아토 크림</td><td class="text-right">46,000</td><td class="text-right">36,800</td><td class="text-center"><span class="discount-badge">20%</span></td><td class="text-right">500</td></tr>
+          <tr><td>8</td><td>[신규]대용량 아토 화장품</td><td>노스테 아토 워시</td><td class="text-right">20,000</td><td class="text-right">16,000</td><td class="text-center"><span class="discount-badge">20%</span></td><td class="text-right">500</td></tr>
+          <tr><td>9</td><td>[신규]대용량 아토 화장품</td><td>노스테 아토 로션</td><td class="text-right">48,000</td><td class="text-right">38,400</td><td class="text-center"><span class="discount-badge">20%</span></td><td class="text-right">500</td></tr>
+          <tr><td>10</td><td>여름시즌 음료와 냉면, 김치</td><td>백김치(국산/2kg)</td><td class="text-right">14,500</td><td class="text-right">11,600</td><td class="text-center"><span class="discount-badge">20%</span></td><td class="text-right">400</td></tr>
+          <tr><td>11</td><td>여름시즌 음료와 냉면, 김치</td><td>7곡 미숫가루</td><td class="text-right">15,500</td><td class="text-right">12,500</td><td class="text-center"><span class="discount-badge">19%</span></td><td class="text-right">2,000</td></tr>
+          <tr><td>12</td><td>전자레인지로 간편하게 이용</td><td>가자미구이(80g)</td><td class="text-right">4,300</td><td class="text-right">3,600</td><td class="text-center"><span class="discount-badge">16%</span></td><td class="text-right">300</td></tr>
+          <tr><td>13</td><td>봄 나들이 간식과 음료</td><td>쌀보리강정</td><td class="text-right">6,200</td><td class="text-right">5,200</td><td class="text-center"><span class="discount-badge">16%</span></td><td class="text-right">500</td></tr>
+          <tr><td>14</td><td>전자레인지로 간편하게 이용</td><td>고등어구이(90g)</td><td class="text-right">3,200</td><td class="text-right">2,700</td><td class="text-center"><span class="discount-badge">16%</span></td><td class="text-right">500</td></tr>
+          <tr><td>15</td><td>봄 나들이 화사한 피부 가꾸기</td><td>베이스 선크림</td><td class="text-right">13,500</td><td class="text-right">11,400</td><td class="text-center"><span class="discount-badge">16%</span></td><td class="text-right">500</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 수익성 TOP 20 -->
+  <div class="tab-content" id="tab-margin">
+    <div class="insight-box">
+      <h3>수익성 요약</h3>
+      <p>매칭 112개 품목, 추정마진 합계: <strong>4,529만원</strong></p>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>#</th><th>품목명</th><th class="text-right">입고가</th><th class="text-right">출고가</th><th class="text-right">기획가</th><th class="text-right">개당마진</th><th class="text-center">마진율</th><th class="text-right">목표</th><th class="text-right">마진합</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>유기농 귀리유(YOU)16팩</td><td class="text-right">7,680</td><td class="text-right">9,736</td><td class="text-right">15,300</td><td class="text-right">2,056</td><td class="text-center">21%</td><td class="text-right">3,000</td><td class="text-right">617만</td></tr>
+          <tr><td>2</td><td>7곡 미숫가루</td><td class="text-right">7,335</td><td class="text-right">8,409</td><td class="text-right">12,500</td><td class="text-right">1,074</td><td class="text-center">13%</td><td class="text-right">2,000</td><td class="text-right">215만</td></tr>
+          <tr><td>3</td><td>택배 유기농 귀리유(16팩x4개)</td><td class="text-right">32,000</td><td class="text-right">37,276</td><td class="text-right">61,200</td><td class="text-right">5,276</td><td class="text-center">14%</td><td class="text-right">400</td><td class="text-right">211만</td></tr>
+          <tr><td>4</td><td>(기획세트) 베이스 선크림</td><td class="text-right">6,627</td><td class="text-right">7,669</td><td class="text-right">12,100</td><td class="text-right">1,042</td><td class="text-center">14%</td><td class="text-right">2,000</td><td class="text-right">208만</td></tr>
+          <tr><td>5</td><td>노스테 아토 크림</td><td class="text-right">19,514</td><td class="text-right">23,418</td><td class="text-right">36,800</td><td class="text-right">3,904</td><td class="text-center">17%</td><td class="text-right">500</td><td class="text-right">195만</td></tr>
+          <tr><td>6</td><td>(포장저감)브로콜리(25개/무농약)</td><td class="text-right">47,000</td><td class="text-right">55,500</td><td class="text-right">75,000</td><td class="text-right">8,500</td><td class="text-center">15%</td><td class="text-right">200</td><td class="text-right">170만</td></tr>
+          <tr><td>7</td><td>열무김치(1kg)</td><td class="text-right">4,050</td><td class="text-right">4,662</td><td class="text-right">6,300</td><td class="text-right">612</td><td class="text-center">13%</td><td class="text-right">2,000</td><td class="text-right">122만</td></tr>
+          <tr><td>8</td><td>한마리 삼계탕</td><td class="text-right">6,417</td><td class="text-right">7,400</td><td class="text-right">11,000</td><td class="text-right">983</td><td class="text-center">13%</td><td class="text-right">1,200</td><td class="text-right">118만</td></tr>
+          <tr><td>9</td><td>햇양파(800g/제주/조생)</td><td class="text-right">2,200</td><td class="text-right">2,453</td><td class="text-right">3,450</td><td class="text-right">253</td><td class="text-center">10%</td><td class="text-right">4,200</td><td class="text-right">106만</td></tr>
+          <tr><td>10</td><td>오이(2개/무농약)</td><td class="text-right">2,250</td><td class="text-right">2,590</td><td class="text-right">3,500</td><td class="text-right">340</td><td class="text-center">13%</td><td class="text-right">3,000</td><td class="text-right">102만</td></tr>
+          <tr><td>11</td><td>노스테 아토 워시</td><td class="text-right">8,836</td><td class="text-right">10,818</td><td class="text-right">16,000</td><td class="text-right">1,982</td><td class="text-center">18%</td><td class="text-right">500</td><td class="text-right">99만</td></tr>
+          <tr><td>12</td><td>오이(50개)</td><td class="text-right">40,000</td><td class="text-right">44,400</td><td class="text-right">60,000</td><td class="text-right">4,400</td><td class="text-center">10%</td><td class="text-right">200</td><td class="text-right">88만</td></tr>
+          <tr><td>13</td><td>손질 참가자미(600g/2~3미)</td><td class="text-right">7,400</td><td class="text-right">8,806</td><td class="text-right">11,900</td><td class="text-right">1,406</td><td class="text-center">16%</td><td class="text-right">600</td><td class="text-right">84만</td></tr>
+          <tr><td>14</td><td>토종닭(1.4kg/냉동)</td><td class="text-right">6,500</td><td class="text-right">8,140</td><td class="text-right">11,000</td><td class="text-right">1,640</td><td class="text-center">20%</td><td class="text-right">500</td><td class="text-right">82만</td></tr>
+          <tr><td>15</td><td>베이스 선크림</td><td class="text-right">6,627</td><td class="text-right">8,140</td><td class="text-right">11,400</td><td class="text-right">1,513</td><td class="text-center">19%</td><td class="text-right">500</td><td class="text-right">76만</td></tr>
+          <tr><td>16</td><td>가지(25개/벌크/무농약)</td><td class="text-right">27,000</td><td class="text-right">30,710</td><td class="text-right">41,500</td><td class="text-right">3,710</td><td class="text-center">12%</td><td class="text-right">200</td><td class="text-right">74만</td></tr>
+          <tr><td>17</td><td>검정찰보리(800g/유기)</td><td class="text-right">4,860</td><td class="text-right">5,550</td><td class="text-right">7,500</td><td class="text-right">690</td><td class="text-center">12%</td><td class="text-right">1,000</td><td class="text-right">69만</td></tr>
+          <tr><td>18</td><td>유기농 레몬즙(20ml*14포)</td><td class="text-right">4,364</td><td class="text-right">5,651</td><td class="text-right">8,400</td><td class="text-right">1,287</td><td class="text-center">23%</td><td class="text-right">500</td><td class="text-right">64만</td></tr>
+          <tr><td>19</td><td>콩국물(페트/1L)</td><td class="text-right">3,314</td><td class="text-right">3,835</td><td class="text-right">5,700</td><td class="text-right">521</td><td class="text-center">14%</td><td class="text-right">1,200</td><td class="text-right">63만</td></tr>
+          <tr><td>20</td><td>손질오징어채</td><td class="text-right">8,820</td><td class="text-right">10,360</td><td class="text-right">14,000</td><td class="text-right">1,540</td><td class="text-center">15%</td><td class="text-right">400</td><td class="text-right">62만</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 전년대비 성장 TOP 10 -->
+  <div class="tab-content" id="tab-growth">
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>#</th><th>품목명</th><th class="text-right">전년실적</th><th class="text-right">목표수량</th><th class="text-center">성장률</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>삼치구이(90g)</td><td class="text-right">18</td><td class="text-right">400</td><td class="text-center"><span class="discount-badge">+2,122%</span></td></tr>
+          <tr><td>2</td><td>고등어구이(90g)</td><td class="text-right">34</td><td class="text-right">500</td><td class="text-center"><span class="discount-badge">+1,371%</span></td></tr>
+          <tr><td>3</td><td>가자미구이(80g)</td><td class="text-right">29</td><td class="text-right">300</td><td class="text-center"><span class="discount-badge">+934%</span></td></tr>
+          <tr><td>4</td><td>당근(10kg)</td><td class="text-right">51</td><td class="text-right">200</td><td class="text-center"><span class="discount-badge">+292%</span></td></tr>
+          <tr><td>5</td><td>무우(10개)</td><td class="text-right">60</td><td class="text-right">200</td><td class="text-center"><span class="discount-badge">+233%</span></td></tr>
+          <tr><td>6</td><td>당근(1kg/무농약/쥬스용)</td><td class="text-right">502</td><td class="text-right">1,500</td><td class="text-center"><span class="discount-badge">+199%</span></td></tr>
+          <tr><td>7</td><td>오이(50개)</td><td class="text-right">68</td><td class="text-right">200</td><td class="text-center"><span class="discount-badge">+194%</span></td></tr>
+          <tr><td>8</td><td>손질오징어채</td><td class="text-right">171</td><td class="text-right">400</td><td class="text-center"><span class="discount-badge">+134%</span></td></tr>
+          <tr><td>9</td><td>알비트(1kg/무농약)</td><td class="text-right">113</td><td class="text-right">200</td><td class="text-center"><span class="discount-badge">+77%</span></td></tr>
+          <tr><td>10</td><td>양배추(10kg)</td><td class="text-right">113</td><td class="text-right">200</td><td class="text-center"><span class="discount-badge">+77%</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 가격 변동 -->
+  <div class="tab-content" id="tab-pricechange">
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>#</th><th>품목명</th><th class="text-right">변경 전</th><th class="text-right">변경 후</th><th class="text-center">변동률</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>토마토(1kg/무농약)</td><td class="text-right">8,300</td><td class="text-right">9,000</td><td class="text-center"><span class="price-up">+8%</span></td></tr>
+          <tr><td>2</td><td>영지버섯(80g/무농약/절편)</td><td class="text-right">12,000</td><td class="text-right">13,000</td><td class="text-center"><span class="price-up">+8%</span></td></tr>
+          <tr><td>3</td><td>건표고버섯칩(80g/유기)</td><td class="text-right">8,900</td><td class="text-right">9,700</td><td class="text-center"><span class="price-up">+9%</span></td></tr>
+          <tr><td>4</td><td>건표고버섯(80g/유기)</td><td class="text-right">8,900</td><td class="text-right">9,700</td><td class="text-center"><span class="price-up">+9%</span></td></tr>
+          <tr><td>5</td><td>채썬건표고버섯(80g/유기)</td><td class="text-right">8,900</td><td class="text-right">9,700</td><td class="text-center"><span class="price-up">+9%</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- 전체 기획 품목 -->
+<div class="section">
+  <h2>전체 기획 품목 목록</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>#</th><th>테마</th><th>품목명</th><th>구분</th><th class="text-right">상시가</th><th class="text-right">기획가</th><th class="text-center">할인</th><th class="text-right">목표수량</th><th class="text-right">목표금액</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>봄맞이 귀리유 택배기획</td><td>유기농 귀리유(YOU)16팩</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">19,200</td><td class="text-right">15,300</td><td class="text-center"><span class="discount-badge">20%</span></td><td class="text-right">3,000</td><td class="text-right">4,590만</td></tr>
+        <tr><td>2</td><td>여름시즌 음료와 냉면, 김치</td><td>7곡 미숫가루</td><td><span class="type-badge type-특별기획">특별기획</span></td><td class="text-right">15,500</td><td class="text-right">12,500</td><td class="text-center"><span class="discount-badge">19%</span></td><td class="text-right">2,000</td><td class="text-right">2,500만</td></tr>
+        <tr><td>3</td><td>봄맞이 귀리유 택배기획</td><td>택배 유기농 귀리유(16팩x4개)</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">76,800</td><td class="text-right">61,200</td><td class="text-center"><span class="discount-badge">20%</span></td><td class="text-right">400</td><td class="text-right">2,448만</td></tr>
+        <tr><td>4</td><td>[신규]베이스선크림(15~16주)</td><td>(기획세트) 베이스 선크림</td><td><span class="type-badge type-신규">신규</span></td><td class="text-right">13,500</td><td class="text-right">12,100</td><td class="text-center"><span class="discount-badge">10%</span></td><td class="text-right">2,000</td><td class="text-right">2,420만</td></tr>
+        <tr><td>5</td><td>[신규]대용량 아토 화장품 3종</td><td>노스테 아토 로션</td><td><span class="type-badge type-신규">신규</span></td><td class="text-right">48,000</td><td class="text-right">38,400</td><td class="text-center"><span class="discount-badge">20%</span></td><td class="text-right">500</td><td class="text-right">1,920만</td></tr>
+        <tr><td>6</td><td>[신규]대용량 아토 화장품 3종</td><td>노스테 아토 크림</td><td><span class="type-badge type-신규">신규</span></td><td class="text-right">46,000</td><td class="text-right">36,800</td><td class="text-center"><span class="discount-badge">20%</span></td><td class="text-right">500</td><td class="text-right">1,840만</td></tr>
+        <tr><td>7</td><td>[농산]큰것이 착하다.</td><td>(포장저감)브로콜리(25개/무농약)</td><td><span class="type-badge type-특별기획">특별기획</span></td><td class="text-right">75,000</td><td class="text-right">75,000</td><td class="text-center">0%</td><td class="text-right">200</td><td class="text-right">1,500만</td></tr>
+        <tr><td>8</td><td>제주도 햇양파 공급</td><td>햇양파(800g/제주/조생)</td><td><span class="type-badge type-햇출하">햇출하</span></td><td class="text-right">3,450</td><td class="text-right">3,450</td><td class="text-center">0%</td><td class="text-right">4,200</td><td class="text-right">1,449만</td></tr>
+        <tr><td>9</td><td>삼계탕 20%할인</td><td>한마리 삼계탕</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">14,000</td><td class="text-right">11,000</td><td class="text-center"><span class="discount-badge">21%</span></td><td class="text-right">1,200</td><td class="text-right">1,320만</td></tr>
+        <tr><td>10</td><td>여름시즌 음료와 냉면, 김치</td><td>열무김치(1kg)</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">7,000</td><td class="text-right">6,300</td><td class="text-center"><span class="discount-badge">10%</span></td><td class="text-right">2,000</td><td class="text-right">1,260만</td></tr>
+        <tr><td>11</td><td>[농산]큰것이 착하다.</td><td>오이(50개)</td><td><span class="type-badge type-특별기획">특별기획</span></td><td class="text-right">60,000</td><td class="text-right">60,000</td><td class="text-center">0%</td><td class="text-right">200</td><td class="text-right">1,200만</td></tr>
+        <tr><td>12</td><td>미세먼지 조심 면역력 강화 D.I.Y 과채주스</td><td>오이(2개/무농약)</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">4,000</td><td class="text-right">3,500</td><td class="text-center"><span class="discount-badge">13%</span></td><td class="text-right">3,000</td><td class="text-right">1,050만</td></tr>
+        <tr><td>13</td><td>봄 나들이 화사한 피부 가꾸기</td><td>그레인 시카 크림</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">21,700</td><td class="text-right">15,200</td><td class="text-center"><span class="discount-badge">30%</span></td><td class="text-right">600</td><td class="text-right">912만</td></tr>
+        <tr><td>14</td><td>[농산]큰것이 착하다.</td><td>가지(25개/벌크/무농약)</td><td><span class="type-badge type-특별기획">특별기획</span></td><td class="text-right">41,500</td><td class="text-right">41,500</td><td class="text-center">0%</td><td class="text-right">200</td><td class="text-right">830만</td></tr>
+        <tr><td>15</td><td>[신규]대용량 아토 화장품 3종</td><td>노스테 아토 워시</td><td><span class="type-badge type-신규">신규</span></td><td class="text-right">20,000</td><td class="text-right">16,000</td><td class="text-center"><span class="discount-badge">20%</span></td><td class="text-right">500</td><td class="text-right">800만</td></tr>
+        <tr><td>16</td><td>[농산]큰것이 착하다.</td><td>당근(10kg)</td><td><span class="type-badge type-특별기획">특별기획</span></td><td class="text-right">38,000</td><td class="text-right">38,000</td><td class="text-center">0%</td><td class="text-right">200</td><td class="text-right">760만</td></tr>
+        <tr><td>17</td><td>[소비촉진] 검정찰보리 100% 활용하기</td><td>검정찰보리(800g/유기)</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">9,400</td><td class="text-right">7,500</td><td class="text-center"><span class="discount-badge">20%</span></td><td class="text-right">1,000</td><td class="text-right">750만</td></tr>
+        <tr><td>18</td><td>손질 수산물 공급 기획</td><td>손질 참가자미(600g/2~3미)</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">14,000</td><td class="text-right">11,900</td><td class="text-center"><span class="discount-badge">15%</span></td><td class="text-right">600</td><td class="text-right">714만</td></tr>
+        <tr><td>19</td><td>여름시즌 음료와 냉면, 김치</td><td>콩국물(페트/1L)</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">5,700</td><td class="text-right">5,700</td><td class="text-center">0%</td><td class="text-right">1,200</td><td class="text-right">684만</td></tr>
+        <tr><td>20</td><td>여름시즌 음료와 냉면, 김치</td><td>보리물냉면</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">5,900</td><td class="text-right">5,900</td><td class="text-center">0%</td><td class="text-right">1,000</td><td class="text-right">590만</td></tr>
+        <tr><td>21</td><td>봄 나들이 화사한 피부 가꾸기</td><td>베이스 선크림</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">13,500</td><td class="text-right">11,400</td><td class="text-center"><span class="discount-badge">16%</span></td><td class="text-right">500</td><td class="text-right">570만</td></tr>
+        <tr><td>22</td><td>봄 나들이 시간절약, 염색약 바르고 팩 한장 착!</td><td>리엔 새치커버</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">12,300</td><td class="text-right">11,400</td><td class="text-center"><span class="discount-badge">7%</span></td><td class="text-right">500</td><td class="text-right">570만</td></tr>
+        <tr><td>23</td><td>손질 수산물 공급 기획</td><td>손질오징어채</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">15,600</td><td class="text-right">14,000</td><td class="text-center"><span class="discount-badge">10%</span></td><td class="text-right">400</td><td class="text-right">560만</td></tr>
+        <tr><td>24</td><td>봄맞이 입맛 돋우는 닭/오리 축산물</td><td>토종닭(1.4kg/냉동)</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">15,900</td><td class="text-right">11,000</td><td class="text-center"><span class="discount-badge">31%</span></td><td class="text-right">500</td><td class="text-right">550만</td></tr>
+        <tr><td>25</td><td>미세먼지 조심 면역력 강화 D.I.Y 과채주스</td><td>당근(1kg/무농약/쥬스용)</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">4,000</td><td class="text-right">3,500</td><td class="text-center"><span class="discount-badge">13%</span></td><td class="text-right">1,500</td><td class="text-right">525만</td></tr>
+        <tr><td>26</td><td>여름시즌 음료와 냉면, 김치</td><td>백김치(국산/2kg)</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">14,500</td><td class="text-right">11,600</td><td class="text-center"><span class="discount-badge">20%</span></td><td class="text-right">400</td><td class="text-right">464만</td></tr>
+        <tr><td>27</td><td>미세먼지 조심 면역력 강화 D.I.Y 과채주스</td><td>유기농 레몬즙(20ml*14포)</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">9,500</td><td class="text-right">8,400</td><td class="text-center"><span class="discount-badge">12%</span></td><td class="text-right">500</td><td class="text-right">420만</td></tr>
+        <tr><td>28</td><td>[농산]큰것이 착하다.</td><td>양배추(10kg)</td><td><span class="type-badge type-특별기획">특별기획</span></td><td class="text-right">19,500</td><td class="text-right">19,500</td><td class="text-center">0%</td><td class="text-right">200</td><td class="text-right">390만</td></tr>
+        <tr><td>29</td><td>여름시즌 음료와 냉면, 김치</td><td>냉면육수(300g)</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">1,700</td><td class="text-right">1,500</td><td class="text-center"><span class="discount-badge">12%</span></td><td class="text-right">2,500</td><td class="text-right">375만</td></tr>
+        <tr><td>30</td><td>여름시즌 음료와 냉면, 김치</td><td>비빔냉면양념(300g)</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">1,700</td><td class="text-right">1,500</td><td class="text-center"><span class="discount-badge">12%</span></td><td class="text-right">2,500</td><td class="text-right">375만</td></tr>
+        <tr><td>31</td><td>전자레인지로 간편하게 이용</td><td>삼치구이(90g)</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">4,700</td><td class="text-right">4,100</td><td class="text-center"><span class="discount-badge">13%</span></td><td class="text-right">400</td><td class="text-right">164만</td></tr>
+        <tr><td>32</td><td>[농산]큰것이 착하다.</td><td>무우(10개)</td><td><span class="type-badge type-특별기획">특별기획</span></td><td class="text-right">27,500</td><td class="text-right">27,500</td><td class="text-center">0%</td><td class="text-right">200</td><td class="text-right">550만</td></tr>
+        <tr><td>33</td><td>삼계탕 20%할인 외 삼계탕 재료</td><td>토종닭백숙용(1.8kg/냉동)</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">19,500</td><td class="text-right">16,400</td><td class="text-center"><span class="discount-badge">16%</span></td><td class="text-right">200</td><td class="text-right">328만</td></tr>
+        <tr><td>34</td><td>삼계탕 20%할인 외 삼계탕 재료</td><td>삼계탕 재료(녹각+황기외)</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">5,500</td><td class="text-right">5,500</td><td class="text-center">0%</td><td class="text-right">600</td><td class="text-right">330만</td></tr>
+        <tr><td>35</td><td>미세먼지 조심 면역력 강화 D.I.Y 과채주스</td><td>알비트(1kg/무농약)</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">8,000</td><td class="text-right">7,100</td><td class="text-center"><span class="discount-badge">11%</span></td><td class="text-right">200</td><td class="text-right">142만</td></tr>
+        <tr><td>36</td><td>봄 나들이 간식과 음료</td><td>쌀보리강정</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">6,200</td><td class="text-right">5,200</td><td class="text-center"><span class="discount-badge">16%</span></td><td class="text-right">500</td><td class="text-right">260만</td></tr>
+        <tr><td>37</td><td>전자레인지로 간편하게 이용</td><td>고등어구이(90g)</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">3,200</td><td class="text-right">2,700</td><td class="text-center"><span class="discount-badge">16%</span></td><td class="text-right">500</td><td class="text-right">135만</td></tr>
+        <tr><td>38</td><td>전자레인지로 간편하게 이용</td><td>가자미구이(80g)</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">4,300</td><td class="text-right">3,600</td><td class="text-center"><span class="discount-badge">16%</span></td><td class="text-right">300</td><td class="text-right">108만</td></tr>
+        <tr><td>39</td><td>손질 수산물 공급 기획</td><td>손질 참오징어(200g/1미)</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">12,500</td><td class="text-right">10,750</td><td class="text-center"><span class="discount-badge">14%</span></td><td class="text-right">400</td><td class="text-right">430만</td></tr>
+        <tr><td>40</td><td>여름시즌 음료와 냉면, 김치</td><td>동치미물냉면</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">5,900</td><td class="text-right">5,900</td><td class="text-center">0%</td><td class="text-right">800</td><td class="text-right">472만</td></tr>
+        <tr><td>41</td><td>여름시즌 음료와 냉면, 김치</td><td>동치미김치(1kg)</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">6,500</td><td class="text-right">5,850</td><td class="text-center"><span class="discount-badge">10%</span></td><td class="text-right">500</td><td class="text-right">293만</td></tr>
+        <tr><td>42</td><td>여름시즌 음료와 냉면, 김치</td><td>메밀면(1.2kg)</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">7,800</td><td class="text-right">7,800</td><td class="text-center">0%</td><td class="text-right">400</td><td class="text-right">312만</td></tr>
+        <tr><td>43</td><td>여름시즌 음료와 냉면, 김치</td><td>칡냉면</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">5,900</td><td class="text-right">5,900</td><td class="text-center">0%</td><td class="text-right">500</td><td class="text-right">295만</td></tr>
+        <tr><td>44</td><td>여름시즌 음료와 냉면, 김치</td><td>포기김치(국산/3.5kg)</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">22,000</td><td class="text-right">19,800</td><td class="text-center"><span class="discount-badge">10%</span></td><td class="text-right">200</td><td class="text-right">396만</td></tr>
+        <tr><td>45</td><td>여름시즌 음료와 냉면, 김치</td><td>총각김치(1kg)</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">7,500</td><td class="text-right">6,750</td><td class="text-center"><span class="discount-badge">10%</span></td><td class="text-right">300</td><td class="text-right">203만</td></tr>
+        <tr><td>46</td><td>여름시즌 음료와 냉면, 김치</td><td>갓김치(1kg)</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">7,500</td><td class="text-right">6,750</td><td class="text-center"><span class="discount-badge">10%</span></td><td class="text-right">200</td><td class="text-right">135만</td></tr>
+        <tr><td>47</td><td>여름시즌 음료와 냉면, 김치</td><td>깻잎김치(1kg)</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">12,000</td><td class="text-right">10,800</td><td class="text-center"><span class="discount-badge">10%</span></td><td class="text-right">200</td><td class="text-right">216만</td></tr>
+        <tr><td>48</td><td>여름시즌 음료와 냉면, 김치</td><td>비빔물냉면</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">5,900</td><td class="text-right">5,900</td><td class="text-center">0%</td><td class="text-right">500</td><td class="text-right">295만</td></tr>
+        <tr><td>49</td><td>여름시즌 음료와 냉면, 김치</td><td>쫄면</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">4,500</td><td class="text-right">4,500</td><td class="text-center">0%</td><td class="text-right">300</td><td class="text-right">135만</td></tr>
+        <tr><td>50</td><td>여름시즌 음료와 냉면, 김치</td><td>냉콩국수면(900g)</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">5,500</td><td class="text-right">5,500</td><td class="text-center">0%</td><td class="text-right">300</td><td class="text-right">165만</td></tr>
+        <tr><td>51</td><td>봄 나들이 화사한 피부 가꾸기</td><td>그레인 클렌징오일</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">14,800</td><td class="text-right">12,600</td><td class="text-center"><span class="discount-badge">15%</span></td><td class="text-right">300</td><td class="text-right">378만</td></tr>
+        <tr><td>52</td><td>봄 나들이 화사한 피부 가꾸기</td><td>그레인 클렌징폼</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">10,200</td><td class="text-right">8,670</td><td class="text-center"><span class="discount-badge">15%</span></td><td class="text-right">300</td><td class="text-right">260만</td></tr>
+        <tr><td>53</td><td>봄 나들이 화사한 피부 가꾸기</td><td>그레인 시카 로션</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">15,200</td><td class="text-right">12,920</td><td class="text-center"><span class="discount-badge">15%</span></td><td class="text-right">300</td><td class="text-right">388만</td></tr>
+        <tr><td>54</td><td>봄 나들이 화사한 피부 가꾸기</td><td>그레인 시카 토너</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">13,200</td><td class="text-right">11,220</td><td class="text-center"><span class="discount-badge">15%</span></td><td class="text-right">300</td><td class="text-right">337만</td></tr>
+        <tr><td>55</td><td>봄 나들이 화사한 피부 가꾸기</td><td>그레인 바디워시</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">11,500</td><td class="text-right">9,775</td><td class="text-center"><span class="discount-badge">15%</span></td><td class="text-right">300</td><td class="text-right">293만</td></tr>
+        <tr><td>56</td><td>봄 나들이 시간절약, 염색약 바르고 팩 한장 착!</td><td>리엔 새치커버 리필</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">7,500</td><td class="text-right">6,900</td><td class="text-center"><span class="discount-badge">8%</span></td><td class="text-right">400</td><td class="text-right">276만</td></tr>
+        <tr><td>57</td><td>봄 나들이 시간절약, 염색약 바르고 팩 한장 착!</td><td>마스크팩(3매)</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">5,500</td><td class="text-right">4,900</td><td class="text-center"><span class="discount-badge">11%</span></td><td class="text-right">500</td><td class="text-right">245만</td></tr>
+        <tr><td>58</td><td>봄 나들이 간식과 음료</td><td>유기농 사과주스(200ml*24)</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">17,500</td><td class="text-right">15,750</td><td class="text-center"><span class="discount-badge">10%</span></td><td class="text-right">300</td><td class="text-right">473만</td></tr>
+        <tr><td>59</td><td>봄 나들이 간식과 음료</td><td>유기농 포도주스(200ml*24)</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">17,500</td><td class="text-right">15,750</td><td class="text-center"><span class="discount-badge">10%</span></td><td class="text-right">200</td><td class="text-right">315만</td></tr>
+        <tr><td>60</td><td>봄 나들이 간식과 음료</td><td>옥수수깡</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">2,800</td><td class="text-right">2,500</td><td class="text-center"><span class="discount-badge">11%</span></td><td class="text-right">500</td><td class="text-right">125만</td></tr>
+        <tr><td colspan="9" style="text-align:center;color:#6b7280;padding:16px;background:#f9fafb;font-size:0.85em;">
+          이하 소액 기획 품목 약 46개 (예약 21개, 공급재개 5개, 소비촉진 기타 등) 포함 — 총 106개 활성 품목
+        </td></tr>
+        <tr style="background:#fff5f5"><td colspan="9" style="padding:12px;color:#ef4444;font-weight:600;font-size:0.9em;">가격 변동(상승) 품목</td></tr>
+        <tr style="background:#fff5f5"><td>-</td><td>가격변동</td><td>토마토(1kg/무농약)</td><td><span class="type-badge" style="background:#9ca3af;color:#fff">가격변동</span></td><td class="text-right">8,300</td><td class="text-right">9,000</td><td class="text-center"><span class="price-up">+8%</span></td><td class="text-right">-</td><td class="text-right">-</td></tr>
+        <tr style="background:#fff5f5"><td>-</td><td>가격변동</td><td>영지버섯(80g/무농약/절편)</td><td><span class="type-badge" style="background:#9ca3af;color:#fff">가격변동</span></td><td class="text-right">12,000</td><td class="text-right">13,000</td><td class="text-center"><span class="price-up">+8%</span></td><td class="text-right">-</td><td class="text-right">-</td></tr>
+        <tr style="background:#fff5f5"><td>-</td><td>가격변동</td><td>건표고버섯칩(80g/유기)</td><td><span class="type-badge" style="background:#9ca3af;color:#fff">가격변동</span></td><td class="text-right">8,900</td><td class="text-right">9,700</td><td class="text-center"><span class="price-up">+9%</span></td><td class="text-right">-</td><td class="text-right">-</td></tr>
+        <tr style="background:#fff5f5"><td>-</td><td>가격변동</td><td>건표고버섯(80g/유기)</td><td><span class="type-badge" style="background:#9ca3af;color:#fff">가격변동</span></td><td class="text-right">8,900</td><td class="text-right">9,700</td><td class="text-center"><span class="price-up">+9%</span></td><td class="text-right">-</td><td class="text-right">-</td></tr>
+        <tr style="background:#fff5f5"><td>-</td><td>가격변동</td><td>채썬건표고버섯(80g/유기)</td><td><span class="type-badge" style="background:#9ca3af;color:#fff">가격변동</span></td><td class="text-right">8,900</td><td class="text-right">9,700</td><td class="text-center"><span class="price-up">+9%</span></td><td class="text-right">-</td><td class="text-right">-</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- 전략 제안 -->
+<div class="section">
+  <h2>15주차 전략 제안</h2>
+  <div class="strategy-grid">
+    <div class="strategy-card">
+      <span class="priority priority-high">핵심</span>
+      <h3>귀리유 택배기획 집중</h3>
+      <ul>
+        <li>유기농 귀리유(YOU) 단독+세트 합계 목표 약 7,038만원으로 15주 최대 테마</li>
+        <li>20% 할인과 택배 기획 편의성을 전면 부각</li>
+        <li>14주부터 이어지는 기획으로 마감 긴급감 조성</li>
+      </ul>
+    </div>
+    <div class="strategy-card">
+      <span class="priority priority-high">핵심</span>
+      <h3>여름 시즌 선점 — 음료/냉면/김치</h3>
+      <ul>
+        <li>22개 품목, 합계 1억 1,765만원으로 품목수 최대 테마</li>
+        <li>7곡 미숫가루(2,500만), 열무김치(1,260만), 콩국물, 보리물냉면 등 여름 식탁 필수품 집중</li>
+        <li>봄에서 여름 전환기 선점으로 계절 수요 선행 확보</li>
+      </ul>
+    </div>
+    <div class="strategy-card">
+      <span class="priority priority-mid">운영</span>
+      <h3>신규 뷰티 3종 런칭</h3>
+      <ul>
+        <li>베이스 선크림(2,420만), 노스테 아토 3종(4,560만) 합계 약 6,980만원</li>
+        <li>20% 할인으로 첫 구매 전환 유도</li>
+        <li>봄 자외선 및 환절기 피부 케어 시즌에 부합</li>
+      </ul>
+    </div>
+    <div class="strategy-card">
+      <span class="priority priority-mid">운영</span>
+      <h3>농산 대량 기획 + 제주 햇양파</h3>
+      <ul>
+        <li>[농산]큰것이 착하다. 7종(5,230만), 제주 햇양파(1,449만)</li>
+        <li>단체/공동구매 조합원 대상, 대용량 특별기획으로 객단가 상승 도모</li>
+      </ul>
+    </div>
+    <div class="strategy-card">
+      <span class="priority priority-low">보조</span>
+      <h3>삼계탕 + 봄 보양 축산</h3>
+      <ul>
+        <li>삼계탕 21% 할인(1,320만) + 토종닭 31% 할인(550만)으로 봄 보양 수요 포착</li>
+        <li>닭/오리 축산물 테마와 연계하여 보양 카테고리 통합 프로모션</li>
+      </ul>
+    </div>
+    <div class="strategy-card">
+      <span class="priority priority-low">보조</span>
+      <h3>제주흑돼지 예약 + 간편식단 안내</h3>
+      <ul>
+        <li>제주흑돼지 10종 예약(4/16 공급) 사전 주문 확보</li>
+        <li>더신선 간편식단 15주 공급분 6종 안내</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 잘 팔릴 품목 예측 -->
+<div class="section">
+  <h2>잘 팔릴 품목 예측 TOP 10</h2>
+  <div class="pred-card hot">
+    <div class="pred-rank">1</div>
+    <div class="pred-info">
+      <div class="pred-name">유기농 귀리유(YOU)16팩</div>
+      <div class="pred-detail">20% 할인, 3,000개 목표, 건강음료 트렌드</div>
+      <div class="pred-tags"><span class="pred-tag tag-discount">20% 할인</span><span class="pred-tag tag-seasonal">건강음료</span></div>
+    </div>
+  </div>
+  <div class="pred-card hot">
+    <div class="pred-rank">2</div>
+    <div class="pred-info">
+      <div class="pred-name">7곡 미숫가루</div>
+      <div class="pred-detail">19% 할인, 2,000개, 여름 선점 인기 품목</div>
+      <div class="pred-tags"><span class="pred-tag tag-discount">19% 할인</span><span class="pred-tag tag-seasonal">여름 선점</span></div>
+    </div>
+  </div>
+  <div class="pred-card hot">
+    <div class="pred-rank">3</div>
+    <div class="pred-info">
+      <div class="pred-name">(기획세트) 베이스 선크림</div>
+      <div class="pred-detail">봄 자외선 시즌, 2,000개 대량 목표</div>
+      <div class="pred-tags"><span class="pred-tag tag-new">신규</span><span class="pred-tag tag-seasonal">자외선 시즌</span></div>
+    </div>
+  </div>
+  <div class="pred-card warm">
+    <div class="pred-rank">4</div>
+    <div class="pred-info">
+      <div class="pred-name">한마리 삼계탕</div>
+      <div class="pred-detail">21% 할인, 1,200개, 봄 보양식 수요</div>
+      <div class="pred-tags"><span class="pred-tag tag-discount">21% 할인</span><span class="pred-tag tag-seasonal">보양식</span></div>
+    </div>
+  </div>
+  <div class="pred-card warm">
+    <div class="pred-rank">5</div>
+    <div class="pred-info">
+      <div class="pred-name">햇양파(800g/제주/조생)</div>
+      <div class="pred-detail">제철 햇양파, 4,200개 최다 목표수량</div>
+      <div class="pred-tags"><span class="pred-tag tag-seasonal">제철</span><span class="pred-tag tag-focus">최다 수량</span></div>
+    </div>
+  </div>
+  <div class="pred-card warm">
+    <div class="pred-rank">6</div>
+    <div class="pred-info">
+      <div class="pred-name">노스테 아토 크림</div>
+      <div class="pred-detail">20% 할인 신규, 환절기 피부 케어</div>
+      <div class="pred-tags"><span class="pred-tag tag-new">신규</span><span class="pred-tag tag-discount">20% 할인</span></div>
+    </div>
+  </div>
+  <div class="pred-card warm">
+    <div class="pred-rank">7</div>
+    <div class="pred-info">
+      <div class="pred-name">검정찰보리(800g/유기)</div>
+      <div class="pred-detail">집중 품목 20% 할인, 블랙푸드 건강</div>
+      <div class="pred-tags"><span class="pred-tag tag-focus">집중 품목</span><span class="pred-tag tag-discount">20% 할인</span></div>
+    </div>
+  </div>
+  <div class="pred-card stable">
+    <div class="pred-rank">8</div>
+    <div class="pred-info">
+      <div class="pred-name">열무김치(1kg)</div>
+      <div class="pred-detail">여름 김치 필수, 2,000개 대량</div>
+      <div class="pred-tags"><span class="pred-tag tag-seasonal">여름 필수</span></div>
+    </div>
+  </div>
+  <div class="pred-card stable">
+    <div class="pred-rank">9</div>
+    <div class="pred-info">
+      <div class="pred-name">오이(2개/무농약)</div>
+      <div class="pred-detail">제철 과채, 3,000개, 13% 할인</div>
+      <div class="pred-tags"><span class="pred-tag tag-seasonal">제철</span><span class="pred-tag tag-discount">13% 할인</span></div>
+    </div>
+  </div>
+  <div class="pred-card stable">
+    <div class="pred-rank">10</div>
+    <div class="pred-info">
+      <div class="pred-name">토종닭(1.4kg/냉동)</div>
+      <div class="pred-detail">31% 최대 할인율, 보양식</div>
+      <div class="pred-tags"><span class="pred-tag tag-discount">31% 할인</span><span class="pred-tag tag-seasonal">보양식</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- 목표 대비 주문 현황 -->
+<div class="section">
+  <h2>목표 대비 주문 현황</h2>
+  <p style="color:#9ca3af;margin-bottom:16px;font-size:0.9em">15주 총주문집계 (2026.04.06~04.11) 합계주문 기준 · 주문 실적이 있는 기획 품목 54개</p>
+
+  <div class="kpi-grid" style="margin-bottom:24px">
+    <div class="kpi highlight">
+      <div class="label">초과달성/달성</div>
+      <div class="value">7<span class="unit">품목</span></div>
+    </div>
+    <div class="kpi">
+      <div class="label">임박 (90~99%)</div>
+      <div class="value">2<span class="unit">품목</span></div>
+    </div>
+    <div class="kpi">
+      <div class="label">순항 (50~89%)</div>
+      <div class="value">11<span class="unit">품목</span></div>
+    </div>
+    <div class="kpi">
+      <div class="label">진행중 (30~49%)</div>
+      <div class="value">12<span class="unit">품목</span></div>
+    </div>
+    <div class="kpi" style="border-color:#ef4444">
+      <div class="label">부진 (30%미만)</div>
+      <div class="value" style="color:#ef4444">22<span class="unit">품목</span></div>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>#</th><th>품목명</th><th class="text-right">목표</th><th class="text-right">주문</th><th class="text-right">달성률</th><th style="width:180px">진행 바</th><th class="text-center">상태</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td style="font-weight:700">유기농 레몬즙(20ml*14포)</td><td class="text-right">500</td><td class="text-right">1,079</td><td class="text-right" style="color:#059669;font-weight:700">215.8%</td><td><div style="background:#e5e7eb;border-radius:4px;height:18px;overflow:hidden"><div style="width:100%;height:100%;background:linear-gradient(90deg,#059669,#34d399);border-radius:4px"></div></div></td><td class="text-center"><span style="background:#059669;color:#fff;padding:2px 8px;border-radius:10px;font-size:0.75em">초과달성</span></td></tr>
+        <tr><td>2</td><td style="font-weight:700">메밀면(1.2kg)</td><td class="text-right">400</td><td class="text-right">602</td><td class="text-right" style="color:#059669;font-weight:700">150.5%</td><td><div style="background:#e5e7eb;border-radius:4px;height:18px;overflow:hidden"><div style="width:100%;height:100%;background:linear-gradient(90deg,#059669,#34d399);border-radius:4px"></div></div></td><td class="text-center"><span style="background:#059669;color:#fff;padding:2px 8px;border-radius:10px;font-size:0.75em">초과달성</span></td></tr>
+        <tr><td>3</td><td style="font-weight:700">보리냉면사리</td><td class="text-right">500</td><td class="text-right">588</td><td class="text-right" style="color:#059669;font-weight:700">117.6%</td><td><div style="background:#e5e7eb;border-radius:4px;height:18px;overflow:hidden"><div style="width:100%;height:100%;background:linear-gradient(90deg,#059669,#34d399);border-radius:4px"></div></div></td><td class="text-center"><span style="background:#059669;color:#fff;padding:2px 8px;border-radius:10px;font-size:0.75em">초과달성</span></td></tr>
+        <tr><td>4</td><td style="font-weight:700">오이(5개/무농약)</td><td class="text-right">500</td><td class="text-right">587</td><td class="text-right" style="color:#059669;font-weight:700">117.4%</td><td><div style="background:#e5e7eb;border-radius:4px;height:18px;overflow:hidden"><div style="width:100%;height:100%;background:linear-gradient(90deg,#059669,#34d399);border-radius:4px"></div></div></td><td class="text-center"><span style="background:#059669;color:#fff;padding:2px 8px;border-radius:10px;font-size:0.75em">초과달성</span></td></tr>
+        <tr><td>5</td><td style="font-weight:700">7곡 미숫가루</td><td class="text-right">2,000</td><td class="text-right">2,322</td><td class="text-right" style="color:#059669;font-weight:700">116.1%</td><td><div style="background:#e5e7eb;border-radius:4px;height:18px;overflow:hidden"><div style="width:100%;height:100%;background:linear-gradient(90deg,#059669,#34d399);border-radius:4px"></div></div></td><td class="text-center"><span style="background:#059669;color:#fff;padding:2px 8px;border-radius:10px;font-size:0.75em">초과달성</span></td></tr>
+        <tr><td>6</td><td style="font-weight:700">돌산갓김치(1kg)</td><td class="text-right">300</td><td class="text-right">343</td><td class="text-right" style="color:#059669;font-weight:700">114.3%</td><td><div style="background:#e5e7eb;border-radius:4px;height:18px;overflow:hidden"><div style="width:100%;height:100%;background:linear-gradient(90deg,#059669,#34d399);border-radius:4px"></div></div></td><td class="text-center"><span style="background:#059669;color:#fff;padding:2px 8px;border-radius:10px;font-size:0.75em">초과달성</span></td></tr>
+        <tr><td>7</td><td style="font-weight:700">손질오징어채</td><td class="text-right">400</td><td class="text-right">410</td><td class="text-right" style="color:#059669;font-weight:700">102.5%</td><td><div style="background:#e5e7eb;border-radius:4px;height:18px;overflow:hidden"><div style="width:100%;height:100%;background:linear-gradient(90deg,#059669,#34d399);border-radius:4px"></div></div></td><td class="text-center"><span style="background:#059669;color:#fff;padding:2px 8px;border-radius:10px;font-size:0.75em">달성</span></td></tr>
+        <tr><td>8</td><td style="font-weight:700">한마리 삼계탕</td><td class="text-right">1,200</td><td class="text-right">1,172</td><td class="text-right" style="color:#059669;font-weight:700">97.7%</td><td><div style="background:#e5e7eb;border-radius:4px;height:18px;overflow:hidden"><div style="width:97.7%;height:100%;background:linear-gradient(90deg,#059669,#34d399);border-radius:4px"></div></div></td><td class="text-center"><span style="background:#2563eb;color:#fff;padding:2px 8px;border-radius:10px;font-size:0.75em">임박</span></td></tr>
+        <tr><td>9</td><td style="font-weight:700">(기획세트) 베이스 선크림</td><td class="text-right">2,000</td><td class="text-right">1,887</td><td class="text-right" style="color:#059669;font-weight:700">94.4%</td><td><div style="background:#e5e7eb;border-radius:4px;height:18px;overflow:hidden"><div style="width:94.4%;height:100%;background:linear-gradient(90deg,#059669,#34d399);border-radius:4px"></div></div></td><td class="text-center"><span style="background:#2563eb;color:#fff;padding:2px 8px;border-radius:10px;font-size:0.75em">임박</span></td></tr>
+        <tr><td>10</td><td>대패오리(500g/냉동)</td><td class="text-right">200</td><td class="text-right">157</td><td class="text-right" style="color:#059669;font-weight:700">78.5%</td><td><div style="background:#e5e7eb;border-radius:4px;height:18px;overflow:hidden"><div style="width:78.5%;height:100%;background:linear-gradient(90deg,#3b82f6,#60a5fa);border-radius:4px"></div></div></td><td class="text-center"><span style="background:#3b82f6;color:#fff;padding:2px 8px;border-radius:10px;font-size:0.75em">순항</span></td></tr>
+        <tr><td>11</td><td>비빔쫄면</td><td class="text-right">300</td><td class="text-right">232</td><td class="text-right" style="color:#059669;font-weight:700">77.3%</td><td><div style="background:#e5e7eb;border-radius:4px;height:18px;overflow:hidden"><div style="width:77.3%;height:100%;background:linear-gradient(90deg,#3b82f6,#60a5fa);border-radius:4px"></div></div></td><td class="text-center"><span style="background:#3b82f6;color:#fff;padding:2px 8px;border-radius:10px;font-size:0.75em">순항</span></td></tr>
+        <tr><td>12</td><td>동물복지 불고기(500g)</td><td class="text-right">180</td><td class="text-right">128</td><td class="text-right" style="color:#059669;font-weight:700">71.1%</td><td><div style="background:#e5e7eb;border-radius:4px;height:18px;overflow:hidden"><div style="width:71.1%;height:100%;background:linear-gradient(90deg,#3b82f6,#60a5fa);border-radius:4px"></div></div></td><td class="text-center"><span style="background:#3b82f6;color:#fff;padding:2px 8px;border-radius:10px;font-size:0.75em">순항</span></td></tr>
+        <tr><td>13</td><td>토종닭(1.4kg/냉동)</td><td class="text-right">500</td><td class="text-right">342</td><td class="text-right" style="color:#059669;font-weight:700">68.4%</td><td><div style="background:#e5e7eb;border-radius:4px;height:18px;overflow:hidden"><div style="width:68.4%;height:100%;background:linear-gradient(90deg,#3b82f6,#60a5fa);border-radius:4px"></div></div></td><td class="text-center"><span style="background:#3b82f6;color:#fff;padding:2px 8px;border-radius:10px;font-size:0.75em">순항</span></td></tr>
+        <tr><td>14</td><td>치킨안심가스</td><td class="text-right">500</td><td class="text-right">319</td><td class="text-right" style="color:#059669;font-weight:700">63.8%</td><td><div style="background:#e5e7eb;border-radius:4px;height:18px;overflow:hidden"><div style="width:63.8%;height:100%;background:linear-gradient(90deg,#3b82f6,#60a5fa);border-radius:4px"></div></div></td><td class="text-center"><span style="background:#3b82f6;color:#fff;padding:2px 8px;border-radius:10px;font-size:0.75em">순항</span></td></tr>
+        <tr><td>15</td><td>알비트(1kg/무농약)</td><td class="text-right">200</td><td class="text-right">124</td><td class="text-right" style="color:#059669;font-weight:700">62%</td><td><div style="background:#e5e7eb;border-radius:4px;height:18px;overflow:hidden"><div style="width:62%;height:100%;background:linear-gradient(90deg,#3b82f6,#60a5fa);border-radius:4px"></div></div></td><td class="text-center"><span style="background:#3b82f6;color:#fff;padding:2px 8px;border-radius:10px;font-size:0.75em">순항</span></td></tr>
+        <tr><td>16</td><td>닭다리(북채/500g)</td><td class="text-right">200</td><td class="text-right">120</td><td class="text-right" style="color:#059669;font-weight:700">60%</td><td><div style="background:#e5e7eb;border-radius:4px;height:18px;overflow:hidden"><div style="width:60%;height:100%;background:linear-gradient(90deg,#3b82f6,#60a5fa);border-radius:4px"></div></div></td><td class="text-center"><span style="background:#3b82f6;color:#fff;padding:2px 8px;border-radius:10px;font-size:0.75em">순항</span></td></tr>
+        <tr><td>17</td><td>햇양파(800g/제주/조생)</td><td class="text-right">4,200</td><td class="text-right">2,499</td><td class="text-right" style="color:#059669;font-weight:700">59.5%</td><td><div style="background:#e5e7eb;border-radius:4px;height:18px;overflow:hidden"><div style="width:59.5%;height:100%;background:linear-gradient(90deg,#3b82f6,#60a5fa);border-radius:4px"></div></div></td><td class="text-center"><span style="background:#3b82f6;color:#fff;padding:2px 8px;border-radius:10px;font-size:0.75em">순항</span></td></tr>
+        <tr><td>18</td><td>손질 참가자미(600g)</td><td class="text-right">600</td><td class="text-right">329</td><td class="text-right" style="color:#059669;font-weight:700">54.8%</td><td><div style="background:#e5e7eb;border-radius:4px;height:18px;overflow:hidden"><div style="width:54.8%;height:100%;background:linear-gradient(90deg,#3b82f6,#60a5fa);border-radius:4px"></div></div></td><td class="text-center"><span style="background:#3b82f6;color:#fff;padding:2px 8px;border-radius:10px;font-size:0.75em">순항</span></td></tr>
+        <tr><td>19</td><td>백김치(국산/2kg)</td><td class="text-right">400</td><td class="text-right">212</td><td class="text-right" style="color:#059669;font-weight:700">53%</td><td><div style="background:#e5e7eb;border-radius:4px;height:18px;overflow:hidden"><div style="width:53%;height:100%;background:linear-gradient(90deg,#3b82f6,#60a5fa);border-radius:4px"></div></div></td><td class="text-center"><span style="background:#3b82f6;color:#fff;padding:2px 8px;border-radius:10px;font-size:0.75em">순항</span></td></tr>
+        <tr><td>20</td><td>가자미구이(80g)</td><td class="text-right">300</td><td class="text-right">157</td><td class="text-right" style="color:#059669;font-weight:700">52.3%</td><td><div style="background:#e5e7eb;border-radius:4px;height:18px;overflow:hidden"><div style="width:52.3%;height:100%;background:linear-gradient(90deg,#3b82f6,#60a5fa);border-radius:4px"></div></div></td><td class="text-center"><span style="background:#3b82f6;color:#fff;padding:2px 8px;border-radius:10px;font-size:0.75em">순항</span></td></tr>
+        <tr><td>21</td><td>쌀보리강정</td><td class="text-right">500</td><td class="text-right">240</td><td class="text-right" style="font-weight:700">48%</td><td><div style="background:#e5e7eb;border-radius:4px;height:18px;overflow:hidden"><div style="width:48%;height:100%;background:linear-gradient(90deg,#f59e0b,#fbbf24);border-radius:4px"></div></div></td><td class="text-center"><span style="background:#f59e0b;color:#000;padding:2px 8px;border-radius:10px;font-size:0.75em">진행중</span></td></tr>
+        <tr><td>22</td><td>열무김치(1kg)</td><td class="text-right">2,000</td><td class="text-right">911</td><td class="text-right" style="font-weight:700">45.6%</td><td><div style="background:#e5e7eb;border-radius:4px;height:18px;overflow:hidden"><div style="width:45.6%;height:100%;background:linear-gradient(90deg,#f59e0b,#fbbf24);border-radius:4px"></div></div></td><td class="text-center"><span style="background:#f59e0b;color:#000;padding:2px 8px;border-radius:10px;font-size:0.75em">진행중</span></td></tr>
+        <tr><td>23</td><td>고등어구이(90g)</td><td class="text-right">500</td><td class="text-right">222</td><td class="text-right" style="font-weight:700">44.4%</td><td><div style="background:#e5e7eb;border-radius:4px;height:18px;overflow:hidden"><div style="width:44.4%;height:100%;background:linear-gradient(90deg,#f59e0b,#fbbf24);border-radius:4px"></div></div></td><td class="text-center"><span style="background:#f59e0b;color:#000;padding:2px 8px;border-radius:10px;font-size:0.75em">진행중</span></td></tr>
+        <tr><td>24</td><td>화이트닝 비타앰플</td><td class="text-right">300</td><td class="text-right">128</td><td class="text-right" style="font-weight:700">42.7%</td><td><div style="background:#e5e7eb;border-radius:4px;height:18px;overflow:hidden"><div style="width:42.7%;height:100%;background:linear-gradient(90deg,#f59e0b,#fbbf24);border-radius:4px"></div></div></td><td class="text-center"><span style="background:#f59e0b;color:#000;padding:2px 8px;border-radius:10px;font-size:0.75em">진행중</span></td></tr>
+        <tr><td>25</td><td>삼치구이(90g)</td><td class="text-right">400</td><td class="text-right">160</td><td class="text-right" style="font-weight:700">40%</td><td><div style="background:#e5e7eb;border-radius:4px;height:18px;overflow:hidden"><div style="width:40%;height:100%;background:linear-gradient(90deg,#f59e0b,#fbbf24);border-radius:4px"></div></div></td><td class="text-center"><span style="background:#f59e0b;color:#000;padding:2px 8px;border-radius:10px;font-size:0.75em">진행중</span></td></tr>
+        <tr><td>26</td><td>허브염색약(옅은갈색)</td><td class="text-right">500</td><td class="text-right">195</td><td class="text-right" style="font-weight:700">39%</td><td><div style="background:#e5e7eb;border-radius:4px;height:18px;overflow:hidden"><div style="width:39%;height:100%;background:linear-gradient(90deg,#f59e0b,#fbbf24);border-radius:4px"></div></div></td><td class="text-center"><span style="background:#f59e0b;color:#000;padding:2px 8px;border-radius:10px;font-size:0.75em">진행중</span></td></tr>
+        <tr><td>27</td><td>동물복지 카레용(300g)</td><td class="text-right">200</td><td class="text-right">72</td><td class="text-right" style="font-weight:700">36%</td><td><div style="background:#e5e7eb;border-radius:4px;height:18px;overflow:hidden"><div style="width:36%;height:100%;background:linear-gradient(90deg,#f59e0b,#fbbf24);border-radius:4px"></div></div></td><td class="text-center"><span style="background:#f59e0b;color:#000;padding:2px 8px;border-radius:10px;font-size:0.75em">진행중</span></td></tr>
+        <tr><td>28</td><td>동물복지 다짐육(300g)</td><td class="text-right">200</td><td class="text-right">70</td><td class="text-right" style="font-weight:700">35%</td><td><div style="background:#e5e7eb;border-radius:4px;height:18px;overflow:hidden"><div style="width:35%;height:100%;background:linear-gradient(90deg,#f59e0b,#fbbf24);border-radius:4px"></div></div></td><td class="text-center"><span style="background:#f59e0b;color:#000;padding:2px 8px;border-radius:10px;font-size:0.75em">진행중</span></td></tr>
+        <tr><td>29</td><td>보리비빔냉면</td><td class="text-right">1,000</td><td class="text-right">350</td><td class="text-right" style="font-weight:700">35%</td><td><div style="background:#e5e7eb;border-radius:4px;height:18px;overflow:hidden"><div style="width:35%;height:100%;background:linear-gradient(90deg,#f59e0b,#fbbf24);border-radius:4px"></div></div></td><td class="text-center"><span style="background:#f59e0b;color:#000;padding:2px 8px;border-radius:10px;font-size:0.75em">진행중</span></td></tr>
+        <tr><td>30</td><td>타르타르소스(140g)</td><td class="text-right">350</td><td class="text-right">122</td><td class="text-right" style="font-weight:700">34.9%</td><td><div style="background:#e5e7eb;border-radius:4px;height:18px;overflow:hidden"><div style="width:34.9%;height:100%;background:linear-gradient(90deg,#f59e0b,#fbbf24);border-radius:4px"></div></div></td><td class="text-center"><span style="background:#f59e0b;color:#000;padding:2px 8px;border-radius:10px;font-size:0.75em">진행중</span></td></tr>
+        <tr><td>31</td><td>보리물냉면</td><td class="text-right">1,000</td><td class="text-right">320</td><td class="text-right" style="font-weight:700">32%</td><td><div style="background:#e5e7eb;border-radius:4px;height:18px;overflow:hidden"><div style="width:32%;height:100%;background:linear-gradient(90deg,#f59e0b,#fbbf24);border-radius:4px"></div></div></td><td class="text-center"><span style="background:#f59e0b;color:#000;padding:2px 8px;border-radius:10px;font-size:0.75em">진행중</span></td></tr>
+        <tr><td>32</td><td>돈가스소스</td><td class="text-right">450</td><td class="text-right">136</td><td class="text-right" style="font-weight:700">30.2%</td><td><div style="background:#e5e7eb;border-radius:4px;height:18px;overflow:hidden"><div style="width:30.2%;height:100%;background:linear-gradient(90deg,#f59e0b,#fbbf24);border-radius:4px"></div></div></td><td class="text-center"><span style="background:#f59e0b;color:#000;padding:2px 8px;border-radius:10px;font-size:0.75em">진행중</span></td></tr>
+        <tr><td>33</td><td>콩국물(페트/1L)</td><td class="text-right">1,200</td><td class="text-right">337</td><td class="text-right" style="color:#ef4444;font-weight:700">28.1%</td><td><div style="background:#e5e7eb;border-radius:4px;height:18px;overflow:hidden"><div style="width:28.1%;height:100%;background:linear-gradient(90deg,#ef4444,#fb7185);border-radius:4px"></div></div></td><td class="text-center"><span style="background:#ef4444;color:#fff;padding:2px 8px;border-radius:10px;font-size:0.75em">부진</span></td></tr>
+        <tr><td>34</td><td>오이(2개/무농약)</td><td class="text-right">3,000</td><td class="text-right">767</td><td class="text-right" style="color:#ef4444;font-weight:700">25.6%</td><td><div style="background:#e5e7eb;border-radius:4px;height:18px;overflow:hidden"><div style="width:25.6%;height:100%;background:linear-gradient(90deg,#ef4444,#fb7185);border-radius:4px"></div></div></td><td class="text-center"><span style="background:#ef4444;color:#fff;padding:2px 8px;border-radius:10px;font-size:0.75em">부진</span></td></tr>
+        <tr><td>35</td><td>그레인 남성올인원</td><td class="text-right">300</td><td class="text-right">74</td><td class="text-right" style="color:#ef4444;font-weight:700">24.7%</td><td><div style="background:#e5e7eb;border-radius:4px;height:18px;overflow:hidden"><div style="width:24.7%;height:100%;background:linear-gradient(90deg,#ef4444,#fb7185);border-radius:4px"></div></div></td><td class="text-center"><span style="background:#ef4444;color:#fff;padding:2px 8px;border-radius:10px;font-size:0.75em">부진</span></td></tr>
+        <tr><td>36</td><td>검정찰보리(800g/유기)</td><td class="text-right">1,000</td><td class="text-right">242</td><td class="text-right" style="color:#ef4444;font-weight:700">24.2%</td><td><div style="background:#e5e7eb;border-radius:4px;height:18px;overflow:hidden"><div style="width:24.2%;height:100%;background:linear-gradient(90deg,#ef4444,#fb7185);border-radius:4px"></div></div></td><td class="text-center"><span style="background:#ef4444;color:#fff;padding:2px 8px;border-radius:10px;font-size:0.75em">부진</span></td></tr>
+        <tr><td>37</td><td>화이트닝 비타크림</td><td class="text-right">300</td><td class="text-right">71</td><td class="text-right" style="color:#ef4444;font-weight:700">23.7%</td><td><div style="background:#e5e7eb;border-radius:4px;height:18px;overflow:hidden"><div style="width:23.7%;height:100%;background:linear-gradient(90deg,#ef4444,#fb7185);border-radius:4px"></div></div></td><td class="text-center"><span style="background:#ef4444;color:#fff;padding:2px 8px;border-radius:10px;font-size:0.75em">부진</span></td></tr>
+        <tr><td>38</td><td>노스테 아토 워시</td><td class="text-right">500</td><td class="text-right">118</td><td class="text-right" style="color:#ef4444;font-weight:700">23.6%</td><td><div style="background:#e5e7eb;border-radius:4px;height:18px;overflow:hidden"><div style="width:23.6%;height:100%;background:linear-gradient(90deg,#ef4444,#fb7185);border-radius:4px"></div></div></td><td class="text-center"><span style="background:#ef4444;color:#fff;padding:2px 8px;border-radius:10px;font-size:0.75em">부진</span></td></tr>
+        <tr><td>39</td><td>당근(1kg/무농약/쥬스용)</td><td class="text-right">1,500</td><td class="text-right">349</td><td class="text-right" style="color:#ef4444;font-weight:700">23.3%</td><td><div style="background:#e5e7eb;border-radius:4px;height:18px;overflow:hidden"><div style="width:23.3%;height:100%;background:linear-gradient(90deg,#ef4444,#fb7185);border-radius:4px"></div></div></td><td class="text-center"><span style="background:#ef4444;color:#fff;padding:2px 8px;border-radius:10px;font-size:0.75em">부진</span></td></tr>
+        <tr><td>40</td><td>노스테 아토 로션</td><td class="text-right">500</td><td class="text-right">111</td><td class="text-right" style="color:#ef4444;font-weight:700">22.2%</td><td><div style="background:#e5e7eb;border-radius:4px;height:18px;overflow:hidden"><div style="width:22.2%;height:100%;background:linear-gradient(90deg,#ef4444,#fb7185);border-radius:4px"></div></div></td><td class="text-center"><span style="background:#ef4444;color:#fff;padding:2px 8px;border-radius:10px;font-size:0.75em">부진</span></td></tr>
+        <tr><td>41</td><td>그레인 시카크림</td><td class="text-right">600</td><td class="text-right">124</td><td class="text-right" style="color:#ef4444;font-weight:700">20.7%</td><td><div style="background:#e5e7eb;border-radius:4px;height:18px;overflow:hidden"><div style="width:20.7%;height:100%;background:linear-gradient(90deg,#ef4444,#fb7185);border-radius:4px"></div></div></td><td class="text-center"><span style="background:#ef4444;color:#fff;padding:2px 8px;border-radius:10px;font-size:0.75em">부진</span></td></tr>
+        <tr><td>42</td><td>냉면육수(300g)</td><td class="text-right">2,500</td><td class="text-right">516</td><td class="text-right" style="color:#ef4444;font-weight:700">20.6%</td><td><div style="background:#e5e7eb;border-radius:4px;height:18px;overflow:hidden"><div style="width:20.6%;height:100%;background:linear-gradient(90deg,#ef4444,#fb7185);border-radius:4px"></div></div></td><td class="text-center"><span style="background:#ef4444;color:#fff;padding:2px 8px;border-radius:10px;font-size:0.75em">부진</span></td></tr>
+        <tr><td>43</td><td>어성초 약산성 클렌징폼</td><td class="text-right">300</td><td class="text-right">60</td><td class="text-right" style="color:#ef4444;font-weight:700">20%</td><td><div style="background:#e5e7eb;border-radius:4px;height:18px;overflow:hidden"><div style="width:20%;height:100%;background:linear-gradient(90deg,#ef4444,#fb7185);border-radius:4px"></div></div></td><td class="text-center"><span style="background:#ef4444;color:#fff;padding:2px 8px;border-radius:10px;font-size:0.75em">부진</span></td></tr>
+        <tr><td>44</td><td>노스테 아토 크림</td><td class="text-right">500</td><td class="text-right">97</td><td class="text-right" style="color:#ef4444;font-weight:700">19.4%</td><td><div style="background:#e5e7eb;border-radius:4px;height:18px;overflow:hidden"><div style="width:19.4%;height:100%;background:linear-gradient(90deg,#ef4444,#fb7185);border-radius:4px"></div></div></td><td class="text-center"><span style="background:#ef4444;color:#fff;padding:2px 8px;border-radius:10px;font-size:0.75em">부진</span></td></tr>
+        <tr><td>45</td><td>그레인 수분미스트(80ml)</td><td class="text-right">300</td><td class="text-right">56</td><td class="text-right" style="color:#ef4444;font-weight:700">18.7%</td><td><div style="background:#e5e7eb;border-radius:4px;height:18px;overflow:hidden"><div style="width:18.7%;height:100%;background:linear-gradient(90deg,#ef4444,#fb7185);border-radius:4px"></div></div></td><td class="text-center"><span style="background:#ef4444;color:#fff;padding:2px 8px;border-radius:10px;font-size:0.75em">부진</span></td></tr>
+        <tr><td>46</td><td>택배 유기농 귀리유(16팩x4개)</td><td class="text-right">400</td><td class="text-right">72</td><td class="text-right" style="color:#ef4444;font-weight:700">18%</td><td><div style="background:#e5e7eb;border-radius:4px;height:18px;overflow:hidden"><div style="width:18%;height:100%;background:linear-gradient(90deg,#ef4444,#fb7185);border-radius:4px"></div></div></td><td class="text-center"><span style="background:#ef4444;color:#fff;padding:2px 8px;border-radius:10px;font-size:0.75em">부진</span></td></tr>
+        <tr><td>47</td><td>유기농 귀리유(YOU)16팩</td><td class="text-right">3,000</td><td class="text-right">503</td><td class="text-right" style="color:#ef4444;font-weight:700">16.8%</td><td><div style="background:#e5e7eb;border-radius:4px;height:18px;overflow:hidden"><div style="width:16.8%;height:100%;background:linear-gradient(90deg,#ef4444,#fb7185);border-radius:4px"></div></div></td><td class="text-center"><span style="background:#ef4444;color:#fff;padding:2px 8px;border-radius:10px;font-size:0.75em">부진</span></td></tr>
+        <tr><td>48</td><td>유기농 매실스틱(20mlx15개)</td><td class="text-right">500</td><td class="text-right">84</td><td class="text-right" style="color:#ef4444;font-weight:700">16.8%</td><td><div style="background:#e5e7eb;border-radius:4px;height:18px;overflow:hidden"><div style="width:16.8%;height:100%;background:linear-gradient(90deg,#ef4444,#fb7185);border-radius:4px"></div></div></td><td class="text-center"><span style="background:#ef4444;color:#fff;padding:2px 8px;border-radius:10px;font-size:0.75em">부진</span></td></tr>
+        <tr><td>49</td><td>반건조서대(300g)</td><td class="text-right">300</td><td class="text-right">49</td><td class="text-right" style="color:#ef4444;font-weight:700">16.3%</td><td><div style="background:#e5e7eb;border-radius:4px;height:18px;overflow:hidden"><div style="width:16.3%;height:100%;background:linear-gradient(90deg,#ef4444,#fb7185);border-radius:4px"></div></div></td><td class="text-center"><span style="background:#ef4444;color:#fff;padding:2px 8px;border-radius:10px;font-size:0.75em">부진</span></td></tr>
+        <tr><td>50</td><td>(포장저감)브로콜리(25개/무농약)</td><td class="text-right">200</td><td class="text-right">16</td><td class="text-right" style="color:#ef4444;font-weight:700">8%</td><td><div style="background:#e5e7eb;border-radius:4px;height:18px;overflow:hidden"><div style="width:8%;height:100%;background:linear-gradient(90deg,#ef4444,#fb7185);border-radius:4px"></div></div></td><td class="text-center"><span style="background:#ef4444;color:#fff;padding:2px 8px;border-radius:10px;font-size:0.75em">부진</span></td></tr>
+        <tr><td>51</td><td>무우(10개)</td><td class="text-right">200</td><td class="text-right">16</td><td class="text-right" style="color:#ef4444;font-weight:700">8%</td><td><div style="background:#e5e7eb;border-radius:4px;height:18px;overflow:hidden"><div style="width:8%;height:100%;background:linear-gradient(90deg,#ef4444,#fb7185);border-radius:4px"></div></div></td><td class="text-center"><span style="background:#ef4444;color:#fff;padding:2px 8px;border-radius:10px;font-size:0.75em">부진</span></td></tr>
+        <tr><td>52</td><td>베이스 선크림 40g</td><td class="text-right">500</td><td class="text-right">39</td><td class="text-right" style="color:#ef4444;font-weight:700">7.8%</td><td><div style="background:#e5e7eb;border-radius:4px;height:18px;overflow:hidden"><div style="width:7.8%;height:100%;background:linear-gradient(90deg,#ef4444,#fb7185);border-radius:4px"></div></div></td><td class="text-center"><span style="background:#ef4444;color:#fff;padding:2px 8px;border-radius:10px;font-size:0.75em">부진</span></td></tr>
+        <tr><td>53</td><td>가지(25개/벌크/무농약)</td><td class="text-right">200</td><td class="text-right">5</td><td class="text-right" style="color:#ef4444;font-weight:700">2.5%</td><td><div style="background:#e5e7eb;border-radius:4px;height:18px;overflow:hidden"><div style="width:2.5%;height:100%;background:linear-gradient(90deg,#ef4444,#fb7185);border-radius:4px"></div></div></td><td class="text-center"><span style="background:#ef4444;color:#fff;padding:2px 8px;border-radius:10px;font-size:0.75em">부진</span></td></tr>
+        <tr><td>54</td><td>오이(50개)</td><td class="text-right">200</td><td class="text-right">2</td><td class="text-right" style="color:#ef4444;font-weight:700">1%</td><td><div style="background:#e5e7eb;border-radius:4px;height:18px;overflow:hidden"><div style="width:1%;height:100%;background:linear-gradient(90deg,#ef4444,#fb7185);border-radius:4px"></div></div></td><td class="text-center"><span style="background:#ef4444;color:#fff;padding:2px 8px;border-radius:10px;font-size:0.75em">부진</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="insight-box" style="margin-top:20px">
+    <h3>현황 요약</h3>
+    <p><strong style="color:#059669">호조 7품목</strong>: 레몬즙(216%), 메밀면(151%), 냉면사리(118%), 오이5개(117%), 미숫가루(116%), 돌산갓김치(114%), 오징어채(103%)가 목표 초과 달성. 삼계탕(98%)·선크림(94%)은 달성 직전.<br>
+    <strong style="color:#3b82f6">순항 11품목</strong>: 대패오리(79%), 비빔쫄면(77%), 불고기(71%), 토종닭(68%), 치킨안심가스(64%), 햇양파(60%) 등 현 추세 유지 시 목표 달성 가능.<br>
+    <strong style="color:#ef4444">부진 22품목</strong>: 귀리유(17~18%), 아토 3종(19~24%), 검정찰보리(24%), 시카크림(21%), 브로콜리·가지 등 대량 농산(2~8%)은 추가 홍보 시급.</p>
+  </div>
+</div>
+
+<!-- 두레추천 등록 순위 추천 -->
+<div class="section">
+<h2>두레추천 등록 순위 추천</h2>
+<p style="color:#9ca3af;margin-bottom:16px;font-size:0.9em">목표금액, 할인율, 마진기여도, 집중 여부, 기획구분을 종합 평가한 두레추천 등록 우선순위</p>
+<div class="table-wrap"><table>
+<tr><th>#</th><th>품목명</th><th>테마</th><th>구분</th><th class="text-right">기획가</th><th class="text-right">할인</th><th class="text-right">목표수량</th><th class="text-right">목표금액</th><th class="text-right">종합점수</th></tr>
+<tr><td>1</td><td>유기농 귀리유(YOU)16팩</td><td>봄맞이 귀리유 택배기획</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">15,300</td><td class="text-right">20.3%</td><td class="text-right">3,000</td><td class="text-right">4,590만</td><td class="text-right" style="font-weight:700;color:#4f46e5">285.4</td></tr>
+<tr><td>2</td><td>7곡 미숫가루</td><td>여름시즌 음료와 냉면, 김치</td><td><span class="type-badge type-특별기획">특별기획</span></td><td class="text-right">12,500</td><td class="text-right">19.4%</td><td class="text-right">2,000</td><td class="text-right">2,500만</td><td class="text-right" style="font-weight:700;color:#4f46e5">248.3</td></tr>
+<tr><td>3</td><td>(기획세트) 베이스 선크림</td><td>[신규]베이스선크림</td><td><span class="type-badge type-신규">신규</span></td><td class="text-right">12,100</td><td class="text-right">10.4%</td><td class="text-right">2,000</td><td class="text-right">2,420만</td><td class="text-right" style="font-weight:700;color:#4f46e5">232.1</td></tr>
+<tr><td>4</td><td>택배 유기농 귀리유(16팩x4개)</td><td>봄맞이 귀리유 택배기획</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">61,200</td><td class="text-right">20.3%</td><td class="text-right">400</td><td class="text-right">2,448만</td><td class="text-right" style="font-weight:700;color:#4f46e5">221.8</td></tr>
+<tr><td>5</td><td>노스테 아토 로션</td><td>[신규]대용량 아토 화장품 3종</td><td><span class="type-badge type-신규">신규</span></td><td class="text-right">38,400</td><td class="text-right">20.0%</td><td class="text-right">500</td><td class="text-right">1,920만</td><td class="text-right" style="font-weight:700;color:#4f46e5">208.6</td></tr>
+<tr><td>6</td><td>노스테 아토 크림</td><td>[신규]대용량 아토 화장품 3종</td><td><span class="type-badge type-신규">신규</span></td><td class="text-right">36,800</td><td class="text-right">20.0%</td><td class="text-right">500</td><td class="text-right">1,840만</td><td class="text-right" style="font-weight:700;color:#4f46e5">205.2</td></tr>
+<tr><td>7</td><td>한마리 삼계탕</td><td>삼계탕 20%할인</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">11,000</td><td class="text-right">21.4%</td><td class="text-right">1,200</td><td class="text-right">1,320만</td><td class="text-right" style="font-weight:700;color:#4f46e5">196.7</td></tr>
+<tr><td>8</td><td>열무김치(1kg)</td><td>여름시즌 음료와 냉면, 김치</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">6,300</td><td class="text-right">10.0%</td><td class="text-right">2,000</td><td class="text-right">1,260만</td><td class="text-right" style="font-weight:700;color:#4f46e5">175.4</td></tr>
+<tr><td>9</td><td>그레인 시카크림</td><td>봄 나들이 화사한 피부 가꾸기</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">15,200</td><td class="text-right">30.0%</td><td class="text-right">600</td><td class="text-right">912만</td><td class="text-right" style="font-weight:700;color:#4f46e5">168.3</td></tr>
+<tr><td>10</td><td>노스테 아토 워시</td><td>[신규]대용량 아토 화장품 3종</td><td><span class="type-badge type-신규">신규</span></td><td class="text-right">16,000</td><td class="text-right">20.0%</td><td class="text-right">500</td><td class="text-right">800만</td><td class="text-right" style="font-weight:700;color:#4f46e5">155.9</td></tr>
+<tr><td>11</td><td>검정찰보리(800g/유기)</td><td>[소비촉진] 검정찰보리</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">7,500</td><td class="text-right">20.2%</td><td class="text-right">1,000</td><td class="text-right">750만</td><td class="text-right" style="font-weight:700;color:#4f46e5">149.1</td></tr>
+<tr><td>12</td><td>손질 참가자미(600g)</td><td>손질 수산물 공급 기획</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">11,900</td><td class="text-right">15.0%</td><td class="text-right">600</td><td class="text-right">714만</td><td class="text-right" style="font-weight:700;color:#4f46e5">138.7</td></tr>
+<tr><td>13</td><td>햇양파(800g/제주/조생)</td><td>햇양파</td><td><span class="type-badge type-햇출하">햇출하</span></td><td class="text-right">3,450</td><td class="text-right">0%</td><td class="text-right">4,200</td><td class="text-right">1,449만</td><td class="text-right" style="font-weight:700;color:#4f46e5">132.5</td></tr>
+<tr><td>14</td><td>베이스 선크림 40g</td><td>봄 나들이 화사한 피부 가꾸기</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">11,400</td><td class="text-right">15.6%</td><td class="text-right">500</td><td class="text-right">570만</td><td class="text-right" style="font-weight:700;color:#4f46e5">125.8</td></tr>
+<tr><td>15</td><td>토종닭(1.4kg/냉동)</td><td>봄맞이 닭/오리 축산물</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">11,000</td><td class="text-right">30.8%</td><td class="text-right">500</td><td class="text-right">550만</td><td class="text-right" style="font-weight:700;color:#4f46e5">122.4</td></tr>
+<tr><td>16</td><td>치킨안심가스</td><td>치킨안심가스 & 소스</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">9,500</td><td class="text-right">9.5%</td><td class="text-right">500</td><td class="text-right">475만</td><td class="text-right" style="font-weight:700;color:#4f46e5">110.6</td></tr>
+<tr><td>17</td><td>오이(2개/무농약)</td><td>농산</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">3,500</td><td class="text-right">0%</td><td class="text-right">3,000</td><td class="text-right">1,050만</td><td class="text-right" style="font-weight:700;color:#4f46e5">108.2</td></tr>
+<tr><td>18</td><td>백김치(국산/2kg)</td><td>여름시즌 음료와 냉면, 김치</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">11,600</td><td class="text-right">20.0%</td><td class="text-right">400</td><td class="text-right">464만</td><td class="text-right" style="font-weight:700;color:#4f46e5">104.5</td></tr>
+<tr><td>19</td><td>유기농 해바라기씨유 750ml</td><td>치킨안심가스 & 소스</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">8,800</td><td class="text-right">24.8%</td><td class="text-right">500</td><td class="text-right">440만</td><td class="text-right" style="font-weight:700;color:#4f46e5">101.3</td></tr>
+<tr><td>20</td><td>손질오징어채</td><td>손질 수산물 공급 기획</td><td><span class="type-badge type-소비촉진">소비촉진</span></td><td class="text-right">14,000</td><td class="text-right">10.3%</td><td class="text-right">400</td><td class="text-right">560만</td><td class="text-right" style="font-weight:700;color:#4f46e5">96.8</td></tr>
+</table></div>
+
+<div class="insight-box" style="margin-top:20px">
+  <h3>종합점수 산출 기준</h3>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:12px">
+    <div style="background:#f5f3ff;border-radius:8px;padding:14px">
+      <div style="font-weight:700;color:#4f46e5;font-size:0.9em;margin-bottom:4px">목표금액 (40%)</div>
+      <div style="font-size:0.85em;color:#374151">기획가 x 목표수량으로 산출한 총 목표금액이 클수록 높은 점수. 두레추천 노출 시 매출 기여 효과가 큰 품목을 우선 배치하기 위함.</div>
+    </div>
+    <div style="background:#eff6ff;border-radius:8px;padding:14px">
+      <div style="font-weight:700;color:#2563eb;font-size:0.9em;margin-bottom:4px">할인율 (25%)</div>
+      <div style="font-size:0.85em;color:#374151">상시가 대비 기획가 할인 폭이 클수록 높은 점수. 조합원 체감 혜택이 크면 클릭률과 전환율이 높아져 추천 효과 극대화.</div>
+    </div>
+    <div style="background:#ecfdf5;border-radius:8px;padding:14px">
+      <div style="font-weight:700;color:#059669;font-size:0.9em;margin-bottom:4px">마진기여도 (20%)</div>
+      <div style="font-size:0.85em;color:#374151">개당 마진 x 목표수량으로 산출한 추정 마진 합계. 매출뿐 아니라 수익성도 함께 고려하여 균형 잡힌 추천 구성.</div>
+    </div>
+    <div style="background:#fef3c7;border-radius:8px;padding:14px">
+      <div style="font-weight:700;color:#d97706;font-size:0.9em;margin-bottom:4px">기획구분 가산 (15%)</div>
+      <div style="font-size:0.85em;color:#374151">신규·특별기획·집중 품목에 가산점 부여. 신규 품목은 첫 인지도 확보가 중요하고, 집중 품목은 목표 달성을 위해 노출 우선 필요.</div>
+    </div>
+  </div>
+</div>
+</div>
+
+</div><!-- /container -->
+
+<div class="footer">
+  두레생협 조합원 상담실 1661-5110
+</div>
+
+<script>
+function switchTab(e, id) {
+  const parent = e.target.closest('.section');
+  parent.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  parent.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  e.target.classList.add('active');
+  document.getElementById(id).classList.add('active');
+}
+</script>
+</body>
+</html>

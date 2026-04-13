@@ -1,0 +1,33 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:ecoop.or.kr)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(git pull:*)",
+      "Bash(git stash:*)",
+      "Bash(git checkout:*)",
+      "Bash(git rebase:*)",
+      "Bash(git restore:*)",
+      "WebFetch(domain:dev.ecoop.or.kr)",
+      "Bash(curl:*)",
+      "Bash(for code in 17091C.jpg 27407C.jpg 54124C.jpg 209C.jpg 41753C.jpg 55821C.jpg 4531C.jpg 88C.jpg 14140C.jpg 42940C.jpg 14142C.jpg 36970C.jpg 27683C.jpg)",
+      "Bash(do echo -n \"$code: \")",
+      "Bash(done)",
+      "WebSearch",
+      "WebFetch(domain:bebeyam.com)",
+      "Bash(pip install:*)",
+      "Bash(python3:*)",
+      "Bash(python:*)",
+      "Bash(ls:*)",
+      "Bash(iconv:*)",
+      "WebFetch(domain:www.pexels.com)",
+      "WebFetch(domain:mixkit.co)",
+      "WebFetch(domain:pixabay.com)",
+      "WebFetch(domain:unsplash.com)",
+      "WebFetch(domain:www.vecteezy.com)",
+      "Bash(echo yt-dlp not found:*)"
+    ]
+  }
+}

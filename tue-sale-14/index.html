@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>화요특가 — 두레생협</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800;900&display=swap');
+@font-face {
+  font-family: 'Pretendard';
+  src: url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #faf7f2;
+  --card: #ffffff;
+  --text: #2c2c2c;
+  --sub: #888;
+  --red: #d94040;
+  --gold: #d94040;
+}
+
+body {
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  word-break: keep-all;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  letter-spacing: -0.3px;
+}
+
+/* HERO */
+.hero {
+  min-height: 40vh;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  text-align: center;
+  padding: 56px 24px 48px;
+  background: var(--red);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '화요특가';
+  position: absolute;
+  font-size: 140px; font-weight: 900;
+  color: rgba(255,255,255,0.07);
+  letter-spacing: -6px;
+  white-space: nowrap;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%) rotate(-8deg);
+  pointer-events: none;
+}
+
+.hero-date {
+  font-size: 26px; color: rgba(255,255,255,0.75);
+  font-weight: 600; letter-spacing: 0.5px;
+  margin-bottom: 8px;
+  opacity: 0; animation: fadeUp .4s .1s ease forwards;
+}
+
+.hero-today {
+  display: inline-block;
+  font-size: 28px; font-weight: 800;
+  color: var(--red);
+  background: #fff;
+  padding: 6px 22px;
+  border-radius: 10px;
+  margin-bottom: 16px;
+  letter-spacing: -0.5px;
+  opacity: 0; animation: scaleIn .4s .2s ease forwards;
+}
+
+.hero h1 {
+  font-size: 80px; font-weight: 900;
+  color: #fff;
+  letter-spacing: -4px;
+  line-height: 1.1;
+  opacity: 0; animation: scaleIn .4s .3s ease forwards;
+}
+
+.hero-sub {
+  font-size: 26px; color: rgba(255,255,255,0.8);
+  font-weight: 500;
+  letter-spacing: -0.3px;
+  margin-top: 14px;
+  opacity: 0; animation: fadeUp .4s .4s ease forwards;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* MARQUEE STRIP */
+.marquee-strip {
+  background: #111;
+  padding: 14px 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.marquee-track {
+  display: inline-block;
+  animation: marquee 30s linear infinite;
+}
+
+.marquee-track span {
+  display: inline-block;
+  font-size: 26px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.3px;
+  padding: 0 40px;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ITEMS */
+.items {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 20px 60px;
+  display: flex; flex-direction: column;
+  gap: 24px;
+}
+
+/* CARD */
+.card {
+  background: var(--card);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+  opacity: 0; transform: translateY(30px);
+  transition: all .6s cubic-bezier(.16,1,.3,1);
+}
+
+.card.show { opacity: 1; transform: translateY(0); }
+
+.card-img {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3/2;
+  overflow: hidden;
+}
+
+.card-img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+
+.card-discount {
+  position: absolute; bottom: 0; left: 0;
+  background: var(--red);
+  color: #fff;
+  padding: 10px 26px;
+  font-size: 36px; font-weight: 800;
+  letter-spacing: -1px;
+  border-radius: 0 16px 0 0;
+}
+
+.card-body {
+  padding: 28px 24px;
+}
+
+.card-name {
+  font-size: 28px; font-weight: 800;
+  letter-spacing: -0.8px;
+  margin-bottom: 10px;
+  color: #1a1a1a;
+}
+
+.card-desc {
+  font-size: 24px; color: #777;
+  font-weight: 400;
+  line-height: 1.7;
+  letter-spacing: -0.3px;
+  margin-bottom: 22px;
+}
+
+.card-price {
+  display: flex; align-items: baseline; gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.card-price .orig {
+  font-size: 30px; color: #ccc;
+  text-decoration: line-through;
+  font-weight: 400;
+}
+
+.card-price .now {
+  font-size: 42px; font-weight: 800;
+  color: var(--red);
+  letter-spacing: -1px;
+}
+
+.card-tags {
+  display: flex; gap: 8px; flex-wrap: wrap;
+  margin-bottom: 22px;
+}
+
+.tag {
+  padding: 7px 16px;
+  border-radius: 8px;
+  font-size: 20px; font-weight: 600;
+  letter-spacing: -0.3px;
+}
+
+.tag.red { background: #fef0ee; color: var(--red); }
+.tag.gray { background: #f2eee8; color: #999; }
+
+.card-btn {
+  display: block;
+  text-align: center;
+  padding: 18px;
+  background: #4a7c59;
+  color: #fff;
+  border: none; border-radius: 14px;
+  font-size: 24px; font-weight: 700;
+  letter-spacing: -0.5px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background .2s;
+}
+
+.card-btn:active { background: #3d6a4a; }
+
+/* NOTICE */
+.card-notice {
+  margin-top: 16px;
+  padding: 16px 18px;
+  background: #f7f3ee;
+  border-radius: 10px;
+  font-size: 20px; color: #666;
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: -0.2px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+
+.card-notice p {
+  padding-left: 14px;
+  border-left: 3px solid #ddd;
+}
+
+/* FOOTER */
+.cta {
+  text-align: center;
+  padding: 48px 24px;
+  border-top: 1px solid #e8e0d6;
+}
+
+.cta p {
+  font-size: 22px; color: #aaa;
+  font-weight: 400;
+  margin-bottom: 24px;
+  letter-spacing: -0.3px;
+}
+
+.cta-btn {
+  display: inline-block;
+  padding: 20px 52px;
+  background: var(--red);
+  color: #fff;
+  border-radius: 14px;
+  font-size: 28px; font-weight: 800;
+  letter-spacing: -0.5px;
+  text-decoration: none;
+  transition: background .2s;
+  box-shadow: 0 4px 20px rgba(217,64,64,0.3);
+}
+
+.cta-btn:active { background: #b83333; }
+
+footer {
+  text-align: center;
+  padding: 28px 20px;
+  font-size: 20px; color: #bbb;
+  font-weight: 400;
+}
+
+@media (min-width: 600px) {
+  .hero h1 { font-size: 64px; }
+  .items { max-width: 700px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-date">3월 31일 화요일</p>
+  <span class="hero-today">오늘만!</span>
+  <h1>화요특가</h1>
+  <p class="hero-sub">최대 50% 할인</p>
+</section>
+
+<div class="marquee-strip">
+  <div class="marquee-track">
+    <span>최대 50% 할인</span><span>오늘 하루 한정</span><span>최대 50% 할인</span><span>오늘 하루 한정</span><span>최대 50% 할인</span><span>오늘 하루 한정</span><span>최대 50% 할인</span><span>오늘 하루 한정</span><span>최대 50% 할인</span><span>오늘 하루 한정</span><span>최대 50% 할인</span><span>오늘 하루 한정</span>
+  </div>
+</div>
+
+<div class="items">
+
+  <!-- 1. 라이스페이퍼 -->
+  <div class="card">
+    <div class="card-img">
+      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56014C.jpg" alt="라이스페이퍼">
+      <div class="card-discount">50%</div>
+    </div>
+    <div class="card-body">
+      <h2 class="card-name">라이스페이퍼(300g)</h2>
+      <p class="card-desc">소비기한 26년 10월까지, 6개월 남았어요.<br>재고 소진 기획으로 반값에 준비했습니다.<br>여러 개 쟁여두셔도 좋아요.</p>
+      <div class="card-price">
+        <span class="orig">2,900원</span>
+        <span class="now">1,450원</span>
+      </div>
+      <div class="card-tags">
+        <span class="tag red">반값</span>
+        <span class="tag gray">소비기한 26.10.03</span>
+      </div>
+      <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1651" class="card-btn">장보기</a>
+    </div>
+  </div>
+
+  <!-- 2. 감귤즙 -->
+  <div class="card">
+    <div class="card-img">
+      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/5376C.jpg" alt="감귤즙">
+      <div class="card-discount">30%</div>
+    </div>
+    <div class="card-body">
+      <h2 class="card-name">감귤즙(700ml)</h2>
+      <p class="card-desc">제주 감귤 착즙, 물이나 탄산수에 타서 드세요.</p>
+      <div class="card-price">
+        <span class="orig">5,600원</span>
+        <span class="now">3,900원</span>
+      </div>
+      <div class="card-tags">
+        <span class="tag red">한정수량</span>
+      </div>
+      <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1651" class="card-btn">장보기</a>
+    </div>
+  </div>
+
+  <!-- 3. 포도주스 -->
+  <div class="card">
+    <div class="card-img">
+      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/55807C.jpg" alt="포도주스">
+      <div class="card-discount">40%</div>
+    </div>
+    <div class="card-body">
+      <h2 class="card-name">포도주스(100ml x 15팩)</h2>
+      <p class="card-desc">1팩당 833원, 아이 간식·나들이 음료로 딱.</p>
+      <div class="card-price">
+        <span class="orig">20,800원</span>
+        <span class="now">12,500원</span>
+      </div>
+      <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1651" class="card-btn">장보기</a>
+    </div>
+  </div>
+
+  <!-- 4. 스프레드초코 -->
+  <div class="card">
+    <div class="card-img">
+      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57515C.jpg" alt="스프레드초코">
+      <div class="card-discount">40%</div>
+    </div>
+    <div class="card-body">
+      <h2 class="card-name">스프레드초코(200g)</h2>
+      <p class="card-desc">경화유 없는 초코 스프레드.<br>식빵, 크래커, 과일에 발라 드세요.</p>
+      <div class="card-price">
+        <span class="orig">6,500원</span>
+        <span class="now">3,900원</span>
+      </div>
+      <div class="card-tags">
+        <span class="tag red">한정수량</span>
+      </div>
+      <div class="card-notice">
+        <p>경화유를 넣지 않아 유분리 현상이 있을 수 있습니다.</p>
+        <p>상온에 1시간 정도 두신 후 섞어 드세요.</p>
+      </div>
+      <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1651" class="card-btn">장보기</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- CTA -->
+<section class="cta">
+  <p>오늘 하루 한정, 한정수량 조기 마감 가능</p>
+  <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1651" class="cta-btn">오늘만! 화요특가</a>
+</section>
+
+<footer>두레생협 조합원 상담실 1661-5110</footer>
+
+<script>
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('show'); io.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.card').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>산지단가 판별기 - 두레생협</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Pretendard', 'Apple SD Gothic Neo', sans-serif;
+  background: #f5f7fa;
+  color: #1a1a2e;
+  word-break: keep-all;
+  min-height: 100vh;
+}
+
+.header {
+  background: linear-gradient(135deg, #2d6a4f, #40916c);
+  color: #fff;
+  padding: 28px 20px;
+  text-align: center;
+}
+.header h1 { font-size: 22px; font-weight: 700; }
+.header p { font-size: 13px; opacity: 0.85; margin-top: 6px; }
+
+.container {
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+.card h2 {
+  font-size: 16px;
+  color: #2d6a4f;
+  margin-bottom: 16px;
+  font-weight: 700;
+}
+
+.form-group { margin-bottom: 16px; }
+.form-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #495057;
+  margin-bottom: 6px;
+}
+.form-group small {
+  display: block;
+  font-size: 11px;
+  color: #868e96;
+  margin-top: 4px;
+}
+
+input, select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 2px solid #e9ecef;
+  border-radius: 10px;
+  font-size: 15px;
+  transition: border-color 0.2s;
+  outline: none;
+  background: #fff;
+}
+input:focus, select:focus { border-color: #40916c; }
+
+.row { display: flex; gap: 12px; }
+.row > * { flex: 1; }
+
+.btn {
+  display: block;
+  width: 100%;
+  padding: 16px;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-primary {
+  background: linear-gradient(135deg, #2d6a4f, #40916c);
+  color: #fff;
+}
+.btn-primary:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(45,106,79,0.3); }
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+.btn-reset {
+  background: #e9ecef;
+  color: #495057;
+  margin-top: 12px;
+}
+
+/* 로딩 */
+.loading { text-align: center; padding: 30px; }
+.spinner {
+  width: 36px; height: 36px;
+  border: 3px solid #e9ecef;
+  border-top-color: #2d6a4f;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 12px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* 품목 자동완성 */
+.autocomplete-wrap { position: relative; }
+.autocomplete-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 2px solid #e9ecef;
+  border-top: none;
+  border-radius: 0 0 10px 10px;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 10;
+  display: none;
+}
+.autocomplete-list.show { display: block; }
+.autocomplete-item {
+  padding: 10px 14px;
+  cursor: pointer;
+  font-size: 14px;
+  border-bottom: 1px solid #f1f3f5;
+}
+.autocomplete-item:hover { background: #f0faf5; }
+.autocomplete-item .cat { font-size: 11px; color: #868e96; margin-left: 6px; }
+
+/* 결과 */
+.result-area { display: none; }
+.result-area.show { display: block; }
+
+/* 판정 박스 */
+.verdict-box {
+  border-radius: 16px;
+  padding: 24px;
+  text-align: center;
+}
+.verdict-box.good {
+  background: linear-gradient(135deg, #d8f3dc, #b7e4c7);
+  border: 2px solid #52b788;
+}
+.verdict-box.caution {
+  background: linear-gradient(135deg, #fff3cd, #ffe69c);
+  border: 2px solid #ffc107;
+}
+.verdict-box.bad {
+  background: linear-gradient(135deg, #f8d7da, #f1aeb5);
+  border: 2px solid #dc3545;
+}
+.verdict-icon { font-size: 48px; margin-bottom: 8px; }
+.verdict-title { font-size: 22px; font-weight: 800; margin-bottom: 6px; }
+.verdict-sub { font-size: 14px; line-height: 1.6; }
+
+/* 상세 분석 */
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #f1f3f5;
+  font-size: 14px;
+}
+.detail-row:last-child { border-bottom: none; }
+.detail-label { color: #495057; }
+.detail-value { font-weight: 700; text-align: right; }
+
+.eco-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+}
+.eco-organic { background: #d8f3dc; color: #2d6a4f; }
+.eco-nopest { background: #d0ebff; color: #1864ab; }
+.eco-lowpest { background: #e7f5ff; color: #1971c2; }
+.eco-conv { background: #e9ecef; color: #495057; }
+
+.bar-wrap {
+  margin: 16px 0;
+  background: #e9ecef;
+  border-radius: 10px;
+  height: 32px;
+  position: relative;
+  overflow: hidden;
+}
+.bar-fill {
+  height: 100%;
+  border-radius: 10px;
+  transition: width 0.5s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  min-width: 40px;
+}
+.bar-marker {
+  position: absolute;
+  top: -6px;
+  bottom: -6px;
+  width: 3px;
+  background: #1a1a2e;
+  border-radius: 2px;
+}
+.bar-marker-label {
+  position: absolute;
+  top: -20px;
+  font-size: 10px;
+  font-weight: 700;
+  white-space: nowrap;
+  transform: translateX(-50%);
+}
+
+/* 기록 */
+.history-toggle {
+  text-align: center;
+  margin-top: 16px;
+}
+.history-toggle button {
+  background: none;
+  border: none;
+  color: #868e96;
+  font-size: 13px;
+  cursor: pointer;
+  text-decoration: underline;
+}
+.history-list { margin-top: 12px; }
+.history-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  margin-bottom: 6px;
+  font-size: 13px;
+}
+.history-item .name { font-weight: 700; }
+.history-badge {
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+}
+.hb-good { background: #d8f3dc; color: #2d6a4f; }
+.hb-caution { background: #fff3cd; color: #856404; }
+.hb-bad { background: #f8d7da; color: #842029; }
+
+@media (max-width: 600px) {
+  .container { padding: 12px; }
+  .card { padding: 18px; }
+  .row { flex-direction: column; gap: 0; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>산지단가 판별기</h1>
+  <p>우리 산지 단가가 시세 대비 적정한지 바로 확인합니다</p>
+</div>
+
+<div class="container">
+
+  <!-- 입력 폼 -->
+  <div class="card" id="inputCard">
+    <h2>어떤 품목을 비교할까요?</h2>
+
+    <div class="form-group autocomplete-wrap">
+      <label>품목명</label>
+      <input type="text" id="itemName" placeholder="예: 오이, 사과, 토마토" autocomplete="off"
+        oninput="onItemInput(this)" onfocus="onItemInput(this)">
+      <div class="autocomplete-list" id="acList"></div>
+    </div>
+
+    <div class="row">
+      <div class="form-group">
+        <label>우리 산지 단가 (원)</label>
+        <input type="number" id="ourPrice" placeholder="예: 2000">
+      </div>
+      <div class="form-group">
+        <label>단위</label>
+        <select id="ourUnit">
+          <option value="1kg">1kg</option>
+          <option value="100g">100g</option>
+          <option value="1개">1개</option>
+          <option value="1박스">1박스</option>
+          <option value="10kg" selected>10kg</option>
+          <option value="5kg">5kg</option>
+          <option value="8kg">8kg</option>
+          <option value="15kg">15kg</option>
+          <option value="20kg">20kg</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>친환경 인증</label>
+      <select id="ecoType">
+        <option value="organic">유기농</option>
+        <option value="nopest" selected>무농약</option>
+        <option value="lowpest">저농약</option>
+        <option value="conv">일반 (관행농)</option>
+      </select>
+    </div>
+
+    <button class="btn btn-primary" id="analyzeBtn" onclick="analyze()">시세 비교 분석</button>
+  </div>
+
+  <!-- 결과 -->
+  <div class="result-area" id="resultArea">
+    <div id="resultContent"></div>
+    <button class="btn btn-reset" onclick="resetForm()">다른 품목 비교하기</button>
+  </div>
+
+  <!-- 기록 -->
+  <div class="history-toggle" id="historyToggle" style="display:none">
+    <button onclick="toggleHistory()">이전 비교 기록 보기</button>
+  </div>
+  <div class="history-list" id="historyList" style="display:none"></div>
+
+</div>
+
+<script>
+// ===== 품목 DB (KAMIS 카테고리 매핑) =====
+const ITEMS = [
+  // 식량작물 100
+  { name: '쌀', cat: '100', code: '111', catName: '식량작물' },
+  { name: '찹쌀', cat: '100', code: '112', catName: '식량작물' },
+  { name: '콩', cat: '100', code: '141', catName: '식량작물' },
+  { name: '팥', cat: '100', code: '142', catName: '식량작물' },
+  { name: '고구마', cat: '100', code: '151', catName: '식량작물' },
+  { name: '감자', cat: '100', code: '152', catName: '식량작물' },
+  // 채소류 200
+  { name: '배추', cat: '200', code: '211', catName: '채소류' },
+  { name: '양배추', cat: '200', code: '212', catName: '채소류' },
+  { name: '시금치', cat: '200', code: '213', catName: '채소류' },
+  { name: '상추', cat: '200', code: '214', catName: '채소류' },
+  { name: '수박', cat: '200', code: '221', catName: '채소류' },
+  { name: '참외', cat: '200', code: '222', catName: '채소류' },
+  { name: '오이', cat: '200', code: '223', catName: '채소류' },
+  { name: '호박', cat: '200', code: '224', catName: '채소류' },
+  { name: '토마토', cat: '200', code: '225', catName: '채소류' },
+  { name: '딸기', cat: '200', code: '226', catName: '채소류' },
+  { name: '무', cat: '200', code: '231', catName: '채소류' },
+  { name: '당근', cat: '200', code: '232', catName: '채소류' },
+  { name: '건고추', cat: '200', code: '241', catName: '채소류' },
+  { name: '풋고추', cat: '200', code: '242', catName: '채소류' },
+  { name: '양파', cat: '200', code: '245', catName: '채소류' },
+  { name: '파', cat: '200', code: '246', catName: '채소류' },
+  { name: '생강', cat: '200', code: '247', catName: '채소류' },
+  { name: '깻잎', cat: '200', code: '253', catName: '채소류' },
+  { name: '피망', cat: '200', code: '255', catName: '채소류' },
+  { name: '파프리카', cat: '200', code: '256', catName: '채소류' },
+  { name: '마늘', cat: '200', code: '244', catName: '채소류' },
+  { name: '브로콜리', cat: '200', code: '280', catName: '채소류' },
+  { name: '멜론', cat: '200', code: '257', catName: '채소류' },
+  // 특용작물 300
+  { name: '참깨', cat: '300', code: '312', catName: '특용작물' },
+  { name: '들깨', cat: '300', code: '313', catName: '특용작물' },
+  { name: '느타리버섯', cat: '300', code: '315', catName: '특용작물' },
+  { name: '팽이버섯', cat: '300', code: '316', catName: '특용작물' },
+  { name: '새송이버섯', cat: '300', code: '317', catName: '특용작물' },
+  // 과일류 400
+  { name: '사과', cat: '400', code: '411', catName: '과일류' },
+  { name: '배', cat: '400', code: '412', catName: '과일류' },
+  { name: '포도', cat: '400', code: '414', catName: '과일류' },
+  { name: '감귤', cat: '400', code: '415', catName: '과일류' },
+  { name: '바나나', cat: '400', code: '418', catName: '과일류' },
+  { name: '참다래', cat: '400', code: '419', catName: '과일류' },
+  { name: '방울토마토', cat: '400', code: '422', catName: '과일류' },
+];
+
+// 친환경 프리미엄 (가락시장은 관행농 기준이므로, 친환경은 이만큼 비싸도 적정)
+const ECO_PREMIUM = {
+  organic:  { min: 0.30, max: 0.50, label: '유기농', cls: 'eco-organic' },
+  nopest:   { min: 0.15, max: 0.30, label: '무농약', cls: 'eco-nopest' },
+  lowpest:  { min: 0.05, max: 0.15, label: '저농약', cls: 'eco-lowpest' },
+  conv:     { min: 0, max: 0, label: '일반', cls: 'eco-conv' }
+};
+
+let history = JSON.parse(localStorage.getItem('garakHistory2') || '[]');
+if (history.length > 0) document.getElementById('historyToggle').style.display = 'block';
+
+// ===== 자동완성 =====
+function onItemInput(input) {
+  const val = input.value.trim();
+  const list = document.getElementById('acList');
+
+  if (!val) {
+    list.classList.remove('show');
+    return;
+  }
+
+  const matches = ITEMS.filter(i => i.name.includes(val));
+  if (matches.length === 0 || (matches.length === 1 && matches[0].name === val)) {
+    list.classList.remove('show');
+    return;
+  }
+
+  list.innerHTML = matches.map(m =>
+    `<div class="autocomplete-item" onclick="selectItem('${m.name}')">
+      ${m.name}<span class="cat">${m.catName}</span>
+    </div>`
+  ).join('');
+  list.classList.add('show');
+}
+
+function selectItem(name) {
+  document.getElementById('itemName').value = name;
+  document.getElementById('acList').classList.remove('show');
+}
+
+// 바깥 클릭 시 자동완성 닫기
+document.addEventListener('click', e => {
+  if (!e.target.closest('.autocomplete-wrap')) {
+    document.getElementById('acList').classList.remove('show');
+  }
+});
+
+// ===== 단위 파싱 =====
+function parseUnitToKg(unitStr) {
+  const s = unitStr.trim().toLowerCase();
+  const m = s.match(/([\d.]+)\s*(kg|g)/);
+  if (m) {
+    const num = parseFloat(m[1]);
+    return m[2] === 'g' ? num / 1000 : num;
+  }
+  return null; // 변환 불가 (개, 박스 등)
+}
+
+// ===== 분석 실행 =====
+async function analyze() {
+  const itemName = document.getElementById('itemName').value.trim();
+  const ourPrice = parseInt(document.getElementById('ourPrice').value) || 0;
+  const ourUnit = document.getElementById('ourUnit').value;
+  const ecoType = document.getElementById('ecoType').value;
+
+  if (!itemName) { alert('품목명을 입력해주세요.'); return; }
+  if (!ourPrice) { alert('산지 단가를 입력해주세요.'); return; }
+
+  // 품목 매칭
+  const matched = ITEMS.find(i => i.name === itemName);
+  const catCode = matched ? matched.cat : '200';
+  const itemCode = matched ? matched.code : null;
+
+  // UI
+  const btn = document.getElementById('analyzeBtn');
+  btn.disabled = true;
+  btn.textContent = '조회 중...';
+
+  try {
+    // 도매 시세 + 친환경 소매가 동시 조회
+    const [garakData, ecoData] = await Promise.all([
+      fetchGarak(catCode, itemName),
+      (ecoType !== 'conv' && itemCode) ? fetchEcoPrice(itemCode, catCode) : Promise.resolve(null)
+    ]);
+
+    if (!garakData) {
+      showNoData(itemName);
+    } else {
+      showResult(garakData, ourPrice, ourUnit, ecoType, itemName, ecoData);
+    }
+  } catch(err) {
+    showError(err.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '시세 비교 분석';
+  }
+}
+
+// ===== KAMIS API 호출 =====
+async function fetchGarak(catCode, itemName) {
+  const today = new Date().toISOString().slice(0, 10);
+  const baseUrl = `https://www.kamis.or.kr/service/price/xml.do?action=dailyPriceByCategoryList&p_cert_key=111&p_cert_id=222&p_returntype=json&p_product_cls_code=02&p_item_category_code=${catCode}&p_country_code=1101&p_regday=${today}&p_convert_kg_yn=N`;
+
+  let data = null;
+  const proxyUrls = [
+    baseUrl,
+    `https://corsproxy.io/?${encodeURIComponent(baseUrl)}`,
+    `https://api.allorigins.win/raw?url=${encodeURIComponent(baseUrl)}`
+  ];
+
+  for (const url of proxyUrls) {
+    try {
+      const resp = await fetch(url, { signal: AbortSignal.timeout(8000) });
+      if (resp.ok) {
+        const text = await resp.text();
+        data = JSON.parse(text);
+        if (data?.data?.item) break;
+      }
+    } catch(e) { continue; }
+  }
+
+  if (!data?.data?.item) return null;
+
+  // 품목명 매칭 (여러 행 중 가장 관련 있는 것들)
+  const items = data.data.item.filter(i =>
+    i.item_name && i.item_name !== '품목명' && i.item_name.includes(itemName)
+  );
+
+  if (items.length === 0) return null;
+
+  // 당일(dpr1) → 1일전(dpr2) → 1주일전(dpr3) 순서로 유효한 가격 찾기
+  // 각 항목에 bestPrice (사용할 대표가격)를 붙여줌
+  items.forEach(i => {
+    const p1 = i.dpr1 && i.dpr1 !== '-' ? i.dpr1 : null;
+    const p2 = i.dpr2 && i.dpr2 !== '-' ? i.dpr2 : null;
+    const p3 = i.dpr3 && i.dpr3 !== '-' ? i.dpr3 : null;
+    i._bestPrice = p1 || p2 || p3 || null;
+    i._priceLabel = p1 ? '당일' : p2 ? '1일전' : p3 ? '1주전' : '';
+  });
+
+  // 가격이 있는 항목 우선
+  const withPrice = items.filter(i => i._bestPrice);
+  const pick = withPrice.length > 0 ? withPrice : items;
+
+  return {
+    items: pick,
+    date: today
+  };
+}
+
+function parsePrice(s) {
+  if (!s || s === '-' || s === '') return 0;
+  return parseInt(s.replace(/,/g, ''), 10);
+}
+
+// ===== 친환경 소매가격 조회 =====
+async function fetchEcoPrice(itemCode, catCode) {
+  const today = new Date().toISOString().slice(0, 10);
+  const baseUrl = `https://www.kamis.or.kr/service/price/xml.do?action=EcoPriceList&p_cert_key=111&p_cert_id=222&p_returntype=json&p_regday=${today}&p_itemcategorycode=${catCode}&p_itemcode=${itemCode}&p_convert_kg_yn=N`;
+
+  const proxyUrls = [
+    baseUrl,
+    `https://corsproxy.io/?${encodeURIComponent(baseUrl)}`,
+    `https://api.allorigins.win/raw?url=${encodeURIComponent(baseUrl)}`
+  ];
+
+  for (const url of proxyUrls) {
+    try {
+      const resp = await fetch(url, { signal: AbortSignal.timeout(8000) });
+      if (resp.ok) {
+        const text = await resp.text();
+        const data = JSON.parse(text);
+        if (data?.data?.item && data.data.error_code === '000') {
+          return data.data.item;
+        }
+      }
+    } catch(e) { continue; }
+  }
+  return null;
+}
+
+// ===== 결과 표시 =====
+function showResult(garakData, ourPrice, ourUnit, ecoType, itemName, ecoData) {
+  const eco = ECO_PREMIUM[ecoType];
+  const resultDiv = document.getElementById('resultArea');
+  const content = document.getElementById('resultContent');
+  document.getElementById('inputCard').style.display = 'none';
+  resultDiv.classList.add('show');
+
+  // 가락시장 데이터 중 대표값 (첫 번째 유효 항목)
+  const mainItem = garakData.items[0];
+  const garakPrice = parsePrice(mainItem._bestPrice);
+  const garakUnit = mainItem.unit || '';
+  const priceLabel = mainItem._priceLabel || '당일';
+  const avgPrice = parsePrice(mainItem.dpr7); // 평년가
+
+  // 단위 환산
+  const ourKg = parseUnitToKg(ourUnit);
+  const garakKg = parseUnitToKg(garakUnit);
+
+  let ourPriceConverted = ourPrice;
+  let conversionNote = '';
+  if (ourKg && garakKg && ourKg !== garakKg) {
+    ourPriceConverted = Math.round(ourPrice * (garakKg / ourKg));
+    conversionNote = `(${ourUnit} ${ourPrice.toLocaleString()}원 → ${garakUnit} 기준 ${ourPriceConverted.toLocaleString()}원으로 환산)`;
+  }
+
+  // 친환경 프리미엄 반영 적정 범위
+  const fairMin = Math.round(garakPrice * (1 + eco.min));
+  const fairMax = Math.round(garakPrice * (1 + eco.max));
+
+  // 판정
+  const diff = ourPriceConverted - garakPrice;
+  const diffPct = garakPrice > 0 ? (diff / garakPrice * 100) : 0;
+
+  let verdict, verdictIcon, verdictTitle, verdictSub, verdictClass;
+
+  if (ecoType === 'conv') {
+    // 일반 관행농
+    if (diffPct <= -5) {
+      verdict = 'good'; verdictIcon = '&#9989;'; verdictTitle = '적정 단가';
+      verdictSub = `가락시장 도매가보다 저렴합니다. 경쟁력 있는 단가입니다.`;
+    } else if (diffPct <= 15) {
+      verdict = 'caution'; verdictIcon = '&#9888;&#65039;'; verdictTitle = '주의 필요';
+      verdictSub = `가락시장 도매가와 비슷하거나 약간 높습니다. 마진 확보가 빠듯할 수 있습니다.`;
+    } else {
+      verdict = 'bad'; verdictIcon = '&#10060;'; verdictTitle = '단가 재검토';
+      verdictSub = `가락시장 도매가 대비 ${diffPct.toFixed(0)}% 높습니다. 단가 협의가 필요합니다.`;
+    }
+  } else {
+    // 친환경
+    if (ourPriceConverted <= fairMax) {
+      if (ourPriceConverted <= fairMin) {
+        verdict = 'good'; verdictIcon = '&#9989;'; verdictTitle = '적정 단가';
+        verdictSub = `${eco.label} 프리미엄을 반영해도 충분히 경쟁력 있는 단가입니다.`;
+      } else {
+        verdict = 'good'; verdictIcon = '&#9989;'; verdictTitle = '적정 단가';
+        verdictSub = `${eco.label} 프리미엄 범위(+${(eco.min*100).toFixed(0)}~${(eco.max*100).toFixed(0)}%) 안에 있습니다.`;
+      }
+    } else if (ourPriceConverted <= Math.round(fairMax * 1.1)) {
+      verdict = 'caution'; verdictIcon = '&#9888;&#65039;'; verdictTitle = '주의 필요';
+      verdictSub = `${eco.label} 프리미엄 상한을 약간 초과합니다. 마진이 빠듯할 수 있습니다.`;
+    } else {
+      verdict = 'bad'; verdictIcon = '&#10060;'; verdictTitle = '단가 재검토';
+      verdictSub = `${eco.label} 프리미엄을 반영해도 가락시장 대비 단가가 높습니다.`;
+    }
+  }
+
+  // 시세 추이 (평년 대비)
+  const vsAvg = avgPrice > 0 ? ((garakPrice - avgPrice) / avgPrice * 100) : 0;
+  let trendNote = '';
+  if (vsAvg > 15) trendNote = `현재 시세가 평년보다 ${vsAvg.toFixed(0)}% 높은 상승기입니다.`;
+  else if (vsAvg < -15) trendNote = `현재 시세가 평년보다 ${Math.abs(vsAvg).toFixed(0)}% 낮은 하락기입니다.`;
+
+  // 바 차트 계산 (가락가 대비 우리가 위치)
+  const barMax = Math.max(garakPrice, ourPriceConverted, fairMax) * 1.2;
+  const garakPct = (garakPrice / barMax * 100);
+  const ourPct = (ourPriceConverted / barMax * 100);
+
+  // 가락시장 다른 품종/등급 데이터
+  let otherRows = '';
+  if (garakData.items.length > 1) {
+    otherRows = garakData.items.slice(0, 5).map(it => `
+      <div class="detail-row">
+        <span class="detail-label">${it.kind_name || ''} ${it.rank || ''}</span>
+        <span class="detail-value">${it._bestPrice || '-'} / ${it.unit || ''}</span>
+      </div>
+    `).join('');
+  }
+
+  content.innerHTML = `
+    <!-- 판정 -->
+    <div class="verdict-box ${verdict === 'good' ? 'good' : verdict === 'caution' ? 'caution' : 'bad'}">
+      <div class="verdict-icon">${verdictIcon}</div>
+      <div class="verdict-title">${verdictTitle}</div>
+      <div class="verdict-sub">${verdictSub}</div>
+    </div>
+
+    <!-- 비교 상세 -->
+    <div class="card" style="margin-top:16px">
+      <h2>비교 상세</h2>
+
+      <div class="detail-row">
+        <span class="detail-label">품목</span>
+        <span class="detail-value">${mainItem.item_name} ${mainItem.kind_name ? '('+mainItem.kind_name+')' : ''}</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">가락시장 도매가 <span style="font-size:11px;color:#868e96">(${priceLabel})</span></span>
+        <span class="detail-value">${garakPrice.toLocaleString()}원 / ${garakUnit}</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">우리 산지 단가</span>
+        <span class="detail-value">${ourPrice.toLocaleString()}원 / ${ourUnit}</span>
+      </div>
+      ${conversionNote ? `<div style="font-size:12px;color:#868e96;padding:4px 0">${conversionNote}</div>` : ''}
+      <div class="detail-row">
+        <span class="detail-label">차이</span>
+        <span class="detail-value" style="color:${diff > 0 ? '#e03131' : '#2d6a4f'}">
+          ${diff >= 0 ? '+' : ''}${diff.toLocaleString()}원 (${diff >= 0 ? '+' : ''}${diffPct.toFixed(1)}%)
+        </span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">친환경 인증</span>
+        <span class="detail-value"><span class="eco-badge ${eco.cls}">${eco.label}</span></span>
+      </div>
+      ${ecoType !== 'conv' ? `
+      <div class="detail-row">
+        <span class="detail-label">${eco.label} 적정 단가 범위</span>
+        <span class="detail-value">${fairMin.toLocaleString()} ~ ${fairMax.toLocaleString()}원</span>
+      </div>` : ''}
+      ${avgPrice > 0 ? `
+      <div class="detail-row">
+        <span class="detail-label">평년 도매가</span>
+        <span class="detail-value">${avgPrice.toLocaleString()}원 ${vsAvg !== 0 ? '(' + (vsAvg > 0 ? '+' : '') + vsAvg.toFixed(0) + '%)' : ''}</span>
+      </div>` : ''}
+      ${trendNote ? `<div style="font-size:12px;color:#868e96;padding:8px 0">${trendNote}</div>` : ''}
+    </div>
+
+    ${otherRows ? `
+    <div class="card" style="margin-top:16px">
+      <h2>가락시장 ${mainItem.item_name} 시세 (품종/등급별)</h2>
+      ${otherRows}
+      <div style="margin-top:12px;text-align:right">
+        <a href="https://www.kamis.or.kr/customer/price/market/period.do" target="_blank"
+          style="font-size:12px;color:#868e96;text-decoration:underline">KAMIS 공식 사이트에서 확인</a>
+      </div>
+    </div>` : ''}
+
+    ${ecoData && ecoData.length > 0 ? `
+    <div class="card" style="margin-top:16px">
+      <h2>친환경 ${itemName} 소매가격 (KAMIS)</h2>
+      <p style="font-size:12px;color:#868e96;margin-bottom:12px">전국 친환경 인증 ${itemName}의 실제 소매 판매가격입니다 (${ecoData[0].regday} 기준)</p>
+      ${ecoData.map(e => `
+        <div class="detail-row">
+          <span class="detail-label">${e.countyname}${e.marketname ? ' ' + e.marketname : ''}</span>
+          <span class="detail-value">${e.price || '-'} / ${e.unit || ''}</span>
+        </div>
+      `).join('')}
+      <div style="margin-top:12px;text-align:right">
+        <a href="https://www.kamis.or.kr/customer/price/nature/period.do" target="_blank"
+          style="font-size:12px;color:#868e96;text-decoration:underline">KAMIS 친환경 가격 확인</a>
+      </div>
+    </div>` : ''}
+  `;
+
+  resultDiv.scrollIntoView({ behavior: 'smooth' });
+
+  // 기록 저장
+  const record = {
+    date: garakData.date,
+    item: itemName,
+    ourPrice, ourUnit, ecoType: eco.label,
+    garakPrice, garakUnit,
+    diffPct: diffPct.toFixed(1),
+    verdict
+  };
+  history.unshift(record);
+  if (history.length > 30) history = history.slice(0, 30);
+  localStorage.setItem('garakHistory2', JSON.stringify(history));
+  document.getElementById('historyToggle').style.display = 'block';
+}
+
+function showNoData(itemName) {
+  const resultDiv = document.getElementById('resultArea');
+  const content = document.getElementById('resultContent');
+  document.getElementById('inputCard').style.display = 'none';
+  resultDiv.classList.add('show');
+  content.innerHTML = `
+    <div class="verdict-box caution">
+      <div class="verdict-icon">&#128269;</div>
+      <div class="verdict-title">시세 데이터 없음</div>
+      <div class="verdict-sub">"${itemName}"에 대한 가락시장 시세를 찾지 못했습니다.<br>품목명을 다시 확인해주세요.</div>
+    </div>
+  `;
+}
+
+function showError(msg) {
+  const resultDiv = document.getElementById('resultArea');
+  const content = document.getElementById('resultContent');
+  document.getElementById('inputCard').style.display = 'none';
+  resultDiv.classList.add('show');
+  content.innerHTML = `
+    <div class="verdict-box caution">
+      <div class="verdict-icon">&#9888;&#65039;</div>
+      <div class="verdict-title">조회 실패</div>
+      <div class="verdict-sub">시세 데이터를 가져오지 못했습니다.<br>${msg}</div>
+    </div>
+  `;
+}
+
+// ===== 리셋 =====
+function resetForm() {
+  document.getElementById('inputCard').style.display = 'block';
+  document.getElementById('resultArea').classList.remove('show');
+  document.getElementById('itemName').value = '';
+  document.getElementById('ourPrice').value = '';
+  document.getElementById('itemName').focus();
+}
+
+// ===== 기록 =====
+function toggleHistory() {
+  const list = document.getElementById('historyList');
+  if (list.style.display === 'none') {
+    list.style.display = 'block';
+    list.innerHTML = history.map(r => `
+      <div class="history-item">
+        <div>
+          <div class="name">${r.item}</div>
+          <div style="font-size:11px;color:#868e96">${r.date} | ${r.ourPrice?.toLocaleString()}원/${r.ourUnit} vs 가락 ${r.garakPrice?.toLocaleString()}원 (${r.ecoType})</div>
+        </div>
+        <span class="history-badge hb-${r.verdict}">${r.verdict === 'good' ? '적정' : r.verdict === 'caution' ? '주의' : '재검토'}</span>
+      </div>
+    `).join('');
+  } else {
+    list.style.display = 'none';
+  }
+}
+</script>
+
+</body>
+</html>

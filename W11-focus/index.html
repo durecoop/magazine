@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>훈연멸치(200g) - 두레생협</title>
+<meta name="description" content="훈연멸치(200g) 50% 할인 — 3,100원 (3월 9일(월) ~ 3월 13일(금))">
+<meta property="og:title" content="훈연멸치(200g) 50% 할인 — 두레생협">
+<meta property="og:description" content="6,300원 → 3,100원 (3,200원 절약) — 3월 9일(월) ~ 3월 13일(금)">
+<meta property="og:image" content="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57159C.jpg">
+<meta property="og:url" content="https://durecoop.github.io/magazine/W11-focus/">
+<meta property="og:type" content="product">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&family=Noto+Serif+KR:wght@400;600;700&display=swap');
+  :root {
+    --brown:#4a3228; --brown-mid:#7a5c4a; --brown-light:#a08068;
+    --rose:#d4ad9a; --rose-light:#ecddd4; --rose-pale:#f5ece6;
+    --cream:#faf7f4; --warm-bg:#f3eeea;
+    --white:#ffffff; --text:#3a2a20; --sub:#8a7a70; --soft:#b0a498;
+    --line:#e8e0da; --red:#8a5a3a; --red-light:#f5ece6;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{font-size:19px;scroll-behavior:smooth;}
+  html.size-down{font-size:16px;} html.size-sm{font-size:14px;}
+  body{
+    font-family:'Noto Sans KR',-apple-system,sans-serif;
+    color:var(--text);background:var(--cream);max-width:480px;margin:0 auto;
+    padding-bottom:72px;
+  }
+
+  /* ===== FORMAT NAV ===== */
+  .format-nav{
+    display:flex;justify-content:center;gap:4px;
+    padding:10px 16px;padding-top:max(10px,env(safe-area-inset-top));
+    background:rgba(255,255,255,0.95);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+    position:sticky;top:0;z-index:90;
+  }
+  .fn-item{
+    padding:8px 18px;border-radius:20px;font-size:0.7rem;font-weight:700;
+    text-decoration:none;color:var(--sub);background:transparent;
+    border:1px solid transparent;transition:all 0.2s;min-height:36px;
+    display:flex;align-items:center;
+  }
+  .fn-item.active{background:var(--brown);color:#fff;}
+  .fn-item:not(.active):hover{border-color:var(--rose);color:var(--brown);}
+
+  /* ===== FONT CTRL ===== */
+  .font-ctrl{position:fixed;top:12px;right:12px;z-index:200;display:flex;gap:3px;
+    background:rgba(255,255,255,0.9);backdrop-filter:blur(8px);
+    border:1px solid var(--line);border-radius:10px;padding:3px;}
+  .font-ctrl button{border:none;background:none;cursor:pointer;padding:8px 12px;min-height:36px;
+    border-radius:8px;font-size:12px;font-weight:700;color:var(--sub);transition:all 0.2s;}
+  .font-ctrl button.on{background:var(--brown);color:#fff;}
+
+  /* ===== LABEL/TITLE ===== */
+  .label{font-size:0.65rem;font-weight:700;letter-spacing:2px;color:var(--brown-mid);
+    text-transform:uppercase;margin-bottom:8px;}
+  .title{font-family:'Noto Serif KR',serif;font-size:1.4rem;font-weight:800;
+    line-height:1.45;letter-spacing:-0.5px;margin-bottom:8px;word-break:keep-all;}
+  .sub-text{font-size:0.8rem;color:var(--sub);line-height:1.6;}
+  .caption{font-size:0.65rem;color:var(--soft);text-align:center;margin-top:6px;}
+
+  /* ===== HERO ===== */
+  .hero{
+    position:relative;padding:48px 24px 40px;text-align:center;
+    background:linear-gradient(180deg,var(--rose-pale),var(--cream));
+  }
+  .date-box{
+    display:inline-block;background:#e8915a;color:#fff;
+    padding:8px 20px;border-radius:10px;margin-bottom:16px;
+    position:relative;overflow:hidden;
+  }
+  .date-box .db-s{font-size:0.6rem;font-weight:700;letter-spacing:1px;opacity:0.85;}
+  .date-box .db-big{font-size:1.1rem;font-weight:900;margin:2px 0;}
+  .date-box .db-note{font-size:0.55rem;opacity:0.75;}
+  @keyframes shimmer{0%{left:-100%}100%{left:100%}}
+  .date-box::after{
+    content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,0.25),transparent);
+    animation:shimmer 3s infinite;
+  }
+  .h-over{font-size:0.6rem;font-weight:700;letter-spacing:3px;color:var(--brown-mid);margin-bottom:6px;}
+  .h-title{font-family:'Noto Serif KR',serif;font-size:1.75rem;font-weight:900;
+    line-height:1.35;margin-bottom:10px;word-break:keep-all;}
+  .h-desc{font-size:0.8rem;color:var(--sub);line-height:1.65;max-width:340px;margin:0 auto 20px;}
+  .hero-chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;}
+  .hc{background:var(--white);border:1px solid var(--line);border-radius:16px;
+    padding:5px 12px;font-size:0.65rem;font-weight:600;color:var(--brown-mid);}
+
+  /* ===== PRODUCT IMAGE ===== */
+  .prod-img{padding:0 20px 32px;text-align:center;}
+  .prod-img img{width:100%;max-width:320px;border-radius:14px;box-shadow:0 8px 32px rgba(74,50,40,0.1);}
+
+  /* ===== PRICE SECTION ===== */
+  .price-section{padding:32px 20px;background:var(--white);}
+  .price-hero{
+    border:2px solid var(--rose);border-radius:16px;padding:24px 20px;
+    text-align:center;position:relative;margin-bottom:20px;
+  }
+  .ph-badge{
+    position:absolute;top:-14px;left:50%;transform:translateX(-50%);
+    background:var(--brown);color:#fff;font-size:0.65rem;font-weight:800;
+    padding:5px 16px;border-radius:20px;letter-spacing:1px;white-space:nowrap;
+  }
+  .ph-original{font-size:0.85rem;color:var(--soft);text-decoration:line-through;margin-top:8px;}
+  .ph-now{font-size:2.2rem;font-weight:900;color:var(--red);margin:4px 0;}
+  .ph-name{font-size:0.75rem;color:var(--sub);}
+  .price-save{
+    text-align:center;margin-top:12px;padding:10px;
+    background:var(--rose-pale);border-radius:10px;
+    font-size:0.82rem;font-weight:700;color:var(--red);
+  }
+
+  /* ===== FEATURES ===== */
+  .features{padding:48px 20px;background:var(--cream);}
+  .f-grid{display:grid;grid-template-columns:1fr;gap:10px;margin-top:20px;}
+  .fc{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:18px 16px;
+    display:flex;align-items:flex-start;gap:12px;}
+  .fn{font-family:'Noto Serif KR',serif;font-size:0.85rem;font-weight:700;color:var(--rose);
+    flex-shrink:0;width:28px;text-align:center;}
+  .fc p{font-size:0.82rem;color:var(--text);line-height:1.55;}
+
+  /* ===== RECOMMEND ===== */
+  .recommend{padding:48px 20px;background:var(--white);}
+  .rec-list{margin-top:20px;}
+  .ri{display:flex;align-items:flex-start;gap:12px;padding:14px 0;border-bottom:1px solid var(--line);}
+  .ri:last-child{border-bottom:none;}
+  .ri-dot{width:8px;height:8px;border-radius:50%;background:var(--rose);margin-top:6px;flex-shrink:0;}
+  .ri p{font-size:0.82rem;color:var(--text);line-height:1.55;}
+
+  /* ===== TRUST ===== */
+  .trust{padding:48px 20px;background:var(--cream);}
+  .t-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px;}
+  .tc{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:16px 14px;text-align:center;}
+  .tc-ic{font-size:1.5rem;margin-bottom:6px;}
+  .tc h4{font-size:0.78rem;font-weight:700;margin-bottom:4px;}
+  .tc p{font-size:0.65rem;color:var(--sub);line-height:1.5;}
+
+  /* ===== FINAL CTA ===== */
+  .final{padding:48px 20px;text-align:center;background:linear-gradient(180deg,var(--cream),var(--rose-pale));}
+  .final .cta-big{
+    display:inline-block;background:var(--brown);color:#fff;
+    padding:16px 40px;border-radius:12px;text-decoration:none;
+    font-size:1rem;font-weight:800;letter-spacing:0.5px;
+    transition:transform 0.3s,box-shadow 0.3s;
+  }
+  .final .cta-big:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(74,50,40,0.2);}
+
+  /* ===== BOTTOM BAR ===== */
+  .bar{
+    position:fixed;bottom:0;left:50%;transform:translateX(-50%);
+    width:100%;max-width:480px;z-index:100;
+    background:rgba(255,255,255,0.95);backdrop-filter:blur(10px);
+    border-top:1px solid var(--line);
+    display:flex;align-items:center;justify-content:space-between;
+    padding:10px 20px;padding-bottom:max(10px,env(safe-area-inset-bottom));
+  }
+  .bar-left{font-size:0.7rem;color:var(--sub);}
+  .bar-left strong{display:block;font-size:1rem;color:var(--red);font-weight:900;}
+  .bar-btn{
+    background:var(--brown);color:#fff;border:none;cursor:pointer;
+    padding:12px 24px;border-radius:10px;font-size:0.85rem;font-weight:800;
+    text-decoration:none;
+  }
+
+  /* ===== SCROLL PROGRESS ===== */
+  .scroll-progress{
+    position:fixed;top:0;left:50%;transform:translateX(-50%);
+    width:100%;max-width:480px;height:3px;z-index:200;
+    background:transparent;
+  }
+  .scroll-progress .sp-fill{
+    height:100%;width:0%;background:linear-gradient(90deg,var(--rose),var(--brown));
+    transition:width 0.1s;
+  }
+
+  /* ===== SOCIAL PROOF ===== */
+  .social-proof{
+    display:flex;align-items:center;justify-content:center;gap:8px;
+    padding:12px 20px;background:var(--rose-pale);
+    font-size:0.75rem;color:var(--brown-mid);font-weight:600;
+  }
+  .sp-dot{width:6px;height:6px;border-radius:50%;background:#4caf50;animation:spPulse 1.5s infinite;}
+  @keyframes spPulse{0%,100%{opacity:1}50%{opacity:0.3}}
+
+  /* ===== PRICE ANIMATION ===== */
+  .ph-now{font-size:2.2rem;font-weight:900;color:var(--red);margin:4px 0;}
+  .ph-now.counting{animation:priceFlash 0.1s ease-out;}
+  @keyframes priceFlash{0%{transform:scale(1.05);color:#c0392b}100%{transform:scale(1);color:var(--red)}}
+
+  /* ===== REVEAL ===== */
+  .rv{opacity:0;transform:translateY(20px);transition:opacity 0.7s,transform 0.7s;}
+  .rv.vis{opacity:1;transform:translateY(0);}
+
+  /* ===== FOOTER ===== */
+  .foot{padding:32px 20px 24px;text-align:center;background:var(--warm-bg);}
+
+  /* ===== SMALL SCREEN ===== */
+  @media(max-width:360px){
+    html{font-size:16px;}
+    .h-title{font-size:1.4rem;}
+    .ph-now{font-size:1.8rem;}
+    .bar-left strong{font-size:0.9rem;}
+    .bar-btn{padding:10px 18px;font-size:0.8rem;}
+    .hero{padding:36px 16px 32px;}
+    .features,.recommend,.trust{padding:36px 16px;}
+  }
+  .foot p{font-size:0.65rem;color:var(--soft);line-height:1.8;}
+</style>
+</head>
+<body>
+
+<!-- FORMAT NAV -->
+<nav class="format-nav">
+  <a href="https://durecoop.github.io/magazine/W11/" class="fn-item">기획전</a>
+  <a href="https://durecoop.github.io/dure-coop-14week-cardnews/weekly_deal.html" class="fn-item">카드뉴스</a>
+  <a href="https://durecoop.github.io/magazine/W11-focus/" class="fn-item active">추천상품</a>
+</nav>
+
+<!-- FONT SIZE -->
+<div class="font-ctrl">
+  <button onclick="sz('size-sm')" id="f1">A-</button>
+  <button onclick="sz('')" id="f2" class="on">A</button>
+  <button onclick="sz('size-down')" id="f3">A+</button>
+</div>
+
+<!-- SCROLL PROGRESS -->
+<div class="scroll-progress"><div class="sp-fill" id="spFill"></div></div>
+
+<!-- SOCIAL PROOF -->
+<div class="social-proof">
+  <span class="sp-dot"></span>
+  <span>이번 주 <strong>여러명</strong>이 이 상품을 주문했어요</span>
+</div>
+
+<!-- HERO -->
+<section class="hero rv">
+  <div class="date-box">
+    <div class="db-s">두레생협 주간기획</div>
+    <div class="db-big">3월 9일(월) ~ 3월 13일(금)</div>
+    <div class="db-note">이번 주만 적용되는 특별 가격</div>
+  </div>
+  <div class="h-over">두레생협 11주 추천</div>
+  <h1 class="h-title">훈연멸치(200g)</h1>
+  <p class="h-desc">놓치지 마세요!</p>
+  <div class="hero-chips">
+    <span class="hc">200g</span>
+    <span class="hc">031-799-3373(회계</span>
+    <span class="hc">50% 할인</span>
+  </div>
+</section>
+
+<!-- PRODUCT IMAGE -->
+<div class="prod-img rv">
+  <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57159C.jpg" alt="훈연멸치(200g)" onerror="imgFallback(this)">
+</div>
+
+<!-- PRICE -->
+<section class="price-section rv">
+  <div class="price-hero">
+    <div class="ph-badge">50% 할인</div>
+    <div class="ph-original">6,300원</div>
+    <div class="ph-now">3,100원</div>
+    <div class="ph-name">훈연멸치(200g) (200g)</div>
+  </div>
+  <div class="price-save">3,200원 절약!</div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+  <div class="label rv">FEATURES</div>
+  <div class="title rv">이런 점이 좋아요</div>
+  <div class="f-grid">
+    
+            <div class="fc rv">
+                <div class="fn">01</div>
+                <p>규격: 200g</p>
+            </div>
+
+            <div class="fc rv">
+                <div class="fn">02</div>
+                <p>원산지: 031-799-3373(회계</p>
+            </div>
+  </div>
+</section>
+
+<!-- RECOMMEND -->
+<section class="recommend">
+  <div class="label rv">RECOMMEND</div>
+  <div class="title rv">이런 분께 추천해요</div>
+  <div class="rec-list">
+    <div class="ri rv"><div class="ri-dot"></div><p>건강한 먹거리를 찾는 가정</p></div>
+    <div class="ri rv"><div class="ri-dot"></div><p>국내산 원료를 중시하는 분</p></div>
+    <div class="ri rv"><div class="ri-dot"></div><p>가성비 좋은 품질을 원하는 분</p></div>
+    <div class="ri rv"><div class="ri-dot"></div><p>두레생협을 믿고 이용하시는 조합원</p></div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<section class="trust">
+  <div class="label rv">TRUST</div>
+  <div class="title rv">안심 포인트</div>
+  <div class="t-cards">
+    <div class="tc rv"><div class="tc-ic">&#127807;</div><h4>엄선된 원료</h4><p>국내산 원료 우선 사용</p></div>
+    <div class="tc rv"><div class="tc-ic">&#128722;</div><h4>합리적 가격</h4><p>조합원 전용 할인 적용</p></div>
+    <div class="tc rv"><div class="tc-ic">&#9989;</div><h4>품질 관리</h4><p>생협 기준 안전 검사</p></div>
+    <div class="tc rv"><div class="tc-ic">&#128230;</div><h4>신선 배송</h4><p>냉장/냉동 안전 배송</p></div>
+  </div>
+</section>
+
+<!-- DETAIL IMAGE -->
+<div class="prod-img rv">
+  <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57159A.jpg" alt="훈연멸치(200g) 상세" onerror="imgFallback(this)">
+</div>
+
+<!-- FINAL CTA -->
+<section class="final rv">
+  <div class="title" style="margin-bottom:16px;">지금 주문하면<br>50% 할인 적용!</div>
+  <a href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1655" class="cta-big" target="_blank">기획전 바로가기</a>
+</section>
+
+<!-- FOOTER -->
+<div class="foot">
+  <p>두레생협 | 사람과 자연이 함께하는 생활협동조합<br>
+  문의: 1800-6416</p>
+</div>
+
+<!-- BOTTOM BAR -->
+<div class="bar">
+  <div class="bar-left">
+    <span>훈연멸치(200g)</span>
+    <strong>3,100원</strong>
+  </div>
+  <a href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1655" class="bar-btn" target="_blank">주문하러 가기</a>
+</div>
+
+<script>
+// Font size
+function sz(cls){
+  document.documentElement.className=cls;
+  document.querySelectorAll('.font-ctrl button').forEach(function(b){b.classList.remove('on');});
+  if(cls==='size-sm') document.getElementById('f1').classList.add('on');
+  else if(cls==='') document.getElementById('f2').classList.add('on');
+  else document.getElementById('f3').classList.add('on');
+}
+// Image fallback (jpg → png → hide)
+function imgFallback(el){
+  var src=el.src;
+  if(src.endsWith('.jpg')) el.src=src.replace(/\.jpg$/,'.png');
+  else if(src.endsWith('.png')) el.src=src.replace(/\.png$/,'.jpeg');
+  else el.style.display='none';
+}
+// Scroll reveal
+var io=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting)x.target.classList.add('vis')});},{threshold:.1});
+document.querySelectorAll('.rv').forEach(function(el){io.observe(el)});
+
+// Scroll progress bar
+window.addEventListener('scroll',function(){
+  var h=document.documentElement.scrollHeight-window.innerHeight;
+  var p=h>0?(window.scrollY/h*100):0;
+  var f=document.getElementById('spFill');
+  if(f) f.style.width=Math.min(p,100)+'%';
+});
+
+// Price count animation
+(function(){
+  var el=document.querySelector('.ph-now');
+  if(!el) return;
+  var raw=el.textContent.replace(/[^0-9]/g,'');
+  var target=parseInt(raw);
+  if(!target) return;
+  var start=Math.round(target*1.3), dur=1000, t0=null;
+  el.textContent='';
+  var pio=new IntersectionObserver(function(entries){
+    if(entries[0].isIntersecting){
+      pio.disconnect();
+      function step(ts){
+        if(!t0) t0=ts;
+        var p=Math.min((ts-t0)/dur,1);
+        var ease=1-Math.pow(1-p,3);
+        var v=Math.round(start+(target-start)*ease);
+        el.textContent=v.toLocaleString()+'원';
+        if(p<1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+  },{threshold:0.5});
+  pio.observe(el);
+})();
+</script>
+
+</body>
+</html>

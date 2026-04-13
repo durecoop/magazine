@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>두레생협 가격비교</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif;background:#f0f2f5;color:#1a1a2e;word-break:keep-all;min-height:100vh}
+.hdr{background:linear-gradient(135deg,#1a5632,#2d8a4e);color:#fff;padding:18px 20px;text-align:center;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.15)}
+.hdr h1{font-size:20px;font-weight:800}.hdr p{font-size:12px;opacity:.8;margin-top:3px}
+.ct{max-width:880px;margin:0 auto;padding:14px}
+.cd{background:#fff;border-radius:14px;padding:20px;margin-bottom:12px;box-shadow:0 1px 6px rgba(0,0,0,.06)}
+.cd h2{font-size:15px;color:#1a5632;margin-bottom:12px;font-weight:800}
+.sr{display:flex;gap:10px}
+.si{flex:1;padding:13px 16px;border:2px solid #e9ecef;border-radius:12px;font-size:16px;outline:none}.si:focus{border-color:#2d8a4e}
+.bt{padding:13px 22px;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;white-space:nowrap;transition:all .15s}
+.bt-p{background:linear-gradient(135deg,#1a5632,#2d8a4e);color:#fff}.bt-p:hover{transform:translateY(-1px)}
+/* 두레 입력 */
+.dr{display:flex;gap:10px;align-items:center;margin-top:12px;background:#f0faf5;padding:12px 16px;border-radius:12px;border:2px solid #d4edda;flex-wrap:wrap}
+.dr label{font-size:14px;font-weight:800;color:#1a5632;white-space:nowrap}
+.di{width:140px;padding:10px 12px;border:2px solid #b7d7c8;border-radius:10px;font-size:16px;font-weight:700;color:#1a5632;background:#fff;outline:none;text-align:right}
+.di:focus{border-color:#2d8a4e}
+.dw{width:100px;padding:10px 12px;border:2px solid #b7d7c8;border-radius:10px;font-size:14px;font-weight:600;color:#1a5632;background:#fff;outline:none;text-align:center}
+/* 요약 */
+.sm{display:none;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.sm.sh{display:grid}
+.si2{background:#fff;border-radius:12px;padding:14px;text-align:center;box-shadow:0 1px 6px rgba(0,0,0,.06)}
+.si2 .lb{font-size:11px;color:#868e96;font-weight:600}.si2 .vl{font-size:22px;font-weight:800;margin-top:4px}
+.si2.gn .vl{color:#1a5632}.si2.rd .vl{color:#e03131}.si2.gy .vl{color:#495057}
+/* 쇼핑몰 행 */
+.mb{margin-bottom:10px;border-radius:12px;overflow:hidden;border:1px solid #e9ecef;background:#fff}
+.mr{display:flex;gap:8px;align-items:center;padding:12px 16px;flex-wrap:wrap}
+.mi{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#fff;flex-shrink:0}
+.lk{padding:8px 14px;background:#fff;border:2px solid #e9ecef;border-radius:8px;font-size:12px;font-weight:700;color:#495057;text-decoration:none;white-space:nowrap}.lk:hover{border-color:#2d8a4e;color:#1a5632}
+.mx{width:120px;padding:8px 10px;border:2px solid #e9ecef;border-radius:8px;font-size:14px;font-weight:700;text-align:right;outline:none}.mx:focus{border-color:#2d8a4e}
+.mw{width:80px;padding:8px 10px;border:2px solid #e9ecef;border-radius:8px;font-size:13px;font-weight:600;text-align:center;outline:none}.mw:focus{border-color:#2d8a4e}
+.md{font-size:12px;font-weight:700;white-space:nowrap}
+.dc{color:#1a5632}.de{color:#e03131}.ds{color:#868e96}
+/* 차트 */
+.cb{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.cl{width:70px;font-size:12px;font-weight:700;text-align:right;flex-shrink:0;color:#495057}.cl.du{color:#1a5632}
+.cw{flex:1;background:#f0f2f5;border-radius:6px;height:28px;overflow:hidden}
+.cv{height:100%;border-radius:6px;transition:width .6s;display:flex;align-items:center;padding-left:8px;font-size:11px;font-weight:700;color:#fff;min-width:60px}
+.b-d{background:linear-gradient(90deg,#1a5632,#2d8a4e)}.b-o{background:#adb5bd}.b-m{background:#e44232}
+/* 단가 테이블 */
+.ut{width:100%;border-collapse:collapse;font-size:13px;margin-top:12px}
+.ut th{background:#f0faf5;padding:10px 8px;text-align:left;font-weight:700;color:#1a5632;border-bottom:2px solid #d4edda}
+.ut td{padding:10px 8px;border-bottom:1px solid #f1f3f5}
+.ut tr:hover{background:#f8faf8}
+.ut .r{text-align:right;font-weight:700;font-variant-numeric:tabular-nums}
+.ut .mn{color:#1a5632;font-weight:800}.ut .mx2{color:#e03131}
+.hi{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:#f8f9fa;border-radius:10px;margin-bottom:6px;font-size:13px;cursor:pointer}.hi:hover{background:#e9ecef}
+.em{text-align:center;padding:30px;color:#adb5bd}
+.ft{text-align:center;padding:20px;font-size:13px;color:#868e96;margin-top:20px}
+@media(max-width:600px){.ct{padding:10px}.sr{flex-direction:column}.bt{width:100%}.dr{flex-direction:column;align-items:stretch}.sm.sh{grid-template-columns:1fr}.cl{width:55px;font-size:11px}.mr{gap:6px}}
+</style>
+</head>
+<body>
+<div class="hdr"><h1>두레생협 가격비교</h1><p>쇼핑몰별 가격 비교 + 중량별 단가 계산</p></div>
+<div class="ct">
+
+<div class="cd">
+  <h2>비교할 상품</h2>
+  <div class="sr">
+    <input type="text" class="si" id="q" placeholder="상품명 (예: 유기농 사과 1kg)" onkeydown="if(event.key==='Enter')go()">
+    <button class="bt bt-p" onclick="go()">비교 시작</button>
+  </div>
+  <div class="dr">
+    <label>두레 조합원가</label>
+    <input type="text" class="di" id="dP" placeholder="0" oninput="fmt(this);calc()">
+    <span style="font-size:14px;color:#1a5632;font-weight:600">원</span>
+    <span style="color:#ccc">/</span>
+    <input type="text" class="dw" id="dW" placeholder="중량" value="" oninput="calc()">
+    <span style="font-size:12px;color:#868e96">(예: 1kg, 500g)</span>
+  </div>
+</div>
+
+<div class="sm" id="sum">
+  <div class="si2 gn"><div class="lb">두레가 저렴</div><div class="vl" id="s1">0</div></div>
+  <div class="si2 gy"><div class="lb">비슷 (5%이내)</div><div class="vl" id="s2">0</div></div>
+  <div class="si2 rd"><div class="lb">두레가 비쌈</div><div class="vl" id="s3">0</div></div>
+</div>
+
+<div id="mallArea" style="display:none"></div>
+
+<div class="cd" id="chartCard" style="display:none">
+  <h2>가격 비교 차트</h2>
+  <div id="chartBars"></div>
+</div>
+
+<div class="cd" id="unitCard" style="display:none">
+  <h2>1kg당 단가 비교</h2>
+  <p style="font-size:12px;color:#868e96;margin-bottom:4px">중량을 입력한 항목만 단가 계산됩니다</p>
+  <div id="unitBars"></div>
+  <table class="ut"><thead><tr><th>쇼핑몰</th><th class="r">가격</th><th>중량</th><th class="r">1kg당</th><th class="r">두레 대비</th></tr></thead><tbody id="unitBody"></tbody></table>
+</div>
+
+<div class="cd"><h2>최근 검색</h2><div id="hist"></div></div>
+<div class="ft">두레생협 조합원 상담실 1661-5110</div>
+</div>
+
+<script>
+const MALLS=[
+  {id:'hansalim',name:'한살림',color:'#4caf50',icon:'한',url:q=>`https://shop.hansalim.or.kr/shopping/prod/searchList.do?SRCH_WD=${enc(q)}`},
+  {id:'icoop',name:'자연드림',color:'#8bc34a',icon:'i',url:q=>`https://www.icoop.or.kr/coopmall/search_product?search_word=${enc(q)}`},
+  {id:'oasis',name:'오아시스',color:'#00bcd4',icon:'O',url:q=>`https://www.oasis.co.kr/product/search?keyword=${enc(q)}`},
+  {id:'kurly',name:'컬리',color:'#5f0080',icon:'K',url:q=>`https://www.kurly.com/search?sword=${enc(q)}`},
+  {id:'coupang',name:'쿠팡',color:'#e44232',icon:'C',url:q=>`https://www.coupang.com/np/search?q=${enc(q)}`},
+  {id:'ssg',name:'SSG/이마트',color:'#ff5252',icon:'S',url:q=>`https://www.ssg.com/search.ssg?query=${enc(q)}`},
+  {id:'naver',name:'네이버쇼핑',color:'#03c75a',icon:'N',url:q=>`https://search.shopping.naver.com/search/all?query=${enc(q)}`}
+];
+const enc=encodeURIComponent;
+let data={},hist=JSON.parse(localStorage.getItem('pc5')||'[]'),lastQ='';
+
+function $(id){return document.getElementById(id)}
+function fmt(el){let v=el.value.replace(/[^\d]/g,'');el.value=v?parseInt(v).toLocaleString():'';}
+function gN(el){return parseInt((el.value||'0').replace(/[^\d]/g,''))||0;}
+
+function parseW(s){
+  if(!s)return null;s=s.replace(/\s+/g,'');
+  let m=s.match(/(\d+(?:\.\d+)?)\s*[kK][gG]/);if(m)return{g:parseFloat(m[1])*1000,label:m[0]};
+  m=s.match(/(\d+)\s*[gG](?![a-zA-Z])/);if(m)return{g:parseInt(m[1]),label:m[0]};
+  m=s.match(/(\d+(?:\.\d+)?)\s*[lL](?![a-zA-Z])/);if(m)return{g:parseFloat(m[1])*1000,label:m[0]};
+  m=s.match(/(\d+)\s*[mM][lL]/);if(m)return{g:parseInt(m[1]),label:m[0]};
+  return null;
+}
+function uP(price,w){return w&&w.g>0?Math.round(price/w.g*1000):null;}
+
+function go(){
+  lastQ=$('q').value.trim();
+  if(!lastQ)return;
+  data={};
+  const area=$('mallArea');
+  area.style.display='block';
+  area.innerHTML=MALLS.map(m=>`<div class="mb"><div class="mr" id="row-${m.id}">
+    <div class="mi" style="background:${m.color}">${m.icon}</div>
+    <div style="flex:1"><span style="font-weight:700;font-size:14px">${m.name}</span></div>
+    <a class="lk" href="${m.url(lastQ)}" target="_blank">검색 →</a>
+    <input type="text" class="mx" id="p-${m.id}" placeholder="가격" oninput="fmt(this);calc()">
+    <span style="font-size:13px;color:#868e96">원 /</span>
+    <input type="text" class="mw" id="w-${m.id}" placeholder="중량" oninput="calc()">
+    <div class="md" id="d-${m.id}"></div>
+  </div></div>`).join('');
+  saveHist();
+  calc();
+  area.scrollIntoView({behavior:'smooth'});
+}
+
+function calc(){
+  const dure=gN($('dP')), dWs=$('dW').value, dW=parseW(dWs), dUnit=uP(dure,dW);
+  const entries=[], unitEntries=[];
+  let cheap=0,sim=0,exp=0;
+
+  if(dure>0) entries.push({name:'두레생협',price:dure,isDure:true});
+  if(dure>0&&dUnit) unitEntries.push({mall:'두레생협',price:dure,weight:dW,unitPrice:dUnit,isDure:true});
+
+  MALLS.forEach(m=>{
+    const pEl=$('p-'+m.id), wEl=$('w-'+m.id), dEl=$('d-'+m.id);
+    if(!pEl)return;
+    const p=gN(pEl), w=parseW(wEl.value), up=uP(p,w);
+
+    if(p>0){
+      entries.push({name:m.name,price:p});
+      if(up) unitEntries.push({mall:m.name,price:p,weight:w,unitPrice:up});
+    }
+
+    // 가격 비교
+    if(dEl){
+      if(dure>0&&p>0){
+        const diff=dure-p, pct=diff/p*100;
+        if(Math.abs(pct)<=5){dEl.innerHTML=`<span class="ds">비슷</span>`;sim++;}
+        else if(diff<0){dEl.innerHTML=`<span class="dc">${diff.toLocaleString()}원</span>`;cheap++;}
+        else{dEl.innerHTML=`<span class="de">+${diff.toLocaleString()}원</span>`;exp++;}
+      } else dEl.innerHTML='';
+    }
+  });
+
+  // 요약
+  if(dure>0&&(cheap+sim+exp)>0){$('sum').classList.add('sh');$('s1').textContent=cheap;$('s2').textContent=sim;$('s3').textContent=exp;}
+  else $('sum').classList.remove('sh');
+
+  // 가격 차트
+  const cc=$('chartCard');
+  if(entries.length>=2){
+    cc.style.display='block';
+    const max=Math.max(...entries.map(e=>e.price));
+    entries.sort((a,b)=>a.price-b.price);
+    const mn=entries[0].price;
+    $('chartBars').innerHTML=entries.map(e=>{
+      const p=Math.max(15,e.price/max*100);
+      let c='b-o';if(e.isDure)c='b-d';else if(e.price===mn)c='b-m';
+      return `<div class="cb"><div class="cl ${e.isDure?'du':''}">${e.name}</div><div class="cw"><div class="cv ${c}" style="width:${p}%">${e.price.toLocaleString()}원</div></div></div>`;
+    }).join('');
+  } else cc.style.display='none';
+
+  // 단가 차트+테이블
+  const uc=$('unitCard');
+  if(unitEntries.length>=1){
+    uc.style.display='block';
+    unitEntries.sort((a,b)=>a.unitPrice-b.unitPrice);
+    const mx=Math.max(...unitEntries.map(e=>e.unitPrice));
+    const mn=Math.min(...unitEntries.map(e=>e.unitPrice));
+
+    $('unitBars').innerHTML=unitEntries.map(e=>{
+      const p=Math.max(15,e.unitPrice/mx*100);
+      let c='b-o';if(e.isDure)c='b-d';else if(e.unitPrice===mn)c='b-m';
+      return `<div class="cb"><div class="cl ${e.isDure?'du':''}">${e.mall}</div><div class="cw"><div class="cv ${c}" style="width:${p}%">${e.unitPrice.toLocaleString()}원/kg</div></div></div>`;
+    }).join('');
+
+    $('unitBody').innerHTML=unitEntries.map(e=>{
+      const cls=e.unitPrice===mn?'mn':e.unitPrice===mx?'mx2':'';
+      let vs='';
+      if(dUnit&&!e.isDure){
+        const d=dUnit-e.unitPrice,pct=(d/e.unitPrice*100);
+        if(Math.abs(pct)<=5) vs=`<span class="ds">비슷</span>`;
+        else if(d<0) vs=`<span class="dc">두레 ${Math.abs(pct).toFixed(0)}% 저렴</span>`;
+        else vs=`<span class="de">두레 ${pct.toFixed(0)}% 비쌈</span>`;
+      } else if(e.isDure) vs='<span style="color:#1a5632">기준</span>';
+      return `<tr><td><b>${e.mall}</b></td><td class="r">${e.price.toLocaleString()}원</td><td>${e.weight.label}</td><td class="r ${cls}">${e.unitPrice.toLocaleString()}원</td><td class="r">${vs}</td></tr>`;
+    }).join('');
+  } else uc.style.display='none';
+}
+
+function saveHist(){
+  const q=lastQ,d=gN($('dP')),w=$('dW').value;
+  const i=hist.findIndex(h=>h.q===q);if(i>=0)hist.splice(i,1);
+  hist.unshift({q,d,w,t:new Date().toISOString().slice(0,16).replace('T',' ')});
+  if(hist.length>20)hist=hist.slice(0,20);
+  localStorage.setItem('pc5',JSON.stringify(hist));renderHist();
+}
+function renderHist(){
+  const el=$('hist');
+  if(!hist.length){el.innerHTML='<div class="em">각 쇼핑몰에서 가격을 확인하고 입력하면<br>자동으로 비교 차트가 생성됩니다</div>';return;}
+  el.innerHTML=hist.slice(0,10).map((h,i)=>`<div class="hi" onclick="ldH(${i})"><div><b>${h.q}</b>
+    <span style="font-size:11px;color:#868e96;margin-left:8px">${h.t}${h.d?' | '+h.d.toLocaleString()+'원':''}${h.w?' / '+h.w:''}</span></div>
+    <span style="font-size:12px;color:#adb5bd">불러오기</span></div>`).join('')+
+    `<div style="text-align:center;margin-top:8px"><button onclick="hist=[];localStorage.removeItem('pc5');renderHist()" style="background:none;border:none;color:#adb5bd;font-size:12px;cursor:pointer">기록삭제</button></div>`;
+}
+function ldH(i){const h=hist[i];if(!h)return;$('q').value=h.q;if(h.d)$('dP').value=h.d.toLocaleString();if(h.w)$('dW').value=h.w;go();}
+renderHist();
+</script>
+</body>
+</html>
