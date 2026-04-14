@@ -14,7 +14,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-html{font-size:16px;-webkit-text-size-adjust:100%}
+html{font-size:14px;-webkit-text-size-adjust:100%}
 body{
   font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Malgun Gothic',sans-serif;
   background:#f5f3ef;color:#2c2c2c;
@@ -26,22 +26,22 @@ body{
 /* 히어로 */
 .hero{
   background:linear-gradient(135deg,#2d5a27,#4a8c3f);
-  color:#fff;padding:44px 20px 36px;text-align:center;
+  color:#fff;padding:32px 16px 28px;text-align:center;
 }
 .hero-badge{
   display:inline-block;background:rgba(255,255,255,.2);
   padding:4px 14px;border-radius:20px;
   font-size:11px;font-weight:700;letter-spacing:2px;margin-bottom:14px;
 }
-.hero h1{font-size:24px;font-weight:900;line-height:1.3;margin-bottom:8px}
-.hero-sub{font-size:14px;opacity:.8;line-height:1.5}
+.hero h1{font-size:18px;font-weight:900;line-height:1.3;margin-bottom:6px}
+.hero-sub{font-size:12px;opacity:.8;line-height:1.5}
 .hero-stats{
   display:flex;justify-content:center;gap:24px;
   margin-top:20px;padding-top:16px;border-top:1px solid rgba(255,255,255,.2);
 }
 .hero-stat{text-align:center}
-.hero-stat .n{font-size:22px;font-weight:900}
-.hero-stat .l{font-size:10px;opacity:.6;margin-top:2px}
+.hero-stat .n{font-size:18px;font-weight:900}
+.hero-stat .l{font-size:9px;opacity:.6;margin-top:2px}
 
 /* 네비 */
 .nav{
@@ -52,61 +52,55 @@ body{
 }
 .nav::-webkit-scrollbar{display:none}
 .nav a{
-  flex-shrink:0;padding:8px 16px;border-radius:20px;
-  font-size:13px;font-weight:600;color:#666;
+  flex-shrink:0;padding:6px 12px;border-radius:16px;
+  font-size:11px;font-weight:600;color:#666;
   text-decoration:none;background:#f5f3ef;
   white-space:nowrap;
 }
 .nav a.active{background:#2d5a27;color:#fff}
 
 /* 섹션 */
-.sec{padding:20px 16px}
+.sec{padding:16px 14px}
 .sec-head{
-  display:flex;align-items:center;gap:10px;
-  margin-bottom:16px;padding-bottom:10px;
+  display:flex;align-items:center;gap:8px;
+  margin-bottom:12px;padding-bottom:8px;
   border-bottom:2px solid #2d5a27;
 }
 .sec-num{
-  width:28px;height:28px;border-radius:50%;
+  width:24px;height:24px;border-radius:50%;
   background:#2d5a27;color:#fff;
   display:flex;align-items:center;justify-content:center;
-  font-size:12px;font-weight:800;flex-shrink:0;
+  font-size:10px;font-weight:800;flex-shrink:0;
 }
-.sec-title{font-size:17px;font-weight:800;line-height:1.3}
-.sec-count{font-size:11px;color:#999;margin-left:auto;flex-shrink:0}
+.sec-title{font-size:14px;font-weight:800;line-height:1.3}
+.sec-count{font-size:10px;color:#999;margin-left:auto;flex-shrink:0}
 
 /* 상품 카드 — 가로형 리스트 (모바일 최적) */
 .item{
-  display:flex;gap:14px;
-  background:#fff;border-radius:12px;
-  padding:12px;margin-bottom:10px;
+  display:flex;gap:10px;
+  background:#fff;border-radius:10px;
+  padding:10px;margin-bottom:8px;
   border:1px solid #f0ece6;
 }
 .item-img{
-  width:90px;height:90px;flex-shrink:0;
-  border-radius:10px;overflow:hidden;background:#f5f0e8;
+  width:72px;height:72px;flex-shrink:0;
+  border-radius:8px;overflow:hidden;background:#f5f0e8;
   position:relative;
 }
 .item-img img{width:100%;height:100%;object-fit:cover}
 .item-badge{
-  position:absolute;top:4px;left:4px;
+  position:absolute;top:3px;left:3px;
   background:#e53935;color:#fff;
-  font-size:11px;font-weight:800;
-  padding:2px 6px;border-radius:4px;
+  font-size:10px;font-weight:800;
+  padding:1px 5px;border-radius:3px;
 }
 .item-info{flex:1;display:flex;flex-direction:column;justify-content:center;min-width:0}
-.item-name{font-size:15px;font-weight:700;line-height:1.4;margin-bottom:4px;
+.item-name{font-size:13px;font-weight:600;line-height:1.4;margin-bottom:3px;
   display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.item-spec{font-size:12px;color:#999;margin-bottom:6px}
-.item-prices{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}
-.item-original{font-size:12px;color:#bbb;text-decoration:line-through}
-.item-sale{font-size:19px;font-weight:800;color:#c0392b}
-.item-won{font-size:13px;font-weight:500;color:#c0392b}
-.item-disc{
-  display:inline-block;background:#fff5f5;color:#e53935;
-  font-size:12px;font-weight:700;padding:2px 8px;border-radius:4px;
-  margin-top:4px;
-}
+.item-prices{display:flex;align-items:baseline;gap:4px;flex-wrap:wrap}
+.item-original{font-size:11px;color:#bbb;text-decoration:line-through}
+.item-sale{font-size:15px;font-weight:800;color:#c0392b}
+.item-won{font-size:11px;font-weight:500;color:#c0392b}
 
 /* 서브배너 */
 .sub-banner{
@@ -120,10 +114,10 @@ body{
   background:#fff;border-bottom:1px solid #eee;
 }
 .cross a{
-  flex:1;display:block;padding:10px;
-  border-radius:10px;background:#f5f3ef;
+  flex:1;display:block;padding:8px;
+  border-radius:8px;background:#f5f3ef;
   text-align:center;text-decoration:none;
-  font-size:12px;font-weight:600;color:#555;
+  font-size:11px;font-weight:600;color:#555;
 }
 
 /* 푸터 */
@@ -186,12 +180,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">한마리 삼계탕</div>
-    <div class="item-spec">900g</div>
     <div class="item-prices">
       <span class="item-original">14,000원</span>
       <span class="item-sale">11,000</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">21% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -200,12 +192,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">유기농 찹쌀누룽지</div>
-    <div class="item-spec">300g</div>
     <div class="item-prices">
       <span class="item-original">4,600원</span>
       <span class="item-sale">4,100</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">10% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -214,12 +204,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">참옻진액(1.5L)</div>
-    <div class="item-spec">1.5L</div>
     <div class="item-prices">
       <span class="item-original">10,400원</span>
       <span class="item-sale">9,400</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">9% 할인</span>
   </div>
 </div>
 </div>
@@ -236,12 +224,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">열무김치(1kg)</div>
-    <div class="item-spec">1kg</div>
     <div class="item-prices">
       <span class="item-original">7,000원</span>
       <span class="item-sale">6,300</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">10% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -250,12 +236,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">메밀국수</div>
-    <div class="item-spec">400g</div>
     <div class="item-prices">
       <span class="item-original">4,500원</span>
       <span class="item-sale">4,100</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">8% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -264,12 +248,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">7곡 미숫가루</div>
-    <div class="item-spec">1kg</div>
     <div class="item-prices">
       <span class="item-original">15,500원</span>
       <span class="item-sale">12,500</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">19% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -278,12 +260,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">백김치(국산/2kg)</div>
-    <div class="item-spec">2kg</div>
     <div class="item-prices">
       <span class="item-original">14,500원</span>
       <span class="item-sale">11,600</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">20% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -292,12 +272,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">단백질쉐이크</div>
-    <div class="item-spec">300g</div>
     <div class="item-prices">
       <span class="item-original">13,500원</span>
       <span class="item-sale">11,400</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">15% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -306,12 +284,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">오미자로 쭈</div>
-    <div class="item-spec">120ml</div>
     <div class="item-prices">
       <span class="item-original">1,350원</span>
       <span class="item-sale">1,150</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">14% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -320,12 +296,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">콩국물(페트/1L)</div>
-    <div class="item-spec">1L</div>
     <div class="item-prices">
       <span class="item-original">6,500원</span>
       <span class="item-sale">5,700</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">12% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -334,12 +308,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">유기농우유(1000ml.)</div>
-    <div class="item-spec">1000ml(pet)</div>
     <div class="item-prices">
       <span class="item-original">5,700원</span>
       <span class="item-sale">5,000</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">12% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -348,12 +320,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">보리냉면사리</div>
-    <div class="item-spec">170g(1인분)</div>
     <div class="item-prices">
       <span class="item-original">1,700원</span>
       <span class="item-sale">1,500</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">11% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -362,12 +332,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">냉면육수(300g)</div>
-    <div class="item-spec">300g</div>
     <div class="item-prices">
       <span class="item-original">1,700원</span>
       <span class="item-sale">1,500</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">11% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -376,12 +344,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">서리태쉐이크</div>
-    <div class="item-spec">200g</div>
     <div class="item-prices">
       <span class="item-original">10,600원</span>
       <span class="item-sale">9,500</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">10% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -390,12 +356,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">비빔쫄면</div>
-    <div class="item-spec">면 170g×2개, 소스 60g×2개</div>
     <div class="item-prices">
       <span class="item-original">6,000원</span>
       <span class="item-sale">5,400</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">10% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -404,12 +368,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">맛들찬 청참외장아찌(500g)</div>
-    <div class="item-spec">500g</div>
     <div class="item-prices">
       <span class="item-original">15,500원</span>
       <span class="item-sale">14,000</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">9% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -418,12 +380,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">맛들찬 울외장아찌(500g)</div>
-    <div class="item-spec">500g</div>
     <div class="item-prices">
       <span class="item-original">13,500원</span>
       <span class="item-sale">12,200</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">9% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -432,12 +392,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">맛들찬 무장아찌(500g)</div>
-    <div class="item-spec">500g</div>
     <div class="item-prices">
       <span class="item-original">13,500원</span>
       <span class="item-sale">12,200</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">9% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -446,12 +404,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">보리물냉면</div>
-    <div class="item-spec">면 170g×2개, 육수 300g×2개</div>
     <div class="item-prices">
       <span class="item-original">6,500원</span>
       <span class="item-sale">5,900</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">9% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -460,12 +416,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">보리비빔냉면</div>
-    <div class="item-spec">면 170g×2개, 육수 120g×2개</div>
     <div class="item-prices">
       <span class="item-original">6,500원</span>
       <span class="item-sale">5,900</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">9% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -474,12 +428,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">물막국수</div>
-    <div class="item-spec">면 170g×2개, 육수 300g×2개</div>
     <div class="item-prices">
       <span class="item-original">6,500원</span>
       <span class="item-sale">5,900</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">9% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -488,12 +440,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">비빔막국수</div>
-    <div class="item-spec">면 170g×2개, 소스 60g×2개</div>
     <div class="item-prices">
       <span class="item-original">6,500원</span>
       <span class="item-sale">5,900</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">9% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -502,12 +452,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">오이지(350g)</div>
-    <div class="item-spec">350g</div>
     <div class="item-prices">
       <span class="item-original">5,500원</span>
       <span class="item-sale">5,000</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">9% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -516,12 +464,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">비빔라면</div>
-    <div class="item-spec">140g</div>
     <div class="item-prices">
       
       <span class="item-sale">2,000</span><span class="item-won">원</span>
     </div>
-    
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -530,12 +476,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">순도토리면</div>
-    <div class="item-spec">240g(80gX3개)</div>
     <div class="item-prices">
       
       <span class="item-sale">12,500</span><span class="item-won">원</span>
     </div>
-    
   </div>
 </div>
 </div>
@@ -552,12 +496,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">탄력 마스크팩(콜라겐)5개</div>
-    <div class="item-spec">25ml x 5개</div>
     <div class="item-prices">
       <span class="item-original">7,500원</span>
       <span class="item-sale">6,700</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">10% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -566,12 +508,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">진정 마스크팩(알로에)5개</div>
-    <div class="item-spec">25ml x 5개</div>
     <div class="item-prices">
       <span class="item-original">7,500원</span>
       <span class="item-sale">6,700</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">10% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -580,12 +520,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">미백 마스크팩(발효쌀)5개</div>
-    <div class="item-spec">25ml x 5개</div>
     <div class="item-prices">
       <span class="item-original">7,500원</span>
       <span class="item-sale">6,700</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">10% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -594,12 +532,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">(기획세트) 베이스 선크림</div>
-    <div class="item-spec">40g+20g</div>
     <div class="item-prices">
       <span class="item-original">13,500원</span>
       <span class="item-sale">12,100</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">10% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -608,12 +544,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">허브염색약(옅은갈색)</div>
-    <div class="item-spec">20gx3개</div>
     <div class="item-prices">
       <span class="item-original">9,900원</span>
       <span class="item-sale">8,900</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">10% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -622,12 +556,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">허브염색약(짙은갈색)</div>
-    <div class="item-spec">20gx3개</div>
     <div class="item-prices">
       <span class="item-original">9,900원</span>
       <span class="item-sale">8,900</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">10% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -636,12 +568,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">허브염색약(자연흑색)</div>
-    <div class="item-spec">20gx3개</div>
     <div class="item-prices">
       <span class="item-original">9,900원</span>
       <span class="item-sale">8,900</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">10% 할인</span>
   </div>
 </div>
 </div>
@@ -658,12 +588,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">다짐 광어살(120g)</div>
-    <div class="item-spec">120g(4구)</div>
     <div class="item-prices">
       <span class="item-original">13,200원</span>
       <span class="item-sale">11,800</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">10% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -672,12 +600,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">다짐 참돔살(120g)</div>
-    <div class="item-spec">120g(4구)</div>
     <div class="item-prices">
       <span class="item-original">15,200원</span>
       <span class="item-sale">13,600</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">10% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -686,12 +612,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">다짐 오징어살(120g)</div>
-    <div class="item-spec">120g(4구)</div>
     <div class="item-prices">
       <span class="item-original">10,600원</span>
       <span class="item-sale">9,500</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">10% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -700,12 +624,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">다짐 대구살(120g)</div>
-    <div class="item-spec">120g(4구)</div>
     <div class="item-prices">
       <span class="item-original">11,900원</span>
       <span class="item-sale">10,700</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">10% 할인</span>
   </div>
 </div>
 </div>
@@ -722,12 +644,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">유기농 귀리유(YOU)16팩</div>
-    <div class="item-spec">190ml×16팩</div>
     <div class="item-prices">
       <span class="item-original">19,200원</span>
       <span class="item-sale">15,300</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">20% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -736,12 +656,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">택배 유기농 귀리유(YOU)(16팩x4개)</div>
-    <div class="item-spec">16팩x4개</div>
     <div class="item-prices">
       <span class="item-original">76,800원</span>
       <span class="item-sale">61,200</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">20% 할인</span>
   </div>
 </div>
 </div>
@@ -758,12 +676,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">햇양파(800g/제주/조생)</div>
-    <div class="item-spec">800g</div>
     <div class="item-prices">
       
       <span class="item-sale">3,450</span><span class="item-won">원</span>
     </div>
-    
   </div>
 </div>
 </div>
@@ -780,12 +696,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">당근(1kg/무농약/쥬스용)</div>
-    <div class="item-spec">1kg</div>
     <div class="item-prices">
       <span class="item-original">3,200원</span>
       <span class="item-sale">2,800</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">12% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -794,12 +708,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">샐러리(500g/무농약)</div>
-    <div class="item-spec">500g</div>
     <div class="item-prices">
       <span class="item-original">3,600원</span>
       <span class="item-sale">3,200</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">11% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -808,12 +720,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">알비트(1kg/무농약)</div>
-    <div class="item-spec">1kg</div>
     <div class="item-prices">
       <span class="item-original">5,000원</span>
       <span class="item-sale">4,500</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">10% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -822,12 +732,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">신고배(1.7kg/소과)</div>
-    <div class="item-spec">1.7kg</div>
     <div class="item-prices">
       
       <span class="item-sale">9,300</span><span class="item-won">원</span>
     </div>
-    
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -836,12 +744,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">유기농 매실스틱(20mlx15개)</div>
-    <div class="item-spec">20ml x 15개입</div>
     <div class="item-prices">
       <span class="item-original">10,500원</span>
       <span class="item-sale">8,900</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">15% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -850,12 +756,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">유기농 레몬즙(20ml*14포)</div>
-    <div class="item-spec">20ml*14포</div>
     <div class="item-prices">
       <span class="item-original">9,900원</span>
       <span class="item-sale">8,400</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">15% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -864,12 +768,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">올리브유 스틱</div>
-    <div class="item-spec">10ml*14포</div>
     <div class="item-prices">
       <span class="item-original">9,900원</span>
       <span class="item-sale">8,400</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">15% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -878,12 +780,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">오이(2개/무농약)</div>
-    <div class="item-spec">2개</div>
     <div class="item-prices">
       <span class="item-original">4,000원</span>
       <span class="item-sale">3,500</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">12% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -892,12 +792,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">개성만점 하늘빛사과(2kg/부사)</div>
-    <div class="item-spec">2kg</div>
     <div class="item-prices">
       
       <span class="item-sale">9,900</span><span class="item-won">원</span>
     </div>
-    
   </div>
 </div>
 </div>
@@ -914,12 +812,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">동물복지 다짐육(300g/뒷다리살)</div>
-    <div class="item-spec">300g</div>
     <div class="item-prices">
       <span class="item-original">6,000원</span>
       <span class="item-sale">5,100</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">15% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -928,12 +824,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">동물복지 카레용(300g/뒷다리살)</div>
-    <div class="item-spec">300g</div>
     <div class="item-prices">
       <span class="item-original">6,000원</span>
       <span class="item-sale">5,100</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">15% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -942,12 +836,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">동물복지 불고기(500g/뒷다리살)</div>
-    <div class="item-spec">500g</div>
     <div class="item-prices">
       <span class="item-original">9,400원</span>
       <span class="item-sale">8,000</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">14% 할인</span>
   </div>
 </div>
 </div>
@@ -964,12 +856,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">가자미구이(80g)</div>
-    <div class="item-spec">80g</div>
     <div class="item-prices">
       <span class="item-original">4,300원</span>
       <span class="item-sale">3,600</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">16% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -978,12 +868,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">고등어구이(90g)</div>
-    <div class="item-spec">90g</div>
     <div class="item-prices">
       <span class="item-original">3,200원</span>
       <span class="item-sale">2,700</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">15% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -992,12 +880,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">삼치구이(90g)</div>
-    <div class="item-spec">90g</div>
     <div class="item-prices">
       <span class="item-original">3,900원</span>
       <span class="item-sale">3,300</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">15% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -1006,12 +892,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">손질 참가자미(600g/2~3미)</div>
-    <div class="item-spec">600g/3~4미</div>
     <div class="item-prices">
       <span class="item-original">14,000원</span>
       <span class="item-sale">11,900</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">15% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -1020,12 +904,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">손질오징어채</div>
-    <div class="item-spec">400g(200g*2팩)</div>
     <div class="item-prices">
       <span class="item-original">15,600원</span>
       <span class="item-sale">14,000</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">10% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -1034,12 +916,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">반건조서대(300g)</div>
-    <div class="item-spec">300g/2~3미</div>
     <div class="item-prices">
       <span class="item-original">15,900원</span>
       <span class="item-sale">14,300</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">10% 할인</span>
   </div>
 </div>
 </div>
@@ -1056,12 +936,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">쌀보리강정</div>
-    <div class="item-spec">150g</div>
     <div class="item-prices">
       <span class="item-original">6,200원</span>
       <span class="item-sale">5,200</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">16% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -1070,12 +948,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">쌀강정</div>
-    <div class="item-spec">150g</div>
     <div class="item-prices">
       <span class="item-original">6,000원</span>
       <span class="item-sale">5,100</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">15% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -1084,12 +960,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">바나나송송</div>
-    <div class="item-spec">50g</div>
     <div class="item-prices">
       <span class="item-original">2,300원</span>
       <span class="item-sale">2,000</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">13% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -1098,12 +972,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">고구마스틱(67g)</div>
-    <div class="item-spec">67g</div>
     <div class="item-prices">
       <span class="item-original">2,600원</span>
       <span class="item-sale">2,300</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">11% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -1112,12 +984,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">고구마말랭이</div>
-    <div class="item-spec">80g</div>
     <div class="item-prices">
       <span class="item-original">3,600원</span>
       <span class="item-sale">3,200</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">11% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -1126,12 +996,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">곤약젤리쭈(사과)</div>
-    <div class="item-spec">100ml</div>
     <div class="item-prices">
       <span class="item-original">1,400원</span>
       <span class="item-sale">1,250</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">10% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -1140,12 +1008,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">생생딸기잼</div>
-    <div class="item-spec">480g</div>
     <div class="item-prices">
       <span class="item-original">9,900원</span>
       <span class="item-sale">8,900</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">10% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -1154,12 +1020,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">핫도그(10입)</div>
-    <div class="item-spec">500g(50gX10개)</div>
     <div class="item-prices">
       <span class="item-original">14,000원</span>
       <span class="item-sale">12,600</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">10% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -1168,12 +1032,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">호박고구마칩</div>
-    <div class="item-spec">50g</div>
     <div class="item-prices">
       <span class="item-original">3,300원</span>
       <span class="item-sale">3,000</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">9% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -1182,12 +1044,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">당근사과주스(낱개)</div>
-    <div class="item-spec">100ml</div>
     <div class="item-prices">
       <span class="item-original">1,200원</span>
       <span class="item-sale">1,100</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">8% 할인</span>
   </div>
 </div>
 </div>
@@ -1204,12 +1064,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">{당도보장}두레 사과(1.5kg)</div>
-    <div class="item-spec">1.5kg</div>
     <div class="item-prices">
       
       <span class="item-sale">17,900</span><span class="item-won">원</span>
     </div>
-    
   </div>
 </div>
 </div>
@@ -1226,12 +1084,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">검정찰보리(800g/유기)</div>
-    <div class="item-spec">800g</div>
     <div class="item-prices">
       <span class="item-original">9,400원</span>
       <span class="item-sale">7,500</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">20% 할인</span>
   </div>
 </div>
 </div>
@@ -1248,12 +1104,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">대패오리(500g/냉동)</div>
-    <div class="item-spec">500g</div>
     <div class="item-prices">
       <span class="item-original">11,900원</span>
       <span class="item-sale">10,700</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">10% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -1262,12 +1116,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">토종닭(1.4kg/냉동)</div>
-    <div class="item-spec">1.4kg</div>
     <div class="item-prices">
       <span class="item-original">15,900원</span>
       <span class="item-sale">11,000</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">30% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -1276,12 +1128,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">미나리(200g/무농약)</div>
-    <div class="item-spec">200g</div>
     <div class="item-prices">
       <span class="item-original">4,600원</span>
       <span class="item-sale">4,000</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">13% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -1290,12 +1140,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">부추(180g/무농약)</div>
-    <div class="item-spec">180g</div>
     <div class="item-prices">
       <span class="item-original">3,700원</span>
       <span class="item-sale">3,300</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">10% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -1304,12 +1152,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">닭다리(북채/500g)</div>
-    <div class="item-spec">500g</div>
     <div class="item-prices">
       <span class="item-original">9,900원</span>
       <span class="item-sale">8,900</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">10% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -1318,12 +1164,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">쪽파(300g/무농약)</div>
-    <div class="item-spec">300g</div>
     <div class="item-prices">
       
       <span class="item-sale">4,400</span><span class="item-won">원</span>
     </div>
-    
   </div>
 </div>
 </div>
@@ -1340,12 +1184,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">그레인 시카 크림</div>
-    <div class="item-spec">50g</div>
     <div class="item-prices">
       <span class="item-original">21,700원</span>
       <span class="item-sale">15,200</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">30% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -1354,12 +1196,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">베이스 선크림</div>
-    <div class="item-spec">40g</div>
     <div class="item-prices">
       <span class="item-original">13,500원</span>
       <span class="item-sale">11,400</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">15% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -1368,12 +1208,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">그레인 남성올인원</div>
-    <div class="item-spec">120ml</div>
     <div class="item-prices">
       <span class="item-original">13,700원</span>
       <span class="item-sale">11,600</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">15% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -1382,12 +1220,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">화이트닝 비타앰플</div>
-    <div class="item-spec">30ml</div>
     <div class="item-prices">
       <span class="item-original">14,500원</span>
       <span class="item-sale">12,300</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">15% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -1396,12 +1232,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">어성초 약산성 클렌징폼</div>
-    <div class="item-spec">120g</div>
     <div class="item-prices">
       <span class="item-original">12,000원</span>
       <span class="item-sale">10,200</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">15% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -1410,12 +1244,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">화이트닝 비타크림</div>
-    <div class="item-spec">50g</div>
     <div class="item-prices">
       <span class="item-original">18,000원</span>
       <span class="item-sale">15,300</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">15% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -1424,12 +1256,10 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">그레인 수분미스트</div>
-    <div class="item-spec">80ml</div>
     <div class="item-prices">
       <span class="item-original">9,700원</span>
       <span class="item-sale">8,700</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">10% 할인</span>
   </div>
 </div><div class="item">
   <div class="item-img">
@@ -1438,19 +1268,17 @@ body{
   </div>
   <div class="item-info">
     <div class="item-name">알로에베라 수딩젤</div>
-    <div class="item-spec">150ml</div>
     <div class="item-prices">
       <span class="item-original">6,900원</span>
       <span class="item-sale">6,200</span><span class="item-won">원</span>
     </div>
-    <span class="item-disc">10% 할인</span>
   </div>
 </div>
 </div>
 
 <div class="footer">
   <div class="footer-logo">두레생협</div>
-  자동 생성 · 2026-04-14 11:00
+  자동 생성 · 2026-04-14 11:05
 </div>
 
 </body>
