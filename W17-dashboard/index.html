@@ -91,6 +91,8 @@ body{font-family:'Noto Sans KR',sans-serif;color:var(--tx);background:var(--bg);
 .d-prod-actions button{width:20px;height:18px;border:none;background:rgba(0,0,0,.5);color:#fff;font-size:9px;cursor:pointer;border-radius:3px;padding:0;line-height:1}
 .d-prod-actions button:hover{background:rgba(0,0,0,.8)}
 [contenteditable=true]{outline:none;border-bottom:1px dashed transparent}
+.d-toggle-btn{width:100%;padding:8px;border:1px solid #e0e0e0;border-radius:6px;background:#fafafa;font-size:11px;font-weight:600;color:#888;cursor:pointer;margin-top:8px}
+.d-toggle-btn:hover{background:#f0f0f0;color:#555}
 [contenteditable=true]:focus{border-bottom-color:var(--gm);background:rgba(45,106,79,.05)}
 
 /* 대시보드 분할 레이아웃 */
@@ -215,7 +217,7 @@ body{font-family:'Noto Sans KR',sans-serif;color:var(--tx);background:var(--bg);
         <div class="d-stat"><div class="num" style="font-size:20px">16,553만</div><div class="lab">예상매출</div></div>
         <div class="d-stat"><div class="num">0</div><div class="lab">배너 PNG</div></div>
     </div>
-    <div class="d-generated">생성: 2026-04-14 13:24</div>
+    <div class="d-generated">생성: 2026-04-14 13:26</div>
 </div>
 
 <div class="d-content">
@@ -336,8 +338,9 @@ Tip. 발아참기름·현미식초·알육수도 이번 주 할인!</textarea>
                 <span class="d-save-ok"></span>
             </div>
 
-            <!-- 전체 상품 -->
-            <div class="d-prod-grid"><div class="d-prod" draggable="true" data-code="3777" data-name="유기농 마스코바도(500g)" data-block="0"
+            <!-- 상품 접기/펼치기 -->
+            <button class="d-toggle-btn" onclick="toggleProducts(this)">상품 보기 (75개) ▼</button>
+            <div class="d-prod-grid" style="display:none"><div class="d-prod" draggable="true" data-code="3777" data-name="유기농 마스코바도(500g)" data-block="0"
                  ondragstart="dragStart(event)" ondragend="dragEnd(event)">
                 <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/3777C.jpg" alt="유기농 마스코바도(500g)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/3777.jpg'">
                 <span class="d-badge">9%</span>
@@ -1088,7 +1091,6 @@ Tip. 발아참기름·현미식초·알육수도 이번 주 할인!</textarea>
                     <button onclick="moveProduct(this.closest('.d-prod'),1)" title="아래로">▼</button>
                 </div>
             </div></div>
-            
         </div>
         <div class="d-block main" data-role="메인배너" data-block="1"
              ondragover="event.preventDefault();this.classList.add('drag-over')"
@@ -1145,8 +1147,9 @@ Tip. 귀리유·매실스틱은 택배로도 받으실 수 있어요!</textarea>
                 <span class="d-save-ok"></span>
             </div>
 
-            <!-- 전체 상품 -->
-            <div class="d-prod-grid"><div class="d-prod" draggable="true" data-code="31422" data-name="어린이튼튼홍삼(60팩)" data-block="1"
+            <!-- 상품 접기/펼치기 -->
+            <button class="d-toggle-btn" onclick="toggleProducts(this)">상품 보기 (23개) ▼</button>
+            <div class="d-prod-grid" style="display:none"><div class="d-prod" draggable="true" data-code="31422" data-name="어린이튼튼홍삼(60팩)" data-block="1"
                  ondragstart="dragStart(event)" ondragend="dragEnd(event)">
                 <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/31422C.jpg" alt="어린이튼튼홍삼(60팩)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/31422.jpg'">
                 <span class="d-badge">15%</span>
@@ -1377,7 +1380,6 @@ Tip. 귀리유·매실스틱은 택배로도 받으실 수 있어요!</textarea>
                     <button onclick="moveProduct(this.closest('.d-prod'),1)" title="아래로">▼</button>
                 </div>
             </div></div>
-            
         </div>
         <div class="d-block strip" data-role="서브배너" data-block="2"
              ondragover="event.preventDefault();this.classList.add('drag-over')"
@@ -1431,8 +1433,9 @@ Tip. 귀리유·매실스틱은 택배로도 받으실 수 있어요!</textarea>
                 <span class="d-save-ok"></span>
             </div>
 
-            <!-- 전체 상품 -->
-            <div class="d-prod-grid"><div class="d-prod" draggable="true" data-code="20476" data-name="음나무순(150g/자연산)" data-block="2"
+            <!-- 상품 접기/펼치기 -->
+            <button class="d-toggle-btn" onclick="toggleProducts(this)">상품 보기 (2개) ▼</button>
+            <div class="d-prod-grid" style="display:none"><div class="d-prod" draggable="true" data-code="20476" data-name="음나무순(150g/자연산)" data-block="2"
                  ondragstart="dragStart(event)" ondragend="dragEnd(event)">
                 <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/20476C.jpg" alt="음나무순(150g/자연산)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/20476.jpg'">
                 
@@ -1453,7 +1456,6 @@ Tip. 귀리유·매실스틱은 택배로도 받으실 수 있어요!</textarea>
                     <button onclick="moveProduct(this.closest('.d-prod'),1)" title="아래로">▼</button>
                 </div>
             </div></div>
-            
         </div>
         <div class="d-block main" data-role="메인배너" data-block="3"
              ondragover="event.preventDefault();this.classList.add('drag-over')"
@@ -1510,8 +1512,9 @@ Tip. 귀리유·매실스틱은 택배로도 받으실 수 있어요!</textarea>
                 <span class="d-save-ok"></span>
             </div>
 
-            <!-- 전체 상품 -->
-            <div class="d-prod-grid"><div class="d-prod" draggable="true" data-code="59229" data-name="동물복지 삼겹살(400g/구이)" data-block="3"
+            <!-- 상품 접기/펼치기 -->
+            <button class="d-toggle-btn" onclick="toggleProducts(this)">상품 보기 (5개) ▼</button>
+            <div class="d-prod-grid" style="display:none"><div class="d-prod" draggable="true" data-code="59229" data-name="동물복지 삼겹살(400g/구이)" data-block="3"
                  ondragstart="dragStart(event)" ondragend="dragEnd(event)">
                 <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59229C.jpg" alt="동물복지 삼겹살(400g/구이)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59229.jpg'">
                 <span class="d-badge">15%</span>
@@ -1562,7 +1565,6 @@ Tip. 귀리유·매실스틱은 택배로도 받으실 수 있어요!</textarea>
                     <button onclick="moveProduct(this.closest('.d-prod'),1)" title="아래로">▼</button>
                 </div>
             </div></div>
-            
         </div>
         <div class="d-block strip" data-role="서브배너" data-block="4"
              ondragover="event.preventDefault();this.classList.add('drag-over')"
@@ -1619,8 +1621,9 @@ Tip. 수비드 문어는 해동 후 바로 드시면 쫄깃해요!</textarea>
                 <span class="d-save-ok"></span>
             </div>
 
-            <!-- 전체 상품 -->
-            <div class="d-prod-grid"><div class="d-prod" draggable="true" data-code="37431" data-name="명품왕새우(500g)" data-block="4"
+            <!-- 상품 접기/펼치기 -->
+            <button class="d-toggle-btn" onclick="toggleProducts(this)">상품 보기 (10개) ▼</button>
+            <div class="d-prod-grid" style="display:none"><div class="d-prod" draggable="true" data-code="37431" data-name="명품왕새우(500g)" data-block="4"
                  ondragstart="dragStart(event)" ondragend="dragEnd(event)">
                 <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/37431C.jpg" alt="명품왕새우(500g)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/37431.jpg'">
                 <span class="d-badge">15%</span>
@@ -1721,7 +1724,6 @@ Tip. 수비드 문어는 해동 후 바로 드시면 쫄깃해요!</textarea>
                     <button onclick="moveProduct(this.closest('.d-prod'),1)" title="아래로">▼</button>
                 </div>
             </div></div>
-            
         </div>
         <div class="d-block strip" data-role="서브배너" data-block="5"
              ondragover="event.preventDefault();this.classList.add('drag-over')"
@@ -1775,8 +1777,9 @@ Tip. 수비드 문어는 해동 후 바로 드시면 쫄깃해요!</textarea>
                 <span class="d-save-ok"></span>
             </div>
 
-            <!-- 전체 상품 -->
-            <div class="d-prod-grid"><div class="d-prod" draggable="true" data-code="55803" data-name="액상 주방세제(500ml/환경)" data-block="5"
+            <!-- 상품 접기/펼치기 -->
+            <button class="d-toggle-btn" onclick="toggleProducts(this)">상품 보기 (9개) ▼</button>
+            <div class="d-prod-grid" style="display:none"><div class="d-prod" draggable="true" data-code="55803" data-name="액상 주방세제(500ml/환경)" data-block="5"
                  ondragstart="dragStart(event)" ondragend="dragEnd(event)">
                 <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/55803C.jpg" alt="액상 주방세제(500ml/환경)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/55803.jpg'">
                 <span class="d-badge">10%</span>
@@ -1867,7 +1870,6 @@ Tip. 수비드 문어는 해동 후 바로 드시면 쫄깃해요!</textarea>
                     <button onclick="moveProduct(this.closest('.d-prod'),1)" title="아래로">▼</button>
                 </div>
             </div></div>
-            
         </div>
         <div class="d-block strip" data-role="서브배너" data-block="6"
              ondragover="event.preventDefault();this.classList.add('drag-over')"
@@ -1921,8 +1923,9 @@ Tip. 수비드 문어는 해동 후 바로 드시면 쫄깃해요!</textarea>
                 <span class="d-save-ok"></span>
             </div>
 
-            <!-- 전체 상품 -->
-            <div class="d-prod-grid"><div class="d-prod" draggable="true" data-code="35270" data-name="돼지등갈비(500g)" data-block="6"
+            <!-- 상품 접기/펼치기 -->
+            <button class="d-toggle-btn" onclick="toggleProducts(this)">상품 보기 (6개) ▼</button>
+            <div class="d-prod-grid" style="display:none"><div class="d-prod" draggable="true" data-code="35270" data-name="돼지등갈비(500g)" data-block="6"
                  ondragstart="dragStart(event)" ondragend="dragEnd(event)">
                 <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/35270C.jpg" alt="돼지등갈비(500g)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/35270.jpg'">
                 <span class="d-badge">10%</span>
@@ -1983,7 +1986,6 @@ Tip. 수비드 문어는 해동 후 바로 드시면 쫄깃해요!</textarea>
                     <button onclick="moveProduct(this.closest('.d-prod'),1)" title="아래로">▼</button>
                 </div>
             </div></div>
-            
         </div>
         <div class="d-block strip" data-role="서브배너" data-block="7"
              ondragover="event.preventDefault();this.classList.add('drag-over')"
@@ -2037,8 +2039,9 @@ Tip. 수비드 문어는 해동 후 바로 드시면 쫄깃해요!</textarea>
                 <span class="d-save-ok"></span>
             </div>
 
-            <!-- 전체 상품 -->
-            <div class="d-prod-grid"><div class="d-prod" draggable="true" data-code="59488" data-name="반건조 오징어(240g/2미)" data-block="7"
+            <!-- 상품 접기/펼치기 -->
+            <button class="d-toggle-btn" onclick="toggleProducts(this)">상품 보기 (1개) ▼</button>
+            <div class="d-prod-grid" style="display:none"><div class="d-prod" draggable="true" data-code="59488" data-name="반건조 오징어(240g/2미)" data-block="7"
                  ondragstart="dragStart(event)" ondragend="dragEnd(event)">
                 <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59488C.jpg" alt="반건조 오징어(240g/2미)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59488.jpg'">
                 <span class="d-badge">10%</span>
@@ -2049,7 +2052,6 @@ Tip. 수비드 문어는 해동 후 바로 드시면 쫄깃해요!</textarea>
                     <button onclick="moveProduct(this.closest('.d-prod'),1)" title="아래로">▼</button>
                 </div>
             </div></div>
-            
         </div>
         <div class="d-block main" data-role="메인배너" data-block="8"
              ondragover="event.preventDefault();this.classList.add('drag-over')"
@@ -2106,8 +2108,9 @@ Tip. 콩국물에 냉면사리 말아보세요, 별미예요!</textarea>
                 <span class="d-save-ok"></span>
             </div>
 
-            <!-- 전체 상품 -->
-            <div class="d-prod-grid"><div class="d-prod" draggable="true" data-code="28224" data-name="열무김치(1kg)" data-block="8"
+            <!-- 상품 접기/펼치기 -->
+            <button class="d-toggle-btn" onclick="toggleProducts(this)">상품 보기 (18개) ▼</button>
+            <div class="d-prod-grid" style="display:none"><div class="d-prod" draggable="true" data-code="28224" data-name="열무김치(1kg)" data-block="8"
                  ondragstart="dragStart(event)" ondragend="dragEnd(event)">
                 <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/28224C.jpg" alt="열무김치(1kg)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/28224.jpg'">
                 <span class="d-badge">7%</span>
@@ -2288,7 +2291,6 @@ Tip. 콩국물에 냉면사리 말아보세요, 별미예요!</textarea>
                     <button onclick="moveProduct(this.closest('.d-prod'),1)" title="아래로">▼</button>
                 </div>
             </div></div>
-            
         </div>
         <div class="d-block main" data-role="메인배너" data-block="9"
              ondragover="event.preventDefault();this.classList.add('drag-over')"
@@ -2342,8 +2344,9 @@ Tip. 콩국물에 냉면사리 말아보세요, 별미예요!</textarea>
                 <span class="d-save-ok"></span>
             </div>
 
-            <!-- 전체 상품 -->
-            <div class="d-prod-grid"><div class="d-prod" draggable="true" data-code="53094" data-name="현미강정" data-block="9"
+            <!-- 상품 접기/펼치기 -->
+            <button class="d-toggle-btn" onclick="toggleProducts(this)">상품 보기 (21개) ▼</button>
+            <div class="d-prod-grid" style="display:none"><div class="d-prod" draggable="true" data-code="53094" data-name="현미강정" data-block="9"
                  ondragstart="dragStart(event)" ondragend="dragEnd(event)">
                 <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/53094C.jpg" alt="현미강정" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/53094.jpg'">
                 <span class="d-badge">20%</span>
@@ -2554,7 +2557,6 @@ Tip. 콩국물에 냉면사리 말아보세요, 별미예요!</textarea>
                     <button onclick="moveProduct(this.closest('.d-prod'),1)" title="아래로">▼</button>
                 </div>
             </div></div>
-            
         </div>
         <div class="d-block strip" data-role="서브배너" data-block="10"
              ondragover="event.preventDefault();this.classList.add('drag-over')"
@@ -2608,8 +2610,9 @@ Tip. 콩국물에 냉면사리 말아보세요, 별미예요!</textarea>
                 <span class="d-save-ok"></span>
             </div>
 
-            <!-- 전체 상품 -->
-            <div class="d-prod-grid"><div class="d-prod" draggable="true" data-code="39707" data-name="장아찌 혼합장(1000ml)" data-block="10"
+            <!-- 상품 접기/펼치기 -->
+            <button class="d-toggle-btn" onclick="toggleProducts(this)">상품 보기 (10개) ▼</button>
+            <div class="d-prod-grid" style="display:none"><div class="d-prod" draggable="true" data-code="39707" data-name="장아찌 혼합장(1000ml)" data-block="10"
                  ondragstart="dragStart(event)" ondragend="dragEnd(event)">
                 <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/39707C.jpg" alt="장아찌 혼합장(1000ml)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/39707.jpg'">
                 <span class="d-badge">9%</span>
@@ -2710,7 +2713,6 @@ Tip. 콩국물에 냉면사리 말아보세요, 별미예요!</textarea>
                     <button onclick="moveProduct(this.closest('.d-prod'),1)" title="아래로">▼</button>
                 </div>
             </div></div>
-            
         </div></div>
     </div>
 
@@ -7295,7 +7297,7 @@ function moveProduct(prodEl, direction) {
 // ── 두레추천 엑셀(CSV) 다운로드 ──
 function downloadRecommendCSV() {
     const items = document.querySelectorAll('.rec-item');
-    let csv = '\uFEFF상품코드,상품명,단위,특징1,특징2\n';
+    let csv = '\uFEFF생활재번호,순서,상품명,단위,특징1,특징2\n';
     items.forEach((item, i) => {
         const code = item.dataset.code || '';
         const nameEl = item.querySelector('.rec-name');
@@ -7304,13 +7306,25 @@ function downloadRecommendCSV() {
         const lines = item.querySelectorAll('.rec-feat-line');
         const f1 = lines[0]?.textContent || '';
         const f2 = lines[1]?.textContent || '';
-        csv += `"${code}","${fullName}","${unitSpan}","${f1}","${f2}"\n`;
+        const seq = i + 1;
+        csv += `"${code}","${seq}","${fullName}","${unitSpan}","${f1}","${f2}"\n`;
     });
     const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
     a.download = 'dure_recommend.csv';
     a.click();
+}
+
+function toggleProducts(btn) {
+    const grid = btn.nextElementSibling;
+    if(grid.style.display === 'none') {
+        grid.style.display = '';
+        btn.textContent = btn.textContent.replace('▼','▲');
+    } else {
+        grid.style.display = 'none';
+        btn.textContent = btn.textContent.replace('▲','▼');
+    }
 }
 
 function copyFeat(id) {
@@ -7356,7 +7370,7 @@ function filterBlocks(role, btn) {
 </script>
 
 <div class="d-footer">
-    2026년 17주 주간기획 자동화 대시보드 &middot; 생성: 2026-04-14 13:24
+    2026년 17주 주간기획 자동화 대시보드 &middot; 생성: 2026-04-14 13:26
 </div>
 
 </body>
