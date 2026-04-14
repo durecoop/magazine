@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>수요특가 — 두레생협</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --bg:#ede8df;
+  --card:#fff;
+  --text:#111;
+  --gray1:#333;
+  --gray2:#666;
+  --gray3:#999;
+  --gray4:#ccc;
+  --gray5:#e8e8e6;
+  --point:#e07830;
+  --point-dark:#c46520;
+}
+
+body{
+  font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  word-break:keep-all;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ─── HERO ─── */
+.hero{
+  padding:40px 20px 36px;
+  text-align:center;
+  background:#ede8df;
+  background-image:
+    linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
+  background-size:24px 24px;
+  position:relative;
+}
+
+.hero-label{
+  font-size:15px;font-weight:500;
+  color:#888;
+  margin-bottom:8px;
+  opacity:0;animation:fadeUp .6s .1s ease forwards;
+}
+
+.hero-date{
+  display:none;
+}
+
+.hero h1{
+  font-size:36px;font-weight:900;
+  letter-spacing:-2px;line-height:1.2;
+  color:#222;
+  margin-bottom:14px;
+  opacity:0;animation:fadeUp .6s .2s ease forwards;
+}
+
+.hero h1 .accent{
+  color:var(--point);
+}
+
+.hero-highlight{
+  display:block;
+  font-size:28px;font-weight:900;
+  color:var(--point);
+  letter-spacing:-1px;
+  margin-bottom:4px;
+  opacity:0;animation:fadeUp .6s .3s ease forwards;
+}
+
+
+
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(16px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* ─── MARQUEE ─── */
+.marquee{
+  background:#ddd7cd;
+  padding:12px 0;
+  overflow:hidden;white-space:nowrap;
+}
+
+.marquee-track{
+  display:inline-block;
+  animation:scroll 30s linear infinite;
+}
+
+.marquee-track span{
+  display:inline-block;
+  font-size:13px;font-weight:600;
+  color:rgba(0,0,0,0.35);
+  letter-spacing:1px;
+  padding:0 36px;
+}
+
+.marquee-track .marquee-alert{
+  color:#c0392b;
+  font-weight:800;
+}
+
+@keyframes scroll{
+  0%{transform:translateX(0)}
+  100%{transform:translateX(-50%)}
+}
+
+/* ─── WRAP ─── */
+.wrap{
+  max-width:560px;
+  margin:0 auto;
+  padding:0 20px;
+}
+
+.white-box{
+  background:#fff;
+  border-radius:20px;
+  padding:8px 20px 20px;
+  margin-top:16px;
+  position:relative;
+  z-index:1;
+  box-shadow:0 2px 12px rgba(0,0,0,0.04);
+}
+
+/* ─── PRODUCT ─── */
+.product{
+  padding-top:48px;
+  padding-bottom:48px;
+  border-bottom:1px solid var(--gray5);
+  opacity:0;transform:translateY(30px);
+  transition:all .7s cubic-bezier(.16,1,.3,1);
+}
+
+.product.show{opacity:1;transform:translateY(0)}
+
+.product:last-child{border-bottom:none}
+
+.product-img{
+  position:relative;
+  width:100%;
+  aspect-ratio:4/5;
+  border-radius:16px;
+  overflow:hidden;
+  background:#e8e4de;
+  margin-bottom:28px;
+}
+
+.product-img .img-dc{
+  position:absolute;
+  bottom:16px;right:16px;
+  background:var(--point);
+  color:#fff;
+  font-size:32px;font-weight:900;
+  padding:8px 18px;
+  border-radius:12px;
+  letter-spacing:-1px;
+  line-height:1;
+  box-shadow:0 3px 10px rgba(0,0,0,0.15);
+}
+
+.product-img img{
+  width:100%;height:100%;
+  object-fit:cover;
+}
+
+.product-tag{
+  display:inline-block;
+  font-size:12px;font-weight:700;
+  letter-spacing:3px;
+  color:var(--point);
+  margin-bottom:14px;
+}
+
+.product-name{
+  font-size:32px;font-weight:900;
+  letter-spacing:-1.5px;
+  line-height:1.2;
+  margin-bottom:4px;
+}
+
+.product-weight{
+  font-size:16px;font-weight:300;
+  color:var(--gray3);
+  margin-bottom:24px;
+}
+
+.product-copy{
+  font-size:16px;font-weight:400;
+  color:var(--gray2);
+  line-height:1.5;
+  margin-bottom:20px;
+}
+
+.product-pricing{
+  display:flex;
+  align-items:baseline;
+  gap:12px;
+  margin-bottom:8px;
+}
+
+.product-pricing .now{
+  font-size:40px;font-weight:900;
+  letter-spacing:-1.5px;
+  color:var(--text);
+}
+
+.product-pricing .dc{
+  font-size:24px;font-weight:900;
+  color:var(--point);
+  letter-spacing:-0.5px;
+}
+
+.product-pricing .orig{
+  font-size:20px;font-weight:500;
+  color:var(--gray3);
+  text-decoration:line-through;
+}
+
+/* TIP */
+.tip{
+  margin-top:24px;
+  padding:20px;
+  background:var(--bg);
+  border-radius:12px;
+  display:flex;gap:12px;
+  align-items:flex-start;
+}
+
+.tip-mark{
+  flex-shrink:0;
+  width:28px;height:28px;
+  border-radius:50%;
+  background:var(--gray5);
+  color:var(--gray3);
+  font-size:14px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+}
+
+.tip p{
+  font-size:15px;font-weight:400;
+  color:var(--gray2);
+  line-height:1.7;
+}
+
+.product-expiry{
+  margin-top:12px;
+  font-size:15px;font-weight:600;
+  color:var(--gray2);
+}
+
+.product-btn{
+  display:block;
+  text-align:center;
+  margin-top:28px;
+  padding:18px;
+  background:var(--point);
+  color:#fff;
+  border-radius:12px;
+  font-size:16px;font-weight:700;
+  letter-spacing:0.5px;
+  text-decoration:none;
+  transition:opacity .2s;
+}
+
+.product-btn:active{opacity:.8}
+
+/* ─── PAIRING ─── */
+.pairing{
+  padding:40px 0 12px;
+  text-align:center;
+  opacity:0;transform:translateY(30px);
+  transition:all .7s cubic-bezier(.16,1,.3,1);
+}
+
+.pairing.show{opacity:1;transform:translateY(0)}
+
+.pairing-label{
+  font-size:12px;font-weight:700;
+  letter-spacing:4px;
+  color:var(--gray3);
+  margin-bottom:10px;
+}
+
+.pairing-text{
+  font-size:22px;font-weight:300;
+  color:var(--gray1);
+  line-height:1.6;
+}
+
+.pairing-text strong{
+  font-weight:900;
+  color:var(--text);
+}
+
+.highlight-marker{
+  background:linear-gradient(transparent 50%, #fff06b 50%);
+  padding:0 2px;
+}
+
+.pairing-arrow{
+  margin-top:12px;
+  font-size:24px;
+  color:var(--gray4);
+  animation:bounce 1.5s ease infinite;
+}
+
+@keyframes bounce{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(6px)}
+}
+
+/* ─── SECTION HEADER ─── */
+.section-header{
+  margin-top:24px;
+  padding:32px 24px;
+  text-align:center;
+  background:var(--point);
+  border-radius:16px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  opacity:0;transform:translateY(30px);
+  transition:all .7s cubic-bezier(.16,1,.3,1);
+}
+
+.section-header.show{opacity:1;transform:translateY(0)}
+
+.section-header-label{
+  font-size:12px;font-weight:700;
+  letter-spacing:4px;
+  color:rgba(255,255,255,0.6);
+  margin-bottom:10px;
+}
+
+.section-header h2{
+  font-size:28px;font-weight:900;
+  letter-spacing:-1px;
+  color:#fff;
+}
+
+.section-header p{
+  font-size:15px;font-weight:300;
+  color:rgba(255,255,255,0.6);
+  margin-top:6px;
+}
+
+/* ─── LIST ITEM ─── */
+.list-item{
+  display:flex;
+  align-items:center;
+  gap:20px;
+  padding:20px 0;
+  border-bottom:1px solid var(--gray5);
+  text-decoration:none;
+  color:inherit;
+  opacity:0;transform:translateY(20px);
+  transition:all .6s cubic-bezier(.16,1,.3,1);
+}
+
+.list-item.show{opacity:1;transform:translateY(0)}
+
+.list-item:last-child{border-bottom:none}
+
+.list-item-img{
+  width:100px;height:100px;
+  border-radius:12px;
+  overflow:hidden;
+  background:#e8e4de;
+  flex-shrink:0;
+}
+
+.list-item-img img{width:100%;height:100%;object-fit:cover}
+
+.list-item-info{flex:1;min-width:0}
+
+.list-item-name{
+  font-size:18px;font-weight:700;
+  letter-spacing:-0.5px;
+  margin-bottom:2px;
+}
+
+.list-item-weight{
+  font-size:13px;font-weight:300;
+  color:var(--gray3);
+  margin-bottom:8px;
+}
+
+.list-item-pricing{
+  display:flex;align-items:baseline;gap:8px;
+}
+
+.list-item-pricing .now{
+  font-size:22px;font-weight:900;
+  letter-spacing:-0.5px;
+}
+
+.list-item-pricing .orig{
+  font-size:14px;font-weight:300;
+  color:var(--gray4);
+  text-decoration:line-through;
+}
+
+.list-item-dc{
+  flex-shrink:0;
+  font-size:28px;font-weight:900;
+  color:var(--point);
+  letter-spacing:-1px;
+}
+
+/* ─── CTA ─── */
+.cta{
+  text-align:center;
+  padding:48px 0 20px;
+}
+
+.cta-sub{
+  font-size:14px;font-weight:400;
+  color:var(--gray3);
+  margin-bottom:16px;
+}
+
+.cta-btn{
+  display:inline-block;
+  padding:18px 56px;
+  background:var(--point);
+  color:#fff;
+  border-radius:100px;
+  font-size:16px;font-weight:700;
+  text-decoration:none;
+  letter-spacing:0.5px;
+  transition:all .2s;
+}
+
+.cta-btn:active{opacity:.8}
+
+footer{
+  text-align:center;
+  padding:40px 20px;
+  font-size:13px;
+  color:var(--gray4);
+  letter-spacing:0.5px;
+}
+
+/* ─── RESPONSIVE ─── */
+@media(min-width:640px){
+  .wrap{max-width:620px}
+  .hero h1{font-size:42px}
+  .product-name{font-size:36px}
+}
+
+@media(max-width:400px){
+  .hero h1{font-size:30px}
+  .product-img{aspect-ratio:1/1}
+}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <p class="hero-label">일주일에 딱 하루, 수요일의 특권</p>
+  <h1>수요 반짝 장터<span class="accent">*</span></h1>
+  <div class="hero-highlight">최대 80% 할인</div>
+</section>
+
+<div class="marquee">
+  <div class="marquee-track">
+    <span>스프레드초코 80%</span><span>게맛살 20%</span><span>라이스페이퍼 50%</span><span class="marquee-alert">오후 7시 마감</span><span>스프레드초코 80%</span><span>게맛살 20%</span><span>라이스페이퍼 50%</span><span class="marquee-alert">오후 7시 마감</span><span>스프레드초코 80%</span><span>게맛살 20%</span><span>라이스페이퍼 50%</span><span class="marquee-alert">오후 7시 마감</span>
+  </div>
+</div>
+
+<div class="wrap">
+<div class="white-box">
+
+  <!-- 스프레드초코 -->
+  <div class="product">
+    <div class="product-img">
+      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57515C.jpg" alt="스프레드초코">
+      <span class="img-dc" style="background:#c0392b">80%</span>
+    </div>
+    <div class="product-tag">수요특가</div>
+    <h2 class="product-name">스프레드초코</h2>
+    <p class="product-weight">200g</p>
+    <p class="product-copy">빵에 쏙, 달콤한 하루의 시작</p>
+    <div class="product-pricing">
+      <span class="now">1,300원</span>
+      <span class="dc">80%</span>
+      <span class="orig">6,500원</span>
+    </div>
+    <div class="tip">
+      <div class="tip-mark">!</div>
+      <p>경화유를 넣지 않아 유분리 현상이 발생할 수 있으나 안심하고 드셔도 됩니다. 상온에 1시간 정도 두신 후 잘 섞어 드세요.</p>
+    </div>
+    <p class="product-expiry">소비기한 2026.07.20</p>
+    <a href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1655" class="product-btn">수요특가 장보기</a>
+  </div>
+
+  <!-- 바른공식 게맛살 -->
+  <div class="product">
+    <div class="product-img">
+      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/54750C.jpg" alt="바른공식 게맛살">
+      <span class="img-dc">20%</span>
+    </div>
+    <div class="product-tag">수요특가</div>
+    <h2 class="product-name">바른공식 게맛살</h2>
+    <p class="product-weight">&nbsp;</p>
+    <p class="product-copy">아이 간식부터 안주까지, 바른 한 줄</p>
+    <div class="product-pricing">
+      <span class="now">3,900원</span>
+      <span class="dc">20%</span>
+      <span class="orig">4,900원</span>
+    </div>
+    <a href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1655" class="product-btn">수요특가 장보기</a>
+  </div>
+
+  <!-- 페어링 -->
+  <div class="pairing">
+    <p class="pairing-label">함께 즐기기</p>
+    <p class="pairing-text">게맛살과 함께 즐기는<br><strong>라이스페이퍼 <span class="highlight-marker">50% 할인</span></strong></p>
+    <div class="pairing-arrow">↓</div>
+  </div>
+
+  <!-- 라이스페이퍼 -->
+  <div class="product">
+    <div class="product-img">
+      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56014C.png" alt="라이스페이퍼">
+      <span class="img-dc">50%</span>
+    </div>
+    <div class="product-tag">수요특가</div>
+    <h2 class="product-name">라이스페이퍼</h2>
+    <p class="product-weight">300g</p>
+    <p class="product-copy">게맛살 싸먹으면 찰떡궁합!</p>
+    <div class="product-pricing">
+      <span class="now">1,450원</span>
+      <span class="dc">50%</span>
+      <span class="orig">2,900원</span>
+    </div>
+    <a href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1655" class="product-btn">수요특가 장보기</a>
+  </div>
+
+</div><!-- /white-box -->
+
+  <!-- 30% 이상 할인 -->
+  <div class="section-header">
+    <p class="section-header-label">더 큰 혜택</p>
+    <h2>이번 주 30% 이상 할인</h2>
+  </div>
+
+<div class="white-box" style="margin-top:16px">
+  <a href="https://www.ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=42857&returnPlanNo=0" class="list-item">
+    <div class="list-item-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/42857C.jpg" alt="루테인오메가3"></div>
+    <div class="list-item-info">
+      <div class="list-item-name">루테인오메가3</div>
+      <div class="list-item-weight">500mg x 60정</div>
+      <div class="list-item-pricing">
+        <span class="now">14,700원</span>
+        <span class="orig">22,600원</span>
+      </div>
+    </div>
+    <div class="list-item-dc">35%</div>
+  </a>
+
+  <a href="https://www.ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=44787&returnPlanNo=0" class="list-item">
+    <div class="list-item-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/44787C.png" alt="비타민D 2200IU"></div>
+    <div class="list-item-info">
+      <div class="list-item-name">비타민D 2200IU</div>
+      <div class="list-item-weight">500mg x 60정</div>
+      <div class="list-item-pricing">
+        <span class="now">7,900원</span>
+        <span class="orig">12,200원</span>
+      </div>
+    </div>
+    <div class="list-item-dc">35%</div>
+  </a>
+
+  <a href="https://www.ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=58287&returnPlanNo=0" class="list-item">
+    <div class="list-item-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58287C.png" alt="야채가루"></div>
+    <div class="list-item-info">
+      <div class="list-item-name">야채가루</div>
+      <div class="list-item-weight">4g x 30스틱</div>
+      <div class="list-item-pricing">
+        <span class="now">6,000원</span>
+        <span class="orig">9,200원</span>
+      </div>
+    </div>
+    <div class="list-item-dc">35%</div>
+  </a>
+
+  <a href="https://www.ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=48969&returnPlanNo=0" class="list-item">
+    <div class="list-item-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/48969C.jpg" alt="유기농멀티비타민"></div>
+    <div class="list-item-info">
+      <div class="list-item-name">유기농멀티비타민</div>
+      <div class="list-item-weight">600mg x 60정</div>
+      <div class="list-item-pricing">
+        <span class="now">16,800원</span>
+        <span class="orig">25,900원</span>
+      </div>
+    </div>
+    <div class="list-item-dc">35%</div>
+  </a>
+
+  <a href="https://www.ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=41515&returnPlanNo=0" class="list-item">
+    <div class="list-item-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/41515C.png" alt="프로바이오틱스"></div>
+    <div class="list-item-info">
+      <div class="list-item-name">프로바이오틱스</div>
+      <div class="list-item-weight">2g x 30포</div>
+      <div class="list-item-pricing">
+        <span class="now">13,300원</span>
+        <span class="orig">20,500원</span>
+      </div>
+    </div>
+    <div class="list-item-dc">35%</div>
+  </a>
+
+  <a href="https://www.ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=39405&returnPlanNo=0" class="list-item">
+    <div class="list-item-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/39405C.jpg" alt="무우"></div>
+    <div class="list-item-info">
+      <div class="list-item-name">무우 (무농약)</div>
+      <div class="list-item-weight">700g</div>
+      <div class="list-item-pricing">
+        <span class="now">1,600원</span>
+        <span class="orig">2,400원</span>
+      </div>
+    </div>
+    <div class="list-item-dc">33%</div>
+  </a>
+
+  <a href="https://www.ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=20772&returnPlanNo=0" class="list-item">
+    <div class="list-item-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/20772C.jpg" alt="양배추"></div>
+    <div class="list-item-info">
+      <div class="list-item-name">양배추 (무농약)</div>
+      <div class="list-item-weight">1kg</div>
+      <div class="list-item-pricing">
+        <span class="now">2,800원</span>
+        <span class="orig">4,100원</span>
+      </div>
+    </div>
+    <div class="list-item-dc">32%</div>
+  </a>
+
+  <a href="https://www.ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=57834&returnPlanNo=0" class="list-item">
+    <div class="list-item-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57834C.png" alt="6년근 홍삼캔디 세트"></div>
+    <div class="list-item-info">
+      <div class="list-item-name">6년근 홍삼캔디 세트</div>
+      <div class="list-item-weight">114g x 3개</div>
+      <div class="list-item-pricing">
+        <span class="now">20,200원</span>
+        <span class="orig">28,900원</span>
+      </div>
+    </div>
+    <div class="list-item-dc">30%</div>
+  </a>
+
+  <a href="https://www.ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=323&returnPlanNo=0" class="list-item">
+    <div class="list-item-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/323C.png" alt="햇장봉재래김"></div>
+    <div class="list-item-info">
+      <div class="list-item-name">햇장봉재래김</div>
+      <div class="list-item-weight">반속 (약 50매)</div>
+      <div class="list-item-pricing">
+        <span class="now">7,800원</span>
+        <span class="orig">11,200원</span>
+      </div>
+    </div>
+    <div class="list-item-dc">30%</div>
+  </a>
+
+</div><!-- /white-box -->
+
+  <div class="cta">
+    <p class="cta-sub">더 많은 혜택이 기다리고 있어요</p>
+    <a href="https://www.ecoop.or.kr/DureShop/benefit.do" class="cta-btn">전체 혜택 보기</a>
+  </div>
+
+</div>
+
+<footer>두레생협 조합원 상담실 1661-5110</footer>
+
+<script>
+const io=new IntersectionObserver(e=>{
+  e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('show');io.unobserve(x.target)}})
+},{threshold:.05});
+document.querySelectorAll('.product,.pairing,.section-header,.list-item').forEach(el=>io.observe(el));
+
+</script>
+
+</body>
+</html>
