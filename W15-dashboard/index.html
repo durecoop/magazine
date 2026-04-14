@@ -217,7 +217,7 @@ body{font-family:'Noto Sans KR',sans-serif;color:var(--tx);background:var(--bg);
         <div class="d-stat"><div class="num" style="font-size:20px">40,540만</div><div class="lab">예상매출</div></div>
         <div class="d-stat"><div class="num">24</div><div class="lab">배너 PNG</div></div>
     </div>
-    <div class="d-generated">생성: 2026-04-14 13:49</div>
+    <div class="d-generated">생성: 2026-04-14 14:44</div>
 </div>
 
 <div class="d-content">
@@ -230,6 +230,7 @@ body{font-family:'Noto Sans KR',sans-serif;color:var(--tx);background:var(--bg);
         <button class="d-tab" onclick="switchTab('preview-mo')">Mo 메인배너</button>
         <button class="d-tab" onclick="switchTab('plan-pc')">PC 기획전</button>
         <button class="d-tab" onclick="switchTab('plan-mo')">Mo 기획전</button>
+        <button class="d-tab" onclick="switchTab('promo')">조합원 홍보</button>
         <button class="d-tab" onclick="switchTab('banners')">배너 갤러리</button>
     </div>
 
@@ -281,6 +282,9 @@ body{font-family:'Noto Sans KR',sans-serif;color:var(--tx);background:var(--bg);
             <button class="d-role-btn" onclick="filterBlocks('메인배너',this)" style="padding:6px 16px;border:1px solid #ddd;border-radius:20px;background:#fff;color:#333;font-size:12px;font-weight:600;cursor:pointer">메인배너 (5)</button>
             <button class="d-role-btn" onclick="filterBlocks('서브배너',this)" style="padding:6px 16px;border:1px solid #ddd;border-radius:20px;background:#fff;color:#333;font-size:12px;font-weight:600;cursor:pointer">서브배너 (9)</button>
             <button class="d-role-btn" onclick="filterBlocks('띠배너',this)" style="padding:6px 16px;border:1px solid #ddd;border-radius:20px;background:#fff;color:#333;font-size:12px;font-weight:600;cursor:pointer">띠배너 (0)</button>
+        </div>
+        <div style="margin-bottom:12px">
+            <button class="d-copy-btn" onclick="downloadPlanExcel()" style="padding:8px 20px;font-size:12px;background:#2d6a4f;color:#fff;border-color:#2d6a4f">기획전 등록 엑셀 다운로드</button>
         </div>
         <div class="d-blocks-grid">
         <div class="d-block main" data-role="메인배너" data-block="0"
@@ -1921,6 +1925,127 @@ Tip. 무농약 오이·당근·알비트로 나만의 과채주스 만들어보�
     </div><!-- end tab-overview -->
 
     <!-- 탭: PC 미리보기 -->
+    <!-- 조합원 홍보 탭 -->
+    <div id="tab-promo" class="d-tab-content">
+        <div class="d-section">
+            <div class="d-section-title"><span class="d-icon">&#x1f4e8;</span> 조합원 홍보 문자 (RCS + SMS)</div>
+            
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+
+    <!-- RCS 매거진 -->
+    <div style="background:#fff;border:1px solid #e8e8e3;border-radius:12px;padding:16px">
+        <h4 style="font-size:13px;font-weight:800;margin-bottom:4px;color:#2d6a4f">RCS 매거진</h4>
+        <p style="font-size:10px;color:#999;margin-bottom:10px">이번 주 기획전 전체 안내</p>
+        <div style="background:#f9f7f3;border-radius:8px;padding:12px;margin-bottom:8px">
+            <div style="font-size:11px;color:#888;margin-bottom:4px">본문</div>
+            <textarea id="rcs-mag" style="width:100%;height:100px;border:1px solid #e0e0e0;border-radius:6px;padding:8px;font-size:11px;resize:none;font-family:inherit" onclick="this.select()">[두레생협] 15주 주간기획 안내
+
+조합원님, 이번 주 83개 상품을 최대 30% 할인으로 준비했어요!
+
+보양식 3개
+면류/여름 22개
+뷰티/스킨케어 7개
+신규 출시 4개
+택배 기획전 2개
+외 9개 기획전
+
+자세한 내용은 아래 버튼을 눌러주세요.</textarea>
+        </div>
+        <div style="background:#f0f8f0;border-radius:8px;padding:10px;margin-bottom:8px">
+            <div style="font-size:10px;color:#888;margin-bottom:4px">버튼 1</div>
+            <input value="이번 주 기획전 보기" style="width:100%;padding:4px 8px;border:1px solid #ddd;border-radius:4px;font-size:11px;margin-bottom:4px" onclick="this.select()">
+            <input value="https://durecoop.github.io/magazine/W15/" style="width:100%;padding:4px 8px;border:1px solid #ddd;border-radius:4px;font-size:10px;font-family:monospace;color:#2d6a4f" onclick="this.select()">
+        </div>
+        <div style="background:#f0f8f0;border-radius:8px;padding:10px;margin-bottom:8px">
+            <div style="font-size:10px;color:#888;margin-bottom:4px">버튼 2</div>
+            <input value="쇼핑몰 바로가기" style="width:100%;padding:4px 8px;border:1px solid #ddd;border-radius:4px;font-size:11px;margin-bottom:4px" onclick="this.select()">
+            <input value="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1655" style="width:100%;padding:4px 8px;border:1px solid #ddd;border-radius:4px;font-size:10px;font-family:monospace;color:#2d6a4f" onclick="this.select()">
+        </div>
+        <button class="d-copy-btn" onclick="copyText(document.getElementById('rcs-mag'))" style="width:100%;padding:8px">본문 복사</button>
+    </div>
+
+    <!-- RCS 카드뉴스 -->
+    <div style="background:#fff;border:1px solid #e8e8e3;border-radius:12px;padding:16px">
+        <h4 style="font-size:13px;font-weight:800;margin-bottom:4px;color:#1a7f37">RCS 카드뉴스</h4>
+        <p style="font-size:10px;color:#999;margin-bottom:10px">카톡 공유용 카드뉴스</p>
+        <div style="background:#f9f7f3;border-radius:8px;padding:12px;margin-bottom:8px">
+            <div style="font-size:11px;color:#888;margin-bottom:4px">본문</div>
+            <textarea id="rcs-card" style="width:100%;height:100px;border:1px solid #e0e0e0;border-radius:6px;padding:8px;font-size:11px;resize:none;font-family:inherit" onclick="this.select()">[두레생협] 이번 주 할인 생활재 83개!
+
+최대 30% 할인
+카드뉴스로 한눈에 확인하세요.
+
+아래 링크에서 넘겨보세요!</textarea>
+        </div>
+        <div style="background:#f0f8f0;border-radius:8px;padding:10px;margin-bottom:8px">
+            <div style="font-size:10px;color:#888;margin-bottom:4px">버튼</div>
+            <input value="카드뉴스 보기" style="width:100%;padding:4px 8px;border:1px solid #ddd;border-radius:4px;font-size:11px;margin-bottom:4px" onclick="this.select()">
+            <input value="https://durecoop.github.io/dure-coop-14week-cardnews/weekly_deal.html" style="width:100%;padding:4px 8px;border:1px solid #ddd;border-radius:4px;font-size:10px;font-family:monospace;color:#1a7f37" onclick="this.select()">
+        </div>
+        <button class="d-copy-btn" onclick="copyText(document.getElementById('rcs-card'))" style="width:100%;padding:8px">본문 복사</button>
+    </div>
+
+    <!-- RCS 추천상품 -->
+    <div style="background:#fff;border:1px solid #e8e8e3;border-radius:12px;padding:16px">
+        <h4 style="font-size:13px;font-weight:800;margin-bottom:4px;color:#8b3a3a">RCS 추천상품</h4>
+        <p style="font-size:10px;color:#999;margin-bottom:10px">이번 주 추천 생활재</p>
+        <div style="background:#f9f7f3;border-radius:8px;padding:12px;margin-bottom:8px">
+            <div style="font-size:11px;color:#888;margin-bottom:4px">본문</div>
+            <textarea id="rcs-detail" style="width:100%;height:100px;border:1px solid #e0e0e0;border-radius:6px;padding:8px;font-size:11px;resize:none;font-family:inherit" onclick="this.select()">[두레생협] 이번 주 추천 생활재
+
+토종닭(1.4kg/냉동) 30% 할인!
+조합원님께 추천드려요.
+
+자세한 내용은 아래에서 확인하세요.</textarea>
+        </div>
+        <div style="background:#f0f8f0;border-radius:8px;padding:10px;margin-bottom:8px">
+            <div style="font-size:10px;color:#888;margin-bottom:4px">버튼</div>
+            <input value="추천상품 보기" style="width:100%;padding:4px 8px;border:1px solid #ddd;border-radius:4px;font-size:11px;margin-bottom:4px" onclick="this.select()">
+            <input value="https://durecoop.github.io/magazine/W15-focus/" style="width:100%;padding:4px 8px;border:1px solid #ddd;border-radius:4px;font-size:10px;font-family:monospace;color:#8b3a3a" onclick="this.select()">
+        </div>
+        <button class="d-copy-btn" onclick="copyText(document.getElementById('rcs-detail'))" style="width:100%;padding:8px">본문 복사</button>
+    </div>
+
+    <!-- SMS 대체전송 (장문) -->
+    <div style="background:#fff;border:1px solid #e8e8e3;border-radius:12px;padding:16px">
+        <h4 style="font-size:13px;font-weight:800;margin-bottom:4px;color:#e67e22">SMS 대체전송 (LMS)</h4>
+        <p style="font-size:10px;color:#999;margin-bottom:10px">RCS 미지원 시 장문 문자</p>
+        <div style="background:#fff8f0;border-radius:8px;padding:12px;margin-bottom:8px">
+            <div style="font-size:11px;color:#888;margin-bottom:4px">장문 본문 (2,000바이트)</div>
+            <textarea id="sms-lms" style="width:100%;height:140px;border:1px solid #e0e0e0;border-radius:6px;padding:8px;font-size:11px;resize:none;font-family:inherit" onclick="this.select()">[두레생협] 15주 주간기획
+
+83개 상품 최대 30% 할인!
+4/6(월) ~ 4/10(금)
+
+■ 보양식 3개
+■ 면류/여름 22개
+■ 뷰티/스킨케어 7개
+■ 신규 출시 4개
+■ 택배 기획전 2개
+■ 햇출하 1개
+■ 과채주스/건강스틱 9개
+
+▶기획전: https://durecoop.github.io/magazine/W15/
+▶카드뉴스: https://durecoop.github.io/dure-coop-14week-cardnews/weekly_deal.html
+▶추천상품: https://durecoop.github.io/magazine/W15-focus/
+▶쇼핑몰: https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1655</textarea>
+        </div>
+        <div style="display:flex;gap:6px">
+            <button class="d-copy-btn" onclick="copyText(document.getElementById('sms-lms'))" style="flex:1;padding:8px">본문 복사</button>
+            <span style="font-size:9px;color:#999;padding-top:10px" id="smsLen"></span>
+        </div>
+        <script>
+            const smsEl = document.getElementById('sms-lms');
+            const lenEl = document.getElementById('smsLen');
+            function updateLen(){ if(lenEl && smsEl) lenEl.textContent = new Blob([smsEl.value]).size + '/2000 bytes'; }
+            if(smsEl) { smsEl.addEventListener('input', updateLen); updateLen(); }
+        </script>
+    </div>
+
+    </div>
+        </div>
+    </div>
+
     <!-- 두레추천 탭 -->
     <div id="tab-recommend" class="d-tab-content">
         <div class="d-section">
@@ -5147,6 +5272,56 @@ function moveProduct(prodEl, direction) {
     markDirty();
 }
 
+// ── 블록별 기획전 등록 엑셀 다운로드 ──
+function downloadPlanExcel() {
+    const blocks = document.querySelectorAll('.d-block[data-block]');
+    const header = ['번호','정렬순서','노출여부','메인여부','상세타입(P)','제목(P)','이미지(P)','상세타입(M)','제목(M)','이미지(M)','링크사용여부','링크URL(P)','링크URL(M)','등록상품'];
+    let csv = '\uFEFF' + header.join(',') + '\n';
+
+    blocks.forEach((block, i) => {
+        const role = block.dataset.role || '';
+        const titleEl = block.querySelector('h3');
+        const title = titleEl?.textContent?.trim() || '';
+
+        // 제목: h3 텍스트 (짧은 블록명)
+        const pcTitle = title;
+        const moTitle = title;
+
+        // 등록상품: data-code 속성만 추출 (숫자만)
+        const codes = [];
+        block.querySelectorAll('.d-prod[data-code]').forEach(p => {
+            const code = p.dataset.code;
+            if(code && /^\d+$/.test(code)) codes.push(code);
+        });
+        const codesStr = codes.join(',');
+
+        const isMain = role === '메인배너' ? '예' : '아니오';
+        const row = [
+            i + 1,
+            i * 10,
+            '예',
+            isMain,
+            '이미지',
+            '"' + pcTitle + '"',
+            '',
+            '이미지',
+            '"' + moTitle + '"',
+            '',
+            '아니오',
+            '',
+            '',
+            '"' + codesStr + '"'
+        ];
+        csv += row.join(',') + '\n';
+    });
+
+    const blob = new Blob([csv], {type:'application/vnd.ms-excel;charset=utf-8;'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'plan_register.xls';
+    a.click();
+}
+
 // ── 두레추천 엑셀 다운로드 (xlsx) ──
 function downloadRecommendCSV() {
     const items = document.querySelectorAll('.rec-item');
@@ -5226,7 +5401,7 @@ function filterBlocks(role, btn) {
 </script>
 
 <div class="d-footer">
-    2026년 15주 주간기획 자동화 대시보드 &middot; 생성: 2026-04-14 13:49
+    2026년 15주 주간기획 자동화 대시보드 &middot; 생성: 2026-04-14 14:44
 </div>
 
 </body>
