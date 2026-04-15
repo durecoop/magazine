@@ -2,1358 +2,859 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>두레생협 11주차 | 생활의 발견</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>두레생협 11주 주간기획</title>
+<meta name="description" content="두레생협 11주 — 88개 상품 최대 50% 할인">
+<meta property="og:title" content="두레생협 11주 주간기획">
+<meta property="og:description" content="88개 상품, 최대 50% 할인 — 3/9(월) ~ 3/13(금)">
+<meta property="og:image" content="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57159C.jpg">
+<meta property="og:url" content="https://durecoop.github.io/magazine/W11/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800;900&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;600;700;900&display=swap');
-
-* { margin: 0; padding: 0; box-sizing: border-box; }
-a { text-decoration: none; color: inherit; }
-html { scroll-behavior: smooth; }
-body {
-  font-family: 'Noto Sans KR', sans-serif;
-  background: #faf8f4;
-  color: #2a2a2a;
-  overflow-x: hidden;
-  font-size: 24px;
-  line-height: 1.9;
-  word-break: keep-all;
-  overflow-wrap: break-word;
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Malgun Gothic',sans-serif;
+  background:#fff;color:#333;max-width:480px;margin:0 auto;
+  -webkit-font-smoothing:antialiased;word-break:keep-all;
 }
 
-/* ========== GLOBAL FALLING PETALS ========== */
-.petal-container {
-  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-  pointer-events: none; z-index: 999; overflow: hidden;
+/* ── 히어로 (전폭 비주얼) ── */
+.hero{
+  background:linear-gradient(180deg,#1a3a2a 0%,#2d6a4f 100%);
+  color:#fff;padding:40px 20px 32px;position:relative;overflow:hidden;
 }
-.petal {
-  position: absolute; top: -40px;
-  width: 14px; height: 14px;
-  background: radial-gradient(ellipse at 40% 40%, #ffb6c1, #ff8fa3);
-  border-radius: 50% 0 50% 50%;
-  opacity: 0;
-  animation: petalFall linear infinite;
-  filter: blur(0.5px);
+.hero::after{
+  content:'';position:absolute;bottom:-30px;left:0;right:0;height:60px;
+  background:#fff;border-radius:50% 50% 0 0;
 }
-.petal:nth-child(odd) {
-  background: radial-gradient(ellipse at 40% 40%, #ffc9d4, #ffaabb);
-  width: 11px; height: 11px;
+.hero-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.hero-logo{font-size:13px;font-weight:800;opacity:.7;letter-spacing:1px}
+.hero-week{font-size:11px;background:rgba(255,255,255,.15);padding:4px 10px;border-radius:12px}
+.hero h1{font-size:20px;font-weight:900;line-height:1.35;margin-bottom:6px}
+.hero-sub{font-size:12px;opacity:.65;margin-bottom:16px}
+.hero-chips{display:flex;gap:8px;flex-wrap:wrap}
+.hero-chip{
+  background:rgba(255,255,255,.12);backdrop-filter:blur(4px);
+  padding:6px 12px;border-radius:20px;font-size:11px;font-weight:600;
 }
-.petal:nth-child(3n) {
-  background: radial-gradient(ellipse at 40% 40%, #ffe0e6, #ffd0d8);
-  width: 9px; height: 9px;
+.hero-chip em{font-style:normal;color:#a7f3d0;font-weight:800}
+
+/* ── 카테고리 네비 (고정) ── */
+.cat-nav{
+  position:sticky;top:0;z-index:100;background:#fff;
+  border-bottom:1px solid #f0f0f0;
+  display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;
+  padding:0 16px;gap:0;
 }
-@keyframes petalFall {
-  0% { opacity: 0; transform: translateY(-20px) rotate(0deg) translateX(0); }
-  10% { opacity: 0.35; }
-  50% { opacity: 0.25; }
-  100% { opacity: 0; transform: translateY(105vh) rotate(360deg) translateX(80px); }
+.cat-nav::-webkit-scrollbar{display:none}
+.cat-nav a{
+  flex-shrink:0;padding:12px 14px;
+  font-size:12px;font-weight:600;color:#999;
+  text-decoration:none;border-bottom:2px solid transparent;
+  white-space:nowrap;transition:.2s;
+}
+.cat-nav a.on{color:#1a3a2a;border-bottom-color:#1a3a2a;font-weight:800}
+
+/* ── 섹션 ── */
+.sec{padding:24px 16px 8px}
+.sec-label{
+  display:inline-block;font-size:10px;font-weight:700;
+  color:#2d6a4f;letter-spacing:1px;margin-bottom:4px;
+}
+.sec-title{font-size:16px;font-weight:900;line-height:1.35;margin-bottom:2px}
+.sec-sub{font-size:11px;color:#999;margin-bottom:16px}
+
+/* ── 상품 가로 스크롤 (마켓컬리 스타일) ── */
+.prod-scroll{
+  display:flex;gap:10px;overflow-x:auto;-webkit-overflow-scrolling:touch;
+  padding:0 16px 16px;scroll-snap-type:x mandatory;
+}
+.prod-scroll::-webkit-scrollbar{display:none}
+.prod-card{
+  flex-shrink:0;width:140px;scroll-snap-align:start;
+}
+.prod-img{
+  width:140px;height:140px;border-radius:8px;overflow:hidden;
+  background:#f8f8f8;margin-bottom:8px;
+}
+.prod-img img{width:100%;height:100%;object-fit:cover}
+.prod-name{font-size:12px;font-weight:600;line-height:1.4;margin-bottom:4px;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+  height:34px;
+}
+.prod-discount{font-size:14px;font-weight:900;color:#e53935;margin-right:4px}
+.prod-price{font-size:13px;font-weight:700;color:#333}
+.prod-original{font-size:11px;color:#bbb;text-decoration:line-through;display:block;margin-top:1px}
+
+/* ── 상품 리스트형 (더보기 이후) ── */
+.prod-list{padding:0 16px}
+.prod-row{
+  display:flex;gap:12px;padding:12px 0;
+  border-bottom:1px solid #f5f5f5;
+}
+.prod-row-img{
+  width:64px;height:64px;flex-shrink:0;border-radius:6px;
+  overflow:hidden;background:#f8f8f8;
+}
+.prod-row-img img{width:100%;height:100%;object-fit:cover}
+.prod-row-info{flex:1;display:flex;flex-direction:column;justify-content:center}
+.prod-row-name{font-size:12px;font-weight:600;line-height:1.4;margin-bottom:3px}
+.prod-row-prices{display:flex;align-items:baseline;gap:4px}
+.prod-row-disc{font-size:13px;font-weight:900;color:#e53935}
+.prod-row-sale{font-size:12px;font-weight:700}
+.prod-row-orig{font-size:10px;color:#bbb;text-decoration:line-through}
+
+/* ── 더보기 버튼 ── */
+.more-btn{
+  display:block;margin:0 16px 20px;padding:12px;
+  border:1px solid #e0e0e0;border-radius:8px;
+  text-align:center;font-size:12px;font-weight:600;color:#666;
+  background:#fff;cursor:pointer;
 }
 
-/* ========== WEEK BADGE ========== */
-.week-badge {
-  position: fixed; top: 24px; left: 24px; z-index: 1000;
-  background: rgba(255,255,255,0.85); backdrop-filter: blur(16px);
-  padding: 10px 22px; border-radius: 30px;
-  font-size: 19px; font-weight: 600;
-  color: #666;
-  border: 1px solid rgba(0,0,0,0.06);
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-}
-.week-badge span { color: #4aba70; font-weight: 700; }
+/* ── 구분선 ── */
+.divider{height:8px;background:#f5f5f5}
 
-/* ========== TIMELINE NAV ========== */
-.timeline-nav {
-  position: fixed; right: 24px; top: 50%; transform: translateY(-50%);
-  z-index: 100; display: flex; flex-direction: column; gap: 14px;
-}
-.timeline-dot {
-  width: 12px; height: 12px; border-radius: 50%;
-  background: rgba(0,0,0,0.08); border: 2px solid rgba(0,0,0,0.12);
-  cursor: pointer; transition: all 0.3s; position: relative;
-}
-.timeline-dot.active {
-  background: #4aba70; border-color: #4aba70;
-  box-shadow: 0 0 14px rgba(74,186,112,0.4);
-}
-.timeline-dot .dot-label {
-  position: absolute; right: 22px; top: 50%; transform: translateY(-50%);
-  white-space: nowrap; font-size: 11px; font-weight: 600;
-  color: #888; opacity: 0;
-  transition: opacity 0.3s; pointer-events: none;
-}
-.timeline-dot:hover .dot-label { opacity: 1; }
-@media (max-width: 900px) { .timeline-nav { display: none; } }
-
-/* ========== REVEAL ANIMATION ========== */
-.reveal {
-  opacity: 0; transform: translateY(40px);
-  transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.reveal.visible { opacity: 1; transform: translateY(0); }
-.reveal-left {
-  opacity: 0; transform: translateX(-50px);
-  transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.reveal-left.visible { opacity: 1; transform: translateX(0); }
-.reveal-right {
-  opacity: 0; transform: translateX(50px);
-  transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.reveal-right.visible { opacity: 1; transform: translateX(0); }
-.reveal-scale {
-  opacity: 0; transform: scale(0.9);
-  transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.reveal-scale.visible { opacity: 1; transform: scale(1); }
-
-/* ========== HERO ========== */
-.hero {
-  position: relative; height: 100vh; min-height: 700px;
-  display: flex; align-items: center; justify-content: center;
-  overflow: hidden;
-  background: linear-gradient(180deg, #f0f7ee 0%, #e8f5e0 40%, #faf8f4 100%);
-}
-.hero-overlay {
-  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-  background:
-    radial-gradient(ellipse at 30% 40%, rgba(74,186,112,0.1), transparent 60%),
-    radial-gradient(ellipse at 70% 60%, rgba(255,182,193,0.12), transparent 50%);
-  pointer-events: none;
-}
-.hero-particles {
-  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-  overflow: hidden; pointer-events: none;
-}
-.hero-particle {
-  position: absolute; border-radius: 50%; opacity: 0;
-  animation: particleFloat 8s ease-in-out infinite;
-}
-@keyframes particleFloat {
-  0% { opacity: 0; transform: translateY(100vh) scale(0); }
-  20% { opacity: 0.4; }
-  80% { opacity: 0.2; }
-  100% { opacity: 0; transform: translateY(-20vh) scale(1); }
+/* ── 크로스링크 ── */
+.cross{display:flex;gap:8px;padding:16px;background:#fafafa}
+.cross a{
+  flex:1;display:block;padding:10px;border-radius:8px;
+  background:#fff;border:1px solid #eee;text-align:center;
+  text-decoration:none;font-size:11px;font-weight:600;color:#555;
 }
 
-.hero-inner {
-  position: relative; z-index: 2;
-  text-align: center; max-width: 900px; padding: 0 5%;
-}
-.hero-week {
-  display: inline-block; padding: 12px 30px; border-radius: 30px;
-  font-size: 22px; font-weight: 700; margin-bottom: 24px;
-  background: rgba(74,186,112,0.12); color: #2d8a50;
-  border: 1px solid rgba(74,186,112,0.25);
-  animation: badgePulse 2s ease-in-out infinite;
-}
-@keyframes badgePulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(74,186,112,0.3); }
-  50% { box-shadow: 0 0 0 8px rgba(74,186,112,0); }
-}
-.hero-title {
-  font-size: clamp(44px, 7vw, 76px); font-weight: 900;
-  line-height: 1.3; margin-bottom: 24px;
-}
-.hero-title .accent {
-  background: linear-gradient(135deg, #4aba70, #2d8a50);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-}
-.hero-title .warm {
-  background: linear-gradient(135deg, #ff6a50, #ff9040);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-}
-.hero-sub {
-  font-size: clamp(22px, 2.5vw, 28px); font-weight: 300;
-  line-height: 1.9; color: #666; margin-bottom: 40px;
-}
+/* ── 푸터 ── */
+.footer{text-align:center;padding:32px 16px;background:#fafafa;font-size:10px;color:#bbb}
+.footer-logo{font-size:14px;font-weight:900;color:#2d6a4f;margin-bottom:6px}
 
-/* Product icons row */
-.hero-icons {
-  display: grid; grid-template-columns: repeat(3, auto); justify-content: center; gap: 24px 40px;
-  margin-bottom: 60px;
-}
-.hero-icon-item {
-  display: flex; flex-direction: column; align-items: center; gap: 10px;
-  cursor: pointer; transition: transform 0.3s;
-  text-decoration: none;
-  animation: iconFloat 3s ease-in-out infinite;
-}
-.hero-icon-item:nth-child(1) { animation-delay: 0s; }
-.hero-icon-item:nth-child(2) { animation-delay: 0.5s; }
-.hero-icon-item:nth-child(3) { animation-delay: 1s; }
-.hero-icon-item:nth-child(4) { animation-delay: 1.5s; }
-.hero-icon-item:nth-child(5) { animation-delay: 2s; }
-.hero-icon-item:nth-child(6) { animation-delay: 2.5s; }
-@keyframes iconFloat {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-12px); }
-}
-.hero-icon-item:hover { animation-play-state: paused; transform: translateY(-6px); }
-.hero-icon-circle {
-  width: 72px; height: 72px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 32px;
-  border: 2px solid rgba(0,0,0,0.06);
-  transition: all 0.3s;
-  background: rgba(255,255,255,0.7);
-  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
-}
-.hero-icon-item:hover .hero-icon-circle {
-  border-color: rgba(0,0,0,0.1);
-  box-shadow: 0 8px 30px rgba(0,0,0,0.1);
-  background: #fff;
-}
-.hero-icon-label {
-  font-size: 18px; font-weight: 600; color: #888;
-}
-.icon-tomato .hero-icon-circle { background: rgba(232,68,48,0.08); }
-.icon-apple .hero-icon-circle { background: rgba(200,50,50,0.08); }
-.icon-meat .hero-icon-circle { background: rgba(180,100,60,0.08); }
-.icon-pickle .hero-icon-circle { background: rgba(80,160,60,0.08); }
-.icon-banchan .hero-icon-circle { background: rgba(120,180,80,0.08); }
-
-.scroll-hint {
-  position: absolute; bottom: 20px; left: 50%;
-  transform: translateX(-50%); text-align: center;
-  animation: scrollBounce 2s ease-in-out infinite;
-  color: rgba(0,0,0,0.25); font-size: 19px; z-index: 2;
-}
-.scroll-hint .arrow { display: block; font-size: 24px; margin-top: 4px; }
-@keyframes scrollBounce {
-  0%, 100% { transform: translateX(-50%) translateY(0); }
-  50% { transform: translateX(-50%) translateY(10px); }
-}
-@media (max-width: 900px) {
-  .hero { min-height: 100vh; min-height: 100dvh; }
-  .hero-inner { padding: 0 6%; }
-  .hero-title { font-size: clamp(34px, 8vw, 56px); }
-  .hero-sub { font-size: 18px; line-height: 1.9; margin-bottom: 32px; }
-  .hero-icons { gap: 16px; }
-  .hero-icon-circle { width: 56px; height: 56px; font-size: 26px; }
-  .hero-icon-label { font-size: 16px; }
-  .scroll-hint { font-size: 16px; bottom: 24px; }
-}
-@media (max-width: 500px) {
-  .hero-icons { gap: 12px; }
-  .hero-icon-circle { width: 48px; height: 48px; font-size: 22px; }
-  .hero-icon-label { font-size: 14px; }
-}
-
-/* ========== PRODUCT SECTION (공통) ========== */
-.product-section {
-  position: relative; min-height: 100vh;
-  padding: 120px 5%; overflow: hidden;
-}
-.product-inner {
-  max-width: 1200px; margin: 0 auto;
-}
-
-/* ========== SECTION HEADER ========== */
-.section-header {
-  text-align: center; margin-bottom: 80px;
-}
-.section-badge {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-size: 20px; font-weight: 700; letter-spacing: 3px;
-  margin-bottom: 18px; padding: 10px 24px; border-radius: 24px;
-}
-.section-title {
-  font-size: clamp(34px, 5vw, 58px); font-weight: 900;
-  line-height: 1.35; margin-bottom: 16px;
-}
-.section-desc {
-  font-size: clamp(22px, 2.2vw, 28px); font-weight: 300;
-  line-height: 1.9; color: #888;
-  max-width: 600px; margin: 0 auto;
-}
-
-/* ========== PRODUCT CARDS ========== */
-.product-showcase {
-  display: flex; align-items: center; gap: 60px;
-}
-.product-showcase.reverse { flex-direction: row-reverse; }
-.product-image-area {
-  flex: 1; display: flex; justify-content: center;
-  perspective: 1000px;
-}
-.product-card-3d {
-  position: relative; border-radius: 24px; overflow: hidden;
-  transform-style: preserve-3d;
-  transition: transform 0.6s cubic-bezier(0.23,1,0.32,1), box-shadow 0.6s;
-  width: 100%; max-width: 380px; aspect-ratio: 1 / 1;
-  border: 1px solid rgba(0,0,0,0.06);
-  box-shadow: 0 16px 48px rgba(0,0,0,0.08);
-}
-.product-card-3d img {
-  display: block; width: 100%; height: 100%; object-fit: cover;
-  transition: transform 0.6s;
-}
-.product-card-3d:hover img { transform: scale(1.05); }
-.product-card-overlay {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  padding: 24px; z-index: 2;
-  background: linear-gradient(transparent, rgba(0,0,0,0.8));
-}
-.product-card-overlay .tag {
-  display: inline-block; font-size: 17px; font-weight: 700;
-  letter-spacing: 2px; padding: 5px 14px; border-radius: 12px;
-  margin-bottom: 6px;
-}
-.product-card-overlay h3 { font-size: 26px; font-weight: 700; color: #fff; }
-.product-card-overlay p { font-size: 19px; color: rgba(255,255,255,0.7); }
-
-.product-info { flex: 1; }
-.product-info .info-number {
-  font-size: 120px; font-weight: 900; opacity: 0.04;
-  position: absolute; top: -40px; left: -20px; line-height: 1;
-  pointer-events: none;
-}
-.product-info .info-label {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-size: 20px; font-weight: 700; letter-spacing: 2px;
-  padding: 8px 18px; border-radius: 20px; margin-bottom: 18px;
-}
-.product-info .info-title {
-  font-size: clamp(32px, 4.5vw, 52px); font-weight: 900;
-  line-height: 1.35; margin-bottom: 20px;
-}
-.product-info .info-desc {
-  font-size: clamp(22px, 2.2vw, 28px); font-weight: 300;
-  line-height: 1.9; color: #666; margin-bottom: 28px;
-}
-.product-info .info-desc strong { color: #2a2a2a; font-weight: 600; }
-
-/* Price tag */
-.price-tag {
-  display: inline-flex; align-items: center; gap: 16px;
-  padding: 16px 28px; border-radius: 16px;
-  background: #fff;
-  border: 1px solid rgba(0,0,0,0.06);
-  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
-  white-space: nowrap;
-}
-.price-original {
-  font-size: 24px; color: #bbb;
-  text-decoration: line-through;
-}
-.price-sale {
-  font-size: 36px; font-weight: 900;
-}
-.price-discount {
-  font-size: 20px; font-weight: 800; padding: 6px 14px;
-  border-radius: 8px; color: #fff;
-}
-
-@media (max-width: 900px) {
-  .product-section { padding: 80px 5%; min-height: auto; }
-  .section-header { margin-bottom: 50px; }
-  .section-title { font-size: clamp(30px, 7vw, 44px); }
-  .product-showcase, .product-showcase.reverse {
-    flex-direction: column; text-align: center; gap: 32px;
-  }
-  .product-card-3d { max-width: 100%; aspect-ratio: 4 / 3; }
-  .product-info .info-number { display: none; }
-  .product-info .info-title { font-size: clamp(28px, 6vw, 40px); }
-  .product-info .info-desc { font-size: 18px; line-height: 1.9; }
-  .price-tag { padding: 14px 22px; }
-  .price-sale { font-size: 32px; }
-  .product-image-area { width: 100%; }
-}
-@media (max-width: 500px) {
-  .product-section { padding: 60px 4%; }
-  .section-header { margin-bottom: 36px; }
-  .product-card-3d { border-radius: 18px; }
-  .price-tag { gap: 10px; }
-}
-
-/* ========== SECTION 1: TOMATO ========== */
-.section-tomato {
-  background: linear-gradient(180deg, #faf8f4 0%, #fff5f3 30%, #fff0ee 50%, #fff5f3 70%, #faf8f4 100%);
-}
-.section-tomato .section-badge { background: rgba(232,68,48,0.08); color: #d04030; border: 1px solid rgba(232,68,48,0.15); }
-.section-tomato .product-card-3d { border-color: rgba(232,68,48,0.1); box-shadow: 0 20px 50px rgba(232,68,48,0.08), 0 8px 24px rgba(0,0,0,0.06); }
-.section-tomato .product-card-overlay .tag { background: rgba(232,68,48,0.7); color: #fff; }
-.section-tomato .info-label { background: rgba(232,68,48,0.08); color: #d04030; border: 1px solid rgba(232,68,48,0.15); }
-.section-tomato .price-sale { color: #d04030; }
-.section-tomato .price-discount { background: linear-gradient(135deg, #e84430, #d63020); }
-
-/* ========== SECTION 2: APPLE ========== */
-.section-apple {
-  background: linear-gradient(180deg, #faf8f4 0%, #fff3f5 30%, #ffeff2 50%, #fff3f5 70%, #faf8f4 100%);
-}
-.section-apple .section-badge { background: rgba(200,50,70,0.08); color: #c03050; border: 1px solid rgba(200,50,70,0.15); }
-.section-apple .product-card-3d { border-color: rgba(200,50,70,0.1); box-shadow: 0 20px 50px rgba(200,50,70,0.08), 0 8px 24px rgba(0,0,0,0.06); }
-.section-apple .product-card-overlay .tag { background: rgba(200,50,70,0.7); color: #fff; }
-.section-apple .info-label { background: rgba(200,50,70,0.08); color: #c03050; border: 1px solid rgba(200,50,70,0.15); }
-.section-apple .price-sale { color: #c03050; }
-.section-apple .price-discount { background: linear-gradient(135deg, #c83246, #a02838); }
-
-/* ========== SECTION 3: MEAT ========== */
-.section-meat {
-  background: linear-gradient(180deg, #faf8f4 0%, #faf3ee 30%, #f8efe6 50%, #faf3ee 70%, #faf8f4 100%);
-}
-.section-meat .section-badge { background: rgba(180,100,60,0.08); color: #a06030; border: 1px solid rgba(180,100,60,0.15); }
-.section-meat .product-card-3d { border-color: rgba(180,100,60,0.1); box-shadow: 0 20px 50px rgba(180,100,60,0.08), 0 8px 24px rgba(0,0,0,0.06); }
-.section-meat .product-card-overlay .tag { background: rgba(180,100,60,0.7); color: #fff; }
-.section-meat .info-label { background: rgba(180,100,60,0.08); color: #a06030; border: 1px solid rgba(180,100,60,0.15); }
-.section-meat .price-sale { color: #a06030; }
-.section-meat .price-discount { background: linear-gradient(135deg, #b4643c, #8a4828); }
-
-/* Meat grid */
-.meat-grid {
-  display: grid; grid-template-columns: 1fr; gap: 20px;
-  margin-top: 60px; max-width: 500px; margin-left: auto; margin-right: auto;
-}
-.meat-card {
-  border-radius: 20px; overflow: hidden;
-  background: #fff;
-  border: 1px solid rgba(0,0,0,0.06);
-  padding: 28px; text-align: center;
-  transition: all 0.4s cubic-bezier(0.23,1,0.32,1);
-  cursor: default;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.04);
-}
-.meat-card:hover {
-  border-color: rgba(180,100,60,0.2);
-  transform: translateY(-6px);
-  box-shadow: 0 16px 40px rgba(180,100,60,0.1), 0 6px 16px rgba(0,0,0,0.06);
-}
-.meat-icon { font-size: 48px; margin-bottom: 16px; }
-.meat-img {
-  width: 100%; aspect-ratio: 4 / 3; object-fit: cover;
-  border-radius: 14px; margin-bottom: 16px;
-  transition: transform 0.4s;
-}
-.meat-card:hover .meat-img { transform: scale(1.05); }
-.meat-name { font-size: 25px; font-weight: 700; margin-bottom: 8px; color: #2a2a2a; }
-.meat-desc { font-size: 20px; color: #999; line-height: 1.7; margin-bottom: 14px; }
-.meat-price { font-size: 28px; font-weight: 800; color: #a06030; white-space: nowrap; }
-.meat-price-original {
-  font-size: 19px; color: #bbb; text-decoration: line-through;
-  margin-right: 8px;
-}
-.meat-discount-badge {
-  display: inline-block; font-size: 18px; font-weight: 700;
-  padding: 4px 12px; border-radius: 8px;
-  background: rgba(180,100,60,0.1); color: #a06030;
-  margin-top: 8px;
-}
-
-@media (max-width: 900px) {
-  .meat-grid { grid-template-columns: 1fr; gap: 14px; margin-top: 40px; max-width: 100%; }
-  .meat-card { padding: 16px; border-radius: 16px; }
-  .meat-img { border-radius: 12px; }
-  .meat-name { font-size: 20px; }
-  .meat-desc { font-size: 16px; margin-bottom: 10px; }
-  .meat-price { font-size: 24px; }
-}
-@media (max-width: 500px) {
-  .meat-grid { grid-template-columns: 1fr; gap: 10px; }
-  .meat-card { padding: 12px; }
-  .meat-name { font-size: 18px; }
-  .meat-desc { font-size: 15px; }
-}
-
-/* ========== SECTION 4: PICKLE ========== */
-.section-pickle {
-  background: linear-gradient(180deg, #faf8f4 0%, #f0f8ee 30%, #eaf5e6 50%, #f0f8ee 70%, #faf8f4 100%);
-}
-.section-pickle .section-badge { background: rgba(80,160,60,0.08); color: #3a8028; border: 1px solid rgba(80,160,60,0.15); }
-.section-pickle .product-card-3d { border-color: rgba(80,160,60,0.1); box-shadow: 0 20px 50px rgba(80,160,60,0.08), 0 8px 24px rgba(0,0,0,0.06); }
-.section-pickle .product-card-overlay .tag { background: rgba(80,160,60,0.7); color: #fff; }
-.section-pickle .info-label { background: rgba(80,160,60,0.08); color: #3a8028; border: 1px solid rgba(80,160,60,0.15); }
-.section-pickle .price-sale { color: #3a8028; }
-.section-pickle .price-discount { background: linear-gradient(135deg, #50a03c, #3a7828); }
-
-/* ========== SECTION 5: BANCHAN ========== */
-.section-banchan {
-  background: linear-gradient(180deg, #faf8f4 0%, #f2f8ee 30%, #eef6e8 50%, #f2f8ee 70%, #faf8f4 100%);
-}
-.section-banchan .section-badge { background: rgba(120,180,80,0.08); color: #4a8030; border: 1px solid rgba(120,180,80,0.15); }
-
-/* Banchan showcase grid */
-.banchan-grid {
-  display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;
-  margin-top: 60px;
-}
-.banchan-card {
-  border-radius: 20px; overflow: hidden;
-  background: #fff;
-  border: 1px solid rgba(0,0,0,0.06);
-  display: flex; align-items: center; gap: 20px;
-  padding: 24px 28px;
-  transition: all 0.4s cubic-bezier(0.23,1,0.32,1);
-  cursor: default;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.04);
-}
-.banchan-card:hover {
-  border-color: rgba(120,180,80,0.2);
-  transform: translateY(-4px);
-  box-shadow: 0 12px 36px rgba(120,180,80,0.1), 0 6px 16px rgba(0,0,0,0.06);
-}
-.banchan-emoji { font-size: 40px; flex-shrink: 0; }
-.banchan-img {
-  width: 80px; height: 80px; border-radius: 14px;
-  object-fit: cover; flex-shrink: 0;
-  transition: transform 0.4s;
-}
-.banchan-card:hover .banchan-img { transform: scale(1.08); }
-
-@media (max-width: 900px) {
-  .banchan-grid { grid-template-columns: 1fr; gap: 12px; margin-top: 40px; }
-  .banchan-card { padding: 16px 20px; gap: 16px; border-radius: 16px; }
-  .banchan-img { width: 68px; height: 68px; border-radius: 12px; }
-  .banchan-name { font-size: 18px; }
-  .banchan-detail { font-size: 15px; }
-  .banchan-price { font-size: 20px; }
-}
-.banchan-info { flex: 1; }
-.banchan-name { font-size: 24px; font-weight: 700; margin-bottom: 4px; color: #2a2a2a; }
-.banchan-detail { font-size: 20px; color: #999; margin-bottom: 8px; }
-.banchan-price { font-size: 26px; font-weight: 800; color: #4a8030; white-space: nowrap; }
-.banchan-price-original {
-  font-size: 19px; color: #bbb; text-decoration: line-through;
-  margin-right: 6px;
-}
-
-
-/* ========== SPRING BANNER ========== */
-.spring-banner {
-  position: relative; padding: 100px 5%; text-align: center;
-  background: linear-gradient(180deg, #faf8f4 0%, #fff0ee 30%, #ffe8e4 50%, #fff0ee 70%, #faf8f4 100%);
-  overflow: hidden;
-}
-.spring-banner::before {
-  content: '';
-  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-  background:
-    radial-gradient(ellipse at 30% 40%, rgba(255,182,193,0.15), transparent 50%),
-    radial-gradient(ellipse at 70% 60%, rgba(255,200,100,0.1), transparent 50%);
-  pointer-events: none;
-}
-.spring-title {
-  font-size: clamp(30px, 4.5vw, 50px); font-weight: 900;
-  margin-bottom: 16px; position: relative; z-index: 1;
-}
-.spring-sub {
-  font-size: clamp(18px, 2vw, 22px); color: #888;
-  margin-bottom: 60px; line-height: 1.7; position: relative; z-index: 1;
-}
-
-/* Flower particles */
-.flower-particle {
-  position: absolute; pointer-events: none; font-size: 20px;
-  animation: flowerFall 10s linear infinite;
-  opacity: 0.4;
-}
-@keyframes flowerFall {
-  0% { transform: translateY(-50px) rotate(0deg); opacity: 0; }
-  10% { opacity: 0.5; }
-  90% { opacity: 0.3; }
-  100% { transform: translateY(calc(100vh + 50px)) rotate(360deg); opacity: 0; }
-}
-
-/* ========== SPINACH + RECIPE SECTION ========== */
-.section-spinach {
-  background: linear-gradient(180deg, #faf8f4 0%, #eef8ee 30%, #e6f5e6 50%, #eef8ee 70%, #faf8f4 100%);
-}
-.section-spinach .section-badge { background: rgba(60,140,60,0.08); color: #2a7a2a; border: 1px solid rgba(60,140,60,0.15); }
-.section-spinach .product-card-3d { border-color: rgba(60,140,60,0.1); box-shadow: 0 20px 50px rgba(60,140,60,0.08), 0 8px 24px rgba(0,0,0,0.06); }
-.section-spinach .product-card-overlay .tag { background: rgba(60,140,60,0.7); color: #fff; }
-.section-spinach .info-label { background: rgba(60,140,60,0.08); color: #2a7a2a; border: 1px solid rgba(60,140,60,0.15); }
-.section-spinach .price-sale { color: #2a7a2a; }
-.section-spinach .price-discount { background: linear-gradient(135deg, #3c8c3c, #2a6a28); }
-
-/* Recipe card */
-.recipe-section {
-  padding: 120px 5%; overflow: hidden;
-  background: linear-gradient(180deg, #faf8f4 0%, #faf6ee 20%, #f8f2e8 50%, #faf6ee 80%, #faf8f4 100%);
-  position: relative;
-}
-.recipe-section::before {
-  content: '';
-  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-  background:
-    radial-gradient(ellipse at 30% 40%, rgba(60,140,60,0.04), transparent 50%),
-    radial-gradient(ellipse at 70% 60%, rgba(200,160,60,0.04), transparent 50%);
-  pointer-events: none;
-}
-.recipe-inner {
-  max-width: 1000px; margin: 0 auto; position: relative; z-index: 1;
-}
-.recipe-header {
-  text-align: center; margin-bottom: 60px;
-}
-.recipe-badge {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-size: 20px; font-weight: 700; letter-spacing: 3px;
-  padding: 10px 24px; border-radius: 24px; margin-bottom: 18px;
-  background: rgba(180,130,40,0.08); color: #8a6a20;
-  border: 1px solid rgba(180,130,40,0.15);
-}
-.recipe-title {
-  font-size: clamp(34px, 5vw, 58px); font-weight: 900;
-  line-height: 1.35; margin-bottom: 16px;
-}
-.recipe-subtitle {
-  font-size: clamp(22px, 2.2vw, 28px); font-weight: 300;
-  line-height: 1.9; color: #888;
-}
-
-.recipe-card {
-  display: flex; gap: 0; align-items: stretch;
-  background: #fff;
-  border: 1px solid rgba(0,0,0,0.06);
-  border-radius: 28px; overflow: hidden;
-  transition: border-color 0.4s, box-shadow 0.4s;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.06);
-}
-.recipe-card:hover {
-  border-color: rgba(180,130,40,0.15);
-  box-shadow: 0 16px 48px rgba(180,130,40,0.08), 0 8px 24px rgba(0,0,0,0.06);
-}
-.recipe-photo {
-  flex-shrink: 0; width: 400px; min-height: 500px;
-  position: relative; overflow: hidden;
-}
-.recipe-photo-bg {
-  width: 100%; height: 100%; object-fit: cover;
-  transition: transform 0.6s;
-}
-.recipe-card:hover .recipe-photo-bg { transform: scale(1.05); }
-.recipe-photo-overlay {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  padding: 24px;
-  background: linear-gradient(transparent, rgba(0,0,0,0.7));
-}
-.recipe-photo-overlay .recipe-time {
-  display: inline-flex; align-items: center; gap: 6px;
-  font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.8);
-  background: rgba(0,0,0,0.4); padding: 6px 14px; border-radius: 20px;
-}
-
-.recipe-content {
-  flex: 1; padding: 48px 40px 48px 0;
-  display: flex; flex-direction: column;
-}
-.recipe-dish-name {
-  font-size: clamp(30px, 4vw, 44px); font-weight: 900;
-  margin-bottom: 8px; line-height: 1.3;
-}
-.recipe-dish-desc {
-  font-size: 22px; color: #999;
-  margin-bottom: 32px; line-height: 1.6;
-}
-.recipe-divider {
-  height: 1px; background: rgba(0,0,0,0.06);
-  margin-bottom: 28px;
-}
-
-.recipe-ingredients {
-  margin-bottom: 32px;
-}
-.recipe-ingredients h4 {
-  font-size: 20px; font-weight: 700; letter-spacing: 2px;
-  color: #8a6a20; margin-bottom: 16px;
-}
-.ingredient-list {
-  display: flex; flex-wrap: wrap; gap: 10px;
-}
-.ingredient-chip {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 10px 18px; border-radius: 20px;
-  background: #f8f6f2;
-  border: 1px solid rgba(0,0,0,0.06);
-  font-size: 20px; font-weight: 500;
-  color: #666;
-  transition: all 0.3s;
-}
-.ingredient-chip:hover {
-  background: #f0eeea;
-  border-color: rgba(0,0,0,0.1);
-}
-.ingredient-chip.highlight {
-  background: rgba(60,140,60,0.08);
-  border-color: rgba(60,140,60,0.2);
-  color: #2a7a2a;
-  font-weight: 600;
-}
-
-.recipe-steps {
-  flex: 1;
-}
-.recipe-steps h4 {
-  font-size: 20px; font-weight: 700; letter-spacing: 2px;
-  color: #8a6a20; margin-bottom: 16px;
-}
-.step-list {
-  display: flex; flex-direction: column; gap: 14px;
-  counter-reset: step;
-}
-.step-item {
-  display: flex; align-items: flex-start; gap: 14px;
-  counter-increment: step;
-}
-.step-item::before {
-  content: counter(step);
-  flex-shrink: 0; width: 28px; height: 28px;
-  background: linear-gradient(135deg, rgba(180,130,40,0.12), rgba(180,130,40,0.06));
-  border: 1px solid rgba(180,130,40,0.2);
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 12px; font-weight: 800; color: #8a6a20;
-}
-.step-item p {
-  font-size: 17px; line-height: 1.9;
-  color: #666;
-  padding-top: 3px;
-}
-.step-item p strong { color: #2a2a2a; font-weight: 600; }
-
-.recipe-tip {
-  margin-top: 28px; padding: 18px 22px;
-  background: rgba(180,130,40,0.06);
-  border: 1px solid rgba(180,130,40,0.1);
-  border-radius: 14px;
-  font-size: 20px; color: #888;
-  line-height: 1.6;
-}
-.recipe-tip strong { color: #8a6a20; }
-
-@media (max-width: 900px) {
-  .recipe-section { padding: 80px 5%; }
-  .recipe-card { flex-direction: column; }
-  .recipe-photo { width: 100%; min-height: 240px; aspect-ratio: 16 / 9; }
-  .recipe-content { padding: 28px 24px; }
-  .recipe-dish-name { font-size: clamp(26px, 6vw, 36px); }
-  .recipe-dish-desc { font-size: 16px; margin-bottom: 24px; }
-  .ingredient-list { gap: 8px; }
-  .ingredient-chip { font-size: 15px; padding: 8px 14px; }
-  .step-item p { font-size: 16px; }
-  .recipe-tip { font-size: 15px; }
-}
-@media (max-width: 500px) {
-  .recipe-section { padding: 60px 4%; }
-  .recipe-photo { min-height: 200px; }
-  .recipe-content { padding: 24px 18px; }
-  .recipe-dish-name { font-size: clamp(22px, 5vw, 30px); }
-  .step-item p { font-size: 15px; }
-  .ingredient-chip { font-size: 14px; padding: 6px 12px; }
-}
-
-/* ========== CTA SECTION ========== */
-.cta-section {
-  min-height: 100vh; display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  text-align: center; padding: 80px 20px;
-  position: relative; overflow: hidden;
-}
-.cta-bg {
-  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-  background: radial-gradient(ellipse at 50% 60%, #e8f5e0 0%, #faf8f4 70%);
-}
-.cta-title {
-  font-size: clamp(36px, 6vw, 64px); font-weight: 900;
-  line-height: 1.3; margin-bottom: 16px; z-index: 2;
-}
-.cta-title .highlight {
-  background: linear-gradient(135deg, #4aba70, #2d8a50);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-}
-.cta-sub {
-  font-size: clamp(22px, 2.8vw, 28px);
-  color: #888; margin-bottom: 48px; line-height: 1.7; z-index: 2;
-}
-.cta-button {
-  display: inline-block; padding: 20px 64px;
-  font-size: 28px; font-weight: 700; color: #fff;
-  background: linear-gradient(135deg, #4aba70, #3a9a58);
-  border: none; border-radius: 60px; cursor: pointer;
-  text-decoration: none; z-index: 2;
-  box-shadow: 0 6px 0 #1e6a38, 0 12px 40px rgba(74,186,112,0.2);
-  transition: all 0.15s ease; transform: translateY(0);
-}
-.cta-button:hover {
-  background: linear-gradient(135deg, #5aca80, #4aba70);
-  box-shadow: 0 8px 0 #1e6a38, 0 16px 60px rgba(74,186,112,0.5);
-}
-.cta-button:active {
-  transform: translateY(4px);
-  box-shadow: 0 4px 0 #1e6a38, 0 6px 20px rgba(74,186,112,0.3);
-}
-.cta-notice {
-  margin-top: 40px; font-size: 20px;
-  color: #aaa; z-index: 2;
-}
-@media (max-width: 900px) {
-  .spring-banner { padding: 70px 5%; }
-  .spring-title { font-size: clamp(26px, 6vw, 40px); }
-  .spring-sub { font-size: 16px; margin-bottom: 40px; }
-  .cta-section { min-height: auto; padding: 100px 6%; }
-  .cta-title { font-size: clamp(28px, 7vw, 44px); }
-  .cta-sub { font-size: 17px; margin-bottom: 36px; }
-  .cta-button { padding: 18px 48px; font-size: 22px; }
-  .cta-notice { font-size: 15px; margin-top: 28px; }
-}
-
-/* ========== FOOTER ========== */
-.footer {
-  text-align: center; padding: 40px 20px;
-  font-size: 19px; color: #bbb;
-  border-top: 1px solid rgba(0,0,0,0.06);
-  background: #faf8f4;
-}
-
-/* ========== DIVIDER ========== */
-.section-divider {
-  height: 1px; max-width: 200px; margin: 0 auto;
-  background: linear-gradient(90deg, transparent, rgba(0,0,0,0.06), transparent);
+/* ── PC 확장 ── */
+@media(min-width:769px){
+  body{max-width:1200px}
+  .prod-scroll{flex-wrap:wrap;overflow:visible;padding:0 16px 16px}
+  .prod-card{width:180px}
+  .prod-img{width:180px;height:180px}
+  .hero h1{font-size:28px}
+  .sec-title{font-size:20px}
 }
 </style>
 </head>
 <body>
 
-<!-- Falling Petals -->
-<div class="petal-container" id="petals"></div>
+<!-- 히어로 -->
+<div class="hero">
+  <div class="hero-top">
+    <span class="hero-logo">DURE COOP</span>
+    <span class="hero-week">11주차</span>
+  </div>
+  <h1>이번 주 추천 생활재</h1>
+  <p class="hero-sub">3/9(월) ~ 3/13(금)</p>
+  <div class="hero-chips">
+    <span class="hero-chip"><em>88</em> 상품</span>
+    <span class="hero-chip">최대 <em>50%</em></span>
+    <span class="hero-chip"><em>16</em> 기획전</span>
+  </div>
+</div>
 
-<!-- Badge & Nav -->
-<div class="week-badge">두레생협 <span>11주차</span> 생활의 발견</div>
-<nav class="timeline-nav">
-  <div class="timeline-dot active" data-target="hero"><span class="dot-label">시작</span></div>
-  <div class="timeline-dot" data-target="tomato"><span class="dot-label">정규연 토마토</span></div>
-  <div class="timeline-dot" data-target="apple"><span class="dot-label">상생의 사과</span></div>
-  <div class="timeline-dot" data-target="meat"><span class="dot-label">고기류</span></div>
-  <div class="timeline-dot" data-target="pickle"><span class="dot-label">오이소박이</span></div>
-  <div class="timeline-dot" data-target="banchan"><span class="dot-label">두레맛찬</span></div>
-  <div class="timeline-dot" data-target="spinach"><span class="dot-label">시금치</span></div>
-  <div class="timeline-dot" data-target="recipe"><span class="dot-label">레시피</span></div>
-  <div class="timeline-dot" data-target="cta"><span class="dot-label">주문하기</span></div>
+<!-- 크로스링크 -->
+<div class="cross">
+  <a href="https://durecoop.github.io/dure-coop-14week-cardnews/weekly_deal.html">카드뉴스</a>
+  <a href="https://durecoop.github.io/magazine/W11-focus/">추천상품</a>
+  <a href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1640">쇼핑몰 기획전</a>
+</div>
+
+<!-- 카테고리 네비 -->
+<nav class="cat-nav" id="catnav">
+  <a href="#sec-1" class=" active">뷰티/스킨케어</a><a href="#sec-2" class="">신규 출시</a><a href="#sec-3" class="">수산물</a><a href="#sec-4" class="">간식/스낵</a><a href="#sec-5" class="">김치/반찬류</a><a href="#sec-6" class="">과일</a><a href="#sec-7" class="">새학기 우리아이</a><a href="#sec-8" class="">[공정무역 와인</a><a href="#sec-9" class="">와인 샐러드 연</a><a href="#sec-10" class="">정규연토마토 온</a><a href="#sec-11" class="">우리 땅이 키운</a><a href="#sec-12" class="">공정무역 와인 </a><a href="#sec-13" class="">새 학기 아이들</a><a href="#sec-14" class="">환절기 대비, </a><a href="#sec-15" class="">봄동겉절이로 비</a><a href="#sec-16" class="">[공급재개]아삭</a>
 </nav>
 
-<!-- ===== HERO ===== -->
-<section class="hero" id="hero">
-  <div class="hero-overlay"></div>
-  <div class="hero-particles">
-    <div class="hero-particle" style="width:6px;height:6px;left:15%;background:rgba(74,186,112,0.5);animation-delay:0s;animation-duration:7s;"></div>
-    <div class="hero-particle" style="width:8px;height:8px;left:35%;background:rgba(232,68,48,0.4);animation-delay:1.5s;animation-duration:9s;"></div>
-    <div class="hero-particle" style="width:5px;height:5px;left:55%;background:rgba(200,160,60,0.4);animation-delay:3s;animation-duration:8s;"></div>
-    <div class="hero-particle" style="width:7px;height:7px;left:75%;background:rgba(120,200,100,0.4);animation-delay:4.5s;animation-duration:10s;"></div>
-    <div class="hero-particle" style="width:4px;height:4px;left:90%;background:rgba(180,100,60,0.4);animation-delay:2s;animation-duration:7.5s;"></div>
+<!-- 섹션들 -->
+
+<div class="divider"></div>
+<div class="sec" id="sec-1">
+  <span class="sec-label">뷰티/스킨케어</span>
+  <div class="sec-title">물가안정 기획전 [최대 20% 할인]</div>
+  <div class="sec-sub">8가지 생활재 한자리에 · 8개 상품</div>
+</div>
+<div class="prod-scroll">
+  <div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57815C.jpg" alt="콜라겐 탄력 기초 2종 세트" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57815.jpg'" loading="lazy"></div>
+  <div class="prod-name">콜라겐 탄력 기초 2종 세트</div>
+  <div><span class="prod-discount">20%</span><span class="prod-price">28,800원</span></div>
+  <span class="prod-original">36,000원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/37952C.jpg" alt="그레인 딥클렌징폼" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/37952.jpg'" loading="lazy"></div>
+  <div class="prod-name">그레인 딥클렌징폼</div>
+  <div><span class="prod-discount">10%</span><span class="prod-price">12,900원</span></div>
+  <span class="prod-original">14,400원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/40506C.jpg" alt="콜라겐 탄력 앰플" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/40506.jpg'" loading="lazy"></div>
+  <div class="prod-name">콜라겐 탄력 앰플</div>
+  <div><span class="prod-discount">10%</span><span class="prod-price">13,800원</span></div>
+  <span class="prod-original">15,400원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/47029C.jpg" alt="그레인 인진쑥 에센스" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/47029.jpg'" loading="lazy"></div>
+  <div class="prod-name">그레인 인진쑥 에센스</div>
+  <div><span class="prod-discount">10%</span><span class="prod-price">13,900원</span></div>
+  <span class="prod-original">15,500원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/55816C.jpg" alt="콜라겐 탄력 크림" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/55816.jpg'" loading="lazy"></div>
+  <div class="prod-name">콜라겐 탄력 크림</div>
+  <div><span class="prod-discount">10%</span><span class="prod-price">17,100원</span></div>
+  <span class="prod-original">19,000원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56623C.jpg" alt="콜라겐 탄력스킨" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56623.jpg'" loading="lazy"></div>
+  <div class="prod-name">콜라겐 탄력스킨</div>
+  <div><span class="prod-discount">10%</span><span class="prod-price">15,300원</span></div>
+  <span class="prod-original">17,000원</span>
+</div>
+</div>
+
+<div class="prod-list" id="more-1" style="display:none">
+  <div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56624C.jpg" alt="콜라겐 탄력로션" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">콜라겐 탄력로션</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">10%</span><span class="prod-row-sale">16,200원</span> <span class="prod-row-orig">18,000원</span></div>
   </div>
-
-  <div class="hero-inner">
-    <div class="hero-week reveal">11주차 기획전</div>
-    <h1 class="hero-title reveal" style="transition-delay:0.1s;">
-      <span class="accent">봄이 온다,</span><br><span class="warm">식탁이 풍성해진다!</span>
-    </h1>
-    <p class="hero-sub reveal" style="transition-delay:0.2s;">
-      이번 주, 두레생협이 준비한<br>특별한 생활재를 만나보세요.
-    </p>
-
-    <div class="hero-icons reveal" style="transition-delay:0.35s;">
-      <a class="hero-icon-item icon-tomato" href="#tomato">
-        <div class="hero-icon-circle">&#127813;</div>
-        <span class="hero-icon-label">정규연 토마토</span>
-      </a>
-      <a class="hero-icon-item icon-apple" href="#apple">
-        <div class="hero-icon-circle">&#127822;</div>
-        <span class="hero-icon-label">상생의 사과</span>
-      </a>
-      <a class="hero-icon-item icon-meat" href="#meat">
-        <div class="hero-icon-circle">&#129385;</div>
-        <span class="hero-icon-label">고기류</span>
-      </a>
-      <a class="hero-icon-item icon-pickle" href="#pickle">
-        <div class="hero-icon-circle">&#129362;</div>
-        <span class="hero-icon-label">오이소박이</span>
-      </a>
-      <a class="hero-icon-item icon-banchan" href="#banchan">
-        <div class="hero-icon-circle">&#127857;</div>
-        <span class="hero-icon-label">두레맛찬</span>
-      </a>
-      <a class="hero-icon-item icon-pickle" href="#spinach">
-        <div class="hero-icon-circle" style="background:rgba(60,140,60,0.15);">&#129388;</div>
-        <span class="hero-icon-label">시금치</span>
-      </a>
-    </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57258C.jpg" alt="화이트닝 비타 크림" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">화이트닝 비타 크림</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">10%</span><span class="prod-row-sale">16,200원</span> <span class="prod-row-orig">18,000원</span></div>
   </div>
+</div>
+</div>
+<button class="more-btn" onclick="toggleMore(this,'more-1')">더보기 ▼ (2개)</button>
+<div class="divider"></div>
+<div class="sec" id="sec-2">
+  <span class="sec-label">신규 출시</span>
+  <div class="sec-title">신규 출시 7가지</div>
+  <div class="sec-sub">루테인 오메가3 외 7개 · 7개 상품</div>
+</div>
+<div class="prod-scroll">
+  <div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/42857C.jpg" alt="루테인 오메가3" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/42857.jpg'" loading="lazy"></div>
+  <div class="prod-name">루테인 오메가3</div>
+  <div><span class="prod-discount">30%</span><span class="prod-price">15,800원</span></div>
+  <span class="prod-original">22,600원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57269C.jpg" alt="트리플 블러드 케어" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57269.jpg'" loading="lazy"></div>
+  <div class="prod-name">트리플 블러드 케어</div>
+  <div><span class="prod-discount">15%</span><span class="prod-price">28,000원</span></div>
+  <span class="prod-original">33,000원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58892C.jpg" alt="바나나송송" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58892.jpg'" loading="lazy"></div>
+  <div class="prod-name">바나나송송</div>
+  <div><span class="prod-discount">13%</span><span class="prod-price">2,000원</span></div>
+  <span class="prod-original">2,300원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58992C.jpg" alt="발아생들기름(스틱/20개)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58992.jpg'" loading="lazy"></div>
+  <div class="prod-name">발아생들기름(스틱/20개)</div>
+  <div><span class="prod-discount">10%</span><span class="prod-price">13,500원</span></div>
+  <span class="prod-original">15,000원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/52745C.jpg" alt="홍어회무침(250g)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/52745.jpg'" loading="lazy"></div>
+  <div class="prod-name">홍어회무침(250g)</div>
+  <div><span class="prod-discount">10%</span><span class="prod-price">14,400원</span></div>
+  <span class="prod-original">16,000원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/55631C.jpg" alt="탄산수(500ml*20개입)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/55631.jpg'" loading="lazy"></div>
+  <div class="prod-name">탄산수(500ml*20개입)</div>
+  <div><span class="prod-discount">10%</span><span class="prod-price">9,000원</span></div>
+  <span class="prod-original">10,000원</span>
+</div>
+</div>
 
-  <div class="scroll-hint">
-    스크롤하여 이번 주 추천 품목을 만나보세요
-    <span class="arrow">&#8595;</span>
+<div class="prod-list" id="more-2" style="display:none">
+  <div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59045C.jpg" alt="순진한 막걸리 식초" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">순진한 막걸리 식초</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">9%</span><span class="prod-row-sale">7,400원</span> <span class="prod-row-orig">8,200원</span></div>
   </div>
-</section>
+</div>
+</div>
+<button class="more-btn" onclick="toggleMore(this,'more-2')">더보기 ▼ (1개)</button>
+<div class="divider"></div>
+<div class="sec" id="sec-3">
+  <span class="sec-label">수산물</span>
+  <div class="sec-title">이번 주 수산물</div>
+  <div class="sec-sub">훈연멸치(200g) · 8개 상품</div>
+</div>
+<div class="prod-scroll">
+  <div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57159C.jpg" alt="훈연멸치(200g)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57159.jpg'" loading="lazy"></div>
+  <div class="prod-name">훈연멸치(200g)</div>
+  <div><span class="prod-discount">50%</span><span class="prod-price">3,100원</span></div>
+  <span class="prod-original">6,300원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57865C.jpg" alt="마른오징어(120g/2미)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57865.jpg'" loading="lazy"></div>
+  <div class="prod-name">마른오징어(120g/2미)</div>
+  <div><span class="prod-discount">40%</span><span class="prod-price">9,900원</span></div>
+  <span class="prod-original">16,500원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57844C.jpg" alt="손질 붕장어(500g)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57844.jpg'" loading="lazy"></div>
+  <div class="prod-name">손질 붕장어(500g)</div>
+  <div><span class="prod-discount">30%</span><span class="prod-price">11,500원</span></div>
+  <span class="prod-original">16,500원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56751C.jpg" alt="황금굴비(260g/2미)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56751.jpg'" loading="lazy"></div>
+  <div class="prod-name">황금굴비(260g/2미)</div>
+  <div><span class="prod-discount">20%</span><span class="prod-price">21,900원</span></div>
+  <span class="prod-original">27,400원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58644C.jpg" alt="(수)제주은갈치(420g)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58644.jpg'" loading="lazy"></div>
+  <div class="prod-name">(수)제주은갈치(420g)</div>
+  <div><span class="prod-discount">20%</span><span class="prod-price">27,600원</span></div>
+  <span class="prod-original">34,500원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/54842C.jpg" alt="가시없는고등어(600g)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/54842.jpg'" loading="lazy"></div>
+  <div class="prod-name">가시없는고등어(600g)</div>
+  <div><span class="prod-discount">15%</span><span class="prod-price">12,400원</span></div>
+  <span class="prod-original">14,600원</span>
+</div>
+</div>
 
-<!-- ========================================== -->
-<!-- SECTION 1: 정규연 토마토 -->
-<!-- ========================================== -->
-<section class="product-section section-tomato" id="tomato">
-  <div class="product-inner">
-    <div class="section-header">
-      <div class="section-badge reveal">&#127793; 이번 주의 주인공</div>
-      <h2 class="section-title reveal" style="transition-delay:0.1s;">
-        흙이 키우고 햇살이 완성한<br><span style="color:#ff6a50;">정규연 토마토</span>
-      </h2>
-      <p class="section-desc reveal" style="transition-delay:0.2s;">
-        편리한 양액재배 대신 땅의 정직함을 선택한<br>정규연 생산자의 고집이 만든 토마토
-      </p>
-    </div>
-
-    <div class="product-showcase">
-      <div class="product-image-area reveal-left">
-        <div class="product-card-3d tilt-card">
-          <img src="img/56003A.jpg" alt="정규연 토마토">
-          <div class="product-card-overlay">
-            <span class="tag">토경재배</span>
-            <h3>합천 정규연 토마토</h3>
-            <p>진짜 흙에서 자란 유기농 토마토</p>
-          </div>
-        </div>
-      </div>
-      <div class="product-info reveal-right" style="position:relative;">
-        <div class="info-number">01</div>
-        <div class="info-label">토경재배 유기농</div>
-        <h3 class="info-title">
-          양액이 아닌 <span style="color:#ff6a50;">'진짜 흙'</span>의 힘
-        </h3>
-        <p class="info-desc">
-          시중 토마토의 90%는 양액(수경) 재배입니다. 정규연 생산자는 <strong>수십년 된 자연 토양에서<br>재배하여 흙속 미네랄과 미생물의 영양을<br>고스란히 담습니다.</strong><br><br>
-          한 입 베어물면<br><strong>흙의 생명력이 고스란히 전해집니다.</strong>
-        </p>
-        <div class="price-tag">
-          <span class="price-original">9,900원</span>
-          <span class="price-sale">8,900원</span>
-          <span class="price-discount">10% 할인</span>
-        </div>
-      </div>
-    </div>
+<div class="prod-list" id="more-3" style="display:none">
+  <div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/54844C.jpg" alt="가시없는삼치(600g)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">가시없는삼치(600g)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">15%</span><span class="prod-row-sale">14,200원</span> <span class="prod-row-orig">16,700원</span></div>
   </div>
-</section>
-
-<!-- ========================================== -->
-<!-- SECTION 2: 상생의 사과 -->
-<!-- ========================================== -->
-<section class="product-section section-apple" id="apple">
-  <div class="product-inner">
-    <div class="section-header">
-      <div class="section-badge reveal">&#127822; 함께 나누는 맛</div>
-      <h2 class="section-title reveal" style="transition-delay:0.1s;">
-        화재를 이겨낸 생산자를 위한<br><span style="color:#ff7080;">상생의 사과</span>
-      </h2>
-      <p class="section-desc reveal" style="transition-delay:0.2s;">
-        두레의성 생산자가 화재 피해를 겪었습니다.<br>어려운 시기를 함께 이겨내기 위한 상생 기획입니다.
-      </p>
-    </div>
-
-    <div class="product-showcase reverse">
-      <div class="product-image-area reveal-right">
-        <div class="product-card-3d tilt-card" >
-          <img src="img/사과.png" alt="두레 사과">
-          <div class="product-card-overlay">
-            <span class="tag">상생</span>
-            <h3>두레 사과 (5kg)</h3>
-            <p>화재 피해 생산자를 응원하는 상생 기획</p>
-          </div>
-        </div>
-      </div>
-      <div class="product-info reveal-left" style="position:relative;">
-        <div class="info-number">02</div>
-        <div class="info-label">상생 프로젝트</div>
-        <h3 class="info-title">
-          함께 이겨내는 <span style="color:#ff7080;">'상생'</span>의 사과
-        </h3>
-        <p class="info-desc">
-          두레의성 생산자가 화재 피해를 겪었습니다.<br>두레생협은 <strong>어려운 생산자를 돕기 위해</strong><br>이번 주 상생 기획을 준비했습니다.<br><br>
-          조합원 여러분의 한 상자가<br><strong>생산자에게 큰 힘이 됩니다.</strong>
-        </p>
-        <div class="price-tag">
-          <span class="price-original">58,500원</span>
-          <span class="price-sale">54,900원</span>
-          <span class="price-discount">6% 할인</span>
-        </div>
-      </div>
-    </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/23326C.jpg" alt="(수)손질오징어채" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">(수)손질오징어채</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">10%</span><span class="prod-row-sale">14,000원</span> <span class="prod-row-orig">15,600원</span></div>
   </div>
-</section>
+</div>
+</div>
+<button class="more-btn" onclick="toggleMore(this,'more-3')">더보기 ▼ (2개)</button>
+<div class="divider"></div>
+<div class="sec" id="sec-4">
+  <span class="sec-label">간식/스낵</span>
+  <div class="sec-title">이번 주 간식/스낵</div>
+  <div class="sec-sub">싱싱새우짱 · 7개 상품</div>
+</div>
+<div class="prod-scroll">
+  <div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/5266C.jpg" alt="싱싱새우짱" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/5266.jpg'" loading="lazy"></div>
+  <div class="prod-name">싱싱새우짱</div>
+  <div><span class="prod-discount">12%</span><span class="prod-price">2,100원</span></div>
+  <span class="prod-original">2,400원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/9782C.jpg" alt="꾸러기짱" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/9782.jpg'" loading="lazy"></div>
+  <div class="prod-name">꾸러기짱</div>
+  <div><span class="prod-discount">12%</span><span class="prod-price">2,100원</span></div>
+  <span class="prod-original">2,400원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/29045C.jpg" alt="보드레웨하스" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/29045.jpg'" loading="lazy"></div>
+  <div class="prod-name">보드레웨하스</div>
+  <div><span class="prod-discount">12%</span><span class="prod-price">2,100원</span></div>
+  <span class="prod-original">2,400원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56178C.jpg" alt="우리쌀 붕어빵(10개)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56178.jpg'" loading="lazy"></div>
+  <div class="prod-name">우리쌀 붕어빵(10개)</div>
+  <div><span class="prod-discount">12%</span><span class="prod-price">7,000원</span></div>
+  <span class="prod-original">8,000원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/41058C.jpg" alt="크래커" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/41058.jpg'" loading="lazy"></div>
+  <div class="prod-name">크래커</div>
+  <div><span class="prod-discount">11%</span><span class="prod-price">2,300원</span></div>
+  <span class="prod-original">2,600원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/51947C.jpg" alt="제주감귤주스" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/51947.jpg'" loading="lazy"></div>
+  <div class="prod-name">제주감귤주스</div>
+  <div><span class="prod-discount">11%</span><span class="prod-price">800원</span></div>
+  <span class="prod-original">900원</span>
+</div>
+</div>
 
-<!-- ========================================== -->
-<!-- SECTION 3: 고기류 -->
-<!-- ========================================== -->
-<section class="product-section section-meat" id="meat">
-  <div class="product-inner">
-    <div class="section-header">
-      <div class="section-badge reveal">&#129385; 정직한 단백질</div>
-      <h2 class="section-title reveal" style="transition-delay:0.1s;">
-        봄을 맞이하는 든든한<br><span style="color:#a06030;">고기 한 접시</span>
-      </h2>
-      <p class="section-desc reveal" style="transition-delay:0.2s;">
-        한우부터 돼지, 닭, 양고기까지. 두레생협이 엄선한 정직한 고기로 식탁을 채워보세요.
-      </p>
-    </div>
-
-    <div class="meat-grid">
-      <!-- 한우 불고기 -->
-      <div class="meat-card reveal-scale" style="transition-delay:0.05s;">
-        <img class="meat-img" src="img/불고기.jpg" alt="한우 불고기">
-        <div class="meat-name">한우 불고기 (300g)</div>
-        <div class="meat-desc">한우 암소의 부드러운 풍미,<br>가족 모두가 좋아하는 인기 메뉴</div>
-        <div><span class="meat-price-original">21,000원</span><span class="meat-price">18,900원</span></div>
-        <div class="meat-discount-badge">10% 할인</div>
-      </div>
-
-      <!-- 한우 등심 스테이크 -->
-      <div class="meat-card reveal-scale" style="transition-delay:0.1s;">
-        <img class="meat-img" src="img/스테이크.jpg" alt="한우 등심 스테이크">
-        <div class="meat-name">한우 등심 스테이크 (300g)</div>
-        <div class="meat-desc">풍부한 마블링의 깊은 맛, 특별한 날의 식탁을 위해</div>
-        <div><span class="meat-price-original">28,100원</span><span class="meat-price">25,300원</span></div>
-        <div class="meat-discount-badge">10% 할인</div>
-      </div>
-
-      <!-- 한우 5초 등심 -->
-      <div class="meat-card reveal-scale" style="transition-delay:0.15s;">
-        <img class="meat-img" src="img/5초등심.png" alt="한우 5초등심">
-        <div class="meat-name">한우 5초등심 (200g)</div>
-        <div class="meat-desc">부드럽고 고소한 등심, 한우의 진짜 맛을 느끼다</div>
-        <div><span class="meat-price-original">20,600원</span><span class="meat-price">18,500원</span></div>
-        <div class="meat-discount-badge">10% 할인</div>
-      </div>
-
-      <!-- 돼지 돈가스 -->
-      <div class="meat-card reveal-scale" style="transition-delay:0.2s;">
-        <img class="meat-img" src="img/돈가스.jpg" alt="돼지 돈가스">
-        <div class="meat-name">돼지 돈가스 (600g)</div>
-        <div class="meat-desc">바삭한 튀김 옷 속 두툼한 돈가스,<br>아이들 간식으로 딱!</div>
-        <div><span class="meat-price-original">11,600원</span><span class="meat-price">10,400원</span></div>
-        <div class="meat-discount-badge">10% 할인</div>
-      </div>
-
-      <!-- 순살 닭다리 -->
-      <div class="meat-card reveal-scale" style="transition-delay:0.25s;">
-        <img class="meat-img" src="img/순살닭다리살.jpg" alt="순살 닭다리살">
-        <div class="meat-name">순살 닭다리살 (500g)</div>
-        <div class="meat-desc">뼈없이 먹기 편한 닭다리,<br>다양한 요리에 활용 가능</div>
-        <div><span class="meat-price-original">12,100원</span><span class="meat-price">10,900원</span></div>
-        <div class="meat-discount-badge">10% 할인</div>
-      </div>
-
-      <!-- 양 숄더랙 -->
-      <div class="meat-card reveal-scale" style="transition-delay:0.3s;">
-        <img class="meat-img" src="img/숄더랙.jpg" alt="풀만먹인 양 숄더랙">
-        <div class="meat-name">풀만먹인 양 숄더랙</div>
-        <div class="meat-desc">100% 목초 사육 양고기, 풀만 먹여 키운 프리미엄</div>
-        <div><span class="meat-price-original">17,000원</span><span class="meat-price">15,300원</span></div>
-        <div class="meat-discount-badge">10% 할인</div>
-      </div>
-    </div>
+<div class="prod-list" id="more-4" style="display:none">
+  <div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/51948C.jpg" alt="제주한라봉주스" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">제주한라봉주스</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">10%</span><span class="prod-row-sale">900원</span> <span class="prod-row-orig">1,000원</span></div>
   </div>
-</section>
+</div>
+</div>
+<button class="more-btn" onclick="toggleMore(this,'more-4')">더보기 ▼ (1개)</button>
+<div class="divider"></div>
+<div class="sec" id="sec-5">
+  <span class="sec-label">김치/반찬류</span>
+  <div class="sec-title">김치/반찬류 특가</div>
+  <div class="sec-sub">열무김치(1kg) · 1개 상품</div>
+</div>
+<div class="prod-scroll">
+  <div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/28224C.jpg" alt="열무김치(1kg)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/28224.jpg'" loading="lazy"></div>
+  <div class="prod-name">열무김치(1kg)</div>
+  <div><span class="prod-discount">4%</span><span class="prod-price">6,700원</span></div>
+  <span class="prod-original">7,000원</span>
+</div>
+</div>
 
-<!-- ========================================== -->
-<!-- SECTION 4: 오이소박이 -->
-<!-- ========================================== -->
-<section class="product-section section-pickle" id="pickle">
-  <div class="product-inner">
-    <div class="section-header">
-      <div class="section-badge reveal">&#129362; 아삭한 봄 김치</div>
-      <h2 class="section-title reveal" style="transition-delay:0.1s;">
-        봄 밥상에 빠질 수 없는<br><span style="color:#3a8028;">아삭 오이소박이</span>
-      </h2>
-      <p class="section-desc reveal" style="transition-delay:0.2s;">
-        싱싱한 봄 오이에 칼칼한 양념이 쏙,<br>한 젓가락이면 밥 한 그릇이 뚝딱입니다
-      </p>
-    </div>
+<div class="divider"></div>
+<div class="sec" id="sec-6">
+  <span class="sec-label">과일</span>
+  <div class="sec-title">이번 주 과일</div>
+  <div class="sec-sub">두레 사과(5kg) · 1개 상품</div>
+</div>
+<div class="prod-scroll">
+  <div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/27694C.jpg" alt="두레 사과(5kg)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/27694.jpg'" loading="lazy"></div>
+  <div class="prod-name">두레 사과(5kg)</div>
+  <div><span class="prod-discount">6%</span><span class="prod-price">54,900원</span></div>
+  <span class="prod-original">58,500원</span>
+</div>
+</div>
 
-    <div class="product-showcase">
-      <div class="product-image-area reveal-left">
-        <div class="product-card-3d tilt-card" >
-          <img src="img/오이소박이.jpg" alt="오이소박이">
-          <div class="product-card-overlay">
-            <span class="tag">봄 김치</span>
-            <h3>오이소박이 (1kg)</h3>
-            <p>아삭한 식감, 칼칼한 맛</p>
-          </div>
-        </div>
-      </div>
-      <div class="product-info reveal-right" style="position:relative;">
-        <div class="info-number">04</div>
-        <div class="info-label">제철 김치</div>
-        <h3 class="info-title">
-          봄이 오면 생각나는 <span style="color:#3a8028;">'그 맛'</span> 오이소박이
-        </h3>
-        <p class="info-desc">
-          아삭하게 씹히는 봄 오이 속에 <strong>칼칼하고 시원한 양념</strong>이 꽉 차 있습니다.<br><br>
-          입맛 없을 때 오이소박이 하나면 <strong>밥 한 그릇이 순식간에 사라집니다.</strong><br><br>
-          두레생협의 오이소박이는 국내산 재료만을 사용합니다.
-        </p>
-        <div class="price-tag">
-          <span class="price-original">10,200원</span>
-          <span class="price-sale">9,500원</span>
-          <span class="price-discount">7% 할인</span>
-        </div>
-      </div>
-    </div>
+<div class="divider"></div>
+<div class="sec" id="sec-7">
+  <span class="sec-label">새학기 우리아이 든든한 밥상</span>
+  <div class="sec-title">새학기 우리아이 든든한 밥상 기획전</div>
+  <div class="sec-sub">돼지돈가스(600g/냉동) · 7개 상품</div>
+</div>
+<div class="prod-scroll">
+  <div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/463C.jpg" alt="돼지돈가스(600g/냉동)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/463.jpg'" loading="lazy"></div>
+  <div class="prod-name">돼지돈가스(600g/냉동)</div>
+  <div><span class="prod-discount">10%</span><span class="prod-price">10,400원</span></div>
+  <span class="prod-original">11,600원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59085C.jpg" alt="한우5초등심(200g/암소)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59085.jpg'" loading="lazy"></div>
+  <div class="prod-name">한우5초등심(200g/암소)</div>
+  <div><span class="prod-discount">10%</span><span class="prod-price">18,500원</span></div>
+  <span class="prod-original">20,600원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56760C.jpg" alt="온)한우불고기(300g/암소)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56760.jpg'" loading="lazy"></div>
+  <div class="prod-name">온)한우불고기(300g/암소)</div>
+  <div><span class="prod-discount">10%</span><span class="prod-price">18,900원</span></div>
+  <span class="prod-original">21,000원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57602C.jpg" alt="닭다리살꼬치(냉장/70g*4개)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57602.jpg'" loading="lazy"></div>
+  <div class="prod-name">닭다리살꼬치(냉장/70g*4개)</div>
+  <div><span class="prod-discount">10%</span><span class="prod-price">6,300원</span></div>
+  <span class="prod-original">7,000원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/48379C.jpg" alt="순살닭다리살(500g)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/48379.jpg'" loading="lazy"></div>
+  <div class="prod-name">순살닭다리살(500g)</div>
+  <div><span class="prod-discount">9%</span><span class="prod-price">10,900원</span></div>
+  <span class="prod-original">12,100원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59090C.jpg" alt="한우불고기(250g/암소)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59090.jpg'" loading="lazy"></div>
+  <div class="prod-name">한우불고기(250g/암소)</div>
+  <div><span class="prod-discount">9%</span><span class="prod-price">15,700원</span></div>
+  <span class="prod-original">17,400원</span>
+</div>
+</div>
+
+<div class="prod-list" id="more-7" style="display:none">
+  <div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/11909C.jpg" alt="돼지뒷다리살(300g/카레용/냉동)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">돼지뒷다리살(300g/카레용/냉동)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">9%</span><span class="prod-row-sale">4,900원</span> <span class="prod-row-orig">5,400원</span></div>
   </div>
-</section>
+</div>
+</div>
+<button class="more-btn" onclick="toggleMore(this,'more-7')">더보기 ▼ (1개)</button>
+<div class="divider"></div>
+<div class="sec" id="sec-8">
+  <span class="sec-label">[공정무역 와인 연계] 스테</span>
+  <div class="sec-title">[공정무역 와인 연계] 스테이크용 축산물 할인전</div>
+  <div class="sec-sub">온)한우등심스테이크300g · 4개 상품</div>
+</div>
+<div class="prod-scroll">
+  <div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56770C.jpg" alt="온)한우등심스테이크300g" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56770.jpg'" loading="lazy"></div>
+  <div class="prod-name">온)한우등심스테이크300g</div>
+  <div><span class="prod-discount">10%</span><span class="prod-price">25,300원</span></div>
+  <span class="prod-original">28,100원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58629C.jpg" alt="풀만먹인 양 숄더랙" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58629.jpg'" loading="lazy"></div>
+  <div class="prod-name">풀만먹인 양 숄더랙</div>
+  <div><span class="prod-discount">10%</span><span class="prod-price">15,300원</span></div>
+  <span class="prod-original">17,000원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58630C.jpg" alt="풀만먹인 양 프렌치랙" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58630.jpg'" loading="lazy"></div>
+  <div class="prod-name">풀만먹인 양 프렌치랙</div>
+  <div><span class="prod-discount">10%</span><span class="prod-price">26,900원</span></div>
+  <span class="prod-original">29,900원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59097C.jpg" alt="한우등심스테이크200g" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59097.jpg'" loading="lazy"></div>
+  <div class="prod-name">한우등심스테이크200g</div>
+  <div><span class="prod-discount">10%</span><span class="prod-price">18,000원</span></div>
+  <span class="prod-original">20,000원</span>
+</div>
+</div>
 
-<!-- ========================================== -->
-<!-- SECTION 5: 봄 내음 가득한 두레맛찬 -->
-<!-- ========================================== -->
-<section class="product-section section-banchan" id="banchan">
-  <div class="product-inner">
-    <div class="section-header">
-      <div class="section-badge reveal">&#127857; 봄 내음 가득</div>
-      <h2 class="section-title reveal" style="transition-delay:0.1s;">
-        봄 향기를 식탁에 담다, <span style="color:#4a8030;">두레맛찬</span>
-      </h2>
-      <p class="section-desc reveal" style="transition-delay:0.2s;">
-        봄동, 냉이, 달래... 봄이 선물한 나물들로 가득 찬 반찬 한 상을 만나보세요.
-      </p>
-    </div>
+<div class="divider"></div>
+<div class="sec" id="sec-9">
+  <span class="sec-label">와인 샐러드 연계기획</span>
+  <div class="sec-title">와인 샐러드 연계기획 [최대 10%]</div>
+  <div class="sec-sub">토마토(1kg/무농약) · 6개 상품</div>
+</div>
+<div class="prod-scroll">
+  <div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/49311C.jpg" alt="대추방울토마토(1.2kg)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/49311.jpg'" loading="lazy"></div>
+  <div class="prod-name">대추방울토마토(1.2kg)</div>
+  <div><span class="prod-discount">10%</span><span class="prod-price">11,200원</span></div>
+  <span class="prod-original">12,500원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/10736C.jpg" alt="토마토(1kg/무농약)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/10736.jpg'" loading="lazy"></div>
+  <div class="prod-name">토마토(1kg/무농약)</div>
+  <div><span class="prod-discount">10%</span><span class="prod-price">7,400원</span></div>
+  <span class="prod-original">8,300원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/49310C.jpg" alt="대추방울토마토(500g/무농약)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/49310.jpg'" loading="lazy"></div>
+  <div class="prod-name">대추방울토마토(500g/무농약)</div>
+  <div><span class="prod-discount">10%</span><span class="prod-price">5,300원</span></div>
+  <span class="prod-original">5,900원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56218C.jpg" alt="샐러드믹스(100g)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56218.jpg'" loading="lazy"></div>
+  <div class="prod-name">샐러드믹스(100g)</div>
+  <div><span class="prod-discount">9%</span><span class="prod-price">2,800원</span></div>
+  <span class="prod-original">3,100원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/50423C.jpg" alt="루꼴라샐러드믹스(120g/무농약)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/50423.jpg'" loading="lazy"></div>
+  <div class="prod-name">루꼴라샐러드믹스(120g/무농약)</div>
+  <div><span class="prod-discount">9%</span><span class="prod-price">3,800원</span></div>
+  <span class="prod-original">4,200원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/44525C.jpg" alt="어린잎모음(100g/무농약)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/44525.jpg'" loading="lazy"></div>
+  <div class="prod-name">어린잎모음(100g/무농약)</div>
+  <div><span class="prod-discount">8%</span><span class="prod-price">3,100원</span></div>
+  <span class="prod-original">3,400원</span>
+</div>
+</div>
 
-    <div class="banchan-grid">
-      <div class="banchan-card reveal-scale" style="transition-delay:0.05s;">
-        <img class="banchan-img" src="img/봄동.jpg" alt="봄동">
-        <div class="banchan-info">
-          <div class="banchan-name">봄동 나물</div>
-          <div class="banchan-detail">부드럽고 달콤한 봄동으로 만든 나물</div>
-          <div><span class="banchan-price-original">5,200원</span><span class="banchan-price">4,900원</span></div>
-        </div>
-      </div>
+<div class="divider"></div>
+<div class="sec" id="sec-10">
+  <span class="sec-label">정규연토마토 온라인 집중기획</span>
+  <div class="sec-title">정규연토마토 온라인 집중기획 [최대 10%]</div>
+  <div class="sec-sub">개성만점 정규연 토마토(1kg/유기) · 3개 상품</div>
+</div>
+<div class="prod-scroll">
+  <div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/20435C.jpg" alt="정규연 토마토(1kg/유기)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/20435.jpg'" loading="lazy"></div>
+  <div class="prod-name">정규연 토마토(1kg/유기)</div>
+  <div><span class="prod-discount">10%</span><span class="prod-price">8,900원</span></div>
+  <span class="prod-original">9,900원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/23340C.jpg" alt="개성만점 정규연 토마토(1kg/유기)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/23340.jpg'" loading="lazy"></div>
+  <div class="prod-name">개성만점 정규연 토마토(1kg/유기)</div>
+  <div><span class="prod-discount">10%</span><span class="prod-price">6,100원</span></div>
+  <span class="prod-original">6,800원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56003C.jpg" alt="정규연 토마토(1kg/소과)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56003.jpg'" loading="lazy"></div>
+  <div class="prod-name">정규연 토마토(1kg/소과)</div>
+  <div><span class="prod-discount">9%</span><span class="prod-price">7,500원</span></div>
+  <span class="prod-original">8,300원</span>
+</div>
+</div>
 
-      <div class="banchan-card reveal-scale" style="transition-delay:0.1s;">
-        <img class="banchan-img" src="img/냉이.jpg" alt="냉이">
-        <div class="banchan-info">
-          <div class="banchan-name">냉이 무침</div>
-          <div class="banchan-detail">봄 향기 가득한 냉이 무침</div>
-          <div><span class="banchan-price-original">6,700원</span><span class="banchan-price">6,400원</span></div>
-        </div>
-      </div>
+<div class="divider"></div>
+<div class="sec" id="sec-11">
+  <span class="sec-label">우리 땅이 키운 생명력, 두</span>
+  <div class="sec-title">우리 땅이 키운 생명력, 두레 슈퍼푸드 특가</div>
+  <div class="sec-sub">겨울노지시금치(250g/무농약) · 3개 상품</div>
+</div>
+<div class="prod-scroll">
+  <div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/41342C.jpg" alt="겨울노지시금치(250g/무농약)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/41342.jpg'" loading="lazy"></div>
+  <div class="prod-name">겨울노지시금치(250g/무농약)</div>
+  <div><span class="prod-discount">11%</span><span class="prod-price">2,800원</span></div>
+  <span class="prod-original">3,150원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/38655C.jpg" alt="귀리(1kg/유기)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/38655.jpg'" loading="lazy"></div>
+  <div class="prod-name">귀리(1kg/유기)</div>
+  <div><span class="prod-discount">10%</span><span class="prod-price">8,700원</span></div>
+  <span class="prod-original">9,700원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/27796C.jpg" alt="깐은행(250g)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/27796.jpg'" loading="lazy"></div>
+  <div class="prod-name">깐은행(250g)</div>
+  <div><span class="prod-discount">9%</span><span class="prod-price">9,500원</span></div>
+  <span class="prod-original">10,500원</span>
+</div>
+</div>
 
-      <div class="banchan-card reveal-scale" style="transition-delay:0.15s;">
-        <img class="banchan-img" src="img/맛찬 꼬막.jpg" alt="꼬막">
-        <div class="banchan-info">
-          <div class="banchan-name">꼬막 양념무침</div>
-          <div class="banchan-detail">탱글탱글 꼬막에 새콤달콤 양념</div>
-          <div><span class="banchan-price-original">8,800원</span><span class="banchan-price">8,400원</span></div>
-        </div>
-      </div>
+<div class="divider"></div>
+<div class="sec" id="sec-12">
+  <span class="sec-label">공정무역 와인 연계기획(11</span>
+  <div class="sec-title">공정무역 와인 연계기획(11주~12주)</div>
+  <div class="sec-sub">후레쉬 모짜렐라치즈 미니(120g) · 9개 상품</div>
+</div>
+<div class="prod-scroll">
+  <div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56191C.jpg" alt="후레쉬 모짜렐라치즈 미니(120g)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56191.jpg'" loading="lazy"></div>
+  <div class="prod-name">후레쉬 모짜렐라치즈 미니(120g)</div>
+  <div><span class="prod-discount">11%</span><span class="prod-price">9,300원</span></div>
+  <span class="prod-original">10,500원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57926C.jpg" alt="올리브유 스틱" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57926.jpg'" loading="lazy"></div>
+  <div class="prod-name">올리브유 스틱</div>
+  <div><span class="prod-discount">10%</span><span class="prod-price">8,900원</span></div>
+  <span class="prod-original">9,900원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57621C.jpg" alt="피오르피오레 듀럼밀 스파게티 500g" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57621.jpg'" loading="lazy"></div>
+  <div class="prod-name">피오르피오레 듀럼밀 스파게티 500g</div>
+  <div><span class="prod-discount">9%</span><span class="prod-price">4,600원</span></div>
+  <span class="prod-original">5,100원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57223C.jpg" alt="방울토마토 마리네이드" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57223.jpg'" loading="lazy"></div>
+  <div class="prod-name">방울토마토 마리네이드</div>
+  <div><span class="prod-discount">7%</span><span class="prod-price">7,800원</span></div>
+  <span class="prod-original">8,400원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58608C.jpg" alt="토마토미트 파스타소스" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58608.jpg'" loading="lazy"></div>
+  <div class="prod-name">토마토미트 파스타소스</div>
+  <div><span class="prod-discount">5%</span><span class="prod-price">5,400원</span></div>
+  <span class="prod-original">5,700원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/55463C.jpg" alt="감향초청포도340g" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/55463.jpg'" loading="lazy"></div>
+  <div class="prod-name">감향초청포도340g</div>
+  <div><span class="prod-discount">5%</span><span class="prod-price">18,500원</span></div>
+  <span class="prod-original">19,500원</span>
+</div>
+</div>
 
-      <div class="banchan-card reveal-scale" style="transition-delay:0.2s;">
-        <img class="banchan-img" src="img/달래무침.jpg" alt="달래">
-        <div class="banchan-info">
-          <div class="banchan-name">달래 무침</div>
-          <div class="banchan-detail">알싸하고 향긋한 봄 달래</div>
-          <div><span class="banchan-price-original">6,400원</span><span class="banchan-price">6,100원</span></div>
-        </div>
-      </div>
-    </div>
+<div class="prod-list" id="more-12" style="display:none">
+  <div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57618C.jpg" alt="유기농 통밀 스파게티 500g" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">유기농 통밀 스파게티 500g</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">5%</span><span class="prod-row-sale">3,700원</span> <span class="prod-row-orig">3,900원</span></div>
   </div>
-</section>
-
-
-<!-- ========================================== -->
-<!-- SECTION 6: 시금치 -->
-<!-- ========================================== -->
-<section class="product-section section-spinach" id="spinach">
-  <div class="product-inner">
-    <div class="section-header">
-      <div class="section-badge reveal">&#129388; 겨울 노지 채소</div>
-      <h2 class="section-title reveal" style="transition-delay:0.1s;">
-        겨울을 이겨낸 힘, <span style="color:#2a7a2a;">겨울 노지 시금치</span>
-      </h2>
-      <p class="section-desc reveal" style="transition-delay:0.2s;">
-        찬 바람을 맞으며 천천히 자란 겨울 노지 시금치는 잎이 두껍고, 단맛이 깊습니다.
-      </p>
-    </div>
-
-    <div class="product-showcase reverse">
-      <div class="product-image-area reveal-right">
-        <div class="product-card-3d tilt-card" >
-          <img src="img/겨울노지시금치.jpg" alt="시금치">
-          <div class="product-card-overlay">
-            <span class="tag">겨울 노지</span>
-            <h3>겨울 노지 시금치</h3>
-            <p>겨울을 이겨낸 깊은 단맛</p>
-          </div>
-        </div>
-      </div>
-      <div class="product-info reveal-left" style="position:relative;">
-        <div class="info-number">06</div>
-        <div class="info-label">제철 채소</div>
-        <h3 class="info-title">
-          추위가 만든 <span style="color:#2a7a2a;">'달콤한 잎'</span>
-        </h3>
-        <p class="info-desc">
-          겨울 노지 시금치는 겨울 동안 <strong>추위를 견디며 당분을 축적</strong>해 일반 시금치보다 훨씬 달고 부드럽습니다.<br><br>
-          <strong>철분, 비타민A, 엽산이 풍부</strong>하여 봄철 피로 회복에 탁월하고, 아이들 성장기 영양 간식으로도 좋습니다.<br><br>
-          나물, 국, 무침은 물론 <strong>파스타에 넣으면 고급 레스토랑 부럽지 않은 한 접시</strong>가 됩니다.<br><br>
-          <strong style="color:#c03030;">지금이 끝물!</strong> 이번 주가 지나면 겨울노지시금치는 내년까지 다시 만날 수 없습니다.
-        </p>
-        <div class="price-tag">
-          <span class="price-original">3,150원</span>
-          <span class="price-sale">2,800원</span>
-          <span class="price-discount">11% 할인</span>
-        </div>
-      </div>
-    </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58609C.jpg" alt="까르보나라 파스타소스" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">까르보나라 파스타소스</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">4%</span><span class="prod-row-sale">5,900원</span> <span class="prod-row-orig">6,200원</span></div>
   </div>
-</section>
-
-<!-- ========================================== -->
-<!-- RECIPE: 시금치 크림 파스타 -->
-<!-- ========================================== -->
-<section class="recipe-section" id="recipe">
-  <div class="recipe-inner">
-    <div class="recipe-header">
-      <div class="recipe-badge reveal">&#127859; 이번 주 추천 레시피</div>
-      <h2 class="recipe-title reveal" style="transition-delay:0.1s;">
-        <span style="color:#2a7a2a;">겨울 노지 시금치</span>로 만드는<br><span style="color:#8a6a20;">크림 파스타</span>
-      </h2>
-      <p class="recipe-subtitle reveal" style="transition-delay:0.2s;">
-        두레생협 시금치의 깊은 단맛을 가장 잘 살리는 레시피. 15분이면 완성되는 레스토랑급 한 접시입니다.
-      </p>
-    </div>
-
-    <div class="recipe-card reveal-scale" style="transition-delay:0.25s;">
-      <div class="recipe-photo">
-        <img class="recipe-photo-bg" src="img/시금치파스타.jpg" alt="시금치 크림 파스타">
-        <div class="recipe-photo-overlay">
-          <span class="recipe-time">&#9201; 15분 완성</span>
-        </div>
-      </div>
-
-      <div class="recipe-content">
-        <h3 class="recipe-dish-name">겨울 노지 시금치 크림 파스타</h3>
-        <p class="recipe-dish-desc">부드러운 크림 소스에 겨울 노지 시금치의 달콤함이 녹아드는 한 접시</p>
-        <div class="recipe-divider"></div>
-
-        <div class="recipe-ingredients">
-          <h4>&#129368; 재료 (2인분)</h4>
-          <div class="ingredient-list">
-            <span class="ingredient-chip highlight">&#129388; 시금치 한 줌 (150g)</span>
-            <span class="ingredient-chip">&#127837; 파스타면 200g</span>
-            <span class="ingredient-chip">&#129472; 마늘 3쪽</span>
-            <span class="ingredient-chip">&#129480; 양파 1/2개</span>
-            <span class="ingredient-chip">&#129472; 생크림 200ml</span>
-            <span class="ingredient-chip">&#129472; 파마산 치즈</span>
-            <span class="ingredient-chip">&#129474; 올리브오일</span>
-            <span class="ingredient-chip">&#129474; 소금, 후추</span>
-          </div>
-        </div>
-
-        <div class="recipe-steps">
-          <h4>&#128293; 만드는 법</h4>
-          <div class="step-list">
-            <div class="step-item">
-              <p>파스타면을 <strong>삶고</strong>, 팬에 올리브오일 + 마늘을 볶아 향을 내주세요.</p>
-            </div>
-            <div class="step-item">
-              <p><strong>시금치를 넣고 30초</strong> 볶은 뒤, 생크림과 면수를 넣고 2~3분 끓여 소스를 만들어요.</p>
-            </div>
-            <div class="step-item">
-              <p>삶은 면을 넣고 버무린 뒤, <strong>파마산 치즈와 후추</strong>를 뿌리면 완성!</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="recipe-tip">
-          <strong>&#128161; TIP</strong> &mdash; 정규연 토마토를 한 알 썰어 곁들이면 산미가 더해져 풍미가 한층 살아납니다. 한우 불고기를 토핑으로 올리면 단백질까지 챙기는 든든한 한 끼!
-        </div>
-      </div>
-    </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57622C.jpg" alt="올리브절임 340g" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">올리브절임 340g</div>
+    <div class="prod-row-prices"><span class="prod-row-sale">4,300원</span> </div>
   </div>
-</section>
+</div>
+</div>
+<button class="more-btn" onclick="toggleMore(this,'more-12')">더보기 ▼ (3개)</button>
+<div class="divider"></div>
+<div class="sec" id="sec-13">
+  <span class="sec-label">새 학기 아이들 간편식</span>
+  <div class="sec-title">새 학기 아이들 간편식 [최대 24%]</div>
+  <div class="sec-sub">훈제오리 · 19개 상품</div>
+</div>
+<div class="prod-scroll">
+  <div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/40549C.jpg" alt="훈제오리" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/40549.jpg'" loading="lazy"></div>
+  <div class="prod-name">훈제오리</div>
+  <div><span class="prod-discount">24%</span><span class="prod-price">10,000원</span></div>
+  <span class="prod-original">13,300원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/55224C.jpg" alt="바른공식 야채소시지" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/55224.jpg'" loading="lazy"></div>
+  <div class="prod-name">바른공식 야채소시지</div>
+  <div><span class="prod-discount">22%</span><span class="prod-price">2,700원</span></div>
+  <span class="prod-original">3,500원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56238C.jpg" alt="김부각(3번들)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56238.jpg'" loading="lazy"></div>
+  <div class="prod-name">김부각(3번들)</div>
+  <div><span class="prod-discount">21%</span><span class="prod-price">7,500원</span></div>
+  <span class="prod-original">9,600원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/30882C.jpg" alt="생선가스" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/30882.jpg'" loading="lazy"></div>
+  <div class="prod-name">생선가스</div>
+  <div><span class="prod-discount">20%</span><span class="prod-price">9,500원</span></div>
+  <span class="prod-original">11,900원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57676C.jpg" alt="떡갈비1000(10개)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57676.jpg'" loading="lazy"></div>
+  <div class="prod-name">떡갈비1000(10개)</div>
+  <div><span class="prod-discount">15%</span><span class="prod-price">14,000원</span></div>
+  <span class="prod-original">16,500원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56481C.jpg" alt="오케이놀라 카카오(10봉)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56481.jpg'" loading="lazy"></div>
+  <div class="prod-name">오케이놀라 카카오(10봉)</div>
+  <div><span class="prod-discount">12%</span><span class="prod-price">13,100원</span></div>
+  <span class="prod-original">14,900원</span>
+</div>
+</div>
 
-<!-- ===== CTA ===== -->
-<section class="cta-section" id="cta">
-  <div class="cta-bg"></div>
-  <h2 class="cta-title reveal">
-    이번 주, <span class="highlight">봄 식탁</span>을 더 풍성하게 만들어보세요
-  </h2>
-  <p class="cta-sub reveal" style="transition-delay:0.15s;">
-    정규연 토마토 10% 할인, 상생의 사과, 정직한 고기, 아삭한 오이소박이, 봄 내음 두레맛찬까지 11주차 기획전에서 만나보세요
-  </p>
-  <a class="cta-button reveal" style="transition-delay:0.3s;" href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1644">
-    지금 주문하기
-  </a>
-  <p class="cta-notice reveal" style="transition-delay:0.4s;">
-    공급일 | 3월 9일(월) ~ 3/13(금)
-  </p>
-</section>
+<div class="prod-list" id="more-13" style="display:none">
+  <div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/55645C.jpg" alt="감자라면(순한맛/낱개)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">감자라면(순한맛/낱개)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">11%</span><span class="prod-row-sale">1,500원</span> <span class="prod-row-orig">1,700원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/55230C.jpg" alt="오케이놀라" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">오케이놀라</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">11%</span><span class="prod-row-sale">6,800원</span> <span class="prod-row-orig">7,700원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/51467C.jpg" alt="담백한 올리브유 참치" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">담백한 올리브유 참치</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">10%</span><span class="prod-row-sale">2,500원</span> <span class="prod-row-orig">2,800원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/53668C.jpg" alt="담백한 햄" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">담백한 햄</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">10%</span><span class="prod-row-sale">3,400원</span> <span class="prod-row-orig">3,800원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/51488C.jpg" alt="채식자장면(4봉)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">채식자장면(4봉)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">10%</span><span class="prod-row-sale">6,100원</span> <span class="prod-row-orig">6,800원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/55161C.jpg" alt="김자반볶음" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">김자반볶음</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">10%</span><span class="prod-row-sale">3,500원</span> <span class="prod-row-orig">3,900원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56390C.jpg" alt="새우볶음밥(2팩)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">새우볶음밥(2팩)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">9%</span><span class="prod-row-sale">7,700원</span> <span class="prod-row-orig">8,500원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58085C.jpg" alt="김치치즈주먹밥(4팩)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">김치치즈주먹밥(4팩)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">9%</span><span class="prod-row-sale">6,800원</span> <span class="prod-row-orig">7,500원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/47072C.jpg" alt="통통치킨텐더" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">통통치킨텐더</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">8%</span><span class="prod-row-sale">9,900원</span> <span class="prod-row-orig">10,800원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/54721C.jpg" alt="두레생협 고추참치" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">두레생협 고추참치</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">8%</span><span class="prod-row-sale">2,300원</span> <span class="prod-row-orig">2,500원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/10584C.jpg" alt="치즈돈가스" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">치즈돈가스</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">7%</span><span class="prod-row-sale">9,400원</span> <span class="prod-row-orig">10,200원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/35417C.jpg" alt="물만두" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">물만두</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">7%</span><span class="prod-row-sale">5,900원</span> <span class="prod-row-orig">6,400원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/10585C.jpg" alt="함박스테이크" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">함박스테이크</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">7%</span><span class="prod-row-sale">8,500원</span> <span class="prod-row-orig">9,200원</span></div>
+  </div>
+</div>
+</div>
+<button class="more-btn" onclick="toggleMore(this,'more-13')">더보기 ▼ (13개)</button>
+<div class="divider"></div>
+<div class="sec" id="sec-14">
+  <span class="sec-label">환절기 대비, 자연이 키운 </span>
+  <div class="sec-title">이번 주 환절기 대비, 자연이 키운 붉은 보약!</div>
+  <div class="sec-sub">건구기자(200g/국내산) · 1개 상품</div>
+</div>
+<div class="prod-scroll">
+  <div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/869C.jpg" alt="건구기자(200g/국내산)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/869.jpg'" loading="lazy"></div>
+  <div class="prod-name">건구기자(200g/국내산)</div>
+  <div><span class="prod-discount">5%</span><span class="prod-price">28,400원</span></div>
+  <span class="prod-original">29,900원</span>
+</div>
+</div>
 
-<div class="footer">두레생협 | 조합원과 생산자가 함께 만드는 먹거리</div>
+<div class="divider"></div>
+<div class="sec" id="sec-15">
+  <span class="sec-label">봄동겉절이로 비빔밥 기획</span>
+  <div class="sec-title">봄동겉절이로 비빔밥 기획</div>
+  <div class="sec-sub">발아참기름(160ml) · 3개 상품</div>
+</div>
+<div class="prod-scroll">
+  <div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/41928C.jpg" alt="봄동겉절이" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/41928.jpg'" loading="lazy"></div>
+  <div class="prod-name">봄동겉절이</div>
+  <div><span class="prod-discount">10%</span><span class="prod-price">6,100원</span></div>
+  <span class="prod-original">6,800원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/20707C.jpg" alt="발아참기름(160ml)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/20707.jpg'" loading="lazy"></div>
+  <div class="prod-name">발아참기름(160ml)</div>
+  <div><span class="prod-discount">12%</span><span class="prod-price">17,000원</span></div>
+  <span class="prod-original">19,500원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/48752C.jpg" alt="유기농 백미밥(3번들)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/48752.jpg'" loading="lazy"></div>
+  <div class="prod-name">유기농 백미밥(3번들)</div>
+  <div><span class="prod-discount">5%</span><span class="prod-price">5,100원</span></div>
+  <span class="prod-original">5,400원</span>
+</div>
+</div>
+
+<div class="divider"></div>
+<div class="sec" id="sec-16">
+  <span class="sec-label">[공급재개]아삭한 오이소박이</span>
+  <div class="sec-title">[공급재개]아삭한 오이소박이(11주-12주) 1가지</div>
+  <div class="sec-sub">오이소박이(1kg) · 1개 상품</div>
+</div>
+<div class="prod-scroll">
+  <div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/28996C.jpg" alt="오이소박이(1kg)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/28996.jpg'" loading="lazy"></div>
+  <div class="prod-name">오이소박이(1kg)</div>
+  <div><span class="prod-discount">6%</span><span class="prod-price">9,500원</span></div>
+  <span class="prod-original">10,200원</span>
+</div>
+</div>
+
+
+<div class="footer">
+  <div class="footer-logo">두레생협</div>
+  2026-04-15 11:17 자동 생성
+</div>
 
 <script>
-// Scroll reveal
-const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) entry.target.classList.add('visible');
-  });
-}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-revealEls.forEach(el => observer.observe(el));
-
-// Timeline nav
-const sections = ['hero','tomato','apple','meat','pickle','banchan','spinach','recipe','cta'];
-const dots = document.querySelectorAll('.timeline-dot');
-dots.forEach(dot => {
-  dot.addEventListener('click', () => {
-    document.getElementById(dot.dataset.target).scrollIntoView({ behavior: 'smooth' });
-  });
-});
-window.addEventListener('scroll', () => {
-  let current = 0;
-  sections.forEach((id, i) => {
-    const sec = document.getElementById(id);
-    if (sec && sec.getBoundingClientRect().top <= window.innerHeight * 0.5) current = i;
-  });
-  dots.forEach((d, i) => d.classList.toggle('active', i === current));
-});
-
-// 3D tilt on product cards
-document.querySelectorAll('.tilt-card').forEach(card => {
-  card.addEventListener('mousemove', e => {
-    const rect = card.getBoundingClientRect();
-    const cx = rect.left + rect.width / 2;
-    const cy = rect.top + rect.height / 2;
-    const dx = (e.clientX - cx) / (rect.width / 2);
-    const dy = (e.clientY - cy) / (rect.height / 2);
-    card.style.transform = `rotateY(${dx * 10}deg) rotateX(${-dy * 6}deg) scale(1.02)`;
-    card.style.boxShadow = `${-dx*12}px ${dy*12}px 40px rgba(0,0,0,0.1)`;
-  });
-  card.addEventListener('mouseleave', () => {
-    card.style.transform = '';
-    card.style.boxShadow = '';
-  });
-});
-
-// Smooth scroll for hero icons
-document.querySelectorAll('.hero-icon-item').forEach(item => {
-  item.addEventListener('click', e => {
-    e.preventDefault();
-    const target = item.getAttribute('href');
-    if (target) document.querySelector(target).scrollIntoView({ behavior: 'smooth' });
-  });
-});
-
-// Falling petals
-const petalContainer = document.getElementById('petals');
-function createPetal() {
-  const petal = document.createElement('div');
-  petal.classList.add('petal');
-  petal.style.left = Math.random() * 100 + '%';
-  petal.style.animationDuration = (8 + Math.random() * 8) + 's';
-  petal.style.animationDelay = Math.random() * 2 + 's';
-  const size = 8 + Math.random() * 10;
-  petal.style.width = size + 'px';
-  petal.style.height = size + 'px';
-  petalContainer.appendChild(petal);
-  setTimeout(() => petal.remove(), 18000);
+// 카테고리 네비 활성화
+const nav=document.getElementById('catnav');
+if(nav){
+  const links=nav.querySelectorAll('a');
+  const secs=document.querySelectorAll('.sec[id]');
+  const observer=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        links.forEach(l=>l.classList.remove('on'));
+        const id=e.target.id;
+        const active=nav.querySelector(`a[href="#${id}"]`);
+        if(active){active.classList.add('on');active.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'})}
+      }
+    })
+  },{threshold:0.3});
+  secs.forEach(s=>observer.observe(s));
 }
-setInterval(createPetal, 1200);
-for (let i = 0; i < 8; i++) setTimeout(createPetal, i * 600);
+
+// 더보기
+function toggleMore(btn,id){
+  const el=document.getElementById(id);
+  if(el.style.display==='none'){el.style.display='';btn.textContent='접기'}
+  else{el.style.display='none';btn.textContent='더보기 ▼'}
+}
 </script>
+
 </body>
 </html>
