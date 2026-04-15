@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이번 주 주문 마감 임박!</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: #fff7f0;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            word-break: keep-all;
+            padding-top: 24vh;
+            border: 2px solid rgba(255, 107, 53, 0.2);
+            box-shadow: inset 0 0 60px rgba(255, 107, 53, 0.03);
+        }
+
+        .marquee-wrap {
+            position: fixed;
+            left: 0;
+            right: 0;
+            z-index: 10;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(8px);
+            border-top: 1px solid rgba(0, 0, 0, 0.06);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+
+        .marquee-top {
+            top: 0;
+            height: 24vh;
+        }
+
+        .marquee-track {
+            display: flex;
+            width: max-content;
+            animation: marquee-scroll 180s linear infinite;
+        }
+
+        @keyframes marquee-scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .marquee-wrap:hover .marquee-track {
+            animation-play-state: paused;
+        }
+
+        .marquee-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.3rem;
+            padding: 0.6rem 0.8rem;
+            flex-shrink: 0;
+            cursor: default;
+            transition: transform 0.2s;
+        }
+
+        .marquee-item:hover {
+            transform: scale(1.05);
+        }
+
+        .marquee-item img {
+            width: 28vw;
+            height: 28vw;
+            max-width: 180px;
+            max-height: 180px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .marquee-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1px;
+            white-space: nowrap;
+        }
+
+        .marquee-name {
+            font-size: 0.85rem;
+            color: #555;
+            max-width: 28vw;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-align: center;
+        }
+
+        .marquee-discount {
+            font-size: 0.95rem;
+            font-weight: 900;
+            color: #ff6b35;
+        }
+
+        .marquee-sep {
+            display: none;
+        }
+
+        .bg-glow {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            filter: blur(150px);
+            opacity: 0.3;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .glow-1 {
+            background: #ffb6c1;
+            top: -200px;
+            left: -100px;
+            opacity: 0.25;
+        }
+
+        .glow-2 {
+            background: #a8e6cf;
+            bottom: -200px;
+            right: -100px;
+            opacity: 0.25;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 2rem;
+            max-width: 700px;
+        }
+
+        .spring-banner {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: #e5552a;
+            margin-bottom: 1.2rem;
+            letter-spacing: 1px;
+        }
+
+        .spring-banner .flower {
+            font-size: 2rem;
+            display: inline-block;
+            animation: flower-bounce 1.5s ease-in-out infinite;
+        }
+
+        .spring-banner .flower:last-child {
+            animation-delay: 0.3s;
+        }
+
+        @keyframes flower-bounce {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-6px) rotate(10deg); }
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(255, 107, 53, 0.15);
+            border: 1px solid rgba(255, 107, 53, 0.4);
+            color: #ff6b35;
+            padding: 0.4rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            animation: pulse-badge 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-badge {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(255, 107, 53, 0.3); }
+            50% { box-shadow: 0 0 20px 5px rgba(255, 107, 53, 0.15); }
+        }
+
+        .headline {
+            font-size: 2rem;
+            font-weight: 900;
+            line-height: 1.4;
+            margin-bottom: 0.5rem;
+        }
+
+        .headline .accent {
+            color: #ff6b35;
+        }
+
+        .sub {
+            font-size: 1.1rem;
+            color: #aaa;
+            margin-bottom: 2.5rem;
+        }
+
+        .timer {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 3rem;
+        }
+
+        .timer-unit {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 16px;
+            padding: 1.2rem 1rem;
+            min-width: 100px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .timer-unit:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 107, 53, 0.3);
+        }
+
+        .timer-value {
+            font-size: 3.5rem;
+            font-weight: 900;
+            line-height: 1;
+            background: linear-gradient(135deg, #333 30%, #ff6b35);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .timer-label {
+            font-size: 0.8rem;
+            color: #888;
+            margin-top: 0.5rem;
+            letter-spacing: 2px;
+        }
+
+        .colon {
+            font-size: 3rem;
+            font-weight: 900;
+            color: #ff6b35;
+            align-self: center;
+            padding-bottom: 1.2rem;
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff6b35, #e5552a);
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.3rem;
+            font-weight: 700;
+            padding: 1rem 3rem;
+            border-radius: 60px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 30px rgba(255, 107, 53, 0.3);
+        }
+
+        .cta-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 40px rgba(255, 107, 53, 0.5);
+        }
+
+        .cta-btn:active {
+            transform: scale(0.97);
+        }
+
+        .expired .timer-value {
+            background: linear-gradient(135deg, #bbb, #999);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        .expired-msg {
+            display: none;
+            font-size: 1.2rem;
+            color: #ff6b35;
+            margin-bottom: 2rem;
+            font-weight: 700;
+        }
+
+        .expired .expired-msg {
+            display: block;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                justify-content: center;
+            }
+
+            .container {
+                padding: 1rem 0.8rem;
+            }
+
+            .badge {
+                font-size: 0.95rem;
+                margin-bottom: 1rem;
+                padding: 0.5rem 1.4rem;
+            }
+
+            .headline {
+                font-size: 1.6rem;
+                line-height: 1.35;
+                margin-bottom: 0.4rem;
+            }
+
+            .sub {
+                font-size: 1rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .timer {
+                gap: 0.4rem;
+                margin-bottom: 1.8rem;
+            }
+
+            .timer-unit {
+                min-width: 0;
+                flex: 1;
+                max-width: 100px;
+                padding: 0.9rem 0.4rem;
+                border-radius: 12px;
+            }
+
+            .timer-value {
+                font-size: 2.8rem;
+            }
+
+            .timer-label {
+                font-size: 0.7rem;
+                letter-spacing: 1px;
+            }
+
+            .colon {
+                font-size: 2.2rem;
+                padding-bottom: 0.8rem;
+            }
+
+            .cta-btn {
+                font-size: 1.15rem;
+                padding: 1rem 2.5rem;
+                width: 85%;
+                text-align: center;
+            }
+
+            .marquee-item {
+                padding: 0.5rem 0.6rem;
+            }
+
+            .marquee-item img {
+                width: 26vw;
+                height: 26vw;
+                border-radius: 10px;
+            }
+
+            .marquee-name {
+                font-size: 0.75rem;
+                max-width: 26vw;
+            }
+
+            .marquee-discount {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 375px) {
+            .headline {
+                font-size: 1.35rem;
+            }
+
+            .timer-value {
+                font-size: 2.4rem;
+            }
+
+            .cta-btn {
+                width: 90%;
+                font-size: 1.05rem;
+                padding: 0.9rem 1.5rem;
+            }
+
+            .marquee-item img {
+                width: 26vw;
+                height: 26vw;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-glow glow-1"></div>
+    <div class="bg-glow glow-2"></div>
+
+    <div class="marquee-wrap marquee-top" id="marqueeTop"></div>
+
+    <div class="container" id="app">
+        <div class="spring-banner">
+            <span class="flower">&#127800;</span>
+            봄맞이 빅세일!
+            <span class="flower">&#127800;</span>
+        </div>
+
+        <div class="badge">마감 임박</div>
+
+        <h1 class="headline">
+            주문 <span class="accent">마감</span> 시간이 <br>
+            다가오고 있습니다
+        </h1>
+
+        <p class="sub">4/16(목) 오전 11시 30분, 이번 주 쇼핑몰 주문 마감!</p>
+
+        <div class="timer">
+            <div class="timer-unit">
+                <div class="timer-value" id="hours">00</div>
+                <div class="timer-label">시간</div>
+            </div>
+            <div class="colon">:</div>
+            <div class="timer-unit">
+                <div class="timer-value" id="minutes">00</div>
+                <div class="timer-label">분</div>
+            </div>
+            <div class="colon">:</div>
+            <div class="timer-unit">
+                <div class="timer-value" id="seconds">00</div>
+                <div class="timer-label">초</div>
+            </div>
+        </div>
+
+        <div class="expired-msg">주문 마감 시간이 지났습니다!</div>
+
+        <a href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1655" class="cta-btn">
+            놓치지 마세요!
+        </a>
+    </div>
+
+    <script>
+        (function() {
+            var deadline = new Date(2026, 3, 16, 11, 30, 0);
+            var $h = document.getElementById('hours');
+            var $m = document.getElementById('minutes');
+            var $s = document.getElementById('seconds');
+            var $app = document.getElementById('app');
+
+            function pad(n) {
+                return String(n).padStart(2, '0');
+            }
+
+            function tick() {
+                var diff = deadline - Date.now();
+                if (diff <= 0) {
+                    $h.textContent = '00';
+                    $m.textContent = '00';
+                    $s.textContent = '00';
+                    $app.classList.add('expired');
+                    return;
+                }
+                var totalSec = Math.floor(diff / 1000);
+                $h.textContent = pad(Math.floor(totalSec / 3600));
+                $m.textContent = pad(Math.floor((totalSec % 3600) / 60));
+                $s.textContent = pad(totalSec % 60);
+                requestAnimationFrame(tick);
+            }
+            tick();
+
+            var items = [
+                { name: "스프레드 초코(200g)", img: "57515C.jpg", rate: 80 },
+                { name: "바른공식 게맛살", img: "54750C.jpg", rate: 20 },
+                { name: "라이스페이퍼(300g)", img: "56014C.png", rate: 50 },
+                { name: "6년근홍삼엑기스(60팩)", img: "6116C.png", rate: 18 },
+                { name: "녹용엑기스(남성/60팩)", img: "17756C.jpg", rate: 12 },
+                { name: "녹용엑기스(여성/60팩)", img: "3069C.jpg", rate: 12 },
+                { name: "흑염소엑기스", img: "53633C.jpg", rate: 15 },
+                { name: "어린이튼튼홍삼(60팩)", img: "31422C.png", rate: 15 },
+                { name: "도라지배즙(20팩)", img: "56223C.jpg", rate: 15 },
+                { name: "돌배도라지즙", img: "32556C.png", rate: 25 },
+                { name: "6년근홍삼절편", img: "15684C.png", rate: 15 },
+                { name: "도라지절편세트", img: "29038C.png", rate: 15 },
+                { name: "순진한 생강진액", img: "32924C.png", rate: 20 },
+                { name: "양배추브로콜리즙", img: "41011C.jpg", rate: 10 },
+                { name: "루테인오메가3", img: "42857C.jpg", rate: 35 },
+                { name: "멀티비타민 이뮨샷", img: "58846C.jpg", rate: 20 },
+                { name: "뮤코다당단백 콘드로이친", img: "58090C.jpg", rate: 20 },
+                { name: "비타민D 2200IU", img: "44787C.png", rate: 35 },
+                { name: "유기농멀티비타민", img: "48969C.jpg", rate: 35 },
+                { name: "프로바이오틱스", img: "41515C.png", rate: 35 },
+                { name: "올리브유 스틱", img: "57926C.png", rate: 15 },
+                { name: "유기농 레몬즙", img: "56139C.jpg", rate: 15 },
+                { name: "유기농 매실스틱", img: "58781C.jpg", rate: 15 },
+                { name: "유기농 푸룬", img: "57604C.jpg", rate: 25 },
+                { name: "하루담은 톡오미자", img: "59203C.jpg", rate: 15 },
+                { name: "유기농 귀리유(YOU)16팩", img: "57232C.png", rate: 20 },
+                { name: "포기김치(5kg)", img: "32957C.png", rate: 20 },
+                { name: "포기김치(10kg)", img: "32958C.png", rate: 20 },
+                { name: "총각김치(3kg)", img: "44215C.png", rate: 10 },
+                { name: "김부각(3번들)", img: "56238C.jpg", rate: 18 },
+                { name: "떡갈비1000(10개)", img: "57676C.png", rate: 20 },
+                { name: "동그랑땡(2개 묶음)", img: "58117C.png", rate: 15 },
+                { name: "오색담은 맛있는 청국장(4입)", img: "58943C.jpg", rate: 13 },
+                { name: "초코현미퐁(10개입)", img: "56504C.jpg", rate: 10 },
+                { name: "식물성세제 제로너스(3L)", img: "56702C.jpg", rate: 12 },
+                { name: "흑염소탕", img: "54255C.jpg", rate: 13 },
+                { name: "통통치킨텐더", img: "47072C.png", rate: 10 },
+                { name: "통닭다리 누룽지삼계탕", img: "54730C.jpg", rate: 10 },
+                { name: "한우보양탕", img: "54638C.jpg", rate: 20 },
+                { name: "사골고기곰탕", img: "21051C.png", rate: 20 },
+                { name: "사골곰탕", img: "20316C.png", rate: 20 },
+                { name: "사골우족도가니탕", img: "21052C.png", rate: 20 },
+                { name: "한우사골곰탕(냉동)", img: "39157C.jpg", rate: 19 },
+                { name: "고기손만두", img: "35418C.png", rate: 9 },
+                { name: "김치손만두", img: "36723C.png", rate: 9 },
+                { name: "미당 뼈없는감자탕", img: "57069C.jpg", rate: 9 },
+                { name: "미당 시래기된장국", img: "51914C.jpg", rate: 10 },
+                { name: "미당 우렁된장찌개", img: "58674C.jpg", rate: 11 },
+                { name: "미당 추어탕", img: "51913C.jpg", rate: 13 },
+                { name: "부산진국 돼지국밥", img: "58167C.png", rate: 10 },
+                { name: "섬진강재첩국", img: "7122C.jpg", rate: 10 },
+                { name: "곤드레나물밥(2팩)", img: "56104C.jpg", rate: 15 },
+                { name: "김치치즈주먹밥(4팩)", img: "58085C.png", rate: 15 },
+                { name: "새우볶음밥(2팩)", img: "56390C.jpg", rate: 15 },
+                { name: "까르보나라 파스타소스", img: "58609C.jpg", rate: 5 },
+                { name: "유기농 통밀 스파게티 500g", img: "57618C.jpg", rate: 10 },
+                { name: "토마토미트 파스타소스", img: "58608C.jpg", rate: 5 },
+                { name: "피오르피오레 듀럼밀 스파게티", img: "57621C.jpg", rate: 10 },
+                { name: "교자만두", img: "34723C.png", rate: 11 },
+                { name: "납작군만두", img: "47109C.png", rate: 10 },
+                { name: "물만두", img: "35417C.png", rate: 9 },
+                { name: "담백한 올리브유 참치", img: "51467C.jpg", rate: 11 },
+                { name: "담백한 햄", img: "53668C.jpg", rate: 13 },
+                { name: "두레생협 고추참치", img: "54721C.jpg", rate: 8 },
+                { name: "고기동그랑땡", img: "20379C.jpg", rate: 8 },
+                { name: "녹두전", img: "20377C.png", rate: 8 },
+                { name: "동태전(300g)", img: "20378C.png", rate: 8 },
+                { name: "바다를 담은 해물파전", img: "39634C.png", rate: 5 },
+                { name: "오케이놀라 카카오(10봉)", img: "56481C.jpg", rate: 15 },
+                { name: "오케이놀라", img: "55230C.jpg", rate: 16 },
+                { name: "사이공쿱 현미유 1L", img: "58044C.jpg", rate: 20 },
+                { name: "순우유(900ml/무항생제)", img: "28485C.png", rate: 9 },
+                { name: "발아들기름(300ml)", img: "20710C.jpg", rate: 15 },
+                { name: "발아생들기름(160ml)", img: "21390C.jpg", rate: 15 },
+                { name: "발아참기름(300ml)", img: "20708C.jpg", rate: 15 },
+                { name: "백김치(국산/2kg)", img: "58219C.png", rate: 25 },
+                { name: "포기김치(2kg)", img: "32424C.png", rate: 25 },
+                { name: "발아깐들깨가루", img: "21178C.png", rate: 10 },
+                { name: "발아볶은들깨가루", img: "21100C.png", rate: 10 },
+                { name: "발아볶은참깨(120g)", img: "21180C.jpg", rate: 20 },
+                { name: "유기농콩기름(1000ml)", img: "28853C.jpg", rate: 8 },
+                { name: "유기농 떡국떡", img: "44754C.png", rate: 10 },
+                { name: "유기농 떡볶이떡", img: "44755C.png", rate: 10 },
+                { name: "숙주나물(무농약/300g)", img: "34752C.jpg", rate: 9 },
+                { name: "콩나물(무농약/300g)", img: "35728C.png", rate: 12 },
+                { name: "야채가루(30스틱)", img: "58287C.png", rate: 35 },
+                { name: "맷돌소금(볶은소금*1kg)", img: "763C.png", rate: 10 },
+                { name: "메밀부침가루(500g)", img: "20178C.jpg", rate: 15 },
+                { name: "심쿡액상조미료(480ml)", img: "54285C.jpg", rate: 10 },
+                { name: "유기농설탕(1kg)", img: "57203C.jpg", rate: 10 },
+                { name: "알육수 멸치(20알)", img: "57516C.jpg", rate: 10 },
+                { name: "알육수 사골(20알)", img: "51828C.jpg", rate: 10 },
+                { name: "알육수 야채(15알)", img: "54969C.jpg", rate: 9 },
+                { name: "알육수 한우(20알)", img: "51829C.jpg", rate: 10 },
+                { name: "알육수 해물(20알)", img: "51827C.jpg", rate: 10 },
+                { name: "우리콩부침용두부(420g)", img: "589C.png", rate: 8 },
+                { name: "우리콩찌개용두부(420g)", img: "577C.png", rate: 8 },
+                { name: "돌산갓김치(1kg)", img: "59429C.jpg", rate: 10 },
+                { name: "풋마늘대김치(500g)", img: "59420C.jpg", rate: 10 },
+                { name: "달래장", img: "56698C.jpg", rate: 10 },
+                { name: "쑥버무리(250g)", img: "54286C.jpg", rate: 4 },
+                { name: "맛들찬 울외장아찌(500g)", img: "47663C.png", rate: 10 },
+                { name: "맛들찬 무장아찌(500g)", img: "47664C.png", rate: 10 },
+                { name: "맛들찬 청참외장아찌(500g)", img: "47665C.png", rate: 10 },
+                { name: "장아찌 혼합장(1000ml)", img: "39707C.jpg", rate: 9 },
+                { name: "감향초 사과(370g)", img: "56651C.jpg", rate: 5 },
+                { name: "감향초 감귤(340g)", img: "56652C.jpg", rate: 5 },
+                { name: "등심탕수육", img: "43112C.png", rate: 8 },
+                { name: "후브락스 사과(1.2kg)", img: "58721C.jpg", rate: 15 },
+                { name: "(바로먹는)보쌈", img: "57655C.jpg", rate: 5 },
+                { name: "바로먹는간편잡채(400g)", img: "30174C.png", rate: 11 },
+                { name: "오리양념불고기", img: "11245C.jpg", rate: 8 },
+                { name: "김밥용햄", img: "10581C.png", rate: 7 },
+                { name: "김자반볶음", img: "55161C.jpg", rate: 10 },
+                { name: "닭가슴살소시지", img: "46635C.png", rate: 8 },
+                { name: "불고기양념소시지", img: "46634C.png", rate: 8 },
+                { name: "강냉이", img: "54650C.jpg", rate: 16 },
+                { name: "꾸러기짱", img: "9782C.jpg", rate: 17 },
+                { name: "두부과자", img: "53086C.jpg", rate: 15 },
+                { name: "바나나송송", img: "58892C.jpg", rate: 13 },
+                { name: "볶은캐슈넛(180g)", img: "51881C.jpg", rate: 10 },
+                { name: "쌀강정", img: "53932C.jpg", rate: 20 },
+                { name: "쌀보리강정", img: "53934C.jpg", rate: 19 },
+                { name: "양파송송", img: "57350C.jpg", rate: 13 },
+                { name: "제대로콘칩", img: "38351C.jpg", rate: 12 },
+                { name: "참깨꼬소봉", img: "47657C.jpg", rate: 13 },
+                { name: "현미강정", img: "53094C.jpg", rate: 20 },
+                { name: "콩국물(페트/1L)", img: "43396C.jpg", rate: 15 },
+                { name: "열무김치(1kg)", img: "28224C.png", rate: 7 },
+                { name: "오이소박이(1kg)", img: "28996C.jpg", rate: 7 },
+                { name: "냉면육수(300g)", img: "31452C.jpg", rate: 12 },
+                { name: "보리냉면사리", img: "31403C.jpg", rate: 12 },
+                { name: "보리물냉면", img: "30779C.jpg", rate: 9 },
+                { name: "보리비빔냉면", img: "31454C.jpg", rate: 9 },
+                { name: "비빔쫄면", img: "38996C.jpg", rate: 10 },
+                { name: "메밀국수", img: "39667C.jpg", rate: 9 },
+                { name: "물막국수", img: "49400C.jpg", rate: 9 },
+                { name: "비빔막국수", img: "49401C.jpg", rate: 9 },
+                { name: "7곡 미숫가루", img: "39867C.png", rate: 19 },
+                { name: "유기농아이스크림(녹차)", img: "12025C.png", rate: 10 },
+                { name: "유기농아이스크림(딸기)", img: "10986C.png", rate: 10 },
+                { name: "유기농아이스크림(바닐라)", img: "10985C.png", rate: 10 },
+                { name: "유기농아이스크림(블루베리)", img: "13386C.png", rate: 10 },
+                { name: "유기농아이스크림(코코아)", img: "12024C.png", rate: 10 },
+                { name: "오미자로 쭈", img: "52140C.jpg", rate: 19 },
+                { name: "풀만먹인 양 프렌치랙", img: "58630C.jpg", rate: 15 },
+                { name: "풀만먹인 양 숄더랙", img: "58629C.jpg", rate: 15 },
+                { name: "풀만먹인 양 어깨살", img: "58631C.png", rate: 15 },
+                { name: "구운김밥김(15매/유기)", img: "20402C.png", rate: 0 },
+                { name: "햇장봉재래김(50매)", img: "323C.png", rate: 30 },
+                { name: "염장 미역줄기(300g)", img: "58827C.jpg", rate: 13 },
+                { name: "염장 톳(300g)", img: "58937C.jpg", rate: 12 },
+                { name: "날치알골드", img: "22743C.jpg", rate: 20 },
+                { name: "대나무 키친타월(6팩)", img: "54399C.jpg", rate: 8 },
+                { name: "대나무화장지(3겹/12롤)", img: "52573C.jpg", rate: 8 },
+                { name: "액상 주방세제(보충/환경)", img: "55770C.jpg", rate: 10 },
+                { name: "액상 주방세제(500ml)", img: "55803C.jpg", rate: 10 },
+                { name: "거품형 주방세제", img: "56480C.jpg", rate: 5 },
+                { name: "액상 세탁세제(2L)", img: "57151C.png", rate: 8 },
+                { name: "액상 세탁세제(보충)", img: "57152C.png", rate: 8 },
+                { name: "중성세탁세제(2L)", img: "57525C.png", rate: 10 },
+                { name: "중성세탁세제(보충용)", img: "57526C.png", rate: 10 },
+                { name: "(맛찬)산채나물비빔세트", img: "58425C.png", rate: 10 },
+                { name: "(맛찬)얼갈이보리 물김치", img: "59414C.jpg", rate: 10 },
+                { name: "(맛찬)열무얼갈이 물김치", img: "58072C.png", rate: 10 },
+                { name: "(맛찬)감자채볶음", img: "58636C.jpg", rate: 0 },
+                { name: "(맛찬)고사리나물", img: "59016C.jpg", rate: 0 },
+                { name: "(맛찬)곤드레나물", img: "58068C.png", rate: 0 },
+                { name: "(맛찬)깻잎순들깨볶음", img: "58064C.png", rate: 0 },
+                { name: "(맛찬)꼬막양념무침", img: "59024C.jpg", rate: 0 },
+                { name: "(맛찬)꽈리고추멸치조림", img: "58635C.jpg", rate: 0 },
+                { name: "(맛찬)달래무침", img: "58946C.jpg", rate: 0 },
+                { name: "(맛찬)도라지초무침", img: "58065C.png", rate: 0 },
+                { name: "(맛찬)발효청매실고추장무침", img: "58029C.png", rate: 0 },
+                { name: "(맛찬)부지깽이나물", img: "58067C.png", rate: 0 },
+                { name: "(맛찬)생깻잎무침", img: "58634C.jpg", rate: 0 },
+                { name: "(맛찬)오미자미역초무침", img: "58066C.png", rate: 0 },
+                { name: "(맛찬)오이(한우)뱃두리", img: "58028C.png", rate: 0 },
+                { name: "(맛찬)우엉조림", img: "58033C.png", rate: 0 },
+                { name: "(맛찬)죽순볶음", img: "58031C.png", rate: 0 },
+                { name: "(맛찬)지리멸치볶음", img: "58030C.png", rate: 0 },
+                { name: "(맛찬)참나물무침", img: "58944C.jpg", rate: 0 },
+                { name: "(맛찬)취나물", img: "58071C.png", rate: 0 },
+                { name: "(맛찬)도라지초무침(220g)", img: "59060C.png", rate: 10 },
+                { name: "(맛찬)생깻잎무침(240g)", img: "59061C.jpg", rate: 10 },
+                { name: "(맛찬)오미자무생채", img: "58062C.png", rate: 10 },
+                { name: "(맛찬)우엉조림(200g)", img: "59059C.png", rate: 10 },
+                { name: "(맛찬)코다리조림", img: "58059C.png", rate: 10 },
+                { name: "베이스 선크림40g", img: "59362C.jpg", rate: 16 },
+                { name: "노스테 아토 로션", img: "59377C.jpg", rate: 20 },
+                { name: "노스테 아토 크림", img: "59378C.jpg", rate: 20 },
+                { name: "노스테 아토 워시", img: "59376C.jpg", rate: 20 },
+                { name: "참두릅(220g)", img: "3672C.jpg", rate: 0 },
+                { name: "곤달비(곰취/100g)", img: "56994C.jpg", rate: 0 },
+                { name: "울릉도 눈개승마(200g)", img: "56933C.jpg", rate: 0 },
+                { name: "울릉도 부지갱이(200g)", img: "56934C.jpg", rate: 0 },
+                { name: "울릉도 엉겅퀴(150g)", img: "57103C.png", rate: 0 },
+                { name: "강영진 블루베리(100g/제주)", img: "56794C.jpg", rate: 0 },
+                { name: "무우(1kg/무농약)", img: "50542C.jpg", rate: 0 },
+                { name: "무우(700g/무농약)", img: "39405C.jpg", rate: 33 }
+            ];
+
+            var BASE = "https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/";
+
+            function buildMarquee(container) {
+                var track = document.createElement('div');
+                track.className = 'marquee-track';
+
+                for (var s = 0; s < 2; s++) {
+                    items.forEach(function(item, i) {
+                        var el = document.createElement('div');
+                        el.className = 'marquee-item';
+                        var discountHtml = item.rate > 0
+                            ? '<span class="marquee-discount">' + item.rate + '% 할인</span>'
+                            : '';
+                        el.innerHTML = '<img src="' + BASE + item.img + '" alt="' + item.name + '" loading="lazy">' +
+                                      '<div class="marquee-info">' +
+                                      '<span class="marquee-name">' + item.name + '</span>' +
+                                      discountHtml +
+                                      '</div>';
+                        track.appendChild(el);
+
+                        if (i < items.length - 1 || s === 0) {
+                            var sep = document.createElement('span');
+                            sep.className = 'marquee-sep';
+                            sep.textContent = '·';
+                            track.appendChild(sep);
+                        }
+                    });
+                }
+                container.appendChild(track);
+            }
+
+            buildMarquee(document.getElementById('marqueeTop'));
+        })();
+    </script>
+</body>
+</html>
