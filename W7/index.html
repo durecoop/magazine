@@ -1,0 +1,1371 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>두레생협 7주 주간기획</title>
+<meta name="description" content="두레생협 7주 — 180개 상품 최대 35% 할인">
+<meta property="og:title" content="두레생협 7주 주간기획">
+<meta property="og:description" content="180개 상품, 최대 35% 할인 — 2/9(월) ~ 2/13(금)">
+<meta property="og:image" content="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/44787C.jpg">
+<meta property="og:url" content="https://durecoop.github.io/magazine/W7/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Malgun Gothic',sans-serif;
+  background:#fff;color:#333;max-width:480px;margin:0 auto;
+  -webkit-font-smoothing:antialiased;word-break:keep-all;
+}
+
+/* ── 히어로 (전폭 비주얼) ── */
+.hero{
+  background:linear-gradient(180deg,#1a3a2a 0%,#2d6a4f 100%);
+  color:#fff;padding:40px 20px 32px;position:relative;overflow:hidden;
+}
+.hero::after{
+  content:'';position:absolute;bottom:-30px;left:0;right:0;height:60px;
+  background:#fff;border-radius:50% 50% 0 0;
+}
+.hero-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.hero-logo{font-size:13px;font-weight:800;opacity:.7;letter-spacing:1px}
+.hero-week{font-size:11px;background:rgba(255,255,255,.15);padding:4px 10px;border-radius:12px}
+.hero h1{font-size:20px;font-weight:900;line-height:1.35;margin-bottom:6px}
+.hero-sub{font-size:12px;opacity:.65;margin-bottom:16px}
+.hero-chips{display:flex;gap:8px;flex-wrap:wrap}
+.hero-chip{
+  background:rgba(255,255,255,.12);backdrop-filter:blur(4px);
+  padding:6px 12px;border-radius:20px;font-size:11px;font-weight:600;
+}
+.hero-chip em{font-style:normal;color:#a7f3d0;font-weight:800}
+
+/* ── 카테고리 네비 (고정) ── */
+.cat-nav{
+  position:sticky;top:0;z-index:100;background:#fff;
+  border-bottom:1px solid #f0f0f0;
+  display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;
+  padding:0 16px;gap:0;
+}
+.cat-nav::-webkit-scrollbar{display:none}
+.cat-nav a{
+  flex-shrink:0;padding:12px 14px;
+  font-size:12px;font-weight:600;color:#999;
+  text-decoration:none;border-bottom:2px solid transparent;
+  white-space:nowrap;transition:.2s;
+}
+.cat-nav a.on{color:#1a3a2a;border-bottom-color:#1a3a2a;font-weight:800}
+
+/* ── 섹션 ── */
+.sec{padding:24px 16px 8px}
+.sec-label{
+  display:inline-block;font-size:10px;font-weight:700;
+  color:#2d6a4f;letter-spacing:1px;margin-bottom:4px;
+}
+.sec-title{font-size:16px;font-weight:900;line-height:1.35;margin-bottom:2px}
+.sec-sub{font-size:11px;color:#999;margin-bottom:16px}
+
+/* ── 상품 가로 스크롤 (마켓컬리 스타일) ── */
+.prod-scroll{
+  display:flex;gap:10px;overflow-x:auto;-webkit-overflow-scrolling:touch;
+  padding:0 16px 16px;scroll-snap-type:x mandatory;
+}
+.prod-scroll::-webkit-scrollbar{display:none}
+.prod-card{
+  flex-shrink:0;width:140px;scroll-snap-align:start;
+}
+.prod-img{
+  width:140px;height:140px;border-radius:8px;overflow:hidden;
+  background:#f8f8f8;margin-bottom:8px;
+}
+.prod-img img{width:100%;height:100%;object-fit:cover}
+.prod-name{font-size:12px;font-weight:600;line-height:1.4;margin-bottom:4px;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+  height:34px;
+}
+.prod-discount{font-size:14px;font-weight:900;color:#e53935;margin-right:4px}
+.prod-price{font-size:13px;font-weight:700;color:#333}
+.prod-original{font-size:11px;color:#bbb;text-decoration:line-through;display:block;margin-top:1px}
+
+/* ── 상품 리스트형 (더보기 이후) ── */
+.prod-list{padding:0 16px}
+.prod-row{
+  display:flex;gap:12px;padding:12px 0;
+  border-bottom:1px solid #f5f5f5;
+}
+.prod-row-img{
+  width:64px;height:64px;flex-shrink:0;border-radius:6px;
+  overflow:hidden;background:#f8f8f8;
+}
+.prod-row-img img{width:100%;height:100%;object-fit:cover}
+.prod-row-info{flex:1;display:flex;flex-direction:column;justify-content:center}
+.prod-row-name{font-size:12px;font-weight:600;line-height:1.4;margin-bottom:3px}
+.prod-row-prices{display:flex;align-items:baseline;gap:4px}
+.prod-row-disc{font-size:13px;font-weight:900;color:#e53935}
+.prod-row-sale{font-size:12px;font-weight:700}
+.prod-row-orig{font-size:10px;color:#bbb;text-decoration:line-through}
+
+/* ── 더보기 버튼 ── */
+.more-btn{
+  display:block;margin:0 16px 20px;padding:12px;
+  border:1px solid #e0e0e0;border-radius:8px;
+  text-align:center;font-size:12px;font-weight:600;color:#666;
+  background:#fff;cursor:pointer;
+}
+
+/* ── 구분선 ── */
+.divider{height:8px;background:#f5f5f5}
+
+/* ── 크로스링크 ── */
+.cross{display:flex;gap:8px;padding:16px;background:#fafafa}
+.cross a{
+  flex:1;display:block;padding:10px;border-radius:8px;
+  background:#fff;border:1px solid #eee;text-align:center;
+  text-decoration:none;font-size:11px;font-weight:600;color:#555;
+}
+
+/* ── 푸터 ── */
+.footer{text-align:center;padding:32px 16px;background:#fafafa;font-size:10px;color:#bbb}
+.footer-logo{font-size:14px;font-weight:900;color:#2d6a4f;margin-bottom:6px}
+
+/* ── PC 확장 ── */
+@media(min-width:769px){
+  body{max-width:1200px}
+  .prod-scroll{flex-wrap:wrap;overflow:visible;padding:0 16px 16px}
+  .prod-card{width:180px}
+  .prod-img{width:180px;height:180px}
+  .hero h1{font-size:28px}
+  .sec-title{font-size:20px}
+}
+</style>
+</head>
+<body>
+
+<!-- 히어로 -->
+<div class="hero">
+  <div class="hero-top">
+    <span class="hero-logo">DURE COOP</span>
+    <span class="hero-week">7주차</span>
+  </div>
+  <h1>이번 주 추천 생활재</h1>
+  <p class="hero-sub">2/9(월) ~ 2/13(금)</p>
+  <div class="hero-chips">
+    <span class="hero-chip"><em>180</em> 상품</span>
+    <span class="hero-chip">최대 <em>35%</em></span>
+    <span class="hero-chip"><em>11</em> 기획전</span>
+  </div>
+</div>
+
+<!-- 크로스링크 -->
+<div class="cross">
+  <a href="https://durecoop.github.io/dure-coop-14week-cardnews/weekly_deal.html">카드뉴스</a>
+  <a href="https://durecoop.github.io/magazine/W7-focus/">추천상품</a>
+  
+</div>
+
+<!-- 카테고리 네비 -->
+<nav class="cat-nav" id="catnav">
+  <a href="#sec-1" class=" active">물가안정 기획전</a><a href="#sec-2" class="">명절/선물</a><a href="#sec-3" class="">햇출하</a><a href="#sec-4" class="">동물복지 축산</a><a href="#sec-5" class="">수산물</a><a href="#sec-6" class="">생활용품</a><a href="#sec-7" class="">제철 채소와 즐</a><a href="#sec-8" class="">맛있게 말린 반</a><a href="#sec-9" class="">시원한 여름 시</a><a href="#sec-10" class="">화사한 봄 나들</a><a href="#sec-11" class="">화사한 봄 시즌</a>
+</nav>
+
+<!-- 섹션들 -->
+
+<div class="divider"></div>
+<div class="sec" id="sec-1">
+  <span class="sec-label">물가안정 기획전</span>
+  <div class="sec-title">물가안정 기획전 [최대 34% 할인]</div>
+  <div class="sec-sub">75가지 생활재 한자리에 · 75개 상품</div>
+</div>
+<div class="prod-scroll">
+  <div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/3777C.jpg" alt="유기농 마스코바도(500g)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/3777.jpg'" loading="lazy"></div>
+  <div class="prod-name">유기농 마스코바도(500g)</div>
+  <div><span class="prod-discount">9%</span><span class="prod-price">4,000원</span></div>
+  <span class="prod-original">4,400원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/20708C.jpg" alt="발아참기름(300ml)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/20708.jpg'" loading="lazy"></div>
+  <div class="prod-name">발아참기름(300ml)</div>
+  <div><span class="prod-discount">14%</span><span class="prod-price">31,400원</span></div>
+  <span class="prod-original">36,900원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/777C.jpg" alt="현미식초(900ml)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/777.jpg'" loading="lazy"></div>
+  <div class="prod-name">현미식초(900ml)</div>
+  <div><span class="prod-discount">4%</span><span class="prod-price">4,300원</span></div>
+  <span class="prod-original">4,500원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/21178C.jpg" alt="발아깐들깨가루" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/21178.jpg'" loading="lazy"></div>
+  <div class="prod-name">발아깐들깨가루</div>
+  <div><span class="prod-discount">10%</span><span class="prod-price">13,300원</span></div>
+  <span class="prod-original">14,800원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/39634C.jpg" alt="바다를 담은 해물파전" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/39634.jpg'" loading="lazy"></div>
+  <div class="prod-name">바다를 담은 해물파전</div>
+  <div><span class="prod-discount">5%</span><span class="prod-price">7,000원</span></div>
+  <span class="prod-original">7,400원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57203C.jpg" alt="유기농설탕(1kg)_라펠시나" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57203.jpg'" loading="lazy"></div>
+  <div class="prod-name">유기농설탕(1kg)_라펠시나</div>
+  <div><span class="prod-discount">9%</span><span class="prod-price">4,600원</span></div>
+  <span class="prod-original">5,100원</span>
+</div>
+</div>
+
+<div class="prod-list" id="more-1" style="display:none">
+  <div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/34752C.jpg" alt="숙주나물(무농약/300g)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">숙주나물(무농약/300g)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">8%</span><span class="prod-row-sale">2,100원</span> <span class="prod-row-orig">2,300원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58287C.jpg" alt="야채가루(30스틱)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">야채가루(30스틱)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">34%</span><span class="prod-row-sale">6,000원</span> <span class="prod-row-orig">9,200원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/32424C.jpg" alt="포기김치(2kg)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">포기김치(2kg)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">24%</span><span class="prod-row-sale">12,400원</span> <span class="prod-row-orig">16,500원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58219C.jpg" alt="백김치(국산/2kg)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">백김치(국산/2kg)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">24%</span><span class="prod-row-sale">10,900원</span> <span class="prod-row-orig">14,500원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/40549C.jpg" alt="훈제오리" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">훈제오리</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">24%</span><span class="prod-row-sale">10,000원</span> <span class="prod-row-orig">13,300원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59402C.jpg" alt="(G)3겹둥근휴지(30롤)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">(G)3겹둥근휴지(30롤)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">23%</span><span class="prod-row-sale">19,000원</span> <span class="prod-row-orig">24,800원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/21180C.jpg" alt="발아볶은참깨(120g)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">발아볶은참깨(120g)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">20%</span><span class="prod-row-sale">7,800원</span> <span class="prod-row-orig">9,800원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/32957C.jpg" alt="포기김치(5kg)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">포기김치(5kg)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">20%</span><span class="prod-row-sale">30,600원</span> <span class="prod-row-orig">38,300원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57676C.jpg" alt="떡갈비1000(10개)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">떡갈비1000(10개)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">20%</span><span class="prod-row-sale">13,200원</span> <span class="prod-row-orig">16,500원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/32958C.jpg" alt="포기김치(10kg)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">포기김치(10kg)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">20%</span><span class="prod-row-sale">58,400원</span> <span class="prod-row-orig">73,000원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58044C.jpg" alt="사이공쿱 현미유 1L" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">사이공쿱 현미유 1L</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">20%</span><span class="prod-row-sale">7,200원</span> <span class="prod-row-orig">9,000원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/21051C.jpg" alt="사골고기곰탕" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">사골고기곰탕</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">20%</span><span class="prod-row-sale">7,200원</span> <span class="prod-row-orig">9,000원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/54638C.jpg" alt="한우보양탕" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">한우보양탕</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">20%</span><span class="prod-row-sale">10,400원</span> <span class="prod-row-orig">13,000원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/20316C.jpg" alt="사골곰탕" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">사골곰탕</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">19%</span><span class="prod-row-sale">4,900원</span> <span class="prod-row-orig">6,100원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/21052C.jpg" alt="사골우족도가니탕" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">사골우족도가니탕</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">19%</span><span class="prod-row-sale">7,000원</span> <span class="prod-row-orig">8,700원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/39157C.jpg" alt="한우사골곰탕(냉동)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">한우사골곰탕(냉동)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">19%</span><span class="prod-row-sale">5,800원</span> <span class="prod-row-orig">7,200원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56238C.jpg" alt="김부각(3번들)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">김부각(3번들)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">17%</span><span class="prod-row-sale">7,900원</span> <span class="prod-row-orig">9,600원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/55230C.jpg" alt="오케이놀라" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">오케이놀라</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">15%</span><span class="prod-row-sale">6,500원</span> <span class="prod-row-orig">7,700원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56104C.jpg" alt="곤드레나물밥(2팩)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">곤드레나물밥(2팩)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">15%</span><span class="prod-row-sale">6,100원</span> <span class="prod-row-orig">7,200원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56390C.jpg" alt="새우볶음밥(2팩)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">새우볶음밥(2팩)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">15%</span><span class="prod-row-sale">7,200원</span> <span class="prod-row-orig">8,500원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/20178C.jpg" alt="메밀부침가루(500g)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">메밀부침가루(500g)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">15%</span><span class="prod-row-sale">5,100원</span> <span class="prod-row-orig">6,000원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/20710C.jpg" alt="발아들기름(300ml)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">발아들기름(300ml)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">15%</span><span class="prod-row-sale">27,200원</span> <span class="prod-row-orig">32,000원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/21390C.jpg" alt="발아생들기름(160ml)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">발아생들기름(160ml)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">15%</span><span class="prod-row-sale">17,600원</span> <span class="prod-row-orig">20,700원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56481C.jpg" alt="오케이놀라 카카오(10봉)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">오케이놀라 카카오(10봉)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">14%</span><span class="prod-row-sale">12,700원</span> <span class="prod-row-orig">14,900원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58085C.jpg" alt="김치치즈주먹밥(4팩)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">김치치즈주먹밥(4팩)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">14%</span><span class="prod-row-sale">6,400원</span> <span class="prod-row-orig">7,500원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58117C.jpg" alt="동그랑땡(2개 묶음)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">동그랑땡(2개 묶음)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">14%</span><span class="prod-row-sale">11,100원</span> <span class="prod-row-orig">13,000원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/53668C.jpg" alt="담백한 햄" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">담백한 햄</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">13%</span><span class="prod-row-sale">3,300원</span> <span class="prod-row-orig">3,800원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/54255C.jpg" alt="흑염소탕" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">흑염소탕</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">13%</span><span class="prod-row-sale">17,800원</span> <span class="prod-row-orig">20,500원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58943C.jpg" alt="오색담은 맛있는 청국장(4입)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">오색담은 맛있는 청국장(4입)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">13%</span><span class="prod-row-sale">8,000원</span> <span class="prod-row-orig">9,200원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/51913C.jpg" alt="미당 추어탕" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">미당 추어탕</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">13%</span><span class="prod-row-sale">6,000원</span> <span class="prod-row-orig">6,900원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56702C.jpg" alt="식물성세제 제로너스(3L)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">식물성세제 제로너스(3L)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">12%</span><span class="prod-row-sale">30,800원</span> <span class="prod-row-orig">35,000원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/35728C.jpg" alt="콩나물(무농약/300g)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">콩나물(무농약/300g)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">11%</span><span class="prod-row-sale">1,500원</span> <span class="prod-row-orig">1,700원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/51467C.jpg" alt="담백한 올리브유 참치" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">담백한 올리브유 참치</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">10%</span><span class="prod-row-sale">2,500원</span> <span class="prod-row-orig">2,800원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/34723C.jpg" alt="교자만두" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">교자만두</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">10%</span><span class="prod-row-sale">5,100원</span> <span class="prod-row-orig">5,700원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58674C.jpg" alt="미당 우렁된장찌개" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">미당 우렁된장찌개</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">10%</span><span class="prod-row-sale">6,800원</span> <span class="prod-row-orig">7,600원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/51827C.jpg" alt="알육수 해물(20알)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">알육수 해물(20알)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">10%</span><span class="prod-row-sale">5,200원</span> <span class="prod-row-orig">5,800원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/51828C.jpg" alt="알육수 사골(20알)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">알육수 사골(20알)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">10%</span><span class="prod-row-sale">5,200원</span> <span class="prod-row-orig">5,800원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/51829C.jpg" alt="알육수 한우(20알)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">알육수 한우(20알)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">10%</span><span class="prod-row-sale">5,200원</span> <span class="prod-row-orig">5,800원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57516C.jpg" alt="알육수 멸치(20알)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">알육수 멸치(20알)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">10%</span><span class="prod-row-sale">5,200원</span> <span class="prod-row-orig">5,800원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57618C.jpg" alt="유기농 통밀 스파게티 500g" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">유기농 통밀 스파게티 500g</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">10%</span><span class="prod-row-sale">3,500원</span> <span class="prod-row-orig">3,900원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/44754C.jpg" alt="유기농 떡국떡" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">유기농 떡국떡</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">10%</span><span class="prod-row-sale">5,300원</span> <span class="prod-row-orig">5,900원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/44755C.jpg" alt="유기농 떡볶이떡" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">유기농 떡볶이떡</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">10%</span><span class="prod-row-sale">5,300원</span> <span class="prod-row-orig">5,900원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/44215C.jpg" alt="총각김치(3kg)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">총각김치(3kg)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">10%</span><span class="prod-row-sale">26,700원</span> <span class="prod-row-orig">29,700원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56504C.jpg" alt="초코현미퐁(10개입)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">초코현미퐁(10개입)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">10%</span><span class="prod-row-sale">10,800원</span> <span class="prod-row-orig">12,000원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/21100C.jpg" alt="발아볶은들깨가루" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">발아볶은들깨가루</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">10%</span><span class="prod-row-sale">13,500원</span> <span class="prod-row-orig">15,000원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/51914C.jpg" alt="미당 시래기된장국" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">미당 시래기된장국</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">10%</span><span class="prod-row-sale">4,500원</span> <span class="prod-row-orig">5,000원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58167C.jpg" alt="부산진국 돼지국밥" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">부산진국 돼지국밥</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">10%</span><span class="prod-row-sale">8,100원</span> <span class="prod-row-orig">9,000원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/7122C.jpg" alt="섬진강재첩국" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">섬진강재첩국</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">9%</span><span class="prod-row-sale">6,400원</span> <span class="prod-row-orig">7,100원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/763C.jpg" alt="맷돌소금(볶은소금*1kg)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">맷돌소금(볶은소금*1kg)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">9%</span><span class="prod-row-sale">5,500원</span> <span class="prod-row-orig">6,100원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57621C.jpg" alt="피오르피오레 듀럼밀 스파게티 500g" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">피오르피오레 듀럼밀 스파게티 500g</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">9%</span><span class="prod-row-sale">4,600원</span> <span class="prod-row-orig">5,100원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/47109C.jpg" alt="납작군만두" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">납작군만두</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">9%</span><span class="prod-row-sale">5,600원</span> <span class="prod-row-orig">6,200원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56503C.jpg" alt="초코현미크런치바(12개입)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">초코현미크런치바(12개입)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">9%</span><span class="prod-row-sale">12,200원</span> <span class="prod-row-orig">13,500원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/54730C.jpg" alt="통닭다리 누룽지삼계탕" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">통닭다리 누룽지삼계탕</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">9%</span><span class="prod-row-sale">7,500원</span> <span class="prod-row-orig">8,300원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/54285C.jpg" alt="심쿡액상조미료(480ml)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">심쿡액상조미료(480ml)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">9%</span><span class="prod-row-sale">9,500원</span> <span class="prod-row-orig">10,500원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/35417C.jpg" alt="물만두" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">물만두</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">9%</span><span class="prod-row-sale">5,800원</span> <span class="prod-row-orig">6,400원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/35418C.jpg" alt="고기손만두" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">고기손만두</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">9%</span><span class="prod-row-sale">5,800원</span> <span class="prod-row-orig">6,400원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/36723C.jpg" alt="김치손만두" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">김치손만두</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">9%</span><span class="prod-row-sale">5,800원</span> <span class="prod-row-orig">6,400원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57069C.jpg" alt="미당 뼈없는감자탕" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">미당 뼈없는감자탕</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">9%</span><span class="prod-row-sale">5,900원</span> <span class="prod-row-orig">6,500원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/54969C.jpg" alt="알육수 야채(15알)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">알육수 야채(15알)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">9%</span><span class="prod-row-sale">4,000원</span> <span class="prod-row-orig">4,400원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/28485C.jpg" alt="순우유(900ml/무항생제)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">순우유(900ml/무항생제)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">9%</span><span class="prod-row-sale">4,000원</span> <span class="prod-row-orig">4,400원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/20377C.jpg" alt="녹두전" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">녹두전</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">8%</span><span class="prod-row-sale">9,800원</span> <span class="prod-row-orig">10,700원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/20378C.jpg" alt="동태전(300g)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">동태전(300g)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">8%</span><span class="prod-row-sale">9,100원</span> <span class="prod-row-orig">9,900원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/577C.jpg" alt="우리콩찌개용두부(420g)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">우리콩찌개용두부(420g)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">8%</span><span class="prod-row-sale">2,300원</span> <span class="prod-row-orig">2,500원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/589C.jpg" alt="우리콩부침용두부(420g)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">우리콩부침용두부(420g)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">8%</span><span class="prod-row-sale">2,300원</span> <span class="prod-row-orig">2,500원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/54721C.jpg" alt="두레생협 고추참치" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">두레생협 고추참치</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">8%</span><span class="prod-row-sale">2,300원</span> <span class="prod-row-orig">2,500원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/28853C.jpg" alt="유기농콩기름(1000ml)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">유기농콩기름(1000ml)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">7%</span><span class="prod-row-sale">11,900원</span> <span class="prod-row-orig">12,900원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/20379C.jpg" alt="고기동그랑땡" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">고기동그랑땡</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">7%</span><span class="prod-row-sale">8,400원</span> <span class="prod-row-orig">9,100원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58608C.jpg" alt="토마토미트 파스타소스" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">토마토미트 파스타소스</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">5%</span><span class="prod-row-sale">5,400원</span> <span class="prod-row-orig">5,700원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58609C.jpg" alt="까르보나라 파스타소스" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">까르보나라 파스타소스</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">4%</span><span class="prod-row-sale">5,900원</span> <span class="prod-row-orig">6,200원</span></div>
+  </div>
+</div>
+</div>
+<button class="more-btn" onclick="toggleMore(this,'more-1')">더보기 ▼ (69개)</button>
+<div class="divider"></div>
+<div class="sec" id="sec-2">
+  <span class="sec-label">명절/선물</span>
+  <div class="sec-title">명절/선물 할인전</div>
+  <div class="sec-sub">비타민D 2200IU 외 23개 · 23개 상품</div>
+</div>
+<div class="prod-scroll">
+  <div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/31422C.jpg" alt="어린이튼튼홍삼(60팩)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/31422.jpg'" loading="lazy"></div>
+  <div class="prod-name">어린이튼튼홍삼(60팩)</div>
+  <div><span class="prod-discount">15%</span><span class="prod-price">68,800원</span></div>
+  <span class="prod-original">80,900원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/44787C.jpg" alt="비타민D 2200IU" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/44787.jpg'" loading="lazy"></div>
+  <div class="prod-name">비타민D 2200IU</div>
+  <div><span class="prod-discount">35%</span><span class="prod-price">7,900원</span></div>
+  <span class="prod-original">12,200원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/41515C.jpg" alt="프로바이오틱스" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/41515.jpg'" loading="lazy"></div>
+  <div class="prod-name">프로바이오틱스</div>
+  <div><span class="prod-discount">35%</span><span class="prod-price">13,300원</span></div>
+  <span class="prod-original">20,500원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/48969C.jpg" alt="유기농멀티비타민" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/48969.jpg'" loading="lazy"></div>
+  <div class="prod-name">유기농멀티비타민</div>
+  <div><span class="prod-discount">35%</span><span class="prod-price">16,800원</span></div>
+  <span class="prod-original">25,900원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/42857C.jpg" alt="루테인오메가3" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/42857.jpg'" loading="lazy"></div>
+  <div class="prod-name">루테인오메가3</div>
+  <div><span class="prod-discount">35%</span><span class="prod-price">14,700원</span></div>
+  <span class="prod-original">22,600원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57604C.jpg" alt="유기농 푸룬(20gx14개)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57604.jpg'" loading="lazy"></div>
+  <div class="prod-name">유기농 푸룬(20gx14개)</div>
+  <div><span class="prod-discount">25%</span><span class="prod-price">7,400원</span></div>
+  <span class="prod-original">9,900원</span>
+</div>
+</div>
+
+<div class="prod-list" id="more-2" style="display:none">
+  <div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/32556C.jpg" alt="돌배도라지즙" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">돌배도라지즙</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">25%</span><span class="prod-row-sale">28,400원</span> <span class="prod-row-orig">37,900원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57232C.jpg" alt="유기농 귀리유(YOU)16팩" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">유기농 귀리유(YOU)16팩</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">20%</span><span class="prod-row-sale">15,300원</span> <span class="prod-row-orig">19,200원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58090C.jpg" alt="뮤코다당단백 콘드로이친" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">뮤코다당단백 콘드로이친</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">20%</span><span class="prod-row-sale">15,800원</span> <span class="prod-row-orig">19,800원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58846C.jpg" alt="멀티비타민 이뮨샷" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">멀티비타민 이뮨샷</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">20%</span><span class="prod-row-sale">33,600원</span> <span class="prod-row-orig">42,000원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/32924C.jpg" alt="순진한 생강진액" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">순진한 생강진액</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">19%</span><span class="prod-row-sale">19,400원</span> <span class="prod-row-orig">24,200원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/6116C.jpg" alt="6년근홍삼엑기스(60팩)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">6년근홍삼엑기스(60팩)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">18%</span><span class="prod-row-sale">119,300원</span> <span class="prod-row-orig">145,500원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58781C.jpg" alt="유기농 매실스틱(20mlx15개)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">유기농 매실스틱(20mlx15개)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">15%</span><span class="prod-row-sale">8,900원</span> <span class="prod-row-orig">10,500원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56139C.jpg" alt="유기농 레몬즙(20ml*14포)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">유기농 레몬즙(20ml*14포)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">15%</span><span class="prod-row-sale">8,400원</span> <span class="prod-row-orig">9,900원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57926C.jpg" alt="올리브유 스틱" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">올리브유 스틱</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">15%</span><span class="prod-row-sale">8,400원</span> <span class="prod-row-orig">9,900원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/29038C.jpg" alt="도라지절편세트" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">도라지절편세트</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">15%</span><span class="prod-row-sale">29,300원</span> <span class="prod-row-orig">34,500원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/53633C.jpg" alt="흑염소엑기스" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">흑염소엑기스</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">15%</span><span class="prod-row-sale">94,400원</span> <span class="prod-row-orig">111,000원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56223C.jpg" alt="도라지배즙(20팩)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">도라지배즙(20팩)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">15%</span><span class="prod-row-sale">17,000원</span> <span class="prod-row-orig">20,000원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/15684C.jpg" alt="6년근홍삼절편" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">6년근홍삼절편</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">14%</span><span class="prod-row-sale">53,600원</span> <span class="prod-row-orig">63,000원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59203C.jpg" alt="하루담은 톡오미자" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">하루담은 톡오미자</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">14%</span><span class="prod-row-sale">11,600원</span> <span class="prod-row-orig">13,600원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/3069C.jpg" alt="녹용엑기스(여성/60팩)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">녹용엑기스(여성/60팩)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">12%</span><span class="prod-row-sale">125,800원</span> <span class="prod-row-orig">142,900원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/17756C.jpg" alt="녹용엑기스(남성/60팩)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">녹용엑기스(남성/60팩)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">12%</span><span class="prod-row-sale">125,800원</span> <span class="prod-row-orig">142,900원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/41011C.jpg" alt="양배추브로콜리즙" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">양배추브로콜리즙</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">10%</span><span class="prod-row-sale">28,900원</span> <span class="prod-row-orig">32,100원</span></div>
+  </div>
+</div>
+</div>
+<button class="more-btn" onclick="toggleMore(this,'more-2')">더보기 ▼ (17개)</button>
+<div class="divider"></div>
+<div class="sec" id="sec-3">
+  <span class="sec-label">햇출하</span>
+  <div class="sec-title">햇출하</div>
+  <div class="sec-sub">음나무순(150g/자연산) · 2개 상품</div>
+</div>
+<div class="prod-scroll">
+  <div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/20476C.jpg" alt="음나무순(150g/자연산)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/20476.jpg'" loading="lazy"></div>
+  <div class="prod-name">음나무순(150g/자연산)</div>
+  <div><span class="prod-price">9,500원</span></div>
+  
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/20576C.jpg" alt="참죽나무순(150g/자연산)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/20576.jpg'" loading="lazy"></div>
+  <div class="prod-name">참죽나무순(150g/자연산)</div>
+  <div><span class="prod-price">9,500원</span></div>
+  
+</div>
+</div>
+
+<div class="divider"></div>
+<div class="sec" id="sec-4">
+  <span class="sec-label">동물복지 축산</span>
+  <div class="sec-title">동물복지 축산 특가</div>
+  <div class="sec-sub">동물복지 삼겹살(400g/구이) · 5개 상품</div>
+</div>
+<div class="prod-scroll">
+  <div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59229C.jpg" alt="동물복지 삼겹살(400g/구이)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59229.jpg'" loading="lazy"></div>
+  <div class="prod-name">동물복지 삼겹살(400g/구이)</div>
+  <div><span class="prod-discount">15%</span><span class="prod-price">16,300원</span></div>
+  <span class="prod-original">19,200원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59230C.jpg" alt="동물복지 목살(400g/구이)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59230.jpg'" loading="lazy"></div>
+  <div class="prod-name">동물복지 목살(400g/구이)</div>
+  <div><span class="prod-discount">15%</span><span class="prod-price">15,200원</span></div>
+  <span class="prod-original">17,900원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56910C.jpg" alt="동물복지 다짐육(300g/뒷다리살)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56910.jpg'" loading="lazy"></div>
+  <div class="prod-name">동물복지 다짐육(300g/뒷다리살)</div>
+  <div><span class="prod-discount">15%</span><span class="prod-price">5,100원</span></div>
+  <span class="prod-original">6,000원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56906C.jpg" alt="동물복지 찌개용(300g/앞다리살)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56906.jpg'" loading="lazy"></div>
+  <div class="prod-name">동물복지 찌개용(300g/앞다리살)</div>
+  <div><span class="prod-discount">14%</span><span class="prod-price">8,000원</span></div>
+  <span class="prod-original">9,400원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59499C.jpg" alt="동물복지 찜갈비(1kg/냉장)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59499.jpg'" loading="lazy"></div>
+  <div class="prod-name">동물복지 찜갈비(1kg/냉장)</div>
+  <div><span class="prod-discount">10%</span><span class="prod-price">20,700원</span></div>
+  <span class="prod-original">23,000원</span>
+</div>
+</div>
+
+<div class="divider"></div>
+<div class="sec" id="sec-5">
+  <span class="sec-label">수산물</span>
+  <div class="sec-title">이번 주 수산물</div>
+  <div class="sec-sub">수비드문어(200g) · 10개 상품</div>
+</div>
+<div class="prod-scroll">
+  <div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/37431C.jpg" alt="명품왕새우(500g)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/37431.jpg'" loading="lazy"></div>
+  <div class="prod-name">명품왕새우(500g)</div>
+  <div><span class="prod-discount">15%</span><span class="prod-price">20,800원</span></div>
+  <span class="prod-original">24,500원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/55972C.jpg" alt="수비드문어(200g)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/55972.jpg'" loading="lazy"></div>
+  <div class="prod-name">수비드문어(200g)</div>
+  <div><span class="prod-discount">30%</span><span class="prod-price">11,900원</span></div>
+  <span class="prod-original">17,000원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58644C.jpg" alt="제주은갈치(420g)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58644.jpg'" loading="lazy"></div>
+  <div class="prod-name">제주은갈치(420g)</div>
+  <div><span class="prod-discount">20%</span><span class="prod-price">27,600원</span></div>
+  <span class="prod-original">34,500원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58198C.jpg" alt="참굴비(1.6kg/20미)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58198.jpg'" loading="lazy"></div>
+  <div class="prod-name">참굴비(1.6kg/20미)</div>
+  <div><span class="prod-discount">15%</span><span class="prod-price">29,900원</span></div>
+  <span class="prod-original">35,200원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/54842C.jpg" alt="가시없는고등어(600g)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/54842.jpg'" loading="lazy"></div>
+  <div class="prod-name">가시없는고등어(600g)</div>
+  <div><span class="prod-discount">15%</span><span class="prod-price">12,400원</span></div>
+  <span class="prod-original">14,600원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58197C.jpg" alt="손질 참가자미(600g/2~3미)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58197.jpg'" loading="lazy"></div>
+  <div class="prod-name">손질 참가자미(600g/2~3미)</div>
+  <div><span class="prod-discount">15%</span><span class="prod-price">11,900원</span></div>
+  <span class="prod-original">14,000원</span>
+</div>
+</div>
+
+<div class="prod-list" id="more-5" style="display:none">
+  <div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/54844C.jpg" alt="가시없는삼치(600g)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">가시없는삼치(600g)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">15%</span><span class="prod-row-sale">14,200원</span> <span class="prod-row-orig">16,700원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58898C.jpg" alt="품질인증 오징어(900g)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">품질인증 오징어(900g)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">10%</span><span class="prod-row-sale">25,000원</span> <span class="prod-row-orig">27,800원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57845C.jpg" alt="자연산 참돔(700g/1미)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">자연산 참돔(700g/1미)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">10%</span><span class="prod-row-sale">10,700원</span> <span class="prod-row-orig">11,900원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58958C.jpg" alt="제주옥돔(180g)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">제주옥돔(180g)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">10%</span><span class="prod-row-sale">14,300원</span> <span class="prod-row-orig">15,900원</span></div>
+  </div>
+</div>
+</div>
+<button class="more-btn" onclick="toggleMore(this,'more-5')">더보기 ▼ (4개)</button>
+<div class="divider"></div>
+<div class="sec" id="sec-6">
+  <span class="sec-label">생활용품</span>
+  <div class="sec-title">생활용품 [최대 10%]</div>
+  <div class="sec-sub">액상 주방세제(500ml/환경) · 9개 상품</div>
+</div>
+<div class="prod-scroll">
+  <div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/55803C.jpg" alt="액상 주방세제(500ml/환경)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/55803.jpg'" loading="lazy"></div>
+  <div class="prod-name">액상 주방세제(500ml/환경)</div>
+  <div><span class="prod-discount">10%</span><span class="prod-price">4,300원</span></div>
+  <span class="prod-original">4,800원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/55770C.jpg" alt="액상 주방세제(보충/환경)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/55770.jpg'" loading="lazy"></div>
+  <div class="prod-name">액상 주방세제(보충/환경)</div>
+  <div><span class="prod-discount">10%</span><span class="prod-price">5,200원</span></div>
+  <span class="prod-original">5,800원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57526C.jpg" alt="중성세탁세제(NEW/보충용)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57526.jpg'" loading="lazy"></div>
+  <div class="prod-name">중성세탁세제(NEW/보충용)</div>
+  <div><span class="prod-discount">10%</span><span class="prod-price">10,400원</span></div>
+  <span class="prod-original">11,600원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57525C.jpg" alt="중성세탁세제(NEW/2L)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57525.jpg'" loading="lazy"></div>
+  <div class="prod-name">중성세탁세제(NEW/2L)</div>
+  <div><span class="prod-discount">9%</span><span class="prod-price">12,800원</span></div>
+  <span class="prod-original">14,200원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/52573C.jpg" alt="대나무화장지(3겹/12롤)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/52573.jpg'" loading="lazy"></div>
+  <div class="prod-name">대나무화장지(3겹/12롤)</div>
+  <div><span class="prod-discount">8%</span><span class="prod-price">7,700원</span></div>
+  <span class="prod-original">8,400원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/54399C.jpg" alt="대나무 키친타월(6팩/1박스)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/54399.jpg'" loading="lazy"></div>
+  <div class="prod-name">대나무 키친타월(6팩/1박스)</div>
+  <div><span class="prod-discount">8%</span><span class="prod-price">8,800원</span></div>
+  <span class="prod-original">9,600원</span>
+</div>
+</div>
+
+<div class="prod-list" id="more-6" style="display:none">
+  <div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57151C.jpg" alt="액상 세탁세제(2L/환경)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">액상 세탁세제(2L/환경)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">7%</span><span class="prod-row-sale">11,600원</span> <span class="prod-row-orig">12,600원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57152C.jpg" alt="액상 세탁세제(보충/환경)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">액상 세탁세제(보충/환경)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">7%</span><span class="prod-row-sale">9,400원</span> <span class="prod-row-orig">10,200원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56480C.jpg" alt="거품형 주방세제" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">거품형 주방세제</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">5%</span><span class="prod-row-sale">5,500원</span> <span class="prod-row-orig">5,800원</span></div>
+  </div>
+</div>
+</div>
+<button class="more-btn" onclick="toggleMore(this,'more-6')">더보기 ▼ (3개)</button>
+<div class="divider"></div>
+<div class="sec" id="sec-7">
+  <span class="sec-label">제철 채소와 즐기는 축산물 </span>
+  <div class="sec-title">제철 채소와 즐기는 축산물 기획전</div>
+  <div class="sec-sub">돼지등갈비(500g) · 6개 상품</div>
+</div>
+<div class="prod-scroll">
+  <div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/35270C.jpg" alt="돼지등갈비(500g)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/35270.jpg'" loading="lazy"></div>
+  <div class="prod-name">돼지등갈비(500g)</div>
+  <div><span class="prod-discount">10%</span><span class="prod-price">19,300원</span></div>
+  <span class="prod-original">21,500원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/34347C.jpg" alt="돌돌한우샤브샤브" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/34347.jpg'" loading="lazy"></div>
+  <div class="prod-name">돌돌한우샤브샤브</div>
+  <div><span class="prod-discount">9%</span><span class="prod-price">17,400원</span></div>
+  <span class="prod-original">19,300원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/10673C.jpg" alt="돼지앞다리살(500g/보쌈용)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/10673.jpg'" loading="lazy"></div>
+  <div class="prod-name">돼지앞다리살(500g/보쌈용)</div>
+  <div><span class="prod-discount">10%</span><span class="prod-price">11,500원</span></div>
+  <span class="prod-original">12,800원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/32215C.jpg" alt="돼지앞다리살(500g/불고기용)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/32215.jpg'" loading="lazy"></div>
+  <div class="prod-name">돼지앞다리살(500g/불고기용)</div>
+  <div><span class="prod-discount">10%</span><span class="prod-price">11,500원</span></div>
+  <span class="prod-original">12,800원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59085C.jpg" alt="한우5초등심(200g/암소)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59085.jpg'" loading="lazy"></div>
+  <div class="prod-name">한우5초등심(200g/암소)</div>
+  <div><span class="prod-discount">10%</span><span class="prod-price">18,500원</span></div>
+  <span class="prod-original">20,600원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/34426C.jpg" alt="돌돌대패목살" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/34426.jpg'" loading="lazy"></div>
+  <div class="prod-name">돌돌대패목살</div>
+  <div><span class="prod-discount">9%</span><span class="prod-price">16,600원</span></div>
+  <span class="prod-original">18,400원</span>
+</div>
+</div>
+
+<div class="divider"></div>
+<div class="sec" id="sec-8">
+  <span class="sec-label">맛있게 말린 반건조오징어 기</span>
+  <div class="sec-title">맛있게 말린 반건조오징어 기획전 1가지</div>
+  <div class="sec-sub">반건조 오징어(240g/2미) · 1개 상품</div>
+</div>
+<div class="prod-scroll">
+  <div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59488C.jpg" alt="반건조 오징어(240g/2미)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59488.jpg'" loading="lazy"></div>
+  <div class="prod-name">반건조 오징어(240g/2미)</div>
+  <div><span class="prod-discount">10%</span><span class="prod-price">15,200원</span></div>
+  <span class="prod-original">16,900원</span>
+</div>
+</div>
+
+<div class="divider"></div>
+<div class="sec" id="sec-9">
+  <span class="sec-label">시원한 여름 시즌 기획생활재</span>
+  <div class="sec-title">이번 주 시원한 여름 시즌 기획생활재(16주-17주)</div>
+  <div class="sec-sub">7곡 미숫가루 · 18개 상품</div>
+</div>
+<div class="prod-scroll">
+  <div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/28224C.jpg" alt="열무김치(1kg)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/28224.jpg'" loading="lazy"></div>
+  <div class="prod-name">열무김치(1kg)</div>
+  <div><span class="prod-discount">7%</span><span class="prod-price">6,500원</span></div>
+  <span class="prod-original">7,000원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/28996C.jpg" alt="오이소박이(1kg)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/28996.jpg'" loading="lazy"></div>
+  <div class="prod-name">오이소박이(1kg)</div>
+  <div><span class="prod-discount">6%</span><span class="prod-price">9,500원</span></div>
+  <span class="prod-original">10,200원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/39667C.jpg" alt="메밀국수" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/39667.jpg'" loading="lazy"></div>
+  <div class="prod-name">메밀국수</div>
+  <div><span class="prod-discount">8%</span><span class="prod-price">4,100원</span></div>
+  <span class="prod-original">4,500원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/10985C.jpg" alt="유기농아이스크림(바닐라)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/10985.jpg'" loading="lazy"></div>
+  <div class="prod-name">유기농아이스크림(바닐라)</div>
+  <div><span class="prod-discount">10%</span><span class="prod-price">7,700원</span></div>
+  <span class="prod-original">8,600원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/12024C.jpg" alt="유기농아이스크림(코코아)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/12024.jpg'" loading="lazy"></div>
+  <div class="prod-name">유기농아이스크림(코코아)</div>
+  <div><span class="prod-discount">10%</span><span class="prod-price">7,700원</span></div>
+  <span class="prod-original">8,600원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/10986C.jpg" alt="유기농아이스크림(딸기)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/10986.jpg'" loading="lazy"></div>
+  <div class="prod-name">유기농아이스크림(딸기)</div>
+  <div><span class="prod-discount">10%</span><span class="prod-price">7,700원</span></div>
+  <span class="prod-original">8,600원</span>
+</div>
+</div>
+
+<div class="prod-list" id="more-9" style="display:none">
+  <div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/39867C.jpg" alt="7곡 미숫가루" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">7곡 미숫가루</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">19%</span><span class="prod-row-sale">12,500원</span> <span class="prod-row-orig">15,500원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/13386C.jpg" alt="유기농아이스크림(블루베리)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">유기농아이스크림(블루베리)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">10%</span><span class="prod-row-sale">7,700원</span> <span class="prod-row-orig">8,600원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/12025C.jpg" alt="유기농아이스크림(녹차)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">유기농아이스크림(녹차)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">10%</span><span class="prod-row-sale">7,700원</span> <span class="prod-row-orig">8,600원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/52140C.jpg" alt="오미자로 쭈" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">오미자로 쭈</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">18%</span><span class="prod-row-sale">1,100원</span> <span class="prod-row-orig">1,350원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/43396C.jpg" alt="콩국물(페트/1L)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">콩국물(페트/1L)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">15%</span><span class="prod-row-sale">5,500원</span> <span class="prod-row-orig">6,500원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/31403C.jpg" alt="보리냉면사리" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">보리냉면사리</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">11%</span><span class="prod-row-sale">1,500원</span> <span class="prod-row-orig">1,700원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/31452C.jpg" alt="냉면육수(300g)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">냉면육수(300g)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">11%</span><span class="prod-row-sale">1,500원</span> <span class="prod-row-orig">1,700원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/38996C.jpg" alt="비빔쫄면" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">비빔쫄면</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">10%</span><span class="prod-row-sale">5,400원</span> <span class="prod-row-orig">6,000원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/30779C.jpg" alt="보리물냉면" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">보리물냉면</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">9%</span><span class="prod-row-sale">5,900원</span> <span class="prod-row-orig">6,500원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/31454C.jpg" alt="보리비빔냉면" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">보리비빔냉면</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">9%</span><span class="prod-row-sale">5,900원</span> <span class="prod-row-orig">6,500원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/49400C.jpg" alt="물막국수" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">물막국수</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">9%</span><span class="prod-row-sale">5,900원</span> <span class="prod-row-orig">6,500원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/49401C.jpg" alt="비빔막국수" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">비빔막국수</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">9%</span><span class="prod-row-sale">5,900원</span> <span class="prod-row-orig">6,500원</span></div>
+  </div>
+</div>
+</div>
+<button class="more-btn" onclick="toggleMore(this,'more-9')">더보기 ▼ (12개)</button>
+<div class="divider"></div>
+<div class="sec" id="sec-10">
+  <span class="sec-label">화사한 봄 나들이 기획생활재</span>
+  <div class="sec-title">화사한 봄 나들이 기획생활재(16주-17주)</div>
+  <div class="sec-sub">현미강정 · 21개 상품</div>
+</div>
+<div class="prod-scroll">
+  <div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/53094C.jpg" alt="현미강정" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/53094.jpg'" loading="lazy"></div>
+  <div class="prod-name">현미강정</div>
+  <div><span class="prod-discount">20%</span><span class="prod-price">4,800원</span></div>
+  <span class="prod-original">6,000원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/53932C.jpg" alt="쌀강정" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/53932.jpg'" loading="lazy"></div>
+  <div class="prod-name">쌀강정</div>
+  <div><span class="prod-discount">20%</span><span class="prod-price">4,800원</span></div>
+  <span class="prod-original">6,000원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/53934C.jpg" alt="쌀보리강정" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/53934.jpg'" loading="lazy"></div>
+  <div class="prod-name">쌀보리강정</div>
+  <div><span class="prod-discount">19%</span><span class="prod-price">5,000원</span></div>
+  <span class="prod-original">6,200원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/9782C.jpg" alt="꾸러기짱" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/9782.jpg'" loading="lazy"></div>
+  <div class="prod-name">꾸러기짱</div>
+  <div><span class="prod-discount">16%</span><span class="prod-price">2,000원</span></div>
+  <span class="prod-original">2,400원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/54650C.jpg" alt="강냉이" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/54650.jpg'" loading="lazy"></div>
+  <div class="prod-name">강냉이</div>
+  <div><span class="prod-discount">16%</span><span class="prod-price">3,100원</span></div>
+  <span class="prod-original">3,700원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/53086C.jpg" alt="두부과자" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/53086.jpg'" loading="lazy"></div>
+  <div class="prod-name">두부과자</div>
+  <div><span class="prod-discount">14%</span><span class="prod-price">2,900원</span></div>
+  <span class="prod-original">3,400원</span>
+</div>
+</div>
+
+<div class="prod-list" id="more-10" style="display:none">
+  <div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/47657C.jpg" alt="참깨꼬소봉" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">참깨꼬소봉</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">13%</span><span class="prod-row-sale">3,300원</span> <span class="prod-row-orig">3,800원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57350C.jpg" alt="양파송송" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">양파송송</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">13%</span><span class="prod-row-sale">2,000원</span> <span class="prod-row-orig">2,300원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58892C.jpg" alt="바나나송송" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">바나나송송</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">13%</span><span class="prod-row-sale">2,000원</span> <span class="prod-row-orig">2,300원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/5266C.jpg" alt="싱싱새우짱" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">싱싱새우짱</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">12%</span><span class="prod-row-sale">2,100원</span> <span class="prod-row-orig">2,400원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/38351C.jpg" alt="제대로콘칩" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">제대로콘칩</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">11%</span><span class="prod-row-sale">2,300원</span> <span class="prod-row-orig">2,600원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/30174C.jpg" alt="바로먹는간편잡채(400g)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">바로먹는간편잡채(400g)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">10%</span><span class="prod-row-sale">5,900원</span> <span class="prod-row-orig">6,600원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/55161C.jpg" alt="김자반볶음" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">김자반볶음</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">10%</span><span class="prod-row-sale">3,500원</span> <span class="prod-row-orig">3,900원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/51881C.jpg" alt="볶은캐슈넛(180g)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">볶은캐슈넛(180g)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">10%</span><span class="prod-row-sale">8,800원</span> <span class="prod-row-orig">9,800원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/47072C.jpg" alt="통통치킨텐더" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">통통치킨텐더</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">8%</span><span class="prod-row-sale">9,900원</span> <span class="prod-row-orig">10,800원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/11245C.jpg" alt="오리양념불고기" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">오리양념불고기</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">8%</span><span class="prod-row-sale">15,800원</span> <span class="prod-row-orig">17,200원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/43112C.jpg" alt="등심탕수육" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">등심탕수육</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">8%</span><span class="prod-row-sale">11,500원</span> <span class="prod-row-orig">12,500원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/46634C.jpg" alt="불고기양념소시지" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">불고기양념소시지</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">8%</span><span class="prod-row-sale">4,600원</span> <span class="prod-row-orig">5,000원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/46635C.jpg" alt="닭가슴살소시지" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">닭가슴살소시지</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">7%</span><span class="prod-row-sale">6,000원</span> <span class="prod-row-orig">6,500원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/10581C.jpg" alt="김밥용햄" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">김밥용햄</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">7%</span><span class="prod-row-sale">5,000원</span> <span class="prod-row-orig">5,400원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57655C.jpg" alt="(바로먹는)보쌈" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">(바로먹는)보쌈</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">4%</span><span class="prod-row-sale">12,400원</span> <span class="prod-row-orig">13,000원</span></div>
+  </div>
+</div>
+</div>
+<button class="more-btn" onclick="toggleMore(this,'more-10')">더보기 ▼ (15개)</button>
+<div class="divider"></div>
+<div class="sec" id="sec-11">
+  <span class="sec-label">화사한 봄 시즌 기획생활재(</span>
+  <div class="sec-title">이번 주 화사한 봄 시즌 기획생활재(16주-17주)</div>
+  <div class="sec-sub">돌산갓김치(국산/1kg) · 10개 상품</div>
+</div>
+<div class="prod-scroll">
+  <div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/39707C.jpg" alt="장아찌 혼합장(1000ml)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/39707.jpg'" loading="lazy"></div>
+  <div class="prod-name">장아찌 혼합장(1000ml)</div>
+  <div><span class="prod-discount">9%</span><span class="prod-price">13,000원</span></div>
+  <span class="prod-original">14,300원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59429C.jpg" alt="돌산갓김치(국산/1kg)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59429.jpg'" loading="lazy"></div>
+  <div class="prod-name">돌산갓김치(국산/1kg)</div>
+  <div><span class="prod-discount">10%</span><span class="prod-price">9,000원</span></div>
+  <span class="prod-original">10,000원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/47665C.jpg" alt="맛들찬 청참외장아찌(500g)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/47665.jpg'" loading="lazy"></div>
+  <div class="prod-name">맛들찬 청참외장아찌(500g)</div>
+  <div><span class="prod-discount">9%</span><span class="prod-price">14,000원</span></div>
+  <span class="prod-original">15,500원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56698C.jpg" alt="달래장" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56698.jpg'" loading="lazy"></div>
+  <div class="prod-name">달래장</div>
+  <div><span class="prod-discount">9%</span><span class="prod-price">10,400원</span></div>
+  <span class="prod-original">11,500원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/47663C.jpg" alt="맛들찬 울외장아찌(500g)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/47663.jpg'" loading="lazy"></div>
+  <div class="prod-name">맛들찬 울외장아찌(500g)</div>
+  <div><span class="prod-discount">9%</span><span class="prod-price">12,200원</span></div>
+  <span class="prod-original">13,500원</span>
+</div><div class="prod-card">
+  <div class="prod-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/47664C.jpg" alt="맛들찬 무장아찌(500g)" onerror="this.onerror=null;this.src='https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/47664.jpg'" loading="lazy"></div>
+  <div class="prod-name">맛들찬 무장아찌(500g)</div>
+  <div><span class="prod-discount">9%</span><span class="prod-price">12,200원</span></div>
+  <span class="prod-original">13,500원</span>
+</div>
+</div>
+
+<div class="prod-list" id="more-11" style="display:none">
+  <div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59420C.jpg" alt="풋마늘대김치(국산/500g)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">풋마늘대김치(국산/500g)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">9%</span><span class="prod-row-sale">9,500원</span> <span class="prod-row-orig">10,500원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56651C.jpg" alt="감향초 사과(370g)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">감향초 사과(370g)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">5%</span><span class="prod-row-sale">20,900원</span> <span class="prod-row-orig">22,000원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56652C.jpg" alt="감향초 감귤(340g)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">감향초 감귤(340g)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">5%</span><span class="prod-row-sale">20,900원</span> <span class="prod-row-orig">22,000원</span></div>
+  </div>
+</div><div class="prod-row">
+  <div class="prod-row-img"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/54286C.jpg" alt="쑥버무리(250g)" onerror="this.onerror=null;this.style.display='none'" loading="lazy"></div>
+  <div class="prod-row-info">
+    <div class="prod-row-name">쑥버무리(250g)</div>
+    <div class="prod-row-prices"><span class="prod-row-disc">4%</span><span class="prod-row-sale">4,600원</span> <span class="prod-row-orig">4,800원</span></div>
+  </div>
+</div>
+</div>
+<button class="more-btn" onclick="toggleMore(this,'more-11')">더보기 ▼ (4개)</button>
+
+<div class="footer">
+  <div class="footer-logo">두레생협</div>
+  2026-04-16 16:14 자동 생성
+</div>
+
+<script>
+// 카테고리 네비 활성화
+const nav=document.getElementById('catnav');
+if(nav){
+  const links=nav.querySelectorAll('a');
+  const secs=document.querySelectorAll('.sec[id]');
+  const observer=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        links.forEach(l=>l.classList.remove('on'));
+        const id=e.target.id;
+        const active=nav.querySelector(`a[href="#${id}"]`);
+        if(active){active.classList.add('on');active.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'})}
+      }
+    })
+  },{threshold:0.3});
+  secs.forEach(s=>observer.observe(s));
+}
+
+// 더보기
+function toggleMore(btn,id){
+  const el=document.getElementById(id);
+  if(el.style.display==='none'){el.style.display='';btn.textContent='접기'}
+  else{el.style.display='none';btn.textContent='더보기 ▼'}
+}
+</script>
+
+</body>
+</html>
