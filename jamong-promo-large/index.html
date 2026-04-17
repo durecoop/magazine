@@ -593,12 +593,21 @@ body { --ts: 1; } /* text-scale 배율 — 글자 크기 조절기로 변경 */
   .vs-col h4 { font-size: calc(22px * var(--ts)); margin-bottom: 12px; padding-bottom: 10px; }
   .vs-col p { font-size: calc(19px * var(--ts)); margin-bottom: 8px; line-height: 1.65; }
   .vs-mark { width: 54px; height: 54px; font-size: 20px; }
-  .story-image { max-height: 32vh; border-radius: 14px; }
-  .story-caption { font-size: calc(30px * var(--ts)); padding: 20px 22px 32px; }
+  .story-image-wrap { padding: 0; margin-top: 12px; }
+  .story-image {
+    width: 100%; max-width: 100%; max-height: none;
+    border-radius: 0; margin: 0 auto;
+    box-shadow: 0 12px 22px rgba(80,55,30,0.14);
+  }
+  .story-caption { font-size: calc(30px * var(--ts)); padding: 24px 22px 32px; }
 
   /* Point */
-  .point-hero-wrap { padding: 16px 16px 0; }
-  .point-hero { max-height: 38vh; border-radius: 18px; }
+  .point-hero-wrap { padding: 0; }
+  .point-hero {
+    width: 100%; max-width: 100%; max-height: none;
+    border-radius: 0;
+    box-shadow: 0 12px 22px rgba(80,55,30,0.14);
+  }
   .point-body { padding: 22px 24px 30px; gap: 11px; }
   .point-tag { font-size: calc(25px * var(--ts)); padding: 11px 22px; }
   .point-number { font-size: 62px; }
@@ -618,15 +627,24 @@ body { --ts: 1; } /* text-scale 배율 — 글자 크기 조절기로 변경 */
   .recipe-foot { font-size: calc(29px * var(--ts)); padding: 10px 22px 32px; }
 
   /* Emotion */
-  .emotion-hero-wrap { padding: 16px 16px 0; }
-  .emotion-hero { max-height: 54vh; border-radius: 18px; }
+  .emotion-hero-wrap { padding: 0; }
+  .emotion-hero {
+    width: 100%; max-width: 100%; max-height: none;
+    border-radius: 0;
+    box-shadow: 0 12px 22px rgba(80,55,30,0.14);
+  }
   .emotion-body { padding: 22px 22px 30px; }
   .emotion-desc { font-size: calc(26px * var(--ts)); line-height: 1.7; }
 
   /* CTA */
-  .cta-img-wrap { padding: 16px 16px 0; }
-  .cta-img-inner img { max-height: 34vh; border-radius: 18px; }
-  .cta-badge { font-size: calc(18px * var(--ts)); padding: 9px 18px; top: 12px; left: 12px; }
+  .cta-img-wrap { padding: 0; }
+  .cta-img-inner { display: block; width: 100%; max-width: 100%; }
+  .cta-img-inner img {
+    width: 100%; max-width: 100%; max-height: none;
+    border-radius: 0;
+    box-shadow: 0 12px 22px rgba(80,55,30,0.14);
+  }
+  .cta-badge { font-size: calc(18px * var(--ts)); padding: 9px 18px; top: 14px; left: 14px; }
   .cta-body { padding: 20px 22px 26px; gap: 12px; }
   .product-type-tag { font-size: calc(21px * var(--ts)); padding: 9px 18px; }
   .product-name { font-size: 29px; line-height: 1.25; }
