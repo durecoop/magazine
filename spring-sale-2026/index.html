@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>두레생협 봄맞이 빅세일 기획전</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&family=Jua&family=Gaegu:wght@400;700&family=Gowun+Dodum&display=swap');
+
+    :root {
+      --black: #0a0a0a;
+      --white: #ffffff;
+      --cream: #faf8f5;
+      --warm: #b5b0a8;
+      --gray: #8a8a8a;
+      --gold: #c9a96e;
+      --green: #2d6b3f;
+      --red: #c0392b;
+      --radius: 12px;
+      --ease: cubic-bezier(.25,.46,.45,.94);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Gowun Dodum', 'Noto Sans KR', -apple-system, sans-serif;
+      background: var(--cream);
+      color: var(--black);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      font-size: 19px;
+      transition: font-size .3s ease;
+      overflow-x: hidden;
+    }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      overflow: hidden;
+      background: url('hero-spring.jpg') center/cover no-repeat;
+      padding-bottom: 48px;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 50%;
+      background: linear-gradient(to top, rgba(0,0,0,.55), transparent);
+      z-index: 1;
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      color: var(--white); padding: 0 24px;
+      width: 100%; max-width: 640px;
+    }
+    .hero .badge {
+      display: inline-block;
+      background: rgba(201,169,110,.25);
+      border: 1px solid rgba(201,169,110,.4);
+      padding: 6px 18px; border-radius: 100px;
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 2.5px; margin-bottom: 16px;
+      color: #e8d5a8;
+    }
+    .hero h1 {
+      font-family: 'Jua', sans-serif;
+      font-size: 44px; font-weight: 400;
+      letter-spacing: -0.5px; line-height: 1.35;
+      margin-bottom: 12px;
+    }
+    .hero h1 em { font-style: normal; color: #ffd54f; }
+    .hero p { font-size: 14px; font-weight: 300; opacity: .85; }
+    .hero .sale-tag {
+      display: inline-flex; align-items: center;
+      background: var(--white); color: var(--red);
+      padding: 12px 28px; border-radius: 100px;
+      font-size: 14px; font-weight: 800;
+      margin-top: 24px; box-shadow: 0 8px 32px rgba(0,0,0,.25);
+    }
+
+    /* SAKURA PETALS */
+    .petal {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      background: radial-gradient(ellipse at 30% 30%, #ffb6c1, #ff9db5);
+      border-radius: 50% 0 50% 50%;
+      opacity: 0;
+      z-index: 3;
+      pointer-events: none;
+      animation: fall linear infinite;
+    }
+    .petal:nth-child(1) { left: 5%; width: 10px; height: 10px; animation-duration: 6s; animation-delay: 0s; }
+    .petal:nth-child(2) { left: 15%; width: 14px; height: 14px; animation-duration: 8s; animation-delay: 1s; }
+    .petal:nth-child(3) { left: 25%; width: 8px; height: 8px; animation-duration: 7s; animation-delay: 2s; }
+    .petal:nth-child(4) { left: 35%; width: 12px; height: 12px; animation-duration: 9s; animation-delay: 0.5s; }
+    .petal:nth-child(5) { left: 45%; width: 10px; height: 10px; animation-duration: 6.5s; animation-delay: 3s; }
+    .petal:nth-child(6) { left: 55%; width: 14px; height: 14px; animation-duration: 7.5s; animation-delay: 1.5s; }
+    .petal:nth-child(7) { left: 65%; width: 9px; height: 9px; animation-duration: 8.5s; animation-delay: 2.5s; }
+    .petal:nth-child(8) { left: 75%; width: 11px; height: 11px; animation-duration: 6s; animation-delay: 4s; }
+    .petal:nth-child(9) { left: 85%; width: 13px; height: 13px; animation-duration: 7s; animation-delay: 0.8s; }
+    .petal:nth-child(10) { left: 92%; width: 10px; height: 10px; animation-duration: 9s; animation-delay: 3.5s; }
+    .petal:nth-child(11) { left: 10%; width: 8px; height: 8px; animation-duration: 10s; animation-delay: 5s; }
+    .petal:nth-child(12) { left: 50%; width: 11px; height: 11px; animation-duration: 7s; animation-delay: 4.5s; }
+    .petal:nth-child(13) { left: 70%; width: 9px; height: 9px; animation-duration: 8s; animation-delay: 1.2s; }
+    .petal:nth-child(14) { left: 30%; width: 13px; height: 13px; animation-duration: 6.5s; animation-delay: 2.8s; }
+    .petal:nth-child(15) { left: 80%; width: 10px; height: 10px; animation-duration: 9.5s; animation-delay: 0.3s; }
+
+    @keyframes fall {
+      0% {
+        top: -5%;
+        opacity: 0;
+        transform: rotate(0deg) translateX(0);
+      }
+      10% {
+        opacity: .8;
+      }
+      50% {
+        opacity: .6;
+      }
+      100% {
+        top: 105%;
+        opacity: 0;
+        transform: rotate(720deg) translateX(80px);
+      }
+    }
+
+    /* CONTROL PANEL */
+    .ctrl-panel {
+      margin-top: 10px;
+      padding: 10px 14px;
+      background: #fff;
+      border: 1px dashed #ccc;
+      border-radius: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+    }
+    .ctrl-panel label {
+      font-family: 'Gowun Dodum', sans-serif;
+      font-size: 11px;
+      color: #888;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .ctrl-panel input[type="range"] {
+      width: 100px;
+    }
+
+    @keyframes sparkle {
+      0%, 100% { border-color: #f8b4c8; box-shadow: 0 0 8px rgba(248,180,200,.3); }
+      50% { border-color: #f48fb1; box-shadow: 0 0 20px rgba(244,143,177,.5), 0 0 40px rgba(244,143,177,.2); }
+    }
+
+    /* FONT SIZE TOGGLE */
+    .font-toggle {
+      position: fixed;
+      bottom: 20px; right: 16px;
+      z-index: 9999;
+      display: flex;
+      gap: 6px;
+    }
+    .font-toggle button {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      border: none;
+      background: var(--white);
+      box-shadow: 0 2px 12px rgba(0,0,0,.15);
+      font-family: 'Jua', sans-serif;
+      font-weight: 400;
+      cursor: pointer;
+      transition: all .2s;
+      color: var(--black);
+    }
+    .font-toggle button:active {
+      transform: scale(.9);
+    }
+    .font-toggle .btn-sm { font-size: 12px; }
+    .font-toggle .btn-md { font-size: 16px; }
+    .font-toggle .btn-lg { font-size: 20px; }
+    .font-toggle button.active {
+      background: var(--green);
+      color: var(--white);
+    }
+
+    /* PROMO STRIP */
+    .promo-strip {
+      max-width: 640px; margin: -28px auto 32px;
+      padding: 0 16px; position: relative; z-index: 10;
+    }
+    .promo-strip .inner {
+      background: var(--white); border-radius: 16px;
+      padding: 24px; box-shadow: 0 8px 40px rgba(0,0,0,.07);
+      display: flex; align-items: center; gap: 16px;
+    }
+    .promo-strip .promo-text { flex: 1; }
+    .promo-strip .tag {
+      display: inline-block; background: var(--red); color: #fff;
+      font-size: 10px; font-weight: 800; padding: 3px 12px;
+      border-radius: 100px; margin-bottom: 8px;
+    }
+    .promo-strip h3 { font-size: 16px; font-weight: 800; letter-spacing: -.5px; line-height: 1.4; }
+    .promo-strip .dates { display: flex; gap: 8px; flex-shrink: 0; }
+    .promo-strip .date-box {
+      background: #f7f6f4; border-radius: 10px;
+      padding: 12px 14px; text-align: center;
+    }
+    .promo-strip .dl { font-size: 9px; font-weight: 700; color: var(--gray); letter-spacing: 1px; }
+    .promo-strip .dd { font-size: 14px; font-weight: 800; margin-top: 2px; }
+
+    /* SECTION BANNER */
+    .section-banner { max-width: 640px; margin: 0 auto; }
+    .section-banner img { width: 100%; display: block; }
+
+    /* SECTION TITLE */
+    .section-title {
+      padding: 10px 20px 12px; max-width: 640px; margin: 0 auto; text-align: center;
+    }
+    .section-title h2 {
+      font-family: 'Jua', sans-serif;
+      font-size: 22px; font-weight: 400; letter-spacing: -0.5px;
+    }
+    .section-title .sub { font-size: 13px; color: #555; margin-top: 4px; }
+
+    /* PRODUCT GRID */
+    .products {
+      max-width: 640px; margin: 0 auto;
+      padding: 0 16px 32px;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+
+    /* CARD */
+    .card {
+      background: var(--white); border-radius: var(--radius);
+      overflow: hidden; border: 1px solid rgba(0,0,0,.04);
+      display: flex; flex-direction: row; align-items: center;
+    }
+    .card .img {
+      position: relative;
+      width: 120px; height: 120px; flex-shrink: 0;
+      background: #f7f6f4;
+      display: flex; align-items: center; justify-content: center;
+      padding: 12px;
+    }
+    .card .img img { width: 90%; height: 90%; object-fit: contain; }
+    .card .badge-r {
+      position: absolute; top: 10px; left: 10px;
+      background: var(--red); color: #fff;
+      font-size: 10px; font-weight: 800;
+      padding: 3px 10px; border-radius: 6px;
+    }
+    .card .badge-g {
+      position: absolute; top: 10px; right: 10px;
+      background: var(--green); color: #fff;
+      font-size: 9px; font-weight: 700;
+      padding: 3px 8px; border-radius: 6px;
+    }
+    .card .body { padding: 12px 16px; flex: 1; min-width: 0; }
+    .card .name {
+      font-family: 'Gowun Dodum', sans-serif;
+      font-size: .85em; font-weight: 400; line-height: 1.4;
+      margin-bottom: 8px;
+      display: -webkit-box; -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical; overflow: hidden;
+    }
+    .card .price { font-family: 'Jua', sans-serif; font-size: 1.1em; font-weight: 400; letter-spacing: -.5px; }
+    .card .orig { font-size: .75em; color: var(--warm); text-decoration: line-through; margin-left: 6px; }
+    .card .member {
+      display: inline-block; margin-top: 6px;
+      font-size: 10px; color: var(--green); font-weight: 700;
+      background: #edf5ef; padding: 3px 8px; border-radius: 4px;
+    }
+
+    /* HIGHLIGHT */
+    .highlight {
+      max-width: 640px; margin: 8px auto 24px; padding: 0 16px;
+    }
+    .highlight .inner {
+      background: linear-gradient(135deg, #c0392b, #e74c3c);
+      border-radius: 16px; padding: 28px 24px;
+      text-align: center; color: var(--white);
+      position: relative; overflow: hidden;
+    }
+    .highlight .inner::before {
+      content: ''; position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23fff' fill-opacity='.05'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E");
+    }
+    .highlight h3 { font-size: 14px; font-weight: 600; position: relative; margin-bottom: 4px; }
+    .highlight .big {
+      font-family: 'Jua', sans-serif;
+      font-size: 34px; font-weight: 400; letter-spacing: -0.5px; position: relative;
+    }
+    .highlight p { font-size: 12px; opacity: .8; position: relative; margin-top: 4px; }
+
+    /* RECOMMEND BOX */
+    .recommend {
+      max-width: 640px; margin: 0 auto 32px; padding: 0 16px;
+    }
+    .recommend .inner {
+      background: linear-gradient(135deg, var(--green), #43a047);
+      border-radius: 16px; padding: 28px 24px;
+      color: var(--white); position: relative; overflow: hidden;
+    }
+    .recommend .inner::before {
+      content: ''; position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23fff' fill-opacity='.05'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E");
+    }
+    .recommend h3 {
+      font-family: 'Jua', sans-serif;
+      font-size: 20px; font-weight: 400; position: relative; margin-bottom: 8px;
+    }
+    .recommend p { font-size: 13px; opacity: .9; position: relative; line-height: 1.8; }
+
+    /* DIVIDER */
+    .sep { max-width: 640px; margin: 0 auto; padding: 0 16px; }
+    .sep hr { border: none; height: 1px; background: #ece8e4; }
+
+    /* FOOTER */
+    .footer {
+      background: #f0ebe6; color: #888;
+      text-align: center; padding: 48px 20px 64px; margin-top: 24px;
+    }
+    .footer .logo {
+      font-family: 'Jua', sans-serif;
+      font-size: 20px; font-weight: 400; color: #555; margin-bottom: 12px;
+    }
+    .footer .logo span { color: var(--green); }
+    .footer p { font-size: 12px; line-height: 1.9; }
+
+    /* DESKTOP */
+    @media (min-width: 769px) {
+      .hero { min-height: 600px; align-items: center; padding-bottom: 0; }
+      .hero-content { max-width: 1080px; text-align: center; }
+      .hero h1 { font-size: 60px; }
+      .promo-strip { max-width: 1080px; margin-top: -40px; }
+      .section-banner, .section-title, .highlight, .recommend, .sep { max-width: 1080px; }
+      .section-title { text-align: center; padding: 56px 24px 24px; }
+      .section-title h2 { font-size: 28px; }
+      .products { max-width: 1080px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; padding: 0 24px 48px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+    <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+    <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+    <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+    <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+    <div class="hero-content">
+      <div class="badge">2026. 04. 09 - 04. 23</div>
+      <h1>두레생협 쇼핑몰<br><em>봄맞이 빅세일</em></h1>
+      <p>최대 35% 할인 | 맛찬 3종 이상 20% 할인 쿠폰</p>
+    </div>
+  </section>
+
+  <!-- 김부각 증정 배너 -->
+  <div class="section-banner" style="margin-top: 0;">
+    <img src="gift-kimbuak.jpg" alt="김부각 증정 이벤트">
+  </div>
+
+  <!-- PROMO -->
+  <div class="promo-strip">
+    <div class="inner">
+      <div class="promo-text" style="text-align:center; width:100%;">
+        <span class="tag" style="font-size:13px; padding:6px 20px;">특별 할인</span>
+        <div style="font-size:24px; margin:10px 0;">&#x2B07;</div>
+        <h3 style="font-size:18px; line-height:1.6;"><span style="background: linear-gradient(transparent 40%, #fff06a 40%); padding: 0 6px; font-size: 32px;">최대 35%</span><br>이번 주 두레생협 대표 생활재를<br>더 특별한 가격으로 만나보세요!</h3>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ========== 1. 건강식품 ========== -->
+  <div class="section-title" id="sec1">
+    <h2 id="sec1-h">건강식품 / 엑기스</h2>
+    <p class="sub" id="sec1-sub">6년근 홍삼, 녹용, 비타민 등 프리미엄 건강식품</p>
+  </div>
+
+  <div class="products">
+    <div class="card">
+      <div class="img">
+        <span class="badge-r">18% 할인</span>
+        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/6116C.png" alt="6년근홍삼엑기스">
+      </div>
+      <div class="body">
+        <div class="name">6년근홍삼엑기스 (60팩)</div>
+        <span class="price">119,300원</span><span class="orig">145,500원</span>
+        <br><span class="member">조합원가</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="img">
+        <span class="badge-r">12% 할인</span>
+        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/17756C.jpg" alt="녹용엑기스(남성)">
+      </div>
+      <div class="body">
+        <div class="name">녹용엑기스 (남성/60팩)</div>
+        <span class="price">125,800원</span><span class="orig">142,900원</span>
+        <br><span class="member">조합원가</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="img">
+        <span class="badge-r">15% 할인</span>
+        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/53633C.jpg" alt="흑염소엑기스">
+      </div>
+      <div class="body">
+        <div class="name">흑염소엑기스</div>
+        <span class="price">94,400원</span><span class="orig">111,000원</span>
+        <br><span class="member">조합원가</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="img">
+        <span class="badge-r">15% 할인</span>
+        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/31422C.png" alt="어린이튼튼홍삼">
+      </div>
+      <div class="body">
+        <div class="name">어린이튼튼홍삼 (60팩)</div>
+        <span class="price">68,800원</span><span class="orig">80,900원</span>
+        <br><span class="member">조합원가</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="sep"><hr></div>
+
+
+  <!-- ========== 2. 축산 + 봄나물 추천 ========== -->
+  <div class="section-title">
+    <h2 id="sec2-h">축산 / 동물복지 육류</h2>
+    <p class="sub" id="sec2-sub">동물복지 인증 돼지고기와 프리미엄 한우</p>
+  </div>
+
+  <div class="products">
+    <div class="card">
+      <div class="img">
+        <span class="badge-r">15% 할인</span>
+        <span class="badge-g">동물복지</span>
+        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59229C.jpg" alt="삼겹살">
+      </div>
+      <div class="body">
+        <div class="name">동물복지 삼겹살 (400g/구이)</div>
+        <span class="price">16,300원</span><span class="orig">19,200원</span>
+        <br><span class="member">조합원가</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="img">
+        <span class="badge-r">15% 할인</span>
+        <span class="badge-g">동물복지</span>
+        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59230C.jpg" alt="목살">
+      </div>
+      <div class="body">
+        <div class="name">동물복지 목살 (400g/구이)</div>
+        <span class="price">15,200원</span><span class="orig">17,900원</span>
+        <br><span class="member">조합원가</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="img">
+        <span class="badge-r">10% 할인</span>
+        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/34347C.png" alt="한우샤브샤브">
+      </div>
+      <div class="body">
+        <div class="name">돌돌한우샤브샤브</div>
+        <span class="price">17,400원</span><span class="orig">19,300원</span>
+        <br><span class="member">조합원가</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="img">
+        <span class="badge-r">10% 할인</span>
+        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59085C.png" alt="한우등심">
+      </div>
+      <div class="body">
+        <div class="name">한우5초등심 (200g/암소)</div>
+        <span class="price">18,500원</span><span class="orig">20,600원</span>
+        <br><span class="member">조합원가</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 봄나물 (축산과 함께) -->
+  <div class="section-banner">
+    <img src="https://www.ecoop.or.kr:443/DureMallAdmin/upload/SP/planDetail_1657/23/UF_202604160930429920.jpg" alt="봄나물">
+  </div>
+
+  <div class="section-title">
+    <h2 id="sec3-h">오직 지금 이 시기만!</h2>
+    <p class="sub" id="sec3-sub">고기와 함께 즐기는 제철 봄나물</p>
+  </div>
+
+  <div class="products">
+    <div class="card">
+      <div class="img">
+        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/28007C.jpg" alt="강원 참두릅">
+      </div>
+      <div class="body">
+        <div class="name">강원 참두릅 (200g)</div>
+        <span class="price">7,400원</span>
+        <br><span class="member">조합원가</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="img">
+        <span class="badge-g">무농약</span>
+        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56994C.jpg" alt="곤달비">
+      </div>
+      <div class="body">
+        <div class="name">곤달비 (곰취/100g)</div>
+        <span class="price">3,900원</span>
+        <br><span class="member">조합원가</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="img">
+        <span class="badge-g">무농약</span>
+        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/8519C.jpg" alt="오가피순">
+      </div>
+      <div class="body">
+        <div class="name">오가피순 (150g)</div>
+        <span class="price">9,500원</span>
+        <br><span class="member">조합원가</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="img">
+        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/3672C.jpg" alt="참두릅">
+      </div>
+      <div class="body">
+        <div class="name">참두릅 (220g)</div>
+        <span class="price">13,200원</span>
+        <br><span class="member">조합원가</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="sep"><hr></div>
+
+
+  <!-- ========== 3. 김치/반찬 ========== -->
+  <div class="section-title">
+    <h2 id="sec4-h">김치 / 반찬</h2>
+    <p class="sub" id="sec4-sub">국산 재료로 정직하게 담근 전통 김치</p>
+  </div>
+
+  <div class="products">
+    <div class="card">
+      <div class="img">
+        <span class="badge-r">20% 할인</span>
+        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/32957C.png" alt="포기김치 5kg">
+      </div>
+      <div class="body">
+        <div class="name">포기김치 (5kg)</div>
+        <span class="price">30,600원</span><span class="orig">38,300원</span>
+        <br><span class="member">조합원가</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="img">
+        <span class="badge-r">20% 할인</span>
+        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57676C.png" alt="떡갈비">
+      </div>
+      <div class="body">
+        <div class="name">떡갈비1000 (10개)</div>
+        <span class="price">13,200원</span><span class="orig">16,500원</span>
+        <br><span class="member">조합원가</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="img">
+        <span class="badge-r">10% 할인</span>
+        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/44215C.png" alt="총각김치">
+      </div>
+      <div class="body">
+        <div class="name">총각김치 (3kg)</div>
+        <span class="price">26,700원</span><span class="orig">29,700원</span>
+        <br><span class="member">조합원가</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="img">
+        <span class="badge-r">13% 할인</span>
+        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58943C.jpg" alt="청국장">
+      </div>
+      <div class="body">
+        <div class="name">오색담은 맛있는 청국장 (4입)</div>
+        <span class="price">8,000원</span><span class="orig">9,200원</span>
+        <br><span class="member">조합원가</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="sep"><hr></div>
+
+
+  <!-- ========== 4. 탕/국/간편식 ========== -->
+  <div class="section-title">
+    <h2 id="sec5-h">탕 / 국 / 간편식</h2>
+    <p class="sub" id="sec5-sub">한우사골, 삼계탕부터 볶음밥까지 든든한 한끼</p>
+  </div>
+
+  <div class="products">
+    <div class="card">
+      <div class="img">
+        <span class="badge-r">25% 할인</span>
+        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/40549C.jpg" alt="훈제오리">
+      </div>
+      <div class="body">
+        <div class="name">훈제오리</div>
+        <span class="price">10,000원</span><span class="orig">13,300원</span>
+        <br><span class="member">조합원가</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="img">
+        <span class="badge-r">20% 할인</span>
+        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/54638C.jpg" alt="한우보양탕">
+      </div>
+      <div class="body">
+        <div class="name">한우보양탕</div>
+        <span class="price">10,400원</span><span class="orig">13,000원</span>
+        <br><span class="member">조합원가</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="img">
+        <span class="badge-r">10% 할인</span>
+        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/54730C.jpg" alt="삼계탕">
+      </div>
+      <div class="body">
+        <div class="name">통닭다리 누룽지삼계탕</div>
+        <span class="price">7,500원</span><span class="orig">8,300원</span>
+        <br><span class="member">조합원가</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="img">
+        <span class="badge-r">20% 할인</span>
+        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/21051C.png" alt="사골고기곰탕">
+      </div>
+      <div class="body">
+        <div class="name">사골고기곰탕</div>
+        <span class="price">7,200원</span><span class="orig">9,000원</span>
+        <br><span class="member">조합원가</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="sep"><hr></div>
+
+
+  <!-- ========== 5. 두레맛찬 ========== -->
+  <div class="section-banner">
+    <img src="matchan-coupon.jpg" alt="두레맛찬 20% 할인 쿠폰">
+  </div>
+
+  <div class="highlight">
+    <div class="inner" style="background: linear-gradient(135deg, #fdf0f5, #fce4ec); color: #333; border: 2px solid #f8b4c8; animation: sparkle 2s ease-in-out infinite;">
+      <h3 style="color: #c0456b;">두레맛찬 20% 할인 쿠폰</h3>
+      <div class="big" style="color: #d63384;">3종 이상 구매 시 적용</div>
+      <p style="color: #8b3a5e; opacity: 1; margin-top: 10px; font-size: 13px; line-height: 1.7;">
+        쿠폰 다운로드 후 두레맛찬 3종 이상 구매 시<br>
+        <strong>20% 할인 쿠폰</strong>이 자동 적용됩니다.<br>
+        반드시 <strong>쿠폰을 먼저 다운로드</strong> 해주세요!
+      </p>
+    </div>
+  </div>
+
+  <div class="section-title">
+    <h2 id="sec6-h">두레맛찬 쿠폰 대상 품목</h2>
+    <p class="sub" id="sec6-sub">아래 품목 중 3종 이상 구매 + 쿠폰 적용 시 20% 할인</p>
+  </div>
+
+  <div class="products">
+    <div class="card">
+      <div class="img">
+        <span class="badge-g">쿠폰</span>
+        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58636C.jpg" alt="감자채볶음">
+      </div>
+      <div class="body">
+        <div class="name">(맛찬) 감자채볶음</div>
+        <span class="price">3,700원</span>
+        <br><span class="member">조합원가</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="img">
+        <span class="badge-g">쿠폰</span>
+        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59016C.jpg" alt="고사리나물">
+      </div>
+      <div class="body">
+        <div class="name">(맛찬) 고사리나물</div>
+        <span class="price">7,200원</span>
+        <br><span class="member">조합원가</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="img">
+        <span class="badge-g">쿠폰</span>
+        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59024C.jpg" alt="꼬막양념무침">
+      </div>
+      <div class="body">
+        <div class="name">(맛찬) 꼬막양념무침</div>
+        <span class="price">8,800원</span>
+        <br><span class="member">조합원가</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="img">
+        <span class="badge-g">쿠폰</span>
+        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58635C.jpg" alt="꽈리고추멸치조림">
+      </div>
+      <div class="body">
+        <div class="name">(맛찬) 꽈리고추멸치조림</div>
+        <span class="price">6,300원</span>
+        <br><span class="member">조합원가</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="img">
+        <span class="badge-g">쿠폰</span>
+        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58946C.jpg" alt="달래무침">
+      </div>
+      <div class="body">
+        <div class="name">(맛찬) 달래무침</div>
+        <span class="price">6,400원</span>
+        <br><span class="member">조합원가</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="img">
+        <span class="badge-g">쿠폰</span>
+        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58065C.png" alt="도라지초무침">
+      </div>
+      <div class="body">
+        <div class="name">(맛찬) 도라지초무침</div>
+        <span class="price">5,900원</span>
+        <br><span class="member">조합원가</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="img">
+        <span class="badge-g">쿠폰</span>
+        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58068C.png" alt="곤드레나물">
+      </div>
+      <div class="body">
+        <div class="name">(맛찬) 곤드레나물</div>
+        <span class="price">6,200원</span>
+        <br><span class="member">조합원가</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="img">
+        <span class="badge-g">쿠폰</span>
+        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58064C.png" alt="깻잎순들깨볶음">
+      </div>
+      <div class="body">
+        <div class="name">(맛찬) 깻잎순들깨볶음</div>
+        <span class="price">6,300원</span>
+        <br><span class="member">조합원가</span>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- CTA BUTTON -->
+  <div style="max-width:640px; margin:0 auto 32px; padding:0 16px;">
+    <a href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1657" target="_blank"
+       style="display:block; text-align:center; background:var(--green); color:#fff; font-family:'Jua',sans-serif;
+              font-size:18px; padding:18px; border-radius:14px; text-decoration:none;
+              box-shadow:0 4px 16px rgba(45,107,63,.3);">
+      봄맞이 빅세일 바로가기
+    </a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="logo">두레생협 <span>기획전</span></div>
+    <p>기간: 2026.04.09 ~ 2026.04.23 (주문일 기준)<br>문의: 두레생협 조합원 상담실</p>
+  </footer>
+
+</body>
+</html>
