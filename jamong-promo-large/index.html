@@ -30,9 +30,8 @@
 }
 
 html, body {
-  height: 100%;
-  height: 100dvh;
-  overflow: hidden;
+  min-height: 100%;
+  min-height: 100dvh;
   font-family: 'Noto Sans KR', sans-serif;
   background: var(--bg);
   color: var(--text);
@@ -40,36 +39,33 @@ html, body {
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
   letter-spacing: -0.01em;
-  overscroll-behavior: none;
+  overscroll-behavior-y: contain;
 }
-body { --ts: 1; } /* text-scale 배율 — 글자 크기 조절기로 변경 */
+html { scroll-behavior: smooth; }
+body { --ts: 1; overflow-x: hidden; } /* text-scale 배율 — 글자 크기 조절기로 변경 */
 
-/* ========== 가로 풀스크린 스와이프 ========== */
+/* ========== 세로 스크롤 컨테이너 ========== */
 .slides {
-  display: flex;
-  width: 100%; height: 100%;
-  overflow-x: auto;
-  overflow-y: hidden;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
+  display: block;
+  width: 100%;
 }
-.slides::-webkit-scrollbar { display: none; }
 
 .slide {
-  flex: 0 0 100vw; width: 100vw; height: 100%;
-  scroll-snap-align: start;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
   display: flex; flex-direction: column;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
   position: relative;
 }
 .slide-inner {
   max-width: 600px; width: 100%;
   margin: 0 auto;
-  padding: 0 0 calc(90px + env(safe-area-inset-bottom));
+  padding: 0 0 40px;
   display: flex; flex-direction: column;
-  min-height: 100%;
+  flex: 1;
+}
+.slide:last-child .slide-inner {
+  padding-bottom: calc(90px + env(safe-area-inset-bottom));
 }
 
 /* 공통 */
@@ -182,13 +178,16 @@ body { --ts: 1; } /* text-scale 배율 — 글자 크기 조절기로 변경 */
   font-weight: 600;
 }
 
-@keyframes swipe { 0%,100%{transform:translateX(0)} 50%{transform:translateX(10px)} }
+@keyframes swipe { 0%,100%{transform:translateY(0)} 50%{transform:translateY(8px)} }
 @keyframes up { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
 @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
 
 /* ===== 움직이는 자몽 아이콘 ===== */
 .floating-icons {
-  position: absolute; inset: 0;
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 100vh;
+  height: 100dvh;
   pointer-events: none;
   z-index: 4;
   overflow: hidden;
@@ -772,7 +771,7 @@ body { --ts: 1; } /* text-scale 배율 — 글자 크기 조절기로 변경 */
           국내 희소 산지 제주의<br>
           자연 완숙 자몽
         </p>
-        <p class="intro-hint"><span>옆으로 넘겨보세요 →</span></p>
+        <p class="intro-hint"><span>아래로 내려보세요 ↓</span></p>
       </div>
     </div>
   </section>
@@ -975,28 +974,30 @@ body { --ts: 1; } /* text-scale 배율 — 글자 크기 조절기로 변경 */
 
 <script>
 (function(){
-  /* === 슬라이드 네비게이션 === */
-  var slides = document.getElementById('slides');
+  /* === 세로 스크롤 섹션 표시 === */
   var dots = document.querySelectorAll('.page-dot');
+  var slides = document.querySelectorAll('.slide');
 
   function update() {
-    var idx = Math.round(slides.scrollLeft / window.innerWidth);
+    var vh = window.innerHeight;
+    var threshold = vh * 0.4;
+    var idx = 0;
+    for (var i = 0; i < slides.length; i++) {
+      var rect = slides[i].getBoundingClientRect();
+      if (rect.top <= threshold) idx = i;
+    }
     dots.forEach(function(d, i){ d.classList.toggle('active', i === idx); });
   }
-  slides.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('scroll', update, { passive: true });
   window.addEventListener('resize', update);
+  update();
 
   dots.forEach(function(dot){
     dot.addEventListener('click', function(){
       var idx = parseInt(dot.dataset.index, 10);
-      slides.scrollTo({ left: idx * window.innerWidth, behavior: 'smooth' });
+      var target = slides[idx];
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
-  });
-
-  document.addEventListener('keydown', function(e){
-    var cur = Math.round(slides.scrollLeft / window.innerWidth);
-    if (e.key === 'ArrowRight') slides.scrollTo({ left: (cur+1) * window.innerWidth, behavior: 'smooth' });
-    if (e.key === 'ArrowLeft')  slides.scrollTo({ left: (cur-1) * window.innerWidth, behavior: 'smooth' });
   });
 
   /* === 글자 크기 조절기 === */
