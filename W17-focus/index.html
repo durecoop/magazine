@@ -95,7 +95,13 @@
 
   /* ===== PRODUCT IMAGE ===== */
   .prod-img{padding:0 20px 32px;text-align:center;}
-  .prod-img img{width:100%;max-width:320px;border-radius:14px;box-shadow:0 8px 32px rgba(74,50,40,0.1);}
+  .prod-img img{width:100%;max-width:320px;border-radius:14px;box-shadow:0 8px 32px rgba(74,50,40,0.1);background:#faf6f2;}
+  /* 이미지 로드 실패 시 placeholder (컨테이너 빈박스 방지) */
+  .prod-img.img-placeholder{background:linear-gradient(135deg,#f5ece6 0%,#e8dcd0 100%);min-height:240px;display:flex;align-items:center;justify-content:center;border-radius:14px;margin:0 20px 32px;padding:24px;}
+  .prod-img .ph-label{font-size:1.25rem;font-weight:800;color:#8a5a3a;line-height:1.4;letter-spacing:-0.5px;word-break:keep-all;text-align:center;}
+  /* 가격 CTA 강화 — 마켓컬리급 대비 */
+  .ph-now{color:#e53935 !important;}
+  .bar-left strong{color:#e53935 !important;}
 
   /* ===== PRICE SECTION ===== */
   .price-section{padding:32px 20px;background:var(--white);}
@@ -332,7 +338,7 @@
 <!-- FINAL CTA -->
 <section class="final rv">
   <div class="title" style="margin-bottom:16px;">지금 주문하면<br>35% 할인 적용!</div>
-  <a href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=2017" class="cta-big" target="_blank">기획전 바로가기</a>
+  <a href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1707" class="cta-big" target="_blank">기획전 바로가기</a>
 </section>
 
 <!-- FOOTER -->
@@ -347,7 +353,7 @@
     <span>비타민D 2200IU</span>
     <strong>7,900원</strong>
   </div>
-  <a href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=2017" class="bar-btn" target="_blank">주문하러 가기</a>
+  <a href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1707" class="bar-btn" target="_blank">주문하러 가기</a>
 </div>
 
 <script>
@@ -359,12 +365,27 @@ function sz(cls){
   else if(cls==='') document.getElementById('f2').classList.add('on');
   else document.getElementById('f3').classList.add('on');
 }
-// Image fallback (jpg → png → hide)
+// Image fallback (체인: C.jpg → .jpg → .png → placeholder with product name)
 function imgFallback(el){
-  var src=el.src;
-  if(src.endsWith('.jpg')) el.src=src.replace(/\.jpg$/,'.png');
-  else if(src.endsWith('.png')) el.src=src.replace(/\.png$/,'.jpeg');
-  else el.style.display='none';
+  el.onerror = null;
+  var src = el.src;
+  var step = parseInt(el.dataset.fbStep || '0', 10);
+  if(step === 0 && /C\.jpg$/.test(src)){
+    el.dataset.fbStep = '1';
+    el.onerror = function(){ imgFallback(el); };
+    el.src = src.replace(/C\.jpg$/, '.jpg');
+  } else if(step <= 1 && /\.jpg$/.test(src)){
+    el.dataset.fbStep = '2';
+    el.onerror = function(){ imgFallback(el); };
+    el.src = src.replace(/\.jpg$/, '.png');
+  } else {
+    var name = el.getAttribute('alt') || '상품 이미지';
+    var holder = el.parentElement;
+    if(holder){
+      holder.classList.add('img-placeholder');
+      holder.innerHTML = '<div class="ph-label">' + name + '</div>';
+    } else { el.style.display='none'; }
+  }
 }
 // Scroll reveal
 var io=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting)x.target.classList.add('vis')});},{threshold:.1});
