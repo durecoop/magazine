@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>봄맞이 빅세일 마감 임박 | 두레생협</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Bebas+Neue&family=Gaegu:wght@700&family=Gamja+Flower&family=Jua&family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: #fff0e0;
+    color: #c81e5c;
+    overflow-x: hidden;
+  }
+
+  /* ================= 히어로 섹션 ================= */
+  .hero {
+    position: relative;
+    min-height: 820px;
+    background: linear-gradient(135deg, #fff2b0 0%, #ffd4e5 100%);
+    overflow: hidden;
+    padding: 0;
+  }
+  .hero::before,
+  .hero::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: #ff4b8b;
+    pointer-events: none;
+    z-index: 3;
+  }
+  .hero::before { top: 157px; }
+  .hero::after { bottom: 159px; }
+
+  /* 리본이 모서리에만 보이도록 감싸는 컨테이너 */
+  .ribbon-zone {
+    position: absolute;
+    width: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 1;
+    background: #fffbe8;
+  }
+  .ribbon-zone.top { top: 0; height: 157px; }
+  .ribbon-zone.bottom { bottom: 0; height: 159px; }
+
+  /* 대각선 보라 리본들 */
+  .ribbon {
+    position: absolute;
+    width: 160%;
+    left: -30%;
+    background: #ff4b8b;
+    color: #fff;
+    font-family: 'Black Han Sans', sans-serif;
+    font-size: 44px;
+    letter-spacing: 2px;
+    padding: 14px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    text-shadow: 2px 2px 0 rgba(200,30,92,0.5);
+  }
+  .ribbon-track {
+    display: inline-block;
+    white-space: nowrap;
+    animation: marquee 40s linear infinite;
+    will-change: transform;
+  }
+  .ribbon-track span {
+    display: inline-block;
+    padding: 0 28px;
+  }
+  .ribbon-reverse .ribbon-track { animation-direction: reverse; }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  .ribbon-1 { top: 30px; transform: rotate(-12deg); }
+  .ribbon-2 { top: 115px; transform: rotate(-20deg); background: #ffcf3a; color: #c81e5c; font-size: 36px; opacity: 0.95; text-shadow: 2px 2px 0 rgba(200,140,0,0.3); }
+  .ribbon-3 { bottom: 30px; transform: rotate(-10deg); }
+  .ribbon-4 { bottom: 115px; transform: rotate(-16deg); background: #ffcf3a; color: #c81e5c; font-size: 38px; text-shadow: 2px 2px 0 rgba(200,140,0,0.3); }
+  .ribbon-2 .ribbon-track { animation-duration: 48s; }
+  .ribbon-4 .ribbon-track { animation-duration: 52s; }
+
+  /* 반짝이 */
+  .sparkle {
+    position: absolute;
+    width: 12px; height: 12px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 12px 4px #fff, 0 0 30px 8px #ffd93a;
+    z-index: 4;
+    animation: sparkle 2.4s ease-in-out infinite;
+  }
+  .sparkle.s1 { top: 25%; left: 18%; animation-delay: 0s; }
+  .sparkle.s2 { top: 35%; right: 18%; animation-delay: 0.6s; }
+  .sparkle.s3 { bottom: 30%; left: 20%; animation-delay: 1.2s; }
+  .sparkle.s4 { bottom: 22%; right: 22%; animation-delay: 1.8s; }
+  .sparkle.s5 { top: 50%; left: 10%; animation-delay: 0.3s; }
+  .sparkle.s6 { top: 55%; right: 10%; animation-delay: 0.9s; }
+  @keyframes sparkle {
+    0%, 100% { transform: scale(0) rotate(0deg); opacity: 0; }
+    50% { transform: scale(1) rotate(180deg); opacity: 1; }
+  }
+
+  /* 중앙 컨텐츠 */
+  .hero-center {
+    position: relative;
+    z-index: 5;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 240px 20px 240px;
+  }
+
+  .only-today {
+    display: inline-block;
+    background: #c81e5c;
+    color: #ffeb7a;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 900;
+    font-size: 26px;
+    letter-spacing: 4px;
+    padding: 12px 32px;
+    border-radius: 10px;
+    box-shadow: 0 6px 0 #8a0e3c, inset 0 0 20px rgba(255,235,122,0.2);
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px #ffeb7a;
+    animation: ledBlink 1.4s ease-in-out infinite;
+  }
+  @keyframes ledBlink {
+    0%, 100% {
+      text-shadow: 0 0 10px #ffeb7a;
+      box-shadow: 0 6px 0 #8a0e3c, inset 0 0 20px rgba(255,235,122,0.2);
+    }
+    50% {
+      text-shadow: 0 0 20px #ffeb7a, 0 0 30px #ffeb7a;
+      box-shadow: 0 6px 0 #8a0e3c, inset 0 0 35px rgba(255,235,122,0.5);
+    }
+  }
+
+  .big-title-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 10px;
+  }
+
+  .big-title {
+    font-family: 'Black Han Sans', sans-serif;
+    font-size: 180px;
+    color: #ff2e7d;
+    line-height: 1;
+    letter-spacing: -5px;
+    text-shadow:
+      6px 6px 0 rgba(255, 46, 125, 0.25),
+      12px 12px 0 rgba(255, 46, 125, 0.12);
+    position: relative;
+    animation: titlePulse 2s ease-in-out infinite;
+  }
+  @keyframes titlePulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+  }
+  .big-title .line1 {
+    animation: slideInLeft 0.8s ease-out;
+  }
+  .big-title .line2 {
+    animation: slideInRight 0.8s ease-out 0.15s backwards;
+  }
+  @keyframes slideInLeft {
+    from { transform: translateX(-60px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+  }
+  @keyframes slideInRight {
+    from { transform: translateX(60px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+  }
+  .big-title .line1,
+  .big-title .line2 {
+    display: block;
+    position: relative;
+  }
+
+  .subtitle {
+    font-family: 'Nanum Pen Script', 'Gaegu', cursive;
+    font-weight: 400;
+    font-size: 54px;
+    color: #1a1a1a;
+    margin-top: 20px;
+    letter-spacing: 0;
+    line-height: 1.1;
+    animation: fadeUp 1s ease-out 0.5s backwards;
+  }
+  .subtitle .highlight {
+    background: linear-gradient(transparent 55%, #ffeb4a 55%, #ffeb4a 92%, transparent 92%);
+    padding: 0 6px;
+    display: inline-block;
+    transform: rotate(-1deg);
+  }
+  @keyframes fadeUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  /* ================= 카운트다운 ================= */
+  .countdown-section {
+    background: linear-gradient(135deg, #ff4b8b 0%, #ff7eb0 100%);
+    padding: 50px 20px;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+  }
+  .countdown-section h2 {
+    color: #fff8c0;
+    font-size: 26px;
+    font-weight: 900;
+    margin-bottom: 8px;
+  }
+  .countdown-section .deadline {
+    color: #fff;
+    font-size: 18px;
+    margin-bottom: 25px;
+  }
+  .countdown-section .deadline strong {
+    color: #ffeb7a;
+    font-size: 22px;
+  }
+  .countdown {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .countdown .box {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px 28px;
+    min-width: 120px;
+    box-shadow: 0 6px 20px rgba(180,30,80,0.3);
+  }
+  .countdown .num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 64px;
+    color: #ff2e7d;
+    line-height: 1;
+    transition: transform 0.15s ease-out;
+  }
+  .countdown .num.tick {
+    animation: tickPop 0.4s ease-out;
+  }
+  @keyframes tickPop {
+    0% { transform: scale(1); color: #ff2e7d; }
+    40% { transform: scale(1.25); color: #ffb800; }
+    100% { transform: scale(1); color: #ff2e7d; }
+  }
+  .countdown .label {
+    font-size: 14px;
+    font-weight: 700;
+    color: #c81e5c;
+    margin-top: 6px;
+  }
+  .countdown-ended {
+    color: #fff;
+    font-size: 32px;
+    font-weight: 900;
+    padding: 30px;
+  }
+
+  /* ================= 상품 섹션 ================= */
+  .products-section {
+    background: linear-gradient(180deg, #fff5de 0%, #ffe4ee 100%);
+    padding: 60px 20px;
+  }
+  .products-wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .products-title {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .products-title h2 {
+    font-family: 'Jua', 'Gamja Flower', cursive;
+    font-size: 62px;
+    font-weight: 400;
+    color: #d11a5e;
+    letter-spacing: -1px;
+    line-height: 1.2;
+    text-shadow: 2px 2px 0 rgba(209, 26, 94, 0.15);
+  }
+  .products-title p {
+    font-size: 18px;
+    color: #c81e5c;
+    margin-top: 8px;
+  }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+  }
+  .product {
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(200,30,80,0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+  }
+  .product:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(255,75,139,0.3);
+  }
+  .product-img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    background: #f0f0f0;
+  }
+  .discount-badge {
+    position: absolute;
+    top: 12px; left: 12px;
+    background: #ff2e7d;
+    color: #fff8c0;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 900;
+    font-size: 18px;
+    padding: 6px 14px;
+    border-radius: 8px;
+    letter-spacing: 0;
+    box-shadow: 0 4px 10px rgba(255, 46, 125, 0.4);
+    animation: badgeWiggle 2.2s ease-in-out infinite;
+  }
+  @keyframes badgeWiggle {
+    0%, 100% { transform: rotate(-3deg); }
+    50% { transform: rotate(3deg); }
+  }
+  .product-body {
+    padding: 18px;
+  }
+  .product-name {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 10px;
+    min-height: 60px;
+    line-height: 1.35;
+  }
+  .price-original {
+    font-size: 14px;
+    color: #999;
+    text-decoration: line-through;
+  }
+  .price-sale {
+    font-size: 24px;
+    font-weight: 900;
+    color: #ff2e7d;
+    margin-top: 2px;
+  }
+
+  /* ================= CTA ================= */
+  .cta-section {
+    background: linear-gradient(135deg, #ffcf3a 0%, #ff4b8b 100%);
+    padding: 60px 20px;
+    text-align: center;
+  }
+  .cta-section h2 {
+    color: #fff;
+    font-size: 38px;
+    font-weight: 900;
+    margin-bottom: 20px;
+    line-height: 1.25;
+  }
+  .cta-section p {
+    color: #fff8c0;
+    font-size: 18px;
+    margin-bottom: 30px;
+    line-height: 1.5;
+  }
+  .cta-btn {
+    display: inline-block;
+    background: #fff8c0;
+    color: #c81e5c;
+    font-size: 22px;
+    font-weight: 900;
+    padding: 18px 50px;
+    border-radius: 24px;
+    text-decoration: none;
+    box-shadow: 0 8px 24px rgba(180,30,80,0.35);
+    transition: transform 0.2s;
+    animation: ctaBounce 1.6s ease-in-out infinite;
+    line-height: 1.3;
+    text-align: center;
+  }
+  @keyframes ctaBounce {
+    0%, 100% { transform: translateY(0); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+    50% { transform: translateY(-8px); box-shadow: 0 16px 30px rgba(0,0,0,0.35); }
+  }
+  .cta-btn:hover {
+    transform: scale(1.05);
+    animation: none;
+  }
+
+  footer {
+    background: #c81e5c;
+    color: #ffd9e0;
+    text-align: center;
+    padding: 24px;
+    font-size: 14px;
+  }
+
+  /* ================= 반응형 ================= */
+  @media (max-width: 768px) {
+    .hero { min-height: 640px; }
+    .hero-center { padding: 180px 20px 180px; }
+    .ribbon-zone { height: 160px; }
+    .big-title { font-size: 110px; padding: 0 30px; }
+    .stopwatch { width: 110px; height: 110px; right: -10px; top: 10px; }
+    .stopwatch-hand { height: 40px; }
+    .only-today { font-size: 22px; padding: 10px 22px; }
+    .subtitle { font-size: 40px; margin-top: 15px; }
+    .ribbon { font-size: 30px; padding: 10px 0; }
+    .ribbon-2 { font-size: 24px; }
+    .ribbon-4 { font-size: 26px; }
+    .ribbon-1 { top: 20px; }
+    .ribbon-2 { top: 75px; }
+    .ribbon-3 { bottom: 20px; }
+    .ribbon-4 { bottom: 75px; }
+    .countdown .num { font-size: 44px; }
+    .countdown .box { min-width: 80px; padding: 14px 18px; }
+    .products-title h2 { font-size: 36px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ 히어로 섹션 ============ -->
+<section class="hero">
+  <div class="ribbon-zone top">
+    <div class="ribbon ribbon-1">
+      <div class="ribbon-track">
+        <span>최대 35% 봄맞이 빅세일 ·</span><span>최대 35% 봄맞이 빅세일 ·</span><span>최대 35% 봄맞이 빅세일 ·</span><span>최대 35% 봄맞이 빅세일 ·</span><span>최대 35% 봄맞이 빅세일 ·</span><span>최대 35% 봄맞이 빅세일 ·</span><span>최대 35% 봄맞이 빅세일 ·</span><span>최대 35% 봄맞이 빅세일 ·</span><span>최대 35% 봄맞이 빅세일 ·</span><span>최대 35% 봄맞이 빅세일 ·</span><span>최대 35% 봄맞이 빅세일 ·</span><span>최대 35% 봄맞이 빅세일 ·</span>
+      </div>
+    </div>
+    <div class="ribbon ribbon-2 ribbon-reverse">
+      <div class="ribbon-track">
+        <span>최대 35% 봄맞이 빅세일 ·</span><span>최대 35% 봄맞이 빅세일 ·</span><span>최대 35% 봄맞이 빅세일 ·</span><span>최대 35% 봄맞이 빅세일 ·</span><span>최대 35% 봄맞이 빅세일 ·</span><span>최대 35% 봄맞이 빅세일 ·</span><span>최대 35% 봄맞이 빅세일 ·</span><span>최대 35% 봄맞이 빅세일 ·</span><span>최대 35% 봄맞이 빅세일 ·</span><span>최대 35% 봄맞이 빅세일 ·</span><span>최대 35% 봄맞이 빅세일 ·</span><span>최대 35% 봄맞이 빅세일 ·</span>
+      </div>
+    </div>
+  </div>
+  <div class="ribbon-zone bottom">
+    <div class="ribbon ribbon-3 ribbon-reverse">
+      <div class="ribbon-track">
+        <span>최대 35% 봄맞이 빅세일 ·</span><span>최대 35% 봄맞이 빅세일 ·</span><span>최대 35% 봄맞이 빅세일 ·</span><span>최대 35% 봄맞이 빅세일 ·</span><span>최대 35% 봄맞이 빅세일 ·</span><span>최대 35% 봄맞이 빅세일 ·</span><span>최대 35% 봄맞이 빅세일 ·</span><span>최대 35% 봄맞이 빅세일 ·</span><span>최대 35% 봄맞이 빅세일 ·</span><span>최대 35% 봄맞이 빅세일 ·</span><span>최대 35% 봄맞이 빅세일 ·</span><span>최대 35% 봄맞이 빅세일 ·</span>
+      </div>
+    </div>
+    <div class="ribbon ribbon-4">
+      <div class="ribbon-track">
+        <span>최대 35% 봄맞이 빅세일 ·</span><span>최대 35% 봄맞이 빅세일 ·</span><span>최대 35% 봄맞이 빅세일 ·</span><span>최대 35% 봄맞이 빅세일 ·</span><span>최대 35% 봄맞이 빅세일 ·</span><span>최대 35% 봄맞이 빅세일 ·</span><span>최대 35% 봄맞이 빅세일 ·</span><span>최대 35% 봄맞이 빅세일 ·</span><span>최대 35% 봄맞이 빅세일 ·</span><span>최대 35% 봄맞이 빅세일 ·</span><span>최대 35% 봄맞이 빅세일 ·</span><span>최대 35% 봄맞이 빅세일 ·</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="sparkle s1"></div>
+  <div class="sparkle s2"></div>
+  <div class="sparkle s3"></div>
+  <div class="sparkle s4"></div>
+  <div class="sparkle s5"></div>
+  <div class="sparkle s6"></div>
+
+  <div class="hero-center">
+    <div class="only-today">두레생협 쇼핑몰</div>
+    <div class="big-title-wrap">
+      <div class="big-title">
+        <span class="line1">마감</span>
+        <span class="line2">임박</span>
+      </div>
+    </div>
+    <div class="subtitle">봄맞이 특가 <span class="highlight">오늘이 마지막!</span></div>
+  </div>
+</section>
+
+<!-- ============ 카운트다운 ============ -->
+<section class="countdown-section">
+  <h2>봄맞이 빅세일 마감까지</h2>
+  <div class="deadline">마감일시 : <strong>4월 23일(목) 오전 11:30</strong></div>
+  <div class="countdown" id="countdown">
+    <div class="box"><div class="num" id="cd-hours">00</div><div class="label">시간</div></div>
+    <div class="box"><div class="num" id="cd-mins">00</div><div class="label">분</div></div>
+    <div class="box"><div class="num" id="cd-secs">00</div><div class="label">초</div></div>
+  </div>
+</section>
+
+<!-- ============ 상품 섹션 ============ -->
+<section class="products-section">
+  <div class="products-wrap">
+    <div class="products-title">
+      <h2>지금 놓치면 안 될<br>특가 생활재</h2>
+    </div>
+    <div class="products-grid">
+      <div class="product">
+        <div class="discount-badge">30% 할인</div>
+        <img class="product-img" src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59420C.jpg" alt="풋마늘대김치" onerror="this.style.background='#e8f5c8';this.src='';">
+        <div class="product-body">
+          <div class="product-name">풋마늘대김치 (500g)</div>
+          <div class="price-original">10,500원</div>
+          <div class="price-sale">7,350원</div>
+        </div>
+      </div>
+
+      <div class="product">
+        <div class="discount-badge">18% 할인</div>
+        <img class="product-img" src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/6116C.png" alt="6년근홍삼엑기스" onerror="this.style.background='#e8f5c8';this.src='';">
+        <div class="product-body">
+          <div class="product-name">6년근 홍삼엑기스 (60팩)</div>
+          <div class="price-original">145,500원</div>
+          <div class="price-sale">119,300원</div>
+        </div>
+      </div>
+
+      <div class="product">
+        <div class="discount-badge">15% 할인</div>
+        <img class="product-img" src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/53633C.jpg" alt="흑염소엑기스" onerror="this.style.background='#e8f5c8';this.src='';">
+        <div class="product-body">
+          <div class="product-name">흑염소엑기스</div>
+          <div class="price-original">111,000원</div>
+          <div class="price-sale">94,400원</div>
+        </div>
+      </div>
+
+      <div class="product">
+        <div class="discount-badge">10% 할인</div>
+        <img class="product-img" src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58687C.png" alt="청안마루 유정란" onerror="this.style.background='#e8f5c8';this.src='';">
+        <div class="product-body">
+          <div class="product-name">청안마루 유정란 (15구)</div>
+          <div class="price-original">7,900원</div>
+          <div class="price-sale">7,100원</div>
+        </div>
+      </div>
+
+      <div class="product">
+        <div class="discount-badge">10% 할인</div>
+        <img class="product-img" src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/54730C.jpg" alt="통닭다리 누룽지삼계탕" onerror="this.style.background='#e8f5c8';this.src='';">
+        <div class="product-body">
+          <div class="product-name">통닭다리 누룽지삼계탕</div>
+          <div class="price-original">8,300원</div>
+          <div class="price-sale">7,500원</div>
+        </div>
+      </div>
+
+      <div class="product">
+        <div class="discount-badge">10% 할인</div>
+        <img class="product-img" src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/34347C.png" alt="돌돌한우샤브샤브" onerror="this.style.background='#e8f5c8';this.src='';">
+        <div class="product-body">
+          <div class="product-name">돌돌한우샤브샤브</div>
+          <div class="price-original">19,300원</div>
+          <div class="price-sale">17,400원</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="cta-section">
+  <h2>이번 주 특가<br>놓치지 마세요!</h2>
+  <p>오늘 오전 11시 30분 이후에는<br>특가가 종료됩니다.</p>
+  <a class="cta-btn" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1657" target="_blank">봄맞이 빅세일<br>바로가기</a>
+</section>
+
+<footer>
+  두레생협 조합원 상담실 &nbsp;1661-5110
+</footer>
+
+<script>
+  // 카운트다운 (2026-04-23 11:30:00 KST 까지)
+  const deadline = new Date('2026-04-23T11:30:00+09:00').getTime();
+
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+
+  function setNum(id, value) {
+    const el = document.getElementById(id);
+    const next = pad(value);
+    if (el.textContent !== next) {
+      el.textContent = next;
+      el.classList.remove('tick');
+      void el.offsetWidth;
+      el.classList.add('tick');
+    }
+  }
+
+  function updateCountdown() {
+    const now = Date.now();
+    const diff = deadline - now;
+
+    if (diff <= 0) {
+      document.getElementById('countdown').innerHTML =
+        '<div class="countdown-ended">봄맞이 빅세일이 마감되었습니다</div>';
+      return;
+    }
+
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+    const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+    setNum('cd-hours', hours);
+    setNum('cd-mins', mins);
+    setNum('cd-secs', secs);
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+</script>
+
+</body>
+</html>
