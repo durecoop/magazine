@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<meta name="theme-color" content="#d9c7a7">
+<title>이번 주 두레노트 · 햇출하 농산물</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Jua&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    background: #d9c7a7;
+    background-image: radial-gradient(ellipse at top, #e6d5b5 0%, #c9b58f 100%);
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 700;
+    min-height: 100vh;
+    padding: 16px 8px;
+    color: #3d2f1f;
+    line-height: 1.5;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    line-break: strict;
+  }
+
+  /* ===== 글자 크기 조절 줌 래퍼 ===== */
+  .zoom-wrap {
+    zoom: 1;
+  }
+  .zoom-wrap[data-zoom="small"]  { zoom: 0.85; }
+  .zoom-wrap[data-zoom="medium"] { zoom: 0.95; }
+  .zoom-wrap[data-zoom="large"]  { zoom: 1.10; }
+
+  /* ===== 글자 크기 조절 버튼 ===== */
+  .font-controls {
+    position: fixed;
+    bottom: 18px;
+    right: 14px;
+    z-index: 999;
+    background: rgba(255, 248, 225, 0.96);
+    border: 2px solid #c9a875;
+    border-radius: 30px;
+    padding: 6px 8px;
+    display: flex;
+    gap: 4px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(4px);
+  }
+  .font-controls .label {
+    font-family: 'Gaegu', cursive;
+    font-size: 13px;
+    color: #8b6f47;
+    align-self: center;
+    padding: 0 6px 0 8px;
+    white-space: nowrap;
+  }
+  .font-controls button {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-family: 'Gaegu', cursive;
+    font-weight: 700;
+    color: #5a4a3a;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+    padding: 0;
+    line-height: 1;
+  }
+  .font-controls button:hover { background: #f4ecd8; }
+  .font-controls button.active {
+    background: #d97a6c;
+    color: white;
+    box-shadow: 0 2px 6px rgba(217, 122, 108, 0.4);
+  }
+  .font-controls button[data-size="small"]  { font-size: 14px; }
+  .font-controls button[data-size="medium"] { font-size: 18px; }
+  .font-controls button[data-size="large"]  { font-size: 22px; }
+
+  @media (max-width: 480px) {
+    .font-controls { bottom: 12px; right: 8px; padding: 4px 6px; }
+    .font-controls .label { display: none; }
+    .font-controls button { width: 32px; height: 32px; }
+  }
+
+  /* ===== 다이어리 본문 ===== */
+  .diary {
+    max-width: 920px;
+    margin: 0 auto;
+    background: #fbf6e8;
+    background-image:
+      linear-gradient(rgba(180, 150, 100, 0.08) 1px, transparent 1px);
+    background-size: 100% 28px;
+    border-radius: 10px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+    padding: 30px 18px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* 마스킹 테이프 */
+  .tape {
+    position: absolute;
+    width: 90px;
+    height: 26px;
+    background-image: repeating-linear-gradient(
+      45deg, transparent 0, transparent 6px,
+      rgba(255, 255, 255, 0.3) 6px, rgba(255, 255, 255, 0.3) 12px
+    );
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+  }
+  .tape-1 { top: 8px; left: 60px; transform: rotate(-8deg); background-color: rgba(255, 200, 150, 0.75); }
+  .tape-2 { top: 12px; right: 18px; transform: rotate(6deg); background-color: rgba(180, 220, 180, 0.75); }
+
+  /* ===== 헤더 ===== */
+  .header {
+    text-align: center;
+    margin: 15px 0 20px;
+    padding: 0 8px;
+  }
+
+  .date-stamp {
+    font-family: 'Gaegu', cursive;
+    font-size: 18px;
+    color: #8b6f47;
+    margin-bottom: 10px;
+  }
+
+  .date-stamp .week-badge {
+    display: inline-block;
+    border: 2px solid #d97a6c;
+    border-radius: 20px;
+    padding: 3px 12px;
+    color: #d97a6c;
+    font-weight: 700;
+    transform: rotate(-3deg);
+    margin: 0 5px;
+    font-size: 17px;
+  }
+
+  .title-main {
+    font-family: 'Jua', sans-serif;
+    font-size: 42px;
+    font-weight: 400;
+    color: #2d4a2b;
+    line-height: 1.15;
+    margin: 10px 0;
+    display: inline-block;
+    position: relative;
+    letter-spacing: -0.5px;
+  }
+
+  /* 떠다니는 채소 이모지 */
+  .float-veg {
+    position: absolute;
+    font-size: 30px;
+    animation: floatVeg 3.5s ease-in-out infinite;
+    pointer-events: none;
+  }
+  .veg-1 { top: -22px; left: -38px; animation-delay: 0s; }
+  .veg-2 { top: -30px; right: -38px; animation-delay: 0.6s; }
+  .veg-3 { bottom: -16px; right: -22px; animation-delay: 1.2s; font-size: 26px; }
+  .veg-4 { bottom: -10px; left: -28px; animation-delay: 1.8s; font-size: 24px; }
+
+  @keyframes floatVeg {
+    0%, 100% { transform: translateY(0) rotate(-5deg); }
+    50%      { transform: translateY(-10px) rotate(5deg); }
+  }
+
+  .title-sub {
+    font-family: 'Gaegu', cursive;
+    font-size: 19px;
+    color: #6b6256;
+    margin-top: 8px;
+    padding: 0 5px;
+  }
+
+  .title-sub .highlight {
+    background: linear-gradient(transparent 60%, #ffe066 60%);
+    padding: 0 3px;
+  }
+
+  /* ===== 인트로 메모 ===== */
+  .intro-note {
+    background: #fff8e1;
+    border: 2px dashed #c9a875;
+    border-radius: 8px;
+    padding: 20px 18px;
+    margin: 25px 5px 35px;
+    font-family: 'Gaegu', cursive;
+    font-size: 19px;
+    color: #5a4a3a;
+    line-height: 1.75;
+    position: relative;
+    transform: rotate(-0.5deg);
+    word-break: keep-all;
+  }
+
+  .intro-note::before {
+    content: '📝';
+    position: absolute;
+    top: -14px;
+    left: 16px;
+    background: #fbf6e8;
+    padding: 0 6px;
+    font-size: 20px;
+  }
+
+  .intro-note .marker {
+    background: linear-gradient(transparent 55%, #ffe066 55%, #ffe066 95%, transparent 95%);
+    padding: 0 3px;
+    font-weight: 700;
+  }
+
+  /* 반짝반짝 효과 */
+  .sparkle {
+    color: #d97a6c;
+    font-weight: 900;
+    display: inline-block;
+    animation: sparkleGlow 1.4s ease-in-out infinite;
+  }
+
+  @keyframes sparkleGlow {
+    0%, 100% {
+      text-shadow: 0 0 0 transparent;
+    }
+    50% {
+      text-shadow: 0 0 14px rgba(255, 215, 0, 0.9), 0 0 6px rgba(217, 122, 108, 0.6);
+    }
+  }
+
+  /* ===== 섹션 헤더 ===== */
+  .section-header {
+    margin: 40px 0 20px;
+    text-align: center;
+    position: relative;
+  }
+
+  .section-header h2 {
+    font-family: 'Gaegu', cursive;
+    font-size: 28px;
+    color: #2d4a2b;
+    display: inline-block;
+    padding: 0 14px;
+    background: #fbf6e8;
+    position: relative;
+    z-index: 1;
+    word-break: keep-all;
+  }
+
+  .section-header::before {
+    content: '';
+    position: absolute;
+    left: 5%;
+    right: 5%;
+    top: 50%;
+    height: 2px;
+    background-image: linear-gradient(to right, transparent 0, #c9a875 50%, transparent 100%);
+    z-index: 0;
+  }
+
+  .section-header .deco {
+    color: #f4b942;
+    font-size: 20px;
+    margin: 0 6px;
+  }
+
+  /* ===== 햇출하 메인 카드 (모바일 우선 세로 정렬) ===== */
+  .product-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    margin: 30px 0;
+    padding: 0 5px;
+  }
+
+  .product-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    position: relative;
+  }
+
+  .polaroid {
+    background: #fff;
+    padding: 10px 10px 32px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    position: relative;
+    width: 240px;
+    max-width: 90%;
+    transform: rotate(-3deg);
+  }
+
+  .product-card:nth-child(2) .polaroid { transform: rotate(2deg); }
+  .product-card:nth-child(3) .polaroid { transform: rotate(-2deg); }
+
+  .polaroid-photo {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 4px;
+    background: linear-gradient(135deg, #f8f3e8, #ece2cc);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .polaroid-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 8px;
+    background: #fff;
+  }
+
+  .polaroid-caption {
+    font-family: 'Gaegu', cursive;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 18px;
+    color: #5a4a3a;
+  }
+
+  /* 햇출하 라벨 */
+  .new-badge {
+    position: absolute;
+    top: -12px;
+    left: -12px;
+    background: linear-gradient(135deg, #ff5a5a, #ff7a3a);
+    color: white;
+    font-family: 'Gaegu', cursive;
+    font-weight: 700;
+    padding: 7px 15px;
+    border-radius: 22px;
+    font-size: 18px;
+    box-shadow: 0 4px 8px rgba(255, 90, 90, 0.4);
+    transform: rotate(-10deg);
+    z-index: 5;
+  }
+
+  /* 메모 영역 */
+  .memo {
+    width: 100%;
+    text-align: center;
+    padding: 0 8px;
+  }
+
+  .memo h3 {
+    font-family: 'Gaegu', cursive;
+    font-size: 28px;
+    color: #2d4a2b;
+    margin-bottom: 10px;
+    display: inline-block;
+    position: relative;
+  }
+
+  .memo h3::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 7px;
+    background: rgba(255, 224, 102, 0.6);
+    z-index: -1;
+    transform: skewY(-1deg);
+  }
+
+  .price-tag {
+    display: inline-block;
+    background: #fff8e1;
+    border: 2px solid #d97a6c;
+    border-radius: 12px;
+    padding: 6px 16px;
+    font-family: 'Gaegu', cursive;
+    font-weight: 700;
+    font-size: 23px;
+    color: #d97a6c;
+    margin: 10px 0 14px;
+    transform: rotate(-2deg);
+    box-shadow: 2px 2px 0 #d97a6c;
+  }
+
+  .price-tag .unit {
+    font-size: 14px;
+    color: #8b6f47;
+    font-weight: 400;
+  }
+
+  .feature-list {
+    list-style: none;
+    margin: 10px auto 0;
+    font-family: 'Gaegu', cursive;
+    font-size: 19px;
+    color: #4a3f30;
+    line-height: 1.8;
+    text-align: left;
+    display: inline-block;
+    word-break: keep-all;
+  }
+
+  .feature-list li {
+    padding-left: 26px;
+    position: relative;
+  }
+
+  .feature-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #6b9b5e;
+    font-weight: 700;
+    font-size: 21px;
+  }
+
+  /* 스티커 */
+  .sticker {
+    position: absolute;
+    font-size: 26px;
+    pointer-events: none;
+    z-index: 3;
+  }
+
+  /* ===== 작은 품목 그리드 (모바일 2열) ===== */
+  .small-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    margin: 25px 5px;
+  }
+
+  .mini-card {
+    background: #fff;
+    border: 2px solid #e8d9c0;
+    border-radius: 12px;
+    padding: 12px 8px 14px;
+    text-align: center;
+    position: relative;
+  }
+
+  .mini-card:nth-child(odd) { transform: rotate(-1deg); }
+  .mini-card:nth-child(even) { transform: rotate(1deg); }
+
+  .mini-photo {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: #faf6ed;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+
+  .mini-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 4px;
+  }
+
+  .mini-card .name {
+    font-family: 'Gaegu', cursive;
+    font-weight: 700;
+    font-size: 19px;
+    color: #2d4a2b;
+    margin-bottom: 3px;
+    word-break: keep-all;
+  }
+
+  .mini-card .meta {
+    font-size: 13px;
+    color: #8b6f47;
+    margin-bottom: 6px;
+  }
+
+  .mini-card .mini-price {
+    font-family: 'Gaegu', cursive;
+    font-weight: 700;
+    font-size: 19px;
+    color: #d97a6c;
+  }
+
+  .mini-card .tag {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: #6b9b5e;
+    color: white;
+    font-family: 'Gaegu', cursive;
+    font-size: 13px;
+    padding: 3px 10px;
+    border-radius: 12px;
+    transform: rotate(8deg);
+    z-index: 2;
+  }
+
+  .mini-card .tag.discount { background: #d97a6c; }
+  .mini-card .tag.new { background: #f4b942; color: #5a4a3a; }
+
+  /* ===== 푸터 ===== */
+  /* 장보기 CTA 버튼 */
+  .shop-cta {
+    text-align: center;
+    margin: 50px 5px 0;
+  }
+  .shop-cta a {
+    display: inline-block;
+    background: linear-gradient(135deg, #6b9b5e, #4d7a45);
+    color: #fff;
+    font-family: 'Gaegu', cursive;
+    font-weight: 700;
+    font-size: 24px;
+    text-decoration: none;
+    padding: 14px 38px;
+    border-radius: 50px;
+    box-shadow: 0 6px 16px rgba(77, 122, 69, 0.35);
+    transition: transform 0.15s, box-shadow 0.15s;
+    letter-spacing: 1px;
+  }
+  .shop-cta a:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 22px rgba(77, 122, 69, 0.45);
+  }
+  .shop-cta a:active {
+    transform: translateY(0);
+  }
+  .shop-cta .arrow {
+    display: inline-block;
+    margin-left: 6px;
+    transition: transform 0.15s;
+  }
+  .shop-cta a:hover .arrow { transform: translateX(4px); }
+
+  @media (min-width: 600px) {
+    .shop-cta { margin-top: 60px; }
+    .shop-cta a { font-size: 28px; padding: 16px 46px; }
+  }
+
+  .footer-note {
+    margin: 30px 5px 0;
+    text-align: center;
+    font-family: 'Gaegu', cursive;
+    font-size: 19px;
+    color: #6b6256;
+    line-height: 1.7;
+    padding: 24px 12px;
+    border-top: 2px dashed #c9a875;
+    word-break: keep-all;
+  }
+
+  .footer-note .heart {
+    color: #d97a6c;
+    font-size: 22px;
+  }
+
+  .footer-note .small {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 14px;
+    color: #8b6f47;
+    margin-top: 12px;
+    font-weight: 400;
+  }
+
+  /* ===== 태블릿 이상 (≥600px) ===== */
+  @media (min-width: 600px) {
+    body { padding: 30px 15px; }
+
+    .diary {
+      padding: 50px 55px 60px;
+      background-size: 100% 32px;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+    }
+
+    .tape { width: 130px; height: 35px; }
+    .tape-1 { top: 10px; left: 100px; }
+    .tape-2 { top: 20px; right: 30px; }
+
+    .header { margin: 20px 0 30px; }
+    .date-stamp { font-size: 22px; }
+    .date-stamp .week-badge { padding: 4px 14px; font-size: 20px; }
+
+    .title-main { font-size: 60px; }
+    .title-sub { font-size: 24px; }
+    .float-veg { font-size: 42px; }
+    .veg-1 { top: -32px; left: -64px; }
+    .veg-2 { top: -42px; right: -64px; }
+    .veg-3 { bottom: -22px; right: -40px; font-size: 36px; }
+    .veg-4 { bottom: -16px; left: -50px; font-size: 32px; }
+
+    .intro-note { padding: 26px 32px; margin: 30px 60px 45px; font-size: 22px; }
+
+    .section-header { margin: 55px 0 30px; }
+    .section-header h2 { font-size: 36px; padding: 0 22px; }
+    .section-header .deco { font-size: 30px; }
+
+    .product-grid { gap: 60px; padding: 0; }
+    .product-card { flex-direction: row; gap: 35px; }
+    .product-card.reverse { flex-direction: row-reverse; }
+
+    .polaroid { width: 300px; padding: 15px 15px 50px; }
+    .polaroid-caption { font-size: 21px; margin-top: 12px; }
+    .new-badge { padding: 9px 18px; font-size: 20px; }
+
+    .memo { text-align: center; flex: 1; padding: 0; }
+    .memo h3 { font-size: 34px; margin-bottom: 14px; }
+    .price-tag { font-size: 26px; padding: 7px 18px; }
+    .price-tag .unit { font-size: 16px; }
+    .feature-list { font-size: 22px; line-height: 1.85; }
+    .feature-list li { padding-left: 30px; }
+
+    .small-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 28px; margin: 38px 0; }
+    .mini-card { padding: 20px 16px 22px; }
+    .mini-card .name { font-size: 22px; }
+    .mini-card .meta { font-size: 14px; }
+    .mini-card .mini-price { font-size: 21px; }
+    .mini-card .tag { font-size: 14px; padding: 3px 12px; }
+
+    .footer-note { font-size: 22px; margin-top: 60px; padding: 28px; }
+    .footer-note .heart { font-size: 26px; }
+    .footer-note .small { font-size: 14px; margin-top: 14px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- 글자 크기 조절 -->
+<div class="font-controls" role="group" aria-label="글자 크기 조절">
+  <span class="label">글자 크기</span>
+  <button type="button" data-size="small"  title="작게">가</button>
+  <button type="button" data-size="medium" title="보통">가</button>
+  <button type="button" data-size="large"  title="크게" class="active">가</button>
+</div>
+
+<div class="zoom-wrap" data-zoom="large">
+
+<div class="diary">
+  <div class="tape tape-1"></div>
+  <div class="tape tape-2"></div>
+
+  <header class="header">
+    <div class="date-stamp">
+      2026년 4월 23일
+      <span class="week-badge">18주차</span>
+    </div>
+    <h1 class="title-main">
+      햇출하 농산물
+      <span class="float-veg veg-1">🥕</span>
+      <span class="float-veg veg-2">🥬</span>
+      <span class="float-veg veg-3">🌽</span>
+      <span class="float-veg veg-4">🍅</span>
+    </h1>
+    <p class="title-sub">
+      산지에서 <span class="highlight">지금 막 도착한</span><br>
+      제철의 맛
+    </p>
+  </header>
+
+  <div class="intro-note">
+    제주의 자연을 품은 <span class="marker">햇고사리</span>부터 상큼한 <span class="marker">카라향</span>, 달큰한 <span class="marker">풋완두콩</span>까지<br>
+    이 계절이 아니면 만날 수 없는 귀한 햇출하,<br>
+    가장 맛있는 타이밍을 두레노트에 적어두었어요 :)
+  </div>
+
+  <!-- 섹션: 햇출하 메인 3종 -->
+  <div class="section-header">
+    <h2><span class="deco">✦</span>이번 주 햇출하 BEST 3<span class="deco">✦</span></h2>
+  </div>
+
+  <div class="product-grid">
+
+    <!-- 카라향 -->
+    <div class="product-card">
+      <div class="polaroid">
+        <div class="new-badge">햇출하</div>
+        <div class="polaroid-photo">
+          <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/46008C.png" alt="카라향" loading="lazy">
+        </div>
+        <div class="polaroid-caption">~ 제주의 봄, 카라향 ~</div>
+      </div>
+      <div class="memo">
+        <h3>카라향 (1kg)</h3>
+        <div class="price-tag">11,500<span class="unit">원/조합원가</span></div>
+        <ul class="feature-list">
+          <li>제주에서 막 따온 햇과일</li>
+          <li>달콤함 + 새콤함 + 풍부한 향</li>
+          <li>껍질 까기 쉬워 아이 간식 ♡</li>
+          <li>지금이 가장 맛있는 제철!</li>
+        </ul>
+      </div>
+      <span class="sticker" style="top: 0; right: 5%;">✨</span>
+    </div>
+
+    <!-- 제주햇건고사리 -->
+    <div class="product-card reverse">
+      <div class="polaroid">
+        <div class="new-badge">햇출하</div>
+        <div class="polaroid-photo">
+          <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/38913C.jpg" alt="제주햇건고사리" loading="lazy">
+        </div>
+        <div class="polaroid-caption">~ 제주 자연산 햇고사리 ~</div>
+      </div>
+      <div class="memo">
+        <h3>제주햇건고사리 (50g)</h3>
+        <div class="price-tag">15,500<span class="unit">원/조합원가</span></div>
+        <ul class="feature-list">
+          <li>제주 봄에만 채취하는 자연산</li>
+          <li>햇볕에 말려 향과 식감이 살아있어요</li>
+          <li>나물 무침 · 비빔밥 · 육개장에 ♡</li>
+          <li>일년에 단 한 번 만나는 진짜 봄!</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 풋완두콩 -->
+    <div class="product-card">
+      <div class="polaroid">
+        <div class="new-badge">햇출하</div>
+        <div class="polaroid-photo">
+          <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/1300C.jpg" alt="풋완두콩" loading="lazy">
+        </div>
+        <div class="polaroid-caption">~ 무농약 풋완두콩 ~</div>
+      </div>
+      <div class="memo">
+        <h3>풋완두콩 (300g)</h3>
+        <div class="price-tag">5,500<span class="unit">원/조합원가</span></div>
+        <ul class="feature-list">
+          <li>무농약으로 키운 안심 먹거리</li>
+          <li>봄에 딱 한 번, 여린 햇완두</li>
+          <li>완두콩밥 · 수프 · 샐러드에 ♡</li>
+          <li>아삭한 식감과 달큰함이 일품!</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 섹션: 봄나물 -->
+  <div class="section-header">
+    <h2><span class="deco">❀</span>오늘의 봄나물<span class="deco">❀</span></h2>
+  </div>
+
+  <div class="small-grid">
+    <div class="mini-card">
+      <span class="tag">유기농</span>
+      <div class="mini-photo"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/47974C.png" alt="달래" loading="lazy"></div>
+      <div class="name">달래</div>
+      <div class="meta">80g · 유기농</div>
+      <div class="mini-price">5,900원</div>
+    </div>
+    <div class="mini-card">
+      <span class="tag">유기농</span>
+      <div class="mini-photo"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/22215C.jpg" alt="봄쑥" loading="lazy"></div>
+      <div class="name">봄쑥</div>
+      <div class="meta">100g · 유기농</div>
+      <div class="mini-price">3,500원</div>
+    </div>
+    <div class="mini-card">
+      <span class="tag">무농약</span>
+      <div class="mini-photo"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56994C.jpg" alt="곤달비/곰취" loading="lazy"></div>
+      <div class="name">곤달비/곰취</div>
+      <div class="meta">100g · 무농약</div>
+      <div class="mini-price">3,900원</div>
+    </div>
+    <div class="mini-card">
+      <span class="tag discount">11%↓</span>
+      <div class="mini-photo"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/37942C.jpg" alt="미나리" loading="lazy"></div>
+      <div class="name">미나리</div>
+      <div class="meta">200g · 무농약</div>
+      <div class="mini-price">4,100원</div>
+    </div>
+    <div class="mini-card">
+      <span class="tag">무농약</span>
+      <div class="mini-photo"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/8520C.png" alt="아스파라거스" loading="lazy"></div>
+      <div class="name">아스파라거스</div>
+      <div class="meta">200g · 무농약</div>
+      <div class="mini-price">5,900원</div>
+    </div>
+  </div>
+
+  <!-- 섹션: 보너스 과일 -->
+  <div class="section-header">
+    <h2><span class="deco">🍎</span>당도보장 두레 사과<br>이번 주 <span class="sparkle">특별</span> 할인<span class="deco">🍎</span></h2>
+  </div>
+
+  <div class="small-grid">
+    <div class="mini-card">
+      <span class="tag discount">13%↓</span>
+      <div class="mini-photo"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/48053C.jpg" alt="두레 사과" loading="lazy"></div>
+      <div class="name">두레 사과</div>
+      <div class="meta">1.5kg</div>
+      <div class="mini-price">15,500원</div>
+    </div>
+    <div class="mini-card">
+      <span class="tag discount">11%↓</span>
+      <div class="mini-photo"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59370C.jpg" alt="별빛사과 부사" loading="lazy"></div>
+      <div class="name">별빛사과/부사</div>
+      <div class="meta">1.5kg</div>
+      <div class="mini-price">12,900원</div>
+    </div>
+  </div>
+
+  <div class="shop-cta">
+    <a href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1660#book4" target="_blank" rel="noopener">
+      지금 만나기 <span class="arrow">→</span>
+    </a>
+  </div>
+
+  <div class="footer-note">
+    <span class="heart">♡</span> 지금이 아니면 맛볼 수 없는 제철, 두레와 함께해요 <span class="heart">♡</span>
+    <div class="small">두레생협 · 2026년 18주차 두레노트</div>
+  </div>
+
+</div>
+</div><!-- /.zoom-wrap -->
+
+<script>
+  (function() {
+    var wrap = document.querySelector('.zoom-wrap');
+    var buttons = document.querySelectorAll('.font-controls button');
+    var saved = localStorage.getItem('dureNoteFontSize') || 'large';
+
+    function apply(size) {
+      wrap.setAttribute('data-zoom', size);
+      buttons.forEach(function(b) {
+        b.classList.toggle('active', b.dataset.size === size);
+      });
+      localStorage.setItem('dureNoteFontSize', size);
+    }
+
+    apply(saved);
+
+    buttons.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        apply(btn.dataset.size);
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>
