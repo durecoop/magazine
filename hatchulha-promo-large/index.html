@@ -1137,5 +1137,49 @@ body { --ts: 1; overflow-x: hidden; padding-bottom: calc(84px + env(safe-area-in
   } catch(e) {}
 })();
 </script>
+
+<!-- ========== 접속자/클릭 카운터 (Abacus) ========== -->
+<script>
+(function(){
+  var NS = 'durecoop-hatchulha-2026';
+  var API = 'https://abacus.jasoncameron.dev/hit/' + NS + '/';
+  function hit(key){
+    try { fetch(API + key, { mode: 'cors', keepalive: true, cache: 'no-store' }).catch(function(){}); } catch(e){}
+  }
+  /* 1) 페이지 방문 집계 */
+  hit('pageview');
+  try {
+    var params = new URLSearchParams(location.search);
+    var src = (params.get('utm_source') || '').toLowerCase();
+    if (src === 'rcs') hit('pageview-rcs');
+    else if (src) hit('pageview-other');
+    else hit('pageview-direct');
+  } catch(e){}
+
+  /* 2) 쇼핑몰 이동 버튼 클릭 집계 */
+  function bindClicks(){
+    var links = document.querySelectorAll('a[href*="ecoop.or.kr"]');
+    links.forEach(function(a){
+      a.addEventListener('click', function(){
+        var key = null;
+        if (a.classList.contains('cta-main-btn')) key = 'click-main-cta';
+        else if (a.closest && a.closest('.floating-cta')) key = 'click-floating-cta';
+        else if (a.classList.contains('cta-card')) {
+          if (a.classList.contains('o')) key = 'click-karahyang';
+          else if (a.classList.contains('b')) key = 'click-gosari';
+          else if (a.classList.contains('g')) key = 'click-wando';
+        }
+        if (key) hit(key);
+        hit('click-all');
+      }, { passive: true });
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bindClicks);
+  } else {
+    bindClicks();
+  }
+})();
+</script>
 </body>
 </html>
