@@ -1474,5 +1474,44 @@
   })();
 </script>
 
+<!-- ========== 접속자/클릭 카운터 (Abacus) ========== -->
+<script>
+(function(){
+  var NS = 'durecoop-matchan-2026w17';
+  var API = 'https://abacus.jasoncameron.dev/hit/' + NS + '/';
+  function hit(key){
+    try { fetch(API + key, { mode: 'cors', keepalive: true, cache: 'no-store' }).catch(function(){}); } catch(e){}
+  }
+  /* 1) 페이지 방문 집계 */
+  hit('pageview');
+  try {
+    var params = new URLSearchParams(location.search);
+    var src = (params.get('utm_source') || '').toLowerCase();
+    if (src === 'rcs') hit('pageview-rcs');
+    else if (src) hit('pageview-other');
+    else hit('pageview-direct');
+  } catch(e){}
+
+  /* 2) 쇼핑몰 이동 버튼 클릭 집계 */
+  function bindClicks(){
+    var links = document.querySelectorAll('a[href*="ecoop.or.kr"]');
+    links.forEach(function(a){
+      a.addEventListener('click', function(){
+        var key = null;
+        if (a.classList.contains('hero-cta')) key = 'click-hero';
+        else if (a.classList.contains('outro-cta')) key = 'click-outro';
+        else if (a.classList.contains('order-link')) key = 'click-product';
+        if (key) hit(key);
+        hit('click-all');
+      }, { passive: true });
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bindClicks);
+  } else {
+    bindClicks();
+  }
+})();
+</script>
 </body>
 </html>
