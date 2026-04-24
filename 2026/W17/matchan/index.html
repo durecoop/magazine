@@ -1,0 +1,1478 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>이번 주 두레맛찬 — 반찬 걱정 끝, 집밥의 품격</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700;900&family=Gowun+Batang:wght@400;700&family=Pretendard:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #faf5ea;
+    --paper: #fdfaf2;
+    --ink: #2a2620;
+    --ink-soft: #574d3e;
+    --green: #4a7a2c;
+    --green-deep: #2f5318;
+    --green-leaf: #6fa247;
+    --soy: #8a4a1f;
+    --soy-deep: #5a2e10;
+    --accent: #c94b2a;
+    --gold: #c49a2c;
+    --line: #e4d9c2;
+    --us: 1.3;         /* 사용자 글씨 크기 배율 (기본: 더 크게) */
+  }
+  body[data-fs=""]   { --us: 1;    }
+  body[data-fs="l"]  { --us: 1.15; }
+  body[data-fs="xl"] { --us: 1.3;  }
+
+  /* 조회수 배지 */
+  .visit-counter {
+    position: fixed;
+    right: 20px;
+    top: 20px;
+    z-index: 200;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 9px 16px 9px 14px;
+    font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+    font-size: 13px;
+    color: var(--ink-soft);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 10px 24px rgba(74, 55, 20, 0.14);
+    line-height: 1;
+  }
+  .visit-counter .live-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #2ecc71;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .visit-counter .live-dot::after {
+    content: "";
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    background: rgba(46, 204, 113, 0.35);
+    animation: ping 1.8s ease-out infinite;
+  }
+  @keyframes ping {
+    0%   { transform: scale(0.6); opacity: 0.9; }
+    100% { transform: scale(1.8); opacity: 0; }
+  }
+  .visit-counter b {
+    color: var(--green-deep);
+    font-weight: 800;
+    font-size: 14px;
+    font-variant-numeric: tabular-nums;
+  }
+  .visit-counter .unit { color: var(--ink-soft); font-weight: 500; }
+  @media (max-width: 600px) {
+    .visit-counter { padding: 7px 12px; font-size: 12px; }
+  }
+
+  /* 글씨 크기 조절 플로팅 버튼 */
+  .fs-toggle {
+    position: fixed;
+    left: 50%;
+    top: 20px;
+    transform: translateX(-50%);
+    z-index: 200;
+    display: flex;
+    gap: 6px;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 6px;
+    box-shadow: 0 10px 28px rgba(74, 55, 20, 0.18);
+  }
+  .fs-toggle button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-family: 'Noto Serif KR', serif;
+    color: var(--ink-soft);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1;
+    transition: all 0.15s;
+    min-width: 50px;
+  }
+  .fs-toggle button .ga { font-weight: 700; color: var(--green-deep); }
+  .fs-toggle button[data-fs=""] .ga  { font-size: 15px; }
+  .fs-toggle button[data-fs="l"] .ga { font-size: 19px; }
+  .fs-toggle button[data-fs="xl"] .ga{ font-size: 23px; }
+  .fs-toggle button small {
+    font-size: 10px;
+    color: var(--ink-soft);
+    margin-top: 3px;
+    font-family: 'Pretendard', sans-serif;
+    letter-spacing: 0.05em;
+  }
+  .fs-toggle button:hover { background: var(--cream); }
+  .fs-toggle button.active {
+    background: var(--green-deep);
+  }
+  .fs-toggle button.active .ga,
+  .fs-toggle button.active small { color: #fff; }
+  .fs-toggle .fs-label {
+    align-self: center;
+    font-size: 11px;
+    color: var(--ink-soft);
+    padding-left: 10px;
+    padding-right: 4px;
+    letter-spacing: 0.1em;
+    border-right: 1px solid var(--line);
+    margin-right: 4px;
+  }
+  @media (max-width: 600px) {
+    .fs-toggle .fs-label { display: none; }
+    .fs-toggle button { padding: 6px 10px; min-width: 42px; }
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* 사이드 네비 */
+  .side-nav {
+    position: fixed;
+    left: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 100;
+    background: rgba(253, 250, 242, 0.92);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 14px 10px;
+    max-height: 80vh;
+    overflow-y: auto;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 8px 24px rgba(74, 55, 20, 0.08);
+  }
+  .side-nav-title {
+    font-family: 'Noto Serif KR', serif;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--green-deep);
+    padding: 0 8px 8px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 6px;
+    text-align: center;
+  }
+  .side-nav a {
+    display: block;
+    padding: 5px 10px;
+    font-size: 12px;
+    color: var(--ink-soft);
+    text-decoration: none;
+    border-radius: 6px;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .side-nav a:hover {
+    background: var(--green);
+    color: #fff;
+  }
+  .side-nav a .num {
+    display: inline-block;
+    width: 18px;
+    font-weight: 600;
+    color: var(--gold);
+    font-family: 'Noto Serif KR', serif;
+  }
+  .side-nav a:hover .num { color: #fff; }
+
+  @media (max-width: 1200px) {
+    .side-nav { display: none; }
+  }
+
+  /* 히어로 */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px 24px;
+    background:
+      radial-gradient(ellipse at top left, rgba(111, 162, 71, 0.12), transparent 60%),
+      radial-gradient(ellipse at bottom right, rgba(196, 154, 44, 0.10), transparent 60%),
+      linear-gradient(180deg, var(--paper) 0%, var(--cream) 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(45deg, transparent 0 40px, rgba(74, 122, 44, 0.03) 40px 41px);
+    pointer-events: none;
+  }
+  .hero-kicker {
+    font-family: 'Gowun Batang', serif;
+    font-size: 15px;
+    letter-spacing: 0.08em;
+    color: var(--green);
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    padding: 0;
+  }
+  .hero-kicker::before,
+  .hero-kicker::after {
+    content: "·";
+    color: var(--gold);
+    margin: 0;
+  }
+  .hero h1 {
+    font-family: 'Noto Serif KR', serif;
+    font-weight: 900;
+    font-size: calc(clamp(42px, 7vw, 88px) * var(--us));
+    line-height: 1.15;
+    color: var(--ink);
+    margin-bottom: 24px;
+    letter-spacing: -0.02em;
+    word-break: keep-all;
+  }
+  .hero h1 .h1-lead {
+    display: block;
+    font-size: 0.45em;
+    font-weight: 700;
+    color: var(--soy);
+    letter-spacing: 0.02em;
+    margin-bottom: 10px;
+    white-space: nowrap;
+    line-height: 1.3;
+  }
+  .hero h1 .brand {
+    color: var(--green-deep);
+    position: relative;
+    display: inline-block;
+  }
+  .hero h1 .brand::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 4px;
+    height: 14px;
+    background: var(--gold);
+    opacity: 0.25;
+    z-index: -1;
+  }
+  .hero-sub {
+    font-family: 'Gowun Batang', serif;
+    font-size: calc(clamp(17px, 2vw, 22px) * var(--us));
+    color: var(--ink-soft);
+    max-width: 640px;
+    margin-bottom: 40px;
+    line-height: 1.9;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 48px;
+  }
+  .hero-meta .chip {
+    background: #fff;
+    border: 1px solid var(--line);
+    padding: 10px 20px;
+    border-radius: 999px;
+    font-size: 14px;
+    color: var(--ink-soft);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 2px 6px rgba(74, 55, 20, 0.05);
+  }
+  .hero-meta .chip b {
+    color: var(--green-deep);
+    font-weight: 700;
+  }
+  .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--green);
+  }
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--green-deep);
+    color: #fff;
+    padding: 16px 36px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    box-shadow: 0 10px 24px rgba(47, 83, 24, 0.28);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .hero-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 28px rgba(47, 83, 24, 0.35);
+  }
+  .hero-cta .arrow { font-size: 18px; }
+  .scroll-hint {
+    margin-top: 56px;
+    font-size: 13px;
+    color: var(--ink-soft);
+    letter-spacing: 0.2em;
+    opacity: 0.7;
+    animation: bounce 2.4s infinite;
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(6px); }
+  }
+
+  /* 브랜드 소개 스트립 */
+  .brand-strip {
+    background: var(--green-deep);
+    color: #f3ead3;
+    padding: 60px 24px;
+    text-align: center;
+  }
+  .brand-strip .label {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+  .brand-strip h2 {
+    font-family: 'Noto Serif KR', serif;
+    font-weight: 700;
+    font-size: calc(clamp(24px, 3.5vw, 34px) * var(--us));
+    margin-bottom: 18px;
+    color: #fff;
+  }
+  .brand-strip p {
+    font-family: 'Gowun Batang', serif;
+    font-size: calc(17px * var(--us));
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.95;
+  }
+
+  /* 품목 섹션 */
+  .item {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 24px;
+    position: relative;
+  }
+  .item:nth-child(even) { background: var(--paper); }
+  .item-inner {
+    max-width: 720px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 48px;
+    text-align: center;
+  }
+
+  .item-visual {
+    aspect-ratio: 1 / 1.1;
+    width: 100%;
+    max-width: 480px;
+    background: linear-gradient(135deg, #fff 0%, var(--cream) 100%);
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    box-shadow: 0 20px 50px rgba(74, 55, 20, 0.08);
+    position: relative;
+    overflow: hidden;
+  }
+  .item-visual .item-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+  .item-visual:hover .item-img { transform: scale(1.04); }
+  .item-visual .number {
+    position: absolute;
+    top: 16px;
+    left: 20px;
+    font-family: 'Noto Serif KR', serif;
+    font-size: 44px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+    letter-spacing: -0.02em;
+    z-index: 2;
+  }
+  .item-visual .number::before {
+    content: "No.";
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    opacity: 0.85;
+    margin-bottom: 2px;
+  }
+  .item-visual .stamp {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    background: var(--accent);
+    color: #fff;
+    font-size: calc(12px * var(--us));
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    padding: 8px 14px;
+    border-radius: 4px;
+    transform: rotate(6deg);
+    z-index: 2;
+    box-shadow: 0 4px 12px rgba(201, 75, 42, 0.35);
+  }
+  .item-visual .stamp.gold { background: var(--gold); }
+
+  .item-copy {
+    width: 100%;
+    max-width: 640px;
+    text-align: center;
+  }
+  .item-copy .kicker {
+    font-family: 'Gowun Batang', serif;
+    font-size: 13px;
+    letter-spacing: 0.05em;
+    color: var(--soy);
+    margin-bottom: 14px;
+  }
+  .item-copy h3 {
+    font-family: 'Noto Serif KR', serif;
+    font-weight: 700;
+    font-size: calc(clamp(32px, 4.5vw, 46px) * var(--us));
+    line-height: 1.25;
+    color: var(--ink);
+    margin-bottom: 18px;
+    letter-spacing: -0.01em;
+    word-break: keep-all;
+    overflow-wrap: normal;
+  }
+  /* 가장 큰 글씨(xl)에서 상품명이 한 단어 내에서 잘리지 않도록 살짝 축소 */
+  body[data-fs="xl"] .item-copy h3 {
+    font-size: clamp(28px, 4vw, 42px);
+  }
+  body[data-fs="xl"] .hero h1 {
+    font-size: clamp(38px, 6.2vw, 78px);
+  }
+  .item-copy h3 .brand-tag {
+    display: inline-block;
+    font-size: 0.5em;
+    background: var(--green-deep);
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 6px;
+    vertical-align: middle;
+    margin-right: 10px;
+    font-family: 'Pretendard', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+  .item-copy .tagline {
+    font-family: 'Gowun Batang', serif;
+    font-size: calc(19px * var(--us));
+    color: var(--green-deep);
+    margin-bottom: 22px;
+    font-weight: 700;
+    word-break: keep-all;
+  }
+  .item-copy .desc {
+    font-size: calc(16px * var(--us));
+    color: var(--ink-soft);
+    line-height: 1.95;
+    margin-bottom: 32px;
+    text-wrap: balance;
+    word-break: keep-all;
+  }
+  .hero-sub, .brand-strip p, .outro p, .foot-note {
+    text-wrap: balance;
+    word-break: keep-all;
+  }
+  .price-row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 22px 28px;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    margin-bottom: 20px;
+  }
+  .price-row .price-block:nth-of-type(1) { order: 2; }  /* 조합원가 → 아래 */
+  .price-row .price-block:nth-of-type(2) { order: 1; }  /* 비조합원가 → 위 */
+  .price-row .discount-badge { order: 3; margin: 8px 0 0; }
+  .item-copy .price-block { align-items: center; }
+  .price-block {
+    display: flex;
+    flex-direction: column;
+  }
+  .price-block .p-label {
+    font-size: 11px;
+    color: var(--ink-soft);
+    letter-spacing: 0.15em;
+    margin-bottom: 2px;
+  }
+  .price-main {
+    font-family: 'Noto Serif KR', serif;
+    font-size: calc(32px * var(--us));
+    font-weight: 900;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .price-main .won { font-size: calc(18px * var(--us)); font-weight: 600; }
+  .price-sub {
+    font-size: calc(14px * var(--us));
+    color: var(--ink-soft);
+    text-decoration: line-through;
+  }
+  .discount-badge {
+    margin-left: auto;
+    background: var(--accent);
+    color: #fff;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+  .order-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    background: var(--ink);
+    color: #fff;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 15px;
+    transition: background 0.2s;
+  }
+  .order-link:hover { background: var(--green-deep); }
+
+  /* 푸터 */
+  .outro {
+    padding: 100px 24px;
+    text-align: center;
+    background: linear-gradient(180deg, var(--cream) 0%, var(--paper) 100%);
+  }
+  .outro h2 {
+    font-family: 'Noto Serif KR', serif;
+    font-weight: 900;
+    font-size: calc(clamp(32px, 5vw, 52px) * var(--us));
+    color: var(--ink);
+    margin-bottom: 20px;
+    word-break: keep-all;
+  }
+  .outro p {
+    font-family: 'Gowun Batang', serif;
+    font-size: calc(18px * var(--us));
+    color: var(--ink-soft);
+    margin-bottom: 24px;
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.95;
+  }
+  .outro .holiday-note {
+    display: inline-block;
+    background: #fff3ea;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    padding: 14px 26px;
+    border-radius: 14px;
+    font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+    font-size: calc(15px * var(--us));
+    font-weight: 600;
+    line-height: 1.7;
+    margin-bottom: 40px;
+    max-width: none;
+  }
+  .outro-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--accent);
+    color: #fff;
+    padding: 18px 44px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 17px;
+    box-shadow: 0 12px 28px rgba(201, 75, 42, 0.3);
+  }
+  .outro-cta:hover { transform: translateY(-2px); }
+  .foot-note {
+    margin-top: 60px;
+    padding-top: 40px;
+    border-top: 1px solid var(--line);
+    font-size: 13px;
+    color: var(--ink-soft);
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.9;
+  }
+  .foot-note strong { color: var(--green-deep); }
+
+  /* 좌측 장식 라인 */
+  .item::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 1px;
+    height: 60px;
+    background: var(--line);
+  }
+</style>
+</head>
+<body>
+
+<!-- 조회수 -->
+<div class="visit-counter" aria-label="조회수">
+  <span class="live-dot" aria-hidden="true"></span>
+  <span class="unit">조회수</span>
+  <b id="visit-count">0</b>
+  <span class="unit">회</span>
+</div>
+
+<!-- 글씨 크기 조절 -->
+<div class="fs-toggle" role="group" aria-label="글씨 크기 조절">
+  <span class="fs-label">글씨크기</span>
+  <button type="button" data-fs="" aria-label="기본 크기"><span class="ga">가</span><small>기본</small></button>
+  <button type="button" data-fs="l" aria-label="크게"><span class="ga">가</span><small>크게</small></button>
+  <button type="button" data-fs="xl" aria-label="더 크게"><span class="ga">가</span><small>더크게</small></button>
+</div>
+
+<!-- 사이드 네비게이션 -->
+<nav class="side-nav" aria-label="품목 목차">
+  <div class="side-nav-title">맛찬 품목 21선</div>
+  <a href="#item-1"><span class="num">01</span>감자채볶음</a>
+  <a href="#item-2"><span class="num">02</span>곤드레나물</a>
+  <a href="#item-3"><span class="num">03</span>깻잎순들깨볶음</a>
+  <a href="#item-4"><span class="num">04</span>꼬막양념무침</a>
+  <a href="#item-5"><span class="num">05</span>꽈리고추멸치조림</a>
+  <a href="#item-6"><span class="num">06</span>도라지초무침</a>
+  <a href="#item-7"><span class="num">07</span>부지깽이나물</a>
+  <a href="#item-8"><span class="num">08</span>산채나물비빔세트</a>
+  <a href="#item-9"><span class="num">09</span>생깻잎무침</a>
+  <a href="#item-10"><span class="num">10</span>얼갈이보리 물김치</a>
+  <a href="#item-11"><span class="num">11</span>열무얼갈이 물김치</a>
+  <a href="#item-12"><span class="num">12</span>오미자미역초무침</a>
+  <a href="#item-13"><span class="num">13</span>우엉조림</a>
+  <a href="#item-14"><span class="num">14</span>죽순볶음</a>
+  <a href="#item-15"><span class="num">15</span>지리멸치볶음</a>
+  <a href="#item-16"><span class="num">16</span>참나물무침</a>
+  <a href="#item-17"><span class="num">17</span>코다리조림</a>
+  <a href="#item-18"><span class="num">18</span>고등어무조림</a>
+  <a href="#item-19"><span class="num">19</span>깻잎순들깨볶음 200g</a>
+  <a href="#item-20"><span class="num">20</span>도라지초무침 220g</a>
+  <a href="#item-21"><span class="num">21</span>우엉조림 200g</a>
+</nav>
+
+<!-- 히어로 -->
+<section class="hero">
+  <div class="hero-kicker">두레생협 이번 주 기획전</div>
+  <h1><span class="h1-lead">반찬 걱정 없는</span>이번 주<br><span class="brand">두레맛찬</span></h1>
+  <p class="hero-sub">
+    정직한 국산 재료로 정성껏 조리했어요.<br>
+    바로 식탁에 올릴 수 있는 두레의 반찬 브랜드, <b>맛찬</b>.<br>
+    이번 주 21가지 품목을 한자리에서.
+  </p>
+  <div class="hero-meta">
+    <div class="chip"><span class="dot"></span>주문기간 <b>2026.04.23 ~ 04.30</b></div>
+    <div class="chip"><span class="dot"></span>총 <b>21개 품목</b></div>
+    <div class="chip"><span class="dot"></span>최대 <b>10% 할인</b></div>
+  </div>
+  <a class="hero-cta" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1660#book16" target="_blank" rel="noopener">
+    기획전 페이지에서 주문하기 <span class="arrow">→</span>
+  </a>
+  <div class="scroll-hint">아래로 스크롤 ↓</div>
+</section>
+
+<!-- 브랜드 스트립 -->
+<section class="brand-strip">
+  <div class="label">두 레 맛 찬</div>
+  <h2>"우리 가족에게 먹이고 싶은 반찬, 그대로."</h2>
+  <p>
+    두레맛찬은 조합원의 마음으로 만든 간편 반찬입니다.<br>
+    좋은 재료를 고르고 깔끔하게 조리했어요.<br>
+    어머니의 손맛을 담아 정성껏.<br>
+    밥 위에 바로 얹을 수 있게, 한 끼가 더 든든해지도록.
+  </p>
+</section>
+
+<!-- 01 감자채볶음 -->
+<section class="item" id="item-1">
+  <div class="item-inner">
+    <div class="item-visual">
+      <div class="number">01</div>
+      <img class="item-img" src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58636C.jpg" alt="(맛찬)감자채볶음" loading="lazy" />
+      <div class="stamp">5% 할인</div>
+    </div>
+    <div class="item-copy">
+      <div class="kicker">기본 반찬 · 01번</div>
+      <h3><span class="brand-tag">맛찬</span>감자채볶음</h3>
+      <div class="tagline">얇게 채 썬 감자, 고소한 첫입</div>
+      <p class="desc">
+        국산 감자를 들기름에 얇게 볶은 기본 반찬.<br>
+        담백해서 어떤 국물 요리와도 잘 어울려요.<br>
+        도시락부터 어른 밥상까지 두루 통합니다.
+      </p>
+      <div class="price-row">
+        <div class="price-block">
+          <span class="p-label">할인가</span>
+          <span class="price-main">3,500<span class="won">원</span></span>
+        </div>
+        <div class="price-block">
+          <span class="p-label">정상가</span>
+          <span class="price-sub">3,700원</span>
+        </div>
+        <span class="discount-badge">5% 할인</span>
+      </div>
+      <a class="order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1660#book16" target="_blank" rel="noopener">두레생협에서 주문하기 →</a>
+    </div>
+  </div>
+</section>
+
+<!-- 02 곤드레나물 -->
+<section class="item" id="item-2">
+  <div class="item-inner">
+    <div class="item-visual">
+      <div class="number">02</div>
+      <img class="item-img" src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58068C.png" alt="(맛찬)곤드레나물" loading="lazy" />
+      <div class="stamp">5% 할인</div>
+    </div>
+    <div class="item-copy">
+      <div class="kicker">산채 · 02번</div>
+      <h3><span class="brand-tag">맛찬</span>곤드레나물</h3>
+      <div class="tagline">강원도 산자락의 깊은 향</div>
+      <p class="desc">
+        강원도 곤드레를 집간장에 정성껏 무쳤어요.<br>
+        구수한 향이 밥에 비벼 먹기에 그만.<br>
+        한 팩이면 저녁이 산골 밥상이 됩니다.
+      </p>
+      <div class="price-row">
+        <div class="price-block">
+          <span class="p-label">할인가</span>
+          <span class="price-main">5,900<span class="won">원</span></span>
+        </div>
+        <div class="price-block">
+          <span class="p-label">정상가</span>
+          <span class="price-sub">6,200원</span>
+        </div>
+        <span class="discount-badge">5% 할인</span>
+      </div>
+      <a class="order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1660#book16" target="_blank" rel="noopener">두레생협에서 주문하기 →</a>
+    </div>
+  </div>
+</section>
+
+<!-- 03 깻잎순들깨볶음 -->
+<section class="item" id="item-3">
+  <div class="item-inner">
+    <div class="item-visual">
+      <div class="number">03</div>
+      <img class="item-img" src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58064C.png" alt="(맛찬)깻잎순들깨볶음" loading="lazy" />
+      <div class="stamp">5% 할인</div>
+    </div>
+    <div class="item-copy">
+      <div class="kicker">싱싱한 새순 · 03번</div>
+      <h3><span class="brand-tag">맛찬</span>깻잎순들깨볶음</h3>
+      <div class="tagline">향긋함 위에 얹은 고소함</div>
+      <p class="desc">
+        어린 깻잎순에 들깨가루를 듬뿍 더했어요.<br>
+        향긋함 위에 고소함이 겹쳐 나는 맛.<br>
+        흰쌀밥 한 숟갈에 얹어 드세요.
+      </p>
+      <div class="price-row">
+        <div class="price-block">
+          <span class="p-label">할인가</span>
+          <span class="price-main">6,000<span class="won">원</span></span>
+        </div>
+        <div class="price-block">
+          <span class="p-label">정상가</span>
+          <span class="price-sub">6,300원</span>
+        </div>
+        <span class="discount-badge">5% 할인</span>
+      </div>
+      <a class="order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1660#book16" target="_blank" rel="noopener">두레생협에서 주문하기 →</a>
+    </div>
+  </div>
+</section>
+
+<!-- 04 꼬막양념무침 -->
+<section class="item" id="item-4">
+  <div class="item-inner">
+    <div class="item-visual">
+      <div class="number">04</div>
+      <img class="item-img" src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59024C.jpg" alt="(맛찬)꼬막양념무침" loading="lazy" />
+      <div class="stamp">5% 할인</div>
+    </div>
+    <div class="item-copy">
+      <div class="kicker">남도의 맛 · 04번</div>
+      <h3><span class="brand-tag">맛찬</span>꼬막양념무침</h3>
+      <div class="tagline">남도 밥상의 별미 그대로</div>
+      <p class="desc">
+        쫄깃한 꼬막살을 매콤달큰하게 버무렸어요.<br>
+        밥에 얹거나 김에 싸 먹으면 꼬막비빔밥.<br>
+        손 많이 가는 남도 별미를 손쉽게.
+      </p>
+      <div class="price-row">
+        <div class="price-block">
+          <span class="p-label">할인가</span>
+          <span class="price-main">8,400<span class="won">원</span></span>
+        </div>
+        <div class="price-block">
+          <span class="p-label">정상가</span>
+          <span class="price-sub">8,800원</span>
+        </div>
+        <span class="discount-badge">5% 할인</span>
+      </div>
+      <a class="order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1660#book16" target="_blank" rel="noopener">두레생협에서 주문하기 →</a>
+    </div>
+  </div>
+</section>
+
+<!-- 05 꽈리고추멸치조림 -->
+<section class="item" id="item-5">
+  <div class="item-inner">
+    <div class="item-visual">
+      <div class="number">05</div>
+      <img class="item-img" src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58635C.jpg" alt="(맛찬)꽈리고추멸치조림" loading="lazy" />
+      <div class="stamp">5% 할인</div>
+    </div>
+    <div class="item-copy">
+      <div class="kicker">밥도둑 · 05번</div>
+      <h3><span class="brand-tag">맛찬</span>꽈리고추멸치조림</h3>
+      <div class="tagline">밥도둑의 정석</div>
+      <p class="desc">
+        꽈리고추의 알싸함과 멸치의 감칠맛이 한 접시에.<br>
+        간장 양념이 스며든 바삭한 멸치.<br>
+        아이 어른 모두가 사랑하는 밥도둑.
+      </p>
+      <div class="price-row">
+        <div class="price-block">
+          <span class="p-label">할인가</span>
+          <span class="price-main">6,000<span class="won">원</span></span>
+        </div>
+        <div class="price-block">
+          <span class="p-label">정상가</span>
+          <span class="price-sub">6,300원</span>
+        </div>
+        <span class="discount-badge">5% 할인</span>
+      </div>
+      <a class="order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1660#book16" target="_blank" rel="noopener">두레생협에서 주문하기 →</a>
+    </div>
+  </div>
+</section>
+
+<!-- 06 도라지초무침 -->
+<section class="item" id="item-6">
+  <div class="item-inner">
+    <div class="item-visual">
+      <div class="number">06</div>
+      <img class="item-img" src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58065C.png" alt="(맛찬)도라지초무침" loading="lazy" />
+      <div class="stamp">5% 할인</div>
+    </div>
+    <div class="item-copy">
+      <div class="kicker">새콤 아삭 · 06번</div>
+      <h3><span class="brand-tag">맛찬</span>도라지초무침</h3>
+      <div class="tagline">쌉싸름 아삭, 새콤 톡 쏘는</div>
+      <p class="desc">
+        국산 도라지를 식초로 깔끔하게 무쳤어요.<br>
+        쌉싸름 아삭, 새콤 톡 쏘는 맛.<br>
+        기름진 음식 옆에서 더 빛나는 반찬.
+      </p>
+      <div class="price-row">
+        <div class="price-block">
+          <span class="p-label">할인가</span>
+          <span class="price-main">5,600<span class="won">원</span></span>
+        </div>
+        <div class="price-block">
+          <span class="p-label">정상가</span>
+          <span class="price-sub">5,900원</span>
+        </div>
+        <span class="discount-badge">5% 할인</span>
+      </div>
+      <a class="order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1660#book16" target="_blank" rel="noopener">두레생협에서 주문하기 →</a>
+    </div>
+  </div>
+</section>
+
+<!-- 07 부지깽이나물 -->
+<section class="item" id="item-7">
+  <div class="item-inner">
+    <div class="item-visual">
+      <div class="number">07</div>
+      <img class="item-img" src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58067C.png" alt="(맛찬)부지깽이나물" loading="lazy" />
+      <div class="stamp">5% 할인</div>
+    </div>
+    <div class="item-copy">
+      <div class="kicker">울릉도 · 07번</div>
+      <h3><span class="brand-tag">맛찬</span>부지깽이나물</h3>
+      <div class="tagline">울릉도에서 자란 귀한 산채</div>
+      <p class="desc">
+        울릉도에서 자란 귀한 산채, 부지깽이.<br>
+        바닷바람 맞은 잎은 부드럽고 향이 깊어요.<br>
+        한 접시로 밥상에 섬의 풍경이 열립니다.
+      </p>
+      <div class="price-row">
+        <div class="price-block">
+          <span class="p-label">할인가</span>
+          <span class="price-main">5,900<span class="won">원</span></span>
+        </div>
+        <div class="price-block">
+          <span class="p-label">정상가</span>
+          <span class="price-sub">6,200원</span>
+        </div>
+        <span class="discount-badge">5% 할인</span>
+      </div>
+      <a class="order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1660#book16" target="_blank" rel="noopener">두레생협에서 주문하기 →</a>
+    </div>
+  </div>
+</section>
+
+<!-- 08 산채나물비빔세트 -->
+<section class="item" id="item-8">
+  <div class="item-inner">
+    <div class="item-visual">
+      <div class="number">08</div>
+      <img class="item-img" src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58425C.png" alt="(맛찬)산채나물비빔세트" loading="lazy" />
+      <div class="stamp gold">세트</div>
+    </div>
+    <div class="item-copy">
+      <div class="kicker">시그니처 세트 · 08번</div>
+      <h3><span class="brand-tag">맛찬</span>산채나물비빔세트</h3>
+      <div class="tagline">오늘 저녁은, 산채비빔밥</div>
+      <p class="desc">
+        여러 산나물을 한 번에 즐기는 세트.<br>
+        밥에 나물 얹고 고추장, 참기름 한 바퀴.<br>
+        바쁜 저녁의 구원 같은 한 끼.
+      </p>
+      <div class="price-row">
+        <div class="price-block">
+          <span class="p-label">할인가</span>
+          <span class="price-main">13,500<span class="won">원</span></span>
+        </div>
+        <div class="price-block">
+          <span class="p-label">정상가</span>
+          <span class="price-sub">14,200원</span>
+        </div>
+        <span class="discount-badge">5% 할인</span>
+      </div>
+      <a class="order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1660#book16" target="_blank" rel="noopener">두레생협에서 주문하기 →</a>
+    </div>
+  </div>
+</section>
+
+<!-- 09 생깻잎무침 -->
+<section class="item" id="item-9">
+  <div class="item-inner">
+    <div class="item-visual">
+      <div class="number">09</div>
+      <img class="item-img" src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58634C.jpg" alt="(맛찬)생깻잎무침" loading="lazy" />
+      <div class="stamp">5% 할인</div>
+    </div>
+    <div class="item-copy">
+      <div class="kicker">켜켜이 재운 · 09번</div>
+      <h3><span class="brand-tag">맛찬</span>생깻잎무침</h3>
+      <div class="tagline">한 장, 한 장, 밥 위에</div>
+      <p class="desc">
+        싱싱한 깻잎을 켜켜이 재운 별미.<br>
+        생깻잎 향이 그대로 살아 있어요.<br>
+        뜨끈한 밥 위에 한 장이면 충분.
+      </p>
+      <div class="price-row">
+        <div class="price-block">
+          <span class="p-label">할인가</span>
+          <span class="price-main">5,800<span class="won">원</span></span>
+        </div>
+        <div class="price-block">
+          <span class="p-label">정상가</span>
+          <span class="price-sub">6,100원</span>
+        </div>
+        <span class="discount-badge">5% 할인</span>
+      </div>
+      <a class="order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1660#book16" target="_blank" rel="noopener">두레생협에서 주문하기 →</a>
+    </div>
+  </div>
+</section>
+
+<!-- 10 얼갈이보리 물김치 -->
+<section class="item" id="item-10">
+  <div class="item-inner">
+    <div class="item-visual">
+      <div class="number">10</div>
+      <img class="item-img" src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59414C.jpg" alt="(맛찬)얼갈이보리 물김치" loading="lazy" />
+      <div class="stamp">7% 할인</div>
+    </div>
+    <div class="item-copy">
+      <div class="kicker">시원한 육수 · 10번</div>
+      <h3><span class="brand-tag">맛찬</span>얼갈이보리 물김치</h3>
+      <div class="tagline">시원한 보리 육수에 담근</div>
+      <p class="desc">
+        얼갈이를 보리 육수에 담가 발효시켰어요.<br>
+        칼칼하지 않고 깔끔하게 떨어지는 맛.<br>
+        국수 말아 먹기에 완벽한 시원함.
+      </p>
+      <div class="price-row">
+        <div class="price-block">
+          <span class="p-label">할인가</span>
+          <span class="price-main">17,300<span class="won">원</span></span>
+        </div>
+        <div class="price-block">
+          <span class="p-label">정상가</span>
+          <span class="price-sub">18,600원</span>
+        </div>
+        <span class="discount-badge">7% 할인</span>
+      </div>
+      <a class="order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1660#book16" target="_blank" rel="noopener">두레생협에서 주문하기 →</a>
+    </div>
+  </div>
+</section>
+
+<!-- 11 열무얼갈이 물김치 -->
+<section class="item" id="item-11">
+  <div class="item-inner">
+    <div class="item-visual">
+      <div class="number">11</div>
+      <img class="item-img" src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58072C.png" alt="(맛찬)열무얼갈이 물김치" loading="lazy" />
+      <div class="stamp">7% 할인</div>
+    </div>
+    <div class="item-copy">
+      <div class="kicker">여름 김치 · 11번</div>
+      <h3><span class="brand-tag">맛찬</span>열무얼갈이 물김치</h3>
+      <div class="tagline">아삭, 시원, 여름의 정석</div>
+      <p class="desc">
+        열무의 아삭함에 얼갈이의 부드러움이 더해져요.<br>
+        새콤하게 익은 국물은 떠 마셔도 좋아요.<br>
+        한여름 냉장고에 꼭 두고 싶은 김치.
+      </p>
+      <div class="price-row">
+        <div class="price-block">
+          <span class="p-label">할인가</span>
+          <span class="price-main">17,500<span class="won">원</span></span>
+        </div>
+        <div class="price-block">
+          <span class="p-label">정상가</span>
+          <span class="price-sub">18,800원</span>
+        </div>
+        <span class="discount-badge">7% 할인</span>
+      </div>
+      <a class="order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1660#book16" target="_blank" rel="noopener">두레생협에서 주문하기 →</a>
+    </div>
+  </div>
+</section>
+
+<!-- 12 오미자미역초무침 -->
+<section class="item" id="item-12">
+  <div class="item-inner">
+    <div class="item-visual">
+      <div class="number">12</div>
+      <img class="item-img" src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58066C.png" alt="(맛찬)오미자미역초무침" loading="lazy" />
+      <div class="stamp">4% 할인</div>
+    </div>
+    <div class="item-copy">
+      <div class="kicker">다섯 가지 맛 · 12번</div>
+      <h3><span class="brand-tag">맛찬</span>오미자미역초무침</h3>
+      <div class="tagline">다섯 가지 맛이 깃든 미역</div>
+      <p class="desc">
+        미역에 오미자의 다섯 가지 맛이 스며요.<br>
+        단순한 초무침과는 다른 깊이.<br>
+        입안에 은은한 향이 오래 남습니다.
+      </p>
+      <div class="price-row">
+        <div class="price-block">
+          <span class="p-label">할인가</span>
+          <span class="price-main">4,800<span class="won">원</span></span>
+        </div>
+        <div class="price-block">
+          <span class="p-label">정상가</span>
+          <span class="price-sub">5,000원</span>
+        </div>
+        <span class="discount-badge">4% 할인</span>
+      </div>
+      <a class="order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1660#book16" target="_blank" rel="noopener">두레생협에서 주문하기 →</a>
+    </div>
+  </div>
+</section>
+
+<!-- 13 우엉조림 -->
+<section class="item" id="item-13">
+  <div class="item-inner">
+    <div class="item-visual">
+      <div class="number">13</div>
+      <img class="item-img" src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58033C.png" alt="(맛찬)우엉조림" loading="lazy" />
+      <div class="stamp">6% 할인</div>
+    </div>
+    <div class="item-copy">
+      <div class="kicker">도시락 단골 · 13번</div>
+      <h3><span class="brand-tag">맛찬</span>우엉조림</h3>
+      <div class="tagline">도시락 속 변하지 않는 단골</div>
+      <p class="desc">
+        국산 우엉을 진간장에 오래 졸였어요.<br>
+        쫄깃한 식감과 단짠의 완벽한 균형.<br>
+        도시락, 김밥, 비빔밥에 모두 어울려요.
+      </p>
+      <div class="price-row">
+        <div class="price-block">
+          <span class="p-label">할인가</span>
+          <span class="price-main">4,900<span class="won">원</span></span>
+        </div>
+        <div class="price-block">
+          <span class="p-label">정상가</span>
+          <span class="price-sub">5,200원</span>
+        </div>
+        <span class="discount-badge">6% 할인</span>
+      </div>
+      <a class="order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1660#book16" target="_blank" rel="noopener">두레생협에서 주문하기 →</a>
+    </div>
+  </div>
+</section>
+
+<!-- 14 죽순볶음 -->
+<section class="item" id="item-14">
+  <div class="item-inner">
+    <div class="item-visual">
+      <div class="number">14</div>
+      <img class="item-img" src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58031C.png" alt="(맛찬)죽순볶음" loading="lazy" />
+      <div class="stamp">5% 할인</div>
+    </div>
+    <div class="item-copy">
+      <div class="kicker">봄의 죽순 · 14번</div>
+      <h3><span class="brand-tag">맛찬</span>죽순볶음</h3>
+      <div class="tagline">아삭함을 그대로 살려</div>
+      <p class="desc">
+        봄 죽순의 아삭함을 그대로 살린 볶음.<br>
+        자극적이지 않아 누구에게나 편한 맛.<br>
+        잊었던 봄을 식탁 위에 올려 드려요.
+      </p>
+      <div class="price-row">
+        <div class="price-block">
+          <span class="p-label">할인가</span>
+          <span class="price-main">6,000<span class="won">원</span></span>
+        </div>
+        <div class="price-block">
+          <span class="p-label">정상가</span>
+          <span class="price-sub">6,300원</span>
+        </div>
+        <span class="discount-badge">5% 할인</span>
+      </div>
+      <a class="order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1660#book16" target="_blank" rel="noopener">두레생협에서 주문하기 →</a>
+    </div>
+  </div>
+</section>
+
+<!-- 15 지리멸치볶음 -->
+<section class="item" id="item-15">
+  <div class="item-inner">
+    <div class="item-visual">
+      <div class="number">15</div>
+      <img class="item-img" src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58030C.png" alt="(맛찬)지리멸치볶음" loading="lazy" />
+      <div class="stamp">10% 할인</div>
+    </div>
+    <div class="item-copy">
+      <div class="kicker">최대 할인 · 15번</div>
+      <h3><span class="brand-tag">맛찬</span>지리멸치볶음</h3>
+      <div class="tagline">이번 주 최대 10% 할인</div>
+      <p class="desc">
+        작고 깔끔한 지리멸치를 바삭하게 볶았어요.<br>
+        비리지 않아 아이도 편하게 먹어요.<br>
+        이번 주 최대 10% 할인 품목.
+      </p>
+      <div class="price-row">
+        <div class="price-block">
+          <span class="p-label">할인가</span>
+          <span class="price-main">3,800<span class="won">원</span></span>
+        </div>
+        <div class="price-block">
+          <span class="p-label">정상가</span>
+          <span class="price-sub">4,200원</span>
+        </div>
+        <span class="discount-badge">10% 할인</span>
+      </div>
+      <a class="order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1660#book16" target="_blank" rel="noopener">두레생협에서 주문하기 →</a>
+    </div>
+  </div>
+</section>
+
+<!-- 16 참나물무침 -->
+<section class="item" id="item-16">
+  <div class="item-inner">
+    <div class="item-visual">
+      <div class="number">16</div>
+      <img class="item-img" src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58944C.jpg" alt="(맛찬)참나물무침" loading="lazy" />
+      <div class="stamp">4% 할인</div>
+    </div>
+    <div class="item-copy">
+      <div class="kicker">봄바람 · 16번</div>
+      <h3><span class="brand-tag">맛찬</span>참나물무침</h3>
+      <div class="tagline">봄바람 같은 향긋함</div>
+      <p class="desc">
+        참나물에 간장과 참기름을 둘러 가볍게 무침.<br>
+        봄바람 같은 향긋함이 매력.<br>
+        삼겹살, 전 요리 옆에 두기 좋은 반찬.
+      </p>
+      <div class="price-row">
+        <div class="price-block">
+          <span class="p-label">할인가</span>
+          <span class="price-main">4,300<span class="won">원</span></span>
+        </div>
+        <div class="price-block">
+          <span class="p-label">정상가</span>
+          <span class="price-sub">4,500원</span>
+        </div>
+        <span class="discount-badge">4% 할인</span>
+      </div>
+      <a class="order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1660#book16" target="_blank" rel="noopener">두레생협에서 주문하기 →</a>
+    </div>
+  </div>
+</section>
+
+<!-- 17 코다리조림 -->
+<section class="item" id="item-17">
+  <div class="item-inner">
+    <div class="item-visual">
+      <div class="number">17</div>
+      <img class="item-img" src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58059C.png" alt="(맛찬)코다리조림" loading="lazy" />
+      <div class="stamp">5% 할인</div>
+    </div>
+    <div class="item-copy">
+      <div class="kicker">메인 반찬 · 17번</div>
+      <h3><span class="brand-tag">맛찬</span>코다리조림</h3>
+      <div class="tagline">한 팩으로 완성되는 메인 반찬</div>
+      <p class="desc">
+        반건조 명태에 매콤한 양념을 입혔어요.<br>
+        쫀득한 식감과 진한 양념이 밥을 부릅니다.<br>
+        바쁜 저녁의 구원 같은 메인 반찬.
+      </p>
+      <div class="price-row">
+        <div class="price-block">
+          <span class="p-label">할인가</span>
+          <span class="price-main">13,000<span class="won">원</span></span>
+        </div>
+        <div class="price-block">
+          <span class="p-label">정상가</span>
+          <span class="price-sub">13,700원</span>
+        </div>
+        <span class="discount-badge">5% 할인</span>
+      </div>
+      <a class="order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1660#book16" target="_blank" rel="noopener">두레생협에서 주문하기 →</a>
+    </div>
+  </div>
+</section>
+
+<!-- 18 고등어무조림 -->
+<section class="item" id="item-18">
+  <div class="item-inner">
+    <div class="item-visual">
+      <div class="number">18</div>
+      <img class="item-img" src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58803C.jpg" alt="(맛찬)고등어무조림" loading="lazy" />
+      <div class="stamp">5% 할인</div>
+    </div>
+    <div class="item-copy">
+      <div class="kicker">정통 집밥 · 18번</div>
+      <h3><span class="brand-tag">맛찬</span>고등어무조림</h3>
+      <div class="tagline">집밥의 정석, 그 깊은 맛</div>
+      <p class="desc">
+        통통한 고등어와 달큰한 무의 정통 조림.<br>
+        국물까지 떠먹게 되는 깊은 맛.<br>
+        번거로운 생선조림을 제대로 된 맛으로.
+      </p>
+      <div class="price-row">
+        <div class="price-block">
+          <span class="p-label">할인가</span>
+          <span class="price-main">17,500<span class="won">원</span></span>
+        </div>
+        <div class="price-block">
+          <span class="p-label">정상가</span>
+          <span class="price-sub">18,500원</span>
+        </div>
+        <span class="discount-badge">5% 할인</span>
+      </div>
+      <a class="order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1660#book16" target="_blank" rel="noopener">두레생협에서 주문하기 →</a>
+    </div>
+  </div>
+</section>
+
+<!-- 19 깻잎순들깨볶음 200g -->
+<section class="item" id="item-19">
+  <div class="item-inner">
+    <div class="item-visual">
+      <div class="number">19</div>
+      <img class="item-img" src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59058C.png" alt="(맛찬)깻잎순들깨볶음 200g" loading="lazy" />
+      <div class="stamp">9% 할인</div>
+    </div>
+    <div class="item-copy">
+      <div class="kicker">대용량 · 19번</div>
+      <h3><span class="brand-tag">맛찬</span>깻잎순들깨볶음 <small style="color:var(--soy)">(200g)</small></h3>
+      <div class="tagline">온 가족이 넉넉히, 대용량</div>
+      <p class="desc">
+        기본 패키지의 대용량 버전.<br>
+        식구 많은 집에 딱 맞는 한 통.<br>
+        이번 주 9% 대폭 할인 기회.
+      </p>
+      <div class="price-row">
+        <div class="price-block">
+          <span class="p-label">할인가</span>
+          <span class="price-main">11,500<span class="won">원</span></span>
+        </div>
+        <div class="price-block">
+          <span class="p-label">정상가</span>
+          <span class="price-sub">12,600원</span>
+        </div>
+        <span class="discount-badge">9% 할인</span>
+      </div>
+      <a class="order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1660#book16" target="_blank" rel="noopener">두레생협에서 주문하기 →</a>
+    </div>
+  </div>
+</section>
+
+<!-- 20 도라지초무침 220g -->
+<section class="item" id="item-20">
+  <div class="item-inner">
+    <div class="item-visual">
+      <div class="number">20</div>
+      <img class="item-img" src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59060C.png" alt="(맛찬)도라지초무침 220g" loading="lazy" />
+      <div class="stamp">8% 할인</div>
+    </div>
+    <div class="item-copy">
+      <div class="kicker">대용량 · 20번</div>
+      <h3><span class="brand-tag">맛찬</span>도라지초무침 <small style="color:var(--soy)">(220g)</small></h3>
+      <div class="tagline">푸짐하게 즐기는 새콤함</div>
+      <p class="desc">
+        도라지초무침의 넉넉한 대용량.<br>
+        매일 꺼내 먹어도 질리지 않는 산뜻한 맛.<br>
+        모임이나 가족 외식 대신 집에서.
+      </p>
+      <div class="price-row">
+        <div class="price-block">
+          <span class="p-label">할인가</span>
+          <span class="price-main">10,800<span class="won">원</span></span>
+        </div>
+        <div class="price-block">
+          <span class="p-label">정상가</span>
+          <span class="price-sub">11,800원</span>
+        </div>
+        <span class="discount-badge">8% 할인</span>
+      </div>
+      <a class="order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1660#book16" target="_blank" rel="noopener">두레생협에서 주문하기 →</a>
+    </div>
+  </div>
+</section>
+
+<!-- 21 우엉조림 200g -->
+<section class="item" id="item-21">
+  <div class="item-inner">
+    <div class="item-visual">
+      <div class="number">21</div>
+      <img class="item-img" src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59059C.png" alt="(맛찬)우엉조림 200g" loading="lazy" />
+      <div class="stamp">9% 할인</div>
+    </div>
+    <div class="item-copy">
+      <div class="kicker">대용량 · 21번</div>
+      <h3><span class="brand-tag">맛찬</span>우엉조림 <small style="color:var(--soy)">(200g)</small></h3>
+      <div class="tagline">한 통으로 한 주 반찬 끝</div>
+      <p class="desc">
+        우엉조림을 푸짐한 200g으로.<br>
+        한 번 사두면 일주일 반찬 해결.<br>
+        도시락, 비빔밥 어디든 잘 맞아요.
+      </p>
+      <div class="price-row">
+        <div class="price-block">
+          <span class="p-label">할인가</span>
+          <span class="price-main">9,500<span class="won">원</span></span>
+        </div>
+        <div class="price-block">
+          <span class="p-label">정상가</span>
+          <span class="price-sub">10,400원</span>
+        </div>
+        <span class="discount-badge">9% 할인</span>
+      </div>
+      <a class="order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1660#book16" target="_blank" rel="noopener">두레생협에서 주문하기 →</a>
+    </div>
+  </div>
+</section>
+
+<!-- 푸터 -->
+<section class="outro">
+  <h2>오늘 저녁,<br>반찬 걱정을<br>두레맛찬에<br>맡겨보세요.</h2>
+  <p class="holiday-note">
+    이번 주 금요일은 노동절 휴무로<br>
+    쇼핑몰 배송이 없습니다.
+  </p>
+  <a class="outro-cta" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1660#book16" target="_blank" rel="noopener">
+    두레맛찬 전체보기 →
+  </a>
+  <div class="foot-note">
+    두레생협 · 두레소비자생활협동조합연합회
+  </div>
+</section>
+
+<script>
+  // 조회수 카운터 (브라우저 localStorage에 누적)
+  (function() {
+    var key = 'durematchan-views';
+    var n = parseInt(localStorage.getItem(key) || '0', 10) + 1;
+    try { localStorage.setItem(key, n); } catch(e) {}
+    var el = document.getElementById('visit-count');
+    if (el) el.textContent = n.toLocaleString('ko-KR');
+  })();
+
+  (function() {
+    var btns = document.querySelectorAll('.fs-toggle button');
+    var saved = null;
+    try { saved = localStorage.getItem('durematchan-fs-v2'); } catch(e) {}
+    // 기본값: 가장 큰 글씨(xl)
+    var current = (saved === null) ? 'xl' : saved;
+    function apply(fs) {
+      document.body.setAttribute('data-fs', fs);
+      btns.forEach(function(b) {
+        b.classList.toggle('active', (b.getAttribute('data-fs') || '') === fs);
+      });
+      try { localStorage.setItem('durematchan-fs-v2', fs); } catch(e) {}
+    }
+    apply(current);
+    btns.forEach(function(b) {
+      b.addEventListener('click', function() {
+        apply(b.getAttribute('data-fs') || '');
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>
