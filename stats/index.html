@@ -158,6 +158,7 @@ h1 {
       예시:
       <a href="?url=https://durecoop.github.io/magazine/tuesday-timesale-0428/">화요특가 0428</a>
       <a href="?url=https://durecoop.github.io/magazine/2026/W17/matchan/">두레맛찬 W17</a>
+      <a href="?url=https://durecoop.github.io/magazine/hatchulha-promo-large/">햇출하</a>
     </div>
   </div>
 
@@ -216,20 +217,47 @@ h1 {
 </div>
 
 <script>
-// 레거시 페이지의 namespace 매핑 (URL path → namespace)
+// 알려진 레거시 페이지의 namespace 매핑 (페이지 자동 추출 실패 대비용 fallback)
 var NAMESPACE_OVERRIDES = {
-  '2026/W17/matchan': 'durecoop-matchan-2026w17'
+  '2026/W17/matchan': 'durecoop-matchan-2026w17',
+  'hatchulha-promo-large': 'durecoop-hatchulha-2026'
 };
 
-function deriveNamespace(rawUrl) {
+// URL 정규화: query/hash 제거, 끝에 / 보장
+function normalizeUrl(rawUrl) {
   try {
     var u = new URL(rawUrl);
     if (u.hostname !== 'durecoop.github.io') return null;
-    var path = u.pathname.replace(/^\/magazine\//, '').replace(/^\/+|\/+$/g, '');
-    if (!path) return null;
+    var path = u.pathname;
+    if (!path.match(/\.[a-z]+$/i) && !path.endsWith('/')) path += '/';
+    return u.origin + path;
+  } catch (e) { return null; }
+}
+
+// 페이지 HTML을 fetch해서 트래커의 var NS = '...' 값을 추출
+function fetchNamespaceFromPage(pageUrl) {
+  return fetch(pageUrl, { cache: 'no-store' })
+    .then(function(r){ return r.ok ? r.text() : ''; })
+    .then(function(html){
+      var m = html.match(/var\s+NS\s*=\s*['"]([a-zA-Z0-9_-]+)['"]/);
+      return m ? m[1] : null;
+    })
+    .catch(function(){ return null; });
+}
+
+// namespace 결정 로직: 페이지 직접 추출 우선 → override 맵 → URL 도출
+function getNamespace(rawUrl) {
+  var pageUrl = normalizeUrl(rawUrl);
+  if (!pageUrl) return Promise.resolve(null);
+  var u = new URL(pageUrl);
+  var path = u.pathname.replace(/^\/magazine\//, '').replace(/^\/+|\/+$/g, '');
+  if (!path) return Promise.resolve(null);
+
+  return fetchNamespaceFromPage(pageUrl).then(function(ns){
+    if (ns) return ns;
     if (NAMESPACE_OVERRIDES[path]) return NAMESPACE_OVERRIDES[path];
     return 'durecoop-' + path.toLowerCase().replace(/\//g, '-');
-  } catch (e) { return null; }
+  });
 }
 
 function showError(msg) {
@@ -241,8 +269,6 @@ function clearError() { document.getElementById('error-box').innerHTML = ''; }
 function loadStats() {
   var url = document.getElementById('urlInput').value.trim();
   if (!url) { showError('전체보기 링크를 입력해주세요.'); return; }
-  var NS = deriveNamespace(url);
-  if (!NS) { showError('올바른 두레생협 매거진 URL이 아닙니다. (durecoop.github.io/magazine/... 형식이어야 합니다)'); return; }
 
   clearError();
   document.getElementById('result').classList.add('show');
@@ -254,30 +280,33 @@ function loadStats() {
     'pageview','pageview-rcs','pageview-direct','pageview-other',
     'click-all','click-hero','click-product','click-outro'
   ];
-  var API = 'https://abacus.jasoncameron.dev/get/' + NS + '/';
 
-  Promise.all(keys.map(function(k){
-    return fetch(API + k, { cache: 'no-store' })
-      .then(function(r){ return r.ok ? r.json() : { value: 0 }; })
-      .then(function(d){ return [k, (d && typeof d.value === 'number') ? d.value : 0]; })
-      .catch(function(){ return [k, 0]; });
-  })).then(function(pairs){
-    var map = {};
-    pairs.forEach(function(p){ map[p[0]] = p[1]; });
-    keys.forEach(function(k){
-      var el = document.getElementById(k);
-      if (el) el.textContent = map[k].toLocaleString('ko-KR');
+  getNamespace(url).then(function(NS){
+    if (!NS) { showError('올바른 두레생협 매거진 URL이 아닙니다. (durecoop.github.io/magazine/... 형식)'); return; }
+
+    var API = 'https://abacus.jasoncameron.dev/get/' + NS + '/';
+    Promise.all(keys.map(function(k){
+      return fetch(API + k, { cache: 'no-store' })
+        .then(function(r){ return r.ok ? r.json() : { value: 0 }; })
+        .then(function(d){ return [k, (d && typeof d.value === 'number') ? d.value : 0]; })
+        .catch(function(){ return [k, 0]; });
+    })).then(function(pairs){
+      var map = {};
+      pairs.forEach(function(p){ map[p[0]] = p[1]; });
+      keys.forEach(function(k){
+        var el = document.getElementById(k);
+        if (el) el.textContent = map[k].toLocaleString('ko-KR');
+      });
+      var rate = map['pageview'] > 0
+        ? ((map['click-all'] / map['pageview']) * 100).toFixed(1) + '%'
+        : '-';
+      document.getElementById('rate').textContent = '전환 ' + rate;
+      document.getElementById('ts').textContent = new Date().toLocaleString('ko-KR') + ' · NS: ' + NS;
+      var newUrl = location.pathname + '?url=' + encodeURIComponent(url);
+      if (location.search !== '?url=' + encodeURIComponent(url)) {
+        history.replaceState(null, '', newUrl);
+      }
     });
-    var rate = map['pageview'] > 0
-      ? ((map['click-all'] / map['pageview']) * 100).toFixed(1) + '%'
-      : '-';
-    document.getElementById('rate').textContent = '전환 ' + rate;
-    document.getElementById('ts').textContent = new Date().toLocaleString('ko-KR');
-    // URL 쿼리 파라미터 갱신 (북마크 가능하게)
-    var newUrl = location.pathname + '?url=' + encodeURIComponent(url);
-    if (location.search !== '?url=' + encodeURIComponent(url)) {
-      history.replaceState(null, '', newUrl);
-    }
   });
 }
 
