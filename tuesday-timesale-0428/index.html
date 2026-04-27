@@ -534,7 +534,7 @@ footer {
         <span class="orig">6,000원</span>
         <span class="now">3,000<small>원</small></span>
       </div>
-      <a href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1660" target="_blank" class="card-btn">장보기</a>
+      <a href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1660" target="_blank" class="card-btn order-link">장보기</a>
     </div>
   </div>
 
@@ -560,7 +560,7 @@ footer {
         <span class="orig">5,800원</span>
         <span class="now">3,450<small>원</small></span>
       </div>
-      <a href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1660" target="_blank" class="card-btn">장보기</a>
+      <a href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1660" target="_blank" class="card-btn order-link">장보기</a>
     </div>
   </div>
 
@@ -585,7 +585,7 @@ footer {
         <span class="orig">7,600원</span>
         <span class="now">6,800<small>원</small></span>
       </div>
-      <a href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1660" target="_blank" class="card-btn">장보기</a>
+      <a href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1660" target="_blank" class="card-btn order-link">장보기</a>
     </div>
   </div>
 
@@ -593,7 +593,7 @@ footer {
 
 <section class="cta">
   <p class="cta-warn">오후 7시 마감</p>
-  <a href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1660" target="_blank" class="cta-btn">지금 주문하기</a>
+  <a href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1660" target="_blank" class="cta-btn outro-cta">지금 주문하기</a>
 </section>
 
 <footer>두레생협 조합원 상담실 1661-5110</footer>
@@ -616,6 +616,36 @@ function updateTimer() {
 }
 updateTimer();
 setInterval(updateTimer, 1000);
+</script>
+
+<!-- ========== 접속자/클릭 카운터 (Abacus) ========== -->
+<script>
+(function(){
+  var NS = 'durecoop-tuesday-timesale-0428';
+  var API = 'https://abacus.jasoncameron.dev/hit/' + NS + '/';
+  function hit(key){
+    try { fetch(API + key, { mode: 'cors', keepalive: true, cache: 'no-store' }).catch(function(){}); } catch(e){}
+  }
+  hit('pageview');
+  try {
+    var params = new URLSearchParams(location.search);
+    var src = (params.get('utm_source') || '').toLowerCase();
+    if (src === 'rcs') hit('pageview-rcs');
+    else if (src) hit('pageview-other');
+    else hit('pageview-direct');
+  } catch(e){}
+  document.querySelectorAll('a').forEach(function(a){
+    if (!/ecoop\.or\.kr/i.test(a.href)) return;
+    a.addEventListener('click', function(){
+      var key = null;
+      if (a.classList.contains('hero-cta')) key = 'click-hero';
+      else if (a.classList.contains('outro-cta')) key = 'click-outro';
+      else if (a.classList.contains('order-link')) key = 'click-product';
+      if (key) hit(key);
+      hit('click-all');
+    }, { passive: true });
+  });
+})();
 </script>
 
 </body>
