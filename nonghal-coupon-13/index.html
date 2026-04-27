@@ -1,0 +1,715 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>이번 주만! 농할쿠폰 20% — 두레생협</title>
+<meta property="og:title" content="이번 주만! 농할쿠폰 20% — 두레생협 13차">
+<meta property="og:description" content="장바구니 쿠폰 20%, 최대 1만원. 다음 차수(4/23~4/30)는 농할쿠폰이 없어요.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@700&family=Jua&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f6efe0;
+    --paper-2:#efe5cf;
+    --ink:#1f1d18;
+    --ink-soft:#56524a;
+    --green:#2f5d3a;
+    --green-deep:#1d3d24;
+    --mustard:#e2a425;
+    --tomato:#cf3a22;
+    --line:#cdbf9b;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:"Pretendard Variable","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+    color:var(--ink);
+    background:var(--paper);
+    background-image:
+      radial-gradient(rgba(60,40,20,.05) 1px, transparent 1px),
+      radial-gradient(rgba(60,40,20,.03) 1px, transparent 1px);
+    background-size:14px 14px, 7px 7px;
+    background-position:0 0, 3px 3px;
+    line-height:1.65;
+    font-size:17px;
+    font-weight:400;
+    overflow-x:hidden;
+    -webkit-text-size-adjust:100%;
+    word-break:keep-all;
+    overflow-wrap:normal;
+  }
+  .nb{white-space:nowrap}
+  .ticket .info, .item .body{min-width:0}
+  .myeong{font-family:"Jua",sans-serif}
+
+  .wrap{max-width:520px;margin:0 auto;padding:0 18px;position:relative}
+
+  /* ===== TOP STRIP ===== */
+  .strip{
+    background:var(--green-deep);
+    color:#f7ecca;
+    padding:11px 0;
+    font-size:15px;font-weight:500;
+    text-align:center;
+    letter-spacing:.01em;
+  }
+  .strip b{color:#ffd966;font-weight:700;margin:0 4px}
+
+  /* ===== HERO ===== */
+  .hero{padding:30px 0 10px;position:relative;text-align:center}
+  .hero .tag{
+    display:inline-block;
+    background:var(--ink);color:#fff8e1;
+    padding:6px 13px 7px;
+    font-family:"Gaegu",cursive;font-weight:700;font-size:17px;
+    transform:rotate(-1.5deg);
+    margin-bottom:18px;
+    border-radius:3px;
+  }
+  .hero h1{
+    margin:0;
+    font-family:"Jua",sans-serif;font-weight:700;
+    font-size:38px;line-height:1.15;
+    color:var(--green-deep);letter-spacing:-.03em;
+  }
+  .hero h1 .scribble{
+    position:relative;display:inline-block;color:var(--tomato);
+  }
+  .hero h1 .scribble svg{
+    position:absolute;left:0;right:0;bottom:-10px;
+    width:100%;height:18px;
+  }
+  .hero .sub{
+    margin-top:22px;
+    font-size:18px;font-weight:500;
+    color:var(--ink);line-height:1.55;
+  }
+  .hero .sub b{color:var(--tomato);font-weight:700}
+
+  /* ===== TICKET (coupon) ===== */
+  .ticket{
+    margin:24px 0 6px;
+    background:#fffaee;
+    border:2px solid var(--ink);
+    border-radius:5px;
+    padding:18px 18px 16px;
+    position:relative;
+    transform:rotate(-.5deg);
+    box-shadow:5px 5px 0 var(--ink);
+  }
+  .ticket::before, .ticket::after{
+    content:"";position:absolute;top:50%;width:18px;height:18px;
+    background:var(--paper);border:2px solid var(--ink);border-radius:50%;
+    transform:translateY(-50%);
+  }
+  .ticket::before{left:-11px}
+  .ticket::after{right:-11px}
+  .ticket .row{
+    display:flex;flex-direction:column;align-items:stretch;gap:14px;
+  }
+  .ticket .pct{
+    flex:0 0 auto;text-align:center;
+    border-bottom:2px dashed var(--line);
+    padding:0 0 12px;
+  }
+  .ticket .pct .num{
+    font-family:"Jua",sans-serif;font-weight:700;
+    font-size:54px;line-height:.95;color:var(--green-deep);
+    letter-spacing:-.02em;
+  }
+  .ticket .pct .lbl{
+    font-size:14px;font-weight:600;color:var(--ink-soft);margin-top:6px;
+  }
+  .ticket .info h2{
+    margin:0 0 8px;
+    font-family:"Jua",sans-serif;font-weight:700;
+    font-size:20px;color:var(--ink);letter-spacing:-.02em;text-align:center;
+  }
+  .ticket .info p{
+    margin:4px 0;font-size:15px;color:var(--ink);
+    line-height:1.55;font-weight:400;
+  }
+  .ticket .info .max{color:var(--tomato);font-weight:700}
+  .ticket .stamp{
+    position:absolute;right:12px;top:-13px;
+    background:var(--tomato);color:#fff;
+    font-size:14px;font-weight:700;
+    padding:5px 12px;border:1.5px solid var(--ink);
+    transform:rotate(6deg);
+    box-shadow:2px 2px 0 var(--ink);
+    border-radius:3px;letter-spacing:.05em;
+  }
+
+  /* ===== COUNTDOWN (flip clock) ===== */
+  .count{
+    margin:24px 0 6px;text-align:center;
+    background:#fffaee;
+    border:2px solid var(--ink);
+    border-radius:5px;
+    padding:18px 14px 16px;
+    box-shadow:5px 5px 0 var(--mustard);
+  }
+  .count .ttl{
+    font-size:15px;font-weight:700;color:var(--tomato);
+    letter-spacing:.04em;
+  }
+  .count .clock{
+    margin-top:12px;
+    display:flex;justify-content:center;align-items:flex-start;
+    gap:4px;flex-wrap:nowrap;
+  }
+  .count .cell{
+    display:flex;flex-direction:column;align-items:center;gap:5px;
+  }
+  .count .flip{
+    position:relative;
+    background:#1a1a17;
+    color:#ffe27a;
+    border:1.5px solid var(--ink);
+    border-radius:5px;
+    box-shadow:2px 2px 0 var(--ink);
+    padding:4px 8px 5px;
+    font-family:"Jua",sans-serif;font-weight:700;
+    font-size:26px;line-height:1;letter-spacing:-.02em;
+    overflow:hidden;
+  }
+  .count .flip::before{
+    content:"";position:absolute;left:0;right:0;top:50%;
+    height:1.5px;background:rgba(0,0,0,.5);
+  }
+  .count .flip::after{
+    content:"";position:absolute;left:4px;right:4px;top:0;height:40%;
+    background:linear-gradient(rgba(255,255,255,.06), transparent);
+    border-radius:3px 3px 0 0;pointer-events:none;
+  }
+  .count .unit{
+    font-family:"Pretendard Variable","Pretendard",sans-serif;
+    font-size:12px;font-weight:700;color:var(--ink);
+    letter-spacing:.02em;
+  }
+  .count .sep{
+    font-family:"Jua",sans-serif;font-size:22px;color:var(--ink);
+    line-height:1;align-self:center;margin:6px 2px 0;font-weight:700;
+  }
+  .count .end{
+    margin-top:14px;font-size:14px;font-weight:500;color:var(--ink-soft);
+  }
+
+  /* ===== SECTION HEADING ===== */
+  .sec{margin:30px 0 14px;text-align:center}
+  .sec h3{
+    margin:0;
+    font-family:"Jua",sans-serif;font-weight:700;
+    font-size:26px;color:var(--green-deep);
+    display:inline-block;position:relative;letter-spacing:-.03em;
+  }
+  .sec h3 .hl{
+    background:linear-gradient(transparent 60%, #ffe27a 60% 92%, transparent 92%);
+    padding:0 4px;
+  }
+  .sec .meta{
+    margin-top:8px;font-size:14.5px;font-weight:500;color:var(--ink-soft);
+  }
+
+  /* ===== PRODUCT LIST ===== */
+  .list{display:flex;flex-direction:column;gap:18px;margin-top:8px}
+  .item{
+    background:#fffaee;
+    border:1.5px solid var(--ink);
+    border-radius:6px;
+    padding:12px;
+    display:flex;flex-direction:column;
+    position:relative;
+    box-shadow:4px 4px 0 rgba(35,33,28,.85);
+  }
+  .item:nth-child(odd){transform:rotate(-.3deg)}
+  .item:nth-child(even){transform:rotate(.3deg)}
+  .item .photos{
+    display:flex;overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    gap:8px;margin-bottom:8px;
+    scroll-behavior:smooth;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+  }
+  .item .photos::-webkit-scrollbar{display:none}
+  .item .photo{
+    flex:0 0 100%;scroll-snap-align:start;
+    aspect-ratio:1/1;
+    border-radius:4px;overflow:hidden;
+    background:var(--paper-2);border:1.5px solid var(--ink);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .item .photo img{width:100%;height:100%;object-fit:cover;display:block}
+  .item .photo .ph{
+    font-size:12px;font-weight:600;color:var(--ink-soft);text-align:center;padding:6px;
+  }
+  .item .dots{
+    display:flex;justify-content:center;gap:6px;
+    margin:0 0 12px;min-height:7px;
+  }
+  .item .dots span{
+    width:7px;height:7px;border-radius:50%;
+    background:var(--line);transition:background .2s;
+  }
+  .item .dots span.on{background:var(--green-deep)}
+  .item .body{margin-bottom:10px;min-width:0;text-align:center}
+  .item .maker{
+    font-size:13px;font-weight:500;color:var(--ink-soft);
+    margin-bottom:4px;letter-spacing:-.01em;
+  }
+  .item .pricetable{margin-bottom:12px;min-width:0}
+  .item .body{min-width:0}
+  .item .name{
+    font-family:"Jua",sans-serif;font-weight:700;
+    font-size:22px;line-height:1.25;
+    color:var(--ink);letter-spacing:-.02em;
+  }
+  .item .name small{
+    display:block;margin-top:4px;
+    font-family:"Pretendard Variable","Pretendard",sans-serif;
+    font-weight:500;font-size:14.5px;color:var(--ink-soft);letter-spacing:0;
+  }
+  .item .pricetable{
+    font-size:15px;line-height:1.6;
+  }
+  .item .pricetable .row{
+    display:flex;justify-content:space-between;align-items:baseline;gap:8px;
+    padding:0 2px;
+  }
+  .item .pricetable .row .lbl{color:var(--ink-soft);font-weight:500}
+  .item .pricetable .was{
+    color:#a89878;text-decoration:line-through;font-weight:500;
+  }
+  .item .pricetable .now{
+    font-weight:700;color:var(--ink);
+  }
+  .item .pricetable .coupon{
+    margin-top:8px;padding:10px 12px;
+    background:#fff0ec;border:1.5px dashed var(--tomato);border-radius:6px;
+    display:flex;justify-content:space-between;align-items:baseline;gap:8px;
+  }
+  .item .pricetable .coupon .lbl{
+    color:var(--tomato);font-weight:700;font-size:14px;
+  }
+  .item .pricetable .coupon .val{
+    font-family:"Jua",sans-serif;font-weight:700;
+    font-size:24px;color:var(--tomato);letter-spacing:-.03em;
+    line-height:1;
+  }
+  .item .pricetable .coupon .val .won{font-size:15px;margin-left:1px;font-weight:700}
+  .item .sticker{
+    position:absolute;top:-11px;right:-6px;
+    background:var(--mustard);color:var(--ink);
+    font-family:"Jua",sans-serif;
+    font-size:16px;font-weight:700;
+    padding:5px 11px;border:1.5px solid var(--ink);
+    transform:rotate(8deg);
+    box-shadow:2px 2px 0 var(--ink);
+    border-radius:3px;letter-spacing:-.02em;
+  }
+  .item .sticker.hot{background:var(--tomato);color:#fff}
+  .item .order{
+    text-align:center;text-decoration:none;
+    background:var(--green-deep);color:#fff8e1;
+    font-weight:700;font-size:17px;
+    padding:13px 0;border-radius:5px;letter-spacing:.02em;
+    border:1.5px solid var(--ink);
+    display:block;width:100%;
+  }
+  .item .order::after{content:" →"}
+
+  /* ===== NOTICE STICKY NOTE ===== */
+  .note{
+    margin:30px auto 6px;
+    background:#fff5a8;
+    padding:20px 20px 18px;
+    width:96%;
+    transform:rotate(-1.2deg);
+    box-shadow:6px 6px 14px rgba(35,33,28,.18);
+    position:relative;
+    border-radius:1px 12px 2px 8px;
+  }
+  .note::before{
+    content:"";position:absolute;top:-13px;left:50%;
+    width:96px;height:24px;background:rgba(150,140,80,.45);
+    transform:translateX(-50%) rotate(-3deg);
+    border-radius:2px;
+  }
+  .note{text-align:center}
+  .note h4{
+    margin:0 0 10px;
+    font-family:"Jua",sans-serif;font-weight:700;
+    font-size:18px;color:var(--tomato);
+    letter-spacing:-.03em;line-height:1.35;
+  }
+  .note p{
+    margin:0;font-size:16px;font-weight:500;line-height:1.6;color:var(--ink);
+  }
+  .note p b{color:var(--tomato);font-weight:700}
+
+  /* ===== OUTRO ===== */
+  .outro{padding:30px 0 80px;text-align:center}
+  .outro a{
+    display:inline-block;text-decoration:none;
+    background:var(--ink);color:#fff8e1;
+    font-family:"Jua",sans-serif;font-weight:700;
+    font-size:19px;
+    padding:14px 28px;border-radius:3px;
+    border:2px solid var(--ink);
+    box-shadow:5px 5px 0 var(--mustard);
+    letter-spacing:-.01em;
+  }
+  .outro a::after{content:" ▸"}
+  .outro .disclaimer{
+    margin:14px auto 0;max-width:90%;
+    font-size:12.5px;font-weight:400;color:var(--ink-soft);
+    line-height:1.55;
+  }
+  .outro .by{
+    margin-top:14px;font-size:13.5px;font-weight:500;color:var(--ink-soft);
+  }
+
+  footer{
+    padding:18px 0 30px;text-align:center;
+    font-size:13px;font-weight:400;color:var(--ink-soft);
+    border-top:1px dashed var(--line);
+    margin:12px 0 0;
+  }
+
+  @media(min-width:600px){
+    .hero h1{font-size:54px}
+    .list{flex-direction:row;flex-wrap:wrap;gap:18px}
+    .item{flex:1 1 calc(50% - 9px);max-width:calc(50% - 9px)}
+  }
+
+  /* ===== FONT SIZE CONTROL ===== */
+  #fontctl{
+    position:fixed;right:12px;bottom:12px;z-index:9999;
+    background:#fffaee;border:2px solid #1f1d18;
+    border-radius:999px;padding:6px 8px;
+    display:flex;align-items:center;gap:4px;
+    box-shadow:3px 3px 0 #1f1d18;
+    font-family:"Pretendard Variable","Pretendard",sans-serif;
+  }
+  #fontctl .lbl{
+    font-size:11px;font-weight:600;color:#56524a;
+    padding:0 6px 0 4px;letter-spacing:-.01em;
+  }
+  #fontctl button{
+    background:transparent;border:none;cursor:pointer;
+    font-family:inherit;font-size:13px;font-weight:700;
+    color:#56524a;padding:6px 10px;border-radius:999px;
+    line-height:1;
+  }
+  #fontctl button.on{background:#1d3d24;color:#fff8e1}
+  #fontctl button:hover{background:#f1e8d0}
+  #fontctl button.on:hover{background:#1d3d24}
+</style>
+</head>
+<body>
+
+<div id="page">
+
+<div class="wrap">
+
+  <header class="hero">
+    <span class="tag nb">다음 주엔 없어요!</span>
+    <h1>
+      <span class="nb">농할쿠폰</span><br>
+      <span class="scribble nb">20% 할인
+        <svg viewBox="0 0 200 14" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M2 8 C 40 2, 80 12, 120 6 S 196 4, 198 9" stroke="#cf3a22" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+        </svg>
+      </span>
+    </h1>
+    <p class="sub">장바구니 쿠폰으로 자동 적용,<br><b class="nb">최대 1만원</b>까지 할인돼요.</p>
+  </header>
+
+  <div class="ticket">
+    <span class="stamp">한정</span>
+    <div class="row">
+      <div class="pct">
+        <div class="num">20%</div>
+        <div class="lbl">장바구니쿠폰</div>
+      </div>
+      <div class="info">
+        <h2>농할쿠폰 안내</h2>
+        <p>· 최대 할인 <span class="max nb">10,000원</span></p>
+        <p>· 주문금액 제한 없음</p>
+        <p>· 일부 생활재 <span class="nb">(온라인 전용)</span></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="count" id="countdown">
+    <div class="ttl">⏰ 주문 마감까지</div>
+    <div class="clock">
+      <div class="cell">
+        <div class="flip" id="cd-d">--</div>
+        <div class="unit">일</div>
+      </div>
+      <div class="sep">:</div>
+      <div class="cell">
+        <div class="flip" id="cd-h">--</div>
+        <div class="unit">시간</div>
+      </div>
+      <div class="sep">:</div>
+      <div class="cell">
+        <div class="flip" id="cd-m">--</div>
+        <div class="unit">분</div>
+      </div>
+    </div>
+    <div class="end"><span class="nb">4/29(수) 23:59 마감</span></div>
+  </div>
+
+  <div class="sec">
+    <h3>이번 주 <span class="hl nb">할인 품목</span></h3>
+    <div class="meta">총 7가지 · <span class="nb">농할쿠폰 적용 가능</span></div>
+  </div>
+
+  <div class="list">
+
+    <article class="item">
+      <span class="sticker">11%</span>
+      <div class="photos">
+        <div class="photo"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57431C.png" alt="생통닭" onerror="this.parentElement.innerHTML='<div class=ph>생통닭<br>10호</div>'"></div>
+        <div class="photo"><img src="57431B.png" alt="생통닭 조리예" onerror="this.parentElement.innerHTML='<div class=ph>이미지 준비중</div>'"></div>
+      </div>
+      <div class="dots"></div>
+      <div class="body">
+        <div class="name">생통닭<small>10호</small></div>
+        <div class="pricetable">
+          <div class="row"><span class="lbl">정가</span><span class="was">9,500원</span></div>
+          <div class="row"><span class="lbl">할인가</span><span class="now">8,500원</span></div>
+          <div class="coupon"><span class="lbl nb">쿠폰 적용가</span><span class="val">6,800<span class="won">원</span></span></div>
+        </div>
+      </div>
+      <a class="order order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1659" target="_blank" rel="noopener"><span class="nb">주문하러 가기</span></a>
+    </article>
+
+    <article class="item">
+      <span class="sticker hot">32%</span>
+      <div class="photos">
+        <div class="photo"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/20772C.jpg" alt="양배추 1kg" onerror="this.parentElement.innerHTML='<div class=ph>양배추<br>1kg</div>'"></div>
+        <div class="photo"><img src="20772A.jpg" alt="양배추 단면" onerror="this.parentElement.innerHTML='<div class=ph>이미지 준비중</div>'"></div>
+      </div>
+      <div class="dots"></div>
+      <div class="body">
+        <div class="maker">제주 함종우 생산자</div>
+        <div class="name">양배추<small>1kg / 무농약</small></div>
+        <div class="pricetable">
+          <div class="row"><span class="lbl">정가</span><span class="was">4,100원</span></div>
+          <div class="row"><span class="lbl">할인가</span><span class="now">2,800원</span></div>
+          <div class="coupon"><span class="lbl nb">쿠폰 적용가</span><span class="val">2,240<span class="won">원</span></span></div>
+        </div>
+      </div>
+      <a class="order order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1659" target="_blank" rel="noopener"><span class="nb">주문하러 가기</span></a>
+    </article>
+
+    <article class="item">
+      <span class="sticker">10%</span>
+      <div class="photos">
+        <div class="photo"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/14466C.jpg" alt="양배추 500g" onerror="this.parentElement.innerHTML='<div class=ph>양배추<br>500g</div>'"></div>
+        <div class="photo"><img src="20772A.jpg" alt="양배추 단면" onerror="this.parentElement.innerHTML='<div class=ph>이미지 준비중</div>'"></div>
+      </div>
+      <div class="dots"></div>
+      <div class="body">
+        <div class="maker">제주 장상진 생산자</div>
+        <div class="name">양배추<small>500g / 무농약</small></div>
+        <div class="pricetable">
+          <div class="row"><span class="lbl">정가</span><span class="was">2,500원</span></div>
+          <div class="row"><span class="lbl">할인가</span><span class="now">2,250원</span></div>
+          <div class="coupon"><span class="lbl nb">쿠폰 적용가</span><span class="val">1,800<span class="won">원</span></span></div>
+        </div>
+      </div>
+      <a class="order order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1659" target="_blank" rel="noopener"><span class="nb">주문하러 가기</span></a>
+    </article>
+
+    <article class="item">
+      <span class="sticker">10%</span>
+      <div class="photos">
+        <div class="photo"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/1325C.jpg" alt="당근 500g" onerror="this.parentElement.innerHTML='<div class=ph>당근<br>500g</div>'"></div>
+        <div class="photo"><img src="1325A.jpg" alt="당근" onerror="this.parentElement.innerHTML='<div class=ph>이미지 준비중</div>'"></div>
+      </div>
+      <div class="dots"></div>
+      <div class="body">
+        <div class="maker">제주 김재철 생산자</div>
+        <div class="name">당근<small>500g / 무농약</small></div>
+        <div class="pricetable">
+          <div class="row"><span class="lbl">정가</span><span class="was">2,600원</span></div>
+          <div class="row"><span class="lbl">할인가</span><span class="now">2,340원</span></div>
+          <div class="coupon"><span class="lbl nb">쿠폰 적용가</span><span class="val">1,872<span class="won">원</span></span></div>
+        </div>
+      </div>
+      <a class="order order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1659" target="_blank" rel="noopener"><span class="nb">주문하러 가기</span></a>
+    </article>
+
+    <article class="item">
+      <span class="sticker">10%</span>
+      <div class="photos">
+        <div class="photo"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/1321C.jpg" alt="당근 1kg" onerror="this.parentElement.innerHTML='<div class=ph>당근<br>1kg</div>'"></div>
+        <div class="photo"><img src="1325A.jpg" alt="당근" onerror="this.parentElement.innerHTML='<div class=ph>이미지 준비중</div>'"></div>
+      </div>
+      <div class="dots"></div>
+      <div class="body">
+        <div class="maker">제주 김재철 생산자</div>
+        <div class="name">당근<small>1kg</small></div>
+        <div class="pricetable">
+          <div class="row"><span class="lbl">정가</span><span class="was">4,600원</span></div>
+          <div class="row"><span class="lbl">할인가</span><span class="now">4,140원</span></div>
+          <div class="coupon"><span class="lbl nb">쿠폰 적용가</span><span class="val">3,312<span class="won">원</span></span></div>
+        </div>
+      </div>
+      <a class="order order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1659" target="_blank" rel="noopener"><span class="nb">주문하러 가기</span></a>
+    </article>
+
+    <article class="item">
+      <span class="sticker">10%</span>
+      <div class="photos">
+        <div class="photo"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/54511C.jpg" alt="햇양파 800g" onerror="this.parentElement.innerHTML='<div class=ph>햇양파<br>800g</div>'"></div>
+        <div class="photo"><img src="54511B.png" alt="햇양파" onerror="this.parentElement.innerHTML='<div class=ph>이미지 준비중</div>'"></div>
+      </div>
+      <div class="dots"></div>
+      <div class="body">
+        <div class="maker">제주 송봉기 생산자</div>
+        <div class="name">햇양파<small>800g / 제주 조생</small></div>
+        <div class="pricetable">
+          <div class="row"><span class="lbl">정가</span><span class="was">3,450원</span></div>
+          <div class="row"><span class="lbl">할인가</span><span class="now">3,105원</span></div>
+          <div class="coupon"><span class="lbl nb">쿠폰 적용가</span><span class="val">2,484<span class="won">원</span></span></div>
+        </div>
+      </div>
+      <a class="order order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1659" target="_blank" rel="noopener"><span class="nb">주문하러 가기</span></a>
+    </article>
+
+    <article class="item">
+      <span class="sticker">10%</span>
+      <div class="photos">
+        <div class="photo"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/15829C.jpg" alt="햇양파 4kg" onerror="this.parentElement.innerHTML='<div class=ph>햇양파<br>4kg</div>'"></div>
+        <div class="photo"><img src="15829B.jpg" alt="햇양파 4kg 망" onerror="this.parentElement.innerHTML='<div class=ph>이미지 준비중</div>'"></div>
+      </div>
+      <div class="dots"></div>
+      <div class="body">
+        <div class="maker">제주 송봉기 생산자</div>
+        <div class="name">햇양파<small>4kg / 조생</small></div>
+        <div class="pricetable">
+          <div class="row"><span class="lbl">정가</span><span class="was">14,000원</span></div>
+          <div class="row"><span class="lbl">할인가</span><span class="now">12,600원</span></div>
+          <div class="coupon"><span class="lbl nb">쿠폰 적용가</span><span class="val">10,080<span class="won">원</span></span></div>
+        </div>
+      </div>
+      <a class="order order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1659" target="_blank" rel="noopener"><span class="nb">주문하러 가기</span></a>
+    </article>
+
+  </div>
+
+  <div class="note">
+    <h4>다음 차수 <span class="nb">(4/23~4/30)</span><br>농할쿠폰이 없어요!</h4>
+    <p>다음주에 사실 분도 <b class="nb">이번 주에 미리</b> 주문하시면 <span class="nb">최대 1만원</span>까지 더 아낄 수 있어요.</p>
+  </div>
+
+  <div class="outro">
+    <a class="outro-cta" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1659" target="_blank" rel="noopener"><span class="nb">쿠폰 다운받기</span></a>
+    <p class="disclaimer">* 쿠폰 적용가는 <span class="nb">20% 할인</span> 단순 계산값으로,<br>실제 결제 시 장바구니 합계 기준 <span class="nb">최대 1만원</span>까지 적용됩니다.</p>
+  </div>
+
+</div>
+
+</div><!-- /#page -->
+
+<div id="fontctl" aria-label="글자 크기 조절">
+  <span class="lbl">글자크기</span>
+  <button data-s="1.0">보통</button>
+  <button data-s="1.2">크게</button>
+  <button data-s="1.4" class="on">가장크게</button>
+</div>
+
+<script>
+(function(){
+  document.querySelectorAll('.item').forEach(function(item){
+    var photos=item.querySelector('.photos');
+    var dots=item.querySelector('.dots');
+    if(!photos||!dots) return;
+    var slides=photos.querySelectorAll('.photo');
+    if(slides.length<=1){ dots.style.display='none'; return; }
+    slides.forEach(function(_,i){
+      var d=document.createElement('span');
+      if(i===0) d.classList.add('on');
+      dots.appendChild(d);
+    });
+    var ds=dots.querySelectorAll('span');
+    photos.addEventListener('scroll',function(){
+      var w=photos.clientWidth+8;
+      var idx=Math.round(photos.scrollLeft/w);
+      ds.forEach(function(d,i){d.classList.toggle('on',i===idx)});
+    },{passive:true});
+  });
+})();
+(function(){
+  var KEY='nonghal-fontscale';
+  var page=document.getElementById('page');
+  var btns=document.querySelectorAll('#fontctl button');
+  function apply(s){
+    page.style.zoom=s;
+    btns.forEach(function(b){b.classList.toggle('on', parseFloat(b.dataset.s)===s)});
+    try{localStorage.setItem(KEY,String(s))}catch(e){}
+  }
+  var saved=parseFloat(localStorage.getItem(KEY));
+  if(!saved||isNaN(saved)) saved=1.4;
+  apply(saved);
+  btns.forEach(function(b){
+    b.addEventListener('click',function(){apply(parseFloat(b.dataset.s))});
+  });
+})();
+(function(){
+  var end = new Date('2026-04-29T23:59:59+09:00').getTime();
+  var d=document.getElementById('cd-d'),h=document.getElementById('cd-h'),m=document.getElementById('cd-m');
+  function pad(n){return n<10?'0'+n:''+n}
+  function tick(){
+    var t=end-Date.now();
+    if(t<=0){
+      d.textContent='0';h.textContent='00';m.textContent='00';
+      var endEl=document.querySelector('#countdown .end');
+      if(endEl) endEl.textContent='이번 주 주문이 마감되었어요';
+      return;
+    }
+    d.textContent=pad(Math.floor(t/86400000));
+    h.textContent=pad(Math.floor(t/3600000)%24);
+    m.textContent=pad(Math.floor(t/60000)%60);
+    setTimeout(tick,30000);
+  }
+  tick();
+})();
+(function(){
+  var NS = 'durecoop-nonghal-coupon-13';
+  var API = 'https://abacus.jasoncameron.dev/hit/' + NS + '/';
+  function hit(key){
+    try { fetch(API + key, { mode: 'cors', keepalive: true, cache: 'no-store' }).catch(function(){}); } catch(e){}
+  }
+  hit('pageview');
+  try {
+    var params = new URLSearchParams(location.search);
+    var src = (params.get('utm_source') || '').toLowerCase();
+    if (src === 'rcs') hit('pageview-rcs');
+    else if (src) hit('pageview-other');
+    else hit('pageview-direct');
+  } catch(e){}
+  document.querySelectorAll('a').forEach(function(a){
+    if (!/ecoop\.or\.kr/i.test(a.href)) return;
+    a.addEventListener('click', function(){
+      var key = null;
+      if (a.classList.contains('outro-cta')) key = 'click-outro';
+      else if (a.classList.contains('order-link')) key = 'click-product';
+      if (key) hit(key);
+      hit('click-all');
+    }, { passive: true });
+  });
+})();
+</script>
+
+</body>
+</html>
