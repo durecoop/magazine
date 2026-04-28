@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>수요특가 — 두레생협</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Jua&family=Gaegu:wght@400;700&family=Gamja+Flower&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #fffaf0;
+  --card: #ffffff;
+  --text: #3e2723;
+  --sub: #8a7a5a;
+  --accent: #f39c12;
+  --accent-light: #ffb300;
+  --accent-deep: #e67e22;
+  --warm: #6b4a1f;
+}
+
+body {
+  font-family: 'Jua', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  word-break: keep-all;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  letter-spacing: -0.3px;
+}
+
+.hero {
+  min-height: 50vh;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  text-align: center;
+  padding: 60px 24px 52px;
+  background: linear-gradient(160deg, #fff8dc 0%, #ffe5b4 45%, #ffcf99 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -40%; right: -20%;
+  width: 70%; height: 70%;
+  background: radial-gradient(circle at 50% 50%, rgba(255,235,150,0.85) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -30%; left: -15%;
+  width: 60%; height: 60%;
+  background: radial-gradient(circle at 50% 50%, rgba(255,200,140,0.55) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.hero-spark {
+  position: absolute;
+  color: #ff9f1a;
+  font-weight: 900;
+  pointer-events: none;
+  opacity: 0.85;
+  animation: twinkle 2.4s ease-in-out infinite;
+}
+.hero-spark.s1 { top: 18%; left: 12%; font-size: 22px; animation-delay: 0s; }
+.hero-spark.s2 { top: 28%; right: 14%; font-size: 16px; animation-delay: .5s; color: #f57c00; }
+.hero-spark.s3 { bottom: 22%; left: 18%; font-size: 18px; animation-delay: 1s; color: #ffb300; }
+.hero-spark.s4 { bottom: 30%; right: 10%; font-size: 24px; animation-delay: 1.4s; color: #ff7043; }
+.hero-spark.s5 { top: 55%; left: 6%; font-size: 14px; animation-delay: 1.8s; color: #ff9f1a; }
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; transform: scale(0.8); }
+  50%      { opacity: 1;   transform: scale(1.15); }
+}
+
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 18px; color: rgba(62,39,35,0.55);
+  font-weight: 500; letter-spacing: 2px;
+  margin-bottom: 14px;
+  opacity: 0; animation: fadeUp .5s .1s ease forwards;
+  position: relative; z-index: 2;
+}
+
+.hero-badge::before, .hero-badge::after {
+  content: '';
+  width: 24px; height: 1px;
+  background: rgba(62,39,35,0.35);
+}
+
+.hero-secret {
+  display: inline-block;
+  font-size: 24px;
+  font-weight: 700;
+  color: #c62828;
+  background: rgba(255,255,255,0.85);
+  padding: 12px 24px;
+  border: 1.5px dashed #e74c3c;
+  border-radius: 18px;
+  margin-bottom: 14px;
+  letter-spacing: -0.3px;
+  line-height: 1.4;
+  text-align: center;
+  position: relative; z-index: 2;
+  animation: secretBlink 1.3s ease-in-out infinite;
+}
+
+@keyframes secretBlink {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.4; transform: scale(0.96); }
+}
+
+.hero-discount {
+  display: inline-block;
+  background: linear-gradient(135deg, #e74c3c 0%, #c62828 100%);
+  color: #fff;
+  font-size: 22px;
+  font-weight: 800;
+  padding: 8px 22px;
+  border-radius: 999px;
+  margin-bottom: 12px;
+  letter-spacing: -0.3px;
+  box-shadow: 0 4px 14px rgba(198,40,40,0.35);
+  opacity: 0; animation: fadeUp .5s .18s ease forwards;
+  position: relative; z-index: 2;
+}
+
+.hero-discount strong {
+  color: #ffeb3b;
+  font-weight: 800;
+  margin: 0 2px;
+}
+
+.hero-lead {
+  font-size: 32px; color: #4a2c20;
+  font-weight: 800; letter-spacing: -0.5px;
+  margin-bottom: 6px;
+  opacity: 0; animation: fadeUp .5s .2s ease forwards;
+  position: relative; z-index: 2;
+}
+
+.hero-date {
+  font-size: 22px; color: rgba(62,39,35,0.65);
+  font-weight: 600; letter-spacing: 0.5px;
+  margin-bottom: 8px;
+  opacity: 0; animation: fadeUp .5s .15s ease forwards;
+  position: relative; z-index: 2;
+}
+
+.hero h1 {
+  font-family: 'Gamja Flower', 'Gaegu', cursive;
+  font-size: 88px; font-weight: 400;
+  color: #b65a17;
+  letter-spacing: 2px;
+  line-height: 1;
+  text-shadow: 5px 5px 0 #ffd180;
+  opacity: 0; animation: scaleIn .5s .25s ease forwards;
+  position: relative; z-index: 2;
+  transform: rotate(-3deg);
+}
+
+.hero-clock {
+  display: block;
+  width: 160px; height: auto;
+  margin: 20px auto 4px;
+  filter: drop-shadow(0 10px 24px rgba(255,107,26,0.45));
+  animation: clockShake 0.6s ease-in-out infinite;
+  transform-origin: center bottom;
+  position: relative; z-index: 2;
+}
+
+@keyframes clockShake {
+  0%, 100% { transform: rotate(-8deg); }
+  50%      { transform: rotate(8deg); }
+}
+
+.hero-timer {
+  margin-top: 22px;
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 24px;
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(230,126,34,0.5);
+  border-radius: 40px;
+  font-size: 22px; font-weight: 700;
+  color: #b65a17;
+  letter-spacing: -0.3px;
+  opacity: 0; animation: fadeUp .5s .45s ease forwards;
+  position: relative; z-index: 2;
+}
+
+.hero-timer .dot {
+  width: 8px; height: 8px;
+  background: #e74c3c;
+  border-radius: 50%;
+  animation: pulse 1.5s ease infinite;
+  box-shadow: 0 0 12px #e74c3c;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.85); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* ===== 이번 주 마감 안내 ===== */
+.notice-wrap {
+  background: #faf2e0;
+  padding: 48px 20px 52px;
+  display: flex;
+  justify-content: center;
+}
+
+.notice {
+  position: relative;
+  background: #ffffff;
+  padding: 40px 32px 36px;
+  max-width: 540px;
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid #ead9b8;
+  box-shadow: 0 6px 24px rgba(120,80,30,0.08);
+  text-align: center;
+  font-family: 'Jua', -apple-system, sans-serif;
+}
+
+.notice-tag {
+  display: inline-block;
+  font-size: 17px;
+  color: #c62828;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  padding: 6px 18px;
+  border: 1px solid #c62828;
+  border-radius: 999px;
+  margin-bottom: 20px;
+}
+
+.notice-head {
+  font-size: 30px;
+  color: #1a1a1a;
+  font-weight: 800;
+  margin-bottom: 16px;
+  letter-spacing: -0.5px;
+  line-height: 1.3;
+}
+
+.notice-head strong {
+  color: #c62828;
+}
+
+.notice-body {
+  font-size: 22px;
+  color: #4e3b2a;
+  font-weight: 500;
+  line-height: 1.6;
+  letter-spacing: -0.3px;
+}
+
+.notice-body p { margin-bottom: 12px; }
+
+.notice-closed {
+  display: flex;
+  gap: 12px;
+  margin: 22px auto 24px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.notice-closed-item {
+  flex: 1 1 0;
+  min-width: 150px;
+  background: #faf5ec;
+  border: 1px solid #ead9b8;
+  border-radius: 10px;
+  padding: 16px 10px 14px;
+  text-align: center;
+}
+
+.notice-closed-item .icon {
+  font-size: 32px;
+  display: block;
+  line-height: 1;
+  margin-bottom: 10px;
+  filter: grayscale(0.1);
+}
+
+.notice-closed-item .label {
+  display: block;
+  font-size: 20px;
+  color: #4e3b2a;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  margin-bottom: 8px;
+}
+
+.notice-closed-item .status {
+  display: inline-block;
+  font-size: 17px;
+  color: #fff;
+  background: #c62828;
+  padding: 3px 14px;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+  font-weight: 700;
+}
+
+.notice-time {
+  margin: 24px 0 18px;
+  padding: 22px 18px 24px;
+  background: #fff8ec;
+  border: 1px solid #e6b07a;
+  border-top: 3px solid #c62828;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.notice-time .when-label {
+  display: block;
+  font-size: 17px;
+  color: #c62828;
+  font-weight: 700;
+  margin-bottom: 12px;
+  letter-spacing: 2px;
+}
+
+.notice-time .when-date {
+  display: block;
+  font-size: 36px;
+  color: #1a1a1a;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.8px;
+}
+
+.notice-time .when-date .hl {
+  color: #c62828;
+}
+
+.notice-time .when-warn {
+  display: block;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px dashed #e6b07a;
+  font-size: 19px;
+  color: #4e3b2a;
+  font-weight: 500;
+  line-height: 1.55;
+  letter-spacing: -0.3px;
+}
+
+.notice-time .when-warn strong {
+  color: #c62828;
+  font-weight: 700;
+}
+
+.notice-foot {
+  font-size: 19px;
+  color: #6b4a1f;
+  font-weight: 500;
+  text-align: center;
+  margin-top: 8px;
+  letter-spacing: -0.3px;
+}
+
+.strip {
+  background: #3e2723;
+  padding: 13px 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.strip-track {
+  display: inline-block;
+  animation: marquee 30s linear infinite;
+}
+
+.strip-track span {
+  display: inline-block;
+  font-size: 24px;
+  font-weight: 700;
+  color: #ffeb3b;
+  letter-spacing: -0.3px;
+  padding: 0 32px;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.items {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 28px 20px 40px;
+  display: flex; flex-direction: column;
+  gap: 24px;
+}
+
+.card {
+  background: var(--card);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 32px rgba(0,0,0,0.06);
+  opacity: 0; transform: translateY(30px);
+  transition: all .6s cubic-bezier(.16,1,.3,1);
+}
+
+.card.show { opacity: 1; transform: translateY(0); }
+
+.card-img {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1/1;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 180px;
+  line-height: 1;
+}
+
+.card-img.blueberry {
+  background: linear-gradient(135deg, #e1bee7 0%, #7e57c2 100%);
+}
+
+.card-img.melon {
+  background: linear-gradient(135deg, #fff9c4 0%, #fff176 50%, #aed581 100%);
+}
+
+.card-img.soymilk {
+  background: linear-gradient(135deg, #fff8e1 0%, #ffe082 100%);
+}
+
+.card-img.product { background: #f4f0ea; font-size: 0; }
+.card-img.product > img.slide {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+.card-img.product > img.slide.fade-in {
+  opacity: 0;
+  animation: producerFirst 6s ease-in-out infinite;
+}
+@keyframes producerFirst {
+  0%, 33%   { opacity: 0; }
+  42%, 83%  { opacity: 1; }
+  92%, 100% { opacity: 0; }
+}
+
+.card-badge {
+  position: absolute; top: 16px; left: 16px;
+  display: flex; gap: 6px;
+  z-index: 2;
+}
+
+.card-badge span {
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 18px; font-weight: 700;
+  letter-spacing: -0.3px;
+  backdrop-filter: blur(8px);
+}
+
+.card-badge .sale-type {
+  background: #3e2723;
+  color: #ffeb3b;
+}
+
+.card-discount {
+  position: absolute; top: 16px; right: 16px;
+  width: 110px; height: 110px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: #fff;
+  font-weight: 800;
+  letter-spacing: -1px;
+  filter: drop-shadow(0 8px 18px rgba(0,0,0,0.3));
+  pointer-events: none;
+  transform-origin: center center;
+  animation: discountWiggle 2s ease-in-out infinite;
+  z-index: 2;
+}
+
+.card-discount.d34 { background: radial-gradient(circle at 30% 30%, #ff5252, #c62828); }
+.card-discount.d25 { background: radial-gradient(circle at 30% 30%, #ff7043, #d84315); }
+.card-discount.d12 { background: radial-gradient(circle at 30% 30%, #ffb300, #e65100); }
+
+.card-discount .pct {
+  font-size: 38px;
+  line-height: 1;
+}
+.card-discount .label {
+  font-size: 16px;
+  margin-top: 2px;
+  letter-spacing: 0;
+}
+
+@keyframes discountWiggle {
+  0%   { transform: rotate(-6deg) scale(1); }
+  15%  { transform: rotate(6deg)  scale(1.08); }
+  30%  { transform: rotate(-4deg) scale(1.04); }
+  45%  { transform: rotate(4deg)  scale(1.06); }
+  60%  { transform: rotate(-2deg) scale(1.02); }
+  100% { transform: rotate(-6deg) scale(1); }
+}
+
+.card-body {
+  padding: 26px 24px 28px;
+}
+
+.card-name {
+  font-size: 28px; font-weight: 800;
+  letter-spacing: -0.8px;
+  margin-bottom: 6px;
+  color: #1a1a1a;
+}
+
+.card-weight {
+  font-size: 22px; color: #aaa;
+  font-weight: 500;
+  margin-bottom: 14px;
+}
+
+.card-desc {
+  font-size: 22px;
+  color: #6b4a1f;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: -0.3px;
+  margin-bottom: 16px;
+}
+
+.card-meta {
+  display: inline-block;
+  font-size: 18px;
+  color: #8a7a5a;
+  background: #fff3d6;
+  padding: 6px 12px;
+  border-radius: 8px;
+  margin-bottom: 18px;
+  letter-spacing: -0.3px;
+}
+
+.card-meta.limit {
+  background: #ffe0b2;
+  color: #d84315;
+  font-weight: 700;
+  margin-left: 6px;
+}
+
+.card-price {
+  display: flex; align-items: baseline; gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 22px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid #f5ebe5;
+}
+
+.card-price .orig {
+  font-size: 30px; color: #ccc;
+  text-decoration: line-through;
+  font-weight: 400;
+}
+
+.card-price .now {
+  font-size: 50px; font-weight: 800;
+  color: var(--accent-deep);
+  letter-spacing: -1.5px;
+}
+
+.card-price .now small {
+  font-size: 26px;
+  color: #888;
+  font-weight: 600;
+  margin-left: 4px;
+}
+
+.card-btn {
+  display: block;
+  text-align: center;
+  padding: 18px;
+  background: linear-gradient(135deg, var(--accent-light) 0%, var(--accent-deep) 100%);
+  color: #fff;
+  border: none; border-radius: 14px;
+  font-size: 24px; font-weight: 800;
+  letter-spacing: -0.5px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform .2s, box-shadow .2s;
+  box-shadow: 0 4px 14px rgba(230,126,34,0.35);
+}
+
+.card-btn:active { transform: scale(0.98); }
+
+.cta {
+  text-align: center;
+  padding: 48px 24px;
+  border-top: 1px solid #f5e5b0;
+}
+
+.cta-warn {
+  display: inline-block;
+  font-size: 24px; font-weight: 800;
+  color: #b71c1c;
+  background: #ffeb3b;
+  padding: 10px 24px;
+  border-radius: 10px;
+  margin-bottom: 16px;
+  letter-spacing: -0.3px;
+  animation: blink 1.5s ease-in-out infinite;
+}
+
+.cta-sub {
+  display: block;
+  font-size: 17px;
+  color: #6b4a1f;
+  font-weight: 600;
+  margin-bottom: 24px;
+  letter-spacing: -0.3px;
+}
+
+@keyframes blink {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.08); opacity: 0.75; }
+}
+
+.cta-btn {
+  display: inline-block;
+  padding: 20px 52px;
+  background: linear-gradient(135deg, var(--accent-light) 0%, var(--accent-deep) 100%);
+  color: #fff;
+  border-radius: 14px;
+  font-size: 28px; font-weight: 800;
+  letter-spacing: -0.5px;
+  text-decoration: none;
+  transition: transform .2s, box-shadow .2s;
+  box-shadow: 0 6px 22px rgba(230,126,34,0.4);
+}
+
+.cta-btn:active { transform: scale(0.97); }
+
+footer {
+  text-align: center;
+  padding: 28px 20px;
+  font-size: 20px; color: #bbb;
+  font-weight: 400;
+}
+
+@media (min-width: 600px) {
+  .hero h1 { font-size: 72px; }
+  .items, .cta { max-width: 700px; }
+}
+
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <span class="hero-badge">두레생협 쇼핑몰</span>
+  <span class="hero-secret">🤫 쉿! 조합원님께만<br>미리 알려 드려요!</span>
+  <p class="hero-date">4월 29일 수요일</p>
+  <span class="hero-discount">최대 <strong>34%</strong> 할인</span>
+  <p class="hero-lead">놓칠 수 없는</p>
+  <h1>수요특가</h1>
+  <img class="hero-clock" src="clock.png" alt="">
+  <div class="hero-timer">
+    <span class="dot"></span>
+    <span id="timer">오전 11시 30분 마감</span>
+  </div>
+</section>
+
+<div class="notice-wrap">
+  <div class="notice">
+    <span class="notice-tag">꼭! 읽어보세요</span>
+    <p class="notice-head"><strong>5월 1일(금) 근로자의&nbsp;날</strong><br>두레생협&nbsp;휴무&nbsp;안내</p>
+    <div class="notice-closed">
+      <div class="notice-closed-item">
+        <span class="icon">📞</span>
+        <span class="label">조합원 상담</span>
+      </div>
+      <div class="notice-closed-item">
+        <span class="icon">🚚</span>
+        <span class="label">생활재&nbsp;배송</span>
+      </div>
+    </div>
+    <div class="notice-body">
+      <p>금요일 배송이 없어<br>이번 주 모든 주문 마감이 앞당겨집니다.</p>
+    </div>
+    <div class="notice-time">
+      <span class="when-label">이번 주 주문 마감</span>
+      <span class="when-date">4/29 (수) 오전 <span class="hl">11:30</span></span>
+      <span class="when-warn">이번 주 배송을 받으시려면<br><strong>반드시 이 시간 전까지</strong> 주문을 완료해 주세요.</span>
+    </div>
+    <p class="notice-foot">수요특가도 같은 시간에 마감됩니다.</p>
+  </div>
+</div>
+
+<div class="strip">
+  <div class="strip-track">
+    <span>이번 주 주문 마감</span><span>4/29(수) 오전 11:30</span><span>강영진 블루베리 34%</span><span>참외 12%</span><span>콩국물 25%</span><span>이번 주 주문 마감</span><span>4/29(수) 오전 11:30</span><span>강영진 블루베리 34%</span><span>참외 12%</span><span>콩국물 25%</span>
+  </div>
+</div>
+
+<div class="items">
+
+  <div class="card">
+    <div class="card-img product">
+      <img class="slide" src="56794C.jpg" alt="제주 강영진 생산자">
+      <img class="slide fade-in" src="56794A.jpg" alt="블루베리">
+      <div class="card-badge">
+        <span class="sale-type">수요특가</span>
+      </div>
+      <div class="card-discount d34">
+        <span class="pct">34%</span>
+        <span class="label">할인</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <h2 class="card-name">강영진 블루베리</h2>
+      <p class="card-weight">100g · 제주</p>
+      <p class="card-desc">제주에서 보내온 알알이 통통 블루베리</p>
+      <span class="card-meta limit">한정 400개</span>
+      <div class="card-price">
+        <span class="orig">11,500원</span>
+        <span class="now">7,600<small>원</small></span>
+      </div>
+      <a href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&amp;returnNo=1660" target="_blank" class="card-btn order-link">장보기</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-img product">
+      <img class="slide" src="51728C.jpg" alt="참외 생산자">
+      <img class="slide fade-in" src="51728A.jpg" alt="참외">
+      <div class="card-badge">
+        <span class="sale-type">수요특가</span>
+      </div>
+      <div class="card-discount d12">
+        <span class="pct">12%</span>
+        <span class="label">할인</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <h2 class="card-name">참외</h2>
+      <p class="card-weight">1.2kg · 무농약</p>
+      <p class="card-desc">무농약으로 키운 노랗고 달콤한 봄 참외</p>
+      <span class="card-meta limit">한정 400개</span>
+      <div class="card-price">
+        <span class="orig">13,900원</span>
+        <span class="now">12,300<small>원</small></span>
+      </div>
+      <a href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&amp;returnNo=1660" target="_blank" class="card-btn order-link">장보기</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-img product">
+      <img class="slide" src="43396C.jpg" alt="콩국물">
+      <div class="card-badge">
+        <span class="sale-type">수요특가</span>
+      </div>
+      <div class="card-discount d25">
+        <span class="pct">25%</span>
+        <span class="label">할인</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <h2 class="card-name">콩국물</h2>
+      <p class="card-weight">페트 · 1L</p>
+      <p class="card-desc">국수에 부어 바로 한 그릇, 진하고 고소한 콩국물</p>
+      <span class="card-meta">소비기한 26.05.06</span>
+      <div class="card-price">
+        <span class="orig">6,500원</span>
+        <span class="now">4,900<small>원</small></span>
+      </div>
+      <a href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&amp;returnNo=1660" target="_blank" class="card-btn order-link">장보기</a>
+    </div>
+  </div>
+
+</div>
+
+<section class="cta">
+  <p class="cta-warn">4/29(수)<br>오전 11시 30분 마감</p>
+  <span class="cta-sub">노동절(5/1) 휴무로 마감이 빨라요</span>
+  <a href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&amp;returnNo=1660" target="_blank" class="cta-btn outro-cta">지금 주문하기</a>
+</section>
+
+<footer>두레생협 조합원 상담실 1661-5110</footer>
+
+<script>
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('show'); io.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.card').forEach(el => io.observe(el));
+
+function updateTimer() {
+  const end = new Date('2026-04-29T11:30:00+09:00');
+  const now = new Date();
+  const diff = end - now;
+  if (diff <= 0) { document.getElementById('timer').textContent = '마감되었습니다'; return; }
+  const h = Math.floor(diff / 3600000);
+  const m = Math.floor((diff % 3600000) / 60000);
+  const s = Math.floor((diff % 60000) / 1000);
+  document.getElementById('timer').textContent = h + '시간 ' + m + '분 ' + s + '초 남음';
+}
+updateTimer();
+setInterval(updateTimer, 1000);
+
+</script>
+
+<!-- ========== 접속자/클릭 카운터 (Abacus) ========== -->
+<script>
+(function(){
+  var NS = 'durecoop-wednesday-timesale-0429';
+  var API = 'https://abacus.jasoncameron.dev/hit/' + NS + '/';
+  function hit(key){
+    try { fetch(API + key, { mode: 'cors', keepalive: true, cache: 'no-store' }).catch(function(){}); } catch(e){}
+  }
+  hit('pageview');
+  try {
+    var params = new URLSearchParams(location.search);
+    var src = (params.get('utm_source') || '').toLowerCase();
+    if (src === 'rcs') hit('pageview-rcs');
+    else if (src) hit('pageview-other');
+    else hit('pageview-direct');
+  } catch(e){}
+  document.querySelectorAll('a').forEach(function(a){
+    if (!/ecoop\.or\.kr/i.test(a.href)) return;
+    a.addEventListener('click', function(){
+      var key = null;
+      if (a.classList.contains('hero-cta')) key = 'click-hero';
+      else if (a.classList.contains('outro-cta')) key = 'click-outro';
+      else if (a.classList.contains('order-link')) key = 'click-product';
+      if (key) hit(key);
+      hit('click-all');
+    }, { passive: true });
+  });
+})();
+</script>
+
+</body>
+</html>
