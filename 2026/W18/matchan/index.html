@@ -144,6 +144,8 @@
     font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
     line-height: 1.7;
     -webkit-font-smoothing: antialiased;
+    word-break: keep-all;
+    overflow-wrap: break-word;
   }
 
   .side-nav {
@@ -304,6 +306,11 @@
   .hero-promo .promo-text {
     font-size: calc(20px * var(--us));
     letter-spacing: 0.01em;
+    word-break: keep-all;
+  }
+  .hero-promo .promo-text .nowrap {
+    white-space: nowrap;
+    display: inline-block;
   }
   .hero-promo .promo-text b {
     color: #ffe9a8;
@@ -731,7 +738,7 @@
   <h1><span class="h1-lead">반찬 걱정 없는</span>이번 주<br><span class="brand">두레맛찬</span></h1>
   <div class="hero-promo">
     <span class="promo-month">5월 가정의 달</span>
-    <span class="promo-text">두레맛찬 전 품목 <b>이번 주 10% 할인</b></span>
+    <span class="promo-text"><span class="nowrap">두레맛찬 전 품목</span> <b>이번 주 10% 할인</b></span>
   </div>
   <p class="hero-sub">
     정직한 국산 재료로 정성껏 조리했어요.<br>
