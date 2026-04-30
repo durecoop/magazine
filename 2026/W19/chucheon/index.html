@@ -1,0 +1,477 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>두레생협 19주 추천 생활재</title>
+<meta property="og:title" content="두레생협 19주 추천 생활재" />
+<meta property="og:description" content="햇출하 생활재 · 그린 샐러드 만들기 · 볶은알땅콩 기획전" />
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+  :root{
+    --bg:#fafaf6;
+    --ink:#1f1d18;
+    --sub:#5a5852;
+    --line:#e8e6df;
+    --olive:#7b8a3a;        /* 햇출하 */
+    --green:#5a8c3a;        /* 그린 샐러드 */
+    --warm:#c25b3d;         /* 볶음알땅콩 */
+    --pink:#e2487f;         /* 특별기획 badge */
+    --orange:#f06f3a;       /* 할인 badge */
+    --card:#ffffff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,system-ui,Roboto,'Helvetica Neue','Apple SD Gothic Neo','Noto Sans KR',sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    word-break:keep-all;
+    overflow-wrap:break-word;
+  }
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%;height:auto}
+
+  .page{max-width:760px;margin:0 auto;padding:0 0 64px}
+
+  .top{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:18px 20px 8px;
+  }
+  .brand{font-weight:700;font-size:15px;letter-spacing:-.01em}
+  .week{font-size:12px;color:var(--sub)}
+
+  /* 테마 섹션 */
+  .theme{margin:24px 16px 0}
+  .theme-banner{
+    border-radius:18px;overflow:hidden;
+    box-shadow:0 6px 20px rgba(0,0,0,.06);
+    background:#000;
+  }
+  .theme-banner img{width:100%;display:block}
+  .theme-pitch{
+    text-align:center;
+    margin:14px 8px 0;
+    font-size:14.5px;font-weight:700;letter-spacing:-.01em;
+    line-height:1.5;
+  }
+  .theme[data-color="olive"] .theme-pitch{color:var(--olive)}
+  .theme[data-color="green"] .theme-pitch{color:var(--green)}
+  .theme[data-color="warm"] .theme-pitch{color:var(--warm)}
+
+  .theme-feature{
+    margin:16px auto 0;
+    max-width:420px;
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 6px 20px rgba(0,0,0,.08);
+  }
+  .theme-feature img{width:100%;display:block}
+
+  /* 상품 그리드 */
+  .products{
+    margin:16px 0 0;
+    display:grid;grid-template-columns:repeat(2,1fr);gap:12px;
+  }
+  @media (min-width:560px){
+    .products{grid-template-columns:repeat(3,1fr);gap:14px}
+  }
+  .products.solo{grid-template-columns:1fr;max-width:360px;margin-left:auto;margin-right:auto}
+  @media (min-width:560px){.products.solo{grid-template-columns:1fr}}
+
+  .product{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:14px;
+    overflow:hidden;
+    display:flex;flex-direction:column;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .product:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(0,0,0,.06)}
+  .product .thumb{
+    aspect-ratio:1/1;background:#f3f1ea;
+    display:flex;align-items:center;justify-content:center;
+    overflow:hidden;
+  }
+  .product .thumb img{width:100%;height:100%;object-fit:cover}
+  .product .thumb .ph{font-size:12px;color:#a8a59c}
+  .product .info{padding:10px 12px 12px;display:flex;flex-direction:column;gap:6px;flex:1}
+  .product .name{
+    font-size:clamp(16px,4.6vw,20px);font-weight:700;letter-spacing:-.02em;margin:0;
+    line-height:1.3;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .product .spec{font-size:11.5px;color:var(--sub);margin:0}
+  .product .price{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap;margin-top:auto;padding-top:4px}
+  .product .now{font-size:15px;font-weight:800;letter-spacing:-.02em}
+  .product .was{font-size:11.5px;color:#a09e98;text-decoration:line-through}
+  .product .off{
+    font-size:11px;font-weight:800;color:#fff;background:var(--orange);
+    padding:2px 6px;border-radius:6px;letter-spacing:0;
+  }
+  .product .order{
+    margin-top:8px;
+    display:inline-flex;align-items:center;justify-content:center;
+    height:34px;
+    background:var(--ink);color:#fff;
+    border-radius:999px;
+    font-size:12.5px;font-weight:700;
+  }
+  @media (min-width:560px){
+    .product .name{font-size:22px}
+    .product .now{font-size:16px}
+  }
+
+  /* 레시피 카드 — 통통튀고 귀엽게 */
+  @keyframes bounceIn{
+    0%{transform:scale(.6);opacity:0}
+    60%{transform:scale(1.15)}
+    100%{transform:scale(1);opacity:1}
+  }
+  @keyframes wiggle{
+    0%,100%{transform:rotate(0)}
+    25%{transform:rotate(-6deg)}
+    75%{transform:rotate(6deg)}
+  }
+
+  .recipe{
+    margin:24px 0 0;
+    background:#fff;
+    border:2px dashed #c8d49a;
+    border-radius:24px;
+    overflow:hidden;
+    box-shadow:0 8px 0 #eef3e2;
+  }
+  .recipe-head{
+    padding:24px 22px 20px;
+    background:radial-gradient(circle at 20% 0%,#fff5d2 0%,transparent 50%),
+               radial-gradient(circle at 100% 0%,#e0eecf 0%,transparent 60%),
+               #fffdf3;
+    border-bottom:2px dashed #e8e6df;
+    text-align:center;
+    position:relative;
+  }
+  .recipe-eyebrow{
+    display:inline-block;
+    font-size:13px;font-weight:800;letter-spacing:.02em;
+    color:#fff;background:var(--green);
+    padding:7px 16px;border-radius:999px;
+    margin-bottom:12px;
+    box-shadow:0 3px 0 #4a7a2a;
+    transform:rotate(-2deg);
+  }
+  .recipe-title{
+    margin:0;font-size:26px;font-weight:800;letter-spacing:-.02em;
+    color:#2d4a14;
+  }
+  .recipe-title .pop{display:inline-block;animation:wiggle 2s ease-in-out infinite;transform-origin:center}
+  .recipe-sub{margin:8px 0 0;font-size:15px;color:var(--sub)}
+
+  .recipe-body{padding:22px 22px 26px}
+  .recipe-body h4{
+    margin:22px 0 12px;
+    font-size:18px;font-weight:800;color:var(--ink);letter-spacing:-.01em;
+    display:inline-flex;align-items:center;gap:6px;
+    background:#fff5d2;padding:6px 14px;border-radius:999px;
+  }
+  .recipe-body h4:first-child{margin-top:0}
+
+  .recipe-ingredients{
+    margin:0;padding:0;list-style:none;
+    font-size:17px;line-height:1.7;color:#2a2823;
+  }
+  .recipe-ingredients li{
+    display:flex;align-items:center;gap:12px;
+    padding:10px 14px;
+    background:#f7f9ed;
+    border-radius:14px;
+    margin-bottom:8px;
+  }
+  .recipe-ingredients li:last-child{margin-bottom:0}
+  .recipe-ingredients .ico{
+    flex:0 0 auto;
+    font-size:24px;line-height:1;
+    width:38px;height:38px;border-radius:50%;
+    background:#fff;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 2px 0 #e0eecf;
+  }
+  .recipe-ingredients b{color:var(--ink);font-weight:800}
+
+  .dressing{
+    background:linear-gradient(135deg,#fff5d2 0%,#ffe8b5 100%);
+    border-radius:16px;padding:16px 18px;
+    font-size:18px;line-height:1.6;color:#5a4218;
+    text-align:center;font-weight:700;
+    box-shadow:0 3px 0 #f1d989;
+  }
+  .dressing .ratio{font-size:22px;color:#c25b3d;letter-spacing:.02em}
+
+  .recipe-steps{
+    margin:0;padding:0;list-style:none;counter-reset:rstep;
+  }
+  .recipe-steps li{
+    counter-increment:rstep;
+    display:flex;align-items:center;gap:14px;
+    padding:12px 14px;
+    background:#fff;
+    border:2px solid #f0f3e3;
+    border-radius:16px;
+    margin-bottom:10px;
+    font-size:18px;line-height:1.4;color:#2a2823;
+    transition:transform .15s ease;
+  }
+  .recipe-steps li:hover{transform:translateX(4px)}
+  .recipe-steps li:last-child{margin-bottom:0}
+  .recipe-steps li::before{
+    content:counter(rstep);
+    flex:0 0 auto;
+    width:40px;height:40px;border-radius:50%;
+    background:linear-gradient(135deg,var(--green) 0%,#7baa4a 100%);
+    color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-weight:800;font-size:18px;
+    box-shadow:0 3px 0 #4a7a2a;
+  }
+  .recipe-steps .step-emoji{
+    flex:0 0 auto;font-size:22px;
+    margin-left:auto;
+  }
+
+  /* 안내 */
+  .outro{
+    margin:32px 16px 0;
+    padding:20px;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:18px;
+    text-align:center;
+  }
+  .outro p{margin:0;color:var(--sub);font-size:13.5px}
+  .outro .cta{
+    display:inline-flex;align-items:center;justify-content:center;
+    margin-top:14px;height:46px;padding:0 24px;
+    background:var(--olive);color:#fff;border-radius:999px;
+    font-weight:700;font-size:14.5px;
+  }
+
+  footer{padding:24px 20px 0;text-align:center;color:#a8a59c;font-size:12px}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="top">
+    <div class="brand">두레생협</div>
+    <div class="week">2026년 19주</div>
+  </header>
+
+  <!-- 1. 햇출하 생활재 -->
+  <section class="theme" data-color="olive">
+    <div class="theme-banner">
+      <img src="banner_haetchulha.jpg" alt="햇출하 생활재 — 산지의 자연을 그대로 담은 햇출하 농산물, 가장 맛있는 타이밍에 식탁에 올려드릴게요">
+    </div>
+    <p class="theme-pitch">올해 첫 수확이 식탁으로 옵니다</p>
+
+    <div class="products solo">
+      <article class="product">
+        <a class="thumb order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1661" data-slot="jugsoon">
+          <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/51882C.jpg" alt="삶은죽순" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph',innerText:'이미지 준비중'}))">
+        </a>
+        <div class="info">
+          <p class="name">삶은죽순</p>
+          <p class="spec">500g · 맹종죽</p>
+          <div class="price"><span class="now">13,800원</span></div>
+          <a class="order order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1661">주문하기</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- 2. 그린 샐러드 만들기 -->
+  <section class="theme" data-color="green">
+    <div class="theme-banner">
+      <img src="banner_rucola.jpg" alt="가볍고 든든한 그린샐러드 만들기 — 루꼴라 할인 기획">
+    </div>
+    <p class="theme-pitch">잎부터 곡물까지, 한 그릇에 담는 가벼운 한 끼</p>
+
+    <div class="products">
+      <article class="product">
+        <a class="thumb order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1661" data-slot="rucola">
+          <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/27430C.jpg" alt="루꼴라" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph',innerText:'이미지 준비중'}))">
+        </a>
+        <div class="info">
+          <p class="name">루꼴라</p>
+          <p class="spec">100g · 무농약</p>
+          <div class="price">
+            <span class="now">2,400원</span>
+            <span class="was">3,200원</span>
+            <span class="off">25%</span>
+          </div>
+          <a class="order order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1661">주문하기</a>
+        </div>
+      </article>
+
+      <article class="product">
+        <a class="thumb order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1661" data-slot="rucola-mix">
+          <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/50423C.png" alt="루꼴라샐러드믹스" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph',innerText:'이미지 준비중'}))">
+        </a>
+        <div class="info">
+          <p class="name">루꼴라샐러드믹스</p>
+          <p class="spec">120g · 무농약</p>
+          <div class="price">
+            <span class="now">3,700원</span>
+            <span class="was">4,200원</span>
+            <span class="off">12%</span>
+          </div>
+          <a class="order order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1661">주문하기</a>
+        </div>
+      </article>
+
+      <article class="product">
+        <a class="thumb order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1661" data-slot="asparagus">
+          <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/8520C.png" alt="아스파라거스" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph',innerText:'이미지 준비중'}))">
+        </a>
+        <div class="info">
+          <p class="name">아스파라거스</p>
+          <p class="spec">200g · 무농약</p>
+          <div class="price">
+            <span class="now">5,300원</span>
+            <span class="was">5,900원</span>
+            <span class="off">10%</span>
+          </div>
+          <a class="order order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1661">주문하기</a>
+        </div>
+      </article>
+
+      <article class="product">
+        <a class="thumb order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1661" data-slot="younginlf">
+          <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/44525C.jpg" alt="어린잎모음" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph',innerText:'이미지 준비중'}))">
+        </a>
+        <div class="info">
+          <p class="name">어린잎모음</p>
+          <p class="spec">100g · 무농약</p>
+          <div class="price">
+            <span class="now">3,000원</span>
+            <span class="was">3,400원</span>
+            <span class="off">12%</span>
+          </div>
+          <a class="order order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1661">주문하기</a>
+        </div>
+      </article>
+
+      <article class="product">
+        <a class="thumb order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1661" data-slot="oat">
+          <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/38655C.jpg" alt="귀리" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph',innerText:'이미지 준비중'}))">
+        </a>
+        <div class="info">
+          <p class="name">귀리</p>
+          <p class="spec">1kg · 유기</p>
+          <div class="price"><span class="now">9,700원</span></div>
+          <a class="order order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1661">주문하기</a>
+        </div>
+      </article>
+    </div>
+
+    <!-- 레시피 -->
+    <section class="recipe">
+      <div class="recipe-head">
+        <span class="recipe-eyebrow">🥗 오늘의 레시피</span>
+        <h3 class="recipe-title">든든한 그린샐러드 <span class="pop">🌱</span></h3>
+        <p class="recipe-sub">2인분 · 20분이면 뚝딱!</p>
+      </div>
+      <div class="recipe-body">
+        <h4>🛒 재료</h4>
+        <ul class="recipe-ingredients">
+          <li><span class="ico">🥬</span><span>잎채소 한 줌씩 — <b>루꼴라 · 샐러드믹스 · 어린잎</b></span></li>
+          <li><span class="ico">🌿</span><span><b>아스파라거스</b> 4~5대</span></li>
+          <li><span class="ico">🌾</span><span>삶은 <b>귀리</b> 3큰술</span></li>
+          <li><span class="ico">🥜</span><span><b>볶은알땅콩</b> 1큰술 <em style="color:#888;font-style:normal">(마무리용)</em></span></li>
+        </ul>
+
+        <h4>👩‍🍳 만드는 법</h4>
+        <ol class="recipe-steps">
+          <li><span>귀리 끓는 물에 15분 삶아 식히기</span><span class="step-emoji">🌾</span></li>
+          <li><span>아스파라거스 1분 데쳐 한입 크기로</span><span class="step-emoji">💧</span></li>
+          <li><span>잎채소 씻어 큰 그릇에 담기</span><span class="step-emoji">🥬</span></li>
+          <li><span>모두 섞고 드레싱 살살 두르기</span><span class="step-emoji">🥄</span></li>
+          <li><span>볶은알땅콩 뿌려 완성!</span><span class="step-emoji">✨</span></li>
+        </ol>
+      </div>
+    </section>
+  </section>
+
+  <!-- 3. 볶은알땅콩 -->
+  <section class="theme" data-color="warm">
+    <div class="theme-banner">
+      <img src="banner_peanut.jpg" alt="갓 볶아 더 바삭한 볶음알땅콩 500g — 특별기획">
+    </div>
+    <p class="theme-pitch">한 번 집으면 멈출 수 없는 고소함</p>
+
+    <div class="theme-feature">
+      <img src="peanut_feature.jpg" alt="볶은알땅콩 — 갓 볶아 더 바삭한 고소함">
+    </div>
+
+    <div class="products solo">
+      <article class="product">
+        <a class="thumb order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1661" data-slot="peanut">
+          <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/27683C.png" alt="볶은알땅콩" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph',innerText:'이미지 준비중'}))">
+        </a>
+        <div class="info">
+          <p class="name">볶은알땅콩</p>
+          <p class="spec">500g · 특별기획</p>
+          <div class="price">
+            <span class="now">14,000원</span>
+            <span class="was">17,500원</span>
+            <span class="off">20%</span>
+          </div>
+          <a class="order order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1661">주문하기</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- 안내 -->
+  <section class="outro">
+    <a class="cta outro-cta" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1661">전체 기획전 보러가기</a>
+  </section>
+
+  <footer>두레생협 · 2026년 19주차 추천 생활재</footer>
+</div>
+
+<!-- 트래킹 -->
+<script>
+(function(){
+  var NS = 'durecoop-chucheon-2026w19';
+  var API = 'https://abacus.jasoncameron.dev/hit/' + NS + '/';
+  function hit(key){
+    try { fetch(API + key, { mode: 'cors', keepalive: true, cache: 'no-store' }).catch(function(){}); } catch(e){}
+  }
+  hit('pageview');
+  try {
+    var params = new URLSearchParams(location.search);
+    var src = (params.get('utm_source') || '').toLowerCase();
+    if (src === 'rcs') hit('pageview-rcs');
+    else if (src) hit('pageview-other');
+    else hit('pageview-direct');
+  } catch(e){}
+  document.querySelectorAll('a').forEach(function(a){
+    if (!/ecoop\.or\.kr/i.test(a.href)) return;
+    a.addEventListener('click', function(){
+      var key = null;
+      if (a.classList.contains('hero-cta')) key = 'click-hero';
+      else if (a.classList.contains('outro-cta')) key = 'click-outro';
+      else if (a.classList.contains('order-link')) key = 'click-product';
+      if (key) hit(key);
+      hit('click-all');
+    }, { passive: true });
+  });
+})();
+</script>
+</body>
+</html>
