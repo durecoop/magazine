@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>두레맛찬 주간 홍보 통계 · 두레생협</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Serif+KR:wght@700;900&display=swap');
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  background: #faf5ea; color: #26301f;
+  padding: 30px 20px 60px;
+  min-height: 100vh;
+}
+.wrap { max-width: 620px; margin: 0 auto; }
+h1 {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 28px; color: #2f5318;
+  margin-bottom: 6px;
+}
+.subtitle {
+  color: #574d3e; font-size: 14px; margin-bottom: 6px;
+}
+.meta { color: #808c77; font-size: 14px; margin-bottom: 24px; }
+.meta button {
+  appearance: none; border: 1.5px solid #6ea545; background: #fff;
+  color: #2f5318; font-weight: 700; padding: 6px 14px; border-radius: 999px;
+  cursor: pointer; margin-left: 8px; font-size: 13px;
+}
+.meta button:active { background: #e3efd2; }
+
+.card {
+  background: #fff; border-radius: 18px;
+  padding: 22px 22px; margin-bottom: 16px;
+  box-shadow: 0 8px 20px rgba(40,60,30,0.06);
+  border: 2px solid #e6ead9;
+}
+.card h3 {
+  font-size: 15px; color: #4d5d42; font-weight: 700;
+  margin-bottom: 10px; letter-spacing: 0.01em;
+}
+.big {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 44px; font-weight: 900; color: #2f5318;
+  line-height: 1; letter-spacing: -0.02em;
+}
+.big .unit { font-size: 18px; color: #808c77; font-weight: 500; margin-left: 6px; }
+.sub { color: #808c77; font-size: 14px; margin-top: 10px; line-height: 1.6; }
+.sub strong { color: #26301f; font-weight: 700; }
+
+.rate {
+  display: inline-block;
+  padding: 6px 14px; border-radius: 999px;
+  background: #e3efd2; color: #2f5318;
+  font-weight: 800; font-size: 15px;
+  margin-left: 8px;
+}
+
+.row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 0; border-bottom: 1px solid #f0f3e6;
+  font-size: 15px;
+}
+.row:last-child { border-bottom: none; }
+.row .label { color: #4d5d42; }
+.row .val {
+  font-family: 'Noto Serif KR', serif;
+  font-weight: 900; color: #2f5318; font-size: 20px;
+}
+
+.src-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+  margin-top: 6px;
+}
+.src-cell {
+  background: #f5f8ef; border-radius: 12px;
+  padding: 12px 14px;
+}
+.src-cell .k { font-size: 13px; color: #808c77; }
+.src-cell .v {
+  font-family: 'Noto Serif KR', serif;
+  font-weight: 900; color: #2f5318; font-size: 22px;
+  margin-top: 2px;
+}
+
+.note {
+  background: #fffbe6; border: 1.5px solid #f0e3a8;
+  color: #7a6516; padding: 14px 16px; border-radius: 12px;
+  font-size: 13px; line-height: 1.7; margin-top: 8px;
+}
+.note code {
+  background: #fff; padding: 2px 6px; border-radius: 4px;
+  font-size: 12px; color: #2f5318;
+  word-break: break-all;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>두레맛찬 주간 홍보 통계</h1>
+  <p class="subtitle">2026년 4월 30일 ~ 5월 7일 · 23개 품목 홍보 페이지</p>
+  <p class="meta">
+    갱신: <span id="ts">집계 중…</span>
+    <button onclick="location.reload()">새로고침</button>
+  </p>
+
+  <div class="card">
+    <h3>📖 전체 페이지 방문 수</h3>
+    <div class="big"><span id="pageview">…</span><span class="unit">회</span></div>
+    <p class="sub">페이지가 열린 총 횟수입니다. 같은 사람이 여러 번 새로고침해도 중복 집계됩니다.</p>
+  </div>
+
+  <div class="card">
+    <h3>🛒 쇼핑몰 버튼 클릭 합계 <span class="rate" id="rate">-</span></h3>
+    <div class="big"><span id="click-all">…</span><span class="unit">회</span></div>
+    <p class="sub">접속자 중 쇼핑몰(ecoop.or.kr)로 이동한 버튼 클릭의 총합. 뱃지는 <strong>방문 대비 클릭 전환율</strong>입니다.</p>
+  </div>
+
+  <div class="card">
+    <h3>📡 유입 경로별 방문</h3>
+    <div class="src-grid">
+      <div class="src-cell">
+        <div class="k">RCS 문자</div>
+        <div class="v"><span id="pageview-rcs">…</span></div>
+      </div>
+      <div class="src-cell">
+        <div class="k">직접 접속</div>
+        <div class="v"><span id="pageview-direct">…</span></div>
+      </div>
+      <div class="src-cell" style="grid-column: 1/-1;">
+        <div class="k">기타 출처(카톡·링크 등)</div>
+        <div class="v"><span id="pageview-other">…</span></div>
+      </div>
+    </div>
+    <p class="sub" style="margin-top:14px;">RCS 문자 유입은 발송 링크에 <code>?utm_source=rcs</code>가 붙어있을 때만 따로 집계됩니다.</p>
+  </div>
+
+  <div class="card">
+    <h3>🔘 버튼별 클릭 세부 내역</h3>
+    <div class="row"><span class="label">🌿 상단 히어로 "전체보기" 버튼</span><span class="val" id="click-hero">…</span></div>
+    <div class="row"><span class="label">🍱 23개 품목 카드 "두레생협에서 주문하기"</span><span class="val" id="click-product">…</span></div>
+    <div class="row"><span class="label">🛒 하단 "두레맛찬 전체보기" 버튼</span><span class="val" id="click-outro">…</span></div>
+  </div>
+
+  <div class="note">
+    <strong>📌 RCS 문자 발송 시 이 링크를 쓰세요</strong><br>
+    <code>https://durecoop.github.io/magazine/2026/W18/matchan/?utm_source=rcs</code><br>
+    위 주소로 보내면 RCS 문자로 들어온 접속자만 따로 셀 수 있습니다. 안 붙여도 전체 방문 수는 집계됩니다.
+  </div>
+</div>
+
+<script>
+(function(){
+  var NS = 'durecoop-matchan-2026w18';
+  var API = 'https://abacus.jasoncameron.dev/get/' + NS + '/';
+  var keys = [
+    'pageview','pageview-rcs','pageview-direct','pageview-other',
+    'click-all','click-hero','click-product','click-outro'
+  ];
+  Promise.all(keys.map(function(k){
+    return fetch(API + k, { cache: 'no-store' })
+      .then(function(r){ return r.ok ? r.json() : { value: 0 }; })
+      .then(function(d){ return [k, (d && typeof d.value === 'number') ? d.value : 0]; })
+      .catch(function(){ return [k, 0]; });
+  })).then(function(pairs){
+    var map = {};
+    pairs.forEach(function(p){ map[p[0]] = p[1]; });
+    keys.forEach(function(k){
+      var el = document.getElementById(k);
+      if (el) el.textContent = map[k].toLocaleString('ko-KR');
+    });
+    var rate = map['pageview'] > 0
+      ? ((map['click-all'] / map['pageview']) * 100).toFixed(1) + '%'
+      : '-';
+    document.getElementById('rate').textContent = '전환 ' + rate;
+    document.getElementById('ts').textContent = new Date().toLocaleString('ko-KR');
+  });
+})();
+</script>
+</body>
+</html>
