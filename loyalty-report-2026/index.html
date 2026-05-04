@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1280, initial-scale=1" />
+<title>단골은 늘고 있을까? · 두레생협 온라인몰 데이터 보고</title>
+<meta name="description" content="두레생협 온라인몰 조합원 활동(코호트) + 등급 이동 매트릭스 통합 분석 보고. 신규 정착률 1.5배 상승 vs B등급 휴면 이탈 가속의 이중 신호 진단." />
+<meta property="og:title" content="단골은 늘고 있을까? · 두레생협 온라인몰 데이터 보고" />
+<meta property="og:description" content="신규 정착률 1.5배 상승 vs B등급 휴면 이탈 가속 — 두레생협 온라인몰 회원 생애주기 통합 진단." />
+<meta property="og:type" content="article" />
+<meta property="og:locale" content="ko_KR" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/prop-types@15.8.1/prop-types.min.js"></script>
+<script crossorigin src="https://unpkg.com/recharts@2.12.7/umd/Recharts.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<style>
+  html, body {
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    background: #eef4ec;
+    margin: 0;
+    overflow-x: hidden;
+  }
+  .num-tab { font-feature-settings: 'tnum'; }
+  .recharts-default-tooltip { border-radius: 10px !important; border: 1px solid #d1fae5 !important; }
+  .slide-enter { animation: slideIn 0.35s ease-out; }
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .leaf-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 12% 18%, rgba(34,197,94,0.08) 0, transparent 25%),
+      radial-gradient(circle at 88% 82%, rgba(22,101,52,0.06) 0, transparent 30%);
+    pointer-events: none;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-thumb { background: #c7d2c1; border-radius: 4px; }
+</style>
+</head>
+<body class="text-slate-800">
+<div id="root"></div>
+
+<script type="text/babel" data-presets="env,react">
+const { useState, useEffect } = React;
+const {
+  LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
+  ResponsiveContainer, ReferenceLine, ReferenceArea, ComposedChart, Cell, LabelList, Label
+} = Recharts;
+
+/* ================ Color tokens ================ */
+const C = {
+  bg: '#eef4ec',
+  paper: '#ffffff',
+  cream: '#faf8f3',
+  green50:'#f0fdf4', green100:'#dcfce7', green200:'#bbf7d0',
+  green400:'#4ade80', green500:'#22c55e', green600:'#16a34a',
+  green700:'#15803d', green800:'#166534', green900:'#14532d',
+  amber400:'#fbbf24', amber500:'#f59e0b', amber600:'#d97706', amber700:'#b45309',
+  red50:'#fef2f2', red100:'#fee2e2', red200:'#fecaca',
+  red500:'#ef4444', red600:'#dc2626', red700:'#b91c1c',
+  slate200:'#e2e8f0', slate300:'#cbd5e1', slate400:'#94a3b8',
+  slate500:'#64748b', slate600:'#475569', slate700:'#334155', slate800:'#1e293b',
+};
+
+/* ================ Inline SVG icons (lucide style) ================ */
+const Svg = ({children, className='w-5 h-5', sw=2}) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" strokeWidth={sw} strokeLinecap="round"
+    strokeLinejoin="round" className={className}>{children}</svg>
+);
+const I = {
+  Sprout: (p) => <Svg {...p}><path d="M7 20h10"/><path d="M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/><path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z"/></Svg>,
+  Heart:(p)=> <Svg {...p}><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></Svg>,
+  Gift:(p)=>  <Svg {...p}><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" x2="12" y1="22" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></Svg>,
+  Up:(p)=>    <Svg {...p}><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></Svg>,
+  Down:(p)=>  <Svg {...p}><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/></Svg>,
+  Alert:(p)=> <Svg {...p}><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" x2="12" y1="9" y2="13"/><line x1="12" x2="12.01" y1="17" y2="17"/></Svg>,
+  Crown:(p)=> <Svg {...p}><path d="m2 4 3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14"/></Svg>,
+  Users:(p)=> <Svg {...p}><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></Svg>,
+  Target:(p)=><Svg {...p}><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></Svg>,
+  Sparkle:(p)=><Svg {...p}><path d="M12 3l1.5 5.5L19 10l-5.5 1.5L12 17l-1.5-5.5L5 10l5.5-1.5L12 3z"/></Svg>,
+  Right:(p)=> <Svg {...p}><polyline points="9 18 15 12 9 6"/></Svg>,
+  Left:(p)=>  <Svg {...p}><polyline points="15 18 9 12 15 6"/></Svg>,
+  Check:(p)=> <Svg {...p}><polyline points="20 6 9 17 4 12"/></Svg>,
+  X:(p)=>     <Svg {...p}><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></Svg>,
+  Book:(p)=>  <Svg {...p}><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></Svg>,
+  Funnel:(p)=><Svg {...p}><path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/></Svg>,
+  Zap:(p)=>   <Svg {...p}><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></Svg>,
+  Search:(p)=><Svg {...p}><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></Svg>,
+  Shield:(p)=><Svg {...p}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></Svg>,
+  Activity:(p)=><Svg {...p}><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></Svg>,
+  Pause:(p)=> <Svg {...p}><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></Svg>,
+  Play:(p)=>  <Svg {...p}><polygon points="5 3 19 12 5 21 5 3"/></Svg>,
+};
+
+/* ================ Data ================ */
+const cohortData = [
+  { month: 'M (가입 직후)',   y2022: 25.3, y2024: 32.7, y2026: 34.0 },
+  { month: 'M+1 (1달 후)',    y2022: 14.3, y2024: 22.1, y2026: 15.6 },
+  { month: 'M+2 (2달 후)',    y2022: 10.1, y2024: 16.5, y2026: 10.6 },
+  { month: 'M+3 (3달 후)',    y2022:  8.8, y2024: 13.7, y2026:  7.4 },
+  { month: 'M+4 (4달 후)',    y2022:  7.7, y2024: 12.1, y2026: null },
+  { month: 'M+5 (5달 후)',    y2022:  7.2, y2024: 10.9, y2026: null },
+];
+
+const giftEffect = [
+  { stage: 'M (가입 직후)',   effect: 7.5 },
+  { stage: 'M+1 (1달 후)',    effect: 7.8 },
+  { stage: 'M+2 (2달 후)',    effect: 6.4 },
+  { stage: 'M+3 (3달 후)',    effect: 4.9 },
+  { stage: 'M+4 (4달 후)',    effect: 4.5 },
+  { stage: 'M+5 (5달 후)',    effect: 3.7 },
+];
+
+const ltvCompare = [
+  { year: '2022 (선물 도입 전)', signup: 4129, alive: 299 },
+  { year: '2024 (선물 안정기)',  signup: 2563, alive: 280 },
+];
+
+const dormancy = [
+  { year: '2022', S: 1.1, A: 5.1, B: 14.4, C: 21.6, avg: 10.5 },
+  { year: '2023', S: 2.0, A: 5.7, B: 16.1, C: 21.8, avg: 12.3 },
+  { year: '2024', S: 1.6, A: 6.9, B: 18.5, C: 30.6, avg: 15.7 },
+  { year: '2025', S: 1.1, A: 6.4, B: 17.2, C: 22.1, avg: 12.5 },
+  { year: '2026', S: 1.9, A: 8.4, B: 23.8, C: 23.5, avg: 15.5 },
+];
+
+const retention = [
+  { year: '2022', S: 62.0, A: 51.8, B: 46.1, C: 27.7 },
+  { year: '2023', S: 58.7, A: 49.7, B: 46.7, C: 28.9 },
+  { year: '2024', S: 58.6, A: 50.6, B: 46.0, C: 27.0 },
+  { year: '2025', S: 57.2, A: 50.1, B: 43.8, C: 29.2 },
+  { year: '2026', S: 53.8, A: 46.9, B: 43.4, C: 32.4 },
+];
+
+const aToS = [
+  { year: '2022', rate: 12.1 },
+  { year: '2023', rate:  9.7 },
+  { year: '2024', rate:  8.4 },
+  { year: '2025', rate:  8.5 },
+  { year: '2026', rate:  7.5 },
+];
+
+const activeMembers = [
+  { year: '2022', active: 4387 },
+  { year: '2023', active: 4610 },
+  { year: '2024', active: 5213 },
+  { year: '2025', active: 5095 },
+  { year: '2026', active: 4894 },
+];
+
+/* ================ UI primitives ================ */
+const Term = ({word, def}) => (
+  <span className="inline-flex items-baseline gap-1.5 px-2 py-0.5 bg-green-50 border border-green-200 rounded-md align-baseline">
+    <span className="font-semibold text-green-900">{word}</span>
+    <span className="text-xs text-green-700">({def})</span>
+  </span>
+);
+
+const GlossaryCard = ({title, children}) => (
+  <div className="bg-green-50 border border-green-200 rounded-2xl p-5">
+    <div className="flex items-center gap-2 mb-2">
+      <I.Book className="w-4 h-4 text-green-700"/>
+      <span className="text-xs font-bold text-green-700 uppercase tracking-wider">용어 풀이 · {title}</span>
+    </div>
+    <div className="text-sm text-green-900 leading-relaxed space-y-2">{children}</div>
+  </div>
+);
+
+const PctTooltip = ({active, payload, label, suffix='%'}) => {
+  if (!active || !payload || !payload.length) return null;
+  return (
+    <div className="bg-white px-3 py-2 rounded-lg border border-green-100 shadow-md text-sm">
+      <div className="font-semibold mb-1">{label}</div>
+      {payload.map((p,i)=>(
+        <div key={i} className="flex items-center gap-2">
+          <span className="w-2.5 h-2.5 rounded-full" style={{background: p.color}}/>
+          <span className="text-slate-600">{p.name}</span>
+          <span className="font-semibold num-tab text-slate-800 ml-auto">{p.value==null?'—':p.value+suffix}</span>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+const Pill = ({tone='green', children}) => {
+  const map = {
+    green:'bg-green-100 text-green-800 border-green-200',
+    red:'bg-red-100 text-red-800 border-red-200',
+    amber:'bg-amber-100 text-amber-800 border-amber-200',
+    slate:'bg-slate-100 text-slate-700 border-slate-200',
+  };
+  return <span className={`inline-flex items-center text-xs font-semibold px-2.5 py-1 rounded-full border ${map[tone]}`}>{children}</span>;
+};
+
+/* ================ Slide shell ================ */
+const SlideShell = ({pageNum, sectionName, title, subtitle, children, footer, accent='green'}) => {
+  const accentBar = {
+    green: 'bg-green-600', red: 'bg-red-500', amber: 'bg-amber-500', slate: 'bg-slate-400'
+  }[accent];
+  return (
+    <div className="slide-enter w-full h-full bg-white flex flex-col rounded-3xl shadow-2xl overflow-hidden relative" key={pageNum}>
+      <div className={`h-1.5 w-full ${accentBar}`}/>
+      <div className="px-12 pt-7 pb-3 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className="text-sm font-bold text-green-700 num-tab">{pageNum}</div>
+          <div className="text-xs text-slate-500 tracking-wider">{sectionName}</div>
+        </div>
+        <div className="flex items-center gap-2 text-xs text-slate-400">
+          <I.Sprout className="w-3.5 h-3.5 text-green-600"/>
+          <span>두레생협 온라인사업팀 · 2026.05.04</span>
+        </div>
+      </div>
+      <div className="px-12 pb-3">
+        <h1 className="text-3xl font-extrabold text-slate-800 leading-tight tracking-tight">{title}</h1>
+        {subtitle && <p className="text-base text-slate-500 mt-1">{subtitle}</p>}
+      </div>
+      <main className="flex-1 px-12 py-3 min-h-0 overflow-hidden flex flex-col">
+        {children}
+      </main>
+      {footer && (
+        <div className="px-12 py-4 bg-green-50 border-t border-green-100 text-sm text-green-900 leading-relaxed">
+          {footer}
+        </div>
+      )}
+    </div>
+  );
+};
+
+/* ================ Charts ================ */
+function CohortLineChart({hide2026=false, fade2024=false}) {
+  return (
+    <ResponsiveContainer width="100%" height="100%">
+      <LineChart data={cohortData} margin={{top:24, right:30, left:0, bottom:8}}>
+        <CartesianGrid stroke="#e7f0ea" strokeDasharray="3 3" vertical={false}/>
+        <XAxis dataKey="month" tick={{fontSize:11, fill:C.slate600}} interval={0}/>
+        <YAxis tick={{fontSize:11, fill:C.slate500}} unit="%" domain={[0, 38]}/>
+        <Tooltip content={<PctTooltip/>}/>
+        <Legend wrapperStyle={{fontSize:12, paddingTop:8}}/>
+        <Line type="monotone" dataKey="y2022" name="2022년 (선물 도입 전)"
+              stroke={C.slate400} strokeWidth={2.5} dot={{r:4}}>
+          <LabelList dataKey="y2022" position="bottom" formatter={(v)=>v?v+'%':''}
+            style={{fontSize:10, fill:C.slate500}}/>
+        </Line>
+        <Line type="monotone" dataKey="y2024" name="2024년 (선물 안정기)"
+              stroke={C.green600} strokeWidth={fade2024?2:3.5}
+              opacity={fade2024?0.4:1}
+              dot={{r:5, fill:C.green600}}>
+          <LabelList dataKey="y2024" position="top" formatter={(v)=>v?v+'%':''}
+            style={{fontSize:11, fontWeight:600, fill:C.green700}}/>
+        </Line>
+        {!hide2026 && (
+          <Line type="monotone" dataKey="y2026" name="2026년 (회귀 신호)"
+                stroke={C.red500} strokeWidth={3.5} strokeDasharray="6 4"
+                dot={{r:5, fill:C.red500}} connectNulls={false}>
+            <LabelList dataKey="y2026" position="top" formatter={(v)=>v?v+'%':''}
+              style={{fontSize:11, fontWeight:600, fill:C.red700}}/>
+          </Line>
+        )}
+      </LineChart>
+    </ResponsiveContainer>
+  );
+}
+
+function GiftEffectBarChart() {
+  return (
+    <ResponsiveContainer width="100%" height="100%">
+      <BarChart data={giftEffect} margin={{top:30, right:20, left:0, bottom:8}}>
+        <CartesianGrid stroke="#e7f0ea" strokeDasharray="3 3" vertical={false}/>
+        <XAxis dataKey="stage" tick={{fontSize:11, fill:C.slate600}} interval={0}/>
+        <YAxis tick={{fontSize:11, fill:C.slate500}} unit="%p" domain={[0, 10]}/>
+        <Tooltip
+          formatter={(v)=>[`+${v}%p 향상`, '잔존률 효과']}
+          labelStyle={{fontWeight:600}}
+        />
+        <Bar dataKey="effect" radius={[8,8,0,0]}>
+          {giftEffect.map((d,i)=>(
+            <Cell key={i} fill={i<2?C.green700:i<4?C.green500:C.green400}/>
+          ))}
+          <LabelList dataKey="effect" position="top" formatter={(v)=>`+${v}%p`}
+            style={{fontSize:12, fontWeight:700, fill:C.green800}}/>
+        </Bar>
+      </BarChart>
+    </ResponsiveContainer>
+  );
+}
+
+function LtvCompareChart() {
+  return (
+    <ResponsiveContainer width="100%" height="100%">
+      <BarChart data={ltvCompare} margin={{top:30, right:20, left:0, bottom:8}}>
+        <CartesianGrid stroke="#e7f0ea" strokeDasharray="3 3" vertical={false}/>
+        <XAxis dataKey="year" tick={{fontSize:12, fill:C.slate700, fontWeight:600}}/>
+        <YAxis yAxisId="L" tick={{fontSize:11, fill:C.slate500}}/>
+        <YAxis yAxisId="R" orientation="right" tick={{fontSize:11, fill:C.slate500}}/>
+        <Tooltip formatter={(v,n)=>[v.toLocaleString()+'명', n]}/>
+        <Legend wrapperStyle={{fontSize:12}}/>
+        <Bar yAxisId="L" dataKey="signup" name="가입자 수 (왼쪽 축)" fill={C.green200} radius={[6,6,0,0]}>
+          <LabelList dataKey="signup" position="top" formatter={(v)=>v.toLocaleString()+'명'}
+            style={{fontSize:11, fill:C.slate600}}/>
+        </Bar>
+        <Bar yAxisId="R" dataKey="alive" name="5달 후 활동 중 (오른쪽 축)" fill={C.green700} radius={[6,6,0,0]}>
+          <LabelList dataKey="alive" position="top" formatter={(v)=>v.toLocaleString()+'명'}
+            style={{fontSize:11, fontWeight:700, fill:C.green800}}/>
+        </Bar>
+      </BarChart>
+    </ResponsiveContainer>
+  );
+}
+
+function ActiveMembersChart() {
+  return (
+    <ResponsiveContainer width="100%" height="100%">
+      <BarChart data={activeMembers} margin={{top:30, right:20, left:0, bottom:8}}>
+        <CartesianGrid stroke="#e7f0ea" strokeDasharray="3 3" vertical={false}/>
+        <XAxis dataKey="year" tick={{fontSize:12, fill:C.slate700, fontWeight:600}}/>
+        <YAxis tick={{fontSize:11, fill:C.slate500}} domain={[3500, 5500]}/>
+        <Tooltip formatter={(v)=>[v.toLocaleString()+'명', '활성 조합원']}/>
+        <ReferenceLine x="2024" stroke={C.amber500} strokeDasharray="4 4" label={{value:"2024년 정점", position:"top", fontSize:11, fill:C.amber700, fontWeight:600}}/>
+        <Bar dataKey="active" radius={[8,8,0,0]}>
+          {activeMembers.map((d,i)=>(
+            <Cell key={i} fill={i<2?C.green400:i===2?C.green700:C.amber500}/>
+          ))}
+          <LabelList dataKey="active" position="top" formatter={(v)=>v.toLocaleString()+'명'}
+            style={{fontSize:11, fontWeight:600, fill:C.slate700}}/>
+        </Bar>
+      </BarChart>
+    </ResponsiveContainer>
+  );
+}
+
+function DormancyByGradeChart() {
+  return (
+    <ResponsiveContainer width="100%" height="100%">
+      <LineChart data={dormancy} margin={{top:24, right:30, left:0, bottom:8}}>
+        <CartesianGrid stroke="#e7f0ea" strokeDasharray="3 3"/>
+        <XAxis dataKey="year" tick={{fontSize:12, fill:C.slate700, fontWeight:600}}/>
+        <YAxis tick={{fontSize:11, fill:C.slate500}} unit="%" domain={[0, 35]}/>
+        <Tooltip content={<PctTooltip/>}/>
+        <Legend wrapperStyle={{fontSize:12}}/>
+        <ReferenceArea x1="2025" x2="2026" fill={C.red50} fillOpacity={0.7}/>
+        <Line type="monotone" dataKey="B" name="B등급 (위험 ★)" stroke={C.red600} strokeWidth={4.5} dot={{r:6, fill:C.red600}}>
+          <LabelList dataKey="B" position="top" formatter={(v)=>v+'%'}
+            style={{fontSize:11, fontWeight:700, fill:C.red700}}/>
+        </Line>
+        <Line type="monotone" dataKey="C" name="C등급 (소액)"   stroke={C.amber500} strokeWidth={2.5} dot={{r:4}}/>
+        <Line type="monotone" dataKey="A" name="A등급"          stroke={C.green600} strokeWidth={2} dot={{r:4}}/>
+        <Line type="monotone" dataKey="S" name="S등급 (VIP)"   stroke={C.green800} strokeWidth={2} dot={{r:4}}/>
+        <Line type="monotone" dataKey="avg" name="전체 평균"     stroke={C.slate400} strokeDasharray="5 5" strokeWidth={2} dot={{r:3}}/>
+      </LineChart>
+    </ResponsiveContainer>
+  );
+}
+
+function RetentionByGradeChart() {
+  return (
+    <ResponsiveContainer width="100%" height="100%">
+      <LineChart data={retention} margin={{top:24, right:30, left:0, bottom:8}}>
+        <CartesianGrid stroke="#e7f0ea" strokeDasharray="3 3"/>
+        <XAxis dataKey="year" tick={{fontSize:12, fill:C.slate700, fontWeight:600}}/>
+        <YAxis tick={{fontSize:11, fill:C.slate500}} unit="%" domain={[20, 70]}/>
+        <Tooltip content={<PctTooltip/>}/>
+        <Legend wrapperStyle={{fontSize:12}}/>
+        <Line type="monotone" dataKey="S" name="S등급 (월40만+)"   stroke={C.green800} strokeWidth={4} dot={{r:5}}>
+          <LabelList dataKey="S" position="top" formatter={(v)=>v+'%'}
+            style={{fontSize:10, fill:C.green800}}/>
+        </Line>
+        <Line type="monotone" dataKey="A" name="A등급 (월15-40만)" stroke={C.green600} strokeWidth={2.5} dot={{r:4}}/>
+        <Line type="monotone" dataKey="B" name="B등급 (월5-15만)"  stroke={C.green400} strokeWidth={2.5} dot={{r:4}}/>
+        <Line type="monotone" dataKey="C" name="C등급 (5만 미만)"  stroke={C.slate400} strokeWidth={2} dot={{r:3}}/>
+      </LineChart>
+    </ResponsiveContainer>
+  );
+}
+
+function AtoSChart() {
+  return (
+    <ResponsiveContainer width="100%" height="100%">
+      <LineChart data={aToS} margin={{top:30, right:30, left:0, bottom:8}}>
+        <CartesianGrid stroke="#e7f0ea" strokeDasharray="3 3" vertical={false}/>
+        <XAxis dataKey="year" tick={{fontSize:12, fill:C.slate700, fontWeight:600}}/>
+        <YAxis tick={{fontSize:11, fill:C.slate500}} unit="%" domain={[0, 15]}/>
+        <Tooltip formatter={(v)=>[v+'%', 'A → S 상승률']}/>
+        <Line type="monotone" dataKey="rate" stroke={C.amber600} strokeWidth={4} dot={{r:6, fill:C.amber600}}>
+          <LabelList dataKey="rate" position="top" formatter={(v)=>v+'%'}
+            style={{fontSize:12, fontWeight:700, fill:C.amber700}}/>
+        </Line>
+      </LineChart>
+    </ResponsiveContainer>
+  );
+}
+
+function SRetentionChart() {
+  const data = retention.map(r => ({year:r.year, rate:r.S}));
+  return (
+    <ResponsiveContainer width="100%" height="100%">
+      <LineChart data={data} margin={{top:30, right:30, left:0, bottom:8}}>
+        <CartesianGrid stroke="#e7f0ea" strokeDasharray="3 3" vertical={false}/>
+        <XAxis dataKey="year" tick={{fontSize:12, fill:C.slate700, fontWeight:600}}/>
+        <YAxis tick={{fontSize:11, fill:C.slate500}} unit="%" domain={[50, 65]}/>
+        <Tooltip formatter={(v)=>[v+'%', 'S등급 잔류율']}/>
+        <Line type="monotone" dataKey="rate" stroke={C.amber600} strokeWidth={4} dot={{r:6, fill:C.amber600}}>
+          <LabelList dataKey="rate" position="top" formatter={(v)=>v+'%'}
+            style={{fontSize:12, fontWeight:700, fill:C.amber700}}/>
+        </Line>
+      </LineChart>
+    </ResponsiveContainer>
+  );
+}
+
+/* =========================== Slides =========================== */
+
+/* ----- Slide 1: Cover ----- */
+const Slide1 = () => (
+  <div className="slide-enter w-full h-full rounded-3xl shadow-2xl overflow-hidden relative leaf-bg flex flex-col"
+    style={{background:'linear-gradient(135deg,#f0fdf4 0%,#dcfce7 50%,#bbf7d0 100%)'}}
+    key="cover">
+    <div className="px-16 pt-12 flex items-center justify-between relative z-10">
+      <div className="flex items-center gap-3">
+        <div className="w-12 h-12 bg-green-700 rounded-2xl flex items-center justify-center text-white shadow-lg">
+          <I.Sprout className="w-7 h-7" sw={2.2}/>
+        </div>
+        <div>
+          <div className="text-sm font-bold text-green-900">두레생협 온라인사업팀</div>
+          <div className="text-xs text-green-700">데이터 분석 보고</div>
+        </div>
+      </div>
+      <div className="text-xs font-medium text-green-700 bg-white/70 backdrop-blur rounded-full px-4 py-2 border border-green-200">
+        2026년 5월 4일
+      </div>
+    </div>
+
+    <div className="flex-1 flex flex-col justify-center px-16 relative z-10">
+      <div className="mb-6 inline-flex items-center gap-2 self-start">
+        <div className="h-px w-10 bg-green-700"/>
+        <span className="text-sm font-semibold text-green-800 tracking-wider">조합원 활동 · 등급 이동 통합 분석</span>
+      </div>
+      <h1 className="text-7xl font-black text-green-900 tracking-tight leading-tight mb-4">
+        단골은 늘고 있을까?
+      </h1>
+      <p className="text-3xl font-bold text-green-800 mb-8 leading-snug">
+        데이터로 본 두레생협 온라인몰의 오늘
+      </p>
+      <div className="flex items-center gap-6 mt-4">
+        <div className="bg-white/80 backdrop-blur border border-green-200 rounded-2xl px-6 py-4">
+          <div className="text-xs text-green-700 font-semibold mb-1">분석 기간</div>
+          <div className="text-base font-bold text-green-900">2022 ~ 2026년</div>
+        </div>
+        <div className="bg-white/80 backdrop-blur border border-green-200 rounded-2xl px-6 py-4">
+          <div className="text-xs text-green-700 font-semibold mb-1">분석 모수</div>
+          <div className="text-base font-bold text-green-900">신규 10,759명 + 활성 4,894명</div>
+        </div>
+        <div className="bg-white/80 backdrop-blur border border-green-200 rounded-2xl px-6 py-4">
+          <div className="text-xs text-green-700 font-semibold mb-1">데이터 출처</div>
+          <div className="text-base font-bold text-green-900">ecoop.or.kr 코호트 · 등급 매트릭스</div>
+        </div>
+      </div>
+    </div>
+
+    <div className="px-16 pb-10 relative z-10">
+      <div className="flex items-center justify-between border-t border-green-200 pt-5">
+        <div className="text-sm text-green-800">
+          <span className="font-semibold">보고 구성</span>
+          <span className="mx-2 text-green-400">|</span>
+          <span>I. 신규 정착률 개선 효과 분석 · II. B등급 이탈 가속 진단 · III. 우선순위 액션 플랜</span>
+        </div>
+        <div className="text-xs text-green-600">
+          ← → 화살표로 슬라이드 이동
+        </div>
+      </div>
+    </div>
+
+  </div>
+);
+
+/* ----- Slide 2: 핵심 요약 ----- */
+const Slide2 = () => (
+  <SlideShell pageNum="02" sectionName="핵심 요약" accent="green"
+    title="두레생협 온라인몰 현황 종합 진단"
+    subtitle="긍정 신호 1건과 위험 신호 1건의 동시 진행 — 신규 정착률 개선 vs 주력 회원층 이탈 가속"
+    footer={
+      <div className="flex items-center gap-3">
+        <I.Sparkle className="w-5 h-5 text-green-700 shrink-0"/>
+        <span><b>종합 진단</b> — 신규 유입 단계 성과는 양호, 그러나 중간 등급(B) 이탈 가속이 동시 진행. 신규 환대 수준에 상응하는 충성층 방어 캠페인 필요.</span>
+      </div>
+    }
+  >
+    <div className="grid grid-cols-2 gap-6 flex-1">
+      {/* 반가운 소식 */}
+      <div className="rounded-3xl border-2 border-green-300 bg-gradient-to-br from-green-50 to-white p-7 flex flex-col">
+        <div className="flex items-center gap-2 mb-4">
+          <div className="w-10 h-10 rounded-xl bg-green-600 text-white flex items-center justify-center">
+            <I.Heart className="w-5 h-5"/>
+          </div>
+          <Pill tone="green">긍정 신호</Pill>
+        </div>
+        <h3 className="text-2xl font-extrabold text-green-900 leading-tight mb-3">
+          신규 가입자의 5개월 후<br/>
+          활성 전환율 <span className="text-green-700">1.5배</span> 상승
+        </h3>
+        <div className="bg-white border border-green-200 rounded-xl p-4 mb-3">
+          <div className="text-xs text-slate-500 mb-1">신규 가입 후 5개월 차 활성(주문) 비율</div>
+          <div className="flex items-baseline gap-3">
+            <span className="text-2xl font-bold text-slate-400 num-tab">7.2%</span>
+            <I.Right className="w-4 h-4 text-slate-400"/>
+            <span className="text-3xl font-extrabold text-green-700 num-tab">10.9%</span>
+            <span className="text-sm font-semibold text-green-700">(2022 → 2024)</span>
+          </div>
+        </div>
+        <p className="text-sm text-green-900 leading-relaxed mt-auto">
+          <b>2023년 7월경 도입된 조합원 가입 선물 프로세스(가입 후 단계별 혜택)</b>가 신규 가입자의
+          활성 정착률을 큰 폭으로 끌어올린 결과로 분석됨.
+        </p>
+      </div>
+
+      {/* 주의할 소식 */}
+      <div className="rounded-3xl border-2 border-red-300 bg-gradient-to-br from-red-50 to-white p-7 flex flex-col">
+        <div className="flex items-center gap-2 mb-4">
+          <div className="w-10 h-10 rounded-xl bg-red-600 text-white flex items-center justify-center">
+            <I.Alert className="w-5 h-5"/>
+          </div>
+          <Pill tone="red">위험 신호</Pill>
+        </div>
+        <h3 className="text-2xl font-extrabold text-red-900 leading-tight mb-3">
+          중간 구매층 'B등급'의<br/>
+          <span className="text-red-600">휴면 이탈 가속</span>
+        </h3>
+        <div className="bg-white border border-red-200 rounded-xl p-4 mb-3">
+          <div className="text-xs text-slate-500 mb-1">B등급(월 5~15만원 구매층) 휴면 이탈률</div>
+          <div className="flex items-baseline gap-3">
+            <span className="text-2xl font-bold text-slate-400 num-tab">14.4%</span>
+            <I.Right className="w-4 h-4 text-slate-400"/>
+            <span className="text-3xl font-extrabold text-red-700 num-tab">23.8%</span>
+            <span className="text-sm font-semibold text-red-700">(2022 → 2026)</span>
+          </div>
+        </div>
+        <p className="text-sm text-red-900 leading-relaxed mt-auto">
+          5년간 <b>1.7배 급증</b>. 2026년 4월 기준 <b>451명이 휴면(월 무구매) 상태로 전환</b>,
+          소액 구매층(C등급) 이탈률(23.5%)과 거의 동일한 수준으로 수렴.
+        </p>
+      </div>
+    </div>
+  </SlideShell>
+);
+
+/* ----- Slide 3: 잔존율이 무엇인가요 ----- */
+const Slide3 = () => (
+  <SlideShell pageNum="03" sectionName="신규 가입자 분석 · 1/3" accent="green"
+    title="신규 가입자의 월별 잔존률 변화"
+    subtitle="가입 후 N개월 차 주문 활동 유지율(잔존률)의 연도별 비교 분석"
+    footer={
+      <div className="flex items-center gap-3">
+        <I.Sparkle className="w-5 h-5 text-green-700 shrink-0"/>
+        <span><b>주요 시사점</b> — 신규 가입자 100명 기준 5개월 차 활성 인원 7명(2022년) → 11명(2024년)으로 약 1.5배 증가. 전 구간 잔존곡선 우상향.</span>
+      </div>
+    }
+  >
+    <div className="grid grid-cols-12 gap-5 flex-1 min-h-0">
+      <div className="col-span-4 flex flex-col gap-3">
+        <GlossaryCard title="이 슬라이드를 읽기 전에">
+          <div>
+            <span className="font-bold">📊 잔존율</span>
+            <span className="block mt-0.5">가입 후 N개월 차에 주문 1건 이상 발생한 회원의 비율. <b className="text-green-800">"가입자 중 꾸준히 이용하는 회원의 비중"</b>을 의미.</span>
+          </div>
+          <div>
+            <span className="font-bold">👥 코호트</span>
+            <span className="block mt-0.5"><b>가입 시기가 같은 고객 집단</b>. 예: "2024년 1월 가입자 100명"과 같이 가입 시점 단위로 묶어 추적하는 분석 단위.</span>
+          </div>
+          <div>
+            <span className="font-bold">🎁 조합원 가입 선물 프로세스</span>
+            <span className="block mt-0.5">가입 후 단계별로 쿠폰·사은품을 지급하는 환영 캠페인. <b>2023년 7월경 도입</b>으로 추정 (데이터 패턴 기반).</span>
+          </div>
+        </GlossaryCard>
+
+        <div className="bg-white border border-green-200 rounded-2xl p-4">
+          <div className="text-xs text-green-700 font-bold mb-2">차트 읽는 방법</div>
+          <div className="text-sm text-slate-700 leading-relaxed space-y-1.5">
+            <div className="flex gap-2"><span className="font-bold text-slate-400">─</span><span>2022년 (선물 도입 전)</span></div>
+            <div className="flex gap-2"><span className="font-bold text-green-700">━</span><span>2024년 (선물 안정기)</span></div>
+            <div className="flex gap-2"><span className="font-bold text-red-500">┄</span><span>2026년 (지금, 회귀 신호)</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div className="col-span-8 bg-white border border-green-100 rounded-2xl p-4 flex flex-col">
+        <div className="flex items-center justify-between mb-1">
+          <h3 className="text-base font-bold text-slate-800">연도별 잔존곡선 비교</h3>
+          <span className="text-xs text-slate-400">단위: %</span>
+        </div>
+        <div className="flex-1 min-h-0">
+          <CohortLineChart hide2026={true}/>
+        </div>
+      </div>
+    </div>
+  </SlideShell>
+);
+
+/* ----- Slide 4: 조합원 가입 선물 효과 ----- */
+const Slide4 = () => (
+  <SlideShell pageNum="04" sectionName="신규 가입자 분석 · 2/3" accent="green"
+    title="조합원 가입 선물 프로세스 도입 효과 정량 분석"
+    subtitle="단계별 효과 분리 시 시점별 인센티브의 직접 영향이라는 시그너처 패턴 확인"
+    footer={
+      <div className="flex items-center gap-3">
+        <I.Gift className="w-5 h-5 text-green-700 shrink-0"/>
+        <span><Term word="LTV" def="고객 1명이 이용 기간 동안 우리에게 주는 가치"/> 1.5배 상승. <b>가입자 수 38% 감소에도 5개월 후 활성 인원은 거의 동일 수준 유지</b>.</span>
+      </div>
+    }
+  >
+    <div className="grid grid-cols-12 gap-5 flex-1 min-h-0">
+      <div className="col-span-7 bg-white border border-green-100 rounded-2xl p-4 flex flex-col">
+        <div className="flex items-center justify-between mb-1">
+          <h3 className="text-base font-bold text-slate-800">단계별 잔존률 향상폭 (2024 vs 2022)</h3>
+          <span className="text-xs text-slate-400">단위: %p (퍼센트 포인트)</span>
+        </div>
+        <p className="text-xs text-slate-500 mb-1">가입 직후(M)에서 효과 최대치, 시점이 멀어질수록 감쇄 → 시점별 인센티브의 직접 영향임을 시사하는 패턴</p>
+        <div className="flex-1 min-h-0">
+          <GiftEffectBarChart/>
+        </div>
+      </div>
+
+      <div className="col-span-5 flex flex-col gap-4">
+        <div className="bg-white border border-green-100 rounded-2xl p-4 flex-1 flex flex-col">
+          <div className="flex items-center justify-between mb-1">
+            <h3 className="text-base font-bold text-slate-800">양적 유입에서 질적 정착으로 전환</h3>
+          </div>
+          <p className="text-xs text-slate-500 mb-1">가입자 수 감소에도 5개월 후 활성 인원은 거의 동일 수준 유지</p>
+          <div className="flex-1 min-h-0">
+            <LtvCompareChart/>
+          </div>
+        </div>
+        <div className="bg-green-700 text-white rounded-2xl p-5">
+          <div className="flex items-center gap-2 mb-2">
+            <I.Up className="w-5 h-5"/>
+            <span className="text-sm font-bold opacity-90">가입자 1명당 활성 LTV</span>
+          </div>
+          <div className="flex items-baseline gap-3">
+            <span className="text-5xl font-extrabold num-tab">1.5</span>
+            <span className="text-2xl font-bold">배 상승</span>
+          </div>
+          <div className="text-sm opacity-90 mt-2">조합원 가입 선물 비용을 활성 회원 1명당 비용으로 환산 시 마케팅 효율 약 50% 개선</div>
+        </div>
+      </div>
+    </div>
+  </SlideShell>
+);
+
+/* ----- Slide 5: 2026 위험 신호 ----- */
+const Slide5 = () => (
+  <SlideShell pageNum="05" sectionName="신규 가입자 분석 · 3/3" accent="amber"
+    title="2026년 잔존곡선 약화 신호 포착"
+    subtitle="가입 직후(M) 단계는 유지되나, M+1 이후 잔존률이 도입 전(2022년) 수준으로 회귀하는 양상"
+    footer={
+      <div className="flex items-center gap-3">
+        <I.Alert className="w-5 h-5 text-amber-700 shrink-0"/>
+        <span><b>점검 필요</b> — 후속 단계(M+1~M+3) 조합원 가입 선물 운영의 약화 또는 중단 가능성이 가장 유력. 실제 운영 기록 대조 필수.</span>
+      </div>
+    }
+  >
+    <div className="grid grid-cols-12 gap-5 flex-1 min-h-0">
+      <div className="col-span-8 bg-white border border-green-100 rounded-2xl p-4 flex flex-col">
+        <div className="flex items-center justify-between mb-1">
+          <h3 className="text-base font-bold text-slate-800">2026년 잔존곡선 — M+1 이후 회귀</h3>
+          <span className="text-xs text-slate-400">단위: %</span>
+        </div>
+        <p className="text-xs text-slate-500 mb-1">2026년(빨간 점선) 곡선은 가입 직후 2024년 수준 유지, M+1 이후 2022년(회색) 곡선에 근접</p>
+        <div className="flex-1 min-h-0">
+          <CohortLineChart fade2024={false}/>
+        </div>
+      </div>
+
+      <div className="col-span-4 flex flex-col gap-3">
+        <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4">
+          <div className="text-xs font-bold text-amber-800 mb-2">가능한 원인 3가지</div>
+          <div className="space-y-3 text-sm">
+            <div>
+              <div className="font-bold text-amber-900 mb-0.5">① 후속 단계 조합원 가입 선물 약화 <span className="text-xs">(가장 유력)</span></div>
+              <div className="text-amber-800 text-xs leading-relaxed">M(가입 환영) 선물은 유지되나 M+1·M+2·M+3 단계 선물의 축소 또는 중단 가능성. 데이터 패턴과 가장 잘 부합.</div>
+            </div>
+            <div>
+              <div className="font-bold text-amber-900 mb-0.5">② 외부 경쟁 강화</div>
+              <div className="text-amber-800 text-xs leading-relaxed">한살림·아이쿱 등 경쟁사의 첫 주문 캠페인 강화로 재구매 유도력 약화 가능성.</div>
+            </div>
+            <div>
+              <div className="font-bold text-amber-900 mb-0.5">③ 측정 미완 영향</div>
+              <div className="text-amber-800 text-xs leading-relaxed">2026년 데이터 측정 진행 중으로 일부 코호트의 후속 선물 미수령 가능성. 6월 이후 데이터 재확인 필요.</div>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-white border border-amber-200 rounded-2xl p-4">
+          <div className="text-xs font-bold text-amber-700 mb-1">표본 주의</div>
+          <div className="text-xs text-slate-600 leading-relaxed">
+            2026년 데이터는 5개 코호트(758명) 표본으로 통계적으로 작은 편. 6월 이후 데이터로 가설 검증 필요.
+          </div>
+        </div>
+      </div>
+    </div>
+  </SlideShell>
+);
+
+/* ----- Slide 6: 등급 시스템 + 활성 추이 ----- */
+const Slide6 = () => (
+  <SlideShell pageNum="06" sectionName="기존 단골 분석 · 1/4" accent="green"
+    title="활성 조합원 등급 구조 및 인원 추이"
+    subtitle="조합원은 직전월 구매 금액 기준 4개 활성 등급(S/A/B/C)과 휴면(NO)으로 분류"
+    footer={
+      <div className="flex items-center gap-3">
+        <I.Users className="w-5 h-5 text-green-700 shrink-0"/>
+        <span>활성 조합원 수 <b>2024년 5,213명 정점</b> 이후 2년 연속 감소(−319명). 신규 등급 진입 인원이 매년 1~9명 수준에 그쳐 자연 이탈 보전 불가 구조.</span>
+      </div>
+    }
+  >
+    <div className="grid grid-cols-12 gap-5 flex-1 min-h-0">
+      <div className="col-span-5 flex flex-col gap-3">
+        <div className="bg-white border border-green-100 rounded-2xl p-5">
+          <div className="text-xs font-bold text-green-700 mb-3 uppercase tracking-wider">등급 구조 (월 구매 금액 기준)</div>
+          <div className="space-y-2">
+            <div className="flex items-center gap-3 p-3 bg-green-700 text-white rounded-xl">
+              <div className="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center font-bold text-lg">S</div>
+              <div className="flex-1">
+                <div className="text-sm font-bold">월 40만원 이상</div>
+                <div className="text-xs opacity-80">VIP · 핵심 매출원</div>
+              </div>
+            </div>
+            <div className="flex items-center gap-3 p-3 bg-green-500 text-white rounded-xl">
+              <div className="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center font-bold text-lg">A</div>
+              <div className="flex-1">
+                <div className="text-sm font-bold">월 15~40만원</div>
+                <div className="text-xs opacity-90">안정적 충성 구매층</div>
+              </div>
+            </div>
+            <div className="flex items-center gap-3 p-3 bg-green-300 text-green-900 rounded-xl border-2 border-red-300">
+              <div className="w-10 h-10 rounded-lg bg-white flex items-center justify-center font-bold text-lg">B</div>
+              <div className="flex-1">
+                <div className="text-sm font-bold flex items-center gap-1">월 5~15만원 <span className="text-xs bg-red-600 text-white px-1.5 py-0.5 rounded">★ 위험</span></div>
+                <div className="text-xs">주력 회원층 · 모수 가장 큼</div>
+              </div>
+            </div>
+            <div className="flex items-center gap-3 p-3 bg-slate-100 rounded-xl">
+              <div className="w-10 h-10 rounded-lg bg-white flex items-center justify-center font-bold text-lg text-slate-700">C</div>
+              <div className="flex-1">
+                <div className="text-sm font-bold text-slate-700">월 5만원 미만</div>
+                <div className="text-xs text-slate-500">소액 구매 · 신규 진입층</div>
+              </div>
+            </div>
+            <div className="flex items-center gap-3 p-3 bg-slate-50 border border-dashed border-slate-300 rounded-xl">
+              <div className="w-10 h-10 rounded-lg bg-white flex items-center justify-center font-bold text-sm text-slate-500">NO</div>
+              <div className="flex-1">
+                <div className="text-sm font-bold text-slate-600">휴면 (한 달 무구매)</div>
+                <div className="text-xs text-slate-400">일시 휴면 · 다음 달 복귀 가능</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="col-span-7 bg-white border border-green-100 rounded-2xl p-4 flex flex-col">
+        <div className="flex items-center justify-between mb-1">
+          <h3 className="text-base font-bold text-slate-800">활성 조합원 수 추이 (매년 3월 기준)</h3>
+          <Pill tone="amber">2024 정점 후 감소 중</Pill>
+        </div>
+        <p className="text-xs text-slate-500 mb-1">정점 도달 이후 등급 간 이동이 아닌 시스템 외부 이탈로 활성 풀이 축소되는 양상</p>
+        <div className="flex-1 min-h-0">
+          <ActiveMembersChart/>
+        </div>
+      </div>
+    </div>
+  </SlideShell>
+);
+
+/* ----- Slide 7: B등급 위기 ----- */
+const Slide7 = () => (
+  <SlideShell pageNum="07" sectionName="기존 단골 분석 · 2/4" accent="red"
+    title="B등급(주력 회원층) 휴면 이탈 가속"
+    subtitle="5년간 B등급 휴면 이탈률 1.7배 증가, 2026년 기준 소액 구매층(C등급)과 거의 동일 수준으로 수렴"
+    footer={
+      <div className="flex items-center gap-3">
+        <I.Alert className="w-5 h-5 text-red-700 shrink-0"/>
+        <span><b>B등급은 등급별 모수가 가장 큰 주력층</b>으로, 이탈률 1%p 변화가 절대 인원 기준 수십~수백 명에 해당. 5개년 합산 B등급 휴면 누적 <b>1,750명</b>.</span>
+      </div>
+    }
+  >
+    <div className="grid grid-cols-12 gap-5 flex-1 min-h-0">
+      <div className="col-span-8 bg-white border border-red-100 rounded-2xl p-4 flex flex-col">
+        <div className="flex items-center justify-between mb-1">
+          <h3 className="text-base font-bold text-slate-800">등급별 한 달 휴면 이탈률 추이</h3>
+          <span className="text-xs text-slate-400">단위: %</span>
+        </div>
+        <p className="text-xs text-slate-500 mb-1">B등급(빨강) 매년 우상향, 2026년 C등급(주황)과 거의 동일 수준까지 도달</p>
+        <div className="flex-1 min-h-0">
+          <DormancyByGradeChart/>
+        </div>
+      </div>
+
+      <div className="col-span-4 flex flex-col gap-4">
+        <div className="bg-gradient-to-br from-red-600 to-red-700 text-white rounded-2xl p-5">
+          <div className="text-xs font-semibold opacity-90 mb-2">B등급 한 달 휴면 이탈률</div>
+          <div className="flex items-baseline gap-2 mb-3">
+            <span className="text-2xl font-bold opacity-70 num-tab">14.4%</span>
+            <I.Right className="w-4 h-4 opacity-70"/>
+            <span className="text-5xl font-extrabold num-tab">23.8%</span>
+          </div>
+          <div className="text-sm opacity-90 mb-2">2022 → 2026 (5년간 1.7배 증가)</div>
+          <div className="bg-white/15 backdrop-blur rounded-lg px-3 py-2 mt-3">
+            <div className="text-xs opacity-90">2026년 4월 휴면 전환</div>
+            <div className="text-2xl font-extrabold num-tab">451명</div>
+            <div className="text-xs opacity-80">B등급 1,896명 중</div>
+          </div>
+        </div>
+
+        <div className="bg-red-50 border border-red-200 rounded-2xl p-4">
+          <div className="text-xs font-bold text-red-800 mb-2">위험 요인</div>
+          <div className="text-sm text-red-900 leading-relaxed">
+            B등급 휴면 이탈률이 <b>C등급(소액 구매층) 수준으로 수렴</b> →
+            '주력 회원층'으로서의 안정성 위기 신호.
+          </div>
+        </div>
+      </div>
+    </div>
+  </SlideShell>
+);
+
+/* ----- Slide 8: VIP 충성도 균열 ----- */
+const Slide8 = () => (
+  <SlideShell pageNum="08" sectionName="기존 단골 분석 · 3/4" accent="amber"
+    title="S등급 잔류율 하락 및 A→S 승급 동력 동반 약화"
+    subtitle="최상위 등급(S)의 잔류 동력과 승급 유입 동력이 동시 약화되는 '이중 약화 구조' 진행 중"
+    footer={
+      <div className="flex items-center gap-3">
+        <I.Crown className="w-5 h-5 text-amber-700 shrink-0"/>
+        <span><b>등급 구조 전반의 안정성 약화</b>. S등급은 객단가가 가장 큰 핵심 매출원으로, 잔류율 8.2%p 하락은 전체 매출에 직접 영향을 미치는 변수.</span>
+      </div>
+    }
+  >
+    <div className="grid grid-cols-2 gap-5 flex-1 min-h-0">
+      <div className="bg-white border border-amber-200 rounded-2xl p-4 flex flex-col">
+        <div className="flex items-center justify-between mb-1">
+          <h3 className="text-base font-bold text-slate-800">S등급 잔류율 추이 — 상위 등급 잔류 동력</h3>
+          <Pill tone="amber">−8.2%p</Pill>
+        </div>
+        <p className="text-xs text-slate-500 mb-1">S등급 회원이 익월에도 S등급에 머무는 비율 5년간 8.2%p 하락</p>
+        <div className="flex-1 min-h-0">
+          <SRetentionChart/>
+        </div>
+        <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 mt-2">
+          <div className="text-xs text-amber-900">
+            <b>핵심 매출원 잔류력 약화</b> — S등급은 모수는 적으나 객단가가 가장 높은 그룹.
+            잔류율 1%p 변화가 곧 매출 영향으로 직결.
+          </div>
+        </div>
+      </div>
+
+      <div className="bg-white border border-amber-200 rounded-2xl p-4 flex flex-col">
+        <div className="flex items-center justify-between mb-1">
+          <h3 className="text-base font-bold text-slate-800">A → S 승급률 — 상위 등급 유입 동력</h3>
+          <Pill tone="amber">−4.6%p</Pill>
+        </div>
+        <p className="text-xs text-slate-500 mb-1">A등급 회원의 익월 S등급 승급 비율이 5년간 약 38% 감소</p>
+        <div className="flex-1 min-h-0">
+          <AtoSChart/>
+        </div>
+        <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 mt-2">
+          <div className="text-xs text-amber-900">
+            <b>승급 동력 둔화</b> — 상위 등급 신규 유입 흐름 약화로 S등급 풀의 자연 회복이 어려운 구조.
+          </div>
+        </div>
+      </div>
+    </div>
+  </SlideShell>
+);
+
+/* ----- Slide 9: 통합 진단 (등급별 잔류율 + 깔때기) ----- */
+const Slide9 = () => (
+  <SlideShell pageNum="09" sectionName="기존 단골 분석 · 4/4" accent="green"
+    title="신규 유입은 양호, 중간 단계 이탈 동시 진행"
+    subtitle="신규 가입자 코호트 분석과 등급 이동 매트릭스 통합 시 회원 생애주기 흐름의 약점 명확화"
+    footer={
+      <div className="flex items-center gap-3">
+        <I.Funnel className="w-5 h-5 text-green-700 shrink-0"/>
+        <span><b>핵심 진단</b> — 회원 생애주기 깔때기의 신규 유입 단계는 정상 작동. 단, B등급 → A·S 승급 단계의 통과율이 점진적으로 축소되는 중.</span>
+      </div>
+    }
+  >
+    <div className="grid grid-cols-12 gap-5 flex-1 min-h-0">
+      <div className="col-span-7 bg-white border border-green-100 rounded-2xl p-4 flex flex-col">
+        <div className="flex items-center justify-between mb-1">
+          <h3 className="text-base font-bold text-slate-800">등급별 잔류율 5개년 추이</h3>
+          <span className="text-xs text-slate-400">"같은 등급에 머무는 비율"</span>
+        </div>
+        <p className="text-xs text-slate-500 mb-1">S(VIP)/A/B 전 활성 등급의 잔류율 우하향 — 등급 유지 동력 전반 약화</p>
+        <div className="flex-1 min-h-0">
+          <RetentionByGradeChart/>
+        </div>
+      </div>
+
+      <div className="col-span-5 flex flex-col gap-3">
+        <div className="text-xs font-bold text-green-700 uppercase tracking-wider mb-1">회원 생애주기 깔때기 진단</div>
+        <div className="space-y-2">
+          <FunnelStep w="100%" label="신규 가입 (M)" sub="가입 직후 잔존률 양호 (M=34.0%)" tone="green" status="✓ 양호"/>
+          <FunnelStep w="78%" label="첫 주문 → 재구매 (M+1)" sub="2026년 회귀 신호 발생" tone="amber" status="⚠ 주의"/>
+          <FunnelStep w="50%" label="5개월 후 정착 (M+5)" sub="잔존률 1.5배 상승" tone="green" status="✓ 양호"/>
+          <FunnelStep w="36%" label="B등급 진입" sub="휴면 이탈률 1.7배 상승" tone="red" status="🔴 위험"/>
+          <FunnelStep w="22%" label="A·S 상위 등급 도달" sub="잔류율·승급률 동시 약화" tone="amber" status="⚠ 약화"/>
+        </div>
+      </div>
+    </div>
+  </SlideShell>
+);
+
+const FunnelStep = ({w, label, sub, tone, status}) => {
+  const m = {
+    green: 'bg-green-600 text-white',
+    amber: 'bg-amber-500 text-white',
+    red:   'bg-red-600 text-white',
+    slate: 'bg-slate-400 text-white',
+  }[tone];
+  return (
+    <div className="relative">
+      <div className={`${m} rounded-r-lg pl-4 pr-3 py-2 flex items-center justify-between`} style={{width: w}}>
+        <div>
+          <div className="text-sm font-bold">{label}</div>
+          <div className="text-xs opacity-90">{sub}</div>
+        </div>
+        <div className="text-xs font-semibold bg-white/20 backdrop-blur rounded px-2 py-0.5">{status}</div>
+      </div>
+    </div>
+  );
+};
+
+/* ----- Slide 10: Action Plan ----- */
+const Slide10 = () => (
+  <SlideShell pageNum="10" sectionName="결론 및 액션 플랜" accent="green"
+    title="우선순위 액션 플랜"
+    subtitle="시급도 기준 5개 액션 — 1순위 B등급 휴면 방어, 2순위 신규 정착률 약화 원인 진단"
+    footer={
+      <div className="flex items-center gap-3">
+        <I.Sprout className="w-5 h-5 text-green-700 shrink-0"/>
+        <span><b>다음 단계</b> — ① B등급 휴면 방어 캠페인 정식 가동, ② 활성 감소 319명 코호트 추적 분석, ③ 정기배송 전환 유도로 장기 LTV 강화. 6월 데이터 보강 시 가설 검증 가능.</span>
+      </div>
+    }
+  >
+    <div className="space-y-3">
+      {/* 즉시 */}
+      <div>
+        <div className="flex items-center gap-2 mb-2">
+          <span className="w-3 h-3 bg-red-500 rounded-full"/>
+          <span className="text-sm font-bold text-red-700">1순위 · 즉시 (이번 달 내)</span>
+        </div>
+        <div className="grid grid-cols-2 gap-3">
+          <ActionCard
+            num="01" tone="red" icon={<I.Shield className="w-5 h-5"/>}
+            title="B등급 휴면 방어 캠페인 정식 가동"
+            body="직전월 5~15만원 구매 + 당월 1주차 미구매 + 평균 발주 주기 3일 이상 초과 회원 대상. 카카오 알림톡 1차 발송 → 미반응 시 SMS 2차 발송(2일 간격). 메시지 내용: 평소 구매 카테고리 신생활재 + 당주 픽업·배송 마감 안내."
+            target="B등급 활성 1,896명"
+            expect="이탈률 23.8% → 18% 회복 시 월 110명 잔존 효과"
+          />
+          <ActionCard
+            num="02" tone="red" icon={<I.Search className="w-5 h-5"/>}
+            title="2026 후속 단계 조합원 가입 선물 운영 점검"
+            body="M(가입 환영) 선물은 유지되나 M+1·M+2·M+3 단계 선물의 축소 또는 중단 가능성 직접 확인. 약화 원인 우선 진단을 통한 후속 액션 타겟팅 정확도 확보."
+            target="신규 가입자 후속 단계 (M+1~M+3)"
+            expect="원인 진단 → M+1·M+2 잔존률 +5~7%p 회복 가능"
+          />
+        </div>
+      </div>
+
+      {/* 1~2개월 */}
+      <div>
+        <div className="flex items-center gap-2 mb-2">
+          <span className="w-3 h-3 bg-amber-500 rounded-full"/>
+          <span className="text-sm font-bold text-amber-700">2순위 · 단기 (1~2개월)</span>
+        </div>
+        <div className="grid grid-cols-2 gap-3">
+          <ActionCard
+            num="03" tone="amber" icon={<I.Users className="w-5 h-5"/>}
+            title="활성 감소 319명 코호트 추적 분석"
+            body="2024년 정점(5,213명) → 2026년(4,894명) 감소분의 등급·지역·연령층별 이탈 패턴 추적. 후속 액션 타겟팅 정확도 결정의 사전 분석 단계."
+            target="2024년 활성 회원 5,213명"
+            expect="이탈자 페르소나 식별 → 채널별 캠페인 ROI 산출"
+          />
+          <ActionCard
+            num="04" tone="amber" icon={<I.Crown className="w-5 h-5"/>}
+            title="S등급 잔류율 회복 프로그램"
+            body="객단가 최상위 핵심층의 잔류율 62% → 54% (5년간 8.2%p 하락). 신생활재·생산자 우선 안내 채널 강화 및 사전 정보 차별화를 통한 핵심층 잔류 동력 보강."
+            target="S등급 (월 40만원 이상 구매층)"
+            expect="S 잔류율 +3~5%p 회복 → A→S 승급 동력 회복"
+          />
+        </div>
+      </div>
+
+      {/* 분기 */}
+      <div>
+        <div className="flex items-center gap-2 mb-2">
+          <span className="w-3 h-3 bg-green-500 rounded-full"/>
+          <span className="text-sm font-bold text-green-700">3순위 · 중기 (분기 단위)</span>
+        </div>
+        <div className="grid grid-cols-1">
+          <ActionCard
+            num="05" tone="green" icon={<I.Heart className="w-5 h-5"/>}
+            title="정기배송 전환 유도 (M+2 시점 쿠폰) — 장기 LTV 강화"
+            body="가입 후 60~90일 구간이 정착 분기점. 2회차 주문 시 정기배송 제안 + 카테고리 추천 묶음 발송으로 락인 강화. 후속 단계 조합원 가입 선물 의존도 축소를 위한 구조적 해법."
+            target="신규 가입 후 M+2 도달 회원"
+            expect="M+2~M+5 장기 LTV 향상, 후속 선물 비용 절감"
+          />
+        </div>
+      </div>
+    </div>
+  </SlideShell>
+);
+
+const ActionCard = ({num, tone, icon, title, body, target, expect}) => {
+  const m = {
+    red:    { tag:'bg-red-100 text-red-800',       border:'border-red-200',    iconBg:'bg-red-600' },
+    amber:  { tag:'bg-amber-100 text-amber-800',   border:'border-amber-200',  iconBg:'bg-amber-500' },
+    green:  { tag:'bg-green-100 text-green-800',   border:'border-green-200',  iconBg:'bg-green-600' },
+  }[tone];
+  return (
+    <div className={`bg-white border ${m.border} rounded-xl p-4 flex gap-3`}>
+      <div className={`${m.iconBg} text-white w-9 h-9 rounded-lg flex items-center justify-center shrink-0`}>{icon}</div>
+      <div className="flex-1 min-w-0">
+        <div className="flex items-center gap-2 mb-1">
+          <span className={`text-xs font-bold px-2 py-0.5 rounded ${m.tag}`}>{num}</span>
+          <h4 className="text-sm font-bold text-slate-800">{title}</h4>
+        </div>
+        <p className="text-xs text-slate-600 leading-relaxed mb-2">{body}</p>
+        <div className="flex flex-wrap gap-2 text-xs">
+          <span className="bg-slate-100 text-slate-700 px-2 py-0.5 rounded">대상: {target}</span>
+          <span className="bg-green-50 text-green-800 px-2 py-0.5 rounded font-medium">기대효과: {expect}</span>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+/* =========================== App =========================== */
+const slides = [Slide1, Slide2, Slide3, Slide4, Slide5, Slide6, Slide7, Slide8, Slide9, Slide10];
+const slideTitles = [
+  '표지',
+  '핵심 요약',
+  '신규 가입자 분석 — 잔존율 이해하기',
+  '신규 가입자 분석 — 조합원 가입 선물 효과',
+  '신규 가입자 분석 — 2026 위험 신호',
+  '기존 단골 분석 — 등급 시스템',
+  '기존 단골 분석 — B등급 위기',
+  '기존 단골 분석 — VIP 충성도',
+  '통합 진단 — 단골 깔때기',
+  '결론 & 액션 플랜',
+];
+
+function App() {
+  const [idx, setIdx] = useState(0);
+  const total = slides.length;
+
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        setIdx(i => Math.min(i+1, total-1));
+      }
+      if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        setIdx(i => Math.max(i-1, 0));
+      }
+      if (e.key === 'Home') setIdx(0);
+      if (e.key === 'End')  setIdx(total-1);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [total]);
+
+  const Current = slides[idx];
+
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-center px-6 py-8" style={{background: C.bg}}>
+      {/* Slide stage */}
+      <div className="w-full" style={{maxWidth: '1280px'}}>
+        <div className="aspect-[16/9] w-full">
+          <Current/>
+        </div>
+      </div>
+
+      {/* Bottom nav */}
+      <div className="fixed bottom-5 left-1/2 -translate-x-1/2 bg-white rounded-full shadow-2xl border border-green-200 flex items-center px-2 py-2 gap-1 z-50">
+        <button
+          onClick={()=>setIdx(i=>Math.max(i-1,0))}
+          disabled={idx===0}
+          className="w-9 h-9 rounded-full flex items-center justify-center text-green-700 hover:bg-green-50 disabled:opacity-30 disabled:cursor-not-allowed"
+          title="이전 (←)"
+        ><I.Left className="w-4 h-4"/></button>
+
+        <div className="flex items-center gap-1.5 px-3">
+          {Array.from({length:total}).map((_,i)=>(
+            <button key={i} onClick={()=>setIdx(i)}
+              title={`${i+1}. ${slideTitles[i]}`}
+              className={`h-2 rounded-full transition-all ${i===idx?'bg-green-600 w-7':'bg-slate-300 w-2 hover:bg-green-300'}`}/>
+          ))}
+        </div>
+
+        <div className="num-tab text-xs font-bold text-slate-600 px-3 border-l border-slate-200">
+          {String(idx+1).padStart(2,'0')} / {String(total).padStart(2,'0')}
+        </div>
+
+        <button
+          onClick={()=>setIdx(i=>Math.min(i+1,total-1))}
+          disabled={idx===total-1}
+          className="w-9 h-9 rounded-full flex items-center justify-center text-green-700 hover:bg-green-50 disabled:opacity-30 disabled:cursor-not-allowed"
+          title="다음 (→)"
+        ><I.Right className="w-4 h-4"/></button>
+      </div>
+
+      {/* Section indicator (top-left fixed) */}
+      <div className="fixed top-4 left-4 bg-white/80 backdrop-blur border border-green-200 rounded-full px-3 py-1.5 text-xs font-medium text-green-800 z-40 hidden md:flex items-center gap-2">
+        <I.Sprout className="w-3.5 h-3.5"/>
+        <span>{slideTitles[idx]}</span>
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+<script>
+(function(){
+  var NS = 'durecoop-loyalty-report-2026';
+  var API = 'https://abacus.jasoncameron.dev/hit/' + NS + '/';
+  function hit(key){
+    try { fetch(API + key, { mode: 'cors', keepalive: true, cache: 'no-store' }).catch(function(){}); } catch(e){}
+  }
+  hit('pageview');
+  try {
+    var params = new URLSearchParams(location.search);
+    var src = (params.get('utm_source') || '').toLowerCase();
+    if (src === 'rcs') hit('pageview-rcs');
+    else if (src) hit('pageview-other');
+    else hit('pageview-direct');
+  } catch(e){}
+})();
+</script>
+</body>
+</html>
