@@ -141,7 +141,7 @@ const SlideShell = ({ idx, total, title, sub, kicker, kickerTone="neutral", chil
           <div className="w-2 h-7" style={{background:C.green}}/>
           <span className="text-[12px] tracking-wider text-slate-600">두레생협 · 온라인사업팀 분석 보고</span>
         </div>
-        <div className="text-[11px] text-slate-500 num-tab">2026년 5월 · {idx}쪽 / 전체 {total}쪽</div>
+        <div className="text-[11px] text-slate-500 num-tab">{idx}쪽 / 전체 {total}쪽</div>
       </header>
       <div className="px-10 pt-6">
         {kicker && <span className={`inline-block text-[12px] font-semibold border px-2 py-0.5 mb-3 ${tone}`}>{kicker}</span>}
@@ -150,7 +150,7 @@ const SlideShell = ({ idx, total, title, sub, kicker, kickerTone="neutral", chil
       </div>
       <div className="flex-1 px-10 pt-5 pb-4 min-h-0">{children}</div>
       <footer className="flex items-center justify-between px-10 py-3 border-t border-slate-200 bg-slate-50">
-        <span className="text-[11px] text-slate-500">두레생협 내부 자료 · 외부 유출 금지</span>
+        <span className="text-[11px] text-slate-500">두레생협 온라인사업팀</span>
         <span className="text-[10px] text-slate-400 num-tab">{idx}쪽</span>
       </footer>
     </div>
@@ -215,14 +215,10 @@ const Slide1 = () => (
             <div className="text-[13px] font-semibold">온라인사업팀 · 분석 보고</div>
           </div>
         </div>
-        <div className="text-right text-[10px] text-white/60">
-          <div>전략 분석 보고서</div>
-          <div className="num-tab">문서 번호 LCYC-001</div>
-        </div>
+        <div className="text-right text-[10px] text-white/60 num-tab">2026년 5월</div>
       </div>
       <div>
-        <Pill tone="ink"><span className="text-emerald-300">대외비 · 이사회 검토용</span></Pill>
-        <h1 className="text-[42px] font-bold leading-[1.15] mt-5" style={{letterSpacing:"-0.02em"}}>
+        <h1 className="text-[42px] font-bold leading-[1.15]" style={{letterSpacing:"-0.02em"}}>
           온라인몰 회원<br/>
           유입·이탈 흐름 진단<br/>
           <span style={{color:C.greenLite}}>5개년 분석 보고</span>
