@@ -408,13 +408,13 @@ const Slide3 = () => (
 /* === 4쪽: 가입 선물 효과 === */
 const Slide4 = () => (
   <SlideShell idx={4} total={9} kicker="성과" kickerTone="perf"
-    title="가입 선물 제도 효과 정량 확인"
-    sub="2023년 7월경 도입 추정 · 도입 전(2022) → 안정기(2024) 비교">
+    title="가입 선물 제도, 회원이 더 오래 남게 만든 효과 확인"
+    sub="2023년 7월경 시작 추정 · 시작 전(2022)과 자리잡은 시기(2024) 비교">
     <div className="grid grid-cols-12 gap-3 h-full">
       <div className="col-span-7 flex flex-col gap-3 min-h-0">
         <div className="bg-white border border-slate-200 p-3 flex-1 min-h-0 flex flex-col">
-          <SectionTitle no="01" right={<span className="text-[10px] text-slate-500">단위: %</span>}>
-            연도별 잔존 곡선 (가입월 ~ 5개월 차)
+          <SectionTitle no="01" right={<span className="text-[10px] text-slate-500">단위: % (가입자 100명 중)</span>}>
+            가입 후 N개월 뒤에도 주문하는 회원 비율
           </SectionTitle>
           <div className="flex-1 min-h-0">
             <ResponsiveContainer width="100%" height="100%">
@@ -424,18 +424,18 @@ const Slide4 = () => (
                 <YAxis tick={{fontSize:11, fill:C.slateSoft}} unit="%"/>
                 <Tooltip formatter={(v)=>v==null?"-":v+"%"}/>
                 <Legend wrapperStyle={{fontSize:12}}/>
-                <Line type="monotone" dataKey="y2022" name="2022년 (시작 전)" stroke={C.slateLine} strokeWidth={2} dot={{r:3}} connectNulls/>
-                <Line type="monotone" dataKey="y2023" name="2023년 (시작 직후)" stroke={C.greenSoft} strokeWidth={2} dot={{r:3}} connectNulls/>
-                <Line type="monotone" dataKey="y2024" name="2024년 (안정기)" stroke={C.green} strokeWidth={3} dot={{r:4}} connectNulls/>
-                <Line type="monotone" dataKey="y2026" name="2026년 (현재·후퇴)" stroke={C.risk} strokeWidth={2.5} strokeDasharray="5 4" dot={{r:3.5}} connectNulls/>
+                <Line type="monotone" dataKey="y2022" name="2022년 (선물 시작 전)" stroke={C.slateLine} strokeWidth={2} dot={{r:3}} connectNulls/>
+                <Line type="monotone" dataKey="y2023" name="2023년 (선물 시작 직후)" stroke={C.greenSoft} strokeWidth={2} dot={{r:3}} connectNulls/>
+                <Line type="monotone" dataKey="y2024" name="2024년 (자리잡은 시기)" stroke={C.green} strokeWidth={3} dot={{r:4}} connectNulls/>
+                <Line type="monotone" dataKey="y2026" name="2026년 (다시 후퇴 중)" stroke={C.risk} strokeWidth={2.5} strokeDasharray="5 4" dot={{r:3.5}} connectNulls/>
               </LineChart>
             </ResponsiveContainer>
           </div>
         </div>
 
         <div className="bg-white border border-slate-200 p-3 flex flex-col">
-          <SectionTitle no="02" right={<span className="text-[10px] text-slate-500">단위: %p (도입 전 대비 향상폭)</span>}>
-            가입월·1개월차 효과 최대
+          <SectionTitle no="02" right={<span className="text-[10px] text-slate-500">선물 시작 전(2022)보다 몇 % 좋아졌는가</span>}>
+            가입한 달과 1개월 뒤 효과가 가장 큼 (시간 지날수록 효과 작아짐)
           </SectionTitle>
           <div className="h-[150px]">
             <ResponsiveContainer width="100%" height="100%">
@@ -445,10 +445,10 @@ const Slide4 = () => (
                 <YAxis tick={{fontSize:11, fill:C.slateSoft}} unit="%p"/>
                 <Tooltip formatter={(v)=>"+"+v+"%p"}/>
                 <Legend wrapperStyle={{fontSize:12}}/>
-                <Bar dataKey="v23h" name="2023년 하반기 (시작 직후)" fill={C.greenLite} radius={[3,3,0,0]} barSize={22}>
+                <Bar dataKey="v23h" name="2023년 하반기 (선물 시작 직후)" fill={C.greenLite} radius={[3,3,0,0]} barSize={22}>
                   <LabelList dataKey="v23h" position="top" formatter={(v)=>"+"+v} style={{fontSize:10, fontWeight:600, fill:C.greenMid}}/>
                 </Bar>
-                <Bar dataKey="v24" name="2024년 (안정기)" fill={C.green} radius={[3,3,0,0]} barSize={22}>
+                <Bar dataKey="v24" name="2024년 (자리잡은 시기)" fill={C.green} radius={[3,3,0,0]} barSize={22}>
                   <LabelList dataKey="v24" position="top" formatter={(v)=>"+"+v} style={{fontSize:10, fontWeight:700, fill:C.green}}/>
                 </Bar>
               </BarChart>
@@ -460,37 +460,37 @@ const Slide4 = () => (
       <div className="col-span-5 flex flex-col gap-2 min-h-0">
         <div className="grid grid-cols-3 gap-2">
           <div className="bg-white border-l-4 border-emerald-500 px-2.5 py-2 shadow-sm">
-            <div className="text-[10.5px] text-slate-600">가입월 향상폭</div>
+            <div className="text-[10.5px] text-slate-600">가입한 달 잔존</div>
             <div className="flex items-baseline gap-0.5 mt-0.5"><span className="text-[20px] font-bold num-tab leading-none text-emerald-900">+8.8</span><span className="text-[10px] text-slate-500">%p</span></div>
-            <div className="text-[10px] text-slate-500 num-tab mt-0.5">25.3% → 34.1%</div>
+            <div className="text-[10px] text-slate-500 num-tab mt-0.5">100명 중 8.8명 더 남음</div>
           </div>
           <div className="bg-white border-l-4 border-emerald-500 px-2.5 py-2 shadow-sm">
-            <div className="text-[10.5px] text-slate-600">5개월차 잔존</div>
+            <div className="text-[10.5px] text-slate-600">5개월 뒤 잔존</div>
             <div className="flex items-baseline gap-0.5 mt-0.5"><span className="text-[20px] font-bold num-tab leading-none text-emerald-900">10.9</span><span className="text-[10px] text-slate-500">%</span></div>
-            <div className="text-[10px] text-emerald-700 num-tab mt-0.5">2022 대비 +50%</div>
+            <div className="text-[10px] text-emerald-700 num-tab mt-0.5">2022년 대비 +50%</div>
           </div>
           <div className="bg-white border-l-4 border-emerald-500 px-2.5 py-2 shadow-sm">
-            <div className="text-[10.5px] text-slate-600">회원 1명당 효율</div>
+            <div className="text-[10.5px] text-slate-600">회원 1명당 가치</div>
             <div className="flex items-baseline gap-0.5 mt-0.5"><span className="text-[20px] font-bold num-tab leading-none text-emerald-900">1.5</span><span className="text-[10px] text-slate-500">배</span></div>
-            <div className="text-[10px] text-slate-500 num-tab mt-0.5">가입 -38% / 활성 동등</div>
+            <div className="text-[10px] text-slate-500 num-tab mt-0.5">가입자 줄었지만 활성 그대로</div>
           </div>
         </div>
 
         <div className="bg-emerald-50/60 border border-emerald-300 p-3 flex-1 min-h-0 overflow-auto">
           <div className="flex items-center gap-2 mb-1.5">
             <Icon name="check" size={14} className="text-emerald-700"/>
-            <span className="text-[12.5px] font-semibold text-emerald-900">선물 효과로 해석되는 근거</span>
+            <span className="text-[12.5px] font-semibold text-emerald-900">왜 이 효과가 '선물' 덕분이라고 보는가</span>
           </div>
-          <ul className="text-[11.5px] text-slate-700 space-y-1.5 list-disc pl-5 leading-relaxed">
-            <li>가입 직후 효과 최대, 시간 경과에 따라 감쇄 → 단계별 선물의 직접 효과로 해석</li>
-            <li>가입 5개월 차 활성 회원 수: 2022년 299명 / 2023년 340명 / 2024년 280명 — 가입자 절반에도 동등 수준</li>
-            <li>선물 비용 대비 마케팅 효율 우위 — 운영 지속 타당성 확인</li>
+          <ul className="text-[11.5px] text-slate-700 space-y-2 list-disc pl-5 leading-relaxed">
+            <li>가입한 달에 효과 가장 크고, 시간이 지날수록 점점 약해지는 모양 → 사이트 개선 같은 배경 효과가 아니라, 단계별로 받는 선물의 직접 효과</li>
+            <li>가입 5개월 뒤 실제 주문하는 회원 수: 2022년 <b className="num-tab">299명</b> / 2023년 <b className="num-tab">340명</b> / 2024년 <b className="num-tab">280명</b> — 새로 가입하는 사람은 절반으로 줄었는데 남는 회원 수는 거의 같음</li>
+            <li>선물에 들어간 비용보다 회원 1명을 더 오래 붙드는 가치가 더 큼 → 제도 계속 운영해도 이득</li>
           </ul>
         </div>
 
-        <div className="bg-slate-50 border border-slate-200 px-3 py-2 text-[11px] text-slate-700 leading-relaxed">
-          <Pill tone="perf">종합</Pill>
-          <span className="ml-2">도입 후 코호트 잔존곡선 구조적 상향 이동 + 인당 가치 동반 상승 → 단순 일회성 구매가 아닌 정착 행동 유도 효과로 판단.</span>
+        <div className="bg-slate-50 border border-slate-200 px-3 py-2 text-[11.5px] text-slate-700 leading-relaxed">
+          <Pill tone="perf">한 줄 요약</Pill>
+          <span className="ml-2">선물 시작 후 모든 시점에서 회원이 더 많이 남고, 1명당 가치도 함께 상승. 한 번 사고 마는 것이 아니라 회원이 자리잡는 효과로 해석.</span>
         </div>
       </div>
     </div>
