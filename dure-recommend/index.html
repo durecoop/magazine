@@ -2,892 +2,536 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>두레추천 — 이번 주, 두레가 고른 먹거리</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#006731">
+<title>이번 주 두레추천 — 생활재</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Serif+KR:wght@400;600;700&display=swap');
-
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-:root {
-  --bg: #faf7f2;
-  --card: #ffffff;
-  --text: #2c2c2c;
-  --sub: #888;
-  --accent: #c4763a;
-  --green: #4a7c59;
-  --green-light: #eef4f0;
-  --border: #ece6dc;
-}
-
-html { scroll-behavior: smooth; }
-
-body {
-  font-family: 'Noto Sans KR', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  word-break: keep-all;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-}
-
-/* ===== PROGRESS ===== */
-.progress {
-  position: fixed; top: 0; left: 0; height: 3px;
-  background: linear-gradient(90deg, var(--accent), var(--green));
-  z-index: 100; transition: width 0.1s linear;
-}
-
-/* ===== HERO ===== */
-.hero {
-  min-height: 70vh;
-  display: flex; flex-direction: column;
-  justify-content: center; align-items: center;
-  text-align: center;
-  padding: 48px 20px 40px;
-  background: linear-gradient(160deg, #faf7f2, #f0e8db, #e6ddd0);
-  position: relative; overflow: hidden;
-}
-.hero::after {
-  content: '';
-  position: absolute; inset: 0;
-  background: url('Downloads/tc02500001770.jpg') center/cover no-repeat;
-  opacity: 0.35;
-  z-index: 0;
-}
-
-.hero::before {
-  content: ''; position: absolute;
-  top: -80px; right: -80px;
-  width: 300px; height: 300px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(196,118,58,0.07), transparent 70%);
-  animation: drift 8s ease-in-out infinite;
-}
-
-@keyframes drift {
-  0%,100% { transform: translate(0,0); }
-  50% { transform: translate(15px,-20px); }
-}
-
-.badge {
-  display: inline-block;
-  padding: 6px 16px;
-  background: var(--green);
-  color: #fff;
-  border-radius: 100px;
-  font-size: 14px; font-weight: 500;
-  letter-spacing: 0.3px;
-  margin-bottom: 20px;
-  position: relative; z-index: 1;
-  opacity: 0; animation: up .6s .2s ease forwards;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.15);
-}
-
-.hero h1 {
-  font-family: 'Noto Serif KR', serif;
-  font-size: 38px; font-weight: 700;
-  line-height: 1.3;
-  position: relative; z-index: 1;
-  opacity: 0; animation: up .6s .35s ease forwards;
-  text-shadow: 0 1px 8px rgba(255,255,255,0.9), 0 0 20px rgba(255,255,255,0.7);
-}
-
-.hero h1 em { font-style: normal; color: var(--accent); }
-
-.hero-sub {
-  font-size: 17px; color: #444;
-  font-weight: 500;
-  margin-top: 12px; line-height: 1.7;
-  position: relative; z-index: 1;
-  opacity: 0; animation: up .6s .5s ease forwards;
-  text-shadow: 0 1px 8px rgba(255,255,255,0.9), 0 0 20px rgba(255,255,255,0.7);
-}
-
-@keyframes up {
-  from { opacity: 0; transform: translateY(16px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* ===== PRODUCT CARD ===== */
-.cards {
-  padding: 24px 16px 40px;
-  max-width: 520px;
-  margin: 0 auto;
-  display: flex; flex-direction: column;
-  gap: 20px;
-}
-
-.card {
-  background: var(--card);
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 2px 16px rgba(0,0,0,0.05);
-  opacity: 0; transform: translateY(24px);
-  transition: all .6s cubic-bezier(.16,1,.3,1);
-}
-
-.card.show {
-  opacity: 1; transform: translateY(0);
-}
-
-.card-img {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 4/3;
-  overflow: hidden;
-}
-
-.card-img img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  transition: transform .5s ease;
-}
-
-.card:active .card-img img {
-  transform: scale(1.03);
-}
-
-.card-badge {
-  position: absolute; top: 12px; left: 12px;
-  background: var(--accent); color: #fff;
-  padding: 6px 16px; border-radius: 100px;
-  font-size: 16px; font-weight: 800;
-}
-
-.card-body {
-  padding: 20px;
-}
-
-.card-name {
-  font-family: 'Noto Serif KR', serif;
-  font-size: 24px; font-weight: 700;
-  margin-bottom: 8px;
-}
-
-.card-tagline {
-  font-size: 16px; color: var(--accent);
-  font-weight: 500;
-  margin-bottom: 14px;
-}
-
-.card-desc {
-  font-size: 15px; color: var(--sub);
-  line-height: 1.8;
-  margin-bottom: 16px;
-}
-
-.chips {
-  display: flex; flex-wrap: wrap; gap: 6px;
-  margin-bottom: 18px;
-}
-
-.chip {
-  padding: 6px 14px;
-  background: var(--green-light);
-  color: var(--green);
-  border-radius: 100px;
-  font-size: 14px; font-weight: 500;
-}
-
-.card-price {
-  display: flex; align-items: baseline; gap: 8px;
-  margin-bottom: 16px; flex-wrap: wrap;
-}
-
-.card-price .orig {
-  font-size: 16px; color: #bbb;
-  text-decoration: line-through;
-}
-
-.card-price .now {
-  font-size: 28px; font-weight: 900;
-  color: #a05e2c;
-}
-
-.card-price .unit {
-  font-size: 16px; font-weight: 400;
-}
-
-.card-price .off {
-  background: #fff0e6; color: var(--accent);
-  padding: 4px 12px; border-radius: 6px;
-  font-size: 14px; font-weight: 700;
-}
-
-.card-btn {
-  display: flex; align-items: center; justify-content: center;
-  gap: 8px; width: 100%;
-  padding: 14px;
-  background: var(--green); color: #fff;
-  border: none; border-radius: 14px;
-  font-size: 16px; font-weight: 600;
-  text-decoration: none;
-  transition: background .2s;
-  cursor: pointer;
-}
-
-.card-btn:active { background: #3d6a4a; }
-
-.card-btn svg { width: 16px; height: 16px; fill: #fff; }
-
-/* ===== PAIRING (marquee) ===== */
-.pairing {
-  background: var(--card);
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 2px 16px rgba(0,0,0,0.05);
-  padding: 20px;
-  opacity: 0; transform: translateY(24px);
-  transition: all .6s cubic-bezier(.16,1,.3,1);
-}
-
-.pairing.show {
-  opacity: 1; transform: translateY(0);
-}
-
-.pairing-title {
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--accent);
-  margin-bottom: 14px;
-}
-
-.pairing-track {
-  display: flex;
-  width: max-content;
-  animation: marquee 14s linear infinite;
-}
-
-.pairing-track:hover,
-.pairing-track:active {
-  animation-play-state: paused;
-}
-
-@keyframes marquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-.pairing-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 10px 16px;
-  margin-right: 16px;
-  background: var(--bg);
-  border-radius: 14px;
-  text-decoration: none;
-  color: var(--text);
-  flex-shrink: 0;
-  transition: background .2s;
-}
-
-.pairing-item:active {
-  background: var(--border);
-}
-
-.pairing-item img {
-  width: 52px; height: 52px;
-  border-radius: 10px;
-  object-fit: cover;
-  flex-shrink: 0;
-}
-
-.pairing-item-name {
-  font-size: 14px;
-  font-weight: 600;
-  white-space: nowrap;
-  margin-bottom: 2px;
-}
-
-.pairing-item-price {
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--accent);
-  white-space: nowrap;
-}
-
-@media (min-width: 600px) {
-  .pairing-item img { width: 60px; height: 60px; }
-  .pairing-item-name { font-size: 15px; }
-}
-
-/* ===== INSET CIRCLE ===== */
-.card-img .inset-circle {
-  position: absolute;
-  bottom: 12px; right: 12px;
-  width: 100px; height: 100px;
-  border-radius: 50%;
-  border: 3px solid #fff;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.15);
-  object-fit: cover;
-  z-index: 2;
-}
-
-@media (min-width: 600px) {
-  .card-img .inset-circle { width: 120px; height: 120px; border-width: 4px; }
-}
-
-/* ===== FOOTER CTA ===== */
-.cta {
-  text-align: center;
-  padding: 48px 20px 36px;
-  background: linear-gradient(180deg, var(--bg), #ede6da);
-}
-
-.cta h2 {
-  font-family: 'Noto Serif KR', serif;
-  font-size: 26px; font-weight: 700;
-  margin-bottom: 10px;
-}
-
-.cta p {
-  font-size: 16px; color: var(--sub);
-  margin-bottom: 28px;
-}
-
-.cta-btn {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 14px 36px;
-  background: var(--accent); color: #fff;
-  border: none; border-radius: 14px;
-  font-size: 17px; font-weight: 700;
-  text-decoration: none;
-  transition: background .2s;
-}
-
-.cta-btn:active { background: #a05e2c; }
-
-/* ===== FOOTER ===== */
-footer {
-  text-align: center;
-  padding: 28px 20px;
-  font-size: 12px; color: #bbb;
-  background: #2c2c2c;
-}
-footer a { color: #ddd; text-decoration: none; }
-
-/* ===== DESKTOP ===== */
-@media (min-width: 600px) {
-  .hero { min-height: 60vh; }
-  .hero h1 { font-size: 44px; }
-  .cards { max-width: 900px; gap: 28px; }
-
-  .card { display: grid; grid-template-columns: 1fr 1fr; }
-  .card:nth-child(even) .card-img { order: 2; }
-  .card:nth-child(even) .card-body { order: 1; }
-  .card-img { aspect-ratio: 1/1; }
-  .card-body { padding: 32px; display: flex; flex-direction: column; justify-content: center; }
-  .card-name { font-size: 24px; }
-  .card-desc { font-size: 14px; }
-  .card-price .now { font-size: 28px; }
-  .card-btn { width: auto; align-self: flex-start; padding: 14px 32px; }
-}
-
-@media (min-width: 1024px) {
-  .hero h1 { font-size: 52px; }
-  .cards { max-width: 1000px; }
-  .card-body { padding: 40px; }
-}
+  html, body { margin: 0; padding: 0; height: 100%; overscroll-behavior-y: none; background: #f3f4f6; }
+  body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif; }
+  .snap-container {
+    height: 100%;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+  .snap-container::-webkit-scrollbar { display: none; }
+  .snap-container { -ms-overflow-style: none; scrollbar-width: none; }
+  .slide { height: 100%; scroll-snap-align: start; scroll-snap-stop: always; }
+  @keyframes float { 0%, 100% { transform: translateY(0) rotate(-6deg);} 50% { transform: translateY(-4px) rotate(-6deg);} }
+  .badge-float { animation: float 2.5s ease-in-out infinite; }
+  @keyframes hint { 0%, 100% { transform: translateY(0); opacity: .6;} 50% { transform: translateY(6px); opacity: 1;} }
+  .hint-bounce { animation: hint 1.6s ease-in-out infinite; }
 </style>
 </head>
 <body>
+<div id="root" style="height:100%"></div>
 
-<div class="progress" id="prog"></div>
+<script type="text/babel">
+const { useState, useEffect, useRef } = React;
 
-<!-- HERO -->
-<section class="hero">
-  <span class="badge">🌿 두레생협 큐레이션</span>
-  <h1>이번 주,<br>두레가 <em>고른</em> 먹거리</h1>
-  <p class="hero-sub">제철의 맛을 담은<br>이번 주 두레추천</p>
-</section>
+/* ── 인라인 SVG 아이콘 ── */
+const StarIcon = ({ filled, size = 14 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill={filled ? "#facc15" : "none"} stroke={filled ? "#facc15" : "#d1d5db"} strokeWidth="2" strokeLinejoin="round">
+    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+  </svg>
+);
+const ExternalLinkIcon = ({ size = 20 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+    <polyline points="15 3 21 3 21 9"/>
+    <line x1="10" y1="14" x2="21" y2="3"/>
+  </svg>
+);
+const ChevronDown = ({ size = 22 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <polyline points="6 9 12 15 18 9"/>
+  </svg>
+);
+const Leaf = ({ size = 14 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19.2 2.96a1 1 0 0 1 1.8.4 25.95 25.95 0 0 1 1 6.45c0 5.4-2.4 10.66-7 11.13a4.94 4.94 0 0 1-3 .06"/>
+    <path d="M2 21c0-3 1.85-5.36 5.08-6.06"/>
+  </svg>
+);
+const Sparkle = ({ size = 14 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2z"/>
+  </svg>
+);
+const Heart = ({ size = 18 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+  </svg>
+);
 
-<!-- CARDS -->
-<div class="cards">
+/* ── 두레생협 추천 페이지에서 가져온 실제 생활재 40종 ── */
+/* 필터: 할인율 > 0% 인 품목만 (이번 주 기획 생활재 = 할인 적용 품목) */
+/* 정렬: 단가 1만원 이상 품목을 앞쪽에, 그 다음 1만원 미만 (각 그룹 내에서 가격 높은 순) */
+/* points 항목: type='review' = 실제 후기, type='highlight' = 홍보 문구 (현재는 모두 highlight) */
+const products = [
+  /* === 단가 10,000원 이상 (19종) === */
+  { name: "유기농 마스코바도", originalPrice: 28000, salePrice: 25200, discountRate: 10,
+    imageUrl: "https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/28286C.jpg", tag: "공정무역",
+    points: [
+      { type: 'highlight', text: "필리핀 유기농 비정제 설탕" },
+      { type: 'highlight', text: "은은한 단맛과 깊은 풍미" },
+      { type: 'highlight', text: "공정무역으로 더 의미있게" }
+    ]},
+  { name: "올리브유 엑스트라", originalPrice: 27600, salePrice: 24800, discountRate: 10,
+    imageUrl: "https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/5880C.jpg", tag: "수입식품",
+    points: [
+      { type: 'highlight', text: "이탈리아산 엑스트라버진 올리브유" },
+      { type: 'highlight', text: "샐러드·파스타에 한 스푼" },
+      { type: 'highlight', text: "건강한 지방의 정석" }
+    ]},
+  { name: "아르간 발효로션", originalPrice: 25900, salePrice: 24600, discountRate: 5,
+    imageUrl: "https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/30250C.jpg", tag: "뷰티",
+    points: [
+      { type: 'highlight', text: "아르간 오일이 들어간 발효 로션" },
+      { type: 'highlight', text: "촉촉하고 부드러운 마무리감" },
+      { type: 'highlight', text: "온 가족 데일리 케어로" }
+    ]},
+  { name: "공정무역 커피믹스", originalPrice: 26400, salePrice: 23800, discountRate: 10,
+    imageUrl: "https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/24630C.jpg", tag: "공정무역",
+    points: [
+      { type: 'highlight', text: "공정무역 원두로 만든 커피믹스" },
+      { type: 'highlight', text: "달지 않고 깔끔한 한 잔" },
+      { type: 'highlight', text: "사무실·여행에 간편하게" }
+    ]},
+  { name: "유기농설탕", originalPrice: 25500, salePrice: 23000, discountRate: 10,
+    imageUrl: "https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57205C.jpg", tag: "유기농",
+    points: [
+      { type: 'highlight', text: "유기농 사탕수수로 만든 설탕" },
+      { type: 'highlight', text: "베이킹·요리에 안심 사용" },
+      { type: 'highlight', text: "은은한 풍미가 살아있어요" }
+    ]},
+  { name: "명품왕새우", originalPrice: 24500, salePrice: 20800, discountRate: 15,
+    imageUrl: "https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/37431C.jpg", tag: "오늘의 추천",
+    points: [
+      { type: 'highlight', text: "굵직한 씨알의 탱글한 식감" },
+      { type: 'highlight', text: "구이·찜·튀김 무엇이든 OK" },
+      { type: 'highlight', text: "특별한 식탁에 어울리는 한 접시" }
+    ]},
+  { name: "모데나 발사믹식초 IGP Na", originalPrice: 21900, salePrice: 19700, discountRate: 10,
+    imageUrl: "https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/40742C.png", tag: "수입식품",
+    points: [
+      { type: 'highlight', text: "이탈리아 모데나 IGP 인증 발사믹" },
+      { type: 'highlight', text: "샐러드·스테이크에 깊은 풍미" },
+      { type: 'highlight', text: "오크통 숙성으로 진한 향" }
+    ]},
+  { name: "온)한우불고기", originalPrice: 21000, salePrice: 18900, discountRate: 10,
+    imageUrl: "https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56760C.png", tag: "신상품",
+    points: [
+      { type: 'highlight', text: "한우 본연의 깊은 맛을 살린 양념" },
+      { type: 'highlight', text: "굽기만 하면 끝, 손쉬운 한 끼" },
+      { type: 'highlight', text: "주말 가족 식탁의 정석" }
+    ]},
+  { name: "야생화 생꿀", originalPrice: 19900, salePrice: 17900, discountRate: 10,
+    imageUrl: "https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/25623C.png", tag: "자연 그대로",
+    points: [
+      { type: 'highlight', text: "야생화에서 채취한 정직한 꿀" },
+      { type: 'highlight', text: "차·요리에 천연의 단맛" },
+      { type: 'highlight', text: "아이 간식 토핑으로도" }
+    ]},
+  { name: "볶은아몬드", originalPrice: 17900, salePrice: 16100, discountRate: 10,
+    imageUrl: "https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/27773C.png", tag: "견과",
+    points: [
+      { type: 'highlight', text: "갓 볶아낸 고소한 아몬드" },
+      { type: 'highlight', text: "비타민E와 단백질이 풍부" },
+      { type: 'highlight', text: "한 줌이면 든든한 건강 간식" }
+    ]},
+  { name: "반건조 민어", originalPrice: 16400, salePrice: 14700, discountRate: 10,
+    imageUrl: "https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59642C.jpg", tag: "수산",
+    points: [
+      { type: 'highlight', text: "쫄깃한 식감과 진한 감칠맛" },
+      { type: 'highlight', text: "구이로 구우면 별미 한 그릇" },
+      { type: 'highlight', text: "민어 마니아도 만족" }
+    ]},
+  { name: "반건조 가자미", originalPrice: 15800, salePrice: 14200, discountRate: 10,
+    imageUrl: "https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59643C.jpg", tag: "수산",
+    points: [
+      { type: 'highlight', text: "쫄깃하고 향긋한 반건조 가자미" },
+      { type: 'highlight', text: "팬에 굽기만 해도 별미" },
+      { type: 'highlight', text: "밥반찬으로 손색 없어요" }
+    ]},
+  { name: "볶은알땅콩", originalPrice: 17500, salePrice: 14000, discountRate: 20,
+    imageUrl: "https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/27683C.png", tag: "건강 간식",
+    points: [
+      { type: 'highlight', text: "갓 볶아낸 고소함, 차원이 다른 향" },
+      { type: 'highlight', text: "한 줌이면 든든한 안주·간식" },
+      { type: 'highlight', text: "용량 넉넉, 가족용으로 추천" }
+    ]},
+  { name: "다짐 참돔살", originalPrice: 15200, salePrice: 13700, discountRate: 10,
+    imageUrl: "https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59267C.jpg", tag: "수산",
+    points: [
+      { type: 'highlight', text: "회·구이·전·죽 어디나 활용" },
+      { type: 'highlight', text: "참돔의 담백한 살" },
+      { type: 'highlight', text: "손질 끝, 바로 조리하세요" }
+    ]},
+  { name: "다짐 광어살", originalPrice: 13200, salePrice: 11900, discountRate: 10,
+    imageUrl: "https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59268C.jpg", tag: "수산",
+    points: [
+      { type: 'highlight', text: "손질된 광어살, 바로 조리 OK" },
+      { type: 'highlight', text: "전·튀김·구이로 다양하게" },
+      { type: 'highlight', text: "쫄깃하고 담백한 식감" }
+    ]},
+  { name: "깐다슬기", originalPrice: 13200, salePrice: 11900, discountRate: 10,
+    imageUrl: "https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/54925C.jpg", tag: "수산",
+    points: [
+      { type: 'highlight', text: "손질 끝낸 다슬기, 조리 간편" },
+      { type: 'highlight', text: "다슬기 해장국·죽으로 별미" },
+      { type: 'highlight', text: "남도식 자연의 맛" }
+    ]},
+  { name: "배도라지모과즙", originalPrice: 13000, salePrice: 11700, discountRate: 10,
+    imageUrl: "https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58008C.png", tag: "건강즙",
+    points: [
+      { type: 'highlight', text: "환절기 목 케어에 좋은 조합" },
+      { type: 'highlight', text: "배·도라지·모과의 진액" },
+      { type: 'highlight', text: "한 포씩 간편하게" }
+    ]},
+  { name: "오리슬라이스", originalPrice: 12600, salePrice: 11300, discountRate: 10,
+    imageUrl: "https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/23358C.jpg", tag: "축산",
+    points: [
+      { type: 'highlight', text: "잡내 없이 깔끔한 오리고기" },
+      { type: 'highlight', text: "구워서 쌈채소와 함께" },
+      { type: 'highlight', text: "불포화지방이 풍부해요" }
+    ]},
+  { name: "다짐 대구살", originalPrice: 11900, salePrice: 10700, discountRate: 10,
+    imageUrl: "https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59265C.jpg", tag: "수산",
+    points: [
+      { type: 'highlight', text: "다져서 손질된 대구살, 조리 간편" },
+      { type: 'highlight', text: "전·완자·죽 어디나 잘 어울려요" },
+      { type: 'highlight', text: "담백한 흰살생선의 정석" }
+    ]},
 
-  <!-- 1. 쑥버무리 -->
-  <article class="card">
-    <div class="card-img">
-      <span class="card-badge">6%</span>
-      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/54286C.jpg" alt="쑥버무리" loading="lazy">
-    </div>
-    <div class="card-body">
-      <h2 class="card-name">쑥버무리</h2>
-      <p class="card-tagline">봄 생쑥 37%, 향긋한 한 입</p>
-      <p class="card-desc">첫 수확한 생쑥을 한소콤 쪄냈습니다.<br>국산 밤과 대추를 듬뿍 넣어 달콤하고 영양도 든든합니다.</p>
-      <div class="chips">
-        <span class="chip">국산 생쑥 37%</span>
-        <span class="chip">밤·대추</span>
-        <span class="chip">250g</span>
-      </div>
-      <div class="card-price">
-        <span class="orig">4,800원</span>
-        <span class="now">4,500<span class="unit">원</span></span>
-        <span class="off">6% 할인</span>
-      </div>
-      <a href="https://ecoop.or.kr/DureShop/recommend.do" class="card-btn">
-        <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.16 14.26l.04-.12L8.1 12h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0020 3H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 14.37 5.48 16 7 16h12v-2H7.42c-.14 0-.25-.11-.25-.25z"/></svg>
-        장보기
-      </a>
-    </div>
-  </article>
+  /* === 단가 10,000원 미만 (21종) === */
+  { name: "볶은캐슈넛", originalPrice: 9800, salePrice: 8800, discountRate: 10,
+    imageUrl: "https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/51881C.jpg", tag: "견과",
+    points: [
+      { type: 'highlight', text: "버터처럼 부드러운 캐슈넛" },
+      { type: 'highlight', text: "샐러드·요리 토핑으로 굿" },
+      { type: 'highlight', text: "원물 그대로의 고소함" }
+    ]},
+  { name: "사이공쿱 현미유", originalPrice: 9000, salePrice: 8000, discountRate: 11,
+    imageUrl: "https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58044C.jpg", tag: "공정무역",
+    points: [
+      { type: 'highlight', text: "베트남 사이공쿱과의 공정무역 현미유" },
+      { type: 'highlight', text: "발연점 높아 튀김·볶음에 적합" },
+      { type: 'highlight', text: "현미의 영양과 풍미를 그대로" }
+    ]},
+  { name: "마스코바도 비누", originalPrice: 8500, salePrice: 8000, discountRate: 6,
+    imageUrl: "https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/55273C.jpg", tag: "생활용품",
+    points: [
+      { type: 'highlight', text: "유기농 마스코바도가 들어간 비누" },
+      { type: 'highlight', text: "보습감 있는 부드러운 세안감" },
+      { type: 'highlight', text: "온 가족이 함께 사용 OK" }
+    ]},
+  { name: "새우볶음밥", originalPrice: 8500, salePrice: 7700, discountRate: 9,
+    imageUrl: "https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56390C.jpg", tag: "간편식",
+    points: [
+      { type: 'highlight', text: "전자레인지 5분이면 한 끼 완성" },
+      { type: 'highlight', text: "탱글한 새우가 가득" },
+      { type: 'highlight', text: "바쁜 날 든든한 한 그릇" }
+    ]},
+  { name: "김치치즈주먹밥", originalPrice: 7500, salePrice: 6800, discountRate: 9,
+    imageUrl: "https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58085C.png", tag: "간편식",
+    points: [
+      { type: 'highlight', text: "아이도 어른도 좋아하는 조합" },
+      { type: 'highlight', text: "도시락·간식으로 만점" },
+      { type: 'highlight', text: "데우기만 하면 바로 식탁으로" }
+    ]},
+  { name: "고구마맛탕", originalPrice: 7800, salePrice: 6800, discountRate: 13,
+    imageUrl: "https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56382C.jpg", tag: "간편식",
+    points: [
+      { type: 'highlight', text: "데우기만 하면 완성되는 간편 디저트" },
+      { type: 'highlight', text: "달콤한 시럽이 듬뿍 코팅" },
+      { type: 'highlight', text: "간식·반찬으로 모두 OK" }
+    ]},
+  { name: "작두콩순아이티", originalPrice: 10900, salePrice: 6500, discountRate: 40,
+    imageUrl: "https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/53585C.jpg", tag: "공정무역",
+    points: [
+      { type: 'highlight', text: "아이티 농민과의 공정무역 차" },
+      { type: 'highlight', text: "구수하고 부드러운 작두콩순의 맛" },
+      { type: 'highlight', text: "마실수록 속이 편안해지는 차" }
+    ]},
+  { name: "돼지등심", originalPrice: 7000, salePrice: 6300, discountRate: 10,
+    imageUrl: "https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/34519C.jpg", tag: "축산",
+    points: [
+      { type: 'highlight', text: "한돈 돼지등심, 부드럽고 담백" },
+      { type: 'highlight', text: "구이·돈까스·찌개 활용 만점" },
+      { type: 'highlight', text: "친환경 사육으로 안심하고" }
+    ]},
+  { name: "장봉재래김", originalPrice: 11200, salePrice: 5600, discountRate: 50,
+    imageUrl: "https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/323C.png", tag: "이번 주 핫딜",
+    points: [
+      { type: 'highlight', text: "전통 방식으로 구운 재래김의 진한 향" },
+      { type: 'highlight', text: "고소함과 짭짤함의 완벽한 균형" },
+      { type: 'highlight', text: "갓 지은 밥과 환상의 궁합" }
+    ]},
+  { name: "건체리", originalPrice: 8500, salePrice: 5500, discountRate: 35,
+    imageUrl: "https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/40808C.png", tag: "아이 간식",
+    points: [
+      { type: 'highlight', text: "원물 그대로 말린 자연 그대로의 맛" },
+      { type: 'highlight', text: "달콤·쫄깃, 첨가물 없는 정직한 간식" },
+      { type: 'highlight', text: "요거트·시리얼 토핑으로 활용도 만점" }
+    ]},
+  { name: "비빔쫄면", originalPrice: 6000, salePrice: 5400, discountRate: 10,
+    imageUrl: "https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/38996C.jpg", tag: "간편식",
+    points: [
+      { type: 'highlight', text: "쫄깃한 면발과 새콤달콤 양념" },
+      { type: 'highlight', text: "여름철 별미로 제격" },
+      { type: 'highlight', text: "삶고 비비기만 하면 끝" }
+    ]},
+  { name: "아스파라거스", originalPrice: 5900, salePrice: 5300, discountRate: 10,
+    imageUrl: "https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/8520C.png", tag: "친환경",
+    points: [
+      { type: 'highlight', text: "봄철 별미, 아삭한 줄기" },
+      { type: 'highlight', text: "데치거나 베이컨 말이로" },
+      { type: 'highlight', text: "비타민·식이섬유 풍부" }
+    ]},
+  { name: "건살구", originalPrice: 7500, salePrice: 5000, discountRate: 33,
+    imageUrl: "https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/40809C.png", tag: "건강 간식",
+    points: [
+      { type: 'highlight', text: "씹을수록 진해지는 살구의 풍미" },
+      { type: 'highlight', text: "철분과 식이섬유가 풍부한 천연 간식" },
+      { type: 'highlight', text: "베이킹·요리 재료로도 활용" }
+    ]},
+  { name: "어린잎모음", originalPrice: 3400, salePrice: 3000, discountRate: 12,
+    imageUrl: "https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/44525C.jpg", tag: "친환경",
+    points: [
+      { type: 'highlight', text: "여러 잎채소를 한 번에 즐겨요" },
+      { type: 'highlight', text: "씻어서 바로 샐러드 한 그릇" },
+      { type: 'highlight', text: "신선함 그대로 배송" }
+    ]},
+  { name: "루꼴라", originalPrice: 3200, salePrice: 2400, discountRate: 25,
+    imageUrl: "https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/27430C.jpg", tag: "친환경",
+    points: [
+      { type: 'highlight', text: "톡 쏘는 향이 매력적인 봄 채소" },
+      { type: 'highlight', text: "샐러드·피자·파스타 토핑으로" },
+      { type: 'highlight', text: "친환경 재배로 잎이 짱짱해요" }
+    ]},
+  { name: "애호박", originalPrice: 2600, salePrice: 2300, discountRate: 12,
+    imageUrl: "https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/1295C.jpg", tag: "친환경",
+    points: [
+      { type: 'highlight', text: "친환경 애호박, 부드러운 식감" },
+      { type: 'highlight', text: "찌개·전·볶음 무엇이든 어울려요" },
+      { type: 'highlight', text: "한식 밥상의 단골 채소" }
+    ]},
+  { name: "느타리버섯", originalPrice: 2200, salePrice: 1980, discountRate: 10,
+    imageUrl: "https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/50462C.png", tag: "친환경",
+    points: [
+      { type: 'highlight', text: "쫄깃한 식감의 인기 버섯" },
+      { type: 'highlight', text: "찌개·볶음·전 활용도 만점" },
+      { type: 'highlight', text: "친환경 재배" }
+    ]},
+  { name: "팽이버섯", originalPrice: 2000, salePrice: 1750, discountRate: 13,
+    imageUrl: "https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/10376C.jpg", tag: "친환경",
+    points: [
+      { type: 'highlight', text: "쫄깃한 식감의 국민 버섯" },
+      { type: 'highlight', text: "찌개·전골·볶음에 두루두루" },
+      { type: 'highlight', text: "친환경 재배로 깨끗해요" }
+    ]},
+  { name: "유기농 쌀떡과자", originalPrice: 1850, salePrice: 1650, discountRate: 11,
+    imageUrl: "https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/32412C.png", tag: "아이 간식",
+    points: [
+      { type: 'highlight', text: "유기농 쌀로 만든 가벼운 과자" },
+      { type: 'highlight', text: "아이 첫 간식으로 부담 없어요" },
+      { type: 'highlight', text: "바삭한 식감, 자극 없는 단맛" }
+    ]},
+  { name: "채식라면", originalPrice: 1700, salePrice: 1500, discountRate: 12,
+    imageUrl: "https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/37189C.png", tag: "비건",
+    points: [
+      { type: 'highlight', text: "동물성 원료를 쓰지 않은 채식 라면" },
+      { type: 'highlight', text: "채소 육수의 깔끔한 국물" },
+      { type: 'highlight', text: "비건도 안심하고 즐겨요" }
+    ]},
+  { name: "유기요기 유기농식혜", originalPrice: 850, salePrice: 700, discountRate: 18,
+    imageUrl: "https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/45769C.png", tag: "유기농",
+    points: [
+      { type: 'highlight', text: "유기농 쌀로 만든 정통 식혜" },
+      { type: 'highlight', text: "달지 않고 깔끔한 끝맛" },
+      { type: 'highlight', text: "디저트 음료로도 손색 없어요" }
+    ]}
+];
 
-  <!-- 2. 포항가자미 -->
-  <article class="card">
-    <div class="card-img">
-      <span class="card-badge">10%</span>
-      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/46113C.jpg" alt="포항가자미" loading="lazy">
-    </div>
-    <div class="card-body">
-      <h2 class="card-name">포항가자미</h2>
-      <p class="card-tagline">겨울 동해, 알 찬 가자미</p>
-      <p class="card-desc">겨울 동해바다에서 어획한 알가자미.<br>손질·무염처리 되어 있어 기호에 맞게 소금이나 양념해 조리하세요.</p>
-      <div class="chips">
-        <span class="chip">동해 포항산</span>
-        <span class="chip">손질 완료</span>
-        <span class="chip">600g / 2~4미</span>
-      </div>
-      <div class="card-price">
-        <span class="orig">18,200원</span>
-        <span class="now">16,300<span class="unit">원</span></span>
-        <span class="off">10% 할인</span>
-      </div>
-      <a href="https://ecoop.or.kr/DureShop/recommend.do" class="card-btn">
-        <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.16 14.26l.04-.12L8.1 12h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0020 3H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 14.37 5.48 16 7 16h12v-2H7.42c-.14 0-.25-.11-.25-.25z"/></svg>
-        장보기
-      </a>
-    </div>
-  </article>
+const PLACEHOLDER = "data:image/svg+xml;utf8," + encodeURIComponent(
+  `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'><rect fill='#e8f0e8' width='400' height='400'/><text x='50%' y='50%' text-anchor='middle' fill='#006731' font-size='32' font-family='sans-serif' dy='.3em'>두레생협</text></svg>`
+);
 
-  <!-- 3. 한우보양탕 -->
-  <article class="card">
-    <div class="card-img">
-      <span class="card-badge">20%</span>
-      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/54638C.jpg" alt="한우보양탕" loading="lazy">
+function StarRating({ count, size = 14 }) {
+  return (
+    <div className="flex gap-0.5">
+      {[1,2,3,4,5].map(i => <StarIcon key={i} filled={i <= count} size={size} />)}
     </div>
-    <div class="card-body">
-      <h2 class="card-name">한우보양탕</h2>
-      <p class="card-tagline">한우 양지, 약재로 끓인 보양 한 그릇</p>
-      <p class="card-desc">한우 양지와 국내산 약재를 푹 삶아 진하게 우려냈습니다.<br>된장과 사골액으로 깊은 감칠맛, 데우기만 하면 완성!</p>
-      <div class="chips">
-        <span class="chip">한우 양지</span>
-        <span class="chip">국내산 약재</span>
-        <span class="chip">간편조리</span>
-      </div>
-      <div class="card-price">
-        <span class="orig">13,000원</span>
-        <span class="now">10,400<span class="unit">원</span></span>
-        <span class="off">20% 할인</span>
-      </div>
-      <a href="https://ecoop.or.kr/DureShop/recommend.do" class="card-btn">
-        <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.16 14.26l.04-.12L8.1 12h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0020 3H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 14.37 5.48 16 7 16h12v-2H7.42c-.14 0-.25-.11-.25-.25z"/></svg>
-        장보기
-      </a>
-    </div>
-  </article>
+  );
+}
 
-  <!-- 4. 청견 -->
-  <article class="card">
-    <div class="card-img">
-      <span class="card-badge" style="background:var(--green); font-size:18px; padding:8px 20px;">햇출하</span>
-      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/288C.jpg" alt="청견" loading="lazy">
-      <img class="inset-circle" src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/288A.jpg" alt="청견 품목" loading="lazy">
-    </div>
-    <div class="card-body">
-      <h2 class="card-name">제주 오렌지 청견(1kg/국내산)</h2>
-      <p class="card-tagline">오렌지 + 감귤, 지금이 제철</p>
-      <p class="card-desc">오렌지의 달콤함과 감귤의 부드러운 과육을 동시에.<br>국내산 햇출하, 껍질 얇아 손으로 쉽게 까집니다.</p>
-      <div class="chips">
-        <span class="chip">국내산 햇출하</span>
-        <span class="chip">1kg</span>
-      </div>
-      <div class="card-price">
-        <span class="now">11,900<span class="unit">원</span></span>
-      </div>
-      <a href="https://ecoop.or.kr/DureShop/recommend.do" class="card-btn">
-        <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.16 14.26l.04-.12L8.1 12h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0020 3H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 14.37 5.48 16 7 16h12v-2H7.42c-.14 0-.25-.11-.25-.25z"/></svg>
-        장보기
-      </a>
-    </div>
-  </article>
-
-  <!-- 5. 제주순메밀국수 -->
-  <article class="card">
-    <div class="card-img">
-      <span class="card-badge">10%</span>
-      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/28818C.jpg" alt="제주순메밀국수" loading="lazy">
-    </div>
-    <div class="card-body">
-      <h2 class="card-name">제주순메밀국수</h2>
-      <p class="card-tagline">제주산 메밀 100%, 밀가루 無</p>
-      <p class="card-desc">제주 화산 토양에서 자란 메밀만 사용.<br>구수한 향과 쫄깃한 면발, 냉면·온면·비빔 어디든 잘 어울립니다.</p>
-      <div class="chips">
-        <span class="chip">제주산 메밀 100%</span>
-        <span class="chip">밀가루 무첨가</span>
-      </div>
-      <div class="card-price">
-        <span class="orig">15,300원</span>
-        <span class="now">13,800<span class="unit">원</span></span>
-        <span class="off">10% 할인</span>
-      </div>
-      <a href="https://ecoop.or.kr/DureShop/recommend.do" class="card-btn">
-        <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.16 14.26l.04-.12L8.1 12h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0020 3H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 14.37 5.48 16 7 16h12v-2H7.42c-.14 0-.25-.11-.25-.25z"/></svg>
-        장보기
-      </a>
-    </div>
-  </article>
-
-  <!-- 6. 통닭다리 누룽지삼계탕 -->
-  <article class="card">
-    <div class="card-img">
-      <span class="card-badge">10%</span>
-      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/54730C.jpg" alt="통닭다리 누룽지삼계탕" loading="lazy">
-    </div>
-    <div class="card-body">
-      <h2 class="card-name">통닭다리 누룽지삼계탕</h2>
-      <p class="card-tagline">국산 통닭다리 한 끼, 누룽지로 구수하게</p>
-      <p class="card-desc">국산 통닭다리를 통째로 넣어 든든한 한 끼.<br>누룽지를 더해 구수한 맛이 살아있습니다.</p>
-      <div class="chips">
-        <span class="chip">오동통한 닭다리살</span>
-        <span class="chip">누룽지</span>
-      </div>
-      <div class="card-price">
-        <span class="orig">8,300원</span>
-        <span class="now">7,500<span class="unit">원</span></span>
-        <span class="off">10% 할인</span>
-      </div>
-      <a href="https://ecoop.or.kr/DureShop/recommend.do" class="card-btn">
-        <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.16 14.26l.04-.12L8.1 12h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0020 3H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 14.37 5.48 16 7 16h12v-2H7.42c-.14 0-.25-.11-.25-.25z"/></svg>
-        장보기
-      </a>
-    </div>
-  </article>
-
-  <!-- 7. 훈제오리 -->
-  <article class="card">
-    <div class="card-img">
-      <span class="card-badge">25%</span>
-      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/40549C.jpg" alt="훈제오리" loading="lazy">
-    </div>
-    <div class="card-body">
-      <h2 class="card-name">훈제오리</h2>
-      <p class="card-tagline">무항생제 오리, 참나무 훈연</p>
-      <p class="card-desc">무항생제 오리를 참나무로 훈연해 향긋하게.<br>간장·마늘·생강·양파 등 두레생협 생활재 재료만으로 조미했습니다.</p>
-      <div class="chips">
-        <span class="chip">무항생제</span>
-        <span class="chip">참나무 훈연</span>
-      </div>
-      <div class="card-price">
-        <span class="orig">13,300원</span>
-        <span class="now">10,000<span class="unit">원</span></span>
-        <span class="off">25% 할인</span>
-      </div>
-      <a href="https://ecoop.or.kr/DureShop/recommend.do" class="card-btn">
-        <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.16 14.26l.04-.12L8.1 12h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0020 3H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 14.37 5.48 16 7 16h12v-2H7.42c-.14 0-.25-.11-.25-.25z"/></svg>
-        장보기
-      </a>
-    </div>
-  </article>
-
-  <!-- 8. 보리물냉면 -->
-  <article class="card">
-    <div class="card-img">
-      <span class="card-badge">15%</span>
-      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/30779C.jpg" alt="보리물냉면" loading="lazy">
-    </div>
-    <div class="card-body">
-      <h2 class="card-name">보리물냉면</h2>
-      <p class="card-tagline">볶은 보리향, 동치미·한우 육수</p>
-      <p class="card-desc">볶은 보리로 만들어 보리향이 살아있는 면발.<br>동치미 육수에 한우 육수의 감칠맛을 더해 깔끔합니다.</p>
-      <div class="chips">
-        <span class="chip">볶은 보리</span>
-        <span class="chip">동치미+한우 육수</span>
-      </div>
-      <div class="card-price">
-        <span class="orig">6,500원</span>
-        <span class="now">5,500<span class="unit">원</span></span>
-        <span class="off">15% 할인</span>
-      </div>
-      <a href="https://ecoop.or.kr/DureShop/recommend.do" class="card-btn">
-        <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.16 14.26l.04-.12L8.1 12h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0020 3H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 14.37 5.48 16 7 16h12v-2H7.42c-.14 0-.25-.11-.25-.25z"/></svg>
-        장보기
-      </a>
-    </div>
-  </article>
-
-  <!-- 보리물냉면 연계 추천 -->
-  <div class="pairing">
-    <div class="pairing-title">함께 즐겨보세요!</div>
-    <div class="pairing-track">
-      <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=47663&returnPlanNo=0" class="pairing-item">
-        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/47663C.png" alt="맛들찬 울외장아찌(500g)">
-        <div>
-          <div class="pairing-item-name">맛들찬 울외장아찌(500g)</div>
-          <div class="pairing-item-price">장보기 →</div>
+function PointCard({ point }) {
+  if (point.type === 'review') {
+    return (
+      <div className="rounded-xl bg-white border border-gray-100 shadow-sm p-3">
+        <div className="flex items-center justify-between">
+          <StarRating count={point.stars} />
+          <span className="text-[10px] text-gray-400">{point.author}</span>
         </div>
-      </a>
-      <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=47665&returnPlanNo=0" class="pairing-item">
-        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/47665C.png" alt="맛들찬 청참외장아찌(500g)">
-        <div>
-          <div class="pairing-item-name">맛들찬 청참외장아찌(500g)</div>
-          <div class="pairing-item-price">장보기 →</div>
-        </div>
-      </a>
-      <!-- 복제 (무한 루프용) -->
-      <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=47663&returnPlanNo=0" class="pairing-item">
-        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/47663C.png" alt="맛들찬 울외장아찌(500g)">
-        <div>
-          <div class="pairing-item-name">맛들찬 울외장아찌(500g)</div>
-          <div class="pairing-item-price">장보기 →</div>
-        </div>
-      </a>
-      <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=47665&returnPlanNo=0" class="pairing-item">
-        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/47665C.png" alt="맛들찬 청참외장아찌(500g)">
-        <div>
-          <div class="pairing-item-name">맛들찬 청참외장아찌(500g)</div>
-          <div class="pairing-item-price">장보기 →</div>
-        </div>
-      </a>
-    </div>
-  </div>
-
-  <!-- 9. 보리비빔냉면 -->
-  <article class="card">
-    <div class="card-img">
-      <span class="card-badge">15%</span>
-      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/31454C.jpg" alt="보리비빔냉면" loading="lazy">
-    </div>
-    <div class="card-body">
-      <h2 class="card-name">보리비빔냉면</h2>
-      <p class="card-tagline">국산 과일·채소로 새콤달콤하게</p>
-      <p class="card-desc">볶은 보리로 만든 냉면사리.<br>직접 갈아넣은 국산 과일과 채소로 새콤달콤한 비빔장을 더했습니다.</p>
-      <div class="chips">
-        <span class="chip">볶은 보리</span>
-        <span class="chip">국산 과일·채소 비빔장</span>
+        <p className="mt-1.5 text-[12.5px] text-gray-700 leading-relaxed line-clamp-2">"{point.text}"</p>
       </div>
-      <div class="card-price">
-        <span class="orig">6,500원</span>
-        <span class="now">5,500<span class="unit">원</span></span>
-        <span class="off">15% 할인</span>
+    );
+  }
+  // highlight
+  return (
+    <div className="rounded-xl bg-white border border-[#006731]/15 shadow-sm p-3 flex items-start gap-2">
+      <span className="shrink-0 mt-0.5 text-[#006731]"><Sparkle size={14}/></span>
+      <p className="text-[13px] text-gray-800 leading-relaxed font-medium">{point.text}</p>
+    </div>
+  );
+}
+
+function ProductSlide({ product, index, total }) {
+  const reviews = product.points.filter(p => p.type === 'review');
+  const hasReviews = reviews.length > 0;
+  const avg = hasReviews ? (reviews.reduce((s, r) => s + r.stars, 0) / reviews.length).toFixed(1) : null;
+  const sectionTitle = hasReviews ? "조합원 후기 & 추천 포인트" : "두레추천 포인트";
+
+  return (
+    <section className="slide relative w-full bg-gradient-to-b from-[#fafdf8] to-white flex flex-col">
+      <div className="relative w-full shrink-0" style={{ height: '40vh', minHeight: '260px' }}>
+        <img
+          src={product.imageUrl}
+          alt={product.name}
+          loading="lazy"
+          className="w-full h-full object-cover"
+          onError={(e) => { e.target.src = PLACEHOLDER; }}
+        />
+        <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#fafdf8] to-transparent"></div>
+
+        {product.tag && (
+          <div className="absolute left-4 z-10 flex items-center gap-1 bg-[#006731] text-white text-[11px] font-semibold pl-2 pr-2.5 py-1 rounded-full shadow-lg" style={{ top: 'calc(env(safe-area-inset-top, 0px) + 64px)' }}>
+            <Leaf size={12} />{product.tag}
+          </div>
+        )}
+
+        {product.discountRate > 0 && (
+          <div className="absolute right-5 z-10 badge-float flex flex-col items-center justify-center w-[78px] h-[78px] rounded-full bg-yellow-400 text-[#005429] shadow-2xl ring-4 ring-white" style={{ top: 'calc(env(safe-area-inset-top, 0px) + 56px)' }}>
+            <span className="text-[26px] font-extrabold leading-none">{product.discountRate}%</span>
+            <span className="text-[10px] font-bold mt-0.5">할인</span>
+          </div>
+        )}
+
+        <button className="absolute right-4 bottom-4 z-10 w-10 h-10 rounded-full bg-white/90 backdrop-blur flex items-center justify-center text-gray-400 hover:text-red-500 shadow">
+          <Heart size={18} />
+        </button>
       </div>
-      <a href="https://ecoop.or.kr/DureShop/recommend.do" class="card-btn">
-        <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.16 14.26l.04-.12L8.1 12h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0020 3H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 14.37 5.48 16 7 16h12v-2H7.42c-.14 0-.25-.11-.25-.25z"/></svg>
-        장보기
-      </a>
-    </div>
-  </article>
 
-  <!-- 보리비빔냉면 연계 추천 -->
-  <div class="pairing">
-    <div class="pairing-title">함께 즐겨보세요!</div>
-    <div class="pairing-track">
-      <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=28996&returnPlanNo=0" class="pairing-item">
-        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/28996C.jpg" alt="오이소박이(1kg)">
-        <div>
-          <div class="pairing-item-name">오이소박이(1kg)</div>
-          <div class="pairing-item-price">장보기 →</div>
-        </div>
-      </a>
-      <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=47664&returnPlanNo=0" class="pairing-item">
-        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/47664C.png" alt="맛들찬 무장아찌(500g)">
-        <div>
-          <div class="pairing-item-name">맛들찬 무장아찌(500g)</div>
-          <div class="pairing-item-price">장보기 →</div>
-        </div>
-      </a>
-      <!-- 복제 (무한 루프용) -->
-      <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=28996&returnPlanNo=0" class="pairing-item">
-        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/28996C.jpg" alt="오이소박이(1kg)">
-        <div>
-          <div class="pairing-item-name">오이소박이(1kg)</div>
-          <div class="pairing-item-price">장보기 →</div>
-        </div>
-      </a>
-      <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=47664&returnPlanNo=0" class="pairing-item">
-        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/47664C.png" alt="맛들찬 무장아찌(500g)">
-        <div>
-          <div class="pairing-item-name">맛들찬 무장아찌(500g)</div>
-          <div class="pairing-item-price">장보기 →</div>
-        </div>
-      </a>
-    </div>
-  </div>
+      <div className="flex-1 px-5 pt-2 pb-24 flex flex-col">
+        <h2 className="text-[22px] font-extrabold text-gray-900 leading-tight">{product.name}</h2>
 
-  <!-- 10. 흑염소탕 -->
-  <article class="card">
-    <div class="card-img">
-      <span class="card-badge">13%</span>
-      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/54255C.jpg" alt="흑염소탕" loading="lazy">
-    </div>
-    <div class="card-body">
-      <h2 class="card-name">흑염소탕</h2>
-      <p class="card-tagline">국산 흑염소, 직화 솥에 푹 고아</p>
-      <p class="card-desc">국산 흑염소를 통째로 직화 솥에 고아냈습니다.<br>잡내 없이 부드러운 육질과 깊은 국물 맛입니다.</p>
-      <div class="chips">
-        <span class="chip">국산 흑염소</span>
-        <span class="chip">직화 솥</span>
+        {hasReviews ? (
+          <div className="mt-1 flex items-center gap-1.5">
+            <StarRating count={Math.round(avg)} size={13} />
+            <span className="text-[11px] text-gray-500">{avg} · 후기 {reviews.length}건</span>
+          </div>
+        ) : (
+          <div className="mt-1 flex items-center gap-1 text-[#006731]/80">
+            <Leaf size={11}/>
+            <span className="text-[11px] font-semibold">두레생협이 추천하는 생활재</span>
+          </div>
+        )}
+
+        <div className="mt-2 flex items-baseline gap-2">
+          {product.discountRate > 0 && (
+            <span className="text-[12px] text-gray-400 line-through">{product.originalPrice.toLocaleString()}원</span>
+          )}
+          <span className="text-[28px] font-extrabold text-red-600 leading-none">
+            {product.salePrice.toLocaleString()}<span className="text-[16px] ml-0.5 font-bold">원</span>
+          </span>
+        </div>
+
+        <div className="mt-3.5 flex-1">
+          <div className="flex items-center gap-1.5 mb-2">
+            <span className="w-1 h-3.5 bg-[#006731] rounded-full"></span>
+            <h3 className="text-[12px] font-bold text-[#006731]">{sectionTitle}</h3>
+          </div>
+          <div className="space-y-1.5">
+            {product.points.slice(0, 3).map((p, i) => <PointCard key={i} point={p} />)}
+          </div>
+        </div>
+
+        <div className="mt-2 text-center text-[10px] text-gray-400 flex items-center justify-center gap-1">
+          {index + 1} / {total}
+          {index < total - 1 && <span className="hint-bounce inline-flex"><ChevronDown size={12}/></span>}
+        </div>
       </div>
-      <div class="card-price">
-        <span class="orig">20,500원</span>
-        <span class="now">17,900<span class="unit">원</span></span>
-        <span class="off">13% 할인</span>
+    </section>
+  );
+}
+
+function App() {
+  const containerRef = useRef(null);
+  const [current, setCurrent] = useState(0);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    let raf;
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const idx = Math.round(el.scrollTop / el.clientHeight);
+        setCurrent(idx);
+      });
+    };
+    el.addEventListener('scroll', onScroll, { passive: true });
+    return () => el.removeEventListener('scroll', onScroll);
+  }, []);
+
+  return (
+    <div className="relative w-full max-w-[440px] mx-auto bg-white shadow-2xl overflow-hidden" style={{ height: '100%' }}>
+      <header className="absolute top-0 left-0 right-0 z-30 bg-white/85 backdrop-blur-md border-b border-gray-100" style={{ paddingTop: 'env(safe-area-inset-top, 0px)' }}>
+        <div className="flex items-center justify-between px-4 py-2.5">
+          <div className="flex items-center gap-2">
+            <div className="w-9 h-9 rounded-full bg-[#006731] flex items-center justify-center text-white font-extrabold text-[15px] shadow-md">두</div>
+            <div className="leading-tight">
+              <p className="text-[10px] text-gray-500">두레생협</p>
+              <p className="text-[14px] font-extrabold text-[#006731]">이번 주 두레추천</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-1 bg-[#f0f7f1] text-[#006731] text-[11px] font-bold px-2.5 py-1 rounded-full">
+            <Leaf size={11}/>{current + 1}/{products.length}
+          </div>
+        </div>
+      </header>
+
+      <div ref={containerRef} className="snap-container">
+        {products.map((p, i) => (
+          <ProductSlide key={i} product={p} index={i} total={products.length} />
+        ))}
       </div>
-      <a href="https://ecoop.or.kr/DureShop/recommend.do" class="card-btn">
-        <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.16 14.26l.04-.12L8.1 12h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0020 3H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 14.37 5.48 16 7 16h12v-2H7.42c-.14 0-.25-.11-.25-.25z"/></svg>
-        장보기
-      </a>
-    </div>
-  </article>
 
-  <!-- 흑염소탕 연계 추천 -->
-  <div class="pairing">
-    <div class="pairing-title">함께 즐겨보세요!</div>
-    <div class="pairing-track">
-      <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=16653&returnPlanNo=0" class="pairing-item">
-        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/16653C.jpg" alt="부추(180g/무농약)">
-        <div>
-          <div class="pairing-item-name">부추(180g/무농약)</div>
-          <div class="pairing-item-price">장보기 →</div>
-        </div>
-      </a>
-      <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=56899&returnPlanNo=0" class="pairing-item">
-        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56899C.jpg" alt="부추장아찌(200g/냉장)">
-        <div>
-          <div class="pairing-item-name">부추장아찌(200g/냉장)</div>
-          <div class="pairing-item-price">장보기 →</div>
-        </div>
-      </a>
-      <!-- 복제 (무한 루프용) -->
-      <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=16653&returnPlanNo=0" class="pairing-item">
-        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/16653C.jpg" alt="부추(180g/무농약)">
-        <div>
-          <div class="pairing-item-name">부추(180g/무농약)</div>
-          <div class="pairing-item-price">장보기 →</div>
-        </div>
-      </a>
-      <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=56899&returnPlanNo=0" class="pairing-item">
-        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56899C.jpg" alt="부추장아찌(200g/냉장)">
-        <div>
-          <div class="pairing-item-name">부추장아찌(200g/냉장)</div>
-          <div class="pairing-item-price">장보기 →</div>
-        </div>
-      </a>
-    </div>
-  </div>
-
-  <!-- 11. 토종닭 -->
-  <article class="card">
-    <div class="card-img">
-      <span class="card-badge">10%</span>
-      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56259C.jpg" alt="토종닭" loading="lazy">
-    </div>
-    <div class="card-body">
-      <h2 class="card-name">토종닭</h2>
-      <p class="card-tagline">90일 이상 키운 전통 토종닭</p>
-      <p class="card-desc">일반 닭과는 다른 풍부한 고소함과 쫄깃한 식감.<br>씹는 맛이 살아있습니다.</p>
-      <div class="chips">
-        <span class="chip">토종닭</span>
-        <span class="chip">1.4kg / 냉동</span>
+      <div className="absolute bottom-0 left-0 right-0 z-30 bg-white/95 backdrop-blur-md border-t border-gray-100 px-4 py-3" style={{ paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 12px)' }}>
+        <a href="https://www.ecoop.or.kr/DureShop/recommend.do" target="_blank" rel="noopener" className="w-full bg-[#006731] hover:bg-[#005429] active:bg-[#003d1f] text-white font-extrabold py-3.5 rounded-2xl flex items-center justify-center gap-2 shadow-lg transition no-underline">
+          <ExternalLinkIcon />
+          <span className="text-[15px]">두레추천 전체보기</span>
+        </a>
       </div>
-      <div class="card-price">
-        <span class="orig">15,900원</span>
-        <span class="now">14,300<span class="unit">원</span></span>
-        <span class="off">10% 할인</span>
-      </div>
-      <a href="https://ecoop.or.kr/DureShop/recommend.do" class="card-btn">
-        <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.16 14.26l.04-.12L8.1 12h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0020 3H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 14.37 5.48 16 7 16h12v-2H7.42c-.14 0-.25-.11-.25-.25z"/></svg>
-        장보기
-      </a>
-    </div>
-  </article>
 
-  <!-- 토종닭 연계 추천 -->
-  <div class="pairing">
-    <div class="pairing-title">함께 즐겨보세요!</div>
-    <div class="pairing-track">
-      <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=1241&returnPlanNo=0" class="pairing-item">
-        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/1241C.jpg" alt="삼계탕용건재모음(103g)">
-        <div>
-          <div class="pairing-item-name">삼계탕용건재모음(103g)</div>
-          <div class="pairing-item-price">장보기 →</div>
+      {current === 0 && (
+        <div className="absolute bottom-24 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center text-[#006731]/60 hint-bounce pointer-events-none">
+          <ChevronDown size={20} />
+          <span className="text-[10px] font-semibold -mt-1">아래로 스와이프</span>
         </div>
-      </a>
-      <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=295&returnPlanNo=0" class="pairing-item">
-        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/295C.png" alt="건대추(200g/특초)">
-        <div>
-          <div class="pairing-item-name">건대추(200g/특초)</div>
-          <div class="pairing-item-price">장보기 →</div>
-        </div>
-      </a>
-      <!-- 복제 (무한 루프용) -->
-      <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=1241&returnPlanNo=0" class="pairing-item">
-        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/1241C.jpg" alt="삼계탕용건재모음(103g)">
-        <div>
-          <div class="pairing-item-name">삼계탕용건재모음(103g)</div>
-          <div class="pairing-item-price">장보기 →</div>
-        </div>
-      </a>
-      <a href="https://ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=295&returnPlanNo=0" class="pairing-item">
-        <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/295C.png" alt="건대추(200g/특초)">
-        <div>
-          <div class="pairing-item-name">건대추(200g/특초)</div>
-          <div class="pairing-item-price">장보기 →</div>
-        </div>
-      </a>
+      )}
     </div>
-  </div>
+  );
+}
 
-  <!-- 12. 순우유 -->
-  <article class="card">
-    <div class="card-img">
-      <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/28485C.png" alt="순우유" loading="lazy">
-    </div>
-    <div class="card-body">
-      <h2 class="card-name">순우유</h2>
-      <p class="card-tagline">무항생제 젖소, 순수한 고소함</p>
-      <p class="card-desc">무항생제 인증 젖소의 순수하고 진한 고소함.<br>텁텁하지 않고 산뜻하게 마무리됩니다.</p>
-      <div class="chips">
-        <span class="chip">무항생제</span>
-        <span class="chip">900ml</span>
-      </div>
-      <div class="card-price">
-        <span class="now">4,400<span class="unit">원</span></span>
-      </div>
-      <a href="https://ecoop.or.kr/DureShop/recommend.do" class="card-btn">
-        <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.16 14.26l.04-.12L8.1 12h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0020 3H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 14.37 5.48 16 7 16h12v-2H7.42c-.14 0-.25-.11-.25-.25z"/></svg>
-        장보기
-      </a>
-    </div>
-  </article>
-
-</div>
-
-<!-- CTA -->
-<section class="cta">
-  <h2>두레추천이 마음에 드셨나요?</h2>
-  <p>매주 새로운 제철 먹거리를 소개합니다</p>
-  <a href="https://ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1646" class="cta-btn">두레추천 더 보기 →</a>
-</section>
-
-<footer>
-  <p>두레생협 조합원 상담실 1661-5110</p>
-</footer>
-
-<script>
-// Progress bar
-const prog = document.getElementById('prog');
-window.addEventListener('scroll', () => {
-  const pct = (window.scrollY / (document.documentElement.scrollHeight - innerHeight)) * 100;
-  prog.style.width = pct + '%';
-});
-
-// Card reveal
-const cards = document.querySelectorAll('.card, .pairing');
-const io = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
-}, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
-cards.forEach(c => io.observe(c));
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
 </script>
-
 </body>
 </html>
