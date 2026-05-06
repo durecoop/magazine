@@ -307,7 +307,7 @@ body{font-family:'Noto Sans KR',sans-serif;color:var(--tx);background:var(--bg);
             메인배너 6장 · 서브배너 0장 · 띠배너 8장 · 배너 PNG 0장
         </div>
     </div>
-    <div class="d-generated">생성: 2026-05-06 13:45</div>
+    <div class="d-generated">생성: 2026-05-06 14:00</div>
 </div>
 
 <!-- 디자인/카피 정책 (항상 표시) -->
@@ -6696,7 +6696,36 @@ function copyEditorSaveBlock(blockNum, field, value) {
     localStorage.setItem(COPY_EDITOR_LS_KEY, JSON.stringify(saved));
     const mark = document.getElementById('copy-editor-savemark');
     if(mark) { mark.classList.add('show'); setTimeout(() => mark.classList.remove('show'), 1500); }
+    // 카피 편집기 → 대시보드 카드로 즉시 동기화
+    syncEditorToDashboardCard(blockNum, field, value);
 }
+
+// 카피 편집기 탭에서 수정한 단일 필드를 대시보드 탭의 카드 textarea/제목에도 반영
+function syncEditorToDashboardCard(blockNum, field, value) {
+    if(field === 'original_theme') {
+        document.querySelectorAll('.d-block[data-block="' + blockNum + '"] h3[contenteditable]').forEach(h => {
+            h.textContent = value;
+        });
+        return;
+    }
+    const sel = '.d-block[data-block="' + blockNum + '"] .d-copy-textarea[data-field="' + field + '"][data-bn="' + blockNum + '"]';
+    document.querySelectorAll(sel).forEach(el => { el.value = value; });
+}
+
+// 페이지 로드 시 카피 편집기 localStorage 내용을 대시보드 카드에 한 번 hydrate
+function hydrateDashboardFromEditor() {
+    let saved;
+    try { saved = JSON.parse(localStorage.getItem(COPY_EDITOR_LS_KEY) || '{}'); } catch(e) { return; }
+    if(!saved) return;
+    Object.keys(saved).forEach(blockNum => {
+        const edits = saved[blockNum];
+        ['pc_banner', 'mo_banner', 'detail', 'banner', 'original_theme'].forEach(field => {
+            if(edits[field] === undefined) return;
+            syncEditorToDashboardCard(blockNum, field, edits[field]);
+        });
+    });
+}
+document.addEventListener('DOMContentLoaded', hydrateDashboardFromEditor);
 
 function copyEditorSaveAll() {
     document.querySelectorAll('#copy-editor-grid textarea, #copy-editor-grid input').forEach(el => {
@@ -8073,7 +8102,7 @@ function rcsTestConn() {
 </script>
 
 <div class="d-footer">
-    2026년 20주 주간기획 자동화 대시보드 &middot; 생성: 2026-05-06 13:45
+    2026년 20주 주간기획 자동화 대시보드 &middot; 생성: 2026-05-06 14:00
 </div>
 
 </body>
