@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>두레생협 20주차 이벤트 안내</title>
+<meta property="og:title" content="두레생협 20주차 이벤트 — 햇양파 증정 + 풋마늘대김치 1+1">
+<meta property="og:description" content="장바구니 7만원 이상 시 제주 햇양파 증정, 풋마늘대김치 1+1 깜짝 이벤트">
+<meta property="og:image" content="https://durecoop.github.io/magazine/weekly-event-w20/pdp_증정햇양파.jpg">
+<meta property="og:url" content="https://durecoop.github.io/magazine/weekly-event-w20/">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: #f6f3ee;
+    color: #232323;
+    -webkit-font-smoothing: antialiased;
+    font-size: 17px;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+  .wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 16px 60px;
+  }
+  .brand {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  .brand .logo {
+    display: inline-block;
+    font-size: 16px;
+    letter-spacing: 3px;
+    color: #6c8c4f;
+    font-weight: 700;
+    border: 1.5px solid #6c8c4f;
+    padding: 7px 18px;
+    border-radius: 999px;
+  }
+  .title {
+    text-align: center;
+    margin-bottom: 36px;
+    position: relative;
+  }
+  .title h1 {
+    font-size: 34px;
+    font-weight: 900;
+    letter-spacing: -1px;
+    color: #1d1d1d;
+    line-height: 1.35;
+  }
+  .title h1 .hl {
+    background: linear-gradient(transparent 55%, #ffe066 55%, #ffe066 92%, transparent 92%);
+    padding: 0 4px;
+  }
+  .title h1 .big {
+    font-size: 44px;
+    color: #d35400;
+    display: inline-block;
+    transform: rotate(-3deg);
+    margin: 0 2px;
+  }
+  .title p {
+    margin-top: 14px;
+    font-size: 16px;
+    color: #6b6b6b;
+    font-weight: 500;
+  }
+  .title .sparkle {
+    color: #f7b500;
+    font-weight: 900;
+    display: inline-block;
+    animation: bounce 1.6s ease-in-out infinite;
+  }
+  .title .sparkle.r { animation-delay: 0.3s; }
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50%      { transform: translateY(-6px) rotate(-3deg); }
+  }
+
+  .event {
+    background: #ffffff;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    margin-bottom: 28px;
+  }
+  .event img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .event-body {
+    padding: 22px 22px 24px;
+  }
+  .event-tag {
+    display: block;
+    width: fit-content;
+    margin: 0 auto 14px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #ffffff;
+    padding: 6px 14px;
+    border-radius: 999px;
+    letter-spacing: 0.5px;
+    text-align: center;
+  }
+  .tag-onion { background: #4a90c2; }
+  .tag-kimchi { background: #d35400; }
+
+  .event-body h2 {
+    font-size: 28px;
+    font-weight: 900;
+    line-height: 1.4;
+    margin-bottom: 18px;
+    color: #1d1d1d;
+    text-align: center;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    letter-spacing: -0.5px;
+  }
+  .info-row {
+    display: flex;
+    gap: 14px;
+    padding: 12px 0;
+    border-top: 1px dashed #e2ddd2;
+    font-size: 16px;
+  }
+  .info-row:first-of-type { border-top: none; padding-top: 0; }
+  .info-row .label {
+    flex: 0 0 100px;
+    color: #8a8a8a;
+    font-weight: 500;
+  }
+  .info-row .value {
+    flex: 1;
+    color: #232323;
+    font-weight: 500;
+  }
+  .info-row .value strong {
+    color: #d35400;
+    font-weight: 700;
+  }
+
+  .countdown {
+    margin-top: 16px;
+    background: #fff8ef;
+    border: 1px solid #f1d9b6;
+    border-radius: 12px;
+    padding: 14px 16px;
+    text-align: center;
+  }
+  .countdown .label {
+    font-size: 14px;
+    color: #a16500;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
+  .countdown .timer {
+    font-size: 26px;
+    font-weight: 900;
+    color: #d35400;
+    letter-spacing: -0.5px;
+    font-variant-numeric: tabular-nums;
+  }
+  .countdown .timer .unit {
+    font-size: 15px;
+    color: #8a4a00;
+    font-weight: 500;
+    margin: 0 4px 0 2px;
+  }
+  .countdown .ended {
+    font-size: 16px;
+    font-weight: 700;
+    color: #888;
+  }
+
+  .product-card {
+    margin-top: 18px;
+    background: #fff;
+    border: 1.5px solid #ffd6b8;
+    border-radius: 14px;
+    padding: 16px;
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+  }
+  .product-card .thumb {
+    flex: 0 0 92px;
+    width: 92px;
+    height: 92px;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #f5f1ec;
+  }
+  .product-card .thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .product-card .info {
+    flex: 1;
+    min-width: 0;
+  }
+  .product-card .pname {
+    font-size: 17px;
+    font-weight: 700;
+    color: #1d1d1d;
+    margin-bottom: 4px;
+    line-height: 1.3;
+  }
+  .product-card .pmaker {
+    font-size: 14px;
+    color: #8a8a8a;
+    margin-bottom: 10px;
+  }
+  .product-card .price {
+    font-size: 22px;
+    font-weight: 900;
+    color: #d35400;
+    letter-spacing: -0.5px;
+  }
+  .product-card .price .won {
+    font-size: 15px;
+    font-weight: 500;
+    color: #555;
+  }
+  .order-btn {
+    display: block;
+    margin-top: 14px;
+    text-align: center;
+    background: #d35400;
+    color: #fff;
+    text-decoration: none;
+    padding: 14px 18px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+    box-shadow: 0 4px 0 #a8410a;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+  }
+  .order-btn:hover { background: #b8480a; }
+  .order-btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #a8410a;
+  }
+  .order-btn .arrow { margin-left: 6px; }
+
+  @media (max-width: 480px) {
+    .product-card .thumb { flex: 0 0 76px; width: 76px; height: 76px; }
+    .product-card .pname { font-size: 14px; }
+    .product-card .price { font-size: 16px; }
+  }
+
+  .notice {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 0;
+    font-size: 16px;
+    color: #2b2b2b;
+    line-height: 1.75;
+    border: 1px solid #ece7df;
+    overflow: hidden;
+  }
+  .notice .head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 800;
+    font-size: 18px;
+    color: #ffffff;
+    padding: 14px 22px;
+    background: #d35400;
+    letter-spacing: -0.5px;
+  }
+  .notice .head::before {
+    content: "!";
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #ffffff;
+    color: #d35400;
+    font-weight: 900;
+    font-size: 15px;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .notice .body {
+    padding: 18px 22px 20px;
+  }
+  .notice ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .notice li {
+    position: relative;
+    padding: 10px 0 10px 20px;
+    border-bottom: 1px dashed #ece7df;
+    font-size: 16px;
+    color: #2b2b2b;
+    line-height: 1.5;
+  }
+  .notice li:last-child {
+    border-bottom: none;
+  }
+  .notice li::before {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: 18px;
+    width: 6px;
+    height: 6px;
+    background: #d35400;
+    border-radius: 50%;
+  }
+  .notice strong {
+    color: #b8480a;
+    font-weight: 800;
+  }
+
+  .shop-btn {
+    display: block;
+    margin-top: 28px;
+    text-align: center;
+    background: #6c8c4f;
+    color: #fff;
+    text-decoration: none;
+    padding: 18px 22px;
+    border-radius: 14px;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+    box-shadow: 0 4px 0 #4f6a39;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+  }
+  .shop-btn:hover { background: #5b7a42; }
+  .shop-btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #4f6a39;
+  }
+  .shop-btn .arrow { margin-left: 6px; }
+
+  .contact {
+    text-align: center;
+    margin-top: 22px;
+    padding: 16px;
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid #ece7df;
+  }
+  .contact .label {
+    font-size: 13px;
+    color: #8a8a8a;
+    margin-bottom: 4px;
+    letter-spacing: 0.5px;
+  }
+  .contact a {
+    font-size: 22px;
+    font-weight: 900;
+    color: #1d1d1d;
+    text-decoration: none;
+    letter-spacing: -0.5px;
+  }
+
+  .footer {
+    text-align: center;
+    margin-top: 18px;
+    font-size: 12px;
+    color: #999;
+    letter-spacing: 0.3px;
+  }
+
+  @media (max-width: 480px) {
+    .title h1 { font-size: 24px; }
+    .title h1 .big { font-size: 30px; }
+    .event-body { padding: 18px 16px 20px; }
+    .event-body h2 { font-size: 22px; }
+    .countdown .timer { font-size: 18px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="brand">
+    <span class="logo">두레생협 쇼핑몰</span>
+  </div>
+
+  <div class="title">
+    <h1>
+      <span class="sparkle">★</span>
+      이번 주는 <span class="hl">두 가지 혜택</span>
+      <span class="sparkle r">★</span><br>
+      <span class="big">햇양파</span>받고
+      <span class="big">김치</span>한 봉 더!
+    </h1>
+    <p>2026년 5월 11일(월) ~ 5월 15일(금)</p>
+  </div>
+
+  <!-- 이벤트 1: 제주 햇양파 증정 -->
+  <section class="event">
+    <img src="pdp_증정햇양파.jpg" alt="장바구니 7만원 이상 채우고 제주 햇양파 받아가세요">
+    <div class="event-body">
+      <span class="event-tag tag-onion">증정 이벤트</span>
+      <h2>장바구니 7만원 이상 구매 시<br>제주 햇양파 증정</h2>
+      <div class="info-row">
+        <div class="label">조건</div>
+        <div class="value"><strong>70,000원 이상</strong></div>
+      </div>
+      <div class="info-row">
+        <div class="label">증정 생활재</div>
+        <div class="value">제주 햇양파</div>
+      </div>
+      <div class="info-row">
+        <div class="label">마감</div>
+        <div class="value"><strong>5/14(목) 오전 11:30</strong> 주문일 기준</div>
+      </div>
+      <div class="countdown" id="countdown-onion">
+        <div class="label">증정 마감까지</div>
+        <div class="timer" id="onion-timer">계산 중...</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 이벤트 2: 풋마늘대김치 1+1 -->
+  <section class="event">
+    <img src="풋마늘대김치배너.png" alt="풋마늘대김치 1+1 깜짝 이벤트">
+    <div class="event-body">
+      <span class="event-tag tag-kimchi">온라인 단독 1+1</span>
+      <h2>풋마늘대김치 500g 구매 시<br>500g 1봉 추가 증정</h2>
+      <div class="info-row">
+        <div class="label">혜택</div>
+        <div class="value"><strong>1봉 구매 시 1봉 추가 증정</strong></div>
+      </div>
+      <div class="info-row">
+        <div class="label">배송일</div>
+        <div class="value">5/11(월) ~ 5/15(금)</div>
+      </div>
+      <div class="info-row">
+        <div class="label">수량</div>
+        <div class="value"><strong>한정 350봉</strong><br>소진 시 조기 종료</div>
+      </div>
+
+      <a class="product-card order-link" href="https://www.ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=59420&returnPlanNo=0" target="_blank" rel="noopener">
+        <div class="thumb">
+          <img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59420C.jpg" alt="풋마늘대김치 500g" onerror="this.style.display='none'">
+        </div>
+        <div class="info">
+          <div class="pname">풋마늘대김치 (500g)</div>
+          <div class="pmaker">(주)담채원</div>
+          <div class="price">
+            10,500<span class="won">원</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="order-btn order-link" href="https://www.ecoop.or.kr/DureShop/prod/goodsView.do?returnTypeGb=01&returnNo=59420&returnPlanNo=0" target="_blank" rel="noopener">
+        풋마늘대김치 1+1 주문하기 <span class="arrow">→</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- 안내 -->
+  <div class="notice">
+    <div class="head">꼭 확인해 주세요</div>
+    <div class="body">
+      <ul>
+        <li>현재 충분히 <strong>익은 상태</strong>의 김치</li>
+        <li>새콤하고 깊은 맛 선호 조합원께 권장</li>
+        <li><strong>숙성도에 따른 반품 불가</strong></li>
+        <li>한정 수량 · <strong>재고 소진 시 조기 종료</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <a class="shop-btn outro-cta" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1662" target="_blank" rel="noopener">
+    두레생협 쇼핑몰 바로가기 <span class="arrow">→</span>
+  </a>
+
+  <div class="contact">
+    <div class="label">두레생협 상담실</div>
+    <a href="tel:1661-5110">1661-5110</a>
+  </div>
+
+  <div class="footer">© 두레생협 · 20주차 주간 이벤트</div>
+</div>
+
+<script>
+  // 햇양파 마감 카운트다운: 2026-05-14 11:30 KST
+  (function() {
+    var deadline = new Date('2026-05-14T11:30:00+09:00').getTime();
+    var timerEl = document.getElementById('onion-timer');
+
+    function pad(n) { return n < 10 ? '0' + n : '' + n; }
+
+    function tick() {
+      var now = Date.now();
+      var diff = deadline - now;
+      if (diff <= 0) {
+        timerEl.innerHTML = '<span class="ended">이벤트 종료</span>';
+        return;
+      }
+      var d = Math.floor(diff / (1000*60*60*24));
+      var h = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+      var m = Math.floor((diff % (1000*60*60)) / (1000*60));
+      var s = Math.floor((diff % (1000*60)) / 1000);
+
+      var html = '';
+      if (d > 0) html += d + '<span class="unit">일</span>';
+      html += pad(h) + '<span class="unit">시</span>';
+      html += pad(m) + '<span class="unit">분</span>';
+      html += pad(s) + '<span class="unit">초</span>';
+      timerEl.innerHTML = html;
+    }
+    tick();
+    setInterval(tick, 1000);
+  })();
+</script>
+
+<!-- Tracking -->
+<script>
+(function(){
+  var NS = 'durecoop-weekly-event-w20';
+  var API = 'https://abacus.jasoncameron.dev/hit/' + NS + '/';
+  function hit(key){
+    try { fetch(API + key, { mode: 'cors', keepalive: true, cache: 'no-store' }).catch(function(){}); } catch(e){}
+  }
+  hit('pageview');
+  try {
+    var params = new URLSearchParams(location.search);
+    var src = (params.get('utm_source') || '').toLowerCase();
+    if (src === 'rcs') hit('pageview-rcs');
+    else if (src) hit('pageview-other');
+    else hit('pageview-direct');
+  } catch(e){}
+  document.querySelectorAll('a').forEach(function(a){
+    if (!/ecoop\.or\.kr/i.test(a.href)) return;
+    a.addEventListener('click', function(){
+      var key = null;
+      if (a.classList.contains('hero-cta')) key = 'click-hero';
+      else if (a.classList.contains('outro-cta')) key = 'click-outro';
+      else if (a.classList.contains('order-link')) key = 'click-product';
+      if (key) hit(key);
+      hit('click-all');
+    }, { passive: true });
+  });
+})();
+</script>
+</body>
+</html>
