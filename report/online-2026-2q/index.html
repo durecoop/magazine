@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>온라인사업팀 종합분석 — 두레생협</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --green-deep:#1a3a0a; --green:#2d5016; --green-light:#4a7c28; --green-pale:#e8f5e9;
+  --warm:#fff8e1; --warm-line:#f39c12;
+  --red:#c0392b; --red-light:#fdecea;
+  --orange:#e67e22; --blue:#2980b9; --gray:#86868b;
+  --bg:#f5f5f7; --card:#fff; --text:#1d1d1f;
+}
+body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text);line-height:1.65;-webkit-font-smoothing:antialiased}
+.wrap{max-width:920px;margin:0 auto;background:var(--bg)}
+
+/* 헤더 */
+.hd{background:linear-gradient(135deg,var(--green-deep),var(--green) 40%,var(--green-light));color:#fff;padding:2.2rem 1.5rem 1.5rem}
+.hd .badge{display:inline-block;background:rgba(255,255,255,.15);padding:5px 12px;border-radius:20px;font-size:.7rem;font-weight:500;margin-bottom:8px}
+.hd h1{font-size:1.55rem;font-weight:900;line-height:1.3}
+.hd .sub{font-size:.85rem;opacity:.85;margin-top:6px}
+.hd .dt{font-size:.72rem;opacity:.55;margin-top:8px}
+
+/* 핵심 4 KPI */
+.ab{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.ab .ai{padding:13px 8px;text-align:center;color:#fff}
+.ab .ai:nth-child(1){background:#c0392b}
+.ab .ai:nth-child(2){background:#e67e22}
+.ab .ai:nth-child(3){background:#27ae60}
+.ab .ai:nth-child(4){background:#2980b9}
+.ab .al{font-size:.62rem;opacity:.85;font-weight:500}
+.ab .av{font-size:1.05rem;font-weight:900;margin-top:1px}
+.ab .ax{font-size:.6rem;opacity:.7;margin-top:1px}
+
+/* KPI 그리드 */
+.kg{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;padding:.9rem .9rem 0}
+.k{background:var(--card);border-radius:12px;padding:.95rem .85rem;box-shadow:0 1px 8px rgba(0,0,0,.05)}
+.k .kl{font-size:.62rem;color:var(--gray);font-weight:500;letter-spacing:.3px}
+.k .kv{font-size:1.3rem;font-weight:900;margin:3px 0;color:var(--text)}
+.k .kc{font-size:.7rem;font-weight:600}
+.k .kc.dn{color:var(--red)}
+.k .kc.up{color:#27ae60}
+.k.dk{background:var(--green-deep);color:#fff}
+.k.dk .kl{color:rgba(255,255,255,.5)}
+.k.dk .kv{color:#fff}
+
+/* 섹션 */
+.sec{padding:1.2rem .9rem .4rem}
+.st{font-size:1rem;font-weight:800;margin-bottom:.9rem;display:flex;align-items:center;gap:8px;color:var(--green-deep)}
+.st .num{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;background:var(--green-deep);color:#fff;border-radius:50%;font-size:.75rem;font-weight:700}
+.sd{font-size:.78rem;color:var(--gray);margin-bottom:.8rem;margin-top:-.4rem}
+
+/* 카드 */
+.cd{background:var(--card);border-radius:12px;padding:1rem;margin-bottom:8px;box-shadow:0 1px 8px rgba(0,0,0,.05)}
+.cd h3{font-size:.84rem;font-weight:700;margin-bottom:8px;color:var(--green-deep)}
+
+/* 메시지 박스 */
+.msg{background:linear-gradient(135deg,var(--warm),#fff3cc);border-radius:12px;padding:1.1rem;margin-bottom:8px;border-left:4px solid var(--warm-line)}
+.msg .mt{font-weight:800;font-size:.92rem;margin-bottom:5px;color:#7a5300}
+.msg p{font-size:.8rem;color:#555;line-height:1.7}
+.msg.danger{background:linear-gradient(135deg,var(--red-light),#fcdcd5);border-left-color:var(--red)}
+.msg.danger .mt{color:var(--red)}
+.msg.good{background:linear-gradient(135deg,var(--green-pale),#c8e6c9);border-left-color:var(--green-light)}
+.msg.good .mt{color:var(--green-deep)}
+
+/* 표 */
+table.t{width:100%;border-collapse:collapse;font-size:.74rem;background:var(--card);border-radius:10px;overflow:hidden;box-shadow:0 1px 8px rgba(0,0,0,.05);margin-bottom:8px}
+table.t thead{background:var(--green)}
+table.t th{padding:9px 5px;font-weight:600;text-align:center;font-size:.66rem;color:#fff}
+table.t td{padding:8px 5px;text-align:center;border-bottom:1px solid #f0f0f0;font-size:.71rem}
+table.t tr:last-child td{border-bottom:none}
+table.t .tot{background:var(--green-pale);font-weight:700}
+table.t .ng{color:var(--red);font-weight:700}
+table.t .ps{color:#27ae60;font-weight:600}
+table.t .hl{background:var(--warm)}
+.tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+
+/* 4 핵심 숫자 (lifecycle p4) */
+.fourg{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.fr{background:var(--card);border-radius:12px;padding:1rem .8rem;box-shadow:0 1px 8px rgba(0,0,0,.05);text-align:center}
+.fr .frl{font-size:.66rem;color:var(--gray);font-weight:500}
+.fr .frv{font-size:1.6rem;font-weight:900;margin:6px 0;color:var(--green-deep)}
+.fr .frd{font-size:.66rem;color:var(--gray)}
+.fr.danger{background:linear-gradient(135deg,#fff,#fef0ee)}
+.fr.danger .frv{color:var(--red)}
+.fr.good{background:linear-gradient(135deg,#fff,#e8f5e9)}
+.fr.good .frv{color:#27ae60}
+
+/* 등급 정의 6칸 */
+.grades{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:10px}
+.grad{background:var(--card);border-radius:10px;padding:.7rem .55rem;text-align:center;box-shadow:0 1px 6px rgba(0,0,0,.04)}
+.grad .gn{font-size:.95rem;font-weight:900;margin-bottom:2px}
+.grad .gp{font-size:.6rem;color:var(--gray);font-weight:500}
+.grad .gd{font-size:.6rem;color:var(--text);margin-top:3px}
+.grad.s{background:linear-gradient(135deg,#1d1d1f,#444);color:#fff}
+.grad.s .gp,.grad.s .gd{color:rgba(255,255,255,.7)}
+.grad.a{background:#f3e5f5}
+.grad.b{background:#fff3cc;border:2px solid var(--warm-line)}
+.grad.c{background:#e1f5fe}
+.grad.no{background:#f5f5f5;color:#999}
+.grad.n{background:#fff;border:2px dashed var(--green-light)}
+
+/* 연도 흐름 차트 (CSS bar) */
+.flowchart{padding:.8rem;background:var(--card);border-radius:12px;box-shadow:0 1px 8px rgba(0,0,0,.05);margin-bottom:8px}
+.flowchart h3{font-size:.78rem;margin-bottom:.7rem;color:var(--green-deep);font-weight:700}
+.bars{display:flex;align-items:flex-end;gap:8px;height:160px;padding:8px 0;border-bottom:1px solid #eee}
+.bar-col{flex:1;display:flex;flex-direction:column;align-items:center}
+.bar-val{font-size:.65rem;font-weight:700;color:var(--green-deep);margin-bottom:3px}
+.bar{width:100%;background:linear-gradient(180deg,var(--green-light),var(--green));border-radius:4px 4px 0 0;min-height:1px;position:relative}
+.bar.peak{background:linear-gradient(180deg,#f39c12,#e67e22)}
+.bar-yr{font-size:.65rem;color:var(--gray);margin-top:5px}
+
+/* 7가지 자산 리스트 */
+.asset{background:var(--card);border-radius:12px;padding:.85rem;margin-bottom:6px;box-shadow:0 1px 6px rgba(0,0,0,.04);display:flex;gap:10px;align-items:flex-start}
+.asset .aN{width:28px;height:28px;background:var(--green-deep);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:800;flex-shrink:0}
+.asset .aT{font-size:.78rem;font-weight:800;color:var(--green-deep);margin-bottom:2px}
+.asset .aD{font-size:.68rem;color:#555;line-height:1.5}
+.asset .aTime{display:inline-block;background:var(--warm);color:#7a5300;font-size:.6rem;font-weight:600;padding:2px 7px;border-radius:8px;margin-left:5px}
+
+/* 12주 일정 */
+.weekly{background:var(--card);border-radius:12px;overflow:hidden;box-shadow:0 1px 8px rgba(0,0,0,.05);margin-bottom:8px}
+.weekly table{width:100%;font-size:.7rem}
+.weekly th{background:var(--green);color:#fff;padding:8px 5px;font-size:.65rem;font-weight:600}
+.weekly td{padding:7px 6px;border-bottom:1px solid #f0f0f0;font-size:.7rem}
+.weekly td:first-child{font-weight:700;color:var(--green-deep);width:50px;text-align:center}
+.weekly tr:last-child td{border-bottom:none}
+
+/* 페르소나 카드 */
+.persona{background:var(--card);border-radius:12px;padding:.9rem;margin-bottom:8px;box-shadow:0 1px 6px rgba(0,0,0,.05);border-top:3px solid var(--green-light)}
+.persona .pn{font-size:.85rem;font-weight:800;color:var(--green-deep)}
+.persona .pp{font-size:.66rem;color:var(--gray);margin:3px 0 6px}
+.persona ul{list-style:none;padding:0}
+.persona li{font-size:.7rem;padding:3px 0;color:#444;display:flex;gap:6px}
+.persona li:before{content:"•";color:var(--green-light);font-weight:700}
+
+/* 결정 안건 */
+.dlist{background:var(--card);border-radius:12px;padding:.9rem;margin-bottom:8px;box-shadow:0 1px 6px rgba(0,0,0,.05)}
+.dlist h3{font-size:.85rem;font-weight:800;color:var(--red);margin-bottom:.6rem}
+.dlist ol{padding-left:1.2rem}
+.dlist li{font-size:.74rem;padding:4px 0;color:#444;line-height:1.5}
+
+/* 데스크톱 */
+@media (min-width:768px){
+  .hd{padding:3rem 2rem 2rem}
+  .hd h1{font-size:2rem}
+  .hd .sub{font-size:1rem}
+  .kg{grid-template-columns:repeat(4,1fr);padding:1.2rem 1.2rem 0}
+  .sec{padding:1.6rem 1.2rem .6rem}
+  .st{font-size:1.15rem}
+  .fourg{grid-template-columns:repeat(4,1fr)}
+  .grades{grid-template-columns:repeat(6,1fr)}
+  table.t{font-size:.85rem}
+  table.t th{font-size:.78rem;padding:11px 8px}
+  table.t td{font-size:.82rem;padding:9px 7px}
+  .ab .av{font-size:1.3rem}
+  .ab .al{font-size:.7rem}
+  .asset .aT{font-size:.9rem}
+  .asset .aD{font-size:.78rem}
+  .weekly td,.weekly th{font-size:.82rem}
+}
+@media (min-width:1024px){
+  body{padding:0}
+  .wrap{margin:0 auto;background:var(--bg);box-shadow:0 0 30px rgba(0,0,0,.06)}
+  .hd h1{font-size:2.4rem}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+}
+
+/* 점프 네비 */
+.nav{position:sticky;top:0;background:rgba(26,58,10,.96);color:#fff;padding:8px;display:flex;gap:6px;overflow-x:auto;z-index:10;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.nav a{color:#fff;font-size:.7rem;padding:5px 10px;border-radius:14px;text-decoration:none;background:rgba(255,255,255,.1);white-space:nowrap;font-weight:500}
+.nav a:hover{background:rgba(255,255,255,.25)}
+
+footer{padding:2rem 1rem;text-align:center;color:var(--gray);font-size:.7rem;border-top:1px solid #eee;margin-top:2rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- 헤더 -->
+<div class="hd">
+  <span class="badge">온라인사업팀 종합 분석</span>
+  <h1>매출 그래프 뒤의<br>진짜 이야기</h1>
+  <div class="sub">5년 등급 흐름 + 4월 매출·연령·단협 통합 분석</div>
+  <div class="dt">두레생협 온라인사업팀 · 2026.05.13 · v1.0</div>
+</div>
+
+<!-- 점프 네비 -->
+<nav class="nav">
+  <a href="#summary">한 줄 요약</a>
+  <a href="#kpi">핵심 KPI</a>
+  <a href="#lifecycle">5년 등급</a>
+  <a href="#sales">4월 매출</a>
+  <a href="#prop">단협별</a>
+  <a href="#age">연령대</a>
+  <a href="#vip">Whale·Prime</a>
+  <a href="#store">매장 폐점</a>
+  <a href="#design">디자인 자산</a>
+  <a href="#weekly">12주 계획</a>
+  <a href="#decision">결정 안건</a>
+</nav>
+
+<!-- 핵심 4지표 -->
+<div class="ab">
+  <div class="ai"><div class="al">1~4월 매출</div><div class="av">251억</div><div class="ax">−4.83%</div></div>
+  <div class="ai"><div class="al">B등급 떠난</div><div class="av">23.8%</div><div class="ax">5년간 +9.4%p</div></div>
+  <div class="ai"><div class="al">활성 +10.6%</div><div class="av">7,287명</div><div class="ax">4월 회복</div></div>
+  <div class="ai"><div class="al">복귀율</div><div class="av">97%</div><div class="ax">긍정 신호</div></div>
+</div>
+
+<!-- 한줄 요약 -->
+<div class="sec" id="summary">
+  <div class="msg danger">
+    <div class="mt">⚠ 단골이 조용히 떠나고 있다</div>
+    <p>두레생협 쇼핑몰의 단골 조합원들(B·S등급)이 5년에 걸쳐 빠르게 무너지고 있다. B등급은 한 달에 4명 중 1명이 떠나며, 5년 누적 1,750명 손실. S등급 유지율도 62% → 54%로 −8.2%p 떨어졌다.</p>
+  </div>
+  <div class="msg good">
+    <div class="mt">✓ 그러나 떠난 사람의 97%는 다시 돌아온다</div>
+    <p>한 달 떠난 조합원의 97%가 다시 구매한다. 5년 안정적으로 96~98% 유지. "떠남"은 영원한 이별이 아니다 — 다시 부르는 메시지가 있으면 거의 다 돌아온다.</p>
+  </div>
+  <div class="msg">
+    <div class="mt">📌 한 문장 결론</div>
+    <p><strong>매출만 보면 놓친다.</strong> 4월 매출은 회복(+10.6% 이용자)으로 돌아섰지만, 5년 등급 흐름은 단골이 무너지는 신호를 누적해왔다. 떠나기 직전 잡고, 떠난 직후 다시 부르는 두 가지 동선이 다음 분기 핵심 과제다.</p>
+  </div>
+</div>
+
+<!-- 핵심 KPI -->
+<div class="sec" id="kpi">
+  <div class="st"><span class="num">1</span>핵심 지표 한눈에</div>
+  <div class="kg">
+    <div class="k"><div class="kl">1~4월 매출 (단협 23곳)</div><div class="kv">251억</div><div class="kc dn">전년비 −4.83%</div></div>
+    <div class="k"><div class="kl">4월 무점포 이용자</div><div class="kv">7,287</div><div class="kc up">+10.56% YoY</div></div>
+    <div class="k"><div class="kl">객단가 (4월)</div><div class="kv">74,082원</div><div class="kc up">+6.4% YoY</div></div>
+    <div class="k dk"><div class="kl">활성 조합원 (5년)</div><div class="kv">4,894</div><div class="kc">정점 5,213(2024) →</div></div>
+    <div class="k"><div class="kl">B등급 떠난 비율</div><div class="kv">23.8%</div><div class="kc dn">2022년 14.4% →</div></div>
+    <div class="k"><div class="kl">S등급 유지율</div><div class="kv">53.8%</div><div class="kc dn">−8.2%p (5년)</div></div>
+    <div class="k"><div class="kl">5년 손실 B등급</div><div class="kv">1,750</div><div class="kc">매년 평균 350명</div></div>
+    <div class="k"><div class="kl">복귀율 (떠난 후)</div><div class="kv">97%</div><div class="kc up">5년 안정</div></div>
+  </div>
+</div>
+
+<!-- 5년 등급 흐름 -->
+<div class="sec" id="lifecycle">
+  <div class="st"><span class="num">2</span>5년 조합원 등급 흐름</div>
+  <div class="sd">한 조합원이 단골이 되고 떠나기까지의 5년</div>
+
+  <div class="cd">
+    <h3>등급 정의 (월 구매액 기준 자동 분류)</h3>
+    <div class="grades">
+      <div class="grad s"><div class="gn">S</div><div class="gp">월 40만+</div><div class="gd">최상위 VIP</div></div>
+      <div class="grad a"><div class="gn">A</div><div class="gp">월 15~40만</div><div class="gd">충성층</div></div>
+      <div class="grad b"><div class="gn">B ★</div><div class="gp">월 5~15만</div><div class="gd">주력층</div></div>
+      <div class="grad c"><div class="gn">C</div><div class="gp">월 1~5만</div><div class="gd">가벼운</div></div>
+      <div class="grad no"><div class="gn">NO</div><div class="gp">월 0원</div><div class="gd">한 달 쉼</div></div>
+      <div class="grad n"><div class="gn">N</div><div class="gp">신규</div><div class="gd">이번 달</div></div>
+    </div>
+  </div>
+
+  <div class="flowchart">
+    <h3>활성 조합원 수 추이 (3월말 기준 · 명)</h3>
+    <div class="bars">
+      <div class="bar-col"><div class="bar-val">4,387</div><div class="bar" style="height:53%"></div><div class="bar-yr">2022</div></div>
+      <div class="bar-col"><div class="bar-val">4,610</div><div class="bar" style="height:65%"></div><div class="bar-yr">2023</div></div>
+      <div class="bar-col"><div class="bar-val">5,213</div><div class="bar peak" style="height:96%"></div><div class="bar-yr">2024</div></div>
+      <div class="bar-col"><div class="bar-val">5,095</div><div class="bar" style="height:90%"></div><div class="bar-yr">2025</div></div>
+      <div class="bar-col"><div class="bar-val">4,894</div><div class="bar" style="height:78%"></div><div class="bar-yr">2026</div></div>
+    </div>
+    <p style="font-size:.7rem;color:var(--gray);margin-top:.6rem">2024년 정점(5,213명) 이후 2년 사이 −319명 감소. 휴면도 같이 줄어 시스템 밖으로 사라지는 패턴.</p>
+  </div>
+
+  <div class="cd">
+    <h3>★ 4가지 핵심 숫자 (5년 변화)</h3>
+    <div class="fourg">
+      <div class="fr danger"><div class="frl">B등급 떠난 비율</div><div class="frv">23.8%</div><div class="frd">2022년 14.4% → +9.4%p ↑</div></div>
+      <div class="fr danger"><div class="frl">5년 누적 떠난 B</div><div class="frv">1,750명</div><div class="frd">매년 평균 350명</div></div>
+      <div class="fr danger"><div class="frl">S등급 유지율</div><div class="frv">53.8%</div><div class="frd">2022년 62% → −8.2%p ↓</div></div>
+      <div class="fr good"><div class="frl">복귀율 (긍정)</div><div class="frv">97%</div><div class="frd">한 번 떠나도 다시 옴</div></div>
+    </div>
+  </div>
+
+  <div class="cd">
+    <h3>S등급 유지율 5년 추이</h3>
+    <div class="tablewrap"><table class="t">
+      <thead><tr><th>연도</th><th>S 유지율</th><th>A→S 상승률</th><th>해석</th></tr></thead>
+      <tbody>
+        <tr><td>2022</td><td>62.0%</td><td>12.1%</td><td>건강한 흐름</td></tr>
+        <tr><td>2023</td><td>58.7%</td><td>9.7%</td><td>약간 둔화</td></tr>
+        <tr><td>2024</td><td>58.6%</td><td>8.4%</td><td>추세적 하락</td></tr>
+        <tr><td>2025</td><td>57.2%</td><td>8.5%</td><td>지속 약화</td></tr>
+        <tr class="hl"><td><b>2026</b></td><td><b class="ng">53.8%</b></td><td><b class="ng">7.5%</b></td><td>VIP·상승 동력 모두 약화</td></tr>
+      </tbody>
+    </table></div>
+    <p style="font-size:.7rem;color:var(--gray);margin-top:.5rem">최상위 VIP의 절반 가까이가 한 달 내 등급에서 빠진다. 위로 올라가는 동력은 5년간 거의 절반으로.</p>
+  </div>
+</div>
+
+<!-- 4월 매출 -->
+<div class="sec" id="sales">
+  <div class="st"><span class="num">3</span>4월 매출 — 회복 시작</div>
+  <div class="sd">매장 + 무점포 통합 (단협 23곳, 회계 기준)</div>
+  <div class="tablewrap"><table class="t">
+    <thead><tr><th>구분</th><th>1~3월(1Q)</th><th>4월</th><th>1~4월 누계</th></tr></thead>
+    <tbody>
+      <tr><td>전체 매출</td><td class="ng">−5.71%</td><td class="ng">−2.20%</td><td class="ng">−4.83%</td></tr>
+      <tr><td>매장</td><td>−5.30%</td><td>−2.51%</td><td>−4.60%</td></tr>
+      <tr class="hl"><td>무점포</td><td>−7.43%</td><td class="ps">−0.94%</td><td>−5.78%</td></tr>
+      <tr class="tot"><td>이용자(무점포)</td><td>−0.62%</td><td class="ps">+10.56%</td><td>+4.39%</td></tr>
+    </tbody>
+  </table></div>
+  <div class="msg good" style="margin-top:8px">
+    <div class="mt">4월 회복 신호 — 무점포 이용자 +10.56%</div>
+    <p>1Q는 매장·무점포 모두 약세였으나 4월부터 무점포가 거의 회복(−0.94%). 이용자 +10.56%가 매출 회복 동력. 객단가도 +6.4% 동반 신장.</p>
+  </div>
+  <div class="msg">
+    <div class="mt">정규화 (주민생협 1.3억 효과 제외)</div>
+    <p>25년 1Q에 발생한 일시 매출 1.3억(신규 거래처 1회 발주 후 이탈)을 제외하면 1Q 신장률 −5.71% → −5.05%, 1~4월 누계 −4.83% → −4.32%로 개선.</p>
+  </div>
+</div>
+
+<!-- 단협별 -->
+<div class="sec" id="prop">
+  <div class="st"><span class="num">4</span>단협별 4월 매출 (TOP 10)</div>
+  <div class="sd">매출 규모 + 신장률 (단위: 백만원)</div>
+  <div class="tablewrap"><table class="t">
+    <thead><tr><th>단협</th><th>매장</th><th>매장 YoY</th><th>무점포</th><th>무점포 YoY</th><th>합계 YoY</th></tr></thead>
+    <tbody>
+      <tr><td>수도권생태유아</td><td>—</td><td>—</td><td>222</td><td class="ng">−7.9%</td><td class="ng">−7.9%</td></tr>
+      <tr><td>울림</td><td>—</td><td>—</td><td>138</td><td class="ps">+1.3%</td><td class="ps">+1.3%</td></tr>
+      <tr><td>푸른</td><td>—</td><td>—</td><td>136</td><td class="ng">−4.4%</td><td class="ng">−4.4%</td></tr>
+      <tr><td>서울남부</td><td>—</td><td>—</td><td>82</td><td class="ps">+3.3%</td><td class="ps">+3.3%</td></tr>
+      <tr><td>에코</td><td>—</td><td>—</td><td>81</td><td>+0.1%</td><td>+0.1%</td></tr>
+      <tr><td>경기두레</td><td>—</td><td>—</td><td>71</td><td class="ps">+10.4%</td><td class="ps">+10.4%</td></tr>
+      <tr><td>참좋은</td><td>—</td><td>—</td><td>66</td><td class="ng">−4.0%</td><td class="ng">−4.0%</td></tr>
+      <tr><td>바른</td><td>—</td><td>—</td><td>62</td><td class="ps">+7.4%</td><td class="ps">+7.4%</td></tr>
+      <tr><td>주민</td><td>—</td><td>—</td><td>45</td><td class="ng">−10.2%</td><td class="ng">−10.2%</td></tr>
+      <tr><td>평택</td><td>—</td><td>—</td><td>19</td><td class="ng">−16.7%</td><td class="ng">−16.7%</td></tr>
+    </tbody>
+  </table></div>
+  <p style="font-size:.7rem;color:var(--gray);margin:.4rem 0 .5rem">* 매장 컬럼은 별도 보고서 참조 (지면 절약). 23개 전 단협 매트릭스는 부록 v7 docx 확인.</p>
+  <div class="msg">
+    <div class="mt">단협 분류</div>
+    <p><strong>역신장 −10% 이상</strong> 평택·아름다운·주민 — 5월 단협별 대응책 필요<br>
+    <strong>객단가 견인 신장</strong> 경기두레 +10.4% (이용자 +6.9%)<br>
+    <strong>이용자 ↑ 매출 ↓</strong> 푸른두레 (이용자 +23.9% / 매출 −4.4%, 인당공급액 17.7만 → 13.7만)</p>
+  </div>
+</div>
+
+<!-- 연령대 -->
+<div class="sec" id="age">
+  <div class="st"><span class="num">5</span>연령대별 심층 분석</div>
+  <div class="sd">4월 26년 ERP 매출명세 114K건 + 조합원 마스터 9,587명 (생년월일 89.4%) 직접 분석</div>
+
+  <div class="cd">
+    <h3>4월 이용 조합원 연령 구성 + 인당매출</h3>
+    <div class="tablewrap"><table class="t">
+      <thead><tr><th>연령</th><th>이용자</th><th>구성비</th><th>매출비중</th><th>객단가</th><th>인당매출</th></tr></thead>
+      <tbody>
+        <tr><td>30대</td><td>248</td><td>4.0%</td><td class="ng">2.7%</td><td>62,469</td><td class="ng">126,952</td></tr>
+        <tr><td>40대</td><td>935</td><td>14.9%</td><td>13.2%</td><td>78,019</td><td>166,051</td></tr>
+        <tr class="hl"><td>50대</td><td>2,566</td><td>40.9%</td><td>40.6%</td><td>80,309</td><td>185,874</td></tr>
+        <tr><td>60대</td><td>1,453</td><td>23.2%</td><td>27.4%</td><td>78,859</td><td>221,218</td></tr>
+        <tr class="hl"><td>70대+</td><td>343</td><td>5.5%</td><td>7.0%</td><td><b>82,411</b></td><td><b>239,063</b></td></tr>
+        <tr><td>미상</td><td>699</td><td>11.1%</td><td>8.7%</td><td>74,991</td><td>146,550</td></tr>
+        <tr class="tot"><td>합계</td><td>6,276</td><td>100%</td><td>100%</td><td>—</td><td>—</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="msg danger">
+    <div class="mt">⚠ 30대 — 모든 지표 최저</div>
+    <p>인당매출 30대 12.7만 (70대+ 23.9만의 53%), 객단가 62k(최저), 1회 단발 53%. 신규 23%지만 정착 못함.</p>
+  </div>
+  <div class="msg good">
+    <div class="mt">✓ 시니어가 두레의 핵심 자산</div>
+    <p>50·60·70대 합 매출 75%. 70대+ 객단가·인당매출·빈도 모두 1위. 시니어가 더 자주, 더 다양한 상품, 더 묶음 구매.</p>
+  </div>
+
+  <div class="cd">
+    <h3>잔존 vs 이탈 vs 복귀·신규 (25-04 ↔ 26-04)</h3>
+    <div class="tablewrap"><table class="t">
+      <thead><tr><th>연령</th><th>잔존 (4,291)</th><th>복귀·신규 (2,996)</th><th>이탈 (2,300)</th></tr></thead>
+      <tbody>
+        <tr><td>30대</td><td>2.8%</td><td>4.7%</td><td class="ng">5.0%</td></tr>
+        <tr><td>40대</td><td>13.1%</td><td>14.8%</td><td class="ng">18.0%</td></tr>
+        <tr><td>50대</td><td>39.3%</td><td>36.5%</td><td>38.5%</td></tr>
+        <tr><td>60대</td><td>24.4%</td><td>20.9%</td><td>19.0%</td></tr>
+        <tr><td>70대+</td><td>6.9%</td><td>6.6%</td><td>3.8%</td></tr>
+      </tbody>
+    </table></div>
+    <p style="font-size:.72rem;margin-top:.5rem"><strong>40대 이탈 18% (잔존 13%)</strong> — 라이프 스테이지 변화 영향, 재유치 1순위. 60대+ 잔존 31% > 이탈 23% — 시니어 충성도 두레의 안정 기반.</p>
+  </div>
+
+  <div class="cd">
+    <h3>세대별 매출 기여 (한국 세대 기준)</h3>
+    <div class="tablewrap"><table class="t">
+      <thead><tr><th>세대</th><th>이용자</th><th>인당매출</th><th>매출비중</th></tr></thead>
+      <tbody>
+        <tr><td>Z세대 (1995~)</td><td>56</td><td>137k</td><td>0.7%</td></tr>
+        <tr><td>밀레니얼 (1980~94)</td><td>763</td><td>156k</td><td>10.1%</td></tr>
+        <tr><td>X세대 (1970~79)</td><td>2,136</td><td>180k</td><td>32.8%</td></tr>
+        <tr class="hl"><td><b>BB+386 (1956~69)</b></td><td><b>2,353</b></td><td><b>211k</b></td><td><b class="ps">42.3%</b></td></tr>
+        <tr><td>전후 (~1955)</td><td>269</td><td>234k</td><td>5.4%</td></tr>
+      </tbody>
+    </table></div>
+    <p style="font-size:.72rem;margin-top:.5rem">두레 사업의 단일 세대 본진은 <strong>베이비붐+386세대(1956~69)</strong> 매출 42.3%. X+BB+386 합 75.1%. 다음 1~2년 핵심 = 밀레니얼 정착 funnel.</p>
+  </div>
+</div>
+
+<!-- Whale·Prime -->
+<div class="sec" id="vip">
+  <div class="st"><span class="num">6</span>Whale·Prime 정밀 분석</div>
+  <div class="sd">소수 충성층이 매출의 16.8% 차지 — 시니어 89%</div>
+  <div class="grid2">
+    <div class="cd">
+      <h3>🐋 Whale (상위 1% · 62명)</h3>
+      <ul style="list-style:none;padding:0;font-size:.72rem;line-height:1.8">
+        <li>매출 합계 7,780만원 (<b>전체 6.6%</b>)</li>
+        <li>평균 1인 매출 1,254,777원 (평균의 6.6배)</li>
+        <li>평균 9개 카테고리 · 67개 상품</li>
+        <li>연령 — <b>60대 48% / 50대 29% / 70대+ 11%</b> (50+ 88.7%)</li>
+        <li>단협 — 푸른·에코 8명, 울림 7명, 바른 6명</li>
+      </ul>
+    </div>
+    <div class="cd">
+      <h3>🏆 Prime (월 8회+ · 150명)</h3>
+      <ul style="list-style:none;padding:0;font-size:.72rem;line-height:1.8">
+        <li>매출 합계 1.19억 (<b>전체 10.2%</b>)</li>
+        <li>평균 9.6일/월 (거의 매주 2회 구매)</li>
+        <li>평균 1인 매출 794k (4.2배)</li>
+        <li>연령 — <b>60대 41% / 50대 33% / 70대+ 12%</b> (50+ 86%)</li>
+        <li>30대 Prime 2% — 거의 없음</li>
+      </ul>
+    </div>
+  </div>
+  <div class="msg danger">
+    <div class="mt">⚠ Whale 1명 ≈ 평균 6.6명</div>
+    <p>매출 안정 = Whale 62명 보호. 60대 Whale 한 명 이탈 시 연 1,500만원 손실. 충성층 보호가 매출 안정의 절대 우선.</p>
+  </div>
+</div>
+
+<!-- 매장 폐점 -->
+<div class="sec" id="store">
+  <div class="st"><span class="num">7</span>매장 폐점 대응 — 온라인 전환</div>
+  <div class="sd">춘천·동탄·평택 3개 단협 동시 진행 중</div>
+  <div class="cd">
+    <h3>🟢 춘천 거두점 (4주 캠페인 완료)</h3>
+    <div class="tablewrap"><table class="t">
+      <thead><tr><th>주차</th><th>주문</th><th>매출</th><th>증정율</th></tr></thead>
+      <tbody>
+        <tr><td>1주</td><td>109</td><td>11.6M</td><td>16.5%</td></tr>
+        <tr><td>2주</td><td>106</td><td>10.2M</td><td>15.1%</td></tr>
+        <tr><td>3주</td><td>129</td><td>13.9M</td><td>21.7%</td></tr>
+        <tr><td>4주</td><td>100</td><td>11.9M</td><td>25.0%</td></tr>
+        <tr class="tot"><td>합계</td><td>444</td><td>47.6M</td><td>19.6%</td></tr>
+      </tbody>
+    </table></div>
+    <p style="font-size:.72rem;margin-top:.5rem"><strong>춘천 4월 무점포 +1.6% 신장</strong> (단협 평균 −0.94% 대비 +2.5%p 우세). 폐점 충격 상쇄 성공. 향후 표준 모델 적용.</p>
+  </div>
+  <div class="cd">
+    <h3>🟡 동탄점 / 평택 용죽점 (5월 진행 중)</h3>
+    <p style="font-size:.72rem;line-height:1.8">동탄 1·2차 — 518건 / 32.4M 매출 / 평균 5%. 바른두레 4월 +8.5% 사전 효과.<br>
+    평택 용죽 2차 — 47건 / 4.0M / 14.9%. 평택 4월 −14.2% 회복 모니터링.</p>
+  </div>
+</div>
+
+<!-- 디자인 자산 -->
+<div class="sec" id="design">
+  <div class="st"><span class="num">8</span>다음 분기 디자인 자산 7가지</div>
+  <div class="sd">시급한 순서대로. 1번부터 차례로 만든다</div>
+
+  <div class="asset"><div class="aN">1</div><div>
+    <div class="aT">B등급 이탈 방지 알림톡 카드<span class="aTime">즉시</span></div>
+    <div class="aD">B등급 4명 중 1명이 떠나는 중. "평소 사시던 OO 카테고리 신상" + 생산자 스토리 + 배송 마감 안내 (3종)</div>
+  </div></div>
+
+  <div class="asset"><div class="aN">2</div><div>
+    <div class="aT">휴면 조합원 복귀 환영 배너·팝업<span class="aTime">즉시</span></div>
+    <div class="aD">떠난 조합원의 97%가 다시 옴 = 가장 ROI 높은 자산. "OOO 조합원님 다시 만나요" 개인화 메시지 + 복귀 쿠폰</div>
+  </div></div>
+
+  <div class="asset"><div class="aN">3</div><div>
+    <div class="aT">S등급 VIP 월간 큐레이션 카드<span class="aTime">1~2개월</span></div>
+    <div class="aD">S등급 유지율 8%p 감소. 한정 기획전 / 신상품 우선 안내 / 생산자 인터뷰 카드 (월 1회)</div>
+  </div></div>
+
+  <div class="asset"><div class="aN">4</div><div>
+    <div class="aT">A→S 등급 상승 유도 배너<span class="aTime">1~2개월</span></div>
+    <div class="aD">한 단계 위로 올라가는 비율 12% → 7.5%. 정기배송 가입 / 대용량 기획전 / S등급 진입 임박 알림</div>
+  </div></div>
+
+  <div class="asset"><div class="aN">5</div><div>
+    <div class="aT">C등급 두 번째 구매 유도 팝업<span class="aTime">분기</span></div>
+    <div class="aD">새 조합원이 첫 구매에서 멈추지 않게. 인기 카테고리 묶음 / 두 번째 구매 쿠폰 팝업</div>
+  </div></div>
+
+  <div class="asset"><div class="aN">6</div><div>
+    <div class="aT">신규 조합원 환영 페이지 개선<span class="aTime">분기</span></div>
+    <div class="aD">가입은 했지만 첫 구매로 안 이어지는 조합원 잡기. 카테고리 큐레이션 강화 / 첫 구매 가이드</div>
+  </div></div>
+
+  <div class="asset"><div class="aN">7</div><div>
+    <div class="aT">A/B 변형 운영 (지속)<span class="aTime">상시</span></div>
+    <div class="aD">위 6개 자산을 비주얼·카피 변형 2개씩 만들어 매주 어느 게 잘 먹히는지 측정</div>
+  </div></div>
+</div>
+
+<!-- 12주 계획 -->
+<div class="sec" id="weekly">
+  <div class="st"><span class="num">9</span>12주 실행 계획</div>
+  <div class="sd">1주 1개씩 차근차근. 매주 5분 점검으로 측정</div>
+  <div class="weekly"><table>
+    <thead><tr><th>주차</th><th>이번 주 작업</th><th>측정</th></tr></thead>
+    <tbody>
+      <tr><td>W1</td><td>B등급 이탈 방지 알림톡 카드 (3종)</td><td>4주 후 떠난 비율</td></tr>
+      <tr><td>W2</td><td>휴면 조합원 복귀 환영 배너·팝업</td><td>다시 구매 시작 비율</td></tr>
+      <tr><td>W3</td><td>S등급 VIP 월간 큐레이션 카드</td><td>S등급 유지율</td></tr>
+      <tr><td>W4</td><td>A→S 상승 유도 배너 (정기배송)</td><td>A→S 상승 비율</td></tr>
+      <tr><td>W5</td><td>C등급 두 번째 구매 유도 팝업</td><td>C→B 상승 비율</td></tr>
+      <tr><td>W6</td><td>신규 조합원 환영 페이지 개선</td><td>신규 첫 구매 비율</td></tr>
+      <tr><td>W7~8</td><td>A/B 변형 디자인 (각 자산 2종)</td><td>변형별 클릭률</td></tr>
+      <tr><td>W9~10</td><td>7종 자산 효과 분석 + 부진 리뉴얼</td><td>전체 KPI 점검</td></tr>
+      <tr><td>W11~12</td><td>분기 보고서 작성 + 다음 계획</td><td>최종 KPI 정리</td></tr>
+    </tbody>
+  </table></div>
+  <div class="msg good">
+    <div class="mt">📌 매주 5분 점검 5가지</div>
+    <p>① 알림톡 카드 클릭률은 지난주 대비 어떤가<br>② B등급 위험 신호 조합원 수는 늘고 있나 줄고 있나<br>③ 휴면 복귀 인원은 지난주 대비 어떤가<br>④ 새로운 디자인 자산을 1개라도 발행했나<br>⑤ 어떤 자산이 가장 잘 먹히고, 어떤 게 부진한가</p>
+  </div>
+</div>
+
+<!-- 결정 안건 -->
+<div class="sec" id="decision">
+  <div class="st"><span class="num">10</span>결정 안건 — 5월 실무책임자회의</div>
+
+  <div class="dlist">
+    <h3>▶ 즉시 결정</h3>
+    <ol>
+      <li>역신장 단협 3곳(평택·아름다운·주민) 단협별 원인 진단 → 5월 단협별 대응책</li>
+      <li>매장 폐점 대응 표준 모델 수립 — 4주 점진 증정 + 사전 안내 (춘천 모델)</li>
+      <li>40대 이탈 415명 + 25-04 이탈 2,300명 — 5월 재유치 캠페인 실행</li>
+      <li>B등급 이탈 방지 알림톡 카드 W1 즉시 발행</li>
+      <li>휴면 복귀 환영 배너·팝업 W2 발행 (97% 복귀율 활용)</li>
+    </ol>
+  </div>
+
+  <div class="dlist">
+    <h3>▶ 다음 회의 전 보강</h3>
+    <ol>
+      <li>4월 단월 매출 회계 마감값 → 단협 23곳 매트릭스 정확값 갱신</li>
+      <li>25년 4월 매장 이용자수 추출 — 매장+무점포 통합 이용자 분석</li>
+      <li>쇼핑몰 1차 모바일 리뷰 KPI 사전 정의 (리뷰수·체류·전환)</li>
+      <li>주민두레 수지점 +91% 신장 원인 분석 — 모범 사례 가능성</li>
+      <li>5년 등급 매트릭스 ERP 직접 재산출 (PDF 보고서 정확도 검증)</li>
+    </ol>
+  </div>
+
+  <div class="dlist">
+    <h3>▶ 12주 후 검증</h3>
+    <ol>
+      <li>B등급 떠난 비율 23.8% → 목표 18.0% (−5.8%p)</li>
+      <li>S등급 유지율 53.8% → 목표 58.0% (+4.2%p)</li>
+      <li>A→S 상승률 7.5% → 목표 9.0% (+1.5%p)</li>
+      <li>휴면 조합원 복귀 +20%</li>
+      <li>예상 매출 영향 — 연 1.3~1.8억원</li>
+    </ol>
+  </div>
+</div>
+
+<footer>
+  두레생협 온라인사업팀 · 2026.05.13<br>
+  데이터 출처 — ERP 회계 U_매출액 조회 · OrderGmno · 조합원 마스터 · 프로모션 증정내역(연합용)<br>
+  분석 기준 — 단협 23곳 (연합회·생산자회·두레플러스 제외)
+</footer>
+
+</div>
+</body>
+</html>
