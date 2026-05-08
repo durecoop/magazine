@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>두레생협 공정무역 생활재 | 5월 9일 세계 공정무역의 날</title>
+<style>
+  :root{
+    --bg:#f5ead7;
+    --bg-soft:#efe1c5;
+    --choco:#3b2419;
+    --choco-soft:#6a4a35;
+    --line:#d9c4a0;
+    --line-soft:#e6d4b3;
+    --accent:#a83b5a;
+    --leaf:#3d6b3a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic','맑은 고딕',sans-serif;color:var(--choco);background:var(--bg);line-height:1.55;font-weight:400;-webkit-font-smoothing:antialiased;word-break:keep-all;line-break:strict}
+  img{max-width:100%;display:block}
+  a{color:inherit;text-decoration:none}
+
+  /* 상단 띠 */
+  .topband{
+    background:#2a1810;color:#f5ead7;text-align:center;
+    padding:10px 16px;font-size:13.5px;font-weight:500;
+  }
+  .topband strong{color:#f7c87a;font-weight:700;margin-right:4px}
+
+  /* 히어로 */
+  .hero{padding:32px 20px 28px;text-align:center}
+  .banner-wrap{max-width:720px;margin:0 auto}
+  .banner-img{width:100%;height:auto;display:block}
+
+  /* 의미 섹션 */
+  .meaning{
+    background:var(--bg-soft);padding:36px 20px;
+    border-top:1px solid var(--line-soft);
+    border-bottom:1px solid var(--line-soft);
+  }
+  .meaning-inner{max-width:760px;margin:0 auto;text-align:center}
+  .section-tag{
+    display:inline-block;font-size:11px;letter-spacing:.28em;
+    color:var(--leaf);font-weight:700;margin-bottom:12px;
+  }
+  .meaning h3{
+    font-size:21px;font-weight:700;letter-spacing:-.01em;
+    margin-bottom:22px;
+  }
+  .pillars{
+    display:flex;flex-wrap:wrap;justify-content:center;
+    gap:6px 28px;
+  }
+  .pillars .item{
+    font-size:14.5px;color:var(--choco-soft);
+  }
+  .pillars .item strong{
+    color:var(--choco);font-weight:700;margin-right:6px;
+  }
+
+  /* 카테고리 */
+  .catalog{padding:36px 20px 8px;max-width:1180px;margin:0 auto}
+  .cat{margin-bottom:40px}
+  .cat-title{
+    display:flex;align-items:baseline;gap:8px;
+    margin-bottom:14px;padding-bottom:8px;
+    border-bottom:1px solid var(--line);
+  }
+  .cat-title .emoji{font-size:18px}
+  .cat-title h4{font-size:17px;font-weight:700;letter-spacing:-.01em}
+  .cat-title .count{
+    font-size:12px;color:var(--choco-soft);
+    margin-left:auto;font-weight:500;
+  }
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+    gap:14px;
+  }
+  .card{
+    background:#fff;border:1px solid var(--line-soft);
+    overflow:hidden;display:flex;flex-direction:column;
+  }
+  .card .imgwrap{
+    aspect-ratio:1/1;background:#fff;
+    display:flex;align-items:center;justify-content:center;overflow:hidden;
+  }
+  .card .imgwrap img{width:100%;height:100%;object-fit:contain;padding:6px}
+  .card .imgwrap .ph{font-size:30px;opacity:.25}
+  .card .body{
+    padding:12px 12px 14px;display:flex;flex-direction:column;flex:1;
+    border-top:1px solid var(--line-soft);
+  }
+  .card .name{
+    font-size:14px;font-weight:600;line-height:1.4;
+    margin-bottom:6px;min-height:38px;color:var(--choco);
+  }
+  .card .size{
+    font-size:11.5px;color:#8b6f5e;margin-bottom:8px;
+  }
+  .card .price-row{display:flex;align-items:baseline;gap:6px;margin-top:auto}
+  .card .price{font-size:16px;font-weight:800;color:var(--choco)}
+  .card .price-label{font-size:11px;color:#9a7e6a}
+  .card .normal{font-size:11.5px;color:#a39283;text-decoration:line-through}
+  .card .badge-discount{
+    display:inline-block;color:var(--accent);
+    font-size:11px;font-weight:700;
+    padding:0 0 4px;align-self:flex-start;letter-spacing:.02em;
+  }
+
+  /* CTA */
+  .cta-section{
+    background:#2a1810;color:#f5ead7;
+    padding:48px 24px;text-align:center;
+  }
+  .cta-btn{
+    display:inline-block;background:#f5ead7;color:#2a1810;
+    font-weight:700;font-size:20px;
+    padding:24px 64px;letter-spacing:-.01em;
+    border:2px solid #f5ead7;
+    transition:background .15s ease, color .15s ease;
+  }
+  .cta-btn:hover{background:transparent;color:#f5ead7}
+
+  /* footer */
+  footer{
+    background:#1f110b;color:#8a7561;
+    padding:22px 20px;text-align:center;
+    font-size:12.5px;line-height:1.7;
+  }
+  footer strong{color:#d9c4a0;font-weight:700}
+
+  /* 모바일 */
+  @media (max-width:720px){
+    .hero{padding:20px 14px 18px}
+    .meaning{padding:28px 18px}
+    .meaning h3{font-size:19px}
+    .pillars{gap:4px 20px}
+    .pillars .item{font-size:13.5px}
+    .grid{grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:10px}
+    .card .name{font-size:13px;min-height:34px}
+    .card .price{font-size:14.5px}
+    .catalog{padding:24px 14px 4px}
+    .cat-title h4{font-size:15.5px}
+    .cta-section{padding:40px 20px}
+    .cta-btn{font-size:17px;padding:20px 0;display:block;width:100%;max-width:360px;margin:0 auto}
+  }
+</style>
+</head>
+<body>
+
+<div class="topband"><strong>5월 9일</strong>세계 공정무역의 날</div>
+
+<section class="hero">
+  <div class="banner-wrap">
+    <img class="banner-img" src="공정무역의날_배너.jpg" alt="두레생협 공정무역 생활재">
+  </div>
+</section>
+
+<section class="meaning">
+  <div class="meaning-inner">
+    <span class="section-tag">FAIR TRADE</span>
+    <h3>착한 소비의 약속</h3>
+    <div class="pillars">
+      <span class="item"><strong>정당한 대가</strong>생산자에게 공정한 가격</span>
+      <span class="item"><strong>지속가능 농업</strong>다음 세대를 위한 농법</span>
+      <span class="item"><strong>자립 지원</strong>지역사회 자립 환원</span>
+    </div>
+  </div>
+</section>
+
+<section class="catalog">
+  <!-- 초콜릿 -->
+  <div class="cat">
+    <div class="cat-title"><span class="emoji">🍫</span><h4>초콜릿</h4><span class="count">2종</span></div>
+    <div class="grid">
+      <a class="card order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1662#book6" target="_blank">
+        <div class="imgwrap"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59456C.jpg" alt="유기농 밀크 초콜릿" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph',textContent:'🍫'}))"></div>
+        <div class="body">
+          <span class="badge-discount">5% ↓</span>
+          <div class="name">유기농 밀크 초콜릿</div>
+          <div class="size">조합원가</div>
+          <div class="price-row"><span class="price">7,600원</span><span class="normal">8,800원</span></div>
+        </div>
+      </a>
+      <a class="card order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1662#book6" target="_blank">
+        <div class="imgwrap"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59457C.jpg" alt="유기농 아몬드 카라멜 솔트 초콜릿" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph',textContent:'🍫'}))"></div>
+        <div class="body">
+          <span class="badge-discount">5% ↓</span>
+          <div class="name">유기농 아몬드 카라멜 솔트 초콜릿</div>
+          <div class="size">조합원가</div>
+          <div class="price-row"><span class="price">9,000원</span><span class="normal">10,450원</span></div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 견과·건과일 -->
+  <div class="cat">
+    <div class="cat-title"><span class="emoji">🥜</span><h4>견과 · 건과일</h4><span class="count">7종</span></div>
+    <div class="grid">
+      <a class="card order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1662#book6" target="_blank">
+        <div class="imgwrap"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/27773C.png" alt="볶은아몬드(180g)" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph',textContent:'🥜'}))"></div>
+        <div class="body">
+          <div class="name">볶은아몬드</div>
+          <div class="size">180g · 조합원가</div>
+          <div class="price-row"><span class="price">16,100원</span><span class="normal">19,690원</span></div>
+        </div>
+      </a>
+      <a class="card order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1662#book6" target="_blank">
+        <div class="imgwrap"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57106C.jpg" alt="공정무역 볶은 아몬드 500g" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph',textContent:'🥜'}))"></div>
+        <div class="body">
+          <span class="badge-discount">대용량</span>
+          <div class="name">공정무역 볶은 아몬드</div>
+          <div class="size">500g · 조합원가</div>
+          <div class="price-row"><span class="price">36,000원</span><span class="normal">41,250원</span></div>
+        </div>
+      </a>
+      <a class="card order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1662#book6" target="_blank">
+        <div class="imgwrap"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/51881C.jpg" alt="볶은캐슈넛(180g)" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph',textContent:'🌰'}))"></div>
+        <div class="body">
+          <div class="name">볶은캐슈넛</div>
+          <div class="size">180g · 조합원가</div>
+          <div class="price-row"><span class="price">8,800원</span><span class="normal">10,780원</span></div>
+        </div>
+      </a>
+      <a class="card order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1662#book6" target="_blank">
+        <div class="imgwrap"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/39765C.png" alt="건체리(25g)" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph',textContent:'🍒'}))"></div>
+        <div class="body">
+          <div class="name">건체리</div>
+          <div class="size">25g · 조합원가</div>
+          <div class="price-row"><span class="price">2,200원</span><span class="normal">2,640원</span></div>
+        </div>
+      </a>
+      <a class="card order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1662#book6" target="_blank">
+        <div class="imgwrap"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/40808C.png" alt="건체리(100g)" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph',textContent:'🍒'}))"></div>
+        <div class="body">
+          <span class="badge-discount">41% ↓</span>
+          <div class="name">건체리</div>
+          <div class="size">100g · 조합원가</div>
+          <div class="price-row"><span class="price">5,500원</span><span class="normal">9,350원</span></div>
+        </div>
+      </a>
+      <a class="card order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1662#book6" target="_blank">
+        <div class="imgwrap"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/39767C.png" alt="건살구(25g)" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph',textContent:'🍑'}))"></div>
+        <div class="body">
+          <div class="name">건살구</div>
+          <div class="size">25g · 조합원가</div>
+          <div class="price-row"><span class="price">1,800원</span><span class="normal">2,200원</span></div>
+        </div>
+      </a>
+      <a class="card order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1662#book6" target="_blank">
+        <div class="imgwrap"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/40809C.png" alt="건살구(100g)" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph',textContent:'🍑'}))"></div>
+        <div class="body">
+          <span class="badge-discount">39% ↓</span>
+          <div class="name">건살구</div>
+          <div class="size">100g · 조합원가</div>
+          <div class="price-row"><span class="price">5,000원</span><span class="normal">8,250원</span></div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 커피 -->
+  <div class="cat">
+    <div class="cat-title"><span class="emoji">☕</span><h4>커피</h4><span class="count">1종</span></div>
+    <div class="grid">
+      <a class="card order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1662#book6" target="_blank">
+        <div class="imgwrap"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/24630C.jpg" alt="공정무역커피믹스" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph',textContent:'☕'}))"></div>
+        <div class="body">
+          <span class="badge-discount">10% ↓</span>
+          <div class="name">공정무역 커피믹스</div>
+          <div class="size">100T · 조합원가</div>
+          <div class="price-row"><span class="price">23,800원</span><span class="normal">29,040원</span></div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 설탕·감미료·향신료·소금 -->
+  <div class="cat">
+    <div class="cat-title"><span class="emoji">🧂</span><h4>설탕 · 감미료 · 향신료 · 소금</h4><span class="count">10종</span></div>
+    <div class="grid">
+      <a class="card order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1662#book6" target="_blank">
+        <div class="imgwrap"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/3777C.jpg" alt="유기농 마스코바도 500g" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph',textContent:'🍯'}))"></div>
+        <div class="body">
+          <div class="name">유기농 마스코바도</div>
+          <div class="size">500g · 조합원가</div>
+          <div class="price-row"><span class="price">4,500원</span><span class="normal">5,500원</span></div>
+        </div>
+      </a>
+      <a class="card order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1662#book6" target="_blank">
+        <div class="imgwrap"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/28286C.jpg" alt="유기농 마스코바도 3kg" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph',textContent:'🍯'}))"></div>
+        <div class="body">
+          <div class="name">유기농 마스코바도</div>
+          <div class="size">3kg · 조합원가</div>
+          <div class="price-row"><span class="price">25,200원</span><span class="normal">30,800원</span></div>
+        </div>
+      </a>
+      <a class="card order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1662#book6" target="_blank">
+        <div class="imgwrap"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/12843C.png" alt="유기농 마스코바도 5kg" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph',textContent:'🍯'}))"></div>
+        <div class="body">
+          <span class="badge-discount">대용량</span>
+          <div class="name">유기농 마스코바도</div>
+          <div class="size">5kg · 조합원가</div>
+          <div class="price-row"><span class="price">41,400원</span><span class="normal">50,600원</span></div>
+        </div>
+      </a>
+      <a class="card order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1662#book6" target="_blank">
+        <div class="imgwrap"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57203C.jpg" alt="유기농설탕 1kg 라펠시나" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph',textContent:'🍬'}))"></div>
+        <div class="body">
+          <div class="name">유기농설탕 (라펠시나)</div>
+          <div class="size">1kg · 조합원가</div>
+          <div class="price-row"><span class="price">5,200원</span><span class="normal">6,380원</span></div>
+        </div>
+      </a>
+      <a class="card order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1662#book6" target="_blank">
+        <div class="imgwrap"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57205C.jpg" alt="유기농설탕 5kg 라펠시나" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph',textContent:'🍬'}))"></div>
+        <div class="body">
+          <span class="badge-discount">대용량</span>
+          <div class="name">유기농설탕 (라펠시나)</div>
+          <div class="size">5kg · 조합원가</div>
+          <div class="price-row"><span class="price">23,000원</span><span class="normal">28,050원</span></div>
+        </div>
+      </a>
+      <a class="card order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1662#book6" target="_blank">
+        <div class="imgwrap"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/43855C.jpg" alt="유기농 프락토올리고당" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph',textContent:'🍯'}))"></div>
+        <div class="body">
+          <div class="name">유기농 프락토올리고당</div>
+          <div class="size">550g · 조합원가</div>
+          <div class="price-row"><span class="price">6,000원</span><span class="normal">7,370원</span></div>
+        </div>
+      </a>
+      <a class="card order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1662#book6" target="_blank">
+        <div class="imgwrap"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/50994C.png" alt="실론시나몬 가루" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph',textContent:'🌿'}))"></div>
+        <div class="body">
+          <div class="name">실론시나몬 가루</div>
+          <div class="size">조합원가</div>
+          <div class="price-row"><span class="price">5,500원</span><span class="normal">6,710원</span></div>
+        </div>
+      </a>
+      <a class="card order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1662#book6" target="_blank">
+        <div class="imgwrap"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57518C.jpg" alt="통계피(카시아)스틱" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph',textContent:'🌿'}))"></div>
+        <div class="body">
+          <div class="name">통계피(카시아) 스틱</div>
+          <div class="size">220g · 조합원가</div>
+          <div class="price-row"><span class="price">7,400원</span><span class="normal">9,020원</span></div>
+        </div>
+      </a>
+      <a class="card order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1662#book6" target="_blank">
+        <div class="imgwrap"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56243C.jpg" alt="페루 마라스 가는소금" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph',textContent:'🧂'}))"></div>
+        <div class="body">
+          <div class="name">페루 마라스 가는소금</div>
+          <div class="size">320g · 조합원가</div>
+          <div class="price-row"><span class="price">7,800원</span><span class="normal">9,570원</span></div>
+        </div>
+      </a>
+      <a class="card order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1662#book6" target="_blank">
+        <div class="imgwrap"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56244C.jpg" alt="페루 마라스 중간소금" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph',textContent:'🧂'}))"></div>
+        <div class="body">
+          <div class="name">페루 마라스 중간소금</div>
+          <div class="size">320g · 조합원가</div>
+          <div class="price-row"><span class="price">7,800원</span><span class="normal">9,570원</span></div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 식용유·식초·면 -->
+  <div class="cat">
+    <div class="cat-title"><span class="emoji">🍝</span><h4>식용유 · 식초 · 면</h4><span class="count">7종</span></div>
+    <div class="grid">
+      <a class="card order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1662#book6" target="_blank">
+        <div class="imgwrap"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/5880C.jpg" alt="올리브유 500ml" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph',textContent:'🫒'}))"></div>
+        <div class="body">
+          <div class="name">올리브유</div>
+          <div class="size">500ml · 조합원가</div>
+          <div class="price-row"><span class="price">24,800원</span><span class="normal">30,360원</span></div>
+        </div>
+      </a>
+      <a class="card order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1662#book6" target="_blank">
+        <div class="imgwrap"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58044C.jpg" alt="사이공쿱 현미유 1L" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph',textContent:'🌾'}))"></div>
+        <div class="body">
+          <div class="name">사이공쿱 현미유</div>
+          <div class="size">1L · 조합원가</div>
+          <div class="price-row"><span class="price">8,000원</span><span class="normal">9,900원</span></div>
+        </div>
+      </a>
+      <a class="card order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1662#book6" target="_blank">
+        <div class="imgwrap"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/40742C.png" alt="모데나 발사믹식초 IGP (Na)" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph',textContent:'🍷'}))"></div>
+        <div class="body">
+          <div class="name">모데나 발사믹식초 IGP (Na)</div>
+          <div class="size">조합원가</div>
+          <div class="price-row"><span class="price">19,700원</span><span class="normal">24,090원</span></div>
+        </div>
+      </a>
+      <a class="card order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1662#book6" target="_blank">
+        <div class="imgwrap"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/40740C.png" alt="모데나 발사믹식초 IGP (De)" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph',textContent:'🍷'}))"></div>
+        <div class="body">
+          <div class="name">모데나 발사믹식초 IGP (De)</div>
+          <div class="size">조합원가</div>
+          <div class="price-row"><span class="price">25,100원</span><span class="normal">30,690원</span></div>
+        </div>
+      </a>
+      <a class="card order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1662#book6" target="_blank">
+        <div class="imgwrap"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/40741C.png" alt="모데나 발사믹식초 IGP (Mo)" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph',textContent:'🍷'}))"></div>
+        <div class="body">
+          <span class="badge-discount">프리미엄</span>
+          <div class="name">모데나 발사믹식초 IGP (Mo)</div>
+          <div class="size">조합원가</div>
+          <div class="price-row"><span class="price">29,700원</span><span class="normal">36,300원</span></div>
+        </div>
+      </a>
+      <a class="card order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1662#book6" target="_blank">
+        <div class="imgwrap"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57618C.jpg" alt="유기농 통밀 스파게티 500g" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph',textContent:'🍝'}))"></div>
+        <div class="body">
+          <div class="name">유기농 통밀 스파게티</div>
+          <div class="size">500g · 조합원가</div>
+          <div class="price-row"><span class="price">3,500원</span><span class="normal">4,290원</span></div>
+        </div>
+      </a>
+      <a class="card order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1662#book6" target="_blank">
+        <div class="imgwrap"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/57621C.jpg" alt="피오르피오레 듀럼밀 스파게티 500g" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph',textContent:'🍝'}))"></div>
+        <div class="body">
+          <div class="name">피오르피오레 듀럼밀 스파게티</div>
+          <div class="size">500g · 조합원가</div>
+          <div class="price-row"><span class="price">4,600원</span><span class="normal">5,610원</span></div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 화장품·생활용품 -->
+  <div class="cat">
+    <div class="cat-title"><span class="emoji">🧴</span><h4>화장품 · 생활용품</h4><span class="count">9종</span></div>
+    <div class="grid">
+      <a class="card order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1662#book6" target="_blank">
+        <div class="imgwrap"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/30248C.jpg" alt="아르간 발효스킨" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph',textContent:'🌸'}))"></div>
+        <div class="body">
+          <div class="name">아르간 발효스킨</div>
+          <div class="size">조합원가</div>
+          <div class="price-row"><span class="price">22,700원</span><span class="normal">26,290원</span></div>
+        </div>
+      </a>
+      <a class="card order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1662#book6" target="_blank">
+        <div class="imgwrap"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/30250C.jpg" alt="아르간 발효로션" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph',textContent:'🌸'}))"></div>
+        <div class="body">
+          <div class="name">아르간 발효로션</div>
+          <div class="size">조합원가</div>
+          <div class="price-row"><span class="price">24,600원</span><span class="normal">28,490원</span></div>
+        </div>
+      </a>
+      <a class="card order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1662#book6" target="_blank">
+        <div class="imgwrap"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56623C.jpg" alt="콜라겐 탄력스킨" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph',textContent:'💧'}))"></div>
+        <div class="body">
+          <div class="name">콜라겐 탄력스킨</div>
+          <div class="size">조합원가</div>
+          <div class="price-row"><span class="price">15,300원</span><span class="normal">18,700원</span></div>
+        </div>
+      </a>
+      <a class="card order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1662#book6" target="_blank">
+        <div class="imgwrap"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/56624C.jpg" alt="콜라겐 탄력로션" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph',textContent:'💧'}))"></div>
+        <div class="body">
+          <div class="name">콜라겐 탄력로션</div>
+          <div class="size">조합원가</div>
+          <div class="price-row"><span class="price">16,200원</span><span class="normal">19,800원</span></div>
+        </div>
+      </a>
+      <a class="card order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1662#book6" target="_blank">
+        <div class="imgwrap"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/40506C.jpg" alt="콜라겐 탄력앰플" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph',textContent:'💧'}))"></div>
+        <div class="body">
+          <div class="name">콜라겐 탄력앰플</div>
+          <div class="size">조합원가</div>
+          <div class="price-row"><span class="price">13,800원</span><span class="normal">16,940원</span></div>
+        </div>
+      </a>
+      <a class="card order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1662#book6" target="_blank">
+        <div class="imgwrap"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/55816C.jpg" alt="콜라겐 탄력크림" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph',textContent:'💧'}))"></div>
+        <div class="body">
+          <div class="name">콜라겐 탄력크림</div>
+          <div class="size">조합원가</div>
+          <div class="price-row"><span class="price">17,100원</span><span class="normal">20,900원</span></div>
+        </div>
+      </a>
+      <a class="card order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1662#book6" target="_blank">
+        <div class="imgwrap"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/55273C.jpg" alt="마스코바도 비누" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph',textContent:'🧼'}))"></div>
+        <div class="body">
+          <div class="name">마스코바도 비누</div>
+          <div class="size">조합원가</div>
+          <div class="price-row"><span class="price">8,000원</span><span class="normal">9,350원</span></div>
+        </div>
+      </a>
+      <a class="card order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1662#book6" target="_blank">
+        <div class="imgwrap"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/55274C.jpg" alt="올리브유 비누" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph',textContent:'🧼'}))"></div>
+        <div class="body">
+          <div class="name">올리브유 비누</div>
+          <div class="size">조합원가</div>
+          <div class="price-row"><span class="price">9,500원</span><span class="normal">11,550원</span></div>
+        </div>
+      </a>
+      <a class="card order-link" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1662#book6" target="_blank">
+        <div class="imgwrap"><img src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58081C.jpg" alt="공정무역 유기농 화장솜" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph',textContent:'🤍'}))"></div>
+        <div class="body">
+          <span class="badge-discount">11% ↓</span>
+          <div class="name">공정무역 유기농 화장솜</div>
+          <div class="size">70매×3팩 · 조합원가</div>
+          <div class="price-row"><span class="price">5,100원</span><span class="normal">6,270원</span></div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <a class="cta-btn outro-cta" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1662#book6" target="_blank">쇼핑몰 바로가기</a>
+</section>
+
+<footer>
+  <strong>두레생협</strong> · 세계 공정무역의 날 · 2026.05
+</footer>
+
+<script>
+(function(){
+  var NS = 'durecoop-fairtrade-2026w19';
+  var API = 'https://abacus.jasoncameron.dev/hit/' + NS + '/';
+  function hit(key){
+    try { fetch(API + key, { mode: 'cors', keepalive: true, cache: 'no-store' }).catch(function(){}); } catch(e){}
+  }
+  hit('pageview');
+  try {
+    var params = new URLSearchParams(location.search);
+    var src = (params.get('utm_source') || '').toLowerCase();
+    if (src === 'rcs') hit('pageview-rcs');
+    else if (src) hit('pageview-other');
+    else hit('pageview-direct');
+  } catch(e){}
+  document.querySelectorAll('a').forEach(function(a){
+    if (!/ecoop\.or\.kr/i.test(a.href)) return;
+    a.addEventListener('click', function(){
+      var key = null;
+      if (a.classList.contains('hero-cta')) key = 'click-hero';
+      else if (a.classList.contains('outro-cta')) key = 'click-outro';
+      else if (a.classList.contains('order-link')) key = 'click-product';
+      if (key) hit(key);
+      hit('click-all');
+    }, { passive: true });
+  });
+})();
+</script>
+
+</body>
+</html>
