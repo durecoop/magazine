@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>2026 국제인공지능대전 참관 보고서</title>
+<style>
+  :root{
+    --green:#2E7D4A;
+    --green-dark:#1B5E20;
+    --green-soft:#E8F0E9;
+    --cream:#FAF8F2;
+    --paper:#FFFFFF;
+    --ink:#2A2A2A;
+    --gray:#6B7280;
+    --line:#E5E7EB;
+    --accent:#C8932B;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+    line-height:1.75;
+    font-size:16px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .page{
+    max-width:820px;
+    margin:0 auto;
+    padding:60px 60px 80px;
+    background:var(--paper);
+    min-height:100vh;
+    box-shadow:0 0 40px rgba(0,0,0,.04);
+  }
+
+  /* Header */
+  header{
+    border-bottom:2px solid var(--green-dark);
+    padding-bottom:30px;
+    margin-bottom:40px;
+  }
+  .doc-type{
+    font-size:13px;
+    letter-spacing:6px;
+    color:var(--green);
+    font-weight:700;
+    margin-bottom:14px;
+  }
+  h1.doc-title{
+    font-size:32px;
+    font-weight:800;
+    color:var(--ink);
+    line-height:1.35;
+    margin-bottom:10px;
+  }
+  .doc-sub{
+    font-size:15px;
+    color:var(--gray);
+    margin-bottom:24px;
+  }
+  .meta-table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:13.5px;
+    margin-top:10px;
+  }
+  .meta-table th{
+    text-align:left;
+    background:var(--green-soft);
+    color:var(--green-dark);
+    padding:9px 14px;
+    font-weight:700;
+    width:80px;
+    border:1px solid var(--line);
+  }
+  .meta-table td{
+    padding:9px 14px;
+    border:1px solid var(--line);
+    color:var(--ink);
+  }
+
+  /* Section */
+  section{
+    margin-top:50px;
+    scroll-margin-top:20px;
+  }
+  h2.sec{
+    font-size:22px;
+    font-weight:800;
+    color:var(--green-dark);
+    padding-left:14px;
+    border-left:5px solid var(--green);
+    margin-bottom:18px;
+    line-height:1.3;
+  }
+  h3.sub{
+    font-size:16.5px;
+    font-weight:700;
+    color:var(--ink);
+    margin-top:24px;
+    margin-bottom:10px;
+  }
+  p{
+    font-size:15px;
+    color:var(--ink);
+    margin-bottom:14px;
+    line-height:1.8;
+  }
+  .lead{
+    background:var(--cream);
+    border-radius:8px;
+    padding:18px 22px;
+    border-left:3px solid var(--accent);
+    font-size:14.5px;
+    color:#444;
+    line-height:1.75;
+    margin-bottom:18px;
+  }
+
+  /* Lists */
+  ul.clean{
+    list-style:none;
+    margin:10px 0 16px;
+    padding:0;
+  }
+  ul.clean li{
+    padding:6px 0 6px 22px;
+    position:relative;
+    font-size:14.5px;
+    line-height:1.75;
+    color:var(--ink);
+  }
+  ul.clean li::before{
+    content:'•';
+    position:absolute;
+    left:6px;
+    top:6px;
+    color:var(--green);
+    font-weight:900;
+  }
+
+  /* Highlight box */
+  .note{
+    background:var(--green-soft);
+    border-radius:8px;
+    padding:18px 22px;
+    margin:16px 0;
+    font-size:14.5px;
+    line-height:1.75;
+    color:var(--ink);
+  }
+  .note strong{color:var(--green-dark);}
+
+  /* Quote */
+  blockquote{
+    margin:20px 0;
+    padding:20px 26px;
+    background:#FAFAFA;
+    border-left:4px solid var(--ink);
+    font-size:15.5px;
+    color:#333;
+    line-height:1.7;
+    font-style:italic;
+  }
+  blockquote .cite{
+    display:block;
+    margin-top:10px;
+    font-size:12.5px;
+    color:var(--gray);
+    font-style:normal;
+    letter-spacing:1px;
+  }
+
+  /* Trend grid - subtle */
+  .trend-list{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+    margin:14px 0 8px;
+  }
+  .trend-item{
+    background:#FAFAFA;
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:16px 18px;
+  }
+  .trend-item h4{
+    font-size:14.5px;
+    font-weight:800;
+    color:var(--green-dark);
+    margin-bottom:6px;
+  }
+  .trend-item p{
+    font-size:13.5px;
+    color:#444;
+    line-height:1.7;
+    margin:0;
+  }
+
+  /* Reflection block */
+  .reflect{
+    background:#FFFDF6;
+    border:1px solid #F0E5C0;
+    border-radius:8px;
+    padding:18px 22px;
+    margin:14px 0;
+  }
+  .reflect h4{
+    font-size:14.5px;
+    color:var(--accent);
+    font-weight:800;
+    margin-bottom:8px;
+    letter-spacing:.5px;
+  }
+  .reflect p{
+    font-size:14.5px;
+    margin-bottom:0;
+    color:#333;
+    line-height:1.8;
+  }
+
+  /* Closing */
+  .closing{
+    margin-top:50px;
+    padding-top:30px;
+    border-top:1px solid var(--line);
+    font-size:13.5px;
+    color:var(--gray);
+    text-align:right;
+  }
+  .closing .sign{
+    margin-top:14px;
+    font-size:14.5px;
+    color:var(--ink);
+    font-weight:700;
+  }
+
+  /* TOC sidebar (floating) */
+  .toc{
+    position:fixed;
+    top:50%;
+    left:20px;
+    transform:translateY(-50%);
+    background:rgba(255,255,255,.95);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:14px 16px;
+    font-size:12px;
+    z-index:50;
+    box-shadow:0 4px 14px rgba(0,0,0,.06);
+  }
+  .toc strong{
+    display:block;
+    color:var(--green-dark);
+    font-size:11px;
+    letter-spacing:2px;
+    margin-bottom:8px;
+  }
+  .toc a{
+    display:block;
+    color:var(--gray);
+    text-decoration:none;
+    padding:4px 0;
+    border-left:2px solid transparent;
+    padding-left:10px;
+    margin-left:-2px;
+    transition:all .2s;
+    font-size:12.5px;
+  }
+  .toc a:hover,.toc a.active{
+    color:var(--green-dark);
+    border-left-color:var(--green);
+    font-weight:600;
+  }
+  @media (max-width:1100px){
+    .toc{display:none;}
+  }
+
+  /* Progress bar */
+  .progress{
+    position:fixed;top:0;left:0;height:3px;
+    background:var(--green);width:0;z-index:100;
+    transition:width .15s;
+  }
+
+  /* Fade in on scroll */
+  section{opacity:0;transform:translateY(20px);transition:opacity .6s, transform .6s;}
+  section.in{opacity:1;transform:translateY(0);}
+  header{animation:fadeUp .8s both;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+  /* Print */
+  @media print{
+    body{background:#fff;}
+    .page{box-shadow:none;padding:30px;}
+    .toc,.progress{display:none;}
+    section{opacity:1;transform:none;}
+  }
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+
+<nav class="toc">
+  <strong>목차</strong>
+  <a href="#s1">1. 행사 개요</a>
+  <a href="#s2">2. 현장의 첫인상</a>
+  <a href="#s3">3. 눈에 띈 흐름</a>
+  <a href="#s4">4. 비슷한 서비스들 사이에서</a>
+  <a href="#s5">5. 두레생협 입장에서</a>
+  <a href="#s6">6. 마무리하며</a>
+</nav>
+
+<div class="page">
+
+  <header>
+    <div class="doc-type">PARTICIPATION REPORT</div>
+    <h1 class="doc-title">2026 국제인공지능대전(AI EXPO Korea) 참관 보고서</h1>
+    <p class="doc-sub">두레생협 온라인사업팀으로서 본 현장</p>
+    <table class="meta-table">
+      <tr><th>장 소</th><td>서울 코엑스</td><th>분 야</th><td>인공지능 산업 전반</td></tr>
+      <tr><th>참 관</th><td>온라인사업팀 박슬기</td><th>작성일</th><td>2026년 5월 11일</td></tr>
+    </table>
+  </header>
+
+  <section id="s1">
+    <h2 class="sec">1. 행사 개요</h2>
+    <p>
+      2026 국제인공지능대전은 코엑스에서 열린 국내 최대 규모의 AI 산업 전시회로, 국내외 AI 기업과 솔루션 업체들이 한자리에 모여
+      자사 기술과 서비스를 소개하는 자리였다. 단순 기술 전시를 넘어, 실제 업무 현장에서 AI가 어떻게 쓰이고 있는지를 보여주는 데 무게가 실려 있었다.
+    </p>
+    <p>
+      LLM(대형 언어 모델) 기반 서비스, 에이전틱 AI(자율적으로 업무를 수행하는 AI), 문서 자동화, 영상·디자인 생성, AI 상담 등
+      다양한 영역의 솔루션이 부스마다 빼곡하게 자리해 있었다.
+    </p>
+    <div class="lead">
+      ※ LLM(Large Language Model)이란? 방대한 양의 텍스트 데이터를 학습해 사람의 자연어를 이해하고 생성하는 AI 시스템.
+      대표적으로 ChatGPT, Claude, Gemini 등이 있다.
+    </div>
+  </section>
+
+  <section id="s2">
+    <h2 class="sec">2. 현장의 첫인상</h2>
+    <p>
+      가장 먼저 느낀 점은 AI에 대한 관심이 단순히 IT 업계 종사자에 국한된 것이 아니라는 점이었다.
+      개발자뿐 아니라 기업 관계자, 고등학생, 창업 준비자, 공공기관, 일반 관람객까지 다양한 사람들이 부스를 돌며 진지하게 질문을 던지고 있었다.
+    </p>
+    <p>
+      AI가 이제 특정 산업의 이슈가 아니라 <strong>모든 산업의 '기본 인프라'</strong>로 자리 잡았다는 인상을 받았다.
+      제조, 물류, 공공, 보안, 헬스케어 영역에서는 이미 AI 도입이 선택의 문제가 아닌 단계에 들어선 모습이었고,
+      유통이나 이커머스 쪽에서도 비슷한 흐름이 빠르게 진행되고 있었다.
+    </p>
+    <blockquote>
+      직접 현장을 보는 것과 뉴스나 기사로 접하는 것은 분명히 달랐다. 기술의 흐름이 피부로 느껴지는 시간이었다.
+      <span class="cite">— 참관 메모 중</span>
+    </blockquote>
+  </section>
+
+  <section id="s3">
+    <h2 class="sec">3. 눈에 띈 흐름</h2>
+    <p>
+      예년에 비해 가장 크게 달라진 점은, 전시의 무게중심이 <strong>"AI가 무엇을 할 수 있는가"</strong>에서
+      <strong>"기업이 지금 당장 어떻게 쓸 수 있는가"</strong>로 옮겨갔다는 점이다.
+      기획과 아이디어 단계에 머물러 있던 것들이 이미 살아있는 서비스로 구현되어 있었다.
+    </p>
+
+    <div class="trend-list">
+      <div class="trend-item">
+        <h4>① 에이전틱 AI의 등장</h4>
+        <p>단순 챗봇이 아니라, 사용자가 시킨 일을 끝까지 '실행'하는 자율 에이전트. 사람은 검수자 역할로 이동.</p>
+      </div>
+      <div class="trend-item">
+        <h4>② 문서·업무 자동화의 비중</h4>
+        <p>회의록·보고서·기획서 자동 작성, AI 상담, 인사 관리 등. 부스 절반 이상이 업무 자동화 플랫폼.</p>
+      </div>
+      <div class="trend-item">
+        <h4>③ LLM 융합 서비스</h4>
+        <p>GPT·Claude·Gemini를 한 화면에서 통합 호출하는 서비스. 작업별로 모델을 자동 분배.</p>
+      </div>
+      <div class="trend-item">
+        <h4>④ 자연어 기반 코딩</h4>
+        <p>전문 지식 없이도 말로 시켜 코드를 짜는 환경 — 두레생협에서는 이미 실현하고 있는 영역.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="s4">
+    <h2 class="sec">4. 비슷한 서비스들 사이에서</h2>
+    <p>
+      한편으로 솔직한 인상은, <strong>대부분의 부스가 비슷한 모습</strong>이었다는 점이다.
+      체감상 80% 이상이 문서 자동화와 업무 플랫폼이었고, 화면을 가려놓고 본다면 어느 회사인지 구분이 어려울 정도였다.
+      "모든 직원에게 각자의 AI를", "사내 AI로 업무를 자동화하세요" 같은 슬로건이 반복적으로 보였다.
+    </p>
+    <div class="note">
+      <strong>그래서 느낀 것 — </strong>
+      AI 시대에는 단순히 기술을 가진 것만으로는 부족하다는 생각이 들었다.
+      비슷비슷한 서비스 사이에서 살아남으려면 <strong>"왜 우리 서비스를 써야 하는가"를 얼마나 설득력 있게 보여주는지</strong>가
+      중요한 요소가 될 것 같다.
+    </div>
+    <p>
+      또 하나 들었던 생각은, 자동화 도구는 누구나 쓸 수 있는 시대가 되었기 때문에
+      결국 <strong>그 도구를 '얼마나 잘' 활용하는 사람</strong>이 살아남을 것이라는 점이다.
+      기술의 진입장벽이 낮아진 만큼, 활용의 깊이가 곧 경쟁력이 되는 시대로 보였다.
+    </p>
+  </section>
+
+  <section id="s5">
+    <h2 class="sec">5. 두레생협 온라인사업팀 입장에서 생각해본 점</h2>
+    <p>
+      온라인사업팀에서 쇼핑몰을 운영하는 입장에서, 전시를 돌면서 자연스럽게 몇 가지 생각이 떠올랐다.
+    </p>
+
+    <div class="reflect">
+      <h4>① 이미 하고 있는 것의 의미</h4>
+      <p>
+        많은 부스가 "자연어로 편하게 코딩하세요"를 강조하고 있었는데, 이미 두레생협은 그런 환경에서 클로드 코드를 통하여 업무 자동화를 운영해보고 있다.
+        밖에서 보니, 우리가 하고 있는 것이 막연한 시도가 아니라 시장이 가고 있는 방향과 맞닿아 있다는 점이 새삼 느껴졌다.
+      </p>
+    </div>
+
+    <div class="reflect">
+      <h4>② 차별성에 대한 고민</h4>
+      <p>
+        많은 솔루션이 비슷해 보였다는 점은, 반대로 우리에게 기회로도 보였다.
+        쇼핑몰의 카피, 기획전, 배너에서 두레생협만의 톤과 가치를 담아내는 일이
+        오히려 AI 시대에 더 중요한 차별 요소가 될 수 있다는 생각이 들었다.
+      </p>
+    </div>
+
+    <div class="reflect">
+      <h4>③ 활용의 깊이</h4>
+      <p>
+        도구를 '도입'하는 단계는 이미 많은 곳이 끝낸 상태였고, 이제는 그 도구를 어떻게 깊이 있게 다루느냐가 차이를 만들고 있었다.
+        실무에서 반복되는 작업 — 코호트 분석, 매장 방문 보고, 홍보 매거진 분석 같은 일들 —
+        이 부분을 좀 더 정교하게 활용해볼 여지가 충분해 보였다.
+      </p>
+    </div>
+
+    <div class="reflect">
+      <h4>④ '잘 설명하는 능력'</h4>
+      <p>
+        부스마다 가장 효과적이었던 것은 화려한 기술 데모가 아니라, 자기 서비스를 한 문장으로 명확히 설명한 곳이었다.
+        쇼핑몰에서 우리가 만드는 상세페이지나 카피 역시 결국 같은 일을 한다.
+        "왜 이 상품을 사야 하는가"를 잘 설명하는 능력이 점점 더 중요해질 것이라는 점이 인상에 남았다.
+      </p>
+    </div>
+  </section>
+
+  <section id="s6">
+    <h2 class="sec">6. 마무리하며</h2>
+    <p>
+      현장을 돌고 나서 가장 크게 남은 감각은, AI가 이제 미래 이야기가 아니라 <strong>'오늘의 도구'</strong>가 되었다는 점이다.
+      도입 여부에 대한 논의는 이미 지나갔고, 어떻게 활용하는가의 단계로 자연스럽게 넘어와 있었다.
+    </p>
+    <p>
+      뉴스나 기사로 접할 때보다 훨씬 빠르게 변하고 있다는 점이 피부로 와닿았고, 그만큼 두레생협의 업무 환경에서도
+      너무 거창하게 무언가를 시작하기보다, 지금 하고 있는 일을 조금씩 다듬어가는 방식으로
+      AI를 자연스럽게 녹여가는 것이 현실적인 방향이라는 생각이 들었다.
+    </p>
+    <p>
+      마지막으로, 직접 현장을 본 것은 분명히 의미가 있었다.
+      앞으로의 업무를 바라보는 시야가 한 칸 정도 넓어진 기분이고, 일상적인 운영 안에서도
+      '조금 더 잘 쓸 수는 없을까'라는 시선으로 일을 보게 될 것 같다.
+    </p>
+  </section>
+
+  <div class="closing">
+    이상.
+    <div class="sign">두레생협 온라인사업팀 박슬기</div>
+  </div>
+
+</div>
+
+<script>
+  const prog=document.getElementById('progress');
+  const secs=document.querySelectorAll('section');
+  const links=document.querySelectorAll('.toc a');
+
+  window.addEventListener('scroll',()=>{
+    const h=document.documentElement;
+    const pct=(h.scrollTop)/(h.scrollHeight-h.clientHeight)*100;
+    prog.style.width=pct+'%';
+
+    // active TOC
+    let cur='';
+    secs.forEach(s=>{
+      const r=s.getBoundingClientRect();
+      if(r.top<200)cur=s.id;
+    });
+    links.forEach(a=>{
+      a.classList.toggle('active',a.getAttribute('href')==='#'+cur);
+    });
+  });
+
+  // fade-in on scroll
+  const io=new IntersectionObserver(es=>{
+    es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');});
+  },{threshold:.1});
+  secs.forEach(s=>io.observe(s));
+</script>
+</body>
+</html>
