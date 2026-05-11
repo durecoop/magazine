@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>AI EXPO KOREA 참관 보고 — 두레생협</title>
+<style>
+  :root {
+    --ink: #1f2937;
+    --sub: #4b5563;
+    --line: #e5e7eb;
+    --bg: #f8fafc;
+    --accent: #1f6f43;
+    --accent-soft: #e8f3ec;
+    --accent-strong: #14532d;
+    --highlight: #fff7ed;
+    --highlight-border: #f59e0b;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 40px 20px 80px;
+    background: var(--bg);
+    font-family: 'Pretendard', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Malgun Gothic', sans-serif;
+    color: var(--ink);
+    line-height: 1.7;
+    -webkit-print-color-adjust: exact;
+  }
+  .page {
+    max-width: 880px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 56px 56px 64px;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+  }
+
+  /* Header */
+  .header {
+    border-bottom: 3px solid var(--accent);
+    padding-bottom: 24px;
+    margin-bottom: 32px;
+  }
+  .eyebrow {
+    color: var(--accent);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+  h1 {
+    font-size: 30px;
+    margin: 0 0 18px;
+    color: var(--accent-strong);
+    letter-spacing: -0.5px;
+  }
+  .meta {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 16px;
+  }
+  .meta div {
+    padding: 10px 14px;
+    font-size: 13px;
+    border-right: 1px solid var(--line);
+  }
+  .meta div:last-child { border-right: none; }
+  .meta .label {
+    color: var(--sub);
+    font-size: 11px;
+    display: block;
+    margin-bottom: 2px;
+    letter-spacing: 0.5px;
+  }
+  .meta .value { font-weight: 600; }
+
+  /* Conclusion box */
+  .conclusion {
+    background: var(--accent-soft);
+    border-left: 5px solid var(--accent);
+    padding: 22px 28px;
+    border-radius: 4px;
+    margin: 28px 0 40px;
+  }
+  .conclusion .tag {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
+  .conclusion p {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--accent-strong);
+    line-height: 1.6;
+  }
+
+  /* Section */
+  .section { margin-bottom: 40px; }
+  h2 {
+    font-size: 19px;
+    color: var(--accent-strong);
+    border-bottom: 2px solid var(--line);
+    padding-bottom: 8px;
+    margin: 0 0 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  h2::before {
+    content: "";
+    width: 6px;
+    height: 18px;
+    background: var(--accent);
+    border-radius: 2px;
+  }
+  h3 {
+    font-size: 15px;
+    color: var(--ink);
+    margin: 24px 0 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  h3 .num {
+    background: var(--accent);
+    color: #fff;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 14px;
+  }
+  th, td {
+    border: 1px solid var(--line);
+    padding: 11px 14px;
+    text-align: left;
+    vertical-align: middle;
+  }
+  th {
+    background: #f3f4f6;
+    font-weight: 600;
+    color: var(--sub);
+    font-size: 13px;
+  }
+  td strong { color: var(--accent-strong); }
+
+  /* Flow diagram */
+  .flow {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 16px 0;
+    flex-wrap: wrap;
+  }
+  .flow-box {
+    background: #fff;
+    border: 1.5px solid var(--line);
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--sub);
+  }
+  .flow-box.target {
+    background: var(--accent-soft);
+    border-color: var(--accent);
+    color: var(--accent-strong);
+    font-weight: 700;
+  }
+  .flow-arrow {
+    color: var(--accent);
+    font-size: 22px;
+    font-weight: 700;
+  }
+  .flow-children {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--sub);
+    padding-left: 6px;
+    border-left: 2px solid var(--accent);
+    margin-left: 4px;
+    padding: 4px 0 4px 12px;
+  }
+
+  /* Callout */
+  .callout {
+    background: var(--highlight);
+    border-left: 4px solid var(--highlight-border);
+    padding: 14px 18px;
+    border-radius: 4px;
+    margin: 14px 0;
+    font-size: 14.5px;
+  }
+  .callout strong { color: #92400e; }
+
+  /* List */
+  ul {
+    padding-left: 18px;
+    margin: 8px 0;
+  }
+  ul li {
+    margin-bottom: 6px;
+    font-size: 14.5px;
+  }
+
+  /* Highlight Section (Companies) */
+  .highlight-section {
+    background: linear-gradient(180deg, #f0f9f4 0%, #ffffff 100%);
+    border: 2px solid var(--accent);
+    border-radius: 14px;
+    padding: 28px 28px 32px;
+    position: relative;
+    box-shadow: 0 6px 18px rgba(31,111,67,0.10);
+  }
+  .highlight-banner {
+    margin-bottom: 22px;
+    padding-bottom: 16px;
+    border-bottom: 2px dashed rgba(31,111,67,0.25);
+  }
+  .highlight-tag {
+    display: inline-block;
+    background: var(--accent-strong);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 4px 12px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+  .highlight-h2 {
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 0 8px !important;
+    font-size: 22px !important;
+  }
+  .highlight-h2::before {
+    width: 8px !important;
+    height: 24px !important;
+  }
+  .highlight-desc {
+    font-size: 14.5px;
+    color: var(--sub);
+    margin: 0;
+    line-height: 1.6;
+  }
+  .company-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+  .company-card {
+    background: #fff;
+    border: 1.5px solid var(--line);
+    border-radius: 10px;
+    padding: 18px 20px;
+    transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+  }
+  .company-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent);
+    box-shadow: 0 6px 16px rgba(31,111,67,0.12);
+  }
+  .company-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--line);
+  }
+  .company-no {
+    background: var(--accent);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+  }
+  .company-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--accent-strong);
+    line-height: 1.3;
+  }
+  .company-solution,
+  .company-use {
+    font-size: 13.5px;
+    line-height: 1.55;
+    margin-bottom: 12px;
+  }
+  .company-use { margin-bottom: 0; }
+  .solution-label,
+  .use-label {
+    display: block;
+    font-size: 10.5px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+  .use-label { color: #92400e; }
+  .company-use {
+    background: var(--highlight);
+    border-left: 3px solid var(--highlight-border);
+    padding: 10px 12px;
+    border-radius: 4px;
+    margin-top: 4px;
+  }
+  .solution-note {
+    font-size: 11.5px;
+    color: var(--sub);
+    margin-top: 4px;
+    line-height: 1.5;
+  }
+  @media (max-width: 720px) {
+    .company-grid { grid-template-columns: 1fr; }
+    .highlight-section { padding: 22px 18px 24px; }
+  }
+
+  /* Reflection (Personal) */
+  .reflection {
+    background: #fdfbf5;
+    border: 1px solid #ead9b5;
+    border-radius: 12px;
+    padding: 32px 36px 26px;
+    position: relative;
+    margin-top: 8px;
+  }
+  .reflection-quote {
+    position: absolute;
+    top: -6px;
+    left: 20px;
+    font-size: 64px;
+    color: #d4a64a;
+    font-family: Georgia, 'Times New Roman', serif;
+    line-height: 1;
+    font-weight: 700;
+  }
+  .reflection p {
+    font-size: 15px;
+    line-height: 1.85;
+    color: #4a3a1f;
+    margin: 0 0 14px;
+  }
+  .reflection p:last-of-type { margin-bottom: 12px; }
+  .reflection strong { color: #8a6a1c; font-weight: 700; }
+  .reflection-sign {
+    text-align: right;
+    font-size: 13px;
+    color: #8a6a1c;
+    font-weight: 600;
+    margin-top: 6px;
+    font-style: italic;
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 48px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    font-size: 12px;
+    color: var(--sub);
+    text-align: right;
+  }
+
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { box-shadow: none; border-radius: 0; padding: 30px; }
+  }
+  @media (max-width: 720px) {
+    .page { padding: 32px 22px; }
+    .meta { grid-template-columns: repeat(2, 1fr); }
+    .meta div:nth-child(2) { border-right: none; }
+    h1 { font-size: 24px; }
+    .flow { flex-direction: column; align-items: flex-start; }
+    .flow-arrow { transform: rotate(90deg); }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- Header -->
+    <div class="header">
+      <div class="eyebrow">EXHIBITION REPORT</div>
+      <h1>AI EXPO KOREA 참관 보고</h1>
+      <div class="meta">
+        <div><span class="label">일 시</span><span class="value">2026년 5월</span></div>
+        <div><span class="label">장 소</span><span class="value">AI EXPO KOREA</span></div>
+        <div><span class="label">작 성</span><span class="value">온라인 쇼핑몰 운영파트<br>임소영</span></div>
+        <div><span class="label">작성일</span><span class="value">2026. 5. 11.</span></div>
+      </div>
+    </div>
+
+    <!-- Conclusion -->
+    <div class="conclusion">
+      <span class="tag">한눈에 보는 결론</span>
+      <p>
+        업무 자동화 중심의 AI 시장 트렌드를 확인하였으며,<br>
+        두레생협이 추진 중인 AI 기반 관리 시스템이<br>
+        시장의 기술 표준 및 수요에 <strong style="color:#14532d;text-decoration:underline;text-decoration-color:#1f6f43;text-underline-offset:4px;">안정적으로 부합</strong>하고 있음을 확인함.
+      </p>
+    </div>
+
+    <!-- Section 1 -->
+    <div class="section">
+      <h2>1. 시장 트렌드 및 산업 동향</h2>
+
+      <h3><span class="num">1</span>업무 자동화의 보편화</h3>
+      <table>
+        <thead>
+          <tr>
+            <th style="width:25%;">구 분</th>
+            <th>시장에서 확인된 모습</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>공통 지향점</td>
+            <td><strong>"AI 활용 업무 프로세스 자동화"</strong></td>
+          </tr>
+          <tr>
+            <td>기술 단계</td>
+            <td>단순 챗봇·생성형 AI → 실제 업무 결합</td>
+          </tr>
+          <tr>
+            <td>시장 방향</td>
+            <td>사람 손이 가던 일을 AI가 대신하는 구조로 이동</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3><span class="num">2</span>분야별로 잘하는 영역이 갈리는 양상</h3>
+      <div class="flow">
+        <div class="flow-box">무엇이든 시도하는<br>만능 AI</div>
+        <div class="flow-arrow">▶</div>
+        <div class="flow-box target">한 분야를 깊이 잘하는<br>전문 AI</div>
+        <div class="flow-children">
+          <span>· 물류 전문</span>
+          <span>· 재고 관리 전문</span>
+          <span>· 고객 응대 전문 등</span>
+        </div>
+      </div>
+      <ul>
+        <li>참가 기업 대부분이 "자동화"를 표방하지만, 자세히 살펴보면 <strong>회사마다 잘하는 분야가 따로 있음</strong>
+          <span style="color:var(--sub);font-size:13.5px;"> — 물류만 잘하는 곳, 재고만 잘하는 곳, 고객 응대만 잘하는 곳 등으로 나뉨</span>
+        </li>
+        <li>예전에는 <strong>"무엇이든 다 할 수 있다"</strong>는 만능형 AI 가 주류였으나,
+          최근에는 <strong>"한 분야를 깊이 잘한다"</strong>는 전문형 AI 로 시장의 무게중심이 이동 중
+        </li>
+      </ul>
+    </div>
+
+    <!-- Section 2 -->
+    <div class="section">
+      <h2>2. 두레생협 현황 및 시사점</h2>
+
+      <h3><span class="num">1</span>기술 추진 방향 — 시장 트렌드와 일치</h3>
+      <table>
+        <thead>
+          <tr>
+            <th style="width:30%;">시장 트렌드</th>
+            <th style="width:45%;">두레생협 추진 과제</th>
+            <th style="width:25%;">평 가</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>업무 자동화</td>
+            <td>
+              · AI 기반 재고 관리·수발주 프로그램 개발<br>
+              · 쇼핑몰 기획 품목 자동화 <span style="font-size:12px;color:var(--sub);">(주간 대시보드 기반 운영 중)</span>
+            </td>
+            <td><strong>방향성 일치</strong></td>
+          </tr>
+          <tr>
+            <td>한 분야를 깊이 다루는 흐름<br><span style="font-size:12px;color:var(--sub);">(분야별 전문 AI)</span></td>
+            <td>협동조합·생활재 유통이라는<br>두레생협만의 분야에 AI 적용</td>
+            <td><strong>다른 곳이 쉽게<br>따라오기 어려운 영역 확보</strong></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3><span class="num">2</span>AI 도입의 적극성</h3>
+      <div class="callout">
+        단순 외부 솔루션 도입을 넘어, 실제 업무 현장에 AI를 <strong>적극 내재화</strong>하는 단계에 진입
+      </div>
+      <ul>
+        <li>AI 전문 기업과 비교하여도 추진 속도·적용 깊이에서 경쟁력 있는 위치</li>
+        <li>협동조합 업태에서 보기 드문 선제적 도입 사례에 해당</li>
+      </ul>
+    </div>
+
+    <!-- Section 3 (Highlighted) -->
+    <div class="section highlight-section">
+      <div class="highlight-banner">
+        <span class="highlight-tag">KEY FINDINGS</span>
+        <h2 class="highlight-h2">3. 협업·도입 검토 가능 기업</h2>
+        <p class="highlight-desc">
+          이번 전시회에서 두레생협 업무에 직간접적으로 활용 가능성이 있다고 판단된 4개 기업을 선별함.
+        </p>
+      </div>
+
+      <div class="company-grid">
+        <div class="company-card">
+          <div class="company-head">
+            <span class="company-no">01</span>
+            <span class="company-name">SAIP</span>
+          </div>
+          <div class="company-solution">
+            <span class="solution-label">핵심 솔루션</span>
+            온톨로지 기반 의사결정 OS
+            <div class="solution-note">※ 온톨로지: 흩어진 데이터를 의미 단위로 연결하여 체계화한 지식 구조</div>
+          </div>
+          <div class="company-use">
+            <span class="use-label">활용 검토 방향</span>
+            발주·재고 등 복합적 판단이 필요한 의사결정 영역의 자동화에 적용 검토 가능
+          </div>
+        </div>
+
+        <div class="company-card">
+          <div class="company-head">
+            <span class="company-no">02</span>
+            <span class="company-name">Google Gemini Enterprise</span>
+          </div>
+          <div class="company-solution">
+            <span class="solution-label">핵심 솔루션</span>
+            구글 기업용 통합 AI 플랫폼
+            <div class="solution-note">문서·메일·회의 등 업무 전반에 적용되는 범용 AI 비서</div>
+          </div>
+          <div class="company-use">
+            <span class="use-label">활용 검토 방향</span>
+            사내 문서 검색, 회의록 자동 정리, 조합원 응대 초안 작성 등 범용 업무 보조 용도로 활용 검토 가능
+          </div>
+        </div>
+
+        <div class="company-card">
+          <div class="company-head">
+            <span class="company-no">03</span>
+            <span class="company-name">Allganize</span>
+          </div>
+          <div class="company-solution">
+            <span class="solution-label">핵심 솔루션</span>
+            사내 문서 검색·업무 자동화 AI
+            <div class="solution-note">Alli(문서 검색·Q&amp;A), Voice Alli(음성 응대), Alli Works(로컬 에이전트)</div>
+          </div>
+          <div class="company-use">
+            <span class="use-label">활용 검토 방향</span>
+            ERP·내부 규정 문서 검색, 조합원 콜센터 음성 응대 자동화 등에 적용 검토 가능
+          </div>
+        </div>
+
+        <div class="company-card">
+          <div class="company-head">
+            <span class="company-no">04</span>
+            <span class="company-name">Bodapark</span>
+          </div>
+          <div class="company-solution">
+            <span class="solution-label">핵심 솔루션</span>
+            AI 영상 자동 생성 플랫폼
+            <div class="solution-note">짧은 시간 내 동영상 콘텐츠 자동 제작</div>
+          </div>
+          <div class="company-use">
+            <span class="use-label">활용 검토 방향</span>
+            주간기획·카드뉴스·홍보 페이지용 영상 콘텐츠 자동 제작에 활용 검토 가능
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 4 -->
+    <div class="section">
+      <h2>4. 향후 과제</h2>
+      <table>
+        <thead>
+          <tr>
+            <th style="width:8%;">No.</th>
+            <th style="width:27%;">과 제</th>
+            <th>내 용</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align:center;font-weight:700;color:#1f6f43;">1</td>
+            <td>도메인 특화 고도화</td>
+            <td>협동조합·생활재 유통 특성을 반영한 기능 확장</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;font-weight:700;color:#1f6f43;">2</td>
+            <td>벤치마킹 조사</td>
+            <td>참가 기업 중 협업·참고 가능한 사례 별도 정리</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;font-weight:700;color:#1f6f43;">3</td>
+            <td>적용 범위 확대</td>
+            <td>재고·수발주 → 조합원 응대, 매출 분석 등 인접 업무로 단계적 확장 검토</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Section 5 (Personal Reflection) -->
+    <div class="section">
+      <h2>5. 참관 소감</h2>
+      <div class="reflection">
+        <div class="reflection-quote">&ldquo;</div>
+        <p>
+          이번 전시회에서 여러 부스를 직접 둘러보고 기업 관계자들과 대화하는 과정에서,
+          생각보다 <strong>개발자 출신이 아닌 실무자들이 다수 자리하고 있다는 점</strong>이 가장 인상 깊었음.
+          AI 기술이 더 이상 개발자만의 영역이 아니라,
+          각 업무 현장의 실무자가 직접 활용하고 응용하는 도구로 자리잡아 가고 있음을 체감함.
+        </p>
+        <p>
+          이에 본인 역시 <strong>"개발자가 아니다"</strong>라는 이유로 활용 범위를 미리 한정짓지 않고,
+          두레생협 업무 전반에 AI를 다양하게 시도·접목해 나가는 자세가 필요하다고 판단함.
+        </p>
+      </div>
+    </div>
+
+    <div class="footer">
+      두레생협 온라인 쇼핑몰 운영파트 임소영 · 참관 보고
+    </div>
+
+  </div>
+</body>
+</html>
