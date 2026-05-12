@@ -578,6 +578,79 @@ body {
 
 .card-btn:active { transform: scale(0.98); }
 
+/* ===== PRODUCER ===== */
+.producer {
+  background: linear-gradient(180deg, #fff 0%, var(--green-soft) 100%);
+  padding: 56px 20px 40px;
+  border-top: 1px solid var(--line);
+}
+
+.producer-inner {
+  max-width: 620px;
+  margin: 0 auto;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 36px 28px 34px;
+  position: relative;
+  box-shadow: 0 12px 32px -18px rgba(45,90,39,0.22);
+}
+
+.producer-tag {
+  display: inline-block;
+  font-family: 'Pretendard', sans-serif;
+  font-size: 13px;
+  color: var(--green-mid);
+  font-weight: 700;
+  letter-spacing: 4px;
+  padding: 5px 12px;
+  background: var(--green-soft);
+  border-radius: 999px;
+  margin-bottom: 16px;
+}
+
+.producer-title {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--green-deep);
+  letter-spacing: -0.8px;
+  line-height: 1.3;
+  margin-bottom: 18px;
+}
+
+.producer-body {
+  font-size: 16px;
+  color: var(--text-sub);
+  line-height: 1.7;
+  letter-spacing: -0.2px;
+  margin-bottom: 14px;
+}
+
+.producer-body:last-child { margin-bottom: 0; }
+
+.producer-body strong {
+  color: var(--green-deep);
+  font-weight: 700;
+}
+
+.producer-keys {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  margin: 22px 0 4px;
+}
+
+.producer-key {
+  display: inline-flex;
+  align-items: center;
+  font-size: 14px;
+  color: var(--green-deep);
+  background: var(--green-soft);
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-weight: 600;
+  letter-spacing: -0.1px;
+}
+
 /* ===== CTA ===== */
 .cta {
   text-align: center;
@@ -700,6 +773,10 @@ footer {
 
 /* ===== RESPONSIVE ===== */
 @media (min-width: 600px) {
+  .producer { padding: 72px 24px 56px; }
+  .producer-inner { max-width: 720px; padding: 44px 40px 40px; }
+  .producer-title { font-size: 30px; }
+  .producer-body { font-size: 17px; }
   .hero { padding: 96px 32px 80px; }
   .hero h1 { font-size: 96px; letter-spacing: -3px; }
   .hero-deal { margin: 18px 0 38px; }
@@ -733,7 +810,7 @@ footer {
 <body>
 
 <section class="hero">
-  <span class="hero-badge">매주 수요일 단 하루!<br>알찬 가격으로 만나요</span>
+  <span class="hero-badge">5월 가정의 달<br>가족 선물로도 좋아요</span>
   <p class="hero-date">5월 13일 수요일</p>
   <div class="hero-deal">
     <p class="hero-deal-tag">오늘은 모두</p>
@@ -755,11 +832,35 @@ footer {
 
 <div class="strip">
   <div class="strip-track">
-    <span>이번 주 수요특가 마감</span><span>5/13(수) 오후 7시</span><span>서후 한방 2종세트 50%</span><span>서후 한방 윤광크림 50%</span><span>풀빛고운 컬러 립밤 50%</span><span>이번 주 수요특가 마감</span><span>5/13(수) 오후 7시</span><span>서후 한방 2종세트 50%</span><span>서후 한방 윤광크림 50%</span><span>풀빛고운 컬러 립밤 50%</span>
+    <span>이번 주 수요특가 마감</span><span>5/13(수) 오후 7시</span><span>서후 한방 윤광크림 50%</span><span>서후 한방 2종세트 50%</span><span>풀빛고운 컬러 립밤 50%</span><span>이번 주 수요특가 마감</span><span>5/13(수) 오후 7시</span><span>서후 한방 윤광크림 50%</span><span>서후 한방 2종세트 50%</span><span>풀빛고운 컬러 립밤 50%</span>
   </div>
 </div>
 
 <div class="items">
+
+  <div class="card">
+    <div class="card-img tone-amber">
+      <span class="fallback">✨</span>
+      <img class="slide" src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/30650C.jpg" alt="서후 한방 윤광크림" onerror="this.onerror=null;this.src='30650C.jpg';this.addEventListener('error',function(){this.style.display='none';});">
+      <div class="card-badge">
+        <span class="sale-type">수요특가</span>
+      </div>
+      <img class="card-pct-icon" src="50pct.png?v=2" alt="50% 할인">
+    </div>
+    <div class="card-body">
+      <h2 class="card-name">서후 한방 윤광크림</h2>
+      <p class="card-weight">한방 영양 듬뿍, 윤기 가득</p>
+      <div class="card-meta-row">
+        <span class="card-meta">소비기한 ~27.2.27</span>
+      </div>
+      <div class="card-price">
+        <span class="orig">33,500원</span>
+        <span class="now">16,800<small>원</small></span>
+      </div>
+      <div class="card-price-spacer"></div>
+      <a href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&amp;returnNo=1662" target="_blank" class="card-btn order-link">장보기</a>
+    </div>
+  </div>
 
   <div class="card">
     <div class="card-img tone-rose">
@@ -780,30 +881,6 @@ footer {
       <div class="card-price">
         <span class="orig">50,700원</span>
         <span class="now">25,400<small>원</small></span>
-      </div>
-      <div class="card-price-spacer"></div>
-      <a href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&amp;returnNo=1662" target="_blank" class="card-btn order-link">장보기</a>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-img tone-amber">
-      <span class="fallback">✨</span>
-      <img class="slide" src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/30650C.jpg" alt="서후 한방 윤광크림" onerror="this.onerror=null;this.src='30650C.jpg';this.addEventListener('error',function(){this.style.display='none';});">
-      <div class="card-badge">
-        <span class="sale-type">수요특가</span>
-      </div>
-      <img class="card-pct-icon" src="50pct.png?v=2" alt="50% 할인">
-    </div>
-    <div class="card-body">
-      <h2 class="card-name">서후 한방 윤광크림</h2>
-      <p class="card-weight">한방 영양 듬뿍, 윤기 가득</p>
-      <div class="card-meta-row">
-        <span class="card-meta">소비기한 ~27.2.27</span>
-      </div>
-      <div class="card-price">
-        <span class="orig">33,500원</span>
-        <span class="now">16,800<small>원</small></span>
       </div>
       <div class="card-price-spacer"></div>
       <a href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&amp;returnNo=1662" target="_blank" class="card-btn order-link">장보기</a>
@@ -835,6 +912,25 @@ footer {
   </div>
 
 </div>
+
+<section class="producer">
+  <div class="producer-inner">
+    <span class="producer-tag">생산지 이야기</span>
+    <h2 class="producer-title">두레생협과<br>오랫동안 함께해온 풀빛고운</h2>
+    <p class="producer-body">
+      풀빛고운은 두레생협 조합원과 오랜 시간 함께해온 자연주의 화장품 브랜드입니다.
+      <strong>100% 천연 유래 원료</strong>를 고집하고, 어머니와 아이가 같이 써도 마음 놓이도록 한 알 한 알 정성스럽게 만듭니다.
+    </p>
+    <p class="producer-body">
+      두레가 까다롭게 검수한 안심 화장품, 5월 가정의 달에 어머니께도 가족에게도 마음 담아 권할 수 있는 선물이 됩니다.
+    </p>
+    <div class="producer-keys">
+      <span class="producer-key">100% 천연 유래</span>
+      <span class="producer-key">두레 검수 생활재</span>
+      <span class="producer-key">오랜 협력 생산지</span>
+    </div>
+  </div>
+</section>
 
 <section class="cta">
   <p class="cta-warn">5/13(수)<br>오후 7시 마감</p>
