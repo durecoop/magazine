@@ -57,11 +57,12 @@ body {
 .hero-banner {
   display: block;
   width: calc(100% + 48px);
-  margin: 0 -24px 28px;
+  margin: 0 -24px 32px;
+  aspect-ratio: 2 / 1;
   height: auto;
-  max-height: 280px;
+  max-height: 440px;
   object-fit: cover;
-  object-position: center 30%;
+  object-position: 50% 38%;
   position: relative;
   z-index: 1;
 }
@@ -792,7 +793,7 @@ footer {
   .producer-title { font-size: 30px; }
   .producer-body { font-size: 17px; }
   .hero { padding: 0 32px 80px; }
-  .hero-banner { width: calc(100% + 64px); margin: 0 -32px 40px; max-height: 380px; }
+  .hero-banner { width: calc(100% + 64px); margin: 0 -32px 44px; max-height: 580px; }
   .hero h1 { font-size: 96px; letter-spacing: -3px; }
   .hero-deal { margin: 18px 0 38px; }
   .hero-deal-tag { font-size: 18px; letter-spacing: 8px; margin-bottom: 14px; }
@@ -814,7 +815,7 @@ footer {
 
 @media (max-width: 380px) {
   .hero { padding: 0 18px 48px; }
-  .hero-banner { width: calc(100% + 36px); margin: 0 -18px 22px; max-height: 220px; }
+  .hero-banner { width: calc(100% + 36px); margin: 0 -18px 24px; max-height: 340px; }
   .hero h1 { font-size: 60px; }
   .items { padding: 40px 16px 48px; gap: 28px; }
   .card-body { padding: 24px 22px 26px; }
