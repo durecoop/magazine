@@ -43,15 +43,27 @@ body {
 .hero {
   min-height: 56vh;
   display: flex; flex-direction: column;
-  justify-content: center; align-items: center;
+  justify-content: flex-start; align-items: center;
   text-align: center;
-  padding: 72px 24px 64px;
+  padding: 0 24px 64px;
   background:
-    radial-gradient(ellipse at top, rgba(45,90,39,0.06) 0%, transparent 55%),
-    linear-gradient(180deg, #faf8f1 0%, #f1ede0 100%);
+    radial-gradient(ellipse at top, rgba(255,194,210,0.30) 0%, transparent 60%),
+    linear-gradient(180deg, #fef3f4 0%, #fdebec 38%, #faf8f1 100%);
   position: relative;
   overflow: hidden;
   border-bottom: 1px solid var(--line);
+}
+
+.hero-banner {
+  display: block;
+  width: calc(100% + 48px);
+  margin: 0 -24px 28px;
+  height: auto;
+  max-height: 280px;
+  object-fit: cover;
+  object-position: center 30%;
+  position: relative;
+  z-index: 1;
 }
 
 .hero::before {
@@ -777,7 +789,8 @@ footer {
   .producer-inner { max-width: 720px; padding: 44px 40px 40px; }
   .producer-title { font-size: 30px; }
   .producer-body { font-size: 17px; }
-  .hero { padding: 96px 32px 80px; }
+  .hero { padding: 0 32px 80px; }
+  .hero-banner { width: calc(100% + 64px); margin: 0 -32px 40px; max-height: 380px; }
   .hero h1 { font-size: 96px; letter-spacing: -3px; }
   .hero-deal { margin: 18px 0 38px; }
   .hero-deal-tag { font-size: 18px; letter-spacing: 8px; margin-bottom: 14px; }
@@ -798,7 +811,8 @@ footer {
 }
 
 @media (max-width: 380px) {
-  .hero { padding: 56px 18px 48px; }
+  .hero { padding: 0 18px 48px; }
+  .hero-banner { width: calc(100% + 36px); margin: 0 -18px 22px; max-height: 220px; }
   .hero h1 { font-size: 60px; }
   .items { padding: 40px 16px 48px; gap: 28px; }
   .card-body { padding: 24px 22px 26px; }
@@ -810,6 +824,7 @@ footer {
 <body>
 
 <section class="hero">
+  <img class="hero-banner" src="family-banner.jpg" alt="" aria-hidden="true">
   <span class="hero-badge">5월 가정의 달<br>가족 선물로도 좋아요</span>
   <p class="hero-date">5월 13일 수요일</p>
   <div class="hero-deal">
@@ -821,7 +836,7 @@ footer {
       <path d="M6,9 C44,2 84,12 124,7 S206,3 234,10"/>
     </svg>
   </div>
-  <p class="hero-lead">놓칠 수 없는</p>
+  <p class="hero-lead">가정의 달 특별</p>
   <h1>수요특가</h1>
   <img class="hero-clock" src="https://durecoop.github.io/magazine/wednesday-timesale-0506/clock.png" alt="시계" onerror="this.style.display='none'">
   <div class="hero-timer">
