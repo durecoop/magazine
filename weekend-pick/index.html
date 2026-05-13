@@ -1,0 +1,1223 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#2f7d4a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="format-detection" content="telephone=no">
+<title>두레봇 · 주말엔 뭐먹지?</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+  :root {
+    --bg: #f6f7f9;
+    --card: #ffffff;
+    --line: #ececf1;
+    --line-2: #dfe2e8;
+    --ink: #15171a;
+    --ink-2: #555a64;
+    --ink-3: #8b909a;
+    --brand: #2f7d4a;
+    --brand-soft: #e6f1ea;
+    --brand-ink: #1a5a32;
+    --bot: #f1f3f6;
+    --danger: #dc2626;
+    --shadow-sm: 0 1px 2px rgba(15,17,20,.04), 0 1px 1px rgba(15,17,20,.04);
+    --shadow-md: 0 4px 14px rgba(15,17,20,.06), 0 1px 2px rgba(15,17,20,.04);
+    --char-img: url("data:image/jpeg;base64,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");
+  }
+
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; padding: 0; min-height: 100%; overflow-x: hidden; }
+  body {
+    font-family: 'Pretendard Variable','Pretendard',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Noto Sans KR',sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    font-size: 15px;
+    line-height: 1.5;
+    text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  /* 앱 셸 */
+  .app {
+    max-width: 480px;
+    margin: 0 auto;
+    background: var(--bg);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  /* 헤더 */
+  .header {
+    position: sticky; top: 0; z-index: 10;
+    background: var(--brand);
+    border-bottom: 1px solid var(--brand-ink);
+    padding: 12px 16px;
+    display: flex; align-items: center; gap: 11px;
+  }
+  .avatar-img {
+    background: var(--char-img) center/cover, var(--brand-soft);
+    background-color: #fff8f1;
+  }
+  .header .avatar {
+    width: 38px; height: 38px; border-radius: 50%;
+    position: relative;
+    flex-shrink: 0;
+    border: 1px solid rgba(255,255,255,.3);
+  }
+  .header .avatar .dot {
+    position: absolute; bottom: -1px; right: -1px;
+    width: 11px; height: 11px; border-radius: 50%;
+    background: #4ade80; border: 2.5px solid var(--brand);
+  }
+  .header .meta { display: flex; flex-direction: column; line-height: 1.2; }
+  .header .name { font-weight: 700; font-size: 15px; letter-spacing: -.01em; color: #fff; }
+  .header .status { font-size: 12px; color: rgba(255,255,255,.72); margin-top: 2px; }
+
+  /* 챗 */
+  .chat {
+    flex: 1;
+    padding: 18px 16px 24px;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+
+  /* 시작 카드 (히어로) */
+  .hero {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 12px;
+    padding: 14px 0 8px;
+    animation: fadeUp .5s ease both;
+  }
+  .hero-img {
+    width: 160px; height: 160px; border-radius: 50%;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--line);
+  }
+  .hero-title {
+    font-size: 38px;
+    font-weight: 900;
+    letter-spacing: -.04em;
+    text-align: center;
+    margin: 8px 0 4px;
+    line-height: 1.1;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .hero-title .emo {
+    font-size: .82em;
+    display: inline-block;
+    transform-origin: bottom center;
+    animation: wobble 2.4s ease-in-out infinite;
+  }
+  @keyframes wobble {
+    0%, 100% { transform: rotate(-7deg); }
+    50%      { transform: rotate(7deg); }
+  }
+  .hero-sub {
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--ink-2);
+    text-align: center;
+    line-height: 1.55;
+    max-width: 320px;
+    margin: 2px 0 0;
+  }
+
+  /* 혜택 배너 (버튼) */
+  .promo-banner {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: linear-gradient(135deg, #fff8e6 0%, #ffeec2 100%);
+    border: 1px solid #f0c75e;
+    border-radius: 14px;
+    padding: 12px 14px;
+    margin: 6px 0 4px;
+    box-shadow: var(--shadow-sm);
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    transition: all .15s ease;
+  }
+  .promo-banner:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+    border-color: #d99908;
+  }
+  .promo-banner:active { transform: translateY(0); }
+  .promo-banner .emo {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    background: #fff;
+    display: grid; place-items: center;
+    font-size: 19px;
+    flex-shrink: 0;
+    box-shadow: var(--shadow-sm);
+  }
+  .promo-banner .txt {
+    font-size: 14px;
+    line-height: 1.45;
+    color: #5b3a05;
+    flex: 1;
+  }
+  .promo-banner .txt b {
+    font-weight: 800;
+    color: #8a4d00;
+  }
+  .promo-banner .arrow {
+    margin-left: 4px;
+    font-size: 18px;
+    color: #8a4d00;
+    font-weight: 700;
+    flex-shrink: 0;
+    transition: transform .15s;
+  }
+  .promo-banner:hover .arrow { transform: translateX(3px); }
+
+  /* 메시지 행 */
+  .row {
+    display: flex; gap: 8px;
+    align-items: flex-end;
+    animation: fadeUp .35s ease both;
+  }
+  .row.bot { justify-content: flex-start; }
+  .row.user { justify-content: flex-end; }
+  .row .ava {
+    width: 30px; height: 30px; border-radius: 50%;
+    flex-shrink: 0;
+    border: 1px solid var(--line);
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .bubble {
+    max-width: 80%;
+    padding: 11px 14px;
+    background: var(--bot);
+    color: var(--ink);
+    border-radius: 18px;
+    border-bottom-left-radius: 6px;
+    font-size: 14.5px;
+    line-height: 1.5;
+    word-break: break-word;
+    box-shadow: var(--shadow-sm);
+  }
+  .bubble.intro {
+    font-size: 16px;
+    background: var(--brand-soft);
+    color: var(--brand-ink);
+    border: 1.5px solid var(--brand);
+    box-shadow: 0 2px 10px rgba(47,125,74,.12);
+  }
+  .bubble.intro .b-main {
+    color: var(--brand-ink);
+  }
+  .bubble.intro .b-sub {
+    color: var(--brand-ink);
+    opacity: .78;
+  }
+  .bubble .b-main {
+    display: block;
+    white-space: nowrap;
+    font-weight: 700;
+    font-size: 17px;
+  }
+  .bubble .b-sub {
+    display: block;
+    margin-top: 10px;
+    color: var(--ink-2);
+    font-size: 14.5px;
+    line-height: 1.65;
+  }
+  .row.user .bubble {
+    background: var(--brand);
+    color: #fff;
+    border-radius: 18px;
+    border-bottom-right-radius: 6px;
+  }
+  .bubble .term { font-weight: 700; color: var(--brand-ink); }
+  .row.user .bubble .term { color: #ffe9a0; }
+
+  /* 카테고리 버튼 (2열 그리드) */
+  .quick {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 6px;
+    padding: 0;
+  }
+  .quick button {
+    font-family: inherit;
+    font-size: 15.5px;
+    font-weight: 700;
+    background: #fff;
+    border: 1px solid var(--line);
+    color: var(--ink);
+    border-radius: 14px;
+    padding: 14px 14px;
+    cursor: pointer;
+    transition: all .15s ease;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: var(--shadow-sm);
+    letter-spacing: -.01em;
+  }
+  .quick button:hover {
+    border-color: var(--brand);
+    background: var(--brand-soft);
+    color: var(--brand-ink);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+  }
+  .quick button:active { transform: translateY(0); }
+  .quick button .emo {
+    display: inline-grid;
+    place-items: center;
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: var(--bg);
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+  .quick button:hover .emo { background: #fff; }
+
+  /* 섹션 제목 */
+  .section-title {
+    margin: 16px 0 4px;
+    font-size: 13.5px;
+    color: var(--ink-2);
+    font-weight: 700;
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    padding-left: 2px;
+  }
+  .section-title small {
+    font-weight: 500;
+    color: var(--ink-3);
+    font-size: 12px;
+  }
+
+  /* 3열 칩 (연령대) */
+  .quick.cols-3 {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 7px;
+  }
+  .quick.cols-3 button {
+    flex-direction: column;
+    text-align: center;
+    padding: 13px 6px;
+    gap: 5px;
+    font-size: 15px;
+    font-weight: 700;
+  }
+  .quick.cols-3 button .emo {
+    width: 36px; height: 36px;
+    font-size: 18px;
+  }
+
+  /* 타이핑 인디케이터 */
+  .typing {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 13px 14px;
+    background: var(--bot);
+    border-radius: 18px;
+    border-bottom-left-radius: 6px;
+    box-shadow: var(--shadow-sm);
+  }
+  .typing .d {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--ink-3);
+    animation: tdot 1.2s infinite ease-in-out;
+  }
+  .typing .d:nth-child(2) { animation-delay: .15s; }
+  .typing .d:nth-child(3) { animation-delay: .3s; }
+  @keyframes tdot {
+    0%, 60%, 100% { opacity: .3; transform: translateY(0); }
+    30% { opacity: 1; transform: translateY(-3px); }
+  }
+
+  /* 카드 캐러셀 */
+  .cards-row {
+    margin: 4px -16px 0 0;
+    padding-left: 38px;
+  }
+  .cards-scroll {
+    display: flex; gap: 10px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 2px 16px 8px 0;
+    scrollbar-width: none;
+  }
+  .cards-scroll::-webkit-scrollbar { display: none; }
+  .product {
+    flex: 0 0 200px;
+    scroll-snap-align: start;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    display: flex; flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    transition: transform .15s, box-shadow .15s;
+  }
+  .product:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+  .product .thumb {
+    width: 100%; aspect-ratio: 1;
+    background: var(--bg);
+    position: relative;
+    overflow: hidden;
+  }
+  .product .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .product .thumb .fb {
+    position: absolute; inset: 0; display: none; place-items: center;
+    font-size: 44px; background: var(--bg);
+  }
+  .product .body {
+    padding: 12px 14px 13px;
+    display: flex; flex-direction: column; gap: 4px;
+    flex: 1;
+  }
+  .product .name {
+    font-weight: 700; font-size: 14px;
+    line-height: 1.3;
+    letter-spacing: -.01em;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .product .why {
+    font-size: 12.5px;
+    color: var(--ink-2);
+    line-height: 1.4;
+    margin-top: 2px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .product .row2 {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 8px;
+    margin-top: auto;
+    padding-top: 8px;
+  }
+  .product .price { font-size: 15px; font-weight: 800; }
+  .product .price small { font-weight: 500; color: var(--ink-3); margin-left: 2px; font-size: 11px; }
+  .product .go {
+    font-size: 11.5px;
+    font-weight: 700;
+    background: var(--brand-soft);
+    color: var(--brand-ink);
+    padding: 5px 10px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+
+  /* 마감 카드 */
+  .deadline-card {
+    background: linear-gradient(180deg, #fff8f0 0%, #fef2f2 100%);
+    border: 1px solid #fecaca;
+    border-radius: 16px;
+    padding: 16px;
+    display: flex; flex-direction: column; gap: 10px;
+    box-shadow: var(--shadow-sm);
+    max-width: 80%;
+    margin-left: 38px;
+  }
+  .deadline-card .tag {
+    display: inline-flex; align-items: center; gap: 7px;
+    align-self: flex-start;
+    font-size: 11.5px; font-weight: 800;
+    color: var(--danger);
+    letter-spacing: .03em;
+  }
+  .deadline-card .tag .pulse {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--danger);
+    box-shadow: 0 0 0 0 rgba(220,38,38,.5);
+    animation: pulse 1.6s infinite;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(220,38,38,.5); }
+    100% { box-shadow: 0 0 0 10px rgba(220,38,38,0); }
+  }
+  .deadline-card h3 {
+    margin: 0;
+    font-size: 16.5px; font-weight: 800;
+    letter-spacing: -.01em;
+  }
+  .deadline-card .when {
+    font-size: 13px; color: var(--ink-2);
+    margin-top: -4px;
+  }
+  .deadline-card .cd {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+  }
+  .deadline-card .cd .cell {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 8px 4px 7px;
+    text-align: center;
+  }
+  .deadline-card .cd b {
+    font-size: 19px; font-weight: 800;
+    display: block; line-height: 1.1;
+    font-variant-numeric: tabular-nums;
+  }
+  .deadline-card .cd span {
+    font-size: 10.5px; color: var(--ink-3);
+    display: block; margin-top: 2px;
+  }
+  .deadline-card .cta {
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    background: var(--danger);
+    color: #fff; text-decoration: none;
+    font-weight: 700; font-size: 14.5px;
+    padding: 12px;
+    border-radius: 12px;
+    margin-top: 2px;
+    transition: background .15s;
+  }
+  .deadline-card .cta:hover { background: #b91c1c; }
+  .deadline-card .cta svg { width: 14px; height: 14px; }
+  .deadline-card.closed { background: var(--bg); border-color: var(--line); }
+  .deadline-card.closed .tag { color: var(--ink-3); }
+  .deadline-card.closed .tag .pulse { background: var(--ink-3); animation: none; }
+
+  /* 입력창 */
+  .composer {
+    position: sticky; bottom: 0; z-index: 10;
+    background: rgba(255,255,255,.92);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-top: 1px solid var(--line);
+    padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+    display: flex; gap: 8px; align-items: center;
+  }
+  .composer .field {
+    flex: 1;
+    background: var(--bg);
+    border: 1px solid var(--line-2);
+    border-radius: 999px;
+    padding: 11px 16px;
+    font-size: 15px;
+    font-family: inherit;
+    outline: none;
+    transition: all .15s;
+    color: var(--ink);
+  }
+  .composer .field::placeholder { color: var(--ink-3); }
+  .composer .field:focus {
+    border-color: var(--brand);
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(47,125,74,.12);
+  }
+  .composer .send {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    background: var(--brand);
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    display: grid; place-items: center;
+    flex-shrink: 0;
+    transition: transform .08s, background .15s, opacity .15s;
+  }
+  .composer .send:disabled { background: #c4cbd3; cursor: not-allowed; }
+  .composer .send:not(:disabled):hover { background: var(--brand-ink); }
+  .composer .send:not(:disabled):active { transform: scale(0.92); }
+  .composer .send svg { width: 18px; height: 18px; }
+
+  /* 푸터 */
+  .footer-note {
+    padding: 8px 16px 14px;
+    text-align: center;
+    font-size: 11.5px;
+    color: var(--ink-3);
+    line-height: 1.5;
+  }
+  .footer-note b { color: var(--ink-2); font-weight: 600; }
+
+  /* iOS input 줌인 방지: focus 시 16px */
+  @supports (-webkit-touch-callout: none) {
+    .composer .field { font-size: 16px; }
+  }
+
+  /* 좁은 화면 */
+  @media (max-width: 360px) {
+    .hero-img { width: 140px; height: 140px; }
+    .hero-title { font-size: 30px; }
+    .product { flex: 0 0 180px; }
+    .deadline-card { max-width: 88%; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <header class="header">
+    <div class="avatar avatar-img">
+      <span class="dot"></span>
+    </div>
+    <div class="meta">
+      <div class="name">두레봇</div>
+      <div class="status">두레생협 · 지금 답장 중</div>
+    </div>
+  </header>
+
+  <main class="chat" id="chat">
+
+    <!-- 시작 히어로 -->
+    <div class="hero">
+      <div class="hero-img avatar-img"></div>
+      <h1 class="hero-title"><span class="emo">🥘</span>주말엔 뭐먹지?</h1>
+      <p class="hero-sub">하나만 알려주세요.<br>이번 주 기획전에서 골라드릴게요!</p>
+    </div>
+
+    <!-- 시작 봇 메시지 -->
+    <div class="row bot">
+      <div class="ava avatar-img"></div>
+      <div class="bubble intro">
+        <span class="b-main">조합원님, 오늘 뭐 드실래요?</span>
+        <span class="b-sub">
+          뭐든 한 단어로 보내주세요.<br>
+          또는 아래 카테고리에서 골라보세요 ♪
+        </span>
+      </div>
+    </div>
+
+    <div class="entry" id="entry">
+      <div class="quick" id="quick">
+        <button data-cat="meat"><span class="emo">🍗</span>닭·육류</button>
+        <button data-cat="seafood"><span class="emo">🐟</span>수산물</button>
+        <button data-cat="matchan"><span class="emo">🥢</span>두레맛찬 반찬</button>
+        <button data-cat="veggie"><span class="emo">🥬</span>제철 채소</button>
+        <button data-cat="kimchi"><span class="emo">🥗</span>김치</button>
+        <button data-cat="grain"><span class="emo">🌾</span>곡물·계란</button>
+        <button data-cat="health"><span class="emo">🍯</span>차·건강식품</button>
+        <button data-cat="snack"><span class="emo">🍫</span>간식·견과</button>
+      </div>
+
+      <!-- 연령대로 골라보기 -->
+      <div class="section-title">🤔 고르기 어려우신가요? <small>연령대로 골라드릴게요</small></div>
+      <div class="quick cols-3" id="quick-age">
+        <button data-age="50"><span class="emo">🌿</span>50대 추천</button>
+        <button data-age="60"><span class="emo">🍵</span>60대 추천</button>
+        <button data-age="70"><span class="emo">🥬</span>70대 추천</button>
+      </div>
+
+      <!-- 혜택 배너 (클릭하면 햇양파 증정 기획전으로) -->
+      <a class="promo-banner" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1662" target="_blank" rel="noopener">
+        <div class="emo">🧅</div>
+        <div class="txt">
+          이번 주 <b>7만원 이상 구매</b>하면<br>
+          <b>제주 햇양파</b> 증정해 드려요!
+        </div>
+        <div class="arrow">→</div>
+      </a>
+    </div>
+
+  </main>
+
+  <form class="composer" id="composer">
+    <input class="field" id="q" type="text" placeholder="예) 오늘은 백숙이 먹고 싶어!" autocomplete="off" enterkeyhint="send">
+    <button class="send" id="send" type="submit" aria-label="보내기" disabled>
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.4 20.4 21 12 3.4 3.6 3.4 10l12 2-12 2z"/></svg>
+    </button>
+  </form>
+</div>
+
+<script>
+  const PLAN_URL = "https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1662";
+  const IMG = "https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/";
+
+  // 1662 기획전 안의 섹션(카테고리) 정의 + 카테고리별 멘트
+  const CATS = {
+    meat: {
+      label: "닭·육류", e: "🍗",
+      quips: [
+        "주말 저녁엔 든든한 한 마리가 답이죠",
+        "보양에도, 가족 모임에도 빠질 수 없는 메인",
+        "백숙·찜닭·삼계탕 — 어느 쪽으로 가실래요?"
+      ]
+    },
+    seafood: {
+      label: "수산물", e: "🐟",
+      quips: [
+        "비린내 없는 깔끔한 한 토막, 밥상의 든든한 메인",
+        "구이로, 조림으로, 회로 — 다 어울려요",
+        "단백질 보충하면서 입맛도 살리는 카테고리"
+      ]
+    },
+    matchan: {
+      label: "두레맛찬 반찬", e: "🥢",
+      quips: [
+        "데우기만 하면 끝, 손 안 가는 진짜 한 끼",
+        "3종 이상이면 20% 할인이라 더 손이 가죠",
+        "퇴근 후 비빔밥 한 그릇 만들 때 딱"
+      ]
+    },
+    veggie: {
+      label: "제철 채소", e: "🥬",
+      quips: [
+        "지금이 제철, 단단하고 단맛도 가장 좋을 때",
+        "기본 채소 채워두면 한 주가 든든해요",
+        "한 끼 만들 때 손이 가장 자주 가는 코너"
+      ]
+    },
+    kimchi: {
+      label: "김치", e: "🥗",
+      quips: [
+        "묵은지부터 새콤한 열무까지, 골라드세요",
+        "어느 밥상에나 김치 한 보시기는 있어야죠",
+        "찌개에, 볶음밥에, 밥반찬에 — 만능"
+      ]
+    },
+    grain: {
+      label: "곡물·계란", e: "🌾",
+      quips: [
+        "떨어지기 전에 채워두면 일주일이 편해요",
+        "기본 식재료, 한 번 사두면 길게 가요",
+        "계란 한 판은 냉장고에 늘 있어야 하는 그 자체"
+      ]
+    },
+    health: {
+      label: "차·건강식품", e: "🍯",
+      quips: [
+        "환절기 목 칼칼할 때 한 모금이면 좋아요",
+        "어버이날, 부모님께 챙겨드리기 좋은 카테고리",
+        "한 잔씩 우려 드시면 하루가 따뜻해져요"
+      ]
+    },
+    snack: {
+      label: "간식·견과", e: "🍫",
+      quips: [
+        "주말 오후, TV 옆에 한 줌 두기 좋아요",
+        "맥주 한 캔이랑 견과 한 줌, 그게 진리",
+        "아이 간식으로도, 어른 입가심으로도"
+      ]
+    },
+  };
+
+  // 연령대별 추천 (주 대상 50~70대)
+  const AGES = {
+    '50': {
+      label: "50대", e: "🌿",
+      quips: [
+        "아직 활동량 많은 50대! 가볍지만 든든하게 챙기는 메뉴로 골라봤어요",
+        "한 끼는 든든하게, 그래도 부담은 덜한 — 50대 식탁에 잘 맞아요",
+        "슬슬 건강 챙기시는 시기죠, 그에 맞춰 추려봤어요"
+      ],
+      picks: [
+        "(맛찬)곤드레나물",
+        "(맛찬)꼬막양념무침",
+        "(맛찬)감자채볶음",
+        "모데나 발사믹식초",
+        "올리브유(500ml)",
+        "볶은아몬드(180g)",
+        "저당 혼합10곡(1kg)",
+        "햇양파(800g/제주/조생)",
+        "양배추(500g)",
+        "유기농 초록통쌀(1kg)"
+      ]
+    },
+    '60': {
+      label: "60대", e: "🍵",
+      quips: [
+        "식탁이 점점 단단해지는 60대, 든든하고 익숙한 맛으로 골라봤어요",
+        "밥반찬·국물·차 한 잔, 60대에 잘 어울리는 라인업이에요",
+        "몸 챙기면서 입맛도 살리는 메뉴 모았어요"
+      ],
+      picks: [
+        "토종닭(1.4kg/냉동)",
+        "영광굴비(2kg/20미)",
+        "(맛찬)고사리나물",
+        "(맛찬)도라지나물",
+        "(맛찬)고등어무조림",
+        "도라지청(무농약)",
+        "손찬락 액상 생강차",
+        "포기김치(2kg)",
+        "강화유정란(15구)",
+        "저당 혼합10곡(1kg)"
+      ]
+    },
+    '70': {
+      label: "70대", e: "🥬",
+      quips: [
+        "부드럽고 익숙한 맛, 70대 식탁에 어울리는 메뉴 추려봤어요",
+        "소화 편하고 보양도 되는 메뉴 위주로 골라봤어요",
+        "오래 드셔온 그 맛 그대로, 정성껏 만든 것들이에요"
+      ],
+      picks: [
+        "토종닭(1.4kg/냉동)",
+        "영광굴비(2kg/20미)",
+        "백김치(국산/2kg)",
+        "(맛찬)곤드레나물",
+        "(맛찬)고등어무조림",
+        "도라지청(무농약)",
+        "손찬락 액상 생강차",
+        "원삼유정란(15구)",
+        "유기농 초록통쌀(1kg)",
+        "(맛찬)감자채볶음"
+      ]
+    }
+  };
+
+  const ITEMS = [
+    { n:"토종닭(1.4kg/냉동)",        cat:"meat",    p:12700, e:"🍗", img:IMG+"56259C.jpg", k:["닭","치킨","후라이드","백숙","삼계탕","보양","가족","든든","고기","주말","손님","초대"] },
+    { n:"생통닭(11호)",              cat:"meat",    p:10700, e:"🐔", img:IMG+"48376C.png", k:["닭","치킨","백숙","가족","고기","주말","손님","초대"] },
+    { n:"생통닭(10호)",              cat:"meat",    p:8500,  e:"🐔", img:IMG+"57431C.png", k:["닭","치킨","백숙","가족","고기"] },
+    { n:"닭볶음탕 양념소스(200g)",   cat:"meat",    p:4400,  e:"🌶️", img:IMG+"56349C.jpg", k:["닭볶음탕","매콤","매운","양념","소스","찜","간단"] },
+    { n:"(맛찬)코다리조림",          cat:"matchan", p:12300, e:"🐟", img:IMG+"58059C.png", k:["코다리","매콤","조림","술안주","밥반찬","비빔","생선"] },
+    { n:"(맛찬)고등어무조림",        cat:"matchan", p:16700, e:"🐠", img:IMG+"58803C.png", k:["고등어","조림","밥반찬","비빔","생선","든든"] },
+    { n:"(맛찬)꼬막양념무침",        cat:"matchan", p:8800,  e:"🦪", img:IMG+"59024C.jpg", k:["꼬막","매콤","비빔밥","술안주","해물","조개"] },
+    { n:"(맛찬)고사리나물",          cat:"matchan", p:7200,  e:"🥗", img:IMG+"59016C.jpg", k:["나물","고사리","비빔밥","반찬","채소","제사","명절"] },
+    { n:"(맛찬)도라지나물",          cat:"matchan", p:7300,  e:"🥗", img:IMG+"58070C.png", k:["나물","도라지","비빔밥","반찬","채소","제사","명절"] },
+    { n:"(맛찬)곤드레나물",          cat:"matchan", p:6200,  e:"🌿", img:IMG+"58068C.png", k:["곤드레","나물","비빔밥","밥","반찬","채소"] },
+    { n:"(맛찬)깻잎순들깨볶음",      cat:"matchan", p:6300,  e:"🌱", img:IMG+"58064C.png", k:["깻잎","들깨","나물","반찬","비빔밥","채소"] },
+    { n:"(맛찬)감자채볶음",          cat:"matchan", p:3700,  e:"🥔", img:IMG+"58636C.jpg", k:["감자","볶음","반찬","도시락","간단","아이"] },
+    { n:"대삼치살(500g)",            cat:"seafood", p:9900,  e:"🐟", img:IMG+"54376C.jpg", k:["삼치","생선","구이","회","술안주","간단"] },
+    { n:"국물멸치(1kg)",             cat:"seafood", p:31000, e:"🐠", img:IMG+"20110C.jpg", k:["멸치","국물","육수","다시","국","찌개"] },
+    { n:"영광굴비(2kg/20미)",        cat:"seafood", p:155200,e:"🐟", img:IMG+"405C.jpg",   k:["굴비","생선","밥반찬","선물","손님","초대","어버이날"] },
+    { n:"백김치(국산/2kg)",          cat:"kimchi",  p:11600, e:"🥬", img:IMG+"58219C.png", k:["백김치","김치","보쌈","순한","반찬","아이","손님"] },
+    { n:"포기김치(2kg)",             cat:"kimchi",  p:13200, e:"🥬", img:IMG+"32424C.png", k:["김치","포기김치","반찬","찌개","볶음밥","든든"] },
+    { n:"열무김치(1kg)",             cat:"kimchi",  p:6300,  e:"🥬", img:IMG+"28224C.png", k:["열무","김치","비빔국수","비빔밥","여름","시원","국수"] },
+    { n:"햇양파(800g/제주/조생)",    cat:"veggie",  p:2500,  e:"🧅", img:IMG+"54511C.jpg", k:["양파","채소","볶음","카레","찌개","간단","야채"] },
+    { n:"부추(180g/무농약)",         cat:"veggie",  p:2900,  e:"🌱", img:IMG+"16653C.jpg", k:["부추","채소","부추전","비빔","전","야채","간단"] },
+    { n:"대파(300g/무농약)",         cat:"veggie",  p:1700,  e:"🌿", img:IMG+"48979C.jpg", k:["대파","파","채소","국물","라면","찌개","간단"] },
+    { n:"당근(1kg)",                 cat:"veggie",  p:3650,  e:"🥕", img:IMG+"1321C.jpg",  k:["당근","채소","카레","볶음","아이","간단","야채"] },
+    { n:"양배추(500g)",              cat:"veggie",  p:2000,  e:"🥬", img:IMG+"14466C.jpg", k:["양배추","채소","샐러드","쌈","간단","아이","야채"] },
+    { n:"무우(700g)",                cat:"veggie",  p:1900,  e:"🥒", img:IMG+"39405C.jpg", k:["무","채소","국","깍두기","조림","찌개","간단"] },
+    { n:"감자(1kg/무농약)",          cat:"veggie",  p:7200,  e:"🥔", img:IMG+"13132C.jpg", k:["감자","카레","볶음","조림","감자전","간식","간단","아이"] },
+    { n:"저당 혼합10곡(1kg)",        cat:"grain",   p:11200, e:"🌾", img:IMG+"55821C.jpg", k:["잡곡","곡물","밥","건강","다이어트","저당"] },
+    { n:"유기농 초록통쌀(1kg)",      cat:"grain",   p:12500, e:"🍚", img:IMG+"30342C.jpg", k:["쌀","현미","밥","유기농","건강"] },
+    { n:"원삼유정란(15구)",          cat:"grain",   p:6600,  e:"🥚", img:IMG+"21166C.jpg", k:["계란","달걀","오믈렛","후라이","간단","아이","아침"] },
+    { n:"강화유정란(15구)",          cat:"grain",   p:6800,  e:"🥚", img:IMG+"27156C.jpg", k:["계란","달걀","오믈렛","후라이","간단","아침"] },
+    { n:"도라지청(무농약)",          cat:"health",  p:29900, e:"🍯", img:IMG+"31515C.png", k:["도라지","청","차","음료","기침","감기","목"] },
+    { n:"손찬락 액상 생강차",        cat:"health",  p:16000, e:"🫖", img:IMG+"26956C.png", k:["생강","차","음료","감기","따뜻","겨울"] },
+    { n:"유기농 밀크 초콜릿",        cat:"snack",   p:7600,  e:"🍫", img:IMG+"59456C.jpg", k:["초콜릿","디저트","간식","단것","아이","선물"] },
+    { n:"유기농 아몬드 카라멜 솔트", cat:"snack",   p:9000,  e:"🍫", img:IMG+"59457C.jpg", k:["초콜릿","아몬드","디저트","간식","단것","선물"] },
+    { n:"볶은아몬드(180g)",          cat:"snack",   p:16100, e:"🥜", img:IMG+"27773C.png", k:["아몬드","견과","간식","술안주","건강","맥주"] },
+    { n:"볶은캐슈넛(180g)",          cat:"snack",   p:8800,  e:"🥜", img:IMG+"51881C.jpg", k:["캐슈넛","견과","간식","술안주","맥주"] },
+    { n:"모데나 발사믹식초",         cat:"snack",   p:25100, e:"🫒", img:IMG+"40741C.png", k:["발사믹","식초","샐러드","양식","파스타","손님"] },
+    { n:"올리브유(500ml)",           cat:"snack",   p:24800, e:"🫒", img:IMG+"5880C.jpg",  k:["올리브유","양식","샐러드","파스타","요리","선물"] },
+  ];
+
+  // ===== 매칭 로직 =====
+  function tokenize(s) {
+    return s.toLowerCase().replace(/[,.!?·~^&()\[\]"'`]/g," ").split(/\s+/).filter(Boolean);
+  }
+  function score(item, tokens) {
+    let s = 0;
+    const hay = (item.n + " " + item.k.join(" ")).toLowerCase();
+    tokens.forEach(t => {
+      if (!t) return;
+      item.k.forEach(kw => {
+        if (kw.includes(t) || t.includes(kw)) s += (kw === t ? 6 : 3);
+      });
+      if (item.n.toLowerCase().includes(t)) s += 4;
+      if (t.length >= 2 && hay.includes(t)) s += 2;
+    });
+    return s;
+  }
+  function pickByScore(tokens) {
+    const scored = ITEMS.map(it => ({ it, s: score(it, tokens) })).sort((a,b) => b.s - a.s);
+    const top = scored.filter(x => x.s > 0).slice(0, 4);
+    if (top.length >= 4) return { items: top.map(x => x.it), forced: false };
+    const seed = tokens.join("").length + (tokens.join("").charCodeAt(0)||0);
+    const rest = ITEMS.filter(it => !top.find(t => t.it.n === it.n));
+    rest.sort((a,b) => ((a.n.length*7+seed) % 31) - ((b.n.length*7+seed) % 31));
+    const filled = top.map(x => x.it).concat(rest.slice(0, 4 - top.length));
+    return { items: filled, forced: top.length === 0 };
+  }
+
+  function whyLine(item, query) {
+    const q = (query || "").trim();
+    const buckets = {
+      "닭|치킨|후라이드": [
+        "치킨 대신 집에서 통닭, 의외로 든든해요",
+        "주말 저녁 한 방이면 이거",
+        q + " 생각났다면 일단 한 마리"
+      ],
+      "매콤|매운|맵": [
+        "매콤 + 밥, 실패 없는 조합",
+        "한 입에 알싸하게, 밥 두 그릇 각",
+        "매콤한 거 당길 때 손이 가요"
+      ],
+      "비빔|나물|밥": [
+        "비빔밥 한 그릇에 올리면 끝",
+        "나물 한 가지 더하면 식탁이 풍성",
+        "밥에 슥슥 비비기만 해도 한 끼"
+      ],
+      "술안주|맥주|소주": [
+        "맥주 한 캔이랑 잘 어울려요",
+        "안주 고민 끝, 꺼내기만 하면 됨",
+        "친구 부르기 전에 사두면 좋아요"
+      ],
+      "간단|쉽게|빨리": [
+        "10분이면 한 끼 차려져요",
+        "냉장고에 있으면 든든한 기본템",
+        "손 많이 안 가는 메뉴"
+      ],
+      "아이|애|어린이": [
+        "아이가 잘 먹는 순한 맛",
+        "도시락 반찬으로 무난해요",
+        "맵지 않게 차리고 싶을 때"
+      ],
+      "손님|초대|모임|가족": [
+        "손님상에 올려도 모양 빠지지 않아요",
+        "가족 다 모이는 날 메인으로",
+        "온 가족이 둘러앉기 좋은 메뉴"
+      ],
+      "선물|어버이|부모": [
+        "부모님 갖다드리기 좋아요",
+        "들고 가도 안 부끄러운 선물용"
+      ],
+      "감기|기침|목": [
+        "환절기 목 칼칼할 때 한 잔",
+        "따뜻하게 우려서 드시면 좋아요"
+      ],
+      "생선|회": [
+        "생선 한 토막, 밥반찬으로 든든",
+        "구우면 굽는 대로, 조리면 조리는 대로"
+      ],
+      "김치|찌개": [
+        "김치 한 보시기로 한 끼 해결",
+        "찌개 끓이기에도 좋아요"
+      ],
+      "채소|야채|샐러드": [
+        "냉장고 채소 칸이 비었다면",
+        "한 끼 만들 때 손 가는 기본 재료"
+      ],
+      "디저트|단것|초콜릿|간식": [
+        "주말 오후 한 입씩 꺼내기 좋아요",
+        "커피 옆에 두기 좋은 단짠"
+      ]
+    };
+    for (const pat in buckets) {
+      const re = new RegExp(pat);
+      if (re.test(q) || item.k.some(k => re.test(k))) {
+        const arr = buckets[pat];
+        return arr[(item.n.length + q.length) % arr.length];
+      }
+    }
+    const fallback = [
+      "'" + (q || "그거") + "' 자리에 둘 만한 거",
+      "딱 그건 아니지만, 비슷한 결로",
+      "주말에 꺼내볼 만한 거",
+      "이거 사두면 한 주가 든든",
+      "이번 주 기획전에서 잘 나가요"
+    ];
+    return fallback[(item.n.length + q.length) % fallback.length];
+  }
+
+  function replyHeadline(query, forced) {
+    const q = (query || "").trim();
+    if (!q) return "골라봤어요";
+    const term = `<span class="term">${escape(q)}</span>`;
+    if (forced) {
+      const v = [
+        `음… ${term}은 딱 맞는 게 없어서, 비슷한 결로 끌어왔어요`,
+        `${term} 그거… 이건 어때요? 비슷한 자리에 둘 만한 것들`,
+        `${term} 못 찾았지만, 이쯤이면 대신할 만함`
+      ];
+      return v[q.length % v.length];
+    }
+    const v = [
+      `${term} 생각났다면, 이거 어때요?`,
+      `${term} 자리에 둘 만한 거 골라봤어요`,
+      `${term} 좋죠, 그럼 이쪽으로 추천!`
+    ];
+    return v[q.length % v.length];
+  }
+  function escape(s){ return String(s).replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
+
+  // ===== 메시지 추가 헬퍼 =====
+  const chat = document.getElementById("chat");
+
+  function addBotBubble(html) {
+    const row = document.createElement("div");
+    row.className = "row bot";
+    row.innerHTML = `<div class="ava avatar-img"></div><div class="bubble">${html}</div>`;
+    chat.appendChild(row);
+    scrollSoon();
+    return row;
+  }
+  function addUserBubble(text) {
+    const row = document.createElement("div");
+    row.className = "row user";
+    row.innerHTML = `<div class="bubble">${escape(text)}</div>`;
+    chat.appendChild(row);
+    scrollSoon();
+  }
+  function addTyping() {
+    const row = document.createElement("div");
+    row.className = "row bot";
+    row.innerHTML = `<div class="ava avatar-img"></div><div class="typing"><span class="d"></span><span class="d"></span><span class="d"></span></div>`;
+    chat.appendChild(row);
+    scrollSoon();
+    return row;
+  }
+  function addCardsCarousel(items, query) {
+    const wrap = document.createElement("div");
+    wrap.className = "cards-row";
+    wrap.innerHTML = `
+      <div class="cards-scroll">
+        ${items.map(it => `
+          <a class="product" href="${PLAN_URL}" target="_blank" rel="noopener">
+            <div class="thumb">
+              <img src="${it.img}" alt="${escape(it.n)}" loading="lazy" referrerpolicy="no-referrer"
+                   onerror="this.style.display='none';this.nextElementSibling.style.display='grid';">
+              <div class="fb">${it.e}</div>
+            </div>
+            <div class="body">
+              <div class="name">${escape(it.n)}</div>
+              <div class="why">${escape(whyLine(it, query))}</div>
+              <div class="row2">
+                <div class="price">${it.p.toLocaleString()}<small>원</small></div>
+                <div class="go">담기 →</div>
+              </div>
+            </div>
+          </a>
+        `).join("")}
+      </div>
+    `;
+    chat.appendChild(wrap);
+    scrollSoon();
+  }
+  function addDeadlineCard() {
+    const el = document.createElement("div");
+    el.className = "deadline-card";
+    el.innerHTML = `
+      <div class="tag"><span class="pulse"></span>이번 주 주문 마감 임박</div>
+      <h3>5월 14일 (목) 오전 11:30</h3>
+      <div class="when">이 시간 지나면 다음 주 배송으로 넘어가요</div>
+      <div class="cd" data-cd></div>
+      <a class="cta" href="${PLAN_URL}" target="_blank" rel="noopener">
+        두레생협에서 장보기
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    `;
+    chat.appendChild(el);
+    tick();
+    scrollSoon();
+  }
+
+  function scrollSoon() {
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    });
+  }
+
+  // ===== 흐름 =====
+  function removeEntry() {
+    const entry = document.getElementById("entry");
+    if (entry) entry.remove();
+  }
+
+  function handle(query) {
+    if (!query.trim()) return;
+    removeEntry();
+    addUserBubble(query);
+    const t = addTyping();
+    setTimeout(() => {
+      t.remove();
+      const tokens = tokenize(query);
+      const { items, forced } = pickByScore(tokens);
+      addBotBubble(replyHeadline(query, forced));
+      setTimeout(() => {
+        addBotBubble("이번 주 혜택 가득한 기획전에서 골라봤어요 👇");
+        addCardsCarousel(items, query);
+        setTimeout(() => addDeadlineCard(), 450);
+      }, 380);
+    }, 720);
+  }
+
+  const composer = document.getElementById("composer");
+  const qInput = document.getElementById("q");
+  const sendBtn = document.getElementById("send");
+
+  qInput.addEventListener("input", () => { sendBtn.disabled = !qInput.value.trim(); });
+  composer.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const v = qInput.value.trim();
+    if (!v) return;
+    handle(v);
+    qInput.value = "";
+    sendBtn.disabled = true;
+  });
+  // 카테고리별 "관련 카테고리" - 품목 수 부족할 때 보충용
+  const RELATED = {
+    meat:    ["matchan", "seafood", "kimchi"],
+    seafood: ["matchan", "meat",    "kimchi"],
+    matchan: ["veggie",  "kimchi",  "meat"],
+    veggie:  ["matchan", "kimchi",  "grain"],
+    kimchi:  ["veggie",  "matchan", "meat"],
+    grain:   ["health",  "snack",   "veggie"],
+    health:  ["snack",   "grain",   "matchan"],
+    snack:   ["grain",   "health",  "matchan"],
+  };
+
+  function pickByCat(catKey, minCount) {
+    minCount = minCount || 10;
+    const primary = ITEMS.filter(it => it.cat === catKey);
+    const picked = primary.slice();
+    if (picked.length >= minCount) return { items: picked, primaryCount: primary.length };
+
+    // 관련 카테고리에서 보충
+    const related = RELATED[catKey] || [];
+    for (const rcat of related) {
+      const more = ITEMS.filter(it => it.cat === rcat);
+      for (const it of more) {
+        if (picked.length >= minCount) break;
+        if (!picked.find(p => p.n === it.n)) picked.push(it);
+      }
+      if (picked.length >= minCount) break;
+    }
+    // 그래도 부족하면 전체에서 채움
+    if (picked.length < minCount) {
+      for (const it of ITEMS) {
+        if (picked.length >= minCount) break;
+        if (!picked.find(p => p.n === it.n)) picked.push(it);
+      }
+    }
+    return { items: picked, primaryCount: primary.length };
+  }
+
+  function handleCat(catKey) {
+    const cat = CATS[catKey];
+    if (!cat) return;
+    const { items, primaryCount } = pickByCat(catKey, 10);
+    if (!items.length) return;
+
+    removeEntry();
+
+    addUserBubble(`${cat.e} ${cat.label}`);
+    const t = addTyping();
+    setTimeout(() => {
+      t.remove();
+      // 1단계: 카테고리 톤 멘트 (감성)
+      const quip = cat.quips[Math.floor(Math.random() * cat.quips.length)];
+      addBotBubble(`${quip} ${cat.e}`);
+      setTimeout(() => {
+        // 2단계: 라인업 안내
+        addBotBubble(`이번 주 혜택 가득한 기획전에서 골라봤어요 👇`);
+        addCardsCarousel(items, cat.label);
+        setTimeout(() => addDeadlineCard(), 450);
+      }, 480);
+    }, 720);
+  }
+
+  document.getElementById("quick").addEventListener("click", (e) => {
+    const b = e.target.closest("button");
+    if (!b) return;
+    handleCat(b.dataset.cat);
+  });
+
+  function handleAge(ageKey) {
+    const age = AGES[ageKey];
+    if (!age) return;
+    const items = age.picks.map(name => ITEMS.find(it => it.n === name)).filter(Boolean);
+    if (!items.length) return;
+
+    removeEntry();
+
+    addUserBubble(`${age.e} ${age.label} 추천 받기`);
+    const t = addTyping();
+    setTimeout(() => {
+      t.remove();
+      const quip = age.quips[Math.floor(Math.random() * age.quips.length)];
+      addBotBubble(`${quip} ${age.e}`);
+      setTimeout(() => {
+        addBotBubble(`이번 주 혜택 가득한 기획전에서 골라봤어요 👇`);
+        addCardsCarousel(items, age.label);
+        setTimeout(() => addDeadlineCard(), 450);
+      }, 480);
+    }, 720);
+  }
+
+  document.getElementById("quick-age").addEventListener("click", (e) => {
+    const b = e.target.closest("button");
+    if (!b) return;
+    handleAge(b.dataset.age);
+  });
+
+  // ===== 카운트다운 =====
+  const DEADLINE = new Date(2026, 4, 14, 11, 30, 0);
+  function pad(n){ return String(n).padStart(2,'0'); }
+  function tick() {
+    document.querySelectorAll('[data-cd]').forEach(el => {
+      const now = new Date();
+      let diff = Math.floor((DEADLINE - now)/1000);
+      if (diff <= 0) {
+        el.closest('.deadline-card').classList.add('closed');
+        el.innerHTML = '<div style="text-align:center; padding: 10px 0; color: var(--ink-3); font-size:13px;">이번 주 주문은 마감되었어요</div>';
+        return;
+      }
+      const d = Math.floor(diff/86400); diff -= d*86400;
+      const h = Math.floor(diff/3600);  diff -= h*3600;
+      const m = Math.floor(diff/60);    diff -= m*60;
+      const s = diff;
+      el.innerHTML =
+        '<div class="cell"><b>'+pad(d)+'</b><span>일</span></div>' +
+        '<div class="cell"><b>'+pad(h)+'</b><span>시간</span></div>' +
+        '<div class="cell"><b>'+pad(m)+'</b><span>분</span></div>' +
+        '<div class="cell"><b>'+pad(s)+'</b><span>초</span></div>';
+    });
+  }
+  setInterval(tick, 1000);
+</script>
+
+<!-- 방문/클릭 통계 (abacus.jasoncameron.dev) -->
+<script>
+(function(){
+  var NS = 'durecoop-weekend-pick';
+  var API = 'https://abacus.jasoncameron.dev/hit/' + NS + '/';
+  function hit(key){
+    try { fetch(API + key, { mode: 'cors', keepalive: true, cache: 'no-store' }).catch(function(){}); } catch(e){}
+  }
+  hit('pageview');
+  try {
+    var params = new URLSearchParams(location.search);
+    var src = (params.get('utm_source') || '').toLowerCase();
+    if (src === 'rcs') hit('pageview-rcs');
+    else if (src) hit('pageview-other');
+    else hit('pageview-direct');
+  } catch(e){}
+  // 카테고리/연령 칩 클릭 집계
+  document.addEventListener('click', function(e){
+    var catBtn = e.target.closest('[data-cat]');
+    if (catBtn) hit('click-cat-' + catBtn.dataset.cat);
+    var ageBtn = e.target.closest('[data-age]');
+    if (ageBtn) hit('click-age-' + ageBtn.dataset.age);
+  }, { passive: true });
+  // 외부 링크 클릭 (ecoop.or.kr)
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a');
+    if (!a || !/ecoop\.or\.kr/i.test(a.href)) return;
+    if (a.classList.contains('promo-banner')) hit('click-promo-banner');
+    else if (a.classList.contains('cta'))      hit('click-deadline-cta');
+    else if (a.classList.contains('product'))  hit('click-product');
+    hit('click-all');
+  }, { passive: true });
+})();
+</script>
+</body>
+</html>
