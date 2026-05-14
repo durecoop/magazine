@@ -10,112 +10,139 @@
   --gray:#86868b; --bg:#f5f5f7; --card:#fff; --text:#1d1d1f;
 }
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased}
-.wrap{max-width:920px;margin:0 auto;background:var(--bg)}
+html{font-size:17px}
+body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.75;-webkit-font-smoothing:antialiased}
+.wrap{max-width:960px;margin:0 auto;background:var(--bg)}
 
-.hd{background:linear-gradient(135deg,var(--green-deep),var(--green) 40%,var(--green-light));color:#fff;padding:2rem 1.5rem 1.5rem}
-.hd .badge{display:inline-block;background:rgba(255,255,255,.15);padding:5px 12px;border-radius:20px;font-size:.72rem;font-weight:500;margin-bottom:8px}
-.hd h1{font-size:1.5rem;font-weight:900;line-height:1.3}
-.hd .sub{font-size:.85rem;opacity:.85;margin-top:6px}
-.hd .navlinks{margin-top:10px;font-size:.72rem}
-.hd a{color:#fff;opacity:.9;text-decoration:none;margin-right:8px;padding:4px 10px;background:rgba(255,255,255,.12);border-radius:6px;display:inline-block;margin-top:4px}
-.hd a:hover{background:rgba(255,255,255,.25)}
+.hd{background:linear-gradient(135deg,var(--green-deep),var(--green) 40%,var(--green-light));color:#fff;padding:2.2rem 1.5rem 1.8rem}
+.hd .badge{display:inline-block;background:rgba(255,255,255,.15);padding:6px 14px;border-radius:20px;font-size:.85rem;font-weight:500;margin-bottom:10px}
+.hd h1{font-size:1.8rem;font-weight:900;line-height:1.3}
+.hd .sub{font-size:1rem;opacity:.88;margin-top:8px}
+.hd .navlinks{margin-top:14px;font-size:.85rem}
+.hd a{color:#fff;opacity:.95;text-decoration:none;margin-right:8px;padding:6px 13px;background:rgba(255,255,255,.15);border-radius:8px;display:inline-block;margin-top:5px;font-weight:600}
+.hd a:hover{background:rgba(255,255,255,.28)}
 
 .ab{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
-.ab .ai{padding:14px 8px;text-align:center;color:#fff}
+.ab .ai{padding:16px 8px;text-align:center;color:#fff}
 .ab .ai:nth-child(1){background:#c0392b}
 .ab .ai:nth-child(2){background:#e67e22}
 .ab .ai:nth-child(3){background:#27ae60}
 .ab .ai:nth-child(4){background:#2980b9}
-.ab .al{font-size:.65rem;opacity:.85;font-weight:500}
-.ab .av{font-size:1.1rem;font-weight:900;margin-top:1px}
-.ab .ax{font-size:.6rem;opacity:.75;margin-top:1px}
+.ab .al{font-size:.78rem;opacity:.9;font-weight:500}
+.ab .av{font-size:1.45rem;font-weight:900;margin-top:2px}
+.ab .ax{font-size:.7rem;opacity:.8;margin-top:1px}
 
-.sec{padding:1.4rem .9rem .4rem}
-.st{font-size:1.05rem;font-weight:800;margin-bottom:.5rem;display:flex;align-items:center;gap:8px;color:var(--green-deep)}
-.st .num{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;background:var(--green-deep);color:#fff;border-radius:50%;font-size:.78rem;font-weight:700}
+.sec{padding:1.8rem 1rem .5rem}
+.st{font-size:1.35rem;font-weight:900;margin-bottom:.6rem;display:flex;align-items:center;gap:10px;color:var(--green-deep)}
+.st .num{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;background:var(--green-deep);color:#fff;border-radius:50%;font-size:.95rem;font-weight:800;flex-shrink:0}
 
-/* 친절한 설명 박스 */
-.explain{background:var(--blue-pale);border-radius:12px;padding:1rem;margin:.5rem 0 1rem;border-left:4px solid var(--blue)}
-.explain .et{font-weight:800;font-size:.85rem;color:var(--blue);margin-bottom:6px;display:flex;align-items:center;gap:5px}
-.explain p{font-size:.82rem;color:var(--text);line-height:1.75}
-.explain p+p{margin-top:8px}
-.explain b{color:var(--green-deep)}
+/* 임팩트 한줄 정의 - 섹션 상단 */
+.tagline{background:var(--green-deep);color:#fff;padding:.9rem 1.1rem;border-radius:10px;font-size:1.05rem;font-weight:700;line-height:1.5;margin-bottom:1rem;display:flex;gap:10px;align-items:flex-start}
+.tagline .lead{flex-shrink:0;font-size:1.2rem}
 
-.cd{background:var(--card);border-radius:12px;padding:1rem;margin-bottom:8px;box-shadow:0 1px 6px rgba(0,0,0,.06)}
-.cd h3{font-size:.86rem;font-weight:700;margin-bottom:8px;color:var(--green-deep)}
+/* 하단 설명 박스 */
+.explain-bottom{background:var(--blue-pale);border-radius:12px;padding:1rem 1.1rem;margin:.5rem 0 .5rem;border-left:5px solid var(--blue);font-size:.92rem;line-height:1.78}
+.explain-bottom .et{font-weight:800;font-size:.95rem;color:var(--blue);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.explain-bottom p{color:var(--text)}
+.explain-bottom p+p{margin-top:8px}
+.explain-bottom b{color:var(--green-deep)}
 
-/* 비교 박스 — 본 단협 vs 전체 평균 */
-.compare{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
-.compare .col{background:#fafafa;border-radius:10px;padding:.75rem;text-align:center}
-.compare .col.me{background:var(--green-pale)}
-.compare .col .lbl{font-size:.66rem;color:var(--gray);font-weight:500}
-.compare .col .val{font-size:1.5rem;font-weight:900;color:var(--green-deep);margin:4px 0}
-.compare .col .desc{font-size:.66rem;color:var(--gray)}
-.compare .col.me .val{color:var(--green-deep)}
+.cd{background:var(--card);border-radius:12px;padding:1.1rem;margin-bottom:10px;box-shadow:0 1px 6px rgba(0,0,0,.06)}
+.cd h3{font-size:1rem;font-weight:800;margin-bottom:10px;color:var(--green-deep)}
 
-.verdict{margin-top:10px;padding:8px 12px;border-radius:8px;font-size:.78rem;font-weight:700;text-align:center}
-.verdict.high{background:var(--green-pale);color:#1b5e20}
-.verdict.low{background:var(--red-pale);color:#c62828}
-.verdict.eq{background:#f5f5f5;color:#555}
+/* 평균 비교 — 큰 시각화 */
+.diff-block{background:var(--card);border-radius:14px;padding:1.2rem 1rem;margin-bottom:12px;box-shadow:0 1px 8px rgba(0,0,0,.08);border:1px solid #f0f0f0}
+.diff-block .title{font-size:1rem;font-weight:800;color:var(--green-deep);text-align:center;margin-bottom:.8rem}
+.diff-pair{display:grid;grid-template-columns:1fr auto 1fr;gap:.8rem;align-items:center;margin:1rem 0}
+.diff-col{text-align:center;padding:.8rem;border-radius:10px}
+.diff-col.me{background:var(--green-pale)}
+.diff-col.avg{background:#f5f5f5}
+.diff-col .lbl{font-size:.78rem;color:var(--gray);font-weight:600;margin-bottom:.4rem}
+.diff-col .val{font-size:2.4rem;font-weight:900;color:var(--green-deep);line-height:1;letter-spacing:-1px}
+.diff-col.avg .val{color:#666}
+.diff-col .unit{font-size:.78rem;color:var(--gray);margin-top:.2rem}
+.diff-arrow{font-size:1.8rem;font-weight:900;color:var(--green-light)}
+.diff-arrow.down{color:var(--red)}
+.diff-arrow.eq{color:#999}
 
-/* 막대 차트 */
-.bar-wrap{margin:6px 0}
-.bar-row{display:grid;grid-template-columns:70px 1fr 80px;gap:8px;align-items:center;margin-bottom:5px;font-size:.74rem}
-.bar-label{color:var(--text);font-weight:500}
-.bar-track{background:#eee;border-radius:5px;height:22px;overflow:hidden;position:relative}
-.bar-fill{background:linear-gradient(90deg,var(--green-light),var(--green));height:100%;display:flex;align-items:center;padding-left:8px;color:#fff;font-size:.66rem;font-weight:700;border-radius:5px}
-.bar-fill.avg{background:linear-gradient(90deg,#aaa,#888);opacity:.5}
-.bar-val{text-align:right;font-size:.68rem;font-weight:600;color:var(--text)}
-.bar-pct{color:var(--gray);font-size:.65rem}
+.diff-summary{text-align:center;padding:.9rem;border-radius:10px;font-size:1.1rem;font-weight:800;margin-top:.5rem}
+.diff-summary.up{background:linear-gradient(90deg,#e8f5e9,#c8e6c9);color:#1b5e20}
+.diff-summary.down{background:linear-gradient(90deg,#ffebee,#ffcdd2);color:#b71c1c}
+.diff-summary.eq{background:#f5f5f5;color:#555}
+.diff-summary .pct{font-size:1.5rem;display:block;margin-top:2px}
 
-table.t{width:100%;border-collapse:collapse;font-size:.75rem;background:var(--card);border-radius:10px;overflow:hidden;box-shadow:0 1px 6px rgba(0,0,0,.06);margin-bottom:8px}
+/* 막대 차트 — 큼직하게 */
+.bar-wrap{margin:8px 0}
+.bar-row{display:grid;grid-template-columns:80px 1fr 100px;gap:10px;align-items:center;margin-bottom:7px;font-size:.86rem}
+.bar-label{color:var(--text);font-weight:600}
+.bar-track{background:#eee;border-radius:6px;height:28px;overflow:hidden;position:relative}
+.bar-fill{background:linear-gradient(90deg,var(--green-light),var(--green));height:100%;display:flex;align-items:center;padding-left:10px;color:#fff;font-size:.8rem;font-weight:800;border-radius:6px}
+.bar-fill.avg{background:linear-gradient(90deg,#aaa,#888);opacity:.55}
+.bar-val{text-align:right;font-size:.8rem;font-weight:700;color:var(--text)}
+.bar-pct{color:var(--gray);font-size:.72rem;font-weight:500}
+
+table.t{width:100%;border-collapse:collapse;font-size:.92rem;background:var(--card);border-radius:10px;overflow:hidden;box-shadow:0 1px 6px rgba(0,0,0,.06);margin-bottom:10px}
 table.t thead{background:var(--green)}
-table.t th{padding:9px 6px;font-weight:600;text-align:center;font-size:.66rem;color:#fff}
-table.t td{padding:8px 6px;text-align:center;border-bottom:1px solid #f0f0f0;font-size:.72rem}
+table.t th{padding:11px 7px;font-weight:700;text-align:center;font-size:.78rem;color:#fff}
+table.t td{padding:10px 7px;text-align:center;border-bottom:1px solid #f0f0f0;font-size:.86rem}
 table.t tr:last-child td{border-bottom:none}
-table.t .ng{color:var(--red);font-weight:700}
-table.t .ps{color:#27ae60;font-weight:700}
+table.t .ng{color:var(--red);font-weight:800}
+table.t .ps{color:#27ae60;font-weight:800}
 table.t .hl{background:var(--warm)}
-table.t td.lt{text-align:left;padding-left:12px}
+table.t td.lt{text-align:left;padding-left:14px}
 
-/* 통찰 박스 */
-.insight-box{background:var(--warm);border-radius:10px;padding:.9rem 1rem;margin:6px 0;border-left:4px solid var(--warm-line)}
+.insight-box{background:var(--warm);border-radius:11px;padding:1rem 1.1rem;margin:8px 0;border-left:5px solid var(--warm-line)}
 .insight-box.danger{background:var(--red-pale);border-left-color:var(--red)}
 .insight-box.good{background:var(--green-pale);border-left-color:var(--green-light)}
-.insight-box .it{font-weight:800;font-size:.85rem;margin-bottom:4px;color:#7a5300}
+.insight-box .it{font-weight:800;font-size:1rem;margin-bottom:6px;color:#7a5300}
 .insight-box.danger .it{color:var(--red)}
 .insight-box.good .it{color:#1b5e20}
-.insight-box p{font-size:.78rem;color:#444;line-height:1.7}
+.insight-box p{font-size:.92rem;color:#333;line-height:1.75}
 
-/* 인덱스 페이지 카드 */
-.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;padding:.9rem}
-.pcard{background:var(--card);border-radius:12px;padding:1rem;box-shadow:0 1px 6px rgba(0,0,0,.06);text-decoration:none;color:var(--text);transition:transform .15s,box-shadow .15s;display:block}
-.pcard:hover{transform:translateY(-2px);box-shadow:0 4px 14px rgba(0,0,0,.12)}
-.pcard .rank{font-size:.72rem;color:var(--gray)}
-.pcard h3{font-size:1.05rem;font-weight:800;color:var(--green-deep);margin:4px 0 10px}
-.pcard .mini{display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:.72rem}
-.pcard .mini b{color:var(--green-deep);font-size:.95rem;display:block}
-.pcard .badges{margin-top:10px;display:flex;gap:5px;flex-wrap:wrap}
-.tag{display:inline-block;padding:3px 9px;border-radius:8px;font-size:.62rem;font-weight:600}
+/* ====== 인덱스 페이지 ====== */
+.guide-banner{background:linear-gradient(135deg,#fff8e1,#ffe0b2);border:2px dashed var(--warm-line);border-radius:14px;padding:1.4rem 1.2rem;margin:1rem;text-align:center}
+.guide-banner h2{font-size:1.4rem;font-weight:900;color:#7a5300;margin-bottom:.5rem}
+.guide-banner h2 .arrow{font-size:1.6rem;animation:bounce 1.8s infinite}
+.guide-banner p{font-size:.98rem;color:#5a4400;line-height:1.65}
+.guide-banner b{color:#c0392b}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+
+.section-intro{padding:0 1rem .5rem;font-size:.95rem;color:#555;line-height:1.75}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;padding:1rem}
+.pcard{background:var(--card);border-radius:14px;padding:1.1rem;box-shadow:0 1px 6px rgba(0,0,0,.06);text-decoration:none;color:var(--text);transition:transform .15s,box-shadow .15s;display:block;border:2px solid transparent}
+.pcard:hover{transform:translateY(-3px);box-shadow:0 6px 18px rgba(0,0,0,.14);border-color:var(--green-light)}
+.pcard .rank{font-size:.82rem;color:var(--gray);font-weight:600}
+.pcard h3{font-size:1.2rem;font-weight:900;color:var(--green-deep);margin:5px 0 12px}
+.pcard .click-cue{display:inline-block;float:right;font-size:.8rem;color:var(--green-light);font-weight:700}
+.pcard .mini{display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:.82rem}
+.pcard .mini div{background:#fafafa;padding:8px 10px;border-radius:8px}
+.pcard .mini b{color:var(--green-deep);font-size:1.05rem;display:block;margin-top:2px}
+.pcard .badges{margin-top:12px;display:flex;gap:5px;flex-wrap:wrap}
+.tag{display:inline-block;padding:4px 10px;border-radius:8px;font-size:.72rem;font-weight:700}
 .tag.senior{background:#e3f2fd;color:#1976d2}
 .tag.young{background:#fff3e0;color:#ef6c00}
 .tag.balance{background:#f3e5f5;color:#7b1fa2}
 .tag.high{background:#e8f5e9;color:#2e7d32}
 .tag.low{background:#ffebee;color:#c62828}
 
-footer{padding:1.5rem 1rem;text-align:center;color:var(--gray);font-size:.7rem;border-top:1px solid #eee;margin-top:1.5rem}
+footer{padding:2rem 1rem;text-align:center;color:var(--gray);font-size:.82rem;border-top:1px solid #eee;margin-top:2rem}
 footer a{color:var(--green-light);margin:0 6px}
 
 @media (min-width:768px){
-  .hd{padding:2.5rem 2rem 2rem}
-  .hd h1{font-size:2rem}
-  .sec{padding:1.7rem 1.3rem .6rem}
-  .st{font-size:1.18rem}
-  .ab .av{font-size:1.3rem}
-  table.t{font-size:.85rem}
-  table.t th{font-size:.78rem;padding:11px 8px}
-  table.t td{font-size:.82rem;padding:9px 8px}
+  html{font-size:18px}
+  .hd{padding:2.8rem 2rem 2.2rem}
+  .hd h1{font-size:2.3rem}
+  .sec{padding:2rem 1.5rem .7rem}
+  .st{font-size:1.5rem}
+  .tagline{font-size:1.18rem;padding:1.1rem 1.3rem}
+  .ab .av{font-size:1.7rem}
+  .ab .al{font-size:.86rem}
+  .diff-col .val{font-size:3rem}
+  table.t{font-size:1rem}
+  table.t th{font-size:.88rem;padding:13px 9px}
+  table.t td{font-size:.95rem;padding:11px 9px}
+  .guide-banner h2{font-size:1.7rem}
 }
 </style></head><body>
 <div class="wrap">
@@ -135,26 +162,21 @@ footer a{color:var(--green-light);margin:0 6px}
 </div>
 
 <div class="sec">
-<div class="explain">
-<div class="et">📖 이 보고서를 만든 이유</div>
-<p>두레생협은 23개 회원생협(단협)이 모여 운영됩니다. 같은 두레라도 단협마다 조합원 연령, 가입 기간, 구매 습관이 매우 달라요. <b>"두레 평균"</b>만 보면 우리 단협의 강점과 약점이 가려집니다.</p>
-<p>이 페이지는 <b>원주생협</b>의 4월 한 달치 무점포(온라인·택배) 이용 데이터를 전체 21단협 평균과 비교해서, 우리 단협이 어디가 잘하고 있고 어디를 고쳐야 하는지 한눈에 보기 위해 만들었습니다.</p>
-</div>
-</div>
+<div class="st"><span class="num">1</span>기본 지표</div>
+<div class="tagline"><span class="lead">📌</span><span>우리 단협이 평균보다 <b>크고 작은지·강하고 약한지</b>를 가장 먼저 봅니다.</span></div>
 
-<div class="sec">
-<div class="st"><span class="num">1</span>기본 지표 — 우리 단협이 얼마나 크나요?</div>
-
-<div class="explain">
-<div class="et">🤔 무엇을 봐야 하나요?</div>
-<p>• <b>이용 조합원수</b>: 4월에 무점포(온라인)로 한 번이라도 구매한 조합원 수입니다. 단협의 활성 크기를 보여줍니다.</p>
-<p>• <b>매출</b>: 4월 한 달 동안 그 단협에서 발생한 무점포 매출 합계입니다.</p>
-<p>• <b>인당매출(ARPU)</b>: 한 사람당 한 달 동안 평균 얼마를 썼는지. <b>이 숫자가 평균보다 높으면 조합원 한 명 한 명이 더 적극적으로 이용</b>한다는 뜻입니다.</p>
-<p>• <b>객단가(AOV)</b>: 한 번 주문할 때 평균 얼마를 쓰는지. 인당매출은 빈도×객단가로 결정됩니다.</p>
+<div class="diff-block">
+<div class="title">인당매출 (ARPU) — 한 사람이 한 달에 쓴 돈</div>
+<div class="diff-pair">
+<div class="diff-col me"><div class="lbl">본 단협</div><div class="val">166,343</div><div class="unit">원</div></div>
+<div class="diff-arrow down">▼</div>
+<div class="diff-col avg"><div class="lbl">전체 평균</div><div class="val">187,233</div><div class="unit">원</div></div>
+</div>
+<div class="diff-summary down">평균보다 낮음<span class="pct">-11.2%p차이</span></div>
 </div>
 
 <table class="t">
-<thead><tr><th>지표</th><th>본 단협</th><th>전체 평균</th><th>판정</th></tr></thead>
+<thead><tr><th>지표</th><th>본 단협</th><th>평균</th><th>비율</th></tr></thead>
 <tbody>
 <tr><td>이용 조합원</td><td><b>92명</b></td><td>299명</td><td class="ng">31%</td></tr>
 <tr><td>4월 매출</td><td><b>15M원</b></td><td>56M원</td><td class="ng">27%</td></tr>
@@ -162,220 +184,215 @@ footer a{color:var(--green-light);margin:0 6px}
 <tr><td>객단가(AOV)</td><td><b>81,837원</b></td><td>78,644원</td><td class="ps">104%</td></tr>
 <tr><td>주문 건수</td><td>187건</td><td>712건</td><td>26%</td></tr>
 </tbody></table>
-<div class="insight-box danger"><div class="it">⚠️ 인당매출 약세 — 평균보다 -11% 낮음</div><p>조합원은 있는데 한 사람당 이용량이 평균보다 적어요. 객단가가 낮은 건지, 한 달에 자주 안 사는 건지 아래 항목들을 더 봐야 합니다.</p></div></div>
-<div class="sec">
-<div class="st"><span class="num">2</span>누가 이용하나요? — 연령대 분포</div>
-
-<div class="explain">
-<div class="et">🤔 연령대를 왜 봐야 하나요?</div>
-<p>두레는 가족이 함께 가입하는 협동조합이지만, 실제로 <b>"누가 주문을 누르는가"</b>는 연령별로 다릅니다. 30대 부모님이 누르는 단협이 있고, 60대 어르신이 누르는 단협이 있어요.</p>
-<p>이 분포를 보면 우리 단협이 <b>어떤 세대의 단협</b>인지가 보입니다. 그에 따라 안내 방식, 상품 구성, 결제 동선이 달라야 합니다.</p>
-<p>📊 <b>그래프 읽는 법</b> — 막대 길이는 연령대별 인원수. 옆 숫자는 전체에서 차지하는 비중(%)입니다.</p>
+<div class="insight-box danger"><div class="it">⚠️ 인당매출 약세 — 평균 -11%</div><p>한 사람당 이용량이 평균보다 적어요. 객단가·빈도 둘 중 무엇이 문제인지 아래 항목에서 확인합니다.</p></div>
+<div class="explain-bottom">
+<div class="et">📖 이 지표들은 무엇을 의미하나요?</div>
+<p>• <b>이용 조합원</b> — 4월 한 달에 무점포(온라인·택배)로 한 번이라도 산 사람 수.</p>
+<p>• <b>인당매출(ARPU)</b> — 한 사람이 한 달 동안 평균 얼마를 썼는지. <b>높을수록 활용도 높음</b>.</p>
+<p>• <b>객단가(AOV)</b> — 한 번 주문할 때 평균 금액. ARPU = AOV × 주문 빈도.</p>
+<p>두레는 23개 단협이 모여 운영되지만, 단협마다 조합원 특성이 다 달라요. <b>"평균"만 보면 우리 단협의 진짜 모습이 가려집니다.</b></p>
+</div>
 </div>
 
-<div class="cd"><h3>본 단협 연령 분포 (4월 활동자 92명)</h3>
+<div class="sec">
+<div class="st"><span class="num">2</span>누가 사나요 — 연령대</div>
+<div class="tagline"><span class="lead">👵👶</span><span>같은 두레라도 <b>30대 부모님이 누르는 단협</b>이 있고 <b>60대 어르신이 누르는 단협</b>이 있습니다.</span></div>
+
+<div class="diff-block">
+<div class="title">시니어 비중 (60대 이상)</div>
+<div class="diff-pair">
+<div class="diff-col me"><div class="lbl">본 단협</div><div class="val">28.3</div><div class="unit">%</div></div>
+<div class="diff-arrow eq">≈</div>
+<div class="diff-col avg"><div class="lbl">전체 평균</div><div class="val">28.9</div><div class="unit">%</div></div>
+</div>
+<div class="diff-summary eq">평균과 비슷<span class="pct">-2.1%p차이</span></div>
+</div>
+
+<div class="cd"><h3>연령대 분포 — 본 단협 (92명)</h3>
 <div class="bar-wrap"><div class="bar-row">
 <div class="bar-label">20대 이하</div>
 <div class="bar-track"><div class="bar-fill" style="width:6.5%">2</div></div>
-<div class="bar-val">2.2% <span class="bar-pct">(평균 1%)</span></div>
+<div class="bar-val">2.2%<br><span class="bar-pct">평균 1%</span></div>
 </div><div class="bar-row">
 <div class="bar-label">30대</div>
 <div class="bar-track"><div class="bar-fill" style="width:19.4%">6</div></div>
-<div class="bar-val">6.5% <span class="bar-pct">(평균 4%)</span></div>
+<div class="bar-val">6.5%<br><span class="bar-pct">평균 4%</span></div>
 </div><div class="bar-row">
 <div class="bar-label">40대</div>
 <div class="bar-track"><div class="bar-fill" style="width:48.4%">15</div></div>
-<div class="bar-val">16.3% <span class="bar-pct">(평균 15%)</span></div>
+<div class="bar-val">16.3%<br><span class="bar-pct">평균 15%</span></div>
 </div><div class="bar-row">
 <div class="bar-label">50대</div>
 <div class="bar-track"><div class="bar-fill" style="width:100.0%">31</div></div>
-<div class="bar-val">33.7% <span class="bar-pct">(평균 41%)</span></div>
+<div class="bar-val">33.7%<br><span class="bar-pct">평균 41%</span></div>
 </div><div class="bar-row">
 <div class="bar-label">60대</div>
 <div class="bar-track"><div class="bar-fill" style="width:71.0%">22</div></div>
-<div class="bar-val">23.9% <span class="bar-pct">(평균 23%)</span></div>
+<div class="bar-val">23.9%<br><span class="bar-pct">평균 23%</span></div>
 </div><div class="bar-row">
 <div class="bar-label">70대+</div>
 <div class="bar-track"><div class="bar-fill" style="width:12.9%">4</div></div>
-<div class="bar-val">4.3% <span class="bar-pct">(평균 6%)</span></div>
+<div class="bar-val">4.3%<br><span class="bar-pct">평균 6%</span></div>
 </div><div class="bar-row">
 <div class="bar-label">미상</div>
 <div class="bar-track"><div class="bar-fill" style="width:38.7%">12</div></div>
-<div class="bar-val">13.0% <span class="bar-pct">(평균 10%)</span></div>
+<div class="bar-val">13.0%<br><span class="bar-pct">평균 10%</span></div>
 </div></div></div>
-<div class="cd"><h3>시니어(60대+) 비중 — 평균과 비교</h3>
-<div class="bar-wrap">
-<div class="bar-row">
-<div class="bar-label">본 단협</div>
-<div class="bar-track"><div class="bar-fill" style="width:97.94692703675956%">28</div></div>
-<div class="bar-val">28.3%</div>
-</div>
-<div class="bar-row">
-<div class="bar-label">전체 평균</div>
-<div class="bar-track"><div class="bar-fill avg" style="width:100.0%">29</div></div>
-<div class="bar-val">28.9%</div>
+<div class="explain-bottom">
+<div class="et">📖 연령대를 왜 보나요?</div>
+<p>두레는 가족 단위로 가입하지만, 실제 <b>"주문을 누르는 사람"</b>은 연령별로 달라요. 그에 따라 <b>안내·상품·결제 동선</b>이 달라야 합니다.</p>
+<p>📊 막대 길이 = 인원수, 옆 숫자 = 비중(%), 회색은 전체 평균 비중. 우리 단협 막대가 평균과 다르면 그게 우리만의 특색입니다.</p>
 </div>
 </div>
-<div class="verdict eq">평균보다 -2.1% (비슷)</div>
-</div>
-<div class="insight-box"><div class="it">⚖️ 균형 단협 (시니어 28%)</div><p>젊은층과 시니어가 균형 있게 섞여 있습니다. 두 세대 모두 만족할 수 있는 상품 라인업이 필요합니다.</p></div></div>
-<div class="sec">
-<div class="st"><span class="num">3</span>얼마나 오래 다녔나요? — 가입연차</div>
 
-<div class="explain">
-<div class="et">🤔 왜 가입연차를 보나요?</div>
-<p>가입연차는 <b>두레와의 관계가 얼마나 깊은지</b>를 보여줍니다. 가입한 지 10년이 넘은 조합원은 두레 상품·시스템·생활 습관이 모두 익숙해진 사람들이에요. 떠나는 비율이 낮고, 한 번 구매할 때 더 많이 삽니다.</p>
-<p>반대로 1년 미만 신규 조합원은 "두레가 어떤 곳인지 알아보는 중"이라 첫 구매가 두 번째로 이어지는 비율이 낮아요. <b>이 구간의 정착이 미래 매출을 결정</b>합니다.</p>
-<p>📊 <b>읽는 법</b> — "10년+" 비율이 평균보다 훨씬 높으면 <b>안정된 충성 기반</b>, "1년 미만"이 높으면 <b>성장 모멘텀</b>입니다.</p>
+<div class="sec">
+<div class="st"><span class="num">3</span>얼마나 오래 다녔나 — 가입연차</div>
+<div class="tagline"><span class="lead">🌳</span><span>10년+ 충성층은 <b>매출 안정의 뿌리</b>, 신규는 <b>미래 성장 모멘텀</b>입니다.</span></div>
+
+<div class="diff-block">
+<div class="title">10년+ 충성층 비중</div>
+<div class="diff-pair">
+<div class="diff-col me"><div class="lbl">본 단협</div><div class="val">40.2</div><div class="unit">%</div></div>
+<div class="diff-arrow down">▼</div>
+<div class="diff-col avg"><div class="lbl">전체 평균</div><div class="val">47.1</div><div class="unit">%</div></div>
+</div>
+<div class="diff-summary down">평균보다 낮음<span class="pct">-14.7%p차이</span></div>
 </div>
 
 <div class="cd"><h3>가입연차 분포</h3>
 <div class="bar-wrap"><div class="bar-row">
 <div class="bar-label">1년 미만</div>
 <div class="bar-track"><div class="bar-fill" style="width:33.3%">8</div></div>
-<div class="bar-val">8.7% <span class="bar-pct">(평균 8%)</span></div>
+<div class="bar-val">8.7%<br><span class="bar-pct">평균 8%</span></div>
 </div><div class="bar-row">
 <div class="bar-label">1~3년</div>
 <div class="bar-track"><div class="bar-fill" style="width:54.2%">13</div></div>
-<div class="bar-val">14.1% <span class="bar-pct">(평균 11%)</span></div>
+<div class="bar-val">14.1%<br><span class="bar-pct">평균 11%</span></div>
 </div><div class="bar-row">
 <div class="bar-label">3~5년</div>
 <div class="bar-track"><div class="bar-fill" style="width:75.0%">18</div></div>
-<div class="bar-val">19.6% <span class="bar-pct">(평균 10%)</span></div>
+<div class="bar-val">19.6%<br><span class="bar-pct">평균 10%</span></div>
 </div><div class="bar-row">
 <div class="bar-label">5~10년</div>
 <div class="bar-track"><div class="bar-fill" style="width:66.7%">16</div></div>
-<div class="bar-val">17.4% <span class="bar-pct">(평균 22%)</span></div>
+<div class="bar-val">17.4%<br><span class="bar-pct">평균 22%</span></div>
 </div><div class="bar-row">
 <div class="bar-label">10~15년</div>
 <div class="bar-track"><div class="bar-fill" style="width:54.2%">13</div></div>
-<div class="bar-val">14.1% <span class="bar-pct">(평균 19%)</span></div>
+<div class="bar-val">14.1%<br><span class="bar-pct">평균 19%</span></div>
 </div><div class="bar-row">
 <div class="bar-label">15년+</div>
 <div class="bar-track"><div class="bar-fill" style="width:100.0%">24</div></div>
-<div class="bar-val">26.1% <span class="bar-pct">(평균 29%)</span></div>
-</div></div></div>
+<div class="bar-val">26.1%<br><span class="bar-pct">평균 29%</span></div>
+</div></div></div><div class="insight-box"><div class="it">🌱 신규 비중 큰 단협 (10년+ 40%만)</div><p>장기 충성층 적고 신규 비중 큼. 첫구매 정착에 자원 집중하면 폭발 가능.</p></div><div class="insight-box good"><div class="it">🌱 신규 유입 활발 (3년 미만 23%)</div><p>최근 3년 안에 가입한 조합원이 많음. 정착 동선만 강화하면 5년 뒤 충성층으로 성장.</p></div>
+<div class="explain-bottom">
+<div class="et">📖 가입연차를 왜 보나요?</div>
+<p>가입연차는 <b>두레와 관계의 깊이</b>를 보여줍니다. 10년 넘은 조합원은 상품·시스템·습관이 다 익숙해서 떠나는 비율이 낮고 한 번에 많이 삽니다.</p>
+<p>반대로 1년 미만은 "두레 알아보는 중"이라 첫구매가 두 번째로 이어지는 비율이 낮아요. <b>이 구간의 정착이 미래 매출을 결정</b>합니다.</p>
+</div>
+</div>
 
-<div class="cd"><h3>10년+ 충성층 비중 — 평균과 비교</h3>
-<div class="bar-wrap">
-<div class="bar-row">
-<div class="bar-label">본 단협</div>
-<div class="bar-track"><div class="bar-fill" style="width:85.31998461470184%">40</div></div>
-<div class="bar-val">40.2%</div>
-</div>
-<div class="bar-row">
-<div class="bar-label">전체 평균</div>
-<div class="bar-track"><div class="bar-fill avg" style="width:100.0%">47</div></div>
-<div class="bar-val">47.1%</div>
-</div>
-</div>
-<div class="verdict low">평균보다 -14.7% ↓</div>
-</div>
-<div class="insight-box"><div class="it">🌱 신규 비중 큰 단협 (10년+ 40%만)</div><p>장기 충성층이 평균보다 적고, 상대적으로 새로 들어온 조합원 비중이 큽니다. 신규 정착에 자원을 더 집중하면 폭발적 성장 가능성이 있는 단협입니다.</p></div><div class="insight-box good"><div class="it">🌱 신규 유입 활발 (3년 미만 23%)</div><p>최근 3년 안에 가입한 조합원 비중이 높아요. 첫 구매가 두 번째 구매로 이어지는 동선만 강화하면 5년 뒤에는 충성층으로 성장합니다.</p></div></div>
 <div class="sec">
-<div class="st"><span class="num">4</span>누가 남고 누가 떠났나요? — 코호트 동학</div>
+<div class="st"><span class="num">4</span>누가 남고 누가 떠났나 — 코호트 동학</div>
+<div class="tagline"><span class="lead">🔄</span><span>작년 4월과 올해 4월을 비교해서 <b>충성/신규/이탈</b>을 가른 1년 동안의 변화입니다.</span></div>
 
-<div class="explain">
-<div class="et">🤔 잔존·신규·이탈이 뭐예요?</div>
-<p>같은 4월을 작년(2025년)과 올해(2026년)로 비교해서, 같은 조합원이 어떻게 움직였는지 본 것입니다.</p>
-<p>• <b>잔존</b> — 작년 4월에도 샀고, 올해 4월에도 산 사람. <b>충성 조합원</b>입니다. 이 그룹이 클수록 단협이 안정적입니다.</p>
-<p>• <b>복귀·신규</b> — 작년 4월엔 안 샀는데 올해 4월에 산 사람. <b>새로 들어왔거나 휴면에서 돌아온 그룹</b>입니다.</p>
-<p>• <b>이탈</b> — 작년 4월엔 샀는데 올해 4월엔 안 산 사람. <b>잠재 위험 그룹</b>입니다. 이 숫자가 클수록 단협이 새는 중입니다.</p>
-<p>📊 <b>이탈률</b> — 이탈 인원 ÷ (잔존 + 이탈). 25년 활동자 중 26년에 사라진 비율입니다.</p>
+<div class="diff-block">
+<div class="title">이탈률 — 작년 활동자 중 올해 사라진 비율</div>
+<div class="diff-pair">
+<div class="diff-col me"><div class="lbl">본 단협</div><div class="val">42.0</div><div class="unit">%</div></div>
+<div class="diff-arrow ">▲</div>
+<div class="diff-col avg"><div class="lbl">전체 평균</div><div class="val">35.5</div><div class="unit">%</div></div>
+</div>
+<div class="diff-summary up">평균보다 높음<span class="pct">+18.5%p차이</span></div>
 </div>
 
 <table class="t">
-<thead><tr><th>구분</th><th>본 단협</th><th>전체 평균</th><th>해석</th></tr></thead>
+<thead><tr><th>구분</th><th>본 단협</th><th>평균</th><th>의미</th></tr></thead>
 <tbody>
 <tr><td>잔존 (양월 모두 이용)</td><td><b>51명</b></td><td>195명</td><td>충성 조합원</td></tr>
 <tr><td>복귀·신규 (26-04만)</td><td><b>52명</b></td><td>141명</td><td>신규·복귀</td></tr>
 <tr><td>이탈 (25-04만)</td><td class="ng"><b>37명</b></td><td>107명</td><td>재유치 대상</td></tr>
 <tr class="hl"><td>이탈률</td><td><b>42.0%</b></td><td>35.5%</td><td>위험</td></tr>
 </tbody></table>
-<div class="insight-box danger"><div class="it">⚠️ 이탈률 높음 (42%)</div><p>작년 4월에 샀던 조합원 중 42%가 올해 4월에는 안 샀어요. 전체 평균(35%)보다 +7%p 높은 위험 신호입니다. <b>왜 떠났는지</b> 원인 파악이 시급합니다 — 단협 매장 변화, 배송 만족도, 상품 변화 등.</p></div><div class="insight-box good"><div class="it">🆕 신규 모멘텀 활발 (57%)</div><p>26년 4월 활동자 중 52명(57%)이 작년 4월에는 안 샀던 새 얼굴입니다. 신규 진입은 활발한데, 이들이 다음 달에도 다시 사는지(정착) 확인이 핵심입니다.</p></div></div>
-<div class="sec">
-<div class="st"><span class="num">5</span>얼마나 자주 사나요? — 이용 빈도</div>
+<div class="insight-box danger"><div class="it">⚠️ 이탈률 높음 (42%)</div><p>작년 4월에 샀던 조합원 중 42%가 올해 4월에는 사라졌어요. 평균(35%)보다 +7%p 높은 위험 신호.</p></div><div class="insight-box good"><div class="it">🆕 신규 모멘텀 활발 (57%)</div><p>26-04 활동자 중 52명(57%)이 새 얼굴. 정착 funnel만 잘 작동하면 매출 폭발.</p></div>
+<div class="explain-bottom">
+<div class="et">📖 이 용어들이 뭔가요?</div>
+<p>• <b>잔존</b> — 작년 4월에도 사고 올해 4월에도 산 사람. <b>충성 조합원</b>입니다. 이 그룹이 클수록 단협이 안정적.</p>
+<p>• <b>복귀·신규</b> — 작년엔 안 샀고 올해에 산 사람. <b>새로 들어왔거나 휴면에서 돌아온 그룹</b>.</p>
+<p>• <b>이탈</b> — 작년엔 샀는데 올해엔 안 산 사람. <b>잠재 위험 그룹</b>. 이 숫자가 클수록 단협이 새는 중.</p>
+<p>• <b>이탈률 = 이탈 ÷ (잔존+이탈)</b> — 25년 활동자 중 26년 사라진 비율.</p>
+</div>
+</div>
 
-<div class="explain">
-<div class="et">🤔 빈도를 왜 보나요?</div>
-<p>4월 한 달 동안 우리 단협 조합원이 <b>며칠</b> 동안 무점포 주문을 했는지를 봅니다. 두레 무점포는 보통 주 1~2회 정도 배송하니까, 4월에 4~5번 주문하면 매주 1번씩 산 셈이에요.</p>
-<p>• <b>1일 단발</b> — 한 달에 1번만 산 사람. 시도해보고 안 오는 패턴이거나, 가끔만 사는 라이트 유저입니다.</p>
-<p>• <b>2-3일</b> — 가벼운 정기 이용자.</p>
-<p>• <b>4-7일</b> — 거의 매주 이용하는 핵심 충성층.</p>
-<p>• <b>8일+ 충성</b> — 주 2회 이상 사는 슈퍼 충성 조합원. 매출의 큰 부분을 책임집니다.</p>
-<p>📊 <b>읽는 법</b> — 1일 단발이 평균보다 많으면 <b>정착 약화 신호</b>, 8일+ 충성이 많으면 <b>핵심층 두터움</b>.</p>
+<div class="sec">
+<div class="st"><span class="num">5</span>얼마나 자주 사나 — 이용 빈도</div>
+<div class="tagline"><span class="lead">📅</span><span><b>단발</b>이 많으면 정착 약화, <b>충성(8일+)</b>이 많으면 핵심층 두터움.</span></div>
+
+<div class="diff-block">
+<div class="title">1일 단발 비중 — 한 달에 1번만 산 사람</div>
+<div class="diff-pair">
+<div class="diff-col me"><div class="lbl">본 단협</div><div class="val">55.4</div><div class="unit">%</div></div>
+<div class="diff-arrow ">▲</div>
+<div class="diff-col avg"><div class="lbl">전체 평균</div><div class="val">46.5</div><div class="unit">%</div></div>
+</div>
+<div class="diff-summary up">평균보다 높음<span class="pct">+19.3%p차이</span></div>
 </div>
 
 <div class="cd"><h3>이용 빈도 분포</h3>
 <div class="bar-wrap"><div class="bar-row">
 <div class="bar-label">1일</div>
 <div class="bar-track"><div class="bar-fill" style="width:100.0%">51</div></div>
-<div class="bar-val">55.4% <span class="bar-pct">(평균 46%)</span></div>
+<div class="bar-val">55.4%<br><span class="bar-pct">평균 46%</span></div>
 </div><div class="bar-row">
 <div class="bar-label">2-3일</div>
 <div class="bar-track"><div class="bar-fill" style="width:54.9%">28</div></div>
-<div class="bar-val">30.4% <span class="bar-pct">(평균 32%)</span></div>
+<div class="bar-val">30.4%<br><span class="bar-pct">평균 32%</span></div>
 </div><div class="bar-row">
 <div class="bar-label">4-7일</div>
 <div class="bar-track"><div class="bar-fill" style="width:23.5%">12</div></div>
-<div class="bar-val">13.0% <span class="bar-pct">(평균 19%)</span></div>
+<div class="bar-val">13.0%<br><span class="bar-pct">평균 19%</span></div>
 </div><div class="bar-row">
 <div class="bar-label">8일+</div>
 <div class="bar-track"><div class="bar-fill" style="width:2.0%">1</div></div>
-<div class="bar-val">1.1% <span class="bar-pct">(평균 2%)</span></div>
+<div class="bar-val">1.1%<br><span class="bar-pct">평균 2%</span></div>
 </div></div></div>
 
-<div class="cd"><h3>1일 단발 비중 — 평균과 비교</h3>
-<div class="bar-wrap">
-<div class="bar-row">
-<div class="bar-label">본 단협</div>
-<div class="bar-track"><div class="bar-fill" style="width:100.0%">55</div></div>
-<div class="bar-val">55.4%</div>
+<div class="diff-block">
+<div class="title">8일+ 충성 비중 — 주 2회 이상 산 사람</div>
+<div class="diff-pair">
+<div class="diff-col me"><div class="lbl">본 단협</div><div class="val">1.1</div><div class="unit">%</div></div>
+<div class="diff-arrow down">▼</div>
+<div class="diff-col avg"><div class="lbl">전체 평균</div><div class="val">2.4</div><div class="unit">%</div></div>
 </div>
-<div class="bar-row">
-<div class="bar-label">전체 평균</div>
-<div class="bar-track"><div class="bar-fill avg" style="width:83.84546440869852%">46</div></div>
-<div class="bar-val">46.5%</div>
+<div class="diff-summary down">평균보다 낮음<span class="pct">-54.2%p차이</span></div>
 </div>
+<div class="insight-box danger"><div class="it">⚠️ 단발 이용 많음 (55%)</div><p>한 달 1번만 산 조합원이 평균보다 많아요. 두 번째 구매로 잘 안 이어지는 중. 첫구매 직후 안내·추천 점검 필요.</p></div>
+<div class="explain-bottom">
+<div class="et">📖 빈도 구간이 뭔가요?</div>
+<p>4월 한 달 동안 우리 단협 조합원이 <b>며칠</b> 동안 무점포 주문을 했는지를 봅니다.</p>
+<p>• <b>1일 (단발)</b> — 한 달에 1번만 산 사람. 시도해보고 안 오는 패턴이거나, 가끔만 사는 라이트 유저.</p>
+<p>• <b>2-3일</b> — 가벼운 정기 이용자.</p>
+<p>• <b>4-7일</b> — 거의 매주 이용하는 핵심 충성층.</p>
+<p>• <b>8일+ (충성)</b> — 주 2회 이상 사는 슈퍼 충성 조합원. 매출 큰 부분을 책임집니다.</p>
 </div>
-<div class="verdict high">평균보다 +19.3% ↑</div>
 </div>
 
-<div class="cd"><h3>8일+ 충성 비중 — 평균과 비교</h3>
-<div class="bar-wrap">
-<div class="bar-row">
-<div class="bar-label">본 단협</div>
-<div class="bar-track"><div class="bar-fill" style="width:45.79171562867215%">1</div></div>
-<div class="bar-val">1.1%</div>
-</div>
-<div class="bar-row">
-<div class="bar-label">전체 평균</div>
-<div class="bar-track"><div class="bar-fill avg" style="width:100.0%">2</div></div>
-<div class="bar-val">2.4%</div>
-</div>
-</div>
-<div class="verdict low">평균보다 -54.2% ↓</div>
-</div>
-<div class="insight-box danger"><div class="it">⚠️ 단발 이용 많음 (55%)</div><p>4월 한 달에 한 번만 산 조합원이 평균보다 많아요. 이분들은 두 번째 구매로 이어지는 데 어려움을 겪고 있어요. 첫 구매 직후 안내·추천이 잘 작동하는지 점검 필요합니다.</p></div></div>
 <div class="sec">
-<div class="st"><span class="num">6</span>무엇을 주로 사나요? — 인기 상품 TOP 10</div>
-
-<div class="explain">
-<div class="et">🤔 인기 상품을 왜 보나요?</div>
-<p>같은 두레라도 단협마다 잘 팔리는 상품이 달라요. 어떤 단협은 유정란이 압도적이고, 어떤 단협은 흑염소엑기스나 한우가 1위예요. 이 차이는 <b>그 단협 조합원의 라이프 스타일</b>을 그대로 보여줍니다.</p>
-<p>이 표는 <b>우리 단협의 4월 한 달 매출 TOP 10</b>을 보여줍니다. 단협 평균과 다른 상품이 1위라면, 그 단협만의 특색입니다.</p>
-</div>
+<div class="st"><span class="num">6</span>무엇을 사나 — 인기 상품 TOP 10</div>
+<div class="tagline"><span class="lead">🛒</span><span>같은 두레라도 잘 팔리는 상품이 단협마다 다릅니다 — 그게 <b>그 단협 조합원의 라이프스타일</b>입니다.</span></div>
 
 <table class="t">
-<thead><tr><th>순위</th><th>상품명</th><th>매출</th><th>전체 비중</th></tr></thead>
-<tbody><tr><td>1</td><td class="lt">흑염소엑기스</td><td>472,000원</td><td>3.1%</td></tr><tr><td>2</td><td class="lt">녹용엑기스(여성/60팩)</td><td>377,400원</td><td>2.5%</td></tr><tr><td>3</td><td class="lt">포기김치(10kg)</td><td>262,800원</td><td>1.7%</td></tr><tr><td>4</td><td class="lt">원삼유정란(15구)</td><td>240,500원</td><td>1.6%</td></tr><tr><td>5</td><td class="lt">훈제오리</td><td>209,900원</td><td>1.4%</td></tr><tr><td>6</td><td class="lt">유기농 귀리유(YOU)16팩</td><td>183,600원</td><td>1.2%</td></tr><tr><td>7</td><td class="lt">종합 과자 선물세트(온라인)</td><td>175,000원</td><td>1.1%</td></tr><tr><td>8</td><td class="lt">(G)3겹둥근휴지(30롤)</td><td>171,000원</td><td>1.1%</td></tr><tr><td>9</td><td class="lt">후브락스 사과(1.2kg)</td><td>167,100원</td><td>1.1%</td></tr><tr><td>10</td><td class="lt">유기농 레몬즙(20ml*14포)</td><td>162,600원</td><td>1.1%</td></tr></tbody></table></div>
+<thead><tr><th>순위</th><th>상품명</th><th>매출</th><th>비중</th></tr></thead>
+<tbody><tr><td>1</td><td class="lt">흑염소엑기스</td><td>472,000원</td><td>3.1%</td></tr><tr><td>2</td><td class="lt">녹용엑기스(여성/60팩)</td><td>377,400원</td><td>2.5%</td></tr><tr><td>3</td><td class="lt">포기김치(10kg)</td><td>262,800원</td><td>1.7%</td></tr><tr><td>4</td><td class="lt">원삼유정란(15구)</td><td>240,500원</td><td>1.6%</td></tr><tr><td>5</td><td class="lt">훈제오리</td><td>209,900원</td><td>1.4%</td></tr><tr><td>6</td><td class="lt">유기농 귀리유(YOU)16팩</td><td>183,600원</td><td>1.2%</td></tr><tr><td>7</td><td class="lt">종합 과자 선물세트(온라인)</td><td>175,000원</td><td>1.1%</td></tr><tr><td>8</td><td class="lt">(G)3겹둥근휴지(30롤)</td><td>171,000원</td><td>1.1%</td></tr><tr><td>9</td><td class="lt">후브락스 사과(1.2kg)</td><td>167,100원</td><td>1.1%</td></tr><tr><td>10</td><td class="lt">유기농 레몬즙(20ml*14포)</td><td>162,600원</td><td>1.1%</td></tr></tbody></table>
+<div class="explain-bottom">
+<div class="et">📖 인기 상품을 왜 보나요?</div>
+<p>한 단협은 유정란이 압도적이고, 한 단협은 흑염소엑기스나 한우가 1위예요. 이 차이가 <b>그 단협 조합원의 식생활·소득·연령</b>을 그대로 보여줍니다. 운영팀이 어디에 재고·배송 우선순위를 둘지 정할 때 1차 자료입니다.</p>
+</div>
+</div>
+
 <div class="sec">
 <div class="st"><span class="num">7</span>한눈에 보기 — 종합 평가</div>
-
-<div class="explain">
-<div class="et">📋 이 표는 어떻게 보나요?</div>
-<p>위에서 본 핵심 지표를 한 줄로 모았습니다. <b>"강점"</b>은 평균보다 좋은 것, <b>"약점"</b>은 평균보다 나쁜 것, <b>"평균"</b>은 비슷한 것입니다. 단협 운영의 다음 행동을 정할 때 이 표를 먼저 보세요.</p>
-</div>
+<div class="tagline"><span class="lead">📊</span><span>이 단협의 <b>강점 / 약점 / 평균</b>을 한 줄로 모았습니다. 다음 행동은 이 표를 먼저 보세요.</span></div>
 
 <table class="t">
 <thead><tr><th>지표</th><th>본 단협</th><th>평균</th><th>판정</th></tr></thead>
@@ -389,11 +406,11 @@ footer a{color:var(--green-light);margin:0 6px}
 <tr><td class="lt">8일+ 충성 비중</td><td>1.1%</td><td>2.4%</td><td class="">⚖️ 평균</td></tr>
 </tbody></table>
 
-<div class="explain" style="background:#fff3cc;border-left-color:#f39c12">
-<div class="et">💡 이 단협의 다음 행동은?</div>
-<p>• <b>이탈 원인 파악</b>: 평균보다 이탈률이 높습니다. 떠난 조합원에게 직접 안내·서비스 점검.</p>
-<p>• <b>신규 정착 강화</b>: 신규는 들어오는데 두 번째 구매로 안 이어집니다. 첫구매 다음 7일·30일 안내 트리거.</p>
-<p>• <b>전 세대 균형 운영</b>: 시니어·젊은층 모두 만족시킬 라인업.</p>
+<div class="insight-box" style="background:#fff3cc;border-left-color:#f39c12">
+<div class="it">💡 이 단협의 다음 행동은?</div>
+<p>• <b>이탈 원인 파악</b> — 평균보다 이탈률 높음. 떠난 조합원에게 직접 안내·서비스 점검.</p>
+<p>• <b>신규 정착 강화</b> — 신규는 들어오는데 두 번째로 안 이어짐. 첫구매 후 7일·30일 안내 트리거.</p>
+<p>• <b>전 세대 균형 운영</b> — 시니어·젊은층 모두 만족시킬 라인업.</p>
 </div>
 </div>
 
