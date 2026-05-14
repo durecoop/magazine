@@ -1,0 +1,300 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>4월 단협별 매장 매출 심층 분석</title><style>
+:root{--green-deep:#1a3a0a;--green:#2d5016;--green-light:#4a7c28;--green-pale:#e8f5e9;
+--warm:#fff8e1;--warm-line:#f39c12;--red:#c0392b;--red-pale:#fdecea;
+--orange:#e67e22;--blue:#2980b9;--blue-pale:#e3f2fd;
+--gray:#86868b;--bg:#f5f5f7;--card:#fff;--text:#1d1d1f;}
+*{margin:0;padding:0;box-sizing:border-box}
+html{font-size:17px}
+body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.75}
+.wrap{max-width:960px;margin:0 auto;background:var(--bg)}
+.hd{background:linear-gradient(135deg,#5a2d0d,#8b4513 40%,#c87333);color:#fff;padding:2.2rem 1.5rem 1.8rem}
+.hd .badge{display:inline-block;background:rgba(255,255,255,.15);padding:6px 14px;border-radius:20px;font-size:.85rem;font-weight:500;margin-bottom:10px}
+.hd h1{font-size:1.8rem;font-weight:900;line-height:1.3}
+.hd .sub{font-size:1rem;opacity:.88;margin-top:8px}
+.hd .navlinks{margin-top:14px;font-size:.85rem}
+.hd a{color:#fff;opacity:.95;text-decoration:none;margin-right:8px;padding:6px 13px;background:rgba(255,255,255,.15);border-radius:8px;display:inline-block;margin-top:5px;font-weight:600}
+.ab{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.ab .ai{padding:16px 8px;text-align:center;color:#fff}
+.ab .ai:nth-child(1){background:#c0392b}
+.ab .ai:nth-child(2){background:#e67e22}
+.ab .ai:nth-child(3){background:#27ae60}
+.ab .ai:nth-child(4){background:#2980b9}
+.ab .al{font-size:.78rem;opacity:.9}
+.ab .av{font-size:1.45rem;font-weight:900;margin-top:2px}
+.ab .ax{font-size:.7rem;opacity:.8}
+.sec{padding:1.8rem 1rem .5rem}
+.st{font-size:1.35rem;font-weight:900;margin-bottom:.6rem;display:flex;align-items:center;gap:10px;color:#5a2d0d}
+.st .num{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;background:#5a2d0d;color:#fff;border-radius:50%;font-size:.95rem;font-weight:800}
+.tagline{background:#5a2d0d;color:#fff;padding:.9rem 1.1rem;border-radius:10px;font-size:1.05rem;font-weight:700;line-height:1.5;margin-bottom:1rem;display:flex;gap:10px}
+.tagline .lead{flex-shrink:0;font-size:1.2rem}
+.explain-bottom{background:var(--blue-pale);border-radius:12px;padding:1rem 1.1rem;margin:.5rem 0;border-left:5px solid var(--blue);font-size:.92rem;line-height:1.78}
+.explain-bottom .et{font-weight:800;font-size:.95rem;color:var(--blue);margin-bottom:8px}
+.cd{background:var(--card);border-radius:12px;padding:1.1rem;margin-bottom:10px;box-shadow:0 1px 6px rgba(0,0,0,.06)}
+.cd h3{font-size:1rem;font-weight:800;margin-bottom:10px;color:#5a2d0d}
+.diff-block{background:var(--card);border-radius:14px;padding:1.2rem 1rem;margin-bottom:12px;box-shadow:0 1px 8px rgba(0,0,0,.08);border:1px solid #f0f0f0}
+.diff-block .title{font-size:1rem;font-weight:800;color:#5a2d0d;text-align:center;margin-bottom:.8rem}
+.diff-pair{display:grid;grid-template-columns:1fr auto 1fr;gap:.8rem;align-items:center;margin:1rem 0}
+.diff-col{text-align:center;padding:.8rem;border-radius:10px}
+.diff-col.me{background:#fdf5ec}
+.diff-col.avg{background:#f5f5f5}
+.diff-col .lbl{font-size:.78rem;color:var(--gray);font-weight:600;margin-bottom:.4rem}
+.diff-col .val{font-size:2.4rem;font-weight:900;color:#5a2d0d;line-height:1}
+.diff-col.avg .val{color:#666}
+.diff-col .unit{font-size:.78rem;color:var(--gray);margin-top:.2rem}
+.diff-arrow{font-size:1.8rem;font-weight:900;color:var(--green-light)}
+.diff-arrow.down{color:var(--red)}
+.diff-arrow.eq{color:#999}
+.diff-summary{text-align:center;padding:.9rem;border-radius:10px;font-size:1.1rem;font-weight:800;margin-top:.5rem}
+.diff-summary.up{background:linear-gradient(90deg,#e8f5e9,#c8e6c9);color:#1b5e20}
+.diff-summary.down{background:linear-gradient(90deg,#ffebee,#ffcdd2);color:#b71c1c}
+.diff-summary.eq{background:#f5f5f5;color:#555}
+.diff-summary .pct{font-size:1.5rem;display:block;margin-top:2px}
+.bar-wrap{margin:8px 0}
+.bar-row{display:grid;grid-template-columns:80px 1fr 100px;gap:10px;align-items:center;margin-bottom:7px;font-size:.86rem}
+.bar-label{color:var(--text);font-weight:600}
+.bar-track{background:#eee;border-radius:6px;height:28px;overflow:hidden}
+.bar-fill{background:linear-gradient(90deg,#c87333,#8b4513);height:100%;display:flex;align-items:center;padding-left:10px;color:#fff;font-size:.8rem;font-weight:800;border-radius:6px}
+.bar-fill.avg{background:linear-gradient(90deg,#aaa,#888);opacity:.55}
+.bar-val{text-align:right;font-size:.8rem;font-weight:700}
+.bar-pct{color:var(--gray);font-size:.72rem;font-weight:500}
+table.t{width:100%;border-collapse:collapse;font-size:.92rem;background:var(--card);border-radius:10px;overflow:hidden;box-shadow:0 1px 6px rgba(0,0,0,.06);margin-bottom:10px}
+table.t thead{background:#5a2d0d}
+table.t th{padding:11px 7px;font-weight:700;text-align:center;font-size:.78rem;color:#fff}
+table.t td{padding:10px 7px;text-align:center;border-bottom:1px solid #f0f0f0;font-size:.86rem}
+table.t .ng{color:var(--red);font-weight:800}
+table.t .ps{color:#27ae60;font-weight:800}
+table.t .hl{background:var(--warm)}
+table.t td.lt{text-align:left;padding-left:14px}
+.insight-box{background:var(--warm);border-radius:11px;padding:1rem 1.1rem;margin:8px 0;border-left:5px solid var(--warm-line)}
+.insight-box.danger{background:var(--red-pale);border-left-color:var(--red)}
+.insight-box.good{background:var(--green-pale);border-left-color:var(--green-light)}
+.insight-box .it{font-weight:800;font-size:1rem;margin-bottom:6px;color:#7a5300}
+.insight-box.danger .it{color:var(--red)}
+.insight-box.good .it{color:#1b5e20}
+.insight-box p{font-size:.92rem;color:#333;line-height:1.75}
+.guide-banner{background:linear-gradient(135deg,#fff8e1,#ffe0b2);border:2px dashed var(--warm-line);border-radius:14px;padding:1.4rem 1.2rem;margin:1rem;text-align:center}
+.guide-banner h2{font-size:1.4rem;font-weight:900;color:#7a5300;margin-bottom:.5rem}
+.guide-banner h2 .arrow{font-size:1.6rem;animation:bounce 1.8s infinite}
+.guide-banner p{font-size:.98rem;color:#5a4400;line-height:1.65}
+.guide-banner b{color:var(--red)}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;padding:1rem}
+.pcard{background:var(--card);border-radius:14px;padding:1.1rem;box-shadow:0 1px 6px rgba(0,0,0,.06);text-decoration:none;color:var(--text);transition:transform .15s,box-shadow .15s;display:block;border:2px solid transparent}
+.pcard:hover{transform:translateY(-3px);box-shadow:0 6px 18px rgba(0,0,0,.14);border-color:#c87333}
+.pcard .rank{font-size:.82rem;color:var(--gray);font-weight:600}
+.pcard h3{font-size:1.2rem;font-weight:900;color:#5a2d0d;margin:5px 0 12px}
+.pcard .click-cue{display:inline-block;float:right;font-size:.8rem;color:#c87333;font-weight:700}
+.pcard .mini{display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:.82rem}
+.pcard .mini div{background:#fafafa;padding:8px 10px;border-radius:8px}
+.pcard .mini b{color:#5a2d0d;font-size:1.05rem;display:block;margin-top:2px}
+.pcard .badges{margin-top:12px;display:flex;gap:5px;flex-wrap:wrap}
+.tag{display:inline-block;padding:4px 10px;border-radius:8px;font-size:.72rem;font-weight:700}
+.tag.senior{background:#e3f2fd;color:#1976d2}
+.tag.young{background:#fff3e0;color:#ef6c00}
+.tag.balance{background:#f3e5f5;color:#7b1fa2}
+.tag.high{background:#e8f5e9;color:#2e7d32}
+.tag.low{background:#ffebee;color:#c62828}
+footer{padding:2rem 1rem;text-align:center;color:var(--gray);font-size:.82rem;border-top:1px solid #eee;margin-top:2rem}
+@media (min-width:768px){html{font-size:18px}.hd{padding:2.8rem 2rem 2.2rem}.hd h1{font-size:2.3rem}.sec{padding:2rem 1.5rem .7rem}.st{font-size:1.5rem}.tagline{font-size:1.18rem;padding:1.1rem 1.3rem}.ab .av{font-size:1.7rem}.diff-col .val{font-size:3rem}.guide-banner h2{font-size:1.7rem}}
+</style></head><body><div class="wrap">
+<div class="hd"><span class="badge">단협별 매장 분석 · 4월 26년</span>
+<h1>21개 단협 매장 매출 심층 분석</h1>
+<div class="sub">우리 매장이 평균과 비교해 어디가 강하고 어디가 약한지 한눈에</div></div>
+<div class="guide-banner"><h2>👇 아래 카드를 눌러 들어가세요 <span class="arrow">↓</span></h2>
+<p>21개 단협이 매장 매출 순으로 나열되어 있어요. <b>본인 단협 카드 클릭</b>해서 매장 분석을 확인하세요.</p></div>
+<div class="sec">
+<div class="st"><span class="num">▸</span>이 자료는 무엇인가요</div>
+<div class="tagline"><span class="lead">🎯</span><span>매장은 <b>대면 거래</b> 채널 — 무점포와 다른 양상을 보여요. 매장만의 강점·약점을 알아야 합니다.</span></div>
+<div class="cd"><h3>전체 합계 (4월 매장)</h3><table class="t">
+<tr><td class="lt">총 이용 조합원</td><td><b>64,793</b>명</td></tr>
+<tr><td class="lt">총 4월 매장매출</td><td><b>85.63</b>억원</td></tr>
+<tr><td class="lt">총 거래 건수</td><td><b>278,888</b>건</td></tr>
+<tr><td class="lt">평균 인당매출</td><td><b>132,166</b>원</td></tr>
+<tr><td class="lt">평균 객단가</td><td><b>30,706</b>원</td></tr>
+<tr><td class="lt">평균 시니어(50+) 비중</td><td><b>49.1</b>%</td></tr>
+<tr><td class="lt">평균 10년+ 충성층</td><td><b>33.8</b>%</td></tr>
+<tr><td class="lt">분석 단협</td><td><b>21</b>개 (4월 매장 매출 있는 곳)</td></tr>
+</table></div>
+
+<div class="insight-box" style="background:#fff8e1;border-left-color:#f39c12">
+<div class="it">⚠️ 분석 제외 대상</div>
+<p><b>비조합원·예비조합원 임시 계정 거래 13,537건 (178M원 / 약 2.0%)을 분석에서 제외</b>했어요.</p>
+<p>매장에서 비조합원 손님이 결제할 때 쓰는 매장 공용 임시 계정(예: "비조합원(미금점)", "예비조합원(영통역)")은 실제 개별 조합원이 아니어서 연령·가입연차 분석이 의미가 없어요. 따라서 GMNAME에 <b>"비조합원"·"예비조합원"</b> 키워드가 포함된 거래는 모두 제외했습니다.</p>
+<p>제외 비율은 단협별로 다르며(은평 6.1%로 가장 큼, 울림·원주·성동·아름다운 0%), 자세한 근거는 별도 파일(<code>/tmp/excluded_accounts.json</code>)에 보관.</p>
+</div>
+</div>
+<div class="sec" style="padding-top:.5rem">
+<div class="st"><span class="num">▸</span>단협 선택 (매출 순)</div>
+<div class="cards"><a class="pcard" href="gyeonggi/"><div class="rank">#1 · 4월 매장 1563M원 <span class="click-cue">클릭 ▶</span></div>
+<h3>경기두레생협</h3>
+<div class="mini">
+<div>이용자<b>13,567</b></div>
+<div>인당매출<b>115k원</b></div>
+<div>시니어 50+<b>39%</b></div>
+<div>객단가<b>28k원</b></div>
+</div>
+<div class="badges"><span class="tag young">젊은 매장</span> <span class="tag low">ARPU 약세</span></div></a><a class="pcard" href="pureundure/"><div class="rank">#2 · 4월 매장 1091M원 <span class="click-cue">클릭 ▶</span></div>
+<h3>푸른두레생협</h3>
+<div class="mini">
+<div>이용자<b>7,592</b></div>
+<div>인당매출<b>144k원</b></div>
+<div>시니어 50+<b>53%</b></div>
+<div>객단가<b>34k원</b></div>
+</div>
+<div class="badges"><span class="tag young">젊은 매장</span></div></a><a class="pcard" href="gyeongginambu/"><div class="rank">#3 · 4월 매장 749M원 <span class="click-cue">클릭 ▶</span></div>
+<h3>경기남부두레생협</h3>
+<div class="mini">
+<div>이용자<b>5,788</b></div>
+<div>인당매출<b>129k원</b></div>
+<div>시니어 50+<b>55%</b></div>
+<div>객단가<b>30k원</b></div>
+</div>
+<div class="badges"><span class="tag balance">균형</span></div></a><a class="pcard" href="chamjoeun/"><div class="rank">#4 · 4월 매장 741M원 <span class="click-cue">클릭 ▶</span></div>
+<h3>참좋은두레생협</h3>
+<div class="mini">
+<div>이용자<b>5,892</b></div>
+<div>인당매출<b>126k원</b></div>
+<div>시니어 50+<b>60%</b></div>
+<div>객단가<b>32k원</b></div>
+</div>
+<div class="badges"><span class="tag balance">균형</span></div></a><a class="pcard" href="barun/"><div class="rank">#5 · 4월 매장 535M원 <span class="click-cue">클릭 ▶</span></div>
+<h3>바른두레생협</h3>
+<div class="mini">
+<div>이용자<b>4,527</b></div>
+<div>인당매출<b>118k원</b></div>
+<div>시니어 50+<b>55%</b></div>
+<div>객단가<b>27k원</b></div>
+</div>
+<div class="badges"><span class="tag young">젊은 매장</span> <span class="tag low">ARPU 약세</span></div></a><a class="pcard" href="eco/"><div class="rank">#6 · 4월 매장 514M원 <span class="click-cue">클릭 ▶</span></div>
+<h3>에코생협</h3>
+<div class="mini">
+<div>이용자<b>3,433</b></div>
+<div>인당매출<b>150k원</b></div>
+<div>시니어 50+<b>51%</b></div>
+<div>객단가<b>32k원</b></div>
+</div>
+<div class="badges"><span class="tag young">젊은 매장</span> <span class="tag high">ARPU 강세</span></div></a><a class="pcard" href="jumin/"><div class="rank">#7 · 4월 매장 501M원 <span class="click-cue">클릭 ▶</span></div>
+<h3>주민두레생협</h3>
+<div class="mini">
+<div>이용자<b>3,214</b></div>
+<div>인당매출<b>156k원</b></div>
+<div>시니어 50+<b>52%</b></div>
+<div>객단가<b>34k원</b></div>
+</div>
+<div class="badges"><span class="tag young">젊은 매장</span> <span class="tag high">ARPU 강세</span></div></a><a class="pcard" href="seoulnambu/"><div class="rank">#8 · 4월 매장 473M원 <span class="click-cue">클릭 ▶</span></div>
+<h3>서울남부두레생협</h3>
+<div class="mini">
+<div>이용자<b>3,118</b></div>
+<div>인당매출<b>152k원</b></div>
+<div>시니어 50+<b>50%</b></div>
+<div>객단가<b>31k원</b></div>
+</div>
+<div class="badges"><span class="tag young">젊은 매장</span> <span class="tag high">ARPU 강세</span></div></a><a class="pcard" href="paldang/"><div class="rank">#9 · 4월 매장 442M원 <span class="click-cue">클릭 ▶</span></div>
+<h3>팔당생명살림생협</h3>
+<div class="mini">
+<div>이용자<b>3,227</b></div>
+<div>인당매출<b>137k원</b></div>
+<div>시니어 50+<b>44%</b></div>
+<div>객단가<b>34k원</b></div>
+</div>
+<div class="badges"><span class="tag young">젊은 매장</span></div></a><a class="pcard" href="eunpyeong/"><div class="rank">#10 · 4월 매장 388M원 <span class="click-cue">클릭 ▶</span></div>
+<h3>은평두레생협</h3>
+<div class="mini">
+<div>이용자<b>3,469</b></div>
+<div>인당매출<b>112k원</b></div>
+<div>시니어 50+<b>55%</b></div>
+<div>객단가<b>27k원</b></div>
+</div>
+<div class="badges"><span class="tag balance">균형</span> <span class="tag low">ARPU 약세</span></div></a><a class="pcard" href="goyangpaju/"><div class="rank">#11 · 4월 매장 358M원 <span class="click-cue">클릭 ▶</span></div>
+<h3>고양파주두레생협</h3>
+<div class="mini">
+<div>이용자<b>2,449</b></div>
+<div>인당매출<b>146k원</b></div>
+<div>시니어 50+<b>49%</b></div>
+<div>객단가<b>29k원</b></div>
+</div>
+<div class="badges"><span class="tag young">젊은 매장</span> <span class="tag high">ARPU 강세</span></div></a><a class="pcard" href="ullim/"><div class="rank">#12 · 4월 매장 348M원 <span class="click-cue">클릭 ▶</span></div>
+<h3>울림두레생협</h3>
+<div class="mini">
+<div>이용자<b>2,490</b></div>
+<div>인당매출<b>140k원</b></div>
+<div>시니어 50+<b>41%</b></div>
+<div>객단가<b>28k원</b></div>
+</div>
+<div class="badges"><span class="tag young">젊은 매장</span></div></a><a class="pcard" href="pyeongtaek/"><div class="rank">#13 · 4월 매장 221M원 <span class="click-cue">클릭 ▶</span></div>
+<h3>평택두레생협</h3>
+<div class="mini">
+<div>이용자<b>1,642</b></div>
+<div>인당매출<b>135k원</b></div>
+<div>시니어 50+<b>42%</b></div>
+<div>객단가<b>36k원</b></div>
+</div>
+<div class="badges"><span class="tag young">젊은 매장</span></div></a><a class="pcard" href="wonju/"><div class="rank">#14 · 4월 매장 158M원 <span class="click-cue">클릭 ▶</span></div>
+<h3>원주생협</h3>
+<div class="mini">
+<div>이용자<b>1,215</b></div>
+<div>인당매출<b>130k원</b></div>
+<div>시니어 50+<b>36%</b></div>
+<div>객단가<b>33k원</b></div>
+</div>
+<div class="badges"><span class="tag young">젊은 매장</span></div></a><a class="pcard" href="seoulbukbu/"><div class="rank">#15 · 4월 매장 138M원 <span class="click-cue">클릭 ▶</span></div>
+<h3>서울북부두레생협</h3>
+<div class="mini">
+<div>이용자<b>686</b></div>
+<div>인당매출<b>201k원</b></div>
+<div>시니어 50+<b>58%</b></div>
+<div>객단가<b>37k원</b></div>
+</div>
+<div class="badges"><span class="tag balance">균형</span> <span class="tag high">ARPU 강세</span></div></a><a class="pcard" href="anseong/"><div class="rank">#16 · 4월 매장 94M원 <span class="click-cue">클릭 ▶</span></div>
+<h3>안성두레생협</h3>
+<div class="mini">
+<div>이용자<b>716</b></div>
+<div>인당매출<b>132k원</b></div>
+<div>시니어 50+<b>52%</b></div>
+<div>객단가<b>37k원</b></div>
+</div>
+<div class="badges"><span class="tag young">젊은 매장</span></div></a><a class="pcard" href="chuncheon/"><div class="rank">#17 · 4월 매장 77M원 <span class="click-cue">클릭 ▶</span></div>
+<h3>춘천두레생협</h3>
+<div class="mini">
+<div>이용자<b>567</b></div>
+<div>인당매출<b>136k원</b></div>
+<div>시니어 50+<b>49%</b></div>
+<div>객단가<b>41k원</b></div>
+</div>
+<div class="badges"><span class="tag young">젊은 매장</span></div></a><a class="pcard" href="anyangy/"><div class="rank">#18 · 4월 매장 66M원 <span class="click-cue">클릭 ▶</span></div>
+<h3>안양YMCA등대두레생협</h3>
+<div class="mini">
+<div>이용자<b>447</b></div>
+<div>인당매출<b>148k원</b></div>
+<div>시니어 50+<b>44%</b></div>
+<div>객단가<b>32k원</b></div>
+</div>
+<div class="badges"><span class="tag young">젊은 매장</span> <span class="tag high">ARPU 강세</span></div></a><a class="pcard" href="siheungy/"><div class="rank">#19 · 4월 매장 53M원 <span class="click-cue">클릭 ▶</span></div>
+<h3>시흥YMCA생협</h3>
+<div class="mini">
+<div>이용자<b>389</b></div>
+<div>인당매출<b>137k원</b></div>
+<div>시니어 50+<b>55%</b></div>
+<div>객단가<b>33k원</b></div>
+</div>
+<div class="badges"><span class="tag young">젊은 매장</span></div></a><a class="pcard" href="seongdong/"><div class="rank">#20 · 4월 매장 43M원 <span class="click-cue">클릭 ▶</span></div>
+<h3>성동두레생협</h3>
+<div class="mini">
+<div>이용자<b>272</b></div>
+<div>인당매출<b>157k원</b></div>
+<div>시니어 50+<b>48%</b></div>
+<div>객단가<b>32k원</b></div>
+</div>
+<div class="badges"><span class="tag young">젊은 매장</span> <span class="tag high">ARPU 강세</span></div></a><a class="pcard" href="areumdaun/"><div class="rank">#21 · 4월 매장 11M원 <span class="click-cue">클릭 ▶</span></div>
+<h3>아름다운생협</h3>
+<div class="mini">
+<div>이용자<b>93</b></div>
+<div>인당매출<b>115k원</b></div>
+<div>시니어 50+<b>34%</b></div>
+<div>객단가<b>25k원</b></div>
+</div>
+<div class="badges"><span class="tag young">젊은 매장</span> <span class="tag low">ARPU 약세</span></div></a></div></div>
+<footer>두레생협 온라인사업팀 · 2026.05.14<br>데이터 — ERP MaPos > 판매내역 + 조합원 마스터<br>"매장 활성화를 위한 데이터 이해 자료"</footer>
+</div></body></html>
