@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>춘천두레생협 — 4월 연령대 심층 분석</title>
+<style>
+:root{
+  --green-deep:#1a3a0a; --green:#2d5016; --green-light:#4a7c28; --green-pale:#e8f5e9;
+  --warm:#fff8e1; --warm-line:#f39c12; --red:#c0392b; --red-pale:#fdecea;
+  --orange:#e67e22; --blue:#2980b9; --blue-pale:#e3f2fd;
+  --gray:#86868b; --bg:#f5f5f7; --card:#fff; --text:#1d1d1f;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased}
+.wrap{max-width:920px;margin:0 auto;background:var(--bg)}
+
+.hd{background:linear-gradient(135deg,var(--green-deep),var(--green) 40%,var(--green-light));color:#fff;padding:2rem 1.5rem 1.5rem}
+.hd .badge{display:inline-block;background:rgba(255,255,255,.15);padding:5px 12px;border-radius:20px;font-size:.72rem;font-weight:500;margin-bottom:8px}
+.hd h1{font-size:1.5rem;font-weight:900;line-height:1.3}
+.hd .sub{font-size:.85rem;opacity:.85;margin-top:6px}
+.hd .navlinks{margin-top:10px;font-size:.72rem}
+.hd a{color:#fff;opacity:.9;text-decoration:none;margin-right:8px;padding:4px 10px;background:rgba(255,255,255,.12);border-radius:6px;display:inline-block;margin-top:4px}
+.hd a:hover{background:rgba(255,255,255,.25)}
+
+.ab{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.ab .ai{padding:14px 8px;text-align:center;color:#fff}
+.ab .ai:nth-child(1){background:#c0392b}
+.ab .ai:nth-child(2){background:#e67e22}
+.ab .ai:nth-child(3){background:#27ae60}
+.ab .ai:nth-child(4){background:#2980b9}
+.ab .al{font-size:.65rem;opacity:.85;font-weight:500}
+.ab .av{font-size:1.1rem;font-weight:900;margin-top:1px}
+.ab .ax{font-size:.6rem;opacity:.75;margin-top:1px}
+
+.sec{padding:1.4rem .9rem .4rem}
+.st{font-size:1.05rem;font-weight:800;margin-bottom:.5rem;display:flex;align-items:center;gap:8px;color:var(--green-deep)}
+.st .num{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;background:var(--green-deep);color:#fff;border-radius:50%;font-size:.78rem;font-weight:700}
+
+/* 친절한 설명 박스 */
+.explain{background:var(--blue-pale);border-radius:12px;padding:1rem;margin:.5rem 0 1rem;border-left:4px solid var(--blue)}
+.explain .et{font-weight:800;font-size:.85rem;color:var(--blue);margin-bottom:6px;display:flex;align-items:center;gap:5px}
+.explain p{font-size:.82rem;color:var(--text);line-height:1.75}
+.explain p+p{margin-top:8px}
+.explain b{color:var(--green-deep)}
+
+.cd{background:var(--card);border-radius:12px;padding:1rem;margin-bottom:8px;box-shadow:0 1px 6px rgba(0,0,0,.06)}
+.cd h3{font-size:.86rem;font-weight:700;margin-bottom:8px;color:var(--green-deep)}
+
+/* 비교 박스 — 본 단협 vs 전체 평균 */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
+.compare .col{background:#fafafa;border-radius:10px;padding:.75rem;text-align:center}
+.compare .col.me{background:var(--green-pale)}
+.compare .col .lbl{font-size:.66rem;color:var(--gray);font-weight:500}
+.compare .col .val{font-size:1.5rem;font-weight:900;color:var(--green-deep);margin:4px 0}
+.compare .col .desc{font-size:.66rem;color:var(--gray)}
+.compare .col.me .val{color:var(--green-deep)}
+
+.verdict{margin-top:10px;padding:8px 12px;border-radius:8px;font-size:.78rem;font-weight:700;text-align:center}
+.verdict.high{background:var(--green-pale);color:#1b5e20}
+.verdict.low{background:var(--red-pale);color:#c62828}
+.verdict.eq{background:#f5f5f5;color:#555}
+
+/* 막대 차트 */
+.bar-wrap{margin:6px 0}
+.bar-row{display:grid;grid-template-columns:70px 1fr 80px;gap:8px;align-items:center;margin-bottom:5px;font-size:.74rem}
+.bar-label{color:var(--text);font-weight:500}
+.bar-track{background:#eee;border-radius:5px;height:22px;overflow:hidden;position:relative}
+.bar-fill{background:linear-gradient(90deg,var(--green-light),var(--green));height:100%;display:flex;align-items:center;padding-left:8px;color:#fff;font-size:.66rem;font-weight:700;border-radius:5px}
+.bar-fill.avg{background:linear-gradient(90deg,#aaa,#888);opacity:.5}
+.bar-val{text-align:right;font-size:.68rem;font-weight:600;color:var(--text)}
+.bar-pct{color:var(--gray);font-size:.65rem}
+
+table.t{width:100%;border-collapse:collapse;font-size:.75rem;background:var(--card);border-radius:10px;overflow:hidden;box-shadow:0 1px 6px rgba(0,0,0,.06);margin-bottom:8px}
+table.t thead{background:var(--green)}
+table.t th{padding:9px 6px;font-weight:600;text-align:center;font-size:.66rem;color:#fff}
+table.t td{padding:8px 6px;text-align:center;border-bottom:1px solid #f0f0f0;font-size:.72rem}
+table.t tr:last-child td{border-bottom:none}
+table.t .ng{color:var(--red);font-weight:700}
+table.t .ps{color:#27ae60;font-weight:700}
+table.t .hl{background:var(--warm)}
+table.t td.lt{text-align:left;padding-left:12px}
+
+/* 통찰 박스 */
+.insight-box{background:var(--warm);border-radius:10px;padding:.9rem 1rem;margin:6px 0;border-left:4px solid var(--warm-line)}
+.insight-box.danger{background:var(--red-pale);border-left-color:var(--red)}
+.insight-box.good{background:var(--green-pale);border-left-color:var(--green-light)}
+.insight-box .it{font-weight:800;font-size:.85rem;margin-bottom:4px;color:#7a5300}
+.insight-box.danger .it{color:var(--red)}
+.insight-box.good .it{color:#1b5e20}
+.insight-box p{font-size:.78rem;color:#444;line-height:1.7}
+
+/* 인덱스 페이지 카드 */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;padding:.9rem}
+.pcard{background:var(--card);border-radius:12px;padding:1rem;box-shadow:0 1px 6px rgba(0,0,0,.06);text-decoration:none;color:var(--text);transition:transform .15s,box-shadow .15s;display:block}
+.pcard:hover{transform:translateY(-2px);box-shadow:0 4px 14px rgba(0,0,0,.12)}
+.pcard .rank{font-size:.72rem;color:var(--gray)}
+.pcard h3{font-size:1.05rem;font-weight:800;color:var(--green-deep);margin:4px 0 10px}
+.pcard .mini{display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:.72rem}
+.pcard .mini b{color:var(--green-deep);font-size:.95rem;display:block}
+.pcard .badges{margin-top:10px;display:flex;gap:5px;flex-wrap:wrap}
+.tag{display:inline-block;padding:3px 9px;border-radius:8px;font-size:.62rem;font-weight:600}
+.tag.senior{background:#e3f2fd;color:#1976d2}
+.tag.young{background:#fff3e0;color:#ef6c00}
+.tag.balance{background:#f3e5f5;color:#7b1fa2}
+.tag.high{background:#e8f5e9;color:#2e7d32}
+.tag.low{background:#ffebee;color:#c62828}
+
+footer{padding:1.5rem 1rem;text-align:center;color:var(--gray);font-size:.7rem;border-top:1px solid #eee;margin-top:1.5rem}
+footer a{color:var(--green-light);margin:0 6px}
+
+@media (min-width:768px){
+  .hd{padding:2.5rem 2rem 2rem}
+  .hd h1{font-size:2rem}
+  .sec{padding:1.7rem 1.3rem .6rem}
+  .st{font-size:1.18rem}
+  .ab .av{font-size:1.3rem}
+  table.t{font-size:.85rem}
+  table.t th{font-size:.78rem;padding:11px 8px}
+  table.t td{font-size:.82rem;padding:9px 8px}
+}
+</style></head><body>
+<div class="wrap">
+
+<div class="hd">
+<span class="badge">단협 분석 · 4월 26년</span>
+<h1>춘천두레생협</h1>
+<div class="sub">매출 기준 <b>14위</b> / 21단협 · 4월 무점포 이용 조합원 <b>118명</b></div>
+<div class="navlinks"><a href="../seoulbukbu/">◀ 서울북부두레생협</a><a href="../">📋 전체 인덱스</a><a href="../pyeongtaek/">평택두레생협 ▶</a></div>
+</div>
+
+<div class="ab">
+<div class="ai"><div class="al">이용 조합원</div><div class="av">118</div><div class="ax">4월 무점포</div></div>
+<div class="ai"><div class="al">4월 매출</div><div class="av">22M</div><div class="ax">원</div></div>
+<div class="ai"><div class="al">인당매출</div><div class="av">190k</div><div class="ax">평균比 101%</div></div>
+<div class="ai"><div class="al">시니어 비중</div><div class="av">25%</div><div class="ax">60대+ 29명</div></div>
+</div>
+
+<div class="sec">
+<div class="explain">
+<div class="et">📖 이 보고서를 만든 이유</div>
+<p>두레생협은 23개 회원생협(단협)이 모여 운영됩니다. 같은 두레라도 단협마다 조합원 연령, 가입 기간, 구매 습관이 매우 달라요. <b>"두레 평균"</b>만 보면 우리 단협의 강점과 약점이 가려집니다.</p>
+<p>이 페이지는 <b>춘천두레생협</b>의 4월 한 달치 무점포(온라인·택배) 이용 데이터를 전체 21단협 평균과 비교해서, 우리 단협이 어디가 잘하고 있고 어디를 고쳐야 하는지 한눈에 보기 위해 만들었습니다.</p>
+</div>
+</div>
+
+<div class="sec">
+<div class="st"><span class="num">1</span>기본 지표 — 우리 단협이 얼마나 크나요?</div>
+
+<div class="explain">
+<div class="et">🤔 무엇을 봐야 하나요?</div>
+<p>• <b>이용 조합원수</b>: 4월에 무점포(온라인)로 한 번이라도 구매한 조합원 수입니다. 단협의 활성 크기를 보여줍니다.</p>
+<p>• <b>매출</b>: 4월 한 달 동안 그 단협에서 발생한 무점포 매출 합계입니다.</p>
+<p>• <b>인당매출(ARPU)</b>: 한 사람당 한 달 동안 평균 얼마를 썼는지. <b>이 숫자가 평균보다 높으면 조합원 한 명 한 명이 더 적극적으로 이용</b>한다는 뜻입니다.</p>
+<p>• <b>객단가(AOV)</b>: 한 번 주문할 때 평균 얼마를 쓰는지. 인당매출은 빈도×객단가로 결정됩니다.</p>
+</div>
+
+<table class="t">
+<thead><tr><th>지표</th><th>본 단협</th><th>전체 평균</th><th>판정</th></tr></thead>
+<tbody>
+<tr><td>이용 조합원</td><td><b>118명</b></td><td>299명</td><td class="ng">39%</td></tr>
+<tr><td>4월 매출</td><td><b>22M원</b></td><td>56M원</td><td class="ng">40%</td></tr>
+<tr class="hl"><td>인당매출(ARPU)</td><td><b>189,759원</b></td><td>187,233원</td><td class="ps">101%</td></tr>
+<tr><td>객단가(AOV)</td><td><b>88,504원</b></td><td>78,644원</td><td class="ps">113%</td></tr>
+<tr><td>주문 건수</td><td>253건</td><td>712건</td><td>36%</td></tr>
+</tbody></table>
+<div class="insight-box"><div class="it">⚖️ 인당매출 평균 수준</div><p>전체 21단협 평균과 비슷한 인당 활용도입니다.</p></div></div>
+<div class="sec">
+<div class="st"><span class="num">2</span>누가 이용하나요? — 연령대 분포</div>
+
+<div class="explain">
+<div class="et">🤔 연령대를 왜 봐야 하나요?</div>
+<p>두레는 가족이 함께 가입하는 협동조합이지만, 실제로 <b>"누가 주문을 누르는가"</b>는 연령별로 다릅니다. 30대 부모님이 누르는 단협이 있고, 60대 어르신이 누르는 단협이 있어요.</p>
+<p>이 분포를 보면 우리 단협이 <b>어떤 세대의 단협</b>인지가 보입니다. 그에 따라 안내 방식, 상품 구성, 결제 동선이 달라야 합니다.</p>
+<p>📊 <b>그래프 읽는 법</b> — 막대 길이는 연령대별 인원수. 옆 숫자는 전체에서 차지하는 비중(%)입니다.</p>
+</div>
+
+<div class="cd"><h3>본 단협 연령 분포 (4월 활동자 118명)</h3>
+<div class="bar-wrap"><div class="bar-row">
+<div class="bar-label">30대</div>
+<div class="bar-track"><div class="bar-fill" style="width:4.7%">2</div></div>
+<div class="bar-val">1.7% <span class="bar-pct">(평균 4%)</span></div>
+</div><div class="bar-row">
+<div class="bar-label">40대</div>
+<div class="bar-track"><div class="bar-fill" style="width:53.5%">23</div></div>
+<div class="bar-val">19.5% <span class="bar-pct">(평균 15%)</span></div>
+</div><div class="bar-row">
+<div class="bar-label">50대</div>
+<div class="bar-track"><div class="bar-fill" style="width:100.0%">43</div></div>
+<div class="bar-val">36.4% <span class="bar-pct">(평균 41%)</span></div>
+</div><div class="bar-row">
+<div class="bar-label">60대</div>
+<div class="bar-track"><div class="bar-fill" style="width:58.1%">25</div></div>
+<div class="bar-val">21.2% <span class="bar-pct">(평균 23%)</span></div>
+</div><div class="bar-row">
+<div class="bar-label">70대+</div>
+<div class="bar-track"><div class="bar-fill" style="width:9.3%">4</div></div>
+<div class="bar-val">3.4% <span class="bar-pct">(평균 6%)</span></div>
+</div><div class="bar-row">
+<div class="bar-label">미상</div>
+<div class="bar-track"><div class="bar-fill" style="width:48.8%">21</div></div>
+<div class="bar-val">17.8% <span class="bar-pct">(평균 10%)</span></div>
+</div></div></div>
+<div class="cd"><h3>시니어(60대+) 비중 — 평균과 비교</h3>
+<div class="bar-wrap">
+<div class="bar-row">
+<div class="bar-label">본 단협</div>
+<div class="bar-track"><div class="bar-fill" style="width:85.17679313366183%">25</div></div>
+<div class="bar-val">24.6%</div>
+</div>
+<div class="bar-row">
+<div class="bar-label">전체 평균</div>
+<div class="bar-track"><div class="bar-fill avg" style="width:100.0%">29</div></div>
+<div class="bar-val">28.9%</div>
+</div>
+</div>
+<div class="verdict low">평균보다 -14.8% ↓</div>
+</div>
+<div class="insight-box"><div class="it">⚖️ 균형 단협 (시니어 25%)</div><p>젊은층과 시니어가 균형 있게 섞여 있습니다. 두 세대 모두 만족할 수 있는 상품 라인업이 필요합니다.</p></div></div>
+<div class="sec">
+<div class="st"><span class="num">3</span>얼마나 오래 다녔나요? — 가입연차</div>
+
+<div class="explain">
+<div class="et">🤔 왜 가입연차를 보나요?</div>
+<p>가입연차는 <b>두레와의 관계가 얼마나 깊은지</b>를 보여줍니다. 가입한 지 10년이 넘은 조합원은 두레 상품·시스템·생활 습관이 모두 익숙해진 사람들이에요. 떠나는 비율이 낮고, 한 번 구매할 때 더 많이 삽니다.</p>
+<p>반대로 1년 미만 신규 조합원은 "두레가 어떤 곳인지 알아보는 중"이라 첫 구매가 두 번째로 이어지는 비율이 낮아요. <b>이 구간의 정착이 미래 매출을 결정</b>합니다.</p>
+<p>📊 <b>읽는 법</b> — "10년+" 비율이 평균보다 훨씬 높으면 <b>안정된 충성 기반</b>, "1년 미만"이 높으면 <b>성장 모멘텀</b>입니다.</p>
+</div>
+
+<div class="cd"><h3>가입연차 분포</h3>
+<div class="bar-wrap"><div class="bar-row">
+<div class="bar-label">1년 미만</div>
+<div class="bar-track"><div class="bar-fill" style="width:16.3%">8</div></div>
+<div class="bar-val">6.8% <span class="bar-pct">(평균 8%)</span></div>
+</div><div class="bar-row">
+<div class="bar-label">1~3년</div>
+<div class="bar-track"><div class="bar-fill" style="width:16.3%">8</div></div>
+<div class="bar-val">6.8% <span class="bar-pct">(평균 11%)</span></div>
+</div><div class="bar-row">
+<div class="bar-label">3~5년</div>
+<div class="bar-track"><div class="bar-fill" style="width:18.4%">9</div></div>
+<div class="bar-val">7.6% <span class="bar-pct">(평균 10%)</span></div>
+</div><div class="bar-row">
+<div class="bar-label">5~10년</div>
+<div class="bar-track"><div class="bar-fill" style="width:36.7%">18</div></div>
+<div class="bar-val">15.3% <span class="bar-pct">(평균 22%)</span></div>
+</div><div class="bar-row">
+<div class="bar-label">10~15년</div>
+<div class="bar-track"><div class="bar-fill" style="width:51.0%">25</div></div>
+<div class="bar-val">21.2% <span class="bar-pct">(평균 19%)</span></div>
+</div><div class="bar-row">
+<div class="bar-label">15년+</div>
+<div class="bar-track"><div class="bar-fill" style="width:100.0%">49</div></div>
+<div class="bar-val">41.5% <span class="bar-pct">(평균 29%)</span></div>
+</div><div class="bar-row">
+<div class="bar-label">미상</div>
+<div class="bar-track"><div class="bar-fill" style="width:2.0%">1</div></div>
+<div class="bar-val">0.8% <span class="bar-pct">(평균 2%)</span></div>
+</div></div></div>
+
+<div class="cd"><h3>10년+ 충성층 비중 — 평균과 비교</h3>
+<div class="bar-wrap">
+<div class="bar-row">
+<div class="bar-label">본 단협</div>
+<div class="bar-track"><div class="bar-fill" style="width:100.0%">63</div></div>
+<div class="bar-val">62.7%</div>
+</div>
+<div class="bar-row">
+<div class="bar-label">전체 평균</div>
+<div class="bar-track"><div class="bar-fill avg" style="width:75.16461128329613%">47</div></div>
+<div class="bar-val">47.1%</div>
+</div>
+</div>
+<div class="verdict high">평균보다 +33.0% ↑</div>
+</div>
+<div class="insight-box good"><div class="it">🌳 충성층 기반 강함 (10년+ 63%)</div><p>10년 이상 다닌 조합원이 평균보다 많아요. 이분들은 두레 상품을 잘 알고, 재구매율도 높습니다. 단협 매출 안정의 뿌리입니다. 신상품 안내나 새 시도를 할 때도 이분들이 가장 먼저 반응합니다.</p></div></div>
+<div class="sec">
+<div class="st"><span class="num">4</span>누가 남고 누가 떠났나요? — 코호트 동학</div>
+
+<div class="explain">
+<div class="et">🤔 잔존·신규·이탈이 뭐예요?</div>
+<p>같은 4월을 작년(2025년)과 올해(2026년)로 비교해서, 같은 조합원이 어떻게 움직였는지 본 것입니다.</p>
+<p>• <b>잔존</b> — 작년 4월에도 샀고, 올해 4월에도 산 사람. <b>충성 조합원</b>입니다. 이 그룹이 클수록 단협이 안정적입니다.</p>
+<p>• <b>복귀·신규</b> — 작년 4월엔 안 샀는데 올해 4월에 산 사람. <b>새로 들어왔거나 휴면에서 돌아온 그룹</b>입니다.</p>
+<p>• <b>이탈</b> — 작년 4월엔 샀는데 올해 4월엔 안 산 사람. <b>잠재 위험 그룹</b>입니다. 이 숫자가 클수록 단협이 새는 중입니다.</p>
+<p>📊 <b>이탈률</b> — 이탈 인원 ÷ (잔존 + 이탈). 25년 활동자 중 26년에 사라진 비율입니다.</p>
+</div>
+
+<table class="t">
+<thead><tr><th>구분</th><th>본 단협</th><th>전체 평균</th><th>해석</th></tr></thead>
+<tbody>
+<tr><td>잔존 (양월 모두 이용)</td><td><b>86명</b></td><td>195명</td><td>충성 조합원</td></tr>
+<tr><td>복귀·신규 (26-04만)</td><td><b>57명</b></td><td>141명</td><td>신규·복귀</td></tr>
+<tr><td>이탈 (25-04만)</td><td class="ng"><b>40명</b></td><td>107명</td><td>재유치 대상</td></tr>
+<tr class="hl"><td>이탈률</td><td><b>31.7%</b></td><td>35.5%</td><td>평균</td></tr>
+</tbody></table>
+<div class="insight-box good"><div class="it">🆕 신규 모멘텀 활발 (48%)</div><p>26년 4월 활동자 중 57명(48%)이 작년 4월에는 안 샀던 새 얼굴입니다. 신규 진입은 활발한데, 이들이 다음 달에도 다시 사는지(정착) 확인이 핵심입니다.</p></div></div>
+<div class="sec">
+<div class="st"><span class="num">5</span>얼마나 자주 사나요? — 이용 빈도</div>
+
+<div class="explain">
+<div class="et">🤔 빈도를 왜 보나요?</div>
+<p>4월 한 달 동안 우리 단협 조합원이 <b>며칠</b> 동안 무점포 주문을 했는지를 봅니다. 두레 무점포는 보통 주 1~2회 정도 배송하니까, 4월에 4~5번 주문하면 매주 1번씩 산 셈이에요.</p>
+<p>• <b>1일 단발</b> — 한 달에 1번만 산 사람. 시도해보고 안 오는 패턴이거나, 가끔만 사는 라이트 유저입니다.</p>
+<p>• <b>2-3일</b> — 가벼운 정기 이용자.</p>
+<p>• <b>4-7일</b> — 거의 매주 이용하는 핵심 충성층.</p>
+<p>• <b>8일+ 충성</b> — 주 2회 이상 사는 슈퍼 충성 조합원. 매출의 큰 부분을 책임집니다.</p>
+<p>📊 <b>읽는 법</b> — 1일 단발이 평균보다 많으면 <b>정착 약화 신호</b>, 8일+ 충성이 많으면 <b>핵심층 두터움</b>.</p>
+</div>
+
+<div class="cd"><h3>이용 빈도 분포</h3>
+<div class="bar-wrap"><div class="bar-row">
+<div class="bar-label">1일</div>
+<div class="bar-track"><div class="bar-fill" style="width:100.0%">63</div></div>
+<div class="bar-val">53.4% <span class="bar-pct">(평균 46%)</span></div>
+</div><div class="bar-row">
+<div class="bar-label">2-3일</div>
+<div class="bar-track"><div class="bar-fill" style="width:54.0%">34</div></div>
+<div class="bar-val">28.8% <span class="bar-pct">(평균 32%)</span></div>
+</div><div class="bar-row">
+<div class="bar-label">4-7일</div>
+<div class="bar-track"><div class="bar-fill" style="width:28.6%">18</div></div>
+<div class="bar-val">15.3% <span class="bar-pct">(평균 19%)</span></div>
+</div><div class="bar-row">
+<div class="bar-label">8일+</div>
+<div class="bar-track"><div class="bar-fill" style="width:4.8%">3</div></div>
+<div class="bar-val">2.5% <span class="bar-pct">(평균 2%)</span></div>
+</div></div></div>
+
+<div class="cd"><h3>1일 단발 비중 — 평균과 비교</h3>
+<div class="bar-wrap">
+<div class="bar-row">
+<div class="bar-label">본 단협</div>
+<div class="bar-track"><div class="bar-fill" style="width:100.0%">53</div></div>
+<div class="bar-val">53.4%</div>
+</div>
+<div class="bar-row">
+<div class="bar-label">전체 평균</div>
+<div class="bar-track"><div class="bar-fill avg" style="width:87.05693664795508%">46</div></div>
+<div class="bar-val">46.5%</div>
+</div>
+</div>
+<div class="verdict high">평균보다 +14.9% ↑</div>
+</div>
+
+<div class="cd"><h3>8일+ 충성 비중 — 평균과 비교</h3>
+<div class="bar-wrap">
+<div class="bar-row">
+<div class="bar-label">본 단협</div>
+<div class="bar-track"><div class="bar-fill" style="width:100.0%">3</div></div>
+<div class="bar-val">2.5%</div>
+</div>
+<div class="bar-row">
+<div class="bar-label">전체 평균</div>
+<div class="bar-track"><div class="bar-fill avg" style="width:93.36541031809674%">2</div></div>
+<div class="bar-val">2.4%</div>
+</div>
+</div>
+<div class="verdict eq">평균보다 +7.1% ↑</div>
+</div>
+<div class="insight-box danger"><div class="it">⚠️ 단발 이용 많음 (53%)</div><p>4월 한 달에 한 번만 산 조합원이 평균보다 많아요. 이분들은 두 번째 구매로 이어지는 데 어려움을 겪고 있어요. 첫 구매 직후 안내·추천이 잘 작동하는지 점검 필요합니다.</p></div></div>
+<div class="sec">
+<div class="st"><span class="num">6</span>무엇을 주로 사나요? — 인기 상품 TOP 10</div>
+
+<div class="explain">
+<div class="et">🤔 인기 상품을 왜 보나요?</div>
+<p>같은 두레라도 단협마다 잘 팔리는 상품이 달라요. 어떤 단협은 유정란이 압도적이고, 어떤 단협은 흑염소엑기스나 한우가 1위예요. 이 차이는 <b>그 단협 조합원의 라이프 스타일</b>을 그대로 보여줍니다.</p>
+<p>이 표는 <b>우리 단협의 4월 한 달 매출 TOP 10</b>을 보여줍니다. 단협 평균과 다른 상품이 1위라면, 그 단협만의 특색입니다.</p>
+</div>
+
+<table class="t">
+<thead><tr><th>순위</th><th>상품명</th><th>매출</th><th>전체 비중</th></tr></thead>
+<tbody><tr><td>1</td><td class="lt">(산지직송)3겹 둥근휴지(30롤*2팩)</td><td>756,200원</td><td>3.4%</td></tr><tr><td>2</td><td class="lt">유기농 귀리유(YOU)16팩</td><td>627,300원</td><td>2.8%</td></tr><tr><td>3</td><td class="lt">원삼유정란(15구)</td><td>325,000원</td><td>1.5%</td></tr><tr><td>4</td><td class="lt">6년근홍삼엑기스(60팩)</td><td>238,600원</td><td>1.1%</td></tr><tr><td>5</td><td class="lt">달구네유정란(15구)</td><td>228,000원</td><td>1.0%</td></tr><tr><td>6</td><td class="lt">발아참기름(300ml)</td><td>219,800원</td><td>1.0%</td></tr><tr><td>7</td><td class="lt">떡갈비1000(10개)</td><td>214,500원</td><td>1.0%</td></tr><tr><td>8</td><td class="lt">(G)3겹둥근휴지(30롤)</td><td>190,000원</td><td>0.8%</td></tr><tr><td>9</td><td class="lt">항공직송 훈제연어(160g)</td><td>186,300원</td><td>0.8%</td></tr><tr><td>10</td><td class="lt">택배 유기농 귀리유(YOU)(16팩x4개)</td><td>183,600원</td><td>0.8%</td></tr></tbody></table></div>
+<div class="sec">
+<div class="st"><span class="num">7</span>한눈에 보기 — 종합 평가</div>
+
+<div class="explain">
+<div class="et">📋 이 표는 어떻게 보나요?</div>
+<p>위에서 본 핵심 지표를 한 줄로 모았습니다. <b>"강점"</b>은 평균보다 좋은 것, <b>"약점"</b>은 평균보다 나쁜 것, <b>"평균"</b>은 비슷한 것입니다. 단협 운영의 다음 행동을 정할 때 이 표를 먼저 보세요.</p>
+</div>
+
+<table class="t">
+<thead><tr><th>지표</th><th>본 단협</th><th>평균</th><th>판정</th></tr></thead>
+<tbody>
+<tr><td class="lt">인당매출(ARPU)</td><td>190k원</td><td>187k원</td><td class="">⚖️ 평균</td></tr>
+<tr><td class="lt">객단가(AOV)</td><td>89k원</td><td>79k원</td><td class="ps">🟢 강점</td></tr>
+<tr><td class="lt">시니어 비중(60대+)</td><td>25%</td><td>29%</td><td>⚖️ 균형</td></tr>
+<tr><td class="lt">10년+ 충성층</td><td>63%</td><td>47%</td><td>🟢 충성 기반</td></tr>
+<tr><td class="lt">이탈률</td><td>32%</td><td>35%</td><td class="">⚖️ 평균</td></tr>
+<tr><td class="lt">1일 단발 비중</td><td>53%</td><td>46%</td><td class="ng">🔴 정착 약함</td></tr>
+<tr><td class="lt">8일+ 충성 비중</td><td>2.5%</td><td>2.4%</td><td class="">⚖️ 평균</td></tr>
+</tbody></table>
+
+<div class="explain" style="background:#fff3cc;border-left-color:#f39c12">
+<div class="et">💡 이 단협의 다음 행동은?</div>
+<p>• <b>강점 유지</b>: 충성 기반이 강한 단협입니다. 기존 조합원 관리에 우선순위.</p>
+<p>• <b>신규 정착 강화</b>: 신규는 들어오는데 두 번째 구매로 안 이어집니다. 첫구매 다음 7일·30일 안내 트리거.</p>
+<p>• <b>젊은층 신상품·간편식</b>: 젊은층 비중이 큰 단협 — 간편식·신상품 우선 안내, 모바일 푸시 활용.</p>
+</div>
+</div>
+
+<footer>
+<a href="../seoulbukbu/">◀ 서울북부두레생협</a><a href="../">📋 전체 인덱스</a><a href="../pyeongtaek/">평택두레생협 ▶</a><br>
+두레생협 온라인사업팀 · 2026.05 · ERP OrderGmno 매출명세 + 조합원 마스터
+</footer>
+
+</div></body></html>
