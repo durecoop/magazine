@@ -205,29 +205,31 @@ footer{padding:2rem 1rem;text-align:center;color:var(--gray);font-size:.82rem;bo
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 (function() {
-  var map = L.map('map_32').setView([37.6000995302827, 126.91556845327], 13);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '© OpenStreetMap', maxZoom: 18}).addTo(map);
-  // 매장 핀 (빨간)
-  L.marker([37.6000995302827, 126.91556845327], {
-    icon: L.divIcon({className:'',html:'<div style="background:#c0392b;color:#fff;padding:6px 10px;border-radius:20px;font-size:13px;font-weight:700;white-space:nowrap;box-shadow:0 2px 6px rgba(0,0,0,.3)">📍 매장</div>',iconSize:[80,30],iconAnchor:[40,30]})
-  }).addTo(map);
-  // 거리 원
-  L.circle([37.6000995302827, 126.91556845327], {radius:1000, color:'#c0392b', fill:false, weight:2, opacity:0.6}).addTo(map);
-  L.circle([37.6000995302827, 126.91556845327], {radius:3000, color:'#e67e22', fill:false, weight:1.5, opacity:0.5}).addTo(map);
-  L.circle([37.6000995302827, 126.91556845327], {radius:5000, color:'#f39c12', fill:false, weight:1, opacity:0.4, dashArray:'5,5'}).addTo(map);
-  // 조합원 점 (파란, 매출 크기 반영)
+  var map = L.map('map_32').setView([37.6000995302827, 126.91556845327], 15);
+  // 깔끔한 CartoDB Voyager 타일 — 지형(산) 표시 없음
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/voyager/{z}/{x}/{y}{r}.png', {
+    attribution: '© CartoDB · © OpenStreetMap', maxZoom: 19, subdomains:'abcd'}).addTo(map);
+  // 조합원 점 먼저(아래 레이어), 매장 핀이 위에 오도록
   var members = [{"lat": 37.6025043367054, "lon": 126.920591982814, "a": 5100}, {"lat": 37.5899911384753, "lon": 126.912611437601, "a": 61100}, {"lat": 37.6005411721761, "lon": 126.903655278222, "a": 23200}, {"lat": 37.5975182193059, "lon": 126.910470948468, "a": 41900}, {"lat": 37.6062435154437, "lon": 126.916771474767, "a": 77200}, {"lat": 37.6154811834972, "lon": 126.912304911106, "a": 29300}, {"lat": 37.5873678307971, "lon": 126.892550386685, "a": 143420}, {"lat": 37.6315663816842, "lon": 126.927817322461, "a": 17890}, {"lat": 37.6043613539436, "lon": 126.912787150443, "a": 18300}, {"lat": 37.6001947077303, "lon": 126.917140358305, "a": 18600}, {"lat": 37.6005565862719, "lon": 126.913677367898, "a": 40200}, {"lat": 37.6030386497094, "lon": 126.912596517186, "a": 3600}, {"lat": 37.5980896855268, "lon": 126.915184809688, "a": 50600}, {"lat": 37.6110641687486, "lon": 126.916008976203, "a": 0}, {"lat": 37.6005411721761, "lon": 126.903655278222, "a": 29990}, {"lat": 37.5981225315725, "lon": 126.908729530954, "a": 71370}, {"lat": 37.6013270236087, "lon": 126.918493373052, "a": 10880}, {"lat": 37.6010540820015, "lon": 126.916387362596, "a": 3400}, {"lat": 37.5947595663714, "lon": 126.907321511846, "a": 6800}, {"lat": 37.5952137141934, "lon": 126.914176898619, "a": 17800}, {"lat": 37.6072547525549, "lon": 126.912247525121, "a": 10300}, {"lat": 37.5895152217591, "lon": 126.907740493268, "a": 10500}, {"lat": 37.5991883931071, "lon": 126.914365972967, "a": 9900}, {"lat": 37.6115673190488, "lon": 126.91418347912, "a": 39300}, {"lat": 37.6000995302827, "lon": 126.91556845327, "a": 10000}, {"lat": 37.590987713984, "lon": 126.908901744564, "a": 12800}, {"lat": 37.5926348595516, "lon": 126.919892747364, "a": 22300}, {"lat": 37.6002499129025, "lon": 126.916465040056, "a": 7600}, {"lat": 37.6041057910281, "lon": 126.907409235632, "a": 50990}, {"lat": 37.6000995302827, "lon": 126.91556845327, "a": 7830}, {"lat": 37.6008014907831, "lon": 126.914440788932, "a": 6380}, {"lat": 37.5949890899457, "lon": 126.909699237185, "a": 43100}, {"lat": 37.5987361682017, "lon": 126.906165846343, "a": 37190}, {"lat": 37.6055947082904, "lon": 126.916255667783, "a": 37200}, {"lat": 37.6005565862719, "lon": 126.913677367898, "a": 27200}, {"lat": 37.604955574818, "lon": 126.914785289002, "a": 13200}, {"lat": 37.6118986973335, "lon": 126.911853591012, "a": 19000}, {"lat": 37.6053480378344, "lon": 126.91415245953, "a": 17100}, {"lat": 37.6019843229554, "lon": 126.911404161194, "a": 6900}, {"lat": 37.5994168780548, "lon": 126.912150738792, "a": 4600}, {"lat": 37.6000995302827, "lon": 126.91556845327, "a": 9000}, {"lat": 37.6000995302827, "lon": 126.91556845327, "a": 1500}, {"lat": 37.6032527272996, "lon": 126.919966750469, "a": 15000}, {"lat": 37.5837156703298, "lon": 126.908729008104, "a": 36100}, {"lat": 37.5990538480847, "lon": 126.90740881531, "a": 30470}, {"lat": 37.6002499129025, "lon": 126.916465040056, "a": 43200}, {"lat": 37.6041057910281, "lon": 126.907409235632, "a": 23200}, {"lat": 37.6040663238058, "lon": 126.917484525037, "a": 13000}, {"lat": 37.604382356359, "lon": 126.913534558892, "a": 9140}, {"lat": 37.60157810352, "lon": 126.91351923259, "a": 5000}];
   members.forEach(function(m) {
-    var r = Math.min(8, Math.max(3, Math.sqrt(m.a/10000)/4));
-    L.circleMarker([m.lat, m.lon], {radius:r, color:'#2980b9', fillColor:'#3498db', fillOpacity:0.5, weight:0.5}).addTo(map);
+    var r = Math.min(10, Math.max(4, Math.sqrt(m.a/10000)/3));
+    L.circleMarker([m.lat, m.lon], {
+      radius:r, color:'#1565c0', fillColor:'#2196f3',
+      fillOpacity:0.85, weight:1.5, opacity:0.9
+    }).addTo(map);
   });
-  // 자동 fit (조합원 포함 영역)
-  if (members.length > 0) {
-    var bounds = L.latLngBounds(members.map(function(m){return [m.lat,m.lon]}));
-    bounds.extend([37.6000995302827, 126.91556845327]);
-    map.fitBounds(bounds.pad(0.1));
-  }
+  // 거리 원 — 굵게·진하게
+  L.circle([37.6000995302827, 126.91556845327], {radius:1000, color:'#c0392b', fill:false, weight:4, opacity:0.85}).addTo(map);
+  L.circle([37.6000995302827, 126.91556845327], {radius:3000, color:'#e67e22', fill:false, weight:3.5, opacity:0.75}).addTo(map);
+  L.circle([37.6000995302827, 126.91556845327], {radius:5000, color:'#f39c12', fill:false, weight:3, opacity:0.65, dashArray:'8,6'}).addTo(map);
+  // 매장 핀 (제일 위)
+  L.marker([37.6000995302827, 126.91556845327], {
+    icon: L.divIcon({className:'',html:'<div style="background:#c0392b;color:#fff;padding:8px 14px;border-radius:24px;font-size:14px;font-weight:800;white-space:nowrap;box-shadow:0 3px 10px rgba(0,0,0,.4);border:2px solid #fff">📍 매장</div>',iconSize:[100,36],iconAnchor:[50,36]}),
+    zIndexOffset: 1000
+  }).addTo(map);
+  // 매장 중심 + 1km 표시 영역으로 시작 (확대된 뷰)
+  map.setView([37.6000995302827, 126.91556845327], 15);
+  // 줌 컨트롤로 사용자가 확대/축소 가능
 })();
 </script>
 

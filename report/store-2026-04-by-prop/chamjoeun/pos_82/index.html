@@ -205,29 +205,31 @@ footer{padding:2rem 1rem;text-align:center;color:var(--gray);font-size:.82rem;bo
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 (function() {
-  var map = L.map('map_82').setView([37.530804303959, 126.651349449913], 13);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '© OpenStreetMap', maxZoom: 18}).addTo(map);
-  // 매장 핀 (빨간)
-  L.marker([37.530804303959, 126.651349449913], {
-    icon: L.divIcon({className:'',html:'<div style="background:#c0392b;color:#fff;padding:6px 10px;border-radius:20px;font-size:13px;font-weight:700;white-space:nowrap;box-shadow:0 2px 6px rgba(0,0,0,.3)">📍 매장</div>',iconSize:[80,30],iconAnchor:[40,30]})
-  }).addTo(map);
-  // 거리 원
-  L.circle([37.530804303959, 126.651349449913], {radius:1000, color:'#c0392b', fill:false, weight:2, opacity:0.6}).addTo(map);
-  L.circle([37.530804303959, 126.651349449913], {radius:3000, color:'#e67e22', fill:false, weight:1.5, opacity:0.5}).addTo(map);
-  L.circle([37.530804303959, 126.651349449913], {radius:5000, color:'#f39c12', fill:false, weight:1, opacity:0.4, dashArray:'5,5'}).addTo(map);
-  // 조합원 점 (파란, 매출 크기 반영)
+  var map = L.map('map_82').setView([37.530804303959, 126.651349449913], 15);
+  // 깔끔한 CartoDB Voyager 타일 — 지형(산) 표시 없음
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/voyager/{z}/{x}/{y}{r}.png', {
+    attribution: '© CartoDB · © OpenStreetMap', maxZoom: 19, subdomains:'abcd'}).addTo(map);
+  // 조합원 점 먼저(아래 레이어), 매장 핀이 위에 오도록
   var members = [{"lat": 37.5434807225536, "lon": 126.730936154862, "a": 0}, {"lat": 37.530804303959, "lon": 126.651349449913, "a": 25020}, {"lat": 37.5302535716189, "lon": 126.647782386384, "a": 26490}, {"lat": 37.5261182390017, "lon": 126.620997857084, "a": 24200}, {"lat": 37.5350912839809, "lon": 126.637008428208, "a": 3000}, {"lat": 37.5386443104442, "lon": 126.648790554033, "a": 42250}, {"lat": 37.5386443104442, "lon": 126.648790554033, "a": 23000}, {"lat": 37.53673349507, "lon": 126.639881239795, "a": 19981}, {"lat": 37.5277004007932, "lon": 126.650506930411, "a": 23500}, {"lat": 37.5277004007932, "lon": 126.650506930411, "a": 0}, {"lat": 37.5366883352251, "lon": 126.648759221961, "a": 25000}, {"lat": 37.5315887288006, "lon": 126.653682411955, "a": 39410}, {"lat": 37.5385440081723, "lon": 126.622332906939, "a": 11600}, {"lat": 37.527674040966, "lon": 126.657066945632, "a": 14700}, {"lat": 37.5302535716189, "lon": 126.647782386384, "a": 14620}, {"lat": 37.530804303959, "lon": 126.651349449913, "a": 6200}, {"lat": 37.5395092968161, "lon": 126.638735498205, "a": 24220}, {"lat": 37.530804303959, "lon": 126.651349449913, "a": 19100}, {"lat": 37.5275933295416, "lon": 126.648401388602, "a": 3250}, {"lat": 37.4966636067587, "lon": 126.686855607807, "a": 98900}, {"lat": 37.5239167403055, "lon": 126.680236578352, "a": 24400}];
   members.forEach(function(m) {
-    var r = Math.min(8, Math.max(3, Math.sqrt(m.a/10000)/4));
-    L.circleMarker([m.lat, m.lon], {radius:r, color:'#2980b9', fillColor:'#3498db', fillOpacity:0.5, weight:0.5}).addTo(map);
+    var r = Math.min(10, Math.max(4, Math.sqrt(m.a/10000)/3));
+    L.circleMarker([m.lat, m.lon], {
+      radius:r, color:'#1565c0', fillColor:'#2196f3',
+      fillOpacity:0.85, weight:1.5, opacity:0.9
+    }).addTo(map);
   });
-  // 자동 fit (조합원 포함 영역)
-  if (members.length > 0) {
-    var bounds = L.latLngBounds(members.map(function(m){return [m.lat,m.lon]}));
-    bounds.extend([37.530804303959, 126.651349449913]);
-    map.fitBounds(bounds.pad(0.1));
-  }
+  // 거리 원 — 굵게·진하게
+  L.circle([37.530804303959, 126.651349449913], {radius:1000, color:'#c0392b', fill:false, weight:4, opacity:0.85}).addTo(map);
+  L.circle([37.530804303959, 126.651349449913], {radius:3000, color:'#e67e22', fill:false, weight:3.5, opacity:0.75}).addTo(map);
+  L.circle([37.530804303959, 126.651349449913], {radius:5000, color:'#f39c12', fill:false, weight:3, opacity:0.65, dashArray:'8,6'}).addTo(map);
+  // 매장 핀 (제일 위)
+  L.marker([37.530804303959, 126.651349449913], {
+    icon: L.divIcon({className:'',html:'<div style="background:#c0392b;color:#fff;padding:8px 14px;border-radius:24px;font-size:14px;font-weight:800;white-space:nowrap;box-shadow:0 3px 10px rgba(0,0,0,.4);border:2px solid #fff">📍 매장</div>',iconSize:[100,36],iconAnchor:[50,36]}),
+    zIndexOffset: 1000
+  }).addTo(map);
+  // 매장 중심 + 1km 표시 영역으로 시작 (확대된 뷰)
+  map.setView([37.530804303959, 126.651349449913], 15);
+  // 줌 컨트롤로 사용자가 확대/축소 가능
 })();
 </script>
 
