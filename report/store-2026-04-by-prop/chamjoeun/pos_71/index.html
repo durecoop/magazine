@@ -182,23 +182,45 @@ footer{padding:2rem 1rem;text-align:center;color:var(--gray);font-size:.82rem;bo
 
 
 <div class="sec"><div class="st"><span class="num">🗺️</span>매장 위치 + 조합원 분포 지도</div>
-<div class="tagline"><span class="lead">📍</span><span>매장 위치(빨간 핀)와 4월 이용 조합원 거주지(파란 점)를 함께 표시. 1·3·5km 영향권 원으로 거리감을 확인하세요.</span></div>
+<div class="tagline"><span class="lead">📍</span><span>4월 이 매장 이용한 조합원만 표시 (다른 매장 이용자는 제외). 빨간 핀 = 매장, 파란 점 = 조합원 거주지.</span></div>
 
-<div class="cd"><h3>지도 — 본 매장 (441명, 좌표 매칭)</h3>
+<div class="cd">
+<h3>지도 표시 가능 현황</h3>
+<table class="t">
+<tr><td><b>본 매장 이용자 (전체)</b></td><td><b>443명</b> / 매출 56.1M원</td></tr>
+<tr style="background:#e8f5e9"><td>지도 표시 (주소 좌표 확보)</td><td><b>441명 (99.5%)</b> / 매출 56.1M (100.0%)</td></tr>
+<tr style="background:#fff8e1"><td>주소 미상 (지도 표시 불가)</td><td><b>2명 (0.5%)</b> / 매출 0.0M (0.0%)<br><span style="font-size:.7rem;color:#888">전체 매장 평균 미상률 3.0%</span></td></tr>
+</table>
+</div>
+
+<div class="cd"><h3>지도 — 본 매장 이용자 441명 분포</h3>
 <div id="map_71" style="width:100%;height:500px;border-radius:10px;border:1px solid #ddd"></div>
 </div>
 
 <div class="cd"><h3>거리 구간별 매출 분포</h3>
 <table class="t">
 <thead><tr><th>거리</th><th>인원</th><th>비중</th><th>매출</th><th>비중</th><th>객단가</th></tr></thead>
-<tbody><tr><td><b>0~1km</b></td><td>244명</td><td>55.1%</td><td>33.1M원</td><td>59.0%</td><td>136k원</td></tr><tr><td><b>1~3km</b></td><td>106명</td><td>23.9%</td><td>14.1M원</td><td>25.2%</td><td>133k원</td></tr><tr><td><b>3~5km</b></td><td>28명</td><td>6.3%</td><td>4.0M원</td><td>7.2%</td><td>144k원</td></tr><tr><td><b>5~10km</b></td><td>21명</td><td>4.7%</td><td>1.7M원</td><td>3.0%</td><td>79k원</td></tr><tr><td><b>10km+</b></td><td>42명</td><td>9.5%</td><td>3.1M원</td><td>5.6%</td><td>75k원</td></tr><tr><td><b>미상</b></td><td>2명</td><td>0.5%</td><td>0.0M원</td><td>0.0%</td><td>5k원</td></tr></tbody></table>
+<tbody><tr><td><b>0~1km</b></td><td>244명</td><td>55.3%</td><td>33.1M원</td><td>59.0%</td><td>136k원</td></tr><tr><td><b>1~3km</b></td><td>106명</td><td>24.0%</td><td>14.1M원</td><td>25.2%</td><td>133k원</td></tr><tr><td><b>3~5km</b></td><td>28명</td><td>6.3%</td><td>4.0M원</td><td>7.2%</td><td>144k원</td></tr><tr><td><b>5~10km</b></td><td>21명</td><td>4.8%</td><td>1.7M원</td><td>3.0%</td><td>79k원</td></tr><tr><td><b>10km+</b></td><td>42명</td><td>9.5%</td><td>3.1M원</td><td>5.6%</td><td>75k원</td></tr><tr style="background:#fff8e1"><td><b>주소 미상</b><br><span style="font-size:.7rem;color:#888">지도 표시 불가</span></td><td>2명</td><td>0.5%</td><td>0.0M원</td><td>0.0%</td><td>5k원</td></tr></tbody></table>
+</div>
+
+<div class="insight-box" style="background:#e3f2fd;border-left-color:#2980b9">
+<div class="it" style="color:#1565c0">🌐 지역적 인사이트 — 평균과 비교</div>
+<p style="margin:6px 0">• <b>⚖️ 평균 분포</b> — 1km 이내 55% (평균 60%), 영향권 표준 패턴.</p>
+<p style="margin:6px 0">• <b>🚗 차량 접근 매장</b> — 매출 가중 평균 거리 <b>2.53km</b> (중앙값 1.80km보다 멀음). 차로 와서 한 번에 많이 사는 패턴 가능성.</p>
+<p style="margin:6px 0">• <b>🛣️ 원거리 충성층 보유</b> — 10km+ 이용자 9.5%로 큰 편. 광역 단골이 있다는 신호.</p>
+<p style="margin:6px 0">• <b>💰 가까울수록 객단가 ↑</b> — 1km 이내 객단가(136k원) > 5km+ 객단가(76k원). 자주 들르는 동네 단골 패턴.</p>
+<p style="margin-top:10px;padding-top:8px;border-top:1px solid #c5d4e3;font-size:.85rem;color:#666">
+<b>참고 지표</b> — 본 매장: 1km 55% / 3km 79% / 5km 86% / 평균거리 2.53km
+&nbsp;|&nbsp; 전체 평균: 1km 60% / 3km 85% / 5km 92% / 평균거리 중앙값 1.80km
+</p>
 </div>
 
 <div class="explain-bottom"><div class="et">📖 어떻게 읽나요?</div>
-<p>• <b>파란 점</b> 하나하나가 4월 이 매장에서 산 조합원의 거주지입니다.</p>
+<p>• <b>파란 점</b> 하나하나가 4월 이 매장에서 산 조합원의 거주지입니다 (다른 매장 이용자 제외).</p>
 <p>• <b>빨간 핀</b>이 매장 위치. 빨간 점에서 멀어질수록 매장에서 멀리 사는 조합원.</p>
 <p>• <b>원(1·3·5km)</b>은 매장 영향권. 보통 1km 안에 조합원이 가장 많고, 멀어질수록 줄어드는 패턴이 정상.</p>
-<p>• <b>표</b>는 거리 구간별 인원·매출 비중. 객단가가 거리에 따라 어떻게 변하는지 확인하세요. 매장이 도심이면 1km 집중, 외곽이면 광범위 분포.</p>
+<p>• <b>주소 미상</b>은 조합원 마스터에 주소가 비어있어 지도 표시 못한 비율입니다 (전체 매장 평균 3.0%).</p>
+<p>• <b>지역적 인사이트</b>는 본 매장의 거리 분포와 전체 매장 평균을 비교한 자동 평가입니다.</p>
 </div></div>
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
@@ -232,7 +254,6 @@ footer{padding:2rem 1rem;text-align:center;color:var(--gray);font-size:.82rem;bo
   // 줌 컨트롤로 사용자가 확대/축소 가능
 })();
 </script>
-
 
 <footer>두레생협 온라인사업팀 · 2026.05 · ERP MaPos > 판매내역<br>
 PISEQ 71 · 분석 가능 비율 88.7%</footer>
