@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>두레맛찬 · 명인의 손맛, 둥구나무에서</title>
+<meta name="description" content="두레맛찬 주간 기획전 · 둥구나무 산지 이야기와 함께">
+<meta name="theme-color" content="#2f5318">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Noto+Serif+KR:wght@600;700;800&family=Pretendard:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream:      #f6f1e6;
+    --paper:      #ffffff;
+    --ink:        #232017;
+    --ink-soft:   #56503f;
+    --ink-mute:   #8a8270;
+    --green-deep: #2f5318;
+    --green:      #4a7a2c;
+    --accent:     #b94522;
+    --line:       #e0d8c4;
+    --wood-dark:  #2a2218;
+    --wood:       #3a2f1f;
+    --wood-soft:  #4a3d28;
+    --gold:       #d4a84a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+    font-size: 18px;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; -webkit-tap-highlight-color: rgba(0,0,0,0); }
+
+  .nb { display: inline-block; }
+
+  h1, h2, h3, h4 {
+    font-family: 'Noto Serif KR', serif;
+    letter-spacing: -0.01em;
+    word-break: keep-all;
+  }
+
+  /* ===================== HERO ===================== */
+  .hero {
+    padding: 40px 22px 48px;
+    text-align: center;
+    background: var(--cream);
+    border-bottom: 1px solid var(--line);
+  }
+  .hero-illust {
+    max-width: 460px;
+    margin: 6px auto 22px;
+  }
+  .hero-illust img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .hero-eyebrow {
+    font-size: 15px;
+    color: var(--green-deep);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    margin-bottom: 18px;
+  }
+  .hero-emoji {
+    font-size: 44px;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .hero h1 {
+    font-family: 'Gaegu', 'Noto Serif KR', serif;
+    font-weight: 700;
+    font-size: 78px;
+    line-height: 1.05;
+    margin-bottom: 22px;
+    color: var(--ink);
+    letter-spacing: 0;
+  }
+  .hero h1 .brand {
+    color: var(--green-deep);
+  }
+  .hero-promo {
+    display: inline-block;
+    background: var(--green-deep);
+    color: #fff;
+    padding: 16px 28px;
+    border-radius: 4px;
+    margin: 6px 0 24px;
+    font-size: 19px;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+  .hero-promo b { color: #ffd96a; font-weight: 800; }
+  .hero-sub {
+    font-size: 18px;
+    color: var(--ink-soft);
+    margin: 0 auto 26px;
+    line-height: 1.85;
+  }
+  .hero-period {
+    font-size: 16px;
+    color: var(--ink-soft);
+    margin-bottom: 28px;
+  }
+  .hero-period b {
+    color: var(--ink);
+    font-weight: 700;
+  }
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--ink);
+    color: #fff;
+    padding: 18px 36px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 18px;
+    min-height: 56px;
+  }
+
+  /* ===================== 빠른 점프 ===================== */
+  .quick-jump {
+    position: sticky;
+    top: 0;
+    z-index: 90;
+    background: rgba(246, 241, 230, 0.96);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+    padding: 10px 12px;
+    display: flex;
+    gap: 6px;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .quick-jump::-webkit-scrollbar { display: none; }
+  .quick-jump a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    padding: 9px 16px;
+    border-radius: 4px;
+    border: 1px solid var(--line);
+    background: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    white-space: nowrap;
+    flex-shrink: 0;
+    min-height: 42px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* ===================== 브랜드 인용 ===================== */
+  .brand-strip {
+    background: var(--green-deep);
+    color: #f3ead3;
+    padding: 48px 22px;
+    text-align: center;
+  }
+  .brand-strip h2 {
+    font-weight: 700;
+    font-size: 24px;
+    margin-bottom: 14px;
+    color: #fff;
+    line-height: 1.5;
+  }
+  .brand-strip p {
+    font-size: 17px;
+    max-width: 560px;
+    margin: 0 auto;
+    line-height: 1.9;
+    color: #e8dfc4;
+  }
+
+  /* ===================== 둥구나무 산지 이야기 ===================== */
+  .producer {
+    background: var(--wood);
+    color: #f3ead3;
+    padding: 64px 22px 72px;
+    border-top: 6px solid var(--gold);
+  }
+  .producer-inner {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .producer-eyebrow {
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    color: var(--gold);
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 14px;
+    text-transform: uppercase;
+  }
+  .producer-title {
+    text-align: center;
+    font-size: 26px;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.3;
+    margin-bottom: 18px;
+    letter-spacing: -0.02em;
+  }
+  .producer-title .line {
+    display: block;
+    white-space: nowrap;
+  }
+  .producer-title .line + .line {
+    margin-top: 14px;
+  }
+  .producer-title em {
+    font-style: normal;
+    font-family: 'Gaegu', 'Noto Serif KR', serif;
+    font-weight: 700;
+    color: var(--gold);
+    font-size: 2.2em;
+    line-height: 1.05;
+  }
+  .producer-intro {
+    text-align: center;
+    font-size: 17px;
+    color: #e8dfc4;
+    line-height: 1.95;
+    max-width: 560px;
+    margin: 0 auto 36px;
+  }
+
+  .producer-fact {
+    background: var(--wood-dark);
+    border: 1px solid var(--wood-soft);
+    padding: 22px 24px;
+    margin-bottom: 32px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px 22px;
+  }
+  .producer-fact .row {
+    font-size: 14px;
+    color: #d6cba8;
+    line-height: 1.5;
+  }
+  .producer-fact .row .lab {
+    display: block;
+    color: var(--gold);
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    margin-bottom: 3px;
+  }
+  .producer-fact .row b { color: #fff; font-weight: 700; }
+
+  .quote-pull {
+    background: var(--wood-dark);
+    border-left: 4px solid var(--gold);
+    padding: 24px 24px 20px;
+    margin-bottom: 36px;
+  }
+  .quote-pull p {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: #fff;
+    line-height: 1.55;
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+  }
+  .quote-pull cite {
+    font-style: normal;
+    font-size: 14px;
+    color: var(--gold);
+    font-weight: 600;
+  }
+
+  .report-cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-bottom: 36px;
+  }
+  .report-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--wood-soft);
+    padding: 22px 24px;
+  }
+  .report-card .num {
+    display: inline-block;
+    font-family: 'Noto Serif KR', serif;
+    font-weight: 800;
+    font-size: 13px;
+    color: var(--wood);
+    background: var(--gold);
+    padding: 3px 10px;
+    border-radius: 2px;
+    letter-spacing: 0.05em;
+    margin-bottom: 12px;
+  }
+  .report-card h3 {
+    color: #fff;
+    font-size: 19px;
+    font-weight: 700;
+    line-height: 1.4;
+    margin-bottom: 12px;
+  }
+  .report-card p {
+    color: #d6cba8;
+    font-size: 15px;
+    line-height: 1.85;
+  }
+
+  .grade-block {
+    background: var(--wood-dark);
+    border: 1px solid var(--wood-soft);
+    padding: 28px 14px 24px;
+    text-align: center;
+    margin-bottom: 18px;
+  }
+  .grade-eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .grade-score {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 72px;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1;
+    margin-bottom: 8px;
+    letter-spacing: -0.03em;
+  }
+  .grade-score-unit {
+    display: block;
+    font-family: 'Pretendard', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #d6cba8;
+    letter-spacing: 0.04em;
+    margin-bottom: 14px;
+  }
+  .grade-level {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--wood-dark);
+    font-weight: 800;
+    font-size: 16px;
+    padding: 6px 16px;
+    border-radius: 3px;
+    margin-bottom: 14px;
+    letter-spacing: 0.04em;
+  }
+  .grade-detail {
+    font-size: 14px;
+    color: #d6cba8;
+    line-height: 1.7;
+    max-width: 460px;
+    margin: 0 auto;
+  }
+  .grade-axes {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 5px;
+    margin-top: 16px;
+  }
+  .grade-axes .axis {
+    background: rgba(212, 168, 74, 0.14);
+    border: 1px solid rgba(212, 168, 74, 0.25);
+    padding: 8px 2px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--gold);
+    line-height: 1.3;
+    font-weight: 600;
+    min-width: 0;
+    overflow: hidden;
+  }
+  .grade-axes .axis b {
+    display: block;
+    color: #fff;
+    font-weight: 800;
+    font-size: 13px;
+    margin-top: 2px;
+  }
+  @media (max-width: 380px) {
+    .grade-axes { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+  @media (min-width: 600px) {
+    .grade-axes .axis { font-size: 13px; padding: 10px 6px; }
+    .grade-axes .axis b { font-size: 15px; }
+  }
+
+  .report-byline {
+    text-align: center;
+    font-size: 13px;
+    color: var(--ink-mute);
+    color: #b3a878;
+    margin-top: 6px;
+    letter-spacing: 0.02em;
+  }
+
+  /* ===================== 섹션 공통 ===================== */
+  .section {
+    padding: 56px 18px 56px;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .section-head {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .section-head h2 {
+    font-weight: 800;
+    font-size: 32px;
+    line-height: 1.3;
+    color: var(--ink);
+    margin-bottom: 12px;
+    letter-spacing: -0.02em;
+  }
+  .section-head p {
+    font-size: 16px;
+    color: var(--ink-soft);
+    line-height: 1.85;
+    max-width: 540px;
+    margin: 0 auto;
+  }
+
+  /* ===================== 이주의 추천 ===================== */
+  .picks-section {
+    background: var(--paper);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .picks-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 22px;
+    max-width: 540px;
+    margin: 0 auto;
+  }
+  .pick-card {
+    background: #fff;
+    border: 1px solid var(--line);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+  }
+  .pick-img {
+    aspect-ratio: 5 / 4;
+    overflow: hidden;
+    background: var(--cream);
+  }
+  .pick-img img { width: 100%; height: 100%; object-fit: cover; }
+  .pick-body {
+    padding: 24px 22px 22px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  .pick-card h3 {
+    font-weight: 800;
+    font-size: 24px;
+    color: var(--ink);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+  .pick-tagline {
+    font-size: 17px;
+    color: var(--green-deep);
+    font-weight: 600;
+    margin-bottom: 14px;
+    line-height: 1.45;
+  }
+  .pick-desc {
+    font-size: 16px;
+    color: var(--ink-soft);
+    line-height: 1.85;
+    flex: 1;
+    margin-bottom: 22px;
+  }
+  .pick-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+    gap: 14px;
+  }
+  .pick-price {
+    line-height: 1.1;
+  }
+  .pick-price .label {
+    display: block;
+    font-size: 13px;
+    color: var(--ink-mute);
+    font-weight: 500;
+    margin-bottom: 3px;
+    letter-spacing: 0.02em;
+  }
+  .pick-price .sale {
+    display: block;
+    font-size: 13px;
+    color: var(--ink-mute);
+    text-decoration: line-through;
+    margin-bottom: 2px;
+  }
+  .pick-price .now {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--accent);
+  }
+  .pick-price .now .won { font-size: 15px; font-weight: 600; margin-left: 1px; color: var(--ink-soft); }
+  .pick-cta {
+    background: var(--ink);
+    color: #fff;
+    padding: 13px 22px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+    min-height: 46px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* ===================== 메인 그리드 ===================== */
+  .main-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+    max-width: 540px;
+    margin: 0 auto;
+  }
+  .item-card {
+    background: #fff;
+    border: 1px solid var(--line);
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+  }
+  .item-img-wrap {
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: var(--cream);
+    position: relative;
+  }
+  .item-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+  .item-discount {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    z-index: 2;
+    background: var(--accent);
+    color: #fff;
+    padding: 4px 8px;
+    font-size: 13px;
+    font-weight: 800;
+    line-height: 1;
+    border-radius: 3px;
+  }
+  .item-body {
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+  .item-card h4 {
+    font-weight: 800;
+    font-size: 19px;
+    color: var(--ink);
+    margin-bottom: 6px;
+    line-height: 1.3;
+  }
+  .item-tagline {
+    font-size: 14px;
+    color: var(--green-deep);
+    font-weight: 600;
+    margin-bottom: 12px;
+    line-height: 1.45;
+  }
+  .item-foot {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .item-price {
+    line-height: 1.1;
+  }
+  .item-price .label {
+    display: block;
+    font-size: 11px;
+    color: var(--ink-mute);
+    font-weight: 500;
+    margin-bottom: 2px;
+  }
+  .item-price .sale {
+    display: block;
+    font-size: 12px;
+    color: var(--ink-mute);
+    text-decoration: line-through;
+    margin-bottom: 1px;
+  }
+  .item-price .now {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--accent);
+  }
+  .item-price .now .won { font-size: 13px; font-weight: 600; margin-left: 1px; color: var(--ink-soft); }
+  .order-mini {
+    background: var(--ink);
+    color: #fff;
+    padding: 9px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    min-height: 38px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  @media (max-width: 380px) {
+    .item-card { grid-template-columns: 1fr; }
+    .item-img-wrap { aspect-ratio: 16 / 10; }
+  }
+
+  /* ===================== OUTRO ===================== */
+  .outro {
+    padding: 56px 22px 72px;
+    text-align: center;
+    background: var(--cream);
+    border-top: 1px solid var(--line);
+  }
+  .outro h2 {
+    font-weight: 800;
+    font-size: 28px;
+    line-height: 1.4;
+    color: var(--ink);
+    margin-bottom: 18px;
+    letter-spacing: -0.02em;
+  }
+  .outro p.outro-note {
+    font-size: 17px;
+    color: var(--ink-soft);
+    margin: 0 auto 26px;
+    line-height: 1.9;
+  }
+  .outro-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--green-deep);
+    color: #fff;
+    padding: 18px 38px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 18px;
+    min-height: 56px;
+  }
+  .outro .tel-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+    padding: 16px 30px;
+    border-radius: 4px;
+    background: #fff;
+    border: 1px solid var(--green-deep);
+    color: var(--green-deep);
+    font-weight: 700;
+    font-size: 17px;
+    text-decoration: none;
+    min-height: 52px;
+  }
+  .foot-note {
+    margin-top: 40px;
+    padding-top: 28px;
+    border-top: 1px solid var(--line);
+    font-size: 14px;
+    color: var(--ink-mute);
+    max-width: 540px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.8;
+  }
+  .foot-note strong { color: var(--ink-soft); font-weight: 700; }
+
+  /* ===================== 방문 카운터 ===================== */
+  .visit-counter {
+    position: fixed;
+    right: 12px; top: 12px;
+    z-index: 200;
+    background: rgba(255,255,255,0.92);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 6px 12px;
+    font-size: 13px;
+    color: var(--ink-mute);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    line-height: 1;
+  }
+  .visit-counter b {
+    color: var(--ink-soft);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ===================== 태블릿/PC ===================== */
+  @media (min-width: 600px) {
+    .hero { padding: 80px 24px 64px; }
+    .hero h1 { font-size: 88px; }
+    .section-head h2 { font-size: 38px; }
+    .brand-strip h2 { font-size: 28px; }
+    .outro h2 { font-size: 32px; }
+    .producer-title { font-size: 36px; }
+    .producer-title .line + .line { margin-top: 20px; }
+    .quote-pull p { font-size: 26px; }
+    .grade-score { font-size: 92px; }
+  }
+  @media (min-width: 900px) {
+    .picks-grid {
+      grid-template-columns: repeat(3, 1fr);
+      max-width: 1080px;
+    }
+    .main-grid {
+      grid-template-columns: repeat(2, 1fr);
+      max-width: 1080px;
+    }
+    .section { padding: 72px 24px; max-width: 1120px; }
+    .hero h1 { font-size: 104px; }
+    .producer-inner { max-width: 920px; }
+    .report-cards { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<div class="visit-counter">
+  방문 <b id="vc-count">—</b>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow" id="hero-eyebrow">2026년 20주차 · 명인의 손맛</div>
+  <div class="hero-emoji" aria-hidden="true">🍳</div>
+  <h1>
+    <span class="brand">두레맛찬</span>
+  </h1>
+  <div class="hero-illust">
+    <img src="ta0008a15605_01.png" alt="온 가족이 함께하는 식탁 일러스트">
+  </div>
+  <div class="hero-promo">
+    <span class="nb"><b>모든 품목</b> <b>5%</b> 할인</span>
+  </div>
+  <p class="hero-sub" id="hero-sub">
+    <span class="nb">국내산 우수 원재료, 화학조미료 없이</span><br>
+    <span class="nb">명인의 손맛으로 정성껏 만든 두레의 반찬</span>
+  </p>
+  <p class="hero-period">
+    주문기간 <b id="hero-period">—</b>
+  </p>
+  <a class="hero-cta" id="hero-cta" href="#" target="_blank" rel="noopener">
+    기획전에서 주문하기 →
+  </a>
+</section>
+
+<!-- 빠른 점프 -->
+<nav class="quick-jump" aria-label="빠른 이동">
+  <a href="#producer">산지 이야기</a>
+  <a href="#picks">이주의 추천</a>
+  <a href="#all-items">전체 품목</a>
+  <a href="#outro">주문 안내</a>
+</nav>
+
+<!-- 브랜드 인용 -->
+<section class="brand-strip">
+  <h2><span class="nb">"우리 가족에게 먹이고 싶은 반찬, 그대로."</span></h2>
+  <p>
+    <span class="nb">조합원의 마음으로 만든 간편 반찬.</span><br>
+    <span class="nb">밥 위에 바로 얹을 수 있게.</span>
+  </p>
+</section>
+
+<!-- ===================== 둥구나무 산지 이야기 ===================== -->
+<section class="producer" id="producer">
+  <div class="producer-inner">
+    <div class="producer-eyebrow">두레생협 산지 현장 리포트 · 2026.04</div>
+    <h2 class="producer-title">
+      <span class="line">두레맛찬을 만드는 곳,</span>
+      <span class="line"><em>둥구나무</em></span>
+    </h2>
+    <p class="producer-intro">
+      <span class="nb">정자나무 중에서도 가장 크고 우람한 나무가 둥구나무.</span>
+      <span class="nb">그 큰 나무 그늘 아래서 좋은 음식을 편안히 즐기길 바라는</span>
+      <span class="nb">대표님 부부의 마음을 담아 지은 이름.</span>
+    </p>
+
+    <div class="quote-pull">
+      <p>"두레는 참 인간적이다.<br>소비자가 음식의 질을 만든다."</p>
+      <cite>— 둥구나무 대표 (자주관리사 현장 기록)</cite>
+    </div>
+
+    <div class="report-cards">
+      <div class="report-card">
+        <span class="num">의견 ①</span>
+        <h3>왜 둥구나무를 찾아갔는가</h3>
+        <p>맛과 재료를 모두 믿고 먹을 수 있는 반찬을 조합원에게 공급하기 위해.</p>
+      </div>
+      <div class="report-card">
+        <span class="num">의견 ②</span>
+        <h3>명인의 손맛, 그 의미</h3>
+        <p>한국조리협회로부터 요리명인 인증을 받은 대표님. 명인의 솜씨와 비법으로 빚는 반찬, 특히 물김치는 둥구나무만의 레시피.</p>
+      </div>
+      <div class="report-card">
+        <span class="num">의견 ③</span>
+        <h3>두레 전용 시설로 답한 진심</h3>
+        <p>두레 전용 제조시설과 공간을 별도로 마련하고, 전담 직원까지 추가 고용.</p>
+      </div>
+      <div class="report-card">
+        <span class="num">의견 ④</span>
+        <h3>원재료 · 양념 · 소금의 원칙</h3>
+        <p>국내산 우수 원재료, 생협 양념, 5년 이상 간수 뺀 천일염. 화학조미료는 전혀 사용하지 않음.</p>
+      </div>
+    </div>
+
+    <div class="grade-block">
+      <div class="grade-eyebrow">2026.04.16 자주관리 점검 결과</div>
+      <div class="grade-score">170</div>
+      <div class="grade-score-unit">/ 170점 만점</div>
+      <div class="grade-level">Level S · 최우수 등급</div>
+      <div class="grade-detail">
+        5개 평가 항목 전부 만점<br>
+        100점 환산 시 만점<br>
+        부적합 · 개선 요청 0건
+      </div>
+      <div class="grade-axes">
+        <div class="axis">법적관리<b>40/40</b></div>
+        <div class="axis">원료이력<b>30/30</b></div>
+        <div class="axis">공정관리<b>40/40</b></div>
+        <div class="axis">이물관리<b>30/30</b></div>
+        <div class="axis">위생관리<b>30/30</b></div>
+      </div>
+    </div>
+
+    <p class="report-byline">2026.04.16 점검 · 손민영 자주관리사 작성 · 두레생협연합회 자주관리팀</p>
+  </div>
+</section>
+
+<!-- 이주의 추천 -->
+<section class="picks-section" id="picks">
+  <div class="section">
+    <div class="section-head">
+      <h2><span class="nb">이번 주,</span><br><span class="nb">이 반찬을 권합니다</span></h2>
+      <p><span class="nb">둥구나무 비법 물김치와 깊은 향의 산채.</span></p>
+    </div>
+    <div class="picks-grid" id="picks-grid"></div>
+  </div>
+</section>
+
+<!-- 전체 품목 -->
+<section class="section" id="all-items">
+  <div class="section-head">
+    <h2 id="all-title"><span class="nb">이번 주</span><br><span class="nb">두레맛찬 16종</span></h2>
+    <p><span class="nb">모든 품목에 5% 할인이 적용된 가격입니다.</span></p>
+  </div>
+  <div class="main-grid" id="main-grid"></div>
+</section>
+
+<!-- OUTRO -->
+<section class="outro" id="outro">
+  <h2><span class="nb">오늘 저녁,</span><br><span class="nb">반찬 걱정을 두레맛찬에.</span></h2>
+  <p class="outro-note"><span class="nb">명인의 손맛으로 차린 반찬,</span><br><span class="nb">바로 식탁에 올리는 한 끼.</span></p>
+  <a class="outro-cta" id="outro-cta" href="#" target="_blank" rel="noopener">
+    두레맛찬 전체보기 →
+  </a>
+  <br>
+  <a class="tel-cta" href="tel:1661-5110">조합원 상담실 1661-5110</a>
+  <div class="foot-note">
+    <span class="nb">주문기간 <strong id="foot-period">—</strong></span>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!--  ◆ 매주 수정하는 영역은 아래 WEEK / ITEMS 뿐 ◆ -->
+<!-- ============================================================ -->
+<script>
+  /* [1] 이번 주 기본 정보 */
+  const WEEK = {
+    weekNo: 20,
+    weekKeyword: '명인의 손맛',
+    heroEyebrow: '2026년 20주차 · 명인의 손맛',
+    heroSub:  '국내산 우수 원재료, 화학조미료 없이\n명인의 손맛으로 정성껏 만든 두레의 반찬',
+    period:   '2026.05.15 ~ 05.21',
+    shopUrl:  'https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1664#book7',
+    statsNamespace: 'durecoop-matchan-2026w20',
+  };
+
+  /* [2] 품목 (모두 5% 할인 단일 적용)
+     - featured: true → 이주의 추천 (3개 권장)
+     - salePrice: 정상가, nowPrice: 5% 할인 적용가 */
+  const ITEMS = [
+    { img: '59414C.jpg', name: '얼갈이보리 물김치',  tagline: '둥구나무만의 비법 물김치',         salePrice: 18600, nowPrice: 17700, featured: true,
+      desc: '보리와 얼갈이를 함께 발효한 시원한 한 그릇.\n둥구나무 비법 레시피의 깊은 국물.' },
+    { img: '58072C.png', name: '열무얼갈이 물김치',  tagline: '여름 입맛을 깨우는 시원한 국물',   salePrice: 18800, nowPrice: 17900,
+      desc: '열무와 얼갈이의 아삭한 식감.\n뜨거운 밥에 말아 후루룩.' },
+    { img: '58803C.png', name: '고등어무조림',       tagline: '통통한 고등어와 푹 익은 무',       salePrice: 18500, nowPrice: 17600,
+      desc: '두레 무로 푹 졸여 부드러운 한 토막.\n조림 국물을 밥에 비벼도 별미.' },
+    { img: '58068C.png', name: '곤드레나물',         tagline: '강원도 산자락의 깊은 향',           salePrice: 6200, nowPrice: 5900, featured: true,
+      desc: '강원도 곤드레를 집간장에 정성껏 무쳤어요.\n구수한 향이 밥에 비벼 먹기에 그만.' },
+    { img: '58064C.png', name: '깻잎순들깨볶음',     tagline: '향긋함 위에 얹은 고소함',           salePrice: 6300, nowPrice: 6000,
+      desc: '어린 깻잎순에 들깨가루를 듬뿍 더했어요.\n흰쌀밥 한 숟갈에 얹어 드세요.' },
+    { img: '59024C.jpg', name: '꼬막양념무침',       tagline: '남도 밥상의 별미 그대로',           salePrice: 8800, nowPrice: 8400,
+      desc: '쫄깃한 꼬막살을 매콤달큰하게 버무렸어요.\n밥에 얹거나 김에 싸 먹으면 꼬막비빔밥.' },
+    { img: '58635C.jpg', name: '꽈리고추멸치조림',   tagline: '밥도둑의 정석',                     salePrice: 6300, nowPrice: 6000,
+      desc: '꽈리고추의 알싸함과 멸치의 감칠맛.\n간장 양념이 스며든 바삭한 멸치.' },
+    { img: '58065C.png', name: '도라지초무침',       tagline: '쌉싸름 아삭, 새콤 톡 쏘는',         salePrice: 5900, nowPrice: 5600,
+      desc: '국산 도라지를 식초로 깔끔하게 무쳤어요.\n기름진 음식 옆에서 더 빛나는 반찬.' },
+    { img: '58067C.png', name: '부지깽이나물',       tagline: '울릉도에서 자란 귀한 산채',         salePrice: 6200, nowPrice: 5900, featured: true,
+      desc: '울릉도에서 자란 귀한 산채, 부지깽이.\n바닷바람 맞은 잎은 부드럽고 향이 깊어요.' },
+    { img: '58425C.png', name: '산채나물비빔세트',   tagline: '한 그릇 비빔밥, 손 안에',           salePrice: 14200, nowPrice: 13500,
+      desc: '여러 산채 나물을 한자리에.\n참기름 한 방울, 고추장 한 술이면 완성.' },
+    { img: '58634C.jpg', name: '생깻잎무침',         tagline: '한 장, 한 장, 밥 위에',             salePrice: 6100, nowPrice: 5800,
+      desc: '싱싱한 깻잎을 켜켜이 재운 별미.\n뜨끈한 밥 위에 한 장이면 충분.' },
+    { img: '58066C.png', name: '오미자미역초무침',   tagline: '다섯 가지 맛이 깃든 미역',           salePrice: 5000, nowPrice: 4800,
+      desc: '미역에 오미자의 다섯 가지 맛이 스며요.\n입안에 은은한 향이 오래 남습니다.' },
+    { img: '58033C.png', name: '우엉조림',           tagline: '도시락 속 변하지 않는 단골',         salePrice: 5200, nowPrice: 4900,
+      desc: '국산 우엉을 진간장에 오래 졸였어요.\n도시락, 김밥, 비빔밥에 모두 어울려요.' },
+    { img: '58031C.png', name: '죽순볶음',           tagline: '아삭함을 그대로 살려',               salePrice: 6300, nowPrice: 6000,
+      desc: '봄 죽순의 아삭함을 그대로 살린 볶음.\n자극적이지 않아 누구에게나 편한 맛.' },
+    { img: '58030C.png', name: '지리멸치볶음',       tagline: '바삭, 비리지 않은 깔끔한 멸치',     salePrice: 4200, nowPrice: 4000,
+      desc: '작고 깔끔한 지리멸치를 바삭하게 볶았어요.\n비리지 않아 아이도 편하게 먹어요.' },
+    { img: '58059C.png', name: '코다리조림',         tagline: '쫄깃한 코다리, 진한 양념',           salePrice: 13700, nowPrice: 13000,
+      desc: '쫄깃한 코다리에 진한 양념을 푹 들였어요.\n밥 한 그릇 거뜬한 매콤한 조림.' },
+  ];
+
+  /* [3] 렌더링 (수정 불필요) */
+  const IMG_BASE = 'https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/';
+  const fmt = n => n.toLocaleString('ko-KR');
+  const nl2br = s => s.split('\n').map(line => `<span class="nb">${line}</span>`).join('<br>');
+
+  document.getElementById('hero-eyebrow').textContent = WEEK.heroEyebrow;
+  document.getElementById('hero-sub').innerHTML = nl2br(WEEK.heroSub);
+  document.getElementById('hero-period').textContent = WEEK.period;
+  document.getElementById('hero-cta').href = WEEK.shopUrl;
+  document.getElementById('outro-cta').href = WEEK.shopUrl;
+  document.getElementById('foot-period').textContent = WEEK.period;
+  document.getElementById('all-title').innerHTML = `<span class="nb">이번 주</span><br><span class="nb">두레맛찬 ${ITEMS.length}종</span>`;
+  document.title = `두레맛찬 · ${WEEK.weekKeyword} (${WEEK.period})`;
+
+  // 이주의 추천
+  const featured = ITEMS.filter(x => x.featured).slice(0, 3);
+  document.getElementById('picks-grid').innerHTML = featured.map(it => {
+    const pct = Math.round((it.salePrice - it.nowPrice) / it.salePrice * 100);
+    return `
+    <a class="pick-card" href="${WEEK.shopUrl}" target="_blank" rel="noopener">
+      <div class="pick-img">
+        <img src="${IMG_BASE}${it.img}" alt="(맛찬)${it.name}" loading="lazy">
+      </div>
+      <div class="pick-body">
+        <h3><span class="nb">${it.name}</span></h3>
+        <div class="pick-tagline"><span class="nb">${it.tagline}</span></div>
+        <p class="pick-desc">${nl2br(it.desc)}</p>
+        <div class="pick-foot">
+          <div class="pick-price">
+            <span class="label">조합원가 ${pct}% ↓</span>
+            <span class="sale">정상 ${fmt(it.salePrice)}원</span>
+            <span class="now">${fmt(it.nowPrice)}<span class="won">원</span></span>
+          </div>
+          <span class="pick-cta">주문 →</span>
+        </div>
+      </div>
+    </a>
+  `;
+  }).join('');
+
+  // 전체 그리드
+  document.getElementById('main-grid').innerHTML = ITEMS.map(it => {
+    const pct = Math.round((it.salePrice - it.nowPrice) / it.salePrice * 100);
+    return `
+    <a class="item-card" href="${WEEK.shopUrl}" target="_blank" rel="noopener">
+      <div class="item-img-wrap">
+        <span class="item-discount">${pct}%</span>
+        <img src="${IMG_BASE}${it.img}" alt="(맛찬)${it.name}" loading="lazy">
+      </div>
+      <div class="item-body">
+        <h4><span class="nb">${it.name}</span></h4>
+        <div class="item-tagline"><span class="nb">${it.tagline}</span></div>
+        <div class="item-foot">
+          <div class="item-price">
+            <span class="sale">정상 ${fmt(it.salePrice)}원</span>
+            <span class="now">${fmt(it.nowPrice)}<span class="won">원</span></span>
+          </div>
+          <span class="order-mini">주문 →</span>
+        </div>
+      </div>
+    </a>
+  `;
+  }).join('');
+
+  /* [4] 통계 (Abacus) */
+  (function(){
+    const NS = WEEK.statsNamespace;
+    const API = `https://abacus.jasoncameron.dev/hit/${NS}/`;
+    function hit(key){
+      try { fetch(API + key, { mode: 'cors', keepalive: true, cache: 'no-store' }).catch(()=>{}); } catch(e){}
+    }
+    fetch(`https://abacus.jasoncameron.dev/hit/${NS}/pageview`, { cache: 'no-store' })
+      .then(r => r.json())
+      .then(d => { const el = document.getElementById('vc-count'); if (el && d && typeof d.value === 'number') el.textContent = fmt(d.value); })
+      .catch(()=>{});
+    try {
+      const src = (new URLSearchParams(location.search).get('utm_source') || '').toLowerCase();
+      if (src === 'rcs') hit('pageview-rcs');
+      else if (src) hit('pageview-other');
+      else hit('pageview-direct');
+    } catch(e){}
+    document.querySelectorAll('a[href*="ecoop.or.kr"]').forEach(a => {
+      a.addEventListener('click', () => {
+        if (a.id === 'hero-cta') hit('click-hero');
+        else if (a.id === 'outro-cta') hit('click-outro');
+        else if (a.classList.contains('pick-card')) hit('click-pick');
+        else if (a.classList.contains('item-card')) hit('click-product');
+        hit('click-all');
+      }, { passive: true });
+    });
+  })();
+</script>
+</body>
+</html>
