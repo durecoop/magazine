@@ -118,16 +118,21 @@ footer {margin-top:20px;padding:14px;text-align:center;color:var(--gray);font-si
 </div>
 
 <div class="chart-card">
-<h3>📈 4년 주별 매출 비교 (회계 기준)</h3>
+<h3>📈 4년 주별 매출 비교 (회계 기준) + 26년 W22~W26 목표 (전년 동주)</h3>
 <div class="legend-row">
   <span class="lg"><span class="sw" style="background:#90a4ae"></span>2023</span>
   <span class="lg"><span class="sw" style="background:#42a5f5"></span>2024</span>
   <span class="lg"><span class="sw" style="background:#388e3c"></span>2025</span>
   <span class="lg"><span class="sw" style="background:#c0392b"></span>2026</span>
+  <span class="lg"><span class="sw" style="background:#ff9800;height:5px"></span>26년 목표(전년 동주)</span>
   <span style="color:#999">· 명절 주(W5·W8) 표시</span>
 </div>
 <div class="canvas-wrap"><canvas id="salesChart"></canvas></div>
-<div class="hint">💡 차트의 <b>점을 클릭</b>하면 그 주의 1위 상품·특이도·동주 다른 연도 비교가 표시됩니다</div>
+<div class="hint">💡 차트의 <b>점을 클릭</b>하면 그 주의 1위 상품·특이도·동주 다른 연도 비교 / 🟠 주황 점선은 26년 회복 목표선</div>
+<div id="targetBox" style="margin-top:14px;padding:14px;background:linear-gradient(135deg,#fff8e1,#fffde7);border:2px solid #ff9800;border-radius:10px">
+  <div style="font-weight:800;color:#bf6c00;font-size:1.05rem;margin-bottom:8px">🎯 26년 W22~W26 매출·주문자 목표 (전년 동주 동일 회복)</div>
+  <div id="targetTable"></div>
+</div>
 </div>
 
 <div class="modal-overlay" id="weekModal" onclick="if(event.target===this)closeModal()">
@@ -274,6 +279,44 @@ const colors = {2023:'#90a4ae',2024:'#42a5f5',2025:'#388e3c',2026:'#c0392b'};
 const top1Freq = {};
 chartData.top1_freq.forEach(([name, cnt]) => top1Freq[name] = cnt);
 
+// 26년 W22~W26 목표 표 렌더
+(function renderTargetTable() {
+  let html = '<table style="width:100%;border-collapse:collapse;font-size:.85rem">';
+  html += '<thead><tr style="background:#ff9800;color:#fff">';
+  html += '<th style="padding:8px">주차</th><th>25년 매출(목표)</th><th>25년 주문자(목표)</th><th>25년 주평균가</th><th>비고</th>';
+  html += '</tr></thead><tbody>';
+  let totalS = 0, totalO = 0;
+  for (let w = 22; w <= 26; w++) {
+    const s = chartData.sales[2025][w-1];
+    const o = chartData.orderers[2025][w-1];
+    const aov = (s && o) ? (s/o) : 0;
+    if (s) totalS += s;
+    if (o) totalO += o;
+    const isHoliday = (w === 22) ? '' : '';  // W22~W26는 보통 명절 X
+    html += '<tr style="border-bottom:1px solid #ffe0b2">';
+    html += '<td style="padding:8px;text-align:center;font-weight:700;color:#bf6c00">W' + String(w).padStart(2,'0') + '</td>';
+    html += '<td style="text-align:right;padding:6px;font-weight:700">' + (s ? (s/1e6).toFixed(1) + 'M' : '—') + '</td>';
+    html += '<td style="text-align:right;padding:6px">' + (o ? o.toLocaleString() + '명' : '—') + '</td>';
+    html += '<td style="text-align:right;padding:6px;color:#888">' + (aov ? (aov/1000).toFixed(0) + 'k원' : '—') + '</td>';
+    html += '<td style="padding:6px;color:#666;font-size:.78rem">' + isHoliday + '</td>';
+    html += '</tr>';
+  }
+  html += '<tr style="background:#fff3e0;font-weight:800">';
+  html += '<td style="padding:10px;text-align:center;color:#bf6c00">5주 합계</td>';
+  html += '<td style="text-align:right;padding:10px;color:#bf6c00">' + (totalS/1e8).toFixed(2) + '억</td>';
+  html += '<td style="text-align:right;padding:10px;color:#bf6c00">' + totalO.toLocaleString() + '명</td>';
+  html += '<td style="text-align:right;padding:10px;color:#888">평균 ' + (totalS/totalO/1000).toFixed(0) + 'k원</td>';
+  html += '<td style="padding:10px;color:#888;font-size:.78rem">합계 목표</td>';
+  html += '</tr>';
+  html += '</tbody></table>';
+  html += '<p style="margin-top:10px;font-size:.85rem;color:#7a5300;line-height:1.65">';
+  html += '<b>💡 목표 = 25년 W22~W26 매출·주문자</b> 그대로 회복.<br>';
+  html += '21~23주 붐업 캠페인 + 24~25주 6월 전품목 행사로 위 목표 달성 시 26년 누적 매출이 25년 동기와 수평 회복.<br>';
+  html += '5주 합계 목표 = <b>' + (totalS/1e8).toFixed(2) + '억 / ' + totalO.toLocaleString() + '명</b>.';
+  html += '</p>';
+  document.getElementById('targetTable').innerHTML = html;
+})();
+
 // ISO 주차 → 날짜 변환
 function isoWeekRange(year, week) {
   const jan4 = new Date(year, 0, 4);
@@ -347,6 +390,54 @@ function makeChart(canvasId, dataKey, yAxisLabel) {
       pointHoverRadius: 7,
       pointHitRadius: 12,
       spanGaps: true,
+    });
+  }
+  // 26년 W22~W26 목표(전년 25년 W22~W26 매출과 동일) 라인 추가 — sales 차트에만
+  if (dataKey === 'sales') {
+    const target = new Array(52).fill(null);
+    for (let w = 22; w <= 26; w++) {
+      const v25 = chartData.sales[2025][w-1];
+      if (v25 != null) target[w-1] = v25;
+    }
+    datasets.push({
+      label: '26년 W22~W26 목표 (전년 동주 매출)',
+      data: target,
+      borderColor: '#ff9800',
+      backgroundColor: '#ff980022',
+      borderWidth: 4,
+      borderDash: [8, 4],
+      tension: 0.2,
+      pointRadius: 6,
+      pointStyle: 'rectRot',
+      pointBackgroundColor: '#ff9800',
+      pointBorderColor: '#fff',
+      pointBorderWidth: 2,
+      pointHoverRadius: 10,
+      spanGaps: false,
+    });
+  }
+  // 주문자수 차트에도 W22~W26 목표 (전년 동주)
+  if (dataKey === 'orderers') {
+    const target = new Array(52).fill(null);
+    for (let w = 22; w <= 26; w++) {
+      const v25 = chartData.orderers[2025][w-1];
+      if (v25 != null) target[w-1] = v25;
+    }
+    datasets.push({
+      label: '26년 W22~W26 목표 (전년 동주 주문자)',
+      data: target,
+      borderColor: '#ff9800',
+      backgroundColor: '#ff980022',
+      borderWidth: 4,
+      borderDash: [8, 4],
+      tension: 0.2,
+      pointRadius: 6,
+      pointStyle: 'rectRot',
+      pointBackgroundColor: '#ff9800',
+      pointBorderColor: '#fff',
+      pointBorderWidth: 2,
+      pointHoverRadius: 10,
+      spanGaps: false,
     });
   }
   const chart = new Chart(ctx, {
