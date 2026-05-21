@@ -53,6 +53,36 @@ table.t .dn {color:#c0392b;font-weight:700}
 .note {background:#fff3cc;border-left:4px solid #f39c12;padding:10px 14px;border-radius:6px;font-size:.85rem;margin-bottom:14px}
 .note b {color:#7a5300}
 
+/* 모달 */
+.modal-overlay {display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.55);z-index:1000;align-items:center;justify-content:center}
+.modal-overlay.show {display:flex}
+.modal {background:#fff;border-radius:14px;padding:24px 28px;width:90%;max-width:560px;max-height:80vh;overflow-y:auto;box-shadow:0 8px 30px rgba(0,0,0,.3)}
+.modal h2 {font-size:1.2rem;color:var(--accent);margin-bottom:6px}
+.modal .week-info {color:var(--gray);font-size:.85rem;margin-bottom:14px}
+.modal .row {display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #eee}
+.modal .row:last-child {border-bottom:none}
+.modal .row .lbl {font-size:.8rem;color:#555;font-weight:600;min-width:110px}
+.modal .row .val {font-size:.95rem;font-weight:700;color:var(--text);text-align:right;flex:1}
+.modal .top-card {background:linear-gradient(135deg,#fff8e1,#fffde7);border:2px solid #f39c12;border-radius:10px;padding:14px 16px;margin:10px 0}
+.modal .top-card .ttl {font-size:.78rem;color:#7a5300;font-weight:700}
+.modal .top-card .name {font-size:1.1rem;font-weight:900;color:#bf6c00;margin-top:4px}
+.modal .freq-bar {margin-top:10px;padding:10px;background:#f5f5f5;border-radius:8px}
+.modal .freq-bar .h {font-size:.78rem;color:var(--gray);margin-bottom:5px}
+.modal .freq-bar .badge {display:inline-block;padding:3px 9px;border-radius:11px;font-size:.78rem;font-weight:700;color:#fff;margin-right:5px}
+.modal .badge.common {background:#888}
+.modal .badge.occasional {background:#42a5f5}
+.modal .badge.rare {background:#e67e22}
+.modal .badge.unique {background:#c0392b}
+.modal .other-years {margin-top:14px}
+.modal .other-years h4 {font-size:.85rem;color:var(--accent);margin-bottom:6px}
+.modal .yr-item {display:flex;justify-content:space-between;padding:5px 0;font-size:.85rem;border-bottom:1px dashed #eee}
+.modal .yr-item .y {font-weight:700;min-width:60px}
+.modal .close {display:block;width:100%;background:var(--accent);color:#fff;padding:10px;border:none;border-radius:8px;font-weight:700;cursor:pointer;margin-top:14px;font-size:.95rem}
+.modal .close:hover {background:#163b5e}
+
+.chart-card .canvas-wrap {cursor:pointer}
+.hint {font-size:.8rem;color:var(--gray);text-align:right;margin-top:4px}
+
 footer {margin-top:20px;padding:14px;text-align:center;color:var(--gray);font-size:.78rem;border-top:1px solid #ddd}
 </style>
 </head>
@@ -97,6 +127,34 @@ footer {margin-top:20px;padding:14px;text-align:center;color:var(--gray);font-si
   <span style="color:#999">· 명절 주(W5·W8) 표시</span>
 </div>
 <div class="canvas-wrap"><canvas id="salesChart"></canvas></div>
+<div class="hint">💡 차트의 <b>점을 클릭</b>하면 그 주의 1위 상품·특이도·동주 다른 연도 비교가 표시됩니다</div>
+</div>
+
+<div class="modal-overlay" id="weekModal" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <h2 id="modalTitle">2026년 W21</h2>
+    <div class="week-info" id="modalWeekInfo">2026-05-18 ~ 2026-05-24</div>
+
+    <div class="top-card">
+      <div class="ttl">🏆 매출 1위 선도 상품</div>
+      <div class="name" id="modalTop1">상품명</div>
+    </div>
+
+    <div class="row"><div class="lbl">📊 주 매출</div><div class="val" id="modalSales">—</div></div>
+    <div class="row"><div class="lbl">👥 주 주문자</div><div class="val" id="modalOrd">—</div></div>
+
+    <div class="freq-bar">
+      <div class="h">🎯 특이도 평가 (4년 동안 이 상품이 1위였던 빈도)</div>
+      <div id="modalFreq"></div>
+    </div>
+
+    <div class="other-years">
+      <h4>📅 같은 주차 다른 연도 1위</h4>
+      <div id="modalOthers"></div>
+    </div>
+
+    <button class="close" onclick="closeModal()">닫기</button>
+  </div>
 </div>
 
 <div class="chart-card">
@@ -161,6 +219,68 @@ const chartData = {"weeks": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 
 
 const colors = {2023:'#90a4ae',2024:'#42a5f5',2025:'#388e3c',2026:'#c0392b'};
 
+// 4년 누적 상품별 1위 횟수
+const top1Freq = {};
+chartData.top1_freq.forEach(([name, cnt]) => top1Freq[name] = cnt);
+
+// ISO 주차 → 날짜 변환
+function isoWeekRange(year, week) {
+  const jan4 = new Date(year, 0, 4);
+  const dayOfWeek = (jan4.getDay() + 6) % 7;  // mon=0
+  const mon = new Date(jan4); mon.setDate(jan4.getDate() - dayOfWeek);
+  const start = new Date(mon); start.setDate(mon.getDate() + (week-1)*7);
+  const end = new Date(start); end.setDate(start.getDate() + 6);
+  const fmt = d => d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+  return [fmt(start), fmt(end)];
+}
+
+function openModal(year, week) {
+  const top1 = chartData.top1[year][week-1];
+  const sales = chartData.sales[year][week-1];
+  const ord = chartData.orderers[year][week-1];
+
+  document.getElementById('modalTitle').textContent = year + '년 W' + String(week).padStart(2,'0');
+  const [s, e] = isoWeekRange(year, week);
+  document.getElementById('modalWeekInfo').textContent = s + ' ~ ' + e;
+  document.getElementById('modalTop1').textContent = top1 || '— 데이터 없음';
+  document.getElementById('modalSales').textContent = sales ? (sales/1e6).toFixed(1) + 'M원' : '—';
+  document.getElementById('modalOrd').textContent = ord ? ord.toLocaleString() + '명' : '—';
+
+  // 특이도 평가
+  const freqEl = document.getElementById('modalFreq');
+  if (top1) {
+    const cnt = top1Freq[top1] || 0;
+    let badge, desc;
+    if (cnt >= 15) { badge = 'common'; desc = '✅ <b>스테디셀러</b> — 4년 동안 ' + cnt + '주에서 1위. 통상 인기 상품'; }
+    else if (cnt >= 5) { badge = 'occasional'; desc = '🔵 <b>자주 등장</b> — 4년 동안 ' + cnt + '주에서 1위'; }
+    else if (cnt >= 2) { badge = 'rare'; desc = '🟠 <b>특별한 선두</b> — 4년 동안 ' + cnt + '주에서 1위. <b>평균적이지 않음</b>'; }
+    else { badge = 'unique'; desc = '🔴 <b>유니크 1위</b> — 4년 동안 단 1주만 1위. <b>매우 특이 — 시즌·이벤트성</b>'; }
+    freqEl.innerHTML = '<span class="badge ' + badge + '">' + cnt + '주</span> ' + desc;
+  } else {
+    freqEl.innerHTML = '<span class="badge unique">N/A</span> 1위 상품 데이터 없음';
+  }
+
+  // 동주 다른 연도
+  const otherEl = document.getElementById('modalOthers');
+  let html = '';
+  for (const y of [2023,2024,2025,2026]) {
+    const t = chartData.top1[y][week-1];
+    const sa = chartData.sales[y][week-1];
+    const flag = (y === year) ? ' 👈 선택' : '';
+    if (t || sa) {
+      const sameAs = (t && t === top1 && y !== year) ? ' <span style="color:#27ae60;font-weight:700">(동일)</span>' : '';
+      html += '<div class="yr-item"><div class="y">' + y + '</div><div style="flex:1;text-align:left;font-size:.85rem">' + (t || '—') + sameAs + '</div><div>' + (sa ? (sa/1e6).toFixed(0)+'M' : '—') + flag + '</div></div>';
+    }
+  }
+  otherEl.innerHTML = html;
+
+  document.getElementById('weekModal').classList.add('show');
+}
+
+function closeModal() {
+  document.getElementById('weekModal').classList.remove('show');
+}
+
 function makeChart(canvasId, dataKey, yAxisLabel) {
   const ctx = document.getElementById(canvasId);
   const datasets = [];
@@ -171,23 +291,36 @@ function makeChart(canvasId, dataKey, yAxisLabel) {
       borderColor: colors[y],
       backgroundColor: colors[y] + '33',
       borderWidth: y === 2026 ? 3 : 2,
-      borderDash: y === 2026 ? [] : (y === 2025 ? [] : []),
       tension: 0.3,
       pointRadius: y === 2026 ? 3 : 2,
-      pointHoverRadius: 6,
+      pointHoverRadius: 7,
+      pointHitRadius: 12,
       spanGaps: true,
     });
   }
-  new Chart(ctx, {
+  const chart = new Chart(ctx, {
     type: 'line',
     data: { labels: chartData.weeks.map(w => 'W'+String(w).padStart(2,'0')), datasets },
     options: {
       responsive: true, maintainAspectRatio: false,
       interaction: { mode: 'index', intersect: false },
+      onClick: (event, elements) => {
+        if (elements.length > 0) {
+          const e = elements[0];
+          const year = [2023,2024,2025,2026][e.datasetIndex];
+          const week = chartData.weeks[e.index];
+          openModal(year, week);
+        }
+      },
       plugins: {
         legend: { display: true, position: 'top' },
         tooltip: {
           callbacks: {
+            afterBody: function(items) {
+              if (canvasId !== 'salesChart') return [];
+              const lines = ['', '💡 점 클릭 → 1위 상품 보기'];
+              return lines;
+            },
             label: function(ctx) {
               const v = ctx.parsed.y;
               if (dataKey === 'sales') return ctx.dataset.label + ': ' + (v/1e6).toFixed(1) + 'M';
@@ -210,6 +343,7 @@ function makeChart(canvasId, dataKey, yAxisLabel) {
       }
     }
   });
+  return chart;
 }
 
 makeChart('salesChart', 'sales', '매출(원)');
