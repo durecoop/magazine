@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>4년 주별 매출 대시보드 — 23·24·25·26</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root {
+  --bg:#f5f5f7; --card:#fff; --text:#1d1d1f; --gray:#86868b;
+  --c23:#90a4ae; --c24:#42a5f5; --c25:#388e3c; --c26:#c0392b;
+  --accent:#1f4e79;
+}
+* {margin:0;padding:0;box-sizing:border-box}
+html {font-size:16px}
+body {font-family:'Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.wrap {max-width:1400px;margin:0 auto;padding:14px}
+
+header {background:linear-gradient(135deg,#1a3a5c,#1f4e79 40%,#2980b9);color:#fff;padding:24px 28px;border-radius:14px;margin-bottom:18px}
+header h1 {font-size:1.6rem;font-weight:900}
+header .sub {font-size:.95rem;opacity:.88;margin-top:6px}
+
+.kpis {display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
+.kpi {background:var(--card);border-radius:12px;padding:16px 18px;box-shadow:0 1px 6px rgba(0,0,0,.06);border-left:6px solid}
+.kpi.y23 {border-color:var(--c23)}
+.kpi.y24 {border-color:var(--c24)}
+.kpi.y25 {border-color:var(--c25)}
+.kpi.y26 {border-color:var(--c26)}
+.kpi .yr {font-size:.9rem;color:var(--gray);font-weight:700}
+.kpi .num {font-size:1.6rem;font-weight:900;margin:4px 0 2px}
+.kpi .sub {font-size:.78rem;color:var(--gray)}
+
+.chart-card {background:var(--card);border-radius:12px;padding:16px;box-shadow:0 1px 6px rgba(0,0,0,.06);margin-bottom:16px}
+.chart-card h3 {font-size:1.05rem;font-weight:800;color:var(--accent);margin-bottom:10px}
+.chart-card .canvas-wrap {position:relative;height:380px}
+
+.legend-row {display:flex;gap:14px;font-size:.85rem;margin-bottom:6px;color:var(--gray)}
+.legend-row .lg {display:flex;align-items:center;gap:5px}
+.legend-row .sw {display:inline-block;width:14px;height:3px;border-radius:2px}
+
+.split {display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:16px}
+@media (max-width: 900px) { .split {grid-template-columns:1fr} .kpis {grid-template-columns:repeat(2,1fr)} }
+
+table.t {width:100%;border-collapse:collapse;font-size:.85rem;background:var(--card);border-radius:10px;overflow:hidden;box-shadow:0 1px 6px rgba(0,0,0,.06)}
+table.t thead {background:var(--accent)}
+table.t th {padding:9px 8px;color:#fff;font-weight:600;font-size:.78rem;text-align:center}
+table.t td {padding:8px 7px;text-align:center;border-bottom:1px solid #f0f0f0;font-size:.8rem}
+table.t td.lt {text-align:left;padding-left:12px}
+table.t tr.h {background:#fff3cc}
+table.t .up {color:#27ae60;font-weight:700}
+table.t .dn {color:#c0392b;font-weight:700}
+
+.note {background:#fff3cc;border-left:4px solid #f39c12;padding:10px 14px;border-radius:6px;font-size:.85rem;margin-bottom:14px}
+.note b {color:#7a5300}
+
+footer {margin-top:20px;padding:14px;text-align:center;color:var(--gray);font-size:.78rem;border-top:1px solid #ddd}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+<h1>📊 4년 주별 무점포 매출 대시보드</h1>
+<div class="sub">2023 · 2024 · 2025 · 2026 (W21까지) · 회계 매출 / 주문자수 / 주별 1위 상품 · 동일조건(조합원 무점포)</div>
+</header>
+
+<div class="kpis">
+<div class="kpi y23">
+  <div class="yr">📅 2023년</div>
+  <div class="num">145.1억</div>
+  <div class="sub">52주 · 주평 279M · 193,642명</div>
+</div>
+<div class="kpi y24">
+  <div class="yr">📅 2024년</div>
+  <div class="num">153.3억</div>
+  <div class="sub">52주 · 주평 295M · 216,809명</div>
+</div>
+<div class="kpi y25">
+  <div class="yr">📅 2025년</div>
+  <div class="num">158.4억</div>
+  <div class="sub">52주 · 주평 305M · 211,134명</div>
+</div>
+<div class="kpi y26">
+  <div class="yr">📅 2026년 (~W21)</div>
+  <div class="num">56.6억</div>
+  <div class="sub">21주 · 주평 270M · 80,135명</div>
+</div>
+</div>
+
+<div class="chart-card">
+<h3>📈 4년 주별 매출 비교 (회계 기준)</h3>
+<div class="legend-row">
+  <span class="lg"><span class="sw" style="background:#90a4ae"></span>2023</span>
+  <span class="lg"><span class="sw" style="background:#42a5f5"></span>2024</span>
+  <span class="lg"><span class="sw" style="background:#388e3c"></span>2025</span>
+  <span class="lg"><span class="sw" style="background:#c0392b"></span>2026</span>
+  <span style="color:#999">· 명절 주(W5·W8) 표시</span>
+</div>
+<div class="canvas-wrap"><canvas id="salesChart"></canvas></div>
+</div>
+
+<div class="chart-card">
+<h3>👥 4년 주별 주문자수 비교</h3>
+<div class="legend-row">
+  <span class="lg"><span class="sw" style="background:#90a4ae"></span>2023</span>
+  <span class="lg"><span class="sw" style="background:#42a5f5"></span>2024</span>
+  <span class="lg"><span class="sw" style="background:#388e3c"></span>2025</span>
+  <span class="lg"><span class="sw" style="background:#c0392b"></span>2026</span>
+</div>
+<div class="canvas-wrap"><canvas id="ordChart"></canvas></div>
+</div>
+
+<div class="note">
+<b>📌 명절 주 (회계 0/저조)</b>: W5·W8 (설), W38 (추석). 매출 라인 골짜기는 정상.<br>
+<b>📌 26년 W21까지</b>: 점선으로 표시 — 진행 중 또는 미완 주.<br>
+<b>📌 동일 조건</b>: 회계(daily_accounting) 무점포 매출 / OrderGmno 주문자수 (sel_gccode=03 조합원, 연합회·생산자회 제외)
+</div>
+
+<div class="split">
+
+<div class="chart-card">
+<h3>🏆 주별 1위 상품 빈도 TOP 20 (4년)</h3>
+<table class="t">
+<thead><tr><th>순위</th><th>상품명</th><th>1위 횟수</th></tr></thead>
+<tbody>
+<tr><td>1</td><td class="lt">[12301] 사과,배모음1호 (42.55%)</td><td><b>9주</b></td></tr><tr><td>2</td><td class="lt">[22002] 경기도건강과일꾸러미1 (21.27%)</td><td><b>9주</b></td></tr><tr><td>3</td><td class="lt">[53576] 경기도건강과일꾸러미2 (17.76%)</td><td><b>9주</b></td></tr><tr><td>4</td><td class="lt">[14020] 사과(1.5kg/시나노스위트) (8%)</td><td><b>7주</b></td></tr><tr><td>5</td><td class="lt">[22620] 달구네유정란(15구) (32.23%)</td><td><b>6주</b></td></tr><tr><td>6</td><td class="lt">[53633] 흑염소엑기스 (39.14%)</td><td><b>6주</b></td></tr><tr><td>7</td><td class="lt">[32957] 포기김치(5kg) (39.1%)</td><td><b>5주</b></td></tr><tr><td>8</td><td class="lt">[27694] 두레 사과(5kg) (35.04%)</td><td><b>5주</b></td></tr><tr><td>9</td><td class="lt">[30481] 떡갈비(1.2kg/12개) (48.07%)</td><td><b>5주</b></td></tr><tr><td>10</td><td class="lt">[17801] 의성 해찬사과(2kg/부사) (38.18%)</td><td><b>5주</b></td></tr><tr><td>11</td><td class="lt">[57485] 택배 유기농 귀리유(YOU)(16팩x4개) (59.58%)</td><td><b>5주</b></td></tr><tr><td>12</td><td class="lt">[21166] 원삼유정란(15구) (34.45%)</td><td><b>5주</b></td></tr><tr><td>13</td><td class="lt">[20708] 발아참기름(300ml) (42.32%)</td><td><b>4주</b></td></tr><tr><td>14</td><td class="lt">[29111] 개성만점 별빛 사과(2kg) (38.09%)</td><td><b>4주</b></td></tr><tr><td>15</td><td class="lt">[17800] 여름사과(1.5kg) (37.03%)</td><td><b>3주</b></td></tr><tr><td>16</td><td class="lt">[53205] 사과(1.2kg) (39.94%)</td><td><b>3주</b></td></tr><tr><td>17</td><td class="lt">[24941] 울릉도 우산고로쇠(택배/한말) (35%)</td><td><b>3주</b></td></tr><tr><td>18</td><td class="lt">[54406] 영천 별빛사과(1.2kg/부사) (38.4%)</td><td><b>3주</b></td></tr><tr><td>19</td><td class="lt">[51728] 참외(1.2kg/무농약) (35.2%)</td><td><b>3주</b></td></tr><tr><td>20</td><td class="lt">[57232] 유기농 귀리유(YOU)16팩 (61.59%)</td><td><b>3주</b></td></tr></tbody></table>
+</div>
+
+<div class="chart-card">
+<h3>📊 연간 비교 — YoY%</h3>
+<table class="t">
+<thead><tr><th>연도</th><th>매출 합계</th><th>주문자 합계</th><th>주평균 매출</th><th>주평균 주문자</th></tr></thead>
+<tbody>
+<tr><td><b>2023</b></td><td>145.12억</td><td>193,642명</td><td>279M</td><td>3,724명</td></tr><tr><td><b>2024</b></td><td>153.32억 <span class="up">+5.7%</span></td><td>216,809명 <span class="up">+12.0%</span></td><td>295M</td><td>4,169명</td></tr><tr><td><b>2025</b></td><td>158.44억 <span class="up">+3.3%</span></td><td>211,134명 <span class="dn">-2.6%</span></td><td>305M</td><td>4,060명</td></tr><tr><td><b>2026</b></td><td>56.61억 <span class="dn">-64.3%</span></td><td>80,135명 <span class="dn">-62.0%</span></td><td>270M</td><td>3,816명</td></tr></tbody></table>
+</div>
+
+</div>
+
+<div class="chart-card">
+<h3>📋 주별 상세 표 (4년 × 52주, 1위 상품 포함)</h3>
+<table class="t">
+<thead><tr>
+<th>주차</th>
+<th>23 매출</th><th>23 주문자</th><th>23 1위</th>
+<th>24 매출</th><th>24 주문자</th><th>24 1위</th>
+<th>25 매출</th><th>25 주문자</th><th>25 1위</th>
+<th>26 매출</th><th>26 주문자</th><th>26 1위</th>
+</tr></thead>
+<tbody>
+<tr><td><b>W01</b></td><td>231M</td><td>2,998</td><td class="lt" style="font-size:.72rem">[39748] 무)흑염소엑기스 (…</td><td>199M</td><td>2,851</td><td class="lt" style="font-size:.72rem">[17801] 의성 해찬사과(2k…</td><td>231M</td><td>1,917</td><td class="lt" style="font-size:.72rem">[29111] 개성만점 별빛 사과…</td><td>222M</td><td>943</td><td class="lt" style="font-size:.72rem">[58721] 후브락스 사과(1.…</td></tr><tr><td><b>W02</b></td><td>309M</td><td>3,902</td><td class="lt" style="font-size:.72rem">[12301] 사과,배모음1호 (…</td><td>260M</td><td>3,580</td><td class="lt" style="font-size:.72rem">[17801] 의성 해찬사과(2k…</td><td>268M</td><td>3,830</td><td class="lt" style="font-size:.72rem">[22620] 달구네유정란(15구…</td><td>246M</td><td>3,719</td><td class="lt" style="font-size:.72rem">[21166] 원삼유정란(15구)…</td></tr><tr><td><b>W03</b></td><td>455M</td><td>5,453</td><td class="lt" style="font-size:.72rem">[12301] 사과,배모음1호 (…</td><td>258M</td><td>3,458</td><td class="lt" style="font-size:.72rem">[17801] 의성 해찬사과(2k…</td><td>475M</td><td>4,928</td><td class="lt" style="font-size:.72rem">[12286] 배2호 (43.42…</td><td>257M</td><td>3,697</td><td class="lt" style="font-size:.72rem">[27054] 해찬사과(1.5kg…</td></tr><tr><td><b>W04</b></td><td>156M</td><td>2,134</td><td class="lt" style="font-size:.72rem">[22620] 달구네유정란(15구…</td><td>285M</td><td>3,988</td><td class="lt" style="font-size:.72rem">[17801] 의성 해찬사과(2k…</td><td>515M</td><td>6,747</td><td class="lt" style="font-size:.72rem">[12301] 사과,배모음1호 (…</td><td>292M</td><td>4,301</td><td class="lt" style="font-size:.72rem">[58044] 사이공쿱 현미유 1…</td></tr><tr class="h"><td><b>W05 🎉</b></td><td>300M</td><td>4,230</td><td class="lt" style="font-size:.72rem">[22620] 달구네유정란(15구…</td><td>406M</td><td>5,569</td><td class="lt" style="font-size:.72rem">[12301] 사과,배모음1호 (…</td><td>123M</td><td>1,910</td><td class="lt" style="font-size:.72rem">[54121] 한라봉선물세트 (4…</td><td>281M</td><td>4,112</td><td class="lt" style="font-size:.72rem">[57232] 유기농 귀리유(YO…</td></tr><tr><td><b>W06</b></td><td>266M</td><td>3,180</td><td class="lt" style="font-size:.72rem">[32957] 포기김치(5kg) …</td><td>398M</td><td>4,989</td><td class="lt" style="font-size:.72rem">[12301] 사과,배모음1호 (…</td><td>299M</td><td>4,006</td><td class="lt" style="font-size:.72rem">[22620] 달구네유정란(15구…</td><td>395M</td><td>5,250</td><td class="lt" style="font-size:.72rem">[57485] 택배 유기농 귀리유…</td></tr><tr><td><b>W07</b></td><td>273M</td><td>3,408</td><td class="lt" style="font-size:.72rem">[27694] 두레 사과(5kg)…</td><td>205M</td><td>2,802</td><td class="lt" style="font-size:.72rem">[6940] 원주 메주(무농약/한…</td><td>295M</td><td>4,295</td><td class="lt" style="font-size:.72rem">[56433] 정월대보름 나물세트…</td><td>534M</td><td>6,871</td><td class="lt" style="font-size:.72rem">[1451] 사과2호 (42.86…</td></tr><tr class="h"><td><b>W08 🎉</b></td><td>260M</td><td>3,430</td><td class="lt" style="font-size:.72rem">[49317] 통째로장어 (40.…</td><td>261M</td><td>3,818</td><td class="lt" style="font-size:.72rem">[24941] 울릉도 우산고로쇠(…</td><td>290M</td><td>4,079</td><td class="lt" style="font-size:.72rem">[42140] 돼지앞다리살(1kg…</td><td>97M</td><td>1,572</td><td class="lt" style="font-size:.72rem">[41515] 프로바이오틱스 (4…</td></tr><tr><td><b>W09</b></td><td>250M</td><td>3,782</td><td class="lt" style="font-size:.72rem">[30481] 떡갈비(1.2kg/…</td><td>224M</td><td>3,299</td><td class="lt" style="font-size:.72rem">[10670] 돼지목살(500g)…</td><td>262M</td><td>3,712</td><td class="lt" style="font-size:.72rem">[10247] 돼지삼겹살(500g…</td><td>250M</td><td>3,593</td><td class="lt" style="font-size:.72rem">[21166] 원삼유정란(15구)…</td></tr><tr><td><b>W10</b></td><td>254M</td><td>3,374</td><td class="lt" style="font-size:.72rem">[20708] 발아참기름(300m…</td><td>283M</td><td>4,075</td><td class="lt" style="font-size:.72rem">[54248] (직송)흑염소엑기스…</td><td>258M</td><td>3,956</td><td class="lt" style="font-size:.72rem">[24941] 울릉도 우산고로쇠(…</td><td>239M</td><td>3,543</td><td class="lt" style="font-size:.72rem">[24941] 울릉도 우산고로쇠(…</td></tr><tr><td><b>W11</b></td><td>263M</td><td>3,612</td><td class="lt" style="font-size:.72rem">[33457] 원삼유정란(30알/…</td><td>261M</td><td>3,685</td><td class="lt" style="font-size:.72rem">[54248] (직송)흑염소엑기스…</td><td>268M</td><td>3,992</td><td class="lt" style="font-size:.72rem">[20131] 현미국수(용기/6입…</td><td>275M</td><td>4,137</td><td class="lt" style="font-size:.72rem">[27694] 두레 사과(5kg)…</td></tr><tr><td><b>W12</b></td><td>256M</td><td>3,520</td><td class="lt" style="font-size:.72rem">[33457] 원삼유정란(30알/…</td><td>275M</td><td>3,894</td><td class="lt" style="font-size:.72rem">[54048] 의성 사과(1.2k…</td><td>300M</td><td>4,450</td><td class="lt" style="font-size:.72rem">[43978] 고흥뻘낙지(300g…</td><td>273M</td><td>4,114</td><td class="lt" style="font-size:.72rem">[21166] 원삼유정란(15구)…</td></tr><tr><td><b>W13</b></td><td>263M</td><td>3,603</td><td class="lt" style="font-size:.72rem">[27683] 볶은알땅콩(500g…</td><td>281M</td><td>4,059</td><td class="lt" style="font-size:.72rem">[54048] 의성 사과(1.2k…</td><td>326M</td><td>5,005</td><td class="lt" style="font-size:.72rem">[27694] 두레 사과(5kg)…</td><td>271M</td><td>3,943</td><td class="lt" style="font-size:.72rem">[53633] 흑염소엑기스 (39…</td></tr><tr><td><b>W14</b></td><td>242M</td><td>3,374</td><td class="lt" style="font-size:.72rem">[51568] 유기농 멸균우유(2…</td><td>281M</td><td>4,076</td><td class="lt" style="font-size:.72rem">[54406] 영천 별빛사과(1.…</td><td>298M</td><td>4,270</td><td class="lt" style="font-size:.72rem">[27694] 두레 사과(5kg)…</td><td>268M</td><td>4,198</td><td class="lt" style="font-size:.72rem">[57485] 택배 유기농 귀리유…</td></tr><tr><td><b>W15</b></td><td>252M</td><td>3,496</td><td class="lt" style="font-size:.72rem">[27156] 강화유정란(15구)…</td><td>266M</td><td>4,125</td><td class="lt" style="font-size:.72rem">[54406] 영천 별빛사과(1.…</td><td>279M</td><td>4,089</td><td class="lt" style="font-size:.72rem">[43978] 고흥뻘낙지(300g…</td><td>272M</td><td>4,173</td><td class="lt" style="font-size:.72rem">[57485] 택배 유기농 귀리유…</td></tr><tr><td><b>W16</b></td><td>421M</td><td>4,853</td><td class="lt" style="font-size:.72rem">[6116] 6년근홍삼엑기스(60…</td><td>266M</td><td>4,036</td><td class="lt" style="font-size:.72rem">[19671] 친환경 한입딸기(1…</td><td>290M</td><td>4,148</td><td class="lt" style="font-size:.72rem">[40549] 훈제오리 (51.7…</td><td>341M</td><td>4,696</td><td class="lt" style="font-size:.72rem">[59402] (G)3겹둥근휴지(…</td></tr><tr><td><b>W17</b></td><td>240M</td><td>3,313</td><td class="lt" style="font-size:.72rem">[22237] 무농약 참외(1.5…</td><td>278M</td><td>3,913</td><td class="lt" style="font-size:.72rem">[54252] 흑염소엑기스(4박스…</td><td>325M</td><td>4,508</td><td class="lt" style="font-size:.72rem">[53633] 흑염소엑기스 (39…</td><td>302M</td><td>4,237</td><td class="lt" style="font-size:.72rem">[53633] 흑염소엑기스 (39…</td></tr><tr><td><b>W18</b></td><td>224M</td><td>3,198</td><td class="lt" style="font-size:.72rem">[49459] 유기농 토마토즙(2…</td><td>281M</td><td>3,852</td><td class="lt" style="font-size:.72rem">[29111] 개성만점 별빛 사과…</td><td>287M</td><td>4,027</td><td class="lt" style="font-size:.72rem">[51728] 참외(1.2kg/무…</td><td>217M</td><td>3,728</td><td class="lt" style="font-size:.72rem">[59417] (산지직송)3겹 둥…</td></tr><tr><td><b>W19</b></td><td>249M</td><td>3,537</td><td class="lt" style="font-size:.72rem">[34974] 친환경 블루베리(2…</td><td>261M</td><td>3,757</td><td class="lt" style="font-size:.72rem">[18807] 유기농 백미(10k…</td><td>240M</td><td>3,494</td><td class="lt" style="font-size:.72rem">[20237] 순살고등어(1kg)…</td><td>228M</td><td>3,486</td><td class="lt" style="font-size:.72rem">[21166] 원삼유정란(15구)…</td></tr><tr><td><b>W20</b></td><td>250M</td><td>3,458</td><td class="lt" style="font-size:.72rem">[27694] 두레 사과(5kg)…</td><td>257M</td><td>3,840</td><td class="lt" style="font-size:.72rem">[51728] 참외(1.2kg/무…</td><td>302M</td><td>4,225</td><td class="lt" style="font-size:.72rem">[40702] 알뜰쌀뜰 백미(4k…</td><td>262M</td><td>3,815</td><td class="lt" style="font-size:.72rem">[21166] 원삼유정란(15구)…</td></tr><tr><td><b>W21</b></td><td>254M</td><td>3,335</td><td class="lt" style="font-size:.72rem">[21043] 배도라지청선물세트 …</td><td>288M</td><td>3,911</td><td class="lt" style="font-size:.72rem">[29111] 개성만점 별빛 사과…</td><td>285M</td><td>4,043</td><td class="lt" style="font-size:.72rem">[54406] 영천 별빛사과(1.…</td><td>139M</td><td>2,007</td><td class="lt" style="font-size:.72rem">—</td></tr><tr><td><b>W22</b></td><td>240M</td><td>3,468</td><td class="lt" style="font-size:.72rem">[48376] 생통닭(11호) (…</td><td>259M</td><td>3,700</td><td class="lt" style="font-size:.72rem">[34426] 돌돌대패목살 (33…</td><td>318M</td><td>4,534</td><td class="lt" style="font-size:.72rem">[22620] 달구네유정란(15구…</td><td>—</td><td>—</td><td class="lt" style="font-size:.72rem">—</td></tr><tr><td><b>W23</b></td><td>254M</td><td>3,647</td><td class="lt" style="font-size:.72rem">[30481] 떡갈비(1.2kg/…</td><td>538M</td><td>6,244</td><td class="lt" style="font-size:.72rem">[20708] 발아참기름(300m…</td><td>241M</td><td>3,606</td><td class="lt" style="font-size:.72rem">[31882] 친환경 블루베리(5…</td><td>—</td><td>—</td><td class="lt" style="font-size:.72rem">—</td></tr><tr><td><b>W24</b></td><td>266M</td><td>3,707</td><td class="lt" style="font-size:.72rem">[31451] 돌돌대패삼겹살 (3…</td><td>248M</td><td>3,539</td><td class="lt" style="font-size:.72rem">[23623] 참깨(300g) (…</td><td>505M</td><td>6,189</td><td class="lt" style="font-size:.72rem">[30481] 떡갈비(1.2kg/…</td><td>—</td><td>—</td><td class="lt" style="font-size:.72rem">—</td></tr><tr><td><b>W25</b></td><td>300M</td><td>4,204</td><td class="lt" style="font-size:.72rem">[52004] 친환경 황매실(특대…</td><td>269M</td><td>4,001</td><td class="lt" style="font-size:.72rem">[51728] 참외(1.2kg/무…</td><td>499M</td><td>6,771</td><td class="lt" style="font-size:.72rem">[53633] 흑염소엑기스 (39…</td><td>—</td><td>—</td><td class="lt" style="font-size:.72rem">—</td></tr><tr><td><b>W26</b></td><td>267M</td><td>3,928</td><td class="lt" style="font-size:.72rem">[139] 하지감자(10Kg/무농…</td><td>256M</td><td>3,898</td><td class="lt" style="font-size:.72rem">[29111] 개성만점 별빛 사과…</td><td>263M</td><td>4,520</td><td class="lt" style="font-size:.72rem">[57485] 택배 유기농 귀리유…</td><td>—</td><td>—</td><td class="lt" style="font-size:.72rem">—</td></tr><tr><td><b>W27</b></td><td>333M</td><td>4,650</td><td class="lt" style="font-size:.72rem">[32957] 포기김치(5kg) …</td><td>299M</td><td>4,261</td><td class="lt" style="font-size:.72rem">[31882] 친환경 블루베리(5…</td><td>269M</td><td>4,095</td><td class="lt" style="font-size:.72rem">[5880] 올리브유(500ml)…</td><td>—</td><td>—</td><td class="lt" style="font-size:.72rem">—</td></tr><tr><td><b>W28</b></td><td>284M</td><td>4,099</td><td class="lt" style="font-size:.72rem">[52530] 신안 비금도 천일염…</td><td>264M</td><td>3,848</td><td class="lt" style="font-size:.72rem">[30481] 떡갈비(1.2kg/…</td><td>264M</td><td>4,009</td><td class="lt" style="font-size:.72rem">[52428] {당도보장}두레 사…</td><td>—</td><td>—</td><td class="lt" style="font-size:.72rem">—</td></tr><tr><td><b>W29</b></td><td>273M</td><td>3,799</td><td class="lt" style="font-size:.72rem">[17800] 여름사과(1.5kg…</td><td>271M</td><td>3,963</td><td class="lt" style="font-size:.72rem">[14020] 사과(1.5kg/시…</td><td>275M</td><td>3,977</td><td class="lt" style="font-size:.72rem">[53633] 흑염소엑기스 (39…</td><td>—</td><td>—</td><td class="lt" style="font-size:.72rem">—</td></tr><tr><td><b>W30</b></td><td>216M</td><td>3,365</td><td class="lt" style="font-size:.72rem">[20764] 두레 백도(1.8k…</td><td>299M</td><td>4,324</td><td class="lt" style="font-size:.72rem">[25723] 백도(1.8kg/원…</td><td>286M</td><td>4,199</td><td class="lt" style="font-size:.72rem">[25762] 하우스포도(2kg/…</td><td>—</td><td>—</td><td class="lt" style="font-size:.72rem">—</td></tr><tr><td><b>W31</b></td><td>222M</td><td>3,250</td><td class="lt" style="font-size:.72rem">[17800] 여름사과(1.5kg…</td><td>213M</td><td>3,326</td><td class="lt" style="font-size:.72rem">[14020] 사과(1.5kg/시…</td><td>246M</td><td>3,653</td><td class="lt" style="font-size:.72rem">[27683] 볶은알땅콩(500g…</td><td>—</td><td>—</td><td class="lt" style="font-size:.72rem">—</td></tr><tr><td><b>W32</b></td><td>257M</td><td>3,721</td><td class="lt" style="font-size:.72rem">[17800] 여름사과(1.5kg…</td><td>298M</td><td>4,456</td><td class="lt" style="font-size:.72rem">[1] 백미(10kg/무농약) (…</td><td>303M</td><td>4,345</td><td class="lt" style="font-size:.72rem">[57859] 황도(1.8kg) …</td><td>—</td><td>—</td><td class="lt" style="font-size:.72rem">—</td></tr><tr><td><b>W33</b></td><td>213M</td><td>3,196</td><td class="lt" style="font-size:.72rem">[32424] 포기김치(2kg) …</td><td>291M</td><td>4,103</td><td class="lt" style="font-size:.72rem">[55262] 피나무꿀(600g)…</td><td>237M</td><td>3,691</td><td class="lt" style="font-size:.72rem">[31451] 돌돌대패삼겹살 (3…</td><td>—</td><td>—</td><td class="lt" style="font-size:.72rem">—</td></tr><tr><td><b>W34</b></td><td>275M</td><td>3,901</td><td class="lt" style="font-size:.72rem">[30481] 떡갈비(1.2kg/…</td><td>272M</td><td>4,090</td><td class="lt" style="font-size:.72rem">[32957] 포기김치(5kg) …</td><td>278M</td><td>4,179</td><td class="lt" style="font-size:.72rem">[57232] 유기농 귀리유(YO…</td><td>—</td><td>—</td><td class="lt" style="font-size:.72rem">—</td></tr><tr><td><b>W35</b></td><td>273M</td><td>3,782</td><td class="lt" style="font-size:.72rem">[32957] 포기김치(5kg) …</td><td>273M</td><td>4,038</td><td class="lt" style="font-size:.72rem">[47292] 배(2kg) (36…</td><td>291M</td><td>4,201</td><td class="lt" style="font-size:.72rem">[53633] 흑염소엑기스 (39…</td><td>—</td><td>—</td><td class="lt" style="font-size:.72rem">—</td></tr><tr><td><b>W36</b></td><td>284M</td><td>3,756</td><td class="lt" style="font-size:.72rem">[14020] 사과(1.5kg/시…</td><td>369M</td><td>5,320</td><td class="lt" style="font-size:.72rem">[33619] 한우 정성등심구이세…</td><td>281M</td><td>4,015</td><td class="lt" style="font-size:.72rem">[14020] 사과(1.5kg/시…</td><td>—</td><td>—</td><td class="lt" style="font-size:.72rem">—</td></tr><tr><td><b>W37</b></td><td>284M</td><td>3,800</td><td class="lt" style="font-size:.72rem">[53181] 영광천일염10kg …</td><td>507M</td><td>7,162</td><td class="lt" style="font-size:.72rem">[12301] 사과,배모음1호 (…</td><td>281M</td><td>4,185</td><td class="lt" style="font-size:.72rem">[57485] 택배 유기농 귀리유…</td><td>—</td><td>—</td><td class="lt" style="font-size:.72rem">—</td></tr><tr class="h"><td><b>W38 🎉</b></td><td>419M</td><td>5,642</td><td class="lt" style="font-size:.72rem">[12301] 사과,배모음1호 (…</td><td>105M</td><td>1,681</td><td class="lt" style="font-size:.72rem">[22620] 달구네유정란(15구…</td><td>313M</td><td>4,387</td><td class="lt" style="font-size:.72rem">[14020] 사과(1.5kg/시…</td><td>—</td><td>—</td><td class="lt" style="font-size:.72rem">—</td></tr><tr><td><b>W39</b></td><td>271M</td><td>3,351</td><td class="lt" style="font-size:.72rem">[32724] 한우 으뜸정육세트(…</td><td>278M</td><td>4,189</td><td class="lt" style="font-size:.72rem">[55631] 탄산수(500ml*…</td><td>421M</td><td>5,767</td><td class="lt" style="font-size:.72rem">[12301] 사과,배모음1호 (…</td><td>—</td><td>—</td><td class="lt" style="font-size:.72rem">—</td></tr><tr><td><b>W40</b></td><td>206M</td><td>3,032</td><td class="lt" style="font-size:.72rem">[20708] 발아참기름(300m…</td><td>261M</td><td>3,954</td><td class="lt" style="font-size:.72rem">[53394] 시나노골드(1.5k…</td><td>421M</td><td>5,684</td><td class="lt" style="font-size:.72rem">[12301] 사과,배모음1호 (…</td><td>—</td><td>—</td><td class="lt" style="font-size:.72rem">—</td></tr><tr><td><b>W41</b></td><td>229M</td><td>3,160</td><td class="lt" style="font-size:.72rem">[53205] 사과(1.2kg) …</td><td>260M</td><td>3,803</td><td class="lt" style="font-size:.72rem">[14020] 사과(1.5kg/시…</td><td>72M</td><td>1,204</td><td class="lt" style="font-size:.72rem">[32957] 포기김치(5kg) …</td><td>—</td><td>—</td><td class="lt" style="font-size:.72rem">—</td></tr><tr><td><b>W42</b></td><td>247M</td><td>3,269</td><td class="lt" style="font-size:.72rem">[53205] 사과(1.2kg) …</td><td>368M</td><td>4,947</td><td class="lt" style="font-size:.72rem">[20708] 발아참기름(300m…</td><td>280M</td><td>4,122</td><td class="lt" style="font-size:.72rem">[14020] 사과(1.5kg/시…</td><td>—</td><td>—</td><td class="lt" style="font-size:.72rem">—</td></tr><tr><td><b>W43</b></td><td>296M</td><td>3,964</td><td class="lt" style="font-size:.72rem">[53205] 사과(1.2kg) …</td><td>390M</td><td>4,988</td><td class="lt" style="font-size:.72rem">[6116] 6년근홍삼엑기스(60…</td><td>294M</td><td>4,160</td><td class="lt" style="font-size:.72rem">[58167] 부산진국 돼지국밥 …</td><td>—</td><td>—</td><td class="lt" style="font-size:.72rem">—</td></tr><tr><td><b>W44</b></td><td>313M</td><td>3,960</td><td class="lt" style="font-size:.72rem">[39748] 무)흑염소엑기스 (…</td><td>244M</td><td>3,485</td><td class="lt" style="font-size:.72rem">[22002] 경기도건강과일꾸러미…</td><td>315M</td><td>4,445</td><td class="lt" style="font-size:.72rem">[57232] 유기농 귀리유(YO…</td><td>—</td><td>—</td><td class="lt" style="font-size:.72rem">—</td></tr><tr><td><b>W45</b></td><td>315M</td><td>3,987</td><td class="lt" style="font-size:.72rem">[22002] 경기도건강과일꾸러미…</td><td>287M</td><td>3,972</td><td class="lt" style="font-size:.72rem">[22002] 경기도건강과일꾸러미…</td><td>312M</td><td>4,241</td><td class="lt" style="font-size:.72rem">[22002] 경기도건강과일꾸러미…</td><td>—</td><td>—</td><td class="lt" style="font-size:.72rem">—</td></tr><tr><td><b>W46</b></td><td>333M</td><td>4,248</td><td class="lt" style="font-size:.72rem">[22002] 경기도건강과일꾸러미…</td><td>326M</td><td>4,384</td><td class="lt" style="font-size:.72rem">[22002] 경기도건강과일꾸러미…</td><td>297M</td><td>3,979</td><td class="lt" style="font-size:.72rem">[22002] 경기도건강과일꾸러미…</td><td>—</td><td>—</td><td class="lt" style="font-size:.72rem">—</td></tr><tr><td><b>W47</b></td><td>332M</td><td>3,969</td><td class="lt" style="font-size:.72rem">[22002] 경기도건강과일꾸러미…</td><td>317M</td><td>4,287</td><td class="lt" style="font-size:.72rem">[22002] 경기도건강과일꾸러미…</td><td>330M</td><td>4,861</td><td class="lt" style="font-size:.72rem">[53576] 경기도건강과일꾸러미…</td><td>—</td><td>—</td><td class="lt" style="font-size:.72rem">—</td></tr><tr><td><b>W48</b></td><td>321M</td><td>3,957</td><td class="lt" style="font-size:.72rem">[53576] 경기도건강과일꾸러미…</td><td>320M</td><td>4,474</td><td class="lt" style="font-size:.72rem">[53576] 경기도건강과일꾸러미…</td><td>322M</td><td>2,594</td><td class="lt" style="font-size:.72rem">[53576] 경기도건강과일꾸러미…</td><td>—</td><td>—</td><td class="lt" style="font-size:.72rem">—</td></tr><tr><td><b>W49</b></td><td>542M</td><td>5,642</td><td class="lt" style="font-size:.72rem">[53576] 경기도건강과일꾸러미…</td><td>304M</td><td>6,445</td><td class="lt" style="font-size:.72rem">[27440] 두레 사과(8kg/…</td><td>302M</td><td>—</td><td class="lt" style="font-size:.72rem">[53576] 경기도건강과일꾸러미…</td><td>—</td><td>—</td><td class="lt" style="font-size:.72rem">—</td></tr><tr><td><b>W50</b></td><td>244M</td><td>3,014</td><td class="lt" style="font-size:.72rem">[53576] 경기도건강과일꾸러미…</td><td>497M</td><td>5,588</td><td class="lt" style="font-size:.72rem">[53576] 경기도건강과일꾸러미…</td><td>481M</td><td>1,573</td><td class="lt" style="font-size:.72rem">[41515] 프로바이오틱스 (4…</td><td>—</td><td>—</td><td class="lt" style="font-size:.72rem">—</td></tr><tr><td><b>W51</b></td><td>291M</td><td>3,625</td><td class="lt" style="font-size:.72rem">[53576] 경기도건강과일꾸러미…</td><td>463M</td><td>5,593</td><td class="lt" style="font-size:.72rem">[42857] 루테인오메가3 (4…</td><td>429M</td><td>5,405</td><td class="lt" style="font-size:.72rem">[56247] 상황버섯차(30팩)…</td><td>—</td><td>—</td><td class="lt" style="font-size:.72rem">—</td></tr><tr><td><b>W52</b></td><td>242M</td><td>3,359</td><td class="lt" style="font-size:.72rem">[17801] 의성 해찬사과(2k…</td><td>213M</td><td>3,169</td><td class="lt" style="font-size:.72rem">[56139] 유기농 레몬즙(20…</td><td>202M</td><td>2,912</td><td class="lt" style="font-size:.72rem">[58757] 올리브유(250ml…</td><td>—</td><td>—</td><td class="lt" style="font-size:.72rem">—</td></tr></tbody></table>
+</div>
+
+<footer>
+두레생협 온라인사업팀 · 2026.05.21 작성 · 자료원: ERP 회계 + OrderGmno + GoodsRanking
+</footer>
+
+</div>
+
+<script>
+const chartData = {"weeks": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52], "sales": {"2023": [231095823, 309042731, 454674408, 156312789, 299994946, 266402074, 273422413, 260160156, 249837781, 254394031, 262819857, 255652118, 263274073, 241512024, 252249369, 421392086, 240417137, 224321663, 249444234, 250176571, 254492046, 240050273, 253705069, 266470480, 299666294, 266686312, 333080284, 283644496, 273165527, 215780769, 222337319, 256502066, 213088939, 274966001, 273041430, 284347236, 284185200, 419151087, 270647300, 205635157, 228657963, 246540708, 296460266, 312652250, 315305780, 333163902, 332162940, 320888509, 542224539, 244363888, 290755866, 241628592], "2024": [198660713, 260400142, 258302982, 285380873, 406248652, 398031348, 205104768, 260625940, 223698285, 283058526, 261296749, 275136039, 281418924, 280845516, 265958013, 265764134, 277579725, 280643999, 260781507, 256833025, 287543520, 259379838, 538432495, 248146875, 268601027, 255550743, 299426711, 263971073, 271436921, 298604669, 213178851, 298328887, 291104772, 271728027, 273090889, 369144675, 507422391, 104559692, 277706794, 261176120, 260204315, 368001876, 389642479, 243640438, 287132800, 326056193, 317065660, 319509746, 304370368, 496565830, 462620493, 212942777], "2025": [230890206, 267679423, 474813219, 514868894, 123164690, 299198538, 295371440, 289560124, 262063506, 257611080, 268244899, 299768995, 326002045, 298189513, 278937986, 290208828, 324606592, 286537120, 240493974, 301599788, 285009877, 317513646, 241448426, 504894260, 499420834, 263119085, 269193800, 263730800, 275058778, 285654255, 246328502, 302758125, 237141278, 278426255, 290842010, 280739772, 281384227, 312536501, 421370387, 420822883, 72246926, 279945052, 294319605, 315017350, 311587909, 296764307, 330177467, 322032247, 302275605, 481323342, 429255316, 201937499], "2026": [221997322, 245758056, 256844553, 292418165, 280651979, 395445747, 534378078, 97079142, 249785740, 239049464, 275146219, 272677057, 270791203, 268007447, 271675802, 341317215, 301980526, 216877720, 228273525, 261854597, 138662724, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]}, "orderers": {"2023": [2998, 3902, 5453, 2134, 4230, 3180, 3408, 3430, 3782, 3374, 3612, 3520, 3603, 3374, 3496, 4853, 3313, 3198, 3537, 3458, 3335, 3468, 3647, 3707, 4204, 3928, 4650, 4099, 3799, 3365, 3250, 3721, 3196, 3901, 3782, 3756, 3800, 5642, 3351, 3032, 3160, 3269, 3964, 3960, 3987, 4248, 3969, 3957, 5642, 3014, 3625, 3359], "2024": [2851, 3580, 3458, 3988, 5569, 4989, 2802, 3818, 3299, 4075, 3685, 3894, 4059, 4076, 4125, 4036, 3913, 3852, 3757, 3840, 3911, 3700, 6244, 3539, 4001, 3898, 4261, 3848, 3963, 4324, 3326, 4456, 4103, 4090, 4038, 5320, 7162, 1681, 4189, 3954, 3803, 4947, 4988, 3485, 3972, 4384, 4287, 4474, 6445, 5588, 5593, 3169], "2025": [1917, 3830, 4928, 6747, 1910, 4006, 4295, 4079, 3712, 3956, 3992, 4450, 5005, 4270, 4089, 4148, 4508, 4027, 3494, 4225, 4043, 4534, 3606, 6189, 6771, 4520, 4095, 4009, 3977, 4199, 3653, 4345, 3691, 4179, 4201, 4015, 4185, 4387, 5767, 5684, 1204, 4122, 4160, 4445, 4241, 3979, 4861, 2594, 0, 1573, 5405, 2912], "2026": [943, 3719, 3697, 4301, 4112, 5250, 6871, 1572, 3593, 3543, 4137, 4114, 3943, 4198, 4173, 4696, 4237, 3728, 3486, 3815, 2007, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]}, "top1": {"2023": ["[39748] 무)흑염소엑기스 (38.4%)", "[12301] 사과,배모음1호 (42.55%)", "[12301] 사과,배모음1호 (42.55%)", "[22620] 달구네유정란(15구) (32.23%)", "[22620] 달구네유정란(15구) (32.23%)", "[32957] 포기김치(5kg) (39.1%)", "[27694] 두레 사과(5kg) (35.04%)", "[49317] 통째로장어 (40.17%)", "[30481] 떡갈비(1.2kg/12개) (48.07%)", "[20708] 발아참기름(300ml) (42.32%)", "[33457] 원삼유정란(30알/초란) (36.73%)", "[33457] 원삼유정란(30알/초란) (36.73%)", "[27683] 볶은알땅콩(500g) (54.76%)", "[51568] 유기농 멸균우유(24개입) (34.26%)", "[27156] 강화유정란(15구) (35.65%)", "[6116] 6년근홍삼엑기스(60팩) (36.28%)", "[22237] 무농약 참외(1.5kg) (33.86%)", "[49459] 유기농 토마토즙(20팩) (42.58%)", "[34974] 친환경 블루베리(200g) (39.39%)", "[27694] 두레 사과(5kg) (35.04%)", "[21043] 배도라지청선물세트 (41.93%)", "[48376] 생통닭(11호) (35.38%)", "[30481] 떡갈비(1.2kg/12개) (48.07%)", "[31451] 돌돌대패삼겹살 (35%)", "[52004] 친환경 황매실(특대/5kg) (37.5%)", "[139] 하지감자(10Kg/무농약) (36.45%)", "[32957] 포기김치(5kg) (39.1%)", "[52530] 신안 비금도 천일염10kg (38.98%)", "[17800] 여름사과(1.5kg) (37.03%)", "[20764] 두레 백도(1.8kg) (36%)", "[17800] 여름사과(1.5kg) (37.03%)", "[17800] 여름사과(1.5kg) (37.03%)", "[32424] 포기김치(2kg) (43.27%)", "[30481] 떡갈비(1.2kg/12개) (48.07%)", "[32957] 포기김치(5kg) (39.1%)", "[14020] 사과(1.5kg/시나노스위트) (8%)", "[53181] 영광천일염10kg (37.36%)", "[12301] 사과,배모음1호 (42.55%)", "[32724] 한우 으뜸정육세트(암소) (44.75%)", "[20708] 발아참기름(300ml) (42.32%)", "[53205] 사과(1.2kg) (39.94%)", "[53205] 사과(1.2kg) (39.94%)", "[53205] 사과(1.2kg) (39.94%)", "[39748] 무)흑염소엑기스 (38.4%)", "[22002] 경기도건강과일꾸러미1 (21.27%)", "[22002] 경기도건강과일꾸러미1 (21.27%)", "[22002] 경기도건강과일꾸러미1 (21.27%)", "[53576] 경기도건강과일꾸러미2 (17.76%)", "[53576] 경기도건강과일꾸러미2 (17.76%)", "[53576] 경기도건강과일꾸러미2 (17.76%)", "[53576] 경기도건강과일꾸러미2 (17.76%)", "[17801] 의성 해찬사과(2kg/부사) (38.18%)"], "2024": ["[17801] 의성 해찬사과(2kg/부사) (38.18%)", "[17801] 의성 해찬사과(2kg/부사) (38.18%)", "[17801] 의성 해찬사과(2kg/부사) (38.18%)", "[17801] 의성 해찬사과(2kg/부사) (38.18%)", "[12301] 사과,배모음1호 (42.55%)", "[12301] 사과,배모음1호 (42.55%)", "[6940] 원주 메주(무농약/한말) (39.14%)", "[24941] 울릉도 우산고로쇠(택배/한말) (35%)", "[10670] 돼지목살(500g) (93.33%)", "[54248] (직송)흑염소엑기스(4박스) (33.81%)", "[54248] (직송)흑염소엑기스(4박스) (33.81%)", "[54048] 의성 사과(1.2kg/국내산) (35.25%)", "[54048] 의성 사과(1.2kg/국내산) (35.25%)", "[54406] 영천 별빛사과(1.2kg/부사) (38.4%)", "[54406] 영천 별빛사과(1.2kg/부사) (38.4%)", "[19671] 친환경 한입딸기(1kg) (36.89%)", "[54252] 흑염소엑기스(4박스) (39.14%)", "[29111] 개성만점 별빛 사과(2kg) (38.09%)", "[18807] 유기농 백미(10kg/삼광) (25.64%)", "[51728] 참외(1.2kg/무농약) (35.2%)", "[29111] 개성만점 별빛 사과(2kg) (38.09%)", "[34426] 돌돌대패목살 (33.15%)", "[20708] 발아참기름(300ml) (42.32%)", "[23623] 참깨(300g) (37.35%)", "[51728] 참외(1.2kg/무농약) (35.2%)", "[29111] 개성만점 별빛 사과(2kg) (38.09%)", "[31882] 친환경 블루베리(500g) (40.35%)", "[30481] 떡갈비(1.2kg/12개) (48.07%)", "[14020] 사과(1.5kg/시나노스위트) (8%)", "[25723] 백도(1.8kg/원주) (36.75%)", "[14020] 사과(1.5kg/시나노스위트) (8%)", "[1] 백미(10kg/무농약) (29.96%)", "[55262] 피나무꿀(600g) (36.29%)", "[32957] 포기김치(5kg) (39.1%)", "[47292] 배(2kg) (36.43%)", "[33619] 한우 정성등심구이세트 (43.17%)", "[12301] 사과,배모음1호 (42.55%)", "[22620] 달구네유정란(15구) (32.23%)", "[55631] 탄산수(500ml*20개입) (43.99%)", "[53394] 시나노골드(1.5kg) (35.75%)", "[14020] 사과(1.5kg/시나노스위트) (8%)", "[20708] 발아참기름(300ml) (42.32%)", "[6116] 6년근홍삼엑기스(60팩) (36.28%)", "[22002] 경기도건강과일꾸러미1 (21.27%)", "[22002] 경기도건강과일꾸러미1 (21.27%)", "[22002] 경기도건강과일꾸러미1 (21.27%)", "[22002] 경기도건강과일꾸러미1 (21.27%)", "[53576] 경기도건강과일꾸러미2 (17.76%)", "[27440] 두레 사과(8kg/산지택배) (31.27%)", "[53576] 경기도건강과일꾸러미2 (17.76%)", "[42857] 루테인오메가3 (41.2%)", "[56139] 유기농 레몬즙(20ml*14포) (43.33%)"], "2025": ["[29111] 개성만점 별빛 사과(2kg) (38.09%)", "[22620] 달구네유정란(15구) (32.23%)", "[12286] 배2호 (43.42%)", "[12301] 사과,배모음1호 (42.55%)", "[54121] 한라봉선물세트 (46.74%)", "[22620] 달구네유정란(15구) (32.23%)", "[56433] 정월대보름 나물세트(6종/600g) (44%)", "[42140] 돼지앞다리살(1kg/불고기용) (35.04%)", "[10247] 돼지삼겹살(500g) (33.18%)", "[24941] 울릉도 우산고로쇠(택배/한말) (35%)", "[20131] 현미국수(용기/6입) (39.51%)", "[43978] 고흥뻘낙지(300g) (35.2%)", "[27694] 두레 사과(5kg) (35.04%)", "[27694] 두레 사과(5kg) (35.04%)", "[43978] 고흥뻘낙지(300g) (35.2%)", "[40549] 훈제오리 (51.77%)", "[53633] 흑염소엑기스 (39.14%)", "[51728] 참외(1.2kg/무농약) (35.2%)", "[20237] 순살고등어(1kg) (35.68%)", "[40702] 알뜰쌀뜰 백미(4kg/유기) (34.67%)", "[54406] 영천 별빛사과(1.2kg/부사) (38.4%)", "[22620] 달구네유정란(15구) (32.23%)", "[31882] 친환경 블루베리(500g) (40.35%)", "[30481] 떡갈비(1.2kg/12개) (48.07%)", "[53633] 흑염소엑기스 (39.14%)", "[57485] 택배 유기농 귀리유(YOU)(16팩x4개) (59.58%)", "[5880] 올리브유(500ml) (41.74%)", "[52428] {당도보장}두레 사과(1.2kg) (37.93%)", "[53633] 흑염소엑기스 (39.14%)", "[25762] 하우스포도(2kg/의성) (35.85%)", "[27683] 볶은알땅콩(500g) (54.76%)", "[57859] 황도(1.8kg) (34.34%)", "[31451] 돌돌대패삼겹살 (35%)", "[57232] 유기농 귀리유(YOU)16팩 (61.59%)", "[53633] 흑염소엑기스 (39.14%)", "[14020] 사과(1.5kg/시나노스위트) (8%)", "[57485] 택배 유기농 귀리유(YOU)(16팩x4개) (59.58%)", "[14020] 사과(1.5kg/시나노스위트) (8%)", "[12301] 사과,배모음1호 (42.55%)", "[12301] 사과,배모음1호 (42.55%)", "[32957] 포기김치(5kg) (39.1%)", "[14020] 사과(1.5kg/시나노스위트) (8%)", "[58167] 부산진국 돼지국밥 (40.52%)", "[57232] 유기농 귀리유(YOU)16팩 (61.59%)", "[22002] 경기도건강과일꾸러미1 (21.27%)", "[22002] 경기도건강과일꾸러미1 (21.27%)", "[53576] 경기도건강과일꾸러미2 (17.76%)", "[53576] 경기도건강과일꾸러미2 (17.76%)", "[53576] 경기도건강과일꾸러미2 (17.76%)", "[41515] 프로바이오틱스 (43.77%)", "[56247] 상황버섯차(30팩) (53.64%)", "[58757] 올리브유(250ml) (45.46%)"], "2026": ["[58721] 후브락스 사과(1.2kg) (35.11%)", "[21166] 원삼유정란(15구) (34.45%)", "[27054] 해찬사과(1.5kg/의성) (37.15%)", "[58044] 사이공쿱 현미유 1L (60.42%)", "[57232] 유기농 귀리유(YOU)16팩 (61.59%)", "[57485] 택배 유기농 귀리유(YOU)(16팩x4개) (59.58%)", "[1451] 사과2호 (42.86%)", "[41515] 프로바이오틱스 (43.77%)", "[21166] 원삼유정란(15구) (34.45%)", "[24941] 울릉도 우산고로쇠(택배/한말) (35%)", "[27694] 두레 사과(5kg) (35.04%)", "[21166] 원삼유정란(15구) (34.45%)", "[53633] 흑염소엑기스 (39.14%)", "[57485] 택배 유기농 귀리유(YOU)(16팩x4개) (59.58%)", "[57485] 택배 유기농 귀리유(YOU)(16팩x4개) (59.58%)", "[59402] (G)3겹둥근휴지(30롤) (53.45%)", "[53633] 흑염소엑기스 (39.14%)", "[59417] (산지직송)3겹 둥근휴지(30롤*2팩) (46.79%)", "[21166] 원삼유정란(15구) (34.45%)", "[21166] 원삼유정란(15구) (34.45%)", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]}, "yearly": {"2023": {"sales_total": 14512044772, "sales_avg": 279077784.0769231, "ord_total": 193642, "ord_avg": 3723.8846153846152, "weeks": 52}, "2024": {"sales_total": 15332057805, "sales_avg": 294847265.4807692, "ord_total": 216809, "ord_avg": 4169.403846153846, "weeks": 52}, "2025": {"sales_total": 15844087186, "sales_avg": 304693984.34615386, "ord_total": 211134, "ord_avg": 4060.269230769231, "weeks": 52}, "2026": {"sales_total": 5660672281, "sales_avg": 269555822.9047619, "ord_total": 80135, "ord_avg": 3815.9523809523807, "weeks": 21}}, "top1_freq": [["[12301] 사과,배모음1호 (42.55%)", 9], ["[22002] 경기도건강과일꾸러미1 (21.27%)", 9], ["[53576] 경기도건강과일꾸러미2 (17.76%)", 9], ["[14020] 사과(1.5kg/시나노스위트) (8%)", 7], ["[22620] 달구네유정란(15구) (32.23%)", 6], ["[53633] 흑염소엑기스 (39.14%)", 6], ["[32957] 포기김치(5kg) (39.1%)", 5], ["[27694] 두레 사과(5kg) (35.04%)", 5], ["[30481] 떡갈비(1.2kg/12개) (48.07%)", 5], ["[17801] 의성 해찬사과(2kg/부사) (38.18%)", 5], ["[57485] 택배 유기농 귀리유(YOU)(16팩x4개) (59.58%)", 5], ["[21166] 원삼유정란(15구) (34.45%)", 5], ["[20708] 발아참기름(300ml) (42.32%)", 4], ["[29111] 개성만점 별빛 사과(2kg) (38.09%)", 4], ["[17800] 여름사과(1.5kg) (37.03%)", 3], ["[53205] 사과(1.2kg) (39.94%)", 3], ["[24941] 울릉도 우산고로쇠(택배/한말) (35%)", 3], ["[54406] 영천 별빛사과(1.2kg/부사) (38.4%)", 3], ["[51728] 참외(1.2kg/무농약) (35.2%)", 3], ["[57232] 유기농 귀리유(YOU)16팩 (61.59%)", 3]]};
+
+const colors = {2023:'#90a4ae',2024:'#42a5f5',2025:'#388e3c',2026:'#c0392b'};
+
+function makeChart(canvasId, dataKey, yAxisLabel) {
+  const ctx = document.getElementById(canvasId);
+  const datasets = [];
+  for (const y of [2023,2024,2025,2026]) {
+    datasets.push({
+      label: y + '년',
+      data: chartData[dataKey][y],
+      borderColor: colors[y],
+      backgroundColor: colors[y] + '33',
+      borderWidth: y === 2026 ? 3 : 2,
+      borderDash: y === 2026 ? [] : (y === 2025 ? [] : []),
+      tension: 0.3,
+      pointRadius: y === 2026 ? 3 : 2,
+      pointHoverRadius: 6,
+      spanGaps: true,
+    });
+  }
+  new Chart(ctx, {
+    type: 'line',
+    data: { labels: chartData.weeks.map(w => 'W'+String(w).padStart(2,'0')), datasets },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { display: true, position: 'top' },
+        tooltip: {
+          callbacks: {
+            label: function(ctx) {
+              const v = ctx.parsed.y;
+              if (dataKey === 'sales') return ctx.dataset.label + ': ' + (v/1e6).toFixed(1) + 'M';
+              return ctx.dataset.label + ': ' + v.toLocaleString() + '명';
+            }
+          }
+        }
+      },
+      scales: {
+        x: { title: { display: false } },
+        y: {
+          title: { display: true, text: yAxisLabel },
+          ticks: {
+            callback: function(value) {
+              if (dataKey === 'sales') return (value/1e6).toFixed(0) + 'M';
+              return value.toLocaleString();
+            }
+          }
+        }
+      }
+    }
+  });
+}
+
+makeChart('salesChart', 'sales', '매출(원)');
+makeChart('ordChart', 'orderers', '주문자수');
+</script>
+</body>
+</html>
