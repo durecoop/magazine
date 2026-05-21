@@ -174,6 +174,57 @@ footer {margin-top:20px;padding:14px;text-align:center;color:var(--gray);font-si
 <b>📌 동일 조건</b>: 회계(daily_accounting) 무점포 매출 / OrderGmno 주문자수 (sel_gccode=03 조합원, 연합회·생산자회 제외)
 </div>
 
+<!-- 인터랙티브 누적 매출 비교 -->
+<div class="chart-card">
+<h3>📊 누적 매출 비교 (W1 ~ 선택 주차) — 4년 인터랙티브</h3>
+<div style="display:flex;align-items:center;gap:14px;margin:8px 0 14px;flex-wrap:wrap">
+  <label style="font-size:.9rem;color:#555">선택 주차까지:</label>
+  <input type="range" id="cumSlider" min="1" max="52" value="21" style="flex:1;min-width:200px;max-width:500px;accent-color:#1f4e79">
+  <span id="cumWeekLabel" style="font-weight:800;color:#1f4e79;font-size:1.1rem;min-width:50px">W21</span>
+</div>
+<div class="canvas-wrap" style="height:300px"><canvas id="cumChart"></canvas></div>
+<div id="cumStats" style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px"></div>
+</div>
+
+<!-- 인사이트 섹션 -->
+<div class="chart-card">
+<h3>💡 4년 데이터에서 보이는 핵심 인사이트 + 액션 아이템</h3>
+<div id="insightBox" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:.88rem;line-height:1.75">
+  <div style="background:#e8f5e9;border-left:4px solid #2e7d32;padding:12px 14px;border-radius:8px">
+    <div style="font-weight:800;color:#1b5e20;margin-bottom:5px">🟢 성장 트렌드 (장기)</div>
+    <p>23 → 24 +5.7% (매출) / 24 → 25 +3.3% — 두 해 모두 성장. 단, <b>25년 주문자수 −2.6% 첫 감소</b> 발생 → 매출은 객단가로 방어. 26년 들어 매출 자체가 동기 대비 하락 시작.</p>
+    <p><b>액션</b>: 매출 성장의 동력이 "객단가 상승"인지 "이용자수 회복"인지 확인. 이용자 이탈 가속 시 매출 방어선 무너짐.</p>
+  </div>
+
+  <div style="background:#fff3cc;border-left:4px solid #f39c12;padding:12px 14px;border-radius:8px">
+    <div style="font-weight:800;color:#7a5300;margin-bottom:5px">🟡 시즌 패턴</div>
+    <p>매주 매출 차트 형태로 보면 — <b>3~5월(봄)·9월(추석)·11월(김장)이 성수기</b>, <b>7~8월·12월말이 비수기</b>. W5·W8(설)에 매출 0 골짜기. 추세는 4년 일관.</p>
+    <p><b>액션</b>: 비수기(7·8월) 매출 보강 기획 — 여름 간편식·과일·반찬류 강화. 김장 시즌(11월) 사전 준비.</p>
+  </div>
+
+  <div style="background:#e3f2fd;border-left:4px solid #1976d2;padding:12px 14px;border-radius:8px">
+    <div style="font-weight:800;color:#0d47a1;margin-bottom:5px">🔵 1위 상품 다양성</div>
+    <p>4년 동안 주별 1위로 등장한 상품 종 수와 빈도 분포를 보면 — <b>스테디셀러(15주+)와 유니크 1위(1주만)</b>가 공존. 유니크 1위 = 시즌·기획전·신상품 효과.</p>
+    <p><b>액션</b>: 차트 점 클릭으로 "평균적이지 않은 1위"를 찾아 시즌 기획의 효과 검증. 26년에 유니크 1위가 적다면 기획전 활성도 약화 신호.</p>
+  </div>
+
+  <div style="background:#fdecea;border-left:4px solid #c0392b;padding:12px 14px;border-radius:8px">
+    <div style="font-weight:800;color:#b71c1c;margin-bottom:5px">🔴 26년 동기 대비 적신호</div>
+    <p>26년 매출 라인이 23·24·25년 모두에 비해 하회. 21주(5월)에서도 회복 없음. <b>주력 카테고리 변화(돼지고기 사이즈 축소·사과 SKU 단순화·풀빛고운 단종)</b>가 누적 매출에 직접 영향.</p>
+    <p><b>액션</b>: 6월 전품목 행사 + 24~25주 붐업으로 회복 시도. 슬라이더로 W21까지 누적 비교해서 격차 정량화 → 다음 주간 회복 목표치 산정.</p>
+  </div>
+
+  <div style="background:#f3e5f5;border-left:4px solid #7b1fa2;padding:12px 14px;border-radius:8px;grid-column:1/-1">
+    <div style="font-weight:800;color:#4a148c;margin-bottom:5px">🟣 종합 — 무엇을 준비해야 하나</div>
+    <p><b>① 회복 시그널 정량화</b>: 슬라이더로 매주 누적 매출 모니터 → 23·24·25년 동기와 비교. 26-W22 (다음 주)부터 격차 줄이는 추세 관찰.</p>
+    <p><b>② 유니크 1위 빈도 관리</b>: 시즌별 1~2주의 단발 1위 상품 만들기 (기획전·신상품). 4년 데이터로 보면 이게 매출 spike 만들어왔음.</p>
+    <p><b>③ 비수기 강화</b>: 7월·8월 매출이 매년 dip → 여기서 회복하면 연 매출 +3~5%p 가능. 여름 간편식·과일 라인 강화 검토.</p>
+    <p><b>④ 명절 후 회복 모니터</b>: W5·W8 직후 2주가 회복 속도 결정. 24년·25년 모두 회복 3~4주 걸렸음 → 26년 명절 후도 같은 패턴인지 확인.</p>
+    <p><b>⑤ 주문자수 베이스 회복</b>: 매출 객단가만으로 방어해온 추세에서 25년 이용자 첫 감소 → 26년 가속될 수 있음. <b>이용자 유지·재유치가 향후 가장 중요한 KPI</b>.</p>
+  </div>
+</div>
+</div>
+
 <div class="split">
 
 <div class="chart-card">
@@ -348,6 +399,96 @@ function makeChart(canvasId, dataKey, yAxisLabel) {
 
 makeChart('salesChart', 'sales', '매출(원)');
 makeChart('ordChart', 'orderers', '주문자수');
+
+// 누적 매출 인터랙티브 차트
+let cumChartInstance = null;
+function buildCumChart(weekTo) {
+  const cumSales = {2023:0,2024:0,2025:0,2026:0};
+  const cumOrd = {2023:0,2024:0,2025:0,2026:0};
+  for (const y of [2023,2024,2025,2026]) {
+    for (let w = 0; w < weekTo; w++) {
+      const s = chartData.sales[y][w];
+      const o = chartData.orderers[y][w];
+      if (s) cumSales[y] += s;
+      if (o) cumOrd[y] += o;
+    }
+  }
+  // KPI 카드 업데이트
+  const statsEl = document.getElementById('cumStats');
+  const colors2 = {2023:'#90a4ae',2024:'#42a5f5',2025:'#388e3c',2026:'#c0392b'};
+  let html = '';
+  let base = cumSales[2023];
+  for (const y of [2023,2024,2025,2026]) {
+    const s = cumSales[y];
+    const o = cumOrd[y];
+    let yoy = '';
+    if (y > 2023) {
+      const prev = cumSales[y-1];
+      if (prev > 0) {
+        const d = (s-prev)/prev*100;
+        const cls = d>=0 ? 'up' : 'dn';
+        yoy = '<div style="font-size:.8rem"><span class="' + cls + '">' + (d>=0?'+':'') + d.toFixed(1) + '%</span> vs ' + (y-1) + '</div>';
+      }
+    }
+    html += '<div style="background:#fafafa;border-radius:8px;padding:10px;border-top:3px solid ' + colors2[y] + '">';
+    html += '<div style="font-size:.75rem;color:#888;font-weight:700">' + y + '년 W1~W' + weekTo + '</div>';
+    html += '<div style="font-size:1.15rem;font-weight:900;color:' + colors2[y] + ';margin-top:3px">' + (s/1e8).toFixed(2) + '억</div>';
+    html += '<div style="font-size:.75rem;color:#666">주문자 ' + o.toLocaleString() + '명</div>';
+    html += yoy;
+    html += '</div>';
+  }
+  statsEl.innerHTML = html;
+
+  // 차트 업데이트
+  const ctx = document.getElementById('cumChart');
+  if (cumChartInstance) cumChartInstance.destroy();
+  cumChartInstance = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['2023','2024','2025','2026'],
+      datasets: [{
+        label: 'W1~W' + weekTo + ' 누적 매출 (억원)',
+        data: [2023,2024,2025,2026].map(y => cumSales[y]/1e8),
+        backgroundColor: [2023,2024,2025,2026].map(y => colors2[y]),
+        borderRadius: 8,
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: function(ctx) {
+              const y = parseInt(ctx.label);
+              return [
+                '매출: ' + (cumSales[y]/1e8).toFixed(2) + '억',
+                '주문자: ' + cumOrd[y].toLocaleString() + '명',
+                '주평균: ' + (cumSales[y]/1e6/weekTo).toFixed(0) + 'M'
+              ];
+            }
+          }
+        }
+      },
+      scales: {
+        y: {
+          title: { display: true, text: '누적 매출(억원)' },
+          ticks: {
+            callback: function(value) { return value.toFixed(0) + '억'; }
+          }
+        }
+      }
+    }
+  });
+}
+
+document.getElementById('cumSlider').addEventListener('input', function(e) {
+  const w = parseInt(e.target.value);
+  document.getElementById('cumWeekLabel').textContent = 'W' + String(w).padStart(2,'0');
+  buildCumChart(w);
+});
+// 초기 빌드 (W21까지 — 현재 시점)
+buildCumChart(21);
 </script>
 </body>
 </html>
