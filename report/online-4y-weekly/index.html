@@ -124,10 +124,11 @@ footer {margin-top:20px;padding:14px;text-align:center;color:var(--gray);font-si
   <span class="lg"><span class="sw" style="background:#42a5f5"></span>2024</span>
   <span class="lg"><span class="sw" style="background:#388e3c"></span>2025</span>
   <span class="lg"><span class="sw" style="background:#c0392b"></span>2026</span>
+  <span class="lg"><span class="sw" style="background:#999;height:2px"></span>각 연 주평균(점선)</span>
   <span style="color:#999">· 명절 주(W5·W8) 표시</span>
 </div>
 <div class="canvas-wrap"><canvas id="salesChart"></canvas></div>
-<div class="hint">💡 차트의 <b>점을 클릭</b>하면 그 주의 1위 상품·특이도·동주 다른 연도 비교가 표시됩니다</div>
+<div class="hint">💡 차트의 <b>점을 클릭</b>하면 그 주의 1위 상품·특이도·동주 다른 연도 비교가 표시됩니다 / 가는 점선은 각 연도 주평균선</div>
 </div>
 
 <div class="modal-overlay" id="weekModal" onclick="if(event.target===this)closeModal()">
@@ -347,6 +348,24 @@ function makeChart(canvasId, dataKey, yAxisLabel) {
       pointHoverRadius: 7,
       pointHitRadius: 12,
       spanGaps: true,
+    });
+  }
+  // 연 평균 수평 라인 (각 연도 색상, 점선)
+  for (const y of [2023,2024,2025,2026]) {
+    const arr = chartData[dataKey][y].filter(v => v != null && v > 0);
+    if (arr.length === 0) continue;
+    const avg = arr.reduce((a,b)=>a+b,0) / arr.length;
+    datasets.push({
+      label: y + '년 주평균 (' + (dataKey==='sales' ? (avg/1e6).toFixed(0) + 'M' : Math.round(avg).toLocaleString() + '명') + ')',
+      data: new Array(52).fill(avg),
+      borderColor: colors[y],
+      borderWidth: 1.5,
+      borderDash: [4, 4],
+      tension: 0,
+      pointRadius: 0,
+      pointHoverRadius: 0,
+      pointHitRadius: 0,
+      fill: false,
     });
   }
   const chart = new Chart(ctx, {
