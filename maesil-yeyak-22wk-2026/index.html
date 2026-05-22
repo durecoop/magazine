@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>친환경 청·황매실 예약 | 두레생협</title>
+<style>
+  :root{
+    --green-deep:#1e3a1a;
+    --green-mid:#2d5a2a;
+    --green-soft:#5a8c3e;
+    --cream:#f4ecd8;
+    --paper:#fbf6e8;
+    --ink:#1f2818;
+    --gold:#c79434;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;word-break:keep-all;overflow-wrap:break-word;}
+  html,body{background:#000;color:var(--ink);font-family:'Noto Serif KR','본명조','Nanum Myeongjo','Malgun Gothic',serif;line-height:1.75;-webkit-font-smoothing:antialiased;overflow-x:hidden;word-break:keep-all;}
+  body{font-weight:400;letter-spacing:-.01em;}
+  img{display:block;max-width:100%;}
+
+  /* Cinematic chapter */
+  .chapter{position:relative;width:100%;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+  .bg{position:absolute;inset:0;z-index:0;}
+  .bg img{width:100%;height:100%;object-fit:cover;object-position:center center;}
+  .bg img.pos-left{object-position:left center;}
+  .bg img.pos-right{object-position:right center;}
+  @media (max-width:700px){
+    .bg img.pos-left,.bg img.pos-right{object-position:center center;}
+  }
+  .bg::after{content:"";position:absolute;inset:0;background:
+    radial-gradient(ellipse 80% 60% at 50% 50%,rgba(0,0,0,.35) 0%,rgba(0,0,0,.7) 100%),
+    linear-gradient(180deg,rgba(0,0,0,.35) 0%,rgba(0,0,0,.55) 100%);}
+  .bg.light::after{background:linear-gradient(180deg,rgba(255,253,240,.1) 0%,rgba(255,253,240,.0) 50%,rgba(0,0,0,.4) 100%);}
+
+  /* Ken Burns slow zoom */
+  @keyframes kenburns{
+    0%{transform:scale(1.0) translate(0,0);}
+    100%{transform:scale(1.12) translate(-1%,-1.5%);}
+  }
+  .bg.kb img{animation:kenburns 18s ease-out forwards;}
+  @keyframes kenburns2{
+    0%{transform:scale(1.08) translate(-1%,1%);}
+    100%{transform:scale(1.0) translate(0,0);}
+  }
+  .bg.kb2 img{animation:kenburns2 20s ease-out forwards;}
+
+  /* Scene content */
+  .scene{position:relative;z-index:2;color:#fffdf3;text-align:center;padding:60px 32px;max-width:900px;}
+  .scene.dark{color:var(--ink);}
+  .chapno{font-family:'Georgia',serif;font-size:14px;letter-spacing:.4em;opacity:.85;margin-bottom:30px;font-style:italic;}
+  .chap-h{font-size:54px;font-weight:700;line-height:1.35;letter-spacing:-.02em;margin-bottom:28px;text-shadow:0 2px 18px rgba(0,0,0,.85),0 0 4px rgba(0,0,0,.6);}
+  .hero-title .line-a,.hero-title .line-b{display:block;}
+  .hero-title .line-a{color:#dbe3cb;font-weight:600;font-size:.78em;margin-bottom:6px;}
+  .hero-title .line-b{color:#f6e3a0;font-weight:800;letter-spacing:-.03em;}
+  .chap-sub{font-size:20px;line-height:1.95;font-weight:400;max-width:680px;margin:0 auto 26px;text-shadow:0 2px 14px rgba(0,0,0,.85),0 0 3px rgba(0,0,0,.5);}
+  .chap-sub strong{font-weight:700;color:#f6e9b5;}
+  .scene.dark .chap-sub strong{color:var(--green-mid);}
+  @media (max-width:700px){
+    .chap-h{font-size:36px;line-height:1.32;}
+    .chap-sub{font-size:18px;line-height:1.85;}
+    .chapno{font-size:13px;margin-bottom:22px;}
+    .scene{padding:50px 22px;}
+  }
+
+  /* Fade-in on scroll */
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity 1.4s ease,transform 1.4s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+  .delay-1{transition-delay:.25s;}
+  .delay-2{transition-delay:.5s;}
+  .delay-3{transition-delay:.75s;}
+  .delay-4{transition-delay:1s;}
+
+  /* Scroll cue */
+  .cue{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);z-index:3;font-size:11px;letter-spacing:.4em;color:#fffdf3;opacity:.6;animation:bob 2s ease-in-out infinite;}
+  .cue::after{content:"";display:block;width:1px;height:36px;background:#fffdf3;margin:10px auto 0;opacity:.7;}
+  @keyframes bob{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(6px);}}
+
+  /* Quote card (producer) */
+  .quote-card{background:rgba(251,246,232,.96);color:var(--ink);max-width:660px;margin:34px auto 0;padding:32px 38px;border-radius:4px;text-align:left;font-style:italic;font-size:19px;line-height:1.95;box-shadow:0 30px 80px rgba(0,0,0,.4);}
+  .quote-card .sig{display:block;font-style:normal;font-size:15px;color:#6b7361;margin-top:16px;letter-spacing:.05em;}
+  @media (max-width:700px){.quote-card{font-size:17px;padding:26px 24px;}.quote-card .sig{font-size:14px;}}
+
+  /* People chapter — dark backdrop + face circles */
+  .ch-people{background:linear-gradient(180deg,#1a2818 0%,#0e1a0c 100%);}
+  .ch-people::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 30%,rgba(90,140,62,.18),transparent 65%);z-index:0;}
+  .producer-row{display:flex;justify-content:center;align-items:flex-start;gap:48px;margin:36px auto 0;flex-wrap:wrap;}
+  .producer{text-align:center;}
+  .face{width:140px;height:140px;border-radius:50%;background-size:cover;background-position:center center;background-repeat:no-repeat;border:3px solid rgba(255,253,243,.9);box-shadow:0 14px 36px rgba(0,0,0,.5);margin:0 auto 16px;}
+  .face.f1{background-image:url('face1.jpg');}
+  .face.f2{background-image:url('face2.jpg');}
+  .producer .name{font-size:19px;color:#fffdf3;font-weight:700;letter-spacing:.05em;}
+  .producer .role{display:block;font-size:13px;color:#a8b89a;font-weight:400;letter-spacing:.2em;margin-top:6px;}
+  @media (max-width:700px){
+    .producer-row{gap:30px;}
+    .face{width:108px;height:108px;}
+    .producer .name{font-size:17px;}
+  }
+
+  /* Split chapter — two-image season transition */
+  .split{display:grid;grid-template-columns:1fr 1fr;min-height:100vh;width:100%;}
+  @media (max-width:700px){.split{grid-template-columns:1fr;grid-template-rows:1fr 1fr;}}
+  .split-pane{position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:50px 40px;color:#fffdf3;}
+  .split-pane img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;}
+  .split-pane::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.2) 0%,rgba(0,0,0,.75) 100%);z-index:1;}
+  .split-pane .lbl{position:relative;z-index:2;}
+  .split-pane .month{font-family:'Georgia',serif;font-size:14px;letter-spacing:.45em;opacity:.95;margin-bottom:14px;}
+  .split-pane .ttl{font-size:36px;font-weight:700;line-height:1.4;letter-spacing:-.02em;text-shadow:0 2px 18px rgba(0,0,0,.85),0 0 4px rgba(0,0,0,.6);}
+  @media (max-width:700px){.split-pane{padding:36px 26px;}.split-pane .ttl{font-size:28px;}.split-pane .month{font-size:13px;}}
+
+  /* Still life inline (paper) */
+  .still-frame{max-width:740px;margin:0 auto 50px;border-radius:6px;overflow:hidden;box-shadow:0 30px 70px rgba(0,0,0,.12);}
+  .still-frame img{width:100%;display:block;}
+
+  /* Harvest full-screen interstitial */
+  .harvest{position:relative;min-height:80vh;display:flex;align-items:center;justify-content:center;overflow:hidden;color:#fffdf3;text-align:center;padding:80px 32px;}
+  .harvest img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;animation:kenburns 22s ease-out forwards;}
+  .harvest::after{content:"";position:absolute;inset:0;background:
+    radial-gradient(ellipse 80% 60% at 50% 50%,rgba(0,0,0,.35) 0%,rgba(0,0,0,.65) 100%),
+    linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,.55));z-index:1;}
+  .harvest .inner{position:relative;z-index:2;max-width:760px;}
+  .harvest .lab{font-family:'Georgia',serif;font-size:14px;letter-spacing:.45em;opacity:.9;margin-bottom:24px;}
+  .harvest .copy{font-size:34px;font-weight:600;line-height:1.55;letter-spacing:-.01em;text-shadow:0 2px 18px rgba(0,0,0,.85),0 0 4px rgba(0,0,0,.6);}
+  @media (max-width:700px){.harvest .copy{font-size:26px;}.harvest{min-height:70vh;}}
+
+  /* Paper section (info — schedule/price) */
+  .paper{background:var(--paper);color:var(--ink);padding:90px 32px;text-align:center;}
+  .paper .chapno{color:#9c8c5e;opacity:1;font-size:14px;}
+  .paper h2{font-size:42px;font-weight:700;letter-spacing:-.02em;margin-bottom:22px;color:var(--green-deep);}
+  .paper .lede{font-size:18px;color:#3d4a32;max-width:640px;margin:0 auto 50px;line-height:1.9;}
+  @media (max-width:700px){
+    .paper{padding:64px 20px;}
+    .paper h2{font-size:30px;margin-bottom:18px;}
+    .paper .lede{font-size:17px;line-height:1.85;}
+    .paper .chapno{font-size:13px;}
+  }
+
+  /* Type cards (청/황) — visual contrast */
+  .type-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;max-width:920px;margin:0 auto;}
+  @media (max-width:700px){.type-grid{grid-template-columns:1fr;gap:18px;}}
+  .type-card{border-radius:14px;padding:38px 32px;text-align:left;position:relative;overflow:hidden;}
+  .type-card.green-card{background:linear-gradient(180deg,#f3f8eb 0%,#e6efd6 100%);border:1px solid #c6d8a8;}
+  .type-card.yellow-card{background:linear-gradient(180deg,#faf3df 0%,#f3e6c4 100%);border:1px solid #e0c98a;}
+  .type-card .top-strip{position:absolute;top:0;left:0;right:0;height:6px;}
+  .green-card .top-strip{background:linear-gradient(90deg,#5a8c3e,#2d5a2a);}
+  .yellow-card .top-strip{background:linear-gradient(90deg,#d4a142,#8b5e10);}
+
+  .card-head{display:flex;align-items:center;gap:22px;margin-bottom:24px;}
+  .big-circle{width:130px;height:130px;border-radius:50%;flex-shrink:0;background-size:cover;background-position:center center;box-shadow:0 10px 28px rgba(0,0,0,.22);}
+  .green-card .big-circle{background-image:url('img_cheong.jpg');border:3px solid #b8d088;}
+  .yellow-card .big-circle{background-image:url('img_hwang.jpg');border:3px solid #e8c878;}
+  .head-text{flex:1;}
+  .head-text .badge{font-family:'Georgia',serif;font-size:12px;letter-spacing:.3em;color:#7a6c3a;font-weight:600;margin-bottom:4px;}
+  .green-card .head-text .badge{color:#5a7a3a;}
+  .head-text .ko{font-size:36px;font-weight:800;line-height:1.1;letter-spacing:-.02em;}
+  .green-card .head-text .ko{color:var(--green-deep);}
+  .yellow-card .head-text .ko{color:#7a4f0d;}
+  .head-text .period{font-size:14px;color:#5a5544;margin-top:6px;letter-spacing:.02em;}
+  .head-text .period b{font-weight:700;}
+  .green-card .head-text .period b{color:var(--green-mid);}
+  .yellow-card .head-text .period b{color:#8b5e10;}
+
+  .pitch{font-size:21px;font-weight:700;line-height:1.5;margin:6px 0 20px;letter-spacing:-.01em;}
+  .green-card .pitch{color:var(--green-deep);}
+  .yellow-card .pitch{color:#7a4f0d;}
+
+  .uses{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:22px;}
+  .uses span{display:inline-block;padding:7px 14px;border-radius:20px;font-size:14px;font-weight:600;letter-spacing:.02em;}
+  .green-card .uses span{background:rgba(90,140,62,.12);color:var(--green-deep);border:1px solid rgba(90,140,62,.3);}
+  .yellow-card .uses span{background:rgba(199,148,52,.13);color:#7a4f0d;border:1px solid rgba(199,148,52,.35);}
+
+  .card-desc{font-size:16.5px;line-height:1.85;color:#2d3a26;}
+  .card-desc b{font-weight:700;}
+  .green-card .card-desc b{color:var(--green-deep);}
+  .yellow-card .card-desc b{color:#7a4f0d;}
+
+  @media (max-width:700px){
+    .type-card{padding:30px 22px;}
+    .card-head{gap:16px;margin-bottom:20px;}
+    .big-circle{width:96px;height:96px;}
+    .head-text .ko{font-size:30px;}
+    .head-text .badge{font-size:11px;}
+    .head-text .period{font-size:13.5px;}
+    .pitch{font-size:18.5px;}
+    .uses span{font-size:13.5px;padding:6px 12px;}
+    .card-desc{font-size:16px;}
+  }
+
+  /* Schedule — card style */
+  .sch-wrap{max-width:880px;margin:0 auto;text-align:left;}
+  .sch-block{margin-bottom:46px;}
+  .sch-block:last-child{margin-bottom:0;}
+  .sch-title{font-size:18px;font-weight:700;color:var(--green-deep);margin-bottom:18px;letter-spacing:.05em;display:flex;align-items:center;gap:12px;}
+  .sch-title::before{content:"";display:inline-block;width:28px;height:3px;background:var(--green-mid);}
+  .sch-title.y{color:#8b5e10;}
+  .sch-title.y::before{background:#c79434;}
+
+  .sch-cards{display:grid;gap:16px;}
+  .sch-card{background:#fff;border:1px solid #e5dcc0;border-left:6px solid var(--green-mid);border-radius:8px;padding:24px 30px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:32px;transition:transform .2s ease,box-shadow .2s ease;}
+  .sch-card:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(0,0,0,.06);}
+  .sch-card.y{border-left-color:#c79434;}
+  .sch-card .num{width:68px;height:68px;border-radius:50%;background:linear-gradient(135deg,#5a8c3e,#3d6b29);color:#fffdf3;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;letter-spacing:-.02em;line-height:1;flex-shrink:0;box-shadow:0 6px 18px rgba(45,90,42,.28);}
+  .sch-card.y .num{background:linear-gradient(135deg,#d4a142,#8b5e10);box-shadow:0 6px 18px rgba(139,94,16,.28);}
+  .sch-card .num small{font-size:14px;font-weight:500;margin-left:1px;}
+  .sch-card .mid .prod{font-size:19px;font-weight:700;color:var(--ink);margin-bottom:8px;}
+  .sch-card .mid .meta{font-size:15.5px;color:#5a6048;letter-spacing:.02em;line-height:1.55;}
+  .sch-card .mid .meta b{color:var(--green-deep);font-weight:700;}
+  .sch-card.y .mid .meta b{color:#8b5e10;}
+  .sch-card .ship-end{text-align:right;}
+  .sch-card .ship-end .lab{font-size:13px;color:#7a6c3a;letter-spacing:.2em;margin-bottom:6px;font-weight:600;}
+  .sch-card .ship-end .date{font-size:28px;font-weight:700;color:var(--green-deep);letter-spacing:-.02em;line-height:1.2;}
+  .sch-card.y .ship-end .date{color:#8b5e10;}
+  @media (max-width:700px){
+    .sch-card{grid-template-columns:auto 1fr;grid-template-rows:auto auto;gap:14px 18px;padding:22px;}
+    .sch-card .num{width:56px;height:56px;font-size:20px;grid-row:1;grid-column:1;}
+    .sch-card .num small{font-size:12px;}
+    .sch-card .mid{grid-row:1;grid-column:2;align-self:center;}
+    .sch-card .ship-end{grid-row:2;grid-column:1/-1;text-align:left;border-top:1px dashed #e5dcc0;padding-top:14px;}
+    .sch-card .mid .prod{font-size:18px;}
+    .sch-card .mid .meta{font-size:15px;}
+    .sch-card .ship-end .date{font-size:26px;}
+    .sch-card .ship-end .lab{font-size:13px;}
+  }
+
+  /* Price */
+  .price-list{max-width:780px;margin:0 auto;text-align:left;}
+  .pg-title{font-size:34px;font-weight:800;color:var(--green-deep);margin:0 0 6px;letter-spacing:-.02em;}
+  .pg-title.y{color:#8b5e10;}
+  .pg-sub{font-size:15px;color:#7a6c3a;letter-spacing:.05em;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid #d9c89b;}
+  .price-row{display:grid;grid-template-columns:1fr 150px;align-items:baseline;padding:18px 4px;border-bottom:1px dotted #d9c89b;}
+  .price-row:last-child{border-bottom:none;}
+  .pname{font-size:20px;color:var(--ink);font-weight:700;letter-spacing:-.01em;}
+  .pprice{text-align:right;font-size:26px;font-weight:700;color:var(--green-deep);}
+  .pprice .won{font-size:15px;font-weight:600;color:#5a5544;margin-left:2px;}
+  .price-row.y .pprice{color:#8b5e10;}
+  .price-group{margin-bottom:50px;}
+  .price-group:last-child{margin-bottom:0;}
+  @media (max-width:700px){
+    .pg-title{font-size:26px;}
+    .pg-sub{font-size:14px;margin-bottom:14px;padding-bottom:12px;}
+    .price-row{grid-template-columns:1fr 120px;padding:16px 2px;}
+    .pname{font-size:18px;}
+    .pprice{font-size:23px;}
+  }
+
+  .notes{max-width:720px;margin:60px auto 0;text-align:left;font-size:16px;color:#3d4a32;line-height:1.85;padding:28px 32px;background:#fff;border:1px solid #e5dcc0;border-radius:6px;}
+  .notes b{color:var(--green-deep);display:block;margin-bottom:14px;font-size:14px;letter-spacing:.15em;font-weight:700;}
+  .notes p{margin:0 0 10px;padding-left:14px;position:relative;}
+  .notes p:last-child{margin-bottom:0;}
+  .notes p::before{content:"·";position:absolute;left:0;color:var(--green-mid);font-weight:700;}
+  @media (max-width:700px){.notes{font-size:15.5px;padding:24px 22px;}}
+
+  /* Final CTA chapter */
+  .finale{background:#0d1a08;color:#fffdf3;padding:120px 32px;text-align:center;position:relative;overflow:hidden;}
+  .finale::before{content:"";position:absolute;inset:-20%;background:radial-gradient(circle at 50% 50%,rgba(90,140,62,.22),transparent 60%);}
+  .finale-inner{position:relative;z-index:1;}
+  .finale .chapno{color:#a8b89a;font-size:14px;}
+  .finale h2{font-size:46px;font-weight:700;letter-spacing:-.02em;margin-bottom:24px;line-height:1.4;}
+  .finale p{font-size:18px;color:#c4ceb3;margin-bottom:46px;line-height:1.9;}
+  .cta{display:inline-block;background:#fffdf3;color:var(--green-deep);font-size:21px;font-weight:700;padding:22px 60px;border-radius:60px;text-decoration:none;letter-spacing:.04em;transition:all .25s ease;box-shadow:0 12px 40px rgba(0,0,0,.4);}
+  .cta:hover{transform:translateY(-3px);box-shadow:0 18px 50px rgba(0,0,0,.5);}
+  .finale .meta{margin-top:54px;font-size:13px;color:#7a8770;letter-spacing:.08em;}
+  @media (max-width:700px){
+    .finale{padding:80px 22px;}
+    .finale h2{font-size:32px;}
+    .finale p{font-size:17px;}
+    .cta{font-size:19px;padding:20px 48px;}
+  }
+
+  footer{background:#000;color:#7a7158;padding:26px;text-align:center;font-size:13px;letter-spacing:.08em;}
+</style>
+</head>
+<body>
+
+<!-- ─────────── CH 01 · OPENING ─────────── -->
+<section class="chapter">
+  <div class="bg kb"><img src="img_branch_close.jpg" alt=""></div>
+  <div class="scene">
+    <div class="chapno reveal">CHAPTER 01</div>
+    <h1 class="chap-h hero-title reveal delay-1"><span class="line-a">매실의 고장,</span><span class="line-b">광양과 하동.</span></h1>
+    <p class="chap-sub reveal delay-2">섬진강을 사이에 두고 마주 보는 두 지역은 한 해의 첫 매화꽃이 피는 곳입니다.</p>
+  </div>
+  <div class="cue">SCROLL</div>
+</section>
+
+<!-- ─────────── CH 02 · THE LAND ─────────── -->
+<section class="chapter">
+  <div class="bg kb2"><img src="img_branch_wide.jpg" alt=""></div>
+  <div class="scene">
+    <div class="chapno reveal">CHAPTER 02 · 산지</div>
+    <h2 class="chap-h reveal delay-1">3월의 꽃,<br>6월의 매실.</h2>
+    <p class="chap-sub reveal delay-2">섬진강을 따라 자리한 광양과 하동의 매실밭. 3월이면 산자락이 매화로 하얗게 덮이고, 꽃이 진 자리에 6월의 매실이 맺힙니다.</p>
+    <p class="chap-sub reveal delay-3">낮에는 따뜻하고 밤에는 서늘한 <strong>강가의 일교차</strong>, 그리고 물 빠짐이 좋은 자갈 섞인 흙. 이 두 가지가 매실의 향과 단단함을 만듭니다.</p>
+  </div>
+</section>
+
+<!-- ─────────── CH 03 · THE PEOPLE ─────────── -->
+<section class="chapter ch-people">
+  <div class="scene">
+    <div class="chapno reveal">CHAPTER 03 · 사람</div>
+    <h2 class="chap-h reveal delay-1">손으로 매고, 천적으로 다스리고.</h2>
+
+    <div class="producer-row reveal delay-2">
+      <div class="producer">
+        <div class="face f1"></div>
+        <div class="name">김병길<span class="role">생산자</span></div>
+      </div>
+      <div class="producer">
+        <div class="face f2"></div>
+        <div class="name">김기명<span class="role">생산자</span></div>
+      </div>
+    </div>
+
+    <div class="quote-card reveal delay-3">
+      "제초제를 한 번 뿌리면 일 년은 편하지만, 그 한 번이 매실 향을 바꾼다고 봐요. 풀은 손으로 매고, 벌레는 천적으로 두는 게 결국 매실에 좋은 방법입니다."
+      <span class="sig">— 광양·하동 매실 농장에서</span>
+    </div>
+    <p class="chap-sub reveal delay-4" style="margin-top:30px;">유기농·무농약 인증을 받은 매실밭에서, 6월의 짧은 수확철에 따낸 매실이 그대로 조합원의 식탁으로 향합니다.</p>
+  </div>
+</section>
+
+<!-- ─────────── CH 04 · SEASON SPLIT ─────────── -->
+<section class="split">
+  <div class="split-pane reveal">
+    <img src="img_blossom.jpg" alt="3월의 매화">
+    <div class="lbl">
+      <div class="month">MARCH · 3월</div>
+      <div class="ttl">먼저 꽃이 피어납니다.</div>
+    </div>
+  </div>
+  <div class="split-pane reveal delay-2">
+    <img src="img_branch_wide.jpg" alt="6월의 청매실">
+    <div class="lbl">
+      <div class="month">JUNE · 6월</div>
+      <div class="ttl">그 자리에 매실이 맺힙니다.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── CH 05 · TWO TYPES ─────────── -->
+<section class="paper">
+  <div class="chapno">CHAPTER 05 · 두 가지 매실</div>
+  <h2 class="reveal">청매실과 황매실</h2>
+  <p class="lede reveal delay-1">같은 나무에서 자라지만 따는 시기가 다른 두 매실. 쓰임에 따라 골라 담그시면 됩니다.</p>
+
+  <div class="type-grid reveal delay-2">
+
+    <div class="type-card green-card">
+      <span class="top-strip"></span>
+      <div class="card-head">
+        <div class="big-circle"></div>
+        <div class="head-text">
+          <div class="badge">GREEN PLUM</div>
+          <div class="ko">청매실</div>
+          <div class="period">수확 <b>6월 초·중순</b></div>
+        </div>
+      </div>
+      <div class="pitch">단단한 식감, 맑은 신맛.</div>
+      <div class="uses">
+        <span>매실청</span><span>매실주</span><span>매실장아찌</span>
+      </div>
+      <p class="card-desc">신맛이 또렷하고 향이 맑아 담근 직후부터 깊은 빛깔이 우러납니다. 손질이 부담스러우시면 씨를 미리 발라낸 <b>씨뺀청매실</b>도 함께 신청하실 수 있습니다.</p>
+    </div>
+
+    <div class="type-card yellow-card">
+      <span class="top-strip"></span>
+      <div class="card-head">
+        <div class="big-circle"></div>
+        <div class="head-text">
+          <div class="badge">YELLOW PLUM</div>
+          <div class="ko">황매실</div>
+          <div class="period">수확 <b>6월 하순</b></div>
+        </div>
+      </div>
+      <div class="pitch">진한 향, 강한 단맛.</div>
+      <div class="uses">
+        <span>매실청</span><span>매실잼</span><span>매실식초</span>
+      </div>
+      <p class="card-desc">나무에서 노랗게 익을 때까지 두었다가 따낸 매실입니다. 후숙된 상태로 도착하니, 받으신 날 바로 손질해 담그시는 편이 좋습니다.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─────────── HARVEST INTERSTITIAL ─────────── -->
+<section class="harvest">
+  <img src="img_plums_pile.jpg" alt="수확한 청매실">
+  <div class="inner">
+    <div class="lab reveal">HARVEST · 수확</div>
+    <p class="copy reveal delay-1">6월의 짧은 며칠<br>그 시간 동안 따낸 매실이 조합원의 식탁으로 향합니다.</p>
+  </div>
+</section>
+
+<!-- ─────────── CH 06 · SCHEDULE ─────────── -->
+<section class="paper" style="background:#f9f3df;">
+  <div class="chapno">CHAPTER 06 · 일정</div>
+  <h2 class="reveal">차수별 공급 일정</h2>
+  <p class="lede reveal delay-1">예약은 5월 18일(월)부터 시작합니다. 원하시는 공급일에 맞춰 차수를 선택해 주시면 됩니다.</p>
+
+  <div class="sch-wrap reveal delay-2">
+
+    <div class="sch-block">
+      <div class="sch-title">청매실 · 씨뺀매실</div>
+      <div class="sch-cards">
+
+        <div class="sch-card">
+          <div class="num">1<small>차</small></div>
+          <div class="mid">
+            <div class="prod">청매실</div>
+            <div class="meta">예약 마감 <b>5월 29일(금)</b></div>
+          </div>
+          <div class="ship-end">
+            <div class="lab">공급</div>
+            <div class="date">6월 5일 (금)</div>
+          </div>
+        </div>
+
+        <div class="sch-card">
+          <div class="num">2<small>차</small></div>
+          <div class="mid">
+            <div class="prod">청매실 · 씨뺀매실</div>
+            <div class="meta">예약 마감 <b>6월 3일(수)</b></div>
+          </div>
+          <div class="ship-end">
+            <div class="lab">공급</div>
+            <div class="date">6월 10일 (수)</div>
+          </div>
+        </div>
+
+        <div class="sch-card">
+          <div class="num">3<small>차</small></div>
+          <div class="mid">
+            <div class="prod">청매실 · 씨뺀매실</div>
+            <div class="meta">예약 마감 <b>6월 5일(금)</b></div>
+          </div>
+          <div class="ship-end">
+            <div class="lab">공급</div>
+            <div class="date">6월 12일 (금)</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="sch-block">
+      <div class="sch-title y">황매실</div>
+      <div class="sch-cards">
+
+        <div class="sch-card y">
+          <div class="num">1<small>차</small></div>
+          <div class="mid">
+            <div class="prod">황매실</div>
+            <div class="meta">예약 마감 <b>6월 17일(수)</b></div>
+          </div>
+          <div class="ship-end">
+            <div class="lab">공급</div>
+            <div class="date">6월 24일 (수)</div>
+          </div>
+        </div>
+
+        <div class="sch-card y">
+          <div class="num">2<small>차</small></div>
+          <div class="mid">
+            <div class="prod">황매실</div>
+            <div class="meta">예약 마감 <b>6월 19일(금)</b></div>
+          </div>
+          <div class="ship-end">
+            <div class="lab">공급</div>
+            <div class="date">6월 26일 (금)</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─────────── CH 07 · PRICE ─────────── -->
+<section class="paper">
+  <div class="chapno">CHAPTER 07 · 가격</div>
+  <h2 class="reveal">조합원가 안내</h2>
+  <p class="lede reveal delay-1">표시 가격은 모두 조합원가 기준입니다.</p>
+
+  <div class="price-list reveal delay-2">
+    <div class="price-group">
+      <div class="pg-title">친환경 청매실</div>
+      <div class="pg-sub">5kg 기준</div>
+      <div class="price-row">
+        <div class="pname">특대</div>
+        <div class="pprice">45,000<span class="won">원</span></div>
+      </div>
+      <div class="price-row">
+        <div class="pname">대</div>
+        <div class="pprice">39,000<span class="won">원</span></div>
+      </div>
+      <div class="price-row">
+        <div class="pname">중</div>
+        <div class="pprice">28,000<span class="won">원</span></div>
+      </div>
+      <div class="price-row">
+        <div class="pname">씨뺀청매실 (2.5kg)</div>
+        <div class="pprice">41,000<span class="won">원</span></div>
+      </div>
+    </div>
+
+    <div class="price-group">
+      <div class="pg-title y">친환경 황매실</div>
+      <div class="pg-sub">5kg 기준</div>
+      <div class="price-row y">
+        <div class="pname">특대</div>
+        <div class="pprice">40,000<span class="won">원</span></div>
+      </div>
+      <div class="price-row y">
+        <div class="pname">대</div>
+        <div class="pprice">36,000<span class="won">원</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="notes reveal delay-3">
+    <b>예약 전 참고</b>
+    <p>농산물 특성상 작황에 따라 입고일이 1~2일 변동될 수 있습니다.</p>
+    <p>예약 마감 후 차수 변경·취소가 어려우니, 공급일을 확인하신 후 신청해 주시기 바랍니다.</p>
+    <p>황매실은 후숙된 상태로 도착하니 받으신 날 바로 가공해 주시면 좋습니다.</p>
+  </div>
+</section>
+
+<!-- ─────────── CH 08 · FINALE ─────────── -->
+<section class="finale">
+  <div class="finale-inner">
+    <div class="chapno reveal">CHAPTER 08</div>
+    <h2 class="reveal delay-1">올해의 매실을<br>예약해 주세요.</h2>
+    <p class="reveal delay-2">광양·하동 매실밭에서, 6월의 식탁까지.</p>
+    <div class="still-frame reveal delay-2" style="margin:0 auto 46px;max-width:560px;">
+      <img src="img_still_bowl.jpg" alt="청매실과 매실청">
+    </div>
+    <a class="cta outro-cta reveal delay-3" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1666#book17" target="_blank" rel="noopener">지금 바로 예약하기</a>
+    <div class="meta reveal delay-4">2026 매실 예약</div>
+  </div>
+</section>
+
+<footer>두레생협 · 친환경 청·황매실 예약 · 2026</footer>
+
+<script>
+  // Scroll reveal
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, {threshold:0.18});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+
+  // First-screen reveal trigger immediately
+  window.addEventListener('load', function(){
+    document.querySelectorAll('.chapter:first-of-type .reveal').forEach(function(el){
+      el.classList.add('in');
+    });
+  });
+</script>
+
+<script>
+(function(){
+  var NS = 'durecoop-maesil-yeyak-22wk-2026';
+  var API = 'https://abacus.jasoncameron.dev/hit/' + NS + '/';
+  function hit(key){
+    try { fetch(API + key, { mode: 'cors', keepalive: true, cache: 'no-store' }).catch(function(){}); } catch(e){}
+  }
+  hit('pageview');
+  try {
+    var params = new URLSearchParams(location.search);
+    var src = (params.get('utm_source') || '').toLowerCase();
+    if (src === 'rcs') hit('pageview-rcs');
+    else if (src) hit('pageview-other');
+    else hit('pageview-direct');
+  } catch(e){}
+  document.querySelectorAll('a').forEach(function(a){
+    if (!/ecoop\.or\.kr/i.test(a.href)) return;
+    a.addEventListener('click', function(){
+      var key = null;
+      if (a.classList.contains('hero-cta')) key = 'click-hero';
+      else if (a.classList.contains('outro-cta')) key = 'click-outro';
+      else if (a.classList.contains('order-link')) key = 'click-product';
+      if (key) hit(key);
+      hit('click-all');
+    }, { passive: true });
+  });
+})();
+</script>
+</body>
+</html>
