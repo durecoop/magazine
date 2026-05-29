@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
+<meta name="theme-color" content="#1565d8">
+<title>주말클릭 · 고기데이 — 돼지앞다리살</title>
+<meta property="og:title" content="주말클릭 고기데이 — 돼지앞다리살 15% 할인">
+<meta property="og:description" content="살코기와 지방의 조화, 호불호 없는 밥도둑! 이번 주말 한정 특가">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html,body{
+    word-break:keep-all;
+    overflow-wrap:break-word;
+    -webkit-text-size-adjust:100%;
+  }
+  body{
+    font-family:'Pretendard Variable','Pretendard','Apple SD Gothic Neo','Malgun Gothic',system-ui,-apple-system,sans-serif;
+    background:
+      radial-gradient(120% 60% at 50% 0%, #4a8dff 0%, #1565d8 42%, #0d47a1 100%);
+    color:#fff;
+    min-height:100vh;
+    line-height:1.7;
+    padding:0 0 40px;
+  }
+  .wrap{
+    max-width:520px;
+    margin:0 auto;
+    padding:18px 18px 24px;
+  }
+
+  /* 메인 GIF (배너) */
+  .hero{
+    position:relative;
+    border-radius:22px;
+    overflow:hidden;
+    box-shadow:0 16px 40px rgba(0,0,0,.35);
+    background:#0d47a1;
+  }
+  .hero img{
+    width:100%;
+    height:auto;
+    display:block;
+  }
+  .hero::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    box-shadow:inset 0 0 0 2px rgba(255,255,255,.18);
+    border-radius:22px;
+  }
+
+  /* 부제 */
+  .subhead{
+    text-align:center;
+    margin:18px 4px 4px;
+    font-size:20px;
+    font-weight:800;
+    color:#ffe14d;
+    letter-spacing:-.5px;
+    text-shadow:0 2px 10px rgba(0,0,0,.3);
+  }
+
+  /* 상품 카드 */
+  .card{
+    margin-top:16px;
+    background:#fff;
+    color:#222;
+    border-radius:22px;
+    padding:24px 22px 22px;
+    box-shadow:0 18px 44px rgba(0,0,0,.25);
+  }
+  .tagline{
+    display:inline-block;
+    background:#eaf2ff;
+    color:#1565d8;
+    font-weight:800;
+    font-size:16px;
+    padding:6px 12px;
+    border-radius:999px;
+    letter-spacing:-.3px;
+    margin-bottom:14px;
+  }
+  .name-row{
+    display:flex;
+    align-items:baseline;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+  h1.name{
+    font-size:32px;
+    font-weight:900;
+    letter-spacing:-1px;
+    color:#1a1a1a;
+    line-height:1.2;
+  }
+  .spec{
+    font-size:18px;
+    color:#666;
+    font-weight:700;
+  }
+
+  .photo{
+    margin-top:18px;
+    background:#f4f6f8;
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 6px 16px rgba(0,0,0,.08);
+  }
+  .photo img{
+    width:100%;
+    height:auto;
+    display:block;
+  }
+
+  .price-row{
+    margin-top:18px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    flex-wrap:wrap;
+  }
+  .price-was{
+    font-size:20px;
+    color:#999;
+    text-decoration:line-through;
+    font-weight:600;
+  }
+  .discount{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    background:#ff1744;
+    color:#fff;
+    font-weight:900;
+    font-size:19px;
+    padding:7px 13px;
+    border-radius:999px;
+    box-shadow:0 6px 14px rgba(255,23,68,.35);
+  }
+  .price-now{
+    margin-top:6px;
+    font-size:50px;
+    font-weight:900;
+    color:#1565d8;
+    letter-spacing:-2px;
+    line-height:1;
+  }
+  .price-now .won{
+    font-size:26px;
+    color:#1a1a1a;
+    margin-left:4px;
+    font-weight:800;
+  }
+
+  .desc{
+    margin-top:18px;
+    padding-top:18px;
+    border-top:1px dashed #e5e5e5;
+    font-size:19px;
+    color:#333;
+    font-weight:700;
+    line-height:1.6;
+  }
+  .desc strong{color:#1565d8}
+
+  .sparkle{
+    position:relative;
+    margin-top:16px;
+    text-align:center;
+    font-size:22px;
+    font-weight:900;
+    letter-spacing:-.5px;
+    background:linear-gradient(90deg,#ff1744 0%,#ffb300 25%,#ff1744 50%,#ffb300 75%,#ff1744 100%);
+    background-size:200% auto;
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
+    color:transparent;
+    animation:shimmer 2s linear infinite;
+  }
+  .sparkle::after{
+    content:"✨";
+    -webkit-text-fill-color:initial;
+    color:#ffb300;
+    margin:0 6px;
+    display:inline-block;
+    animation:twinkle 1.2s ease-in-out infinite;
+    filter:drop-shadow(0 0 6px rgba(255,179,0,.7));
+  }
+  @keyframes shimmer{
+    0%{background-position:0% center}
+    100%{background-position:200% center}
+  }
+  @keyframes twinkle{
+    0%,100%{transform:scale(1) rotate(0); opacity:1}
+    50%{transform:scale(1.4) rotate(20deg); opacity:.6}
+  }
+
+  /* CTA */
+  .cta{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    margin-top:20px;
+    width:100%;
+    padding:22px;
+    background:linear-gradient(135deg,#ff9800 0%,#ff7a00 100%);
+    color:#fff;
+    text-decoration:none;
+    font-size:24px;
+    font-weight:900;
+    border-radius:16px;
+    letter-spacing:-.5px;
+    box-shadow:0 12px 28px rgba(255,122,0,.45);
+    transition:transform .15s ease;
+  }
+  .cta:active{transform:scale(.98)}
+  .cta::after{
+    content:"›";
+    font-size:30px;
+    line-height:1;
+    transition:transform .2s ease;
+  }
+  .cta:hover::after{transform:translateX(4px)}
+
+  .footnote{
+    margin-top:18px;
+    text-align:center;
+    font-size:15px;
+    color:rgba(255,255,255,.9);
+    line-height:1.6;
+  }
+  .footnote strong{color:#fff;font-weight:800}
+
+  /* 모바일 최적화 */
+  @media (max-width:380px){
+    .wrap{padding:14px}
+    h1.name{font-size:28px}
+    .price-now{font-size:44px}
+    .cta{font-size:21px}
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+
+    <div class="hero">
+      <img src="main.gif" alt="놓치면 후회하는 주말 클릭 — 돼지앞다리살 15% 할인">
+    </div>
+
+    <p class="subhead">한 주가 든든해지는 특별한 주말 한정 특가!</p>
+
+    <div class="card">
+      <span class="tagline">🥩 주말이니까, 더 큰 혜택!</span>
+      <div class="name-row">
+        <h1 class="name">돼지앞다리살</h1>
+        <span class="spec">500g · 불고기용</span>
+      </div>
+
+      <div class="photo">
+        <img src="product.jpg" alt="돼지앞다리살 500g 불고기용 포장">
+      </div>
+
+      <div class="price-row">
+        <span class="price-was">12,800원</span>
+        <span class="discount">15% 할인</span>
+      </div>
+      <div class="price-now">10,800<span class="won">원</span></div>
+
+      <p class="desc">
+        살코기와 지방의 조화,<br>
+        <strong>호불호 없는 밥도둑!</strong>
+      </p>
+
+      <div class="sparkle">이번 주말만 특별 할인!</div>
+
+      <a class="cta hero-cta" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1667" target="_blank" rel="noopener">
+        지금 바로 확인하기
+      </a>
+    </div>
+
+    <p class="footnote">
+      이번 주말 놓치면 다음 주에 만나요
+    </p>
+
+  </div>
+
+<script>
+(function(){
+  var NS = 'durecoop-weekend-click-pork-shoulder';
+  var API = 'https://abacus.jasoncameron.dev/hit/' + NS + '/';
+  function hit(key){
+    try { fetch(API + key, { mode:'cors', keepalive:true, cache:'no-store' }).catch(function(){}); } catch(e){}
+  }
+  hit('pageview');
+  try {
+    var params = new URLSearchParams(location.search);
+    var src = (params.get('utm_source') || '').toLowerCase();
+    if (src === 'rcs') hit('pageview-rcs');
+    else if (src) hit('pageview-other');
+    else hit('pageview-direct');
+  } catch(e){}
+  document.querySelectorAll('a').forEach(function(a){
+    if (!/ecoop\.or\.kr/i.test(a.href)) return;
+    a.addEventListener('click', function(){
+      if (a.classList.contains('hero-cta')) hit('click-hero');
+      hit('click-all');
+    }, { passive:true });
+  });
+})();
+</script>
+</body>
+</html>
