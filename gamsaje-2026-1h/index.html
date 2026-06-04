@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>두레생협 2026 상반기 감사제</title>
+<style>
+  :root{
+    --ink:#1B3A2F;       /* 다크그린 */
+    --green:#7CB342;     /* 두레 그린 */
+    --cream:#faf8f3;     /* 종이 톤 */
+    --paper2:#f3ece0;
+    --text:#2A3D2E;
+    --muted:#5d6b60;
+    --line:#e3dccb;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;word-break:keep-all;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Noto Sans KR","Malgun Gothic",sans-serif;
+    background:var(--cream);
+    color:var(--text);
+    font-size:18px;
+    line-height:1.85;
+    letter-spacing:-0.01em;
+    -webkit-font-smoothing:antialiased;
+  }
+  .page{max-width:560px;margin:0 auto;background:var(--cream);overflow:hidden;}
+
+  /* 공통 챕터 마커 */
+  .chapter{padding:64px 26px;}
+  .ch-no{
+    display:block;
+    font-family:'Times New Roman','Nanum Myeongjo',serif;
+    font-style:italic;
+    font-size:64px;
+    line-height:1;
+    color:var(--green);
+    letter-spacing:-0.02em;
+    margin-bottom:14px;
+  }
+  .ch-eyebrow{
+    display:inline-block;
+    font-size:13px;font-weight:700;letter-spacing:0.22em;
+    color:var(--green);text-transform:uppercase;margin-bottom:14px;
+  }
+  .ch-title{
+    font-size:30px;font-weight:800;color:var(--ink);
+    line-height:1.4;letter-spacing:-0.03em;margin-bottom:20px;
+  }
+  .ch-body{font-size:18px;line-height:1.9;color:var(--text);}
+  .ch-body strong{color:var(--green);font-weight:700;}
+
+  /* ===== HERO ===== */
+  .hero{
+    position:relative;
+    background:linear-gradient(180deg,#1B3A2F 0%,#16302a 100%);
+    color:#fff;
+    padding:72px 26px 84px;
+    text-align:center;
+    overflow:hidden;
+  }
+  .hero .glow{
+    position:absolute;top:-90px;right:-70px;width:280px;height:280px;
+    background:radial-gradient(circle,rgba(124,179,66,0.55) 0%,rgba(124,179,66,0) 70%);
+    pointer-events:none;
+  }
+  .hero .eyebrow{
+    position:relative;display:inline-block;
+    font-size:14px;font-weight:700;letter-spacing:0.22em;
+    color:#bfe09a;margin-bottom:26px;
+  }
+  .hero h1{
+    position:relative;
+    font-size:62px;font-weight:800;line-height:1.08;
+    letter-spacing:-0.04em;
+    text-shadow:0 3px 22px rgba(0,0,0,0.4);
+    margin-bottom:24px;
+  }
+  .hero h1 .yr{display:block;font-size:34px;color:var(--green);font-weight:700;letter-spacing:0.02em;margin-bottom:6px;}
+  .hero .slogan{
+    position:relative;
+    font-size:20px;line-height:1.75;color:#eef3e6;font-weight:500;
+    text-shadow:0 2px 10px rgba(0,0,0,0.35);
+    max-width:380px;margin:0 auto 34px;
+  }
+  .hero .period{
+    position:relative;display:inline-block;
+    border:1.5px solid rgba(255,255,255,0.7);
+    border-radius:999px;padding:12px 24px;
+    font-size:17px;font-weight:700;letter-spacing:0.01em;
+  }
+  .hero .period b{color:var(--green);}
+  .scroll-cue{
+    position:relative;margin-top:42px;font-size:13px;letter-spacing:0.2em;
+    color:rgba(255,255,255,0.55);
+  }
+  .scroll-cue .arrow{display:block;font-size:22px;margin-top:6px;animation:bob 1.8s ease-in-out infinite;}
+  @keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(7px);}}
+
+  /* ===== PROLOGUE (감사 인사) ===== */
+  .prologue{
+    background:var(--cream);
+    padding:72px 28px;
+    text-align:center;
+    border-bottom:1px solid var(--line);
+  }
+  .prologue .mark{font-family:'Times New Roman',serif;font-size:48px;color:var(--green);line-height:0;}
+  .prologue p{
+    font-size:21px;line-height:1.95;color:var(--ink);font-weight:500;
+    max-width:420px;margin:26px auto 0;
+  }
+  .prologue p strong{color:var(--green);font-weight:800;}
+
+  /* ===== 챕터 01 — 전품목 ===== */
+  .ch-allitems{background:var(--paper2);}
+  .ch-allitems .cats{
+    display:flex;flex-wrap:wrap;gap:10px;margin-top:26px;
+  }
+  .ch-allitems .cats span{
+    background:#fff;border:1px solid var(--line);border-radius:999px;
+    padding:9px 18px;font-size:16px;font-weight:600;color:var(--ink);
+  }
+
+  /* ===== 챕터 02 — 혜택 ===== */
+  .ch-benefit{background:var(--ink);color:#fff;}
+  .ch-benefit .ch-no{color:#fff;}
+  .ch-benefit .ch-eyebrow{color:#bfe09a;}
+  .ch-benefit .ch-title{color:#fff;}
+  .benefit-card{
+    background:rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.16);
+    border-radius:16px;
+    padding:28px 24px;
+    margin-top:18px;
+  }
+  .benefit-card .big{
+    font-size:46px;font-weight:800;color:var(--green);line-height:1;
+    letter-spacing:-0.03em;display:block;margin-bottom:10px;
+  }
+  .benefit-card h3{font-size:22px;font-weight:800;color:#fff;margin-bottom:8px;line-height:1.4;}
+  .benefit-card p{font-size:17px;line-height:1.8;color:rgba(255,255,255,0.78);}
+
+  /* ===== 챕터 03 — 참여 프로그램 ===== */
+  .ch-program{background:var(--cream);}
+  .prog{
+    border-top:1px solid var(--line);
+    padding:26px 0;
+    display:flex;gap:18px;align-items:flex-start;
+  }
+  .prog:last-child{border-bottom:1px solid var(--line);}
+  .prog .pn{
+    font-family:'Times New Roman','Nanum Myeongjo',serif;font-style:italic;
+    font-size:38px;color:var(--green);line-height:0.9;flex-shrink:0;min-width:42px;
+  }
+  .prog .pt{font-size:22px;font-weight:800;color:var(--ink);line-height:1.35;margin-bottom:6px;}
+  .prog .pd{font-size:17px;line-height:1.8;color:var(--muted);}
+
+  /* ===== EPILOGUE + CTA ===== */
+  .epilogue{
+    background:var(--ink);color:#fff;text-align:center;padding:78px 28px 64px;
+    position:relative;overflow:hidden;
+  }
+  .epilogue .glow{
+    position:absolute;bottom:-100px;left:-60px;width:300px;height:300px;
+    background:radial-gradient(circle,rgba(124,179,66,0.4) 0%,rgba(124,179,66,0) 70%);
+  }
+  .epilogue .closing{
+    position:relative;font-size:26px;font-weight:700;line-height:1.6;
+    color:#fff;text-shadow:0 2px 12px rgba(0,0,0,0.35);margin-bottom:36px;
+  }
+  .cta-btn{
+    position:relative;display:block;
+    background:var(--green);color:#fff;text-decoration:none;
+    font-size:23px;font-weight:800;padding:22px;border-radius:14px;
+    box-shadow:0 10px 26px rgba(124,179,66,0.35);
+    transition:transform .15s,background .2s;
+  }
+  .cta-btn:active{transform:scale(0.98);}
+  .cta-note{position:relative;margin-top:16px;font-size:16px;color:rgba(255,255,255,0.6);}
+
+  /* ===== 주문마감 안내 ===== */
+  .notice{
+    background:var(--cream);padding:34px 28px 56px;
+  }
+  .notice .box{
+    border:2px dashed var(--green);border-radius:14px;
+    padding:22px 22px;background:#fff;
+  }
+  .notice strong{display:block;font-size:18px;color:var(--ink);font-weight:800;margin-bottom:8px;}
+  .notice p{font-size:16px;line-height:1.8;color:var(--muted);}
+
+  footer{
+    background:#16302a;color:#9fb6a4;text-align:center;
+    padding:30px 24px;font-size:14px;line-height:1.9;
+  }
+  footer b{display:block;color:#fff;font-size:16px;margin-bottom:4px;}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HERO -->
+  <header class="hero">
+    <span class="glow"></span>
+    <span class="eyebrow">두레의 감사 · 2026년 6월</span>
+    <h1><span class="yr">2026 상반기</span>감사제</h1>
+    <p class="slogan">조합원이 만든 1년,<br>두레가 돌려드리는 한 계절</p>
+    <div class="period"><b>6.8(월)</b> — <b>6.20(토)</b> · 토요일 배송</div>
+    <div class="scroll-cue">내려서 보기<span class="arrow">↓</span></div>
+  </header>
+
+  <!-- PROLOGUE -->
+  <section class="prologue">
+    <div class="mark">&ldquo;</div>
+    <p>지난 상반기, 두레생협을 믿고 함께해 주신 조합원님께 감사드립니다.
+    한 분 한 분의 선택이 건강한 먹거리와 생산자의 한 해를 지켰습니다.
+    그 마음에 보답하고자 <strong>전품목 감사제</strong>를 준비했습니다.</p>
+  </section>
+
+  <!-- 01 전품목 -->
+  <section class="chapter ch-allitems">
+    <span class="ch-no">01</span>
+    <span class="ch-eyebrow">전품목 감사제</span>
+    <h2 class="ch-title">두레의 모든 생활재를<br>한자리에 모았습니다</h2>
+    <p class="ch-body">평소 즐겨 찾던 생활재부터 새로 만나는 생활재까지,
+    농산·축산·수산·과일·가공·생활용품 전 품목을 감사제 가격으로 준비했습니다.</p>
+    <div class="cats">
+      <span>농산</span><span>축산</span><span>수산</span>
+      <span>과일</span><span>가공</span><span>생활용품</span>
+    </div>
+  </section>
+
+  <!-- 02 혜택 -->
+  <section class="chapter ch-benefit">
+    <span class="ch-no">02</span>
+    <span class="ch-eyebrow">감사제 혜택</span>
+    <h2 class="ch-title">감사의 마음을<br>혜택으로 돌려드립니다</h2>
+
+    <div class="benefit-card">
+      <span class="big">최대 30%</span>
+      <h3>전 품목 할인</h3>
+      <p>기본 10%부터 최대 30%까지, 생산자와 함께 준비한 상반기 특별 할인입니다.</p>
+    </div>
+
+    <div class="benefit-card">
+      <span class="big">1만원</span>
+      <h3>50만원 이상 이용 시 쿠폰 증정</h3>
+      <p>감사제 기간 중 누적 50만원 이상 이용하시면 1만원 쿠폰을 자동 증정합니다. 별도 신청 없이 마이쿠폰함에서 확인 가능합니다.</p>
+    </div>
+
+    <div class="benefit-card">
+      <span class="big">매일</span>
+      <h3>매일매일 출석체크</h3>
+      <p>감사제 기간 중 매일 출석하시면 쿠폰을 드립니다. (5일 · 10일 보상)</p>
+    </div>
+  </section>
+
+  <!-- 03 참여 프로그램 -->
+  <section class="chapter ch-program">
+    <span class="ch-no">03</span>
+    <span class="ch-eyebrow">함께 나누는 감사</span>
+    <h2 class="ch-title">이렇게 함께하세요</h2>
+
+    <div class="prog">
+      <span class="pn">1</span>
+      <div>
+        <div class="pt">기획전 둘러보기</div>
+        <div class="pd">생산자와 함께 정성껏 준비한 상반기 생활재 기획전을 만나보세요.</div>
+      </div>
+    </div>
+    <div class="prog">
+      <span class="pn">2</span>
+      <div>
+        <div class="pt">매일매일 출석체크</div>
+        <div class="pd">매일 한 번 출석하고 쿠폰을 받아가세요.</div>
+      </div>
+    </div>
+    <div class="prog">
+      <span class="pn">3</span>
+      <div>
+        <div class="pt">댓글 이벤트</div>
+        <div class="pd">'두레와 함께한 상반기'를 주제로 이야기를 나누는 조합원 참여 이벤트입니다.</div>
+      </div>
+    </div>
+    <div class="prog">
+      <span class="pn">4</span>
+      <div>
+        <div class="pt">50만원 이상 구매 선물</div>
+        <div class="pd">누적 50만원 이상 이용 시 1만원 쿠폰을 자동 증정합니다.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EPILOGUE + CTA -->
+  <section class="epilogue">
+    <span class="glow"></span>
+    <p class="closing">상반기의 끝자락,<br>두레와 함께<br>감사를 나누세요</p>
+    <a class="cta-btn" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1670" target="_blank" rel="noopener">감사제 기획전 보러가기 →</a>
+    <p class="cta-note">두레몰에서 전품목 감사제를 만나보세요</p>
+  </section>
+
+  <!-- 주문마감 안내 -->
+  <section class="notice">
+    <div class="box">
+      <strong>⏰ 주문마감 안내</strong>
+      <p>주문마감은 배송일 하루 전 오전 11:30입니다.<br>
+      (월요일 배송은 토요일 오전 11:30 마감)</p>
+    </div>
+  </section>
+
+  <footer>
+    <b>두레생협 2026 상반기 감사제</b>
+    2026. 6. 8(월) ~ 6. 20(토) · 토요일 배송<br>
+    조합원이 만든 1년, 두레가 돌려드리는 한 계절
+  </footer>
+
+</div>
+</body>
+</html>
