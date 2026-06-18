@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>강원유기농 제철 샐러리 — 6월, 강원도 홍천에서 전해온 소식</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Gaegu:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  *{ margin:0; padding:0; box-sizing:border-box; word-break:keep-all; }
+  :root{
+    --paper:#f5f1e8;
+    --paper2:#ece5d6;
+    --ink:#322f29;
+    --ink-soft:#6b6456;
+    --green:#3f5f44;
+    --green-deep:#2c4631;
+    --kraft:#9a6b3a;
+    --terra:#bb5028;
+    --sun:#e0a52e;
+  }
+  html{ scroll-behavior:smooth; }
+  body{
+    font-family:'Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+    background-color:#f3ead8; color:var(--ink);
+    background-image:
+      radial-gradient(rgba(150,120,70,.05) 1px, transparent 1.4px);
+    background-size:22px 22px;
+    font-size:19px; line-height:1.9; -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  img{ display:block; width:100%; }
+
+  /* 스크롤 등장 */
+  .reveal{ opacity:0; transform:translateY(34px); transition:opacity 1s cubic-bezier(.2,.7,.2,1), transform 1s cubic-bezier(.2,.7,.2,1); }
+  .reveal.in{ opacity:1; transform:none; }
+  .d1{ transition-delay:.14s; } .d2{ transition-delay:.28s; } .d3{ transition-delay:.42s; }
+
+  /* 카드뉴스 */
+  .cardnews{ max-width:500px; margin:0 auto; }
+  .cardnews img{ width:100%; }
+
+  /* 본문 래퍼 */
+  .story{ background:transparent; }
+  .wrap{ max-width:520px; margin:0 auto; padding:0 28px; text-align:center; }
+  .block{ padding:62px 0; }
+  .block p{ font-size:19px; margin-bottom:16px; }
+  .block p:last-child{ margin-bottom:0; }
+  .block .hl{ color:var(--terra); font-weight:800; }
+  .block .hl-g{ color:var(--green-deep); font-weight:800; }
+
+  /* MD 인사 프로필 */
+  .hello-wrap{ padding:64px 0 10px; }
+  .md-portrait{
+    max-width:520px; margin:0 auto 22px; border-radius:6px; overflow:hidden;
+    box-shadow:0 12px 30px rgba(60,50,30,.18);
+  }
+  .md-portrait img{ width:100%; height:auto; display:block; }
+  .md-name{ font-size:18px; font-weight:800; color:var(--green-deep); }
+  .md-role{ font-size:14px; color:var(--kraft); font-weight:700; letter-spacing:1px; margin-bottom:24px; }
+  .greet{ font-size:22px; font-weight:800; color:var(--green-deep); line-height:1.6; }
+
+  /* 사진 카드 */
+  .photo{ max-width:520px; margin:0 auto; padding:0 20px; }
+  .photo figure{ border-radius:6px; overflow:hidden; box-shadow:0 12px 30px rgba(60,50,30,.16); }
+  .photo figure img{ width:100%; height:auto; display:block; }
+  .photo figcaption{ font-size:14px; color:var(--ink-soft); font-style:italic; padding-top:12px; text-align:center; }
+
+  /* 전면 사진 */
+  .bleed{ max-width:520px; margin:0 auto; padding:0 20px; }
+  .bleed img{ width:100%; height:auto; display:block; border-radius:6px; box-shadow:0 12px 30px rgba(60,50,30,.16); }
+
+  /* 그래서 — 기대감 */
+  .teaser{ text-align:center; padding:44px 28px 6px; }
+  .teaser .so{ display:inline-block; font-size:44px; font-weight:700; color:var(--terra); letter-spacing:.04em; white-space:nowrap;
+    padding:0 12px;
+    background:linear-gradient(transparent 50%, rgba(224,165,46,.55) 50%, rgba(224,165,46,.55) 88%, transparent 88%);
+    animation:soPop 1.6s ease-in-out infinite; }
+  @keyframes soPop{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-6px); } }
+  .teaser .dots{ font-size:26px; color:var(--kraft); letter-spacing:.5em; margin-top:10px; opacity:.65; }
+
+  /* 강조 */
+  .emph{ text-align:center; padding:40px 28px 34px; }
+  .emph-inner{ max-width:540px; margin:0 auto; }
+  .emph-kicker{ font-size:16px; color:var(--ink-soft); margin-bottom:22px; }
+  .emph-big{ font-size:30px; font-weight:800; line-height:1.55; color:var(--green-deep); }
+  .emph-big .peak{ display:inline-block; position:relative; padding:0 6px; }
+  .emph-big .peak em{
+    font-style:normal; font-size:1.55em; font-weight:900; color:var(--terra);
+    display:inline-block; transform-origin:center bottom;
+    animation:twinkle 1.4s ease-in-out infinite;
+  }
+  @keyframes twinkle{
+    0%,100%{ transform:scale(1); text-shadow:0 0 0 rgba(224,165,46,0); }
+    50%{ transform:scale(1.14); text-shadow:0 0 16px rgba(224,165,46,.85), 0 0 6px rgba(224,165,46,.6); }
+  }
+  .emph-big .peak::before, .emph-big .peak::after{
+    content:"✦"; position:absolute; top:-2px; color:var(--sun); font-size:16px;
+    animation:spark 1.4s ease-in-out infinite;
+  }
+  .emph-big .peak::before{ left:-14px; }
+  .emph-big .peak::after{ right:-14px; animation-delay:.7s; }
+  @keyframes spark{ 0%,100%{ opacity:.2; transform:scale(.7); } 50%{ opacity:1; transform:scale(1.2); } }
+  .emph-big .peak .ul{ position:absolute; left:-2px; right:-2px; bottom:-10px; width:calc(100% + 4px); height:14px; }
+  .emph-sub{ font-size:18px; color:var(--ink-soft); margin-top:30px; }
+  @media(min-width:720px){ .emph-big{ font-size:34px; } }
+
+  /* 기획전 소개 띠 */
+  .intro-band{ background:var(--terra); color:#fff; text-align:center; padding:60px 28px; }
+  .intro-band .sm{ font-size:15px; letter-spacing:2px; font-weight:700; opacity:.9; margin-bottom:12px; }
+  .intro-band h2{ font-size:28px; font-weight:800; line-height:1.5; }
+
+  /* 가격 카드 */
+  .prices{ padding:18px 0 56px; }
+  .prices .ph{ text-align:center; font-size:24px; font-weight:700; color:var(--green-deep); margin-bottom:26px; }
+  .pgrid{ max-width:520px; margin:0 auto; padding:0 24px; display:grid; gap:22px; }
+  .pcard{ background:#fff; border:1px solid #e7dcc4; border-radius:12px; overflow:hidden; position:relative;
+    box-shadow:0 10px 24px rgba(90,70,35,.12); }
+  .pbadge{ position:absolute; top:0; left:0; z-index:2; background:#f08a24; color:#fff;
+    font-size:15px; font-weight:800; padding:5px 13px; border-radius:0 0 8px 0; }
+  .pcard img{ width:100%; aspect-ratio:1/1; object-fit:cover; object-position:center; display:block; }
+  .pin{ padding:16px 20px 22px; text-align:center; }
+  .pname{ font-size:22px; font-weight:700; color:var(--green-deep); margin-bottom:14px; }
+  .prow{ display:flex; align-items:baseline; justify-content:center; gap:10px; flex-wrap:wrap; }
+  .ptag{ font-size:16px; color:var(--ink-soft); }
+  .porig{ color:#b7ac90; text-decoration:line-through; font-size:18px; }
+  .psale{ color:var(--terra); font-size:30px; font-weight:700; }
+  .pnon{ font-size:17px; color:var(--ink-soft); margin-top:8px; }
+  @media(min-width:760px){
+    .pgrid{ grid-template-columns:repeat(3,1fr); max-width:920px; gap:18px; }
+    .pname{ font-size:20px; }
+  }
+
+  /* CTA */
+  .cta{ background:var(--green-deep); color:#f3efe4; text-align:center; padding:62px 26px; }
+  .cta h2{ font-size:25px; font-weight:800; color:#fff; line-height:1.5; margin-bottom:12px; }
+  .cta p{ color:#dfe6d3; font-size:17px; margin-bottom:26px; }
+  .cta-btn{
+    display:inline-block; background:var(--terra); color:#fff; font-size:17px; font-weight:800;
+    text-decoration:none; padding:13px 28px; border-radius:4px; white-space:nowrap; margin-top:26px;
+    box-shadow:0 6px 16px rgba(187,80,40,.4); transition:transform .15s;
+  }
+  .cta-btn:hover{ transform:translateY(-2px); }
+  .cta-btn:active{ transform:translateY(1px); }
+
+  footer{ background:#222a1d; color:#9fb08c; text-align:center; padding:26px 22px; font-size:14px; line-height:1.8; }
+
+  /* 손편지 손글씨 (편지 본문) */
+  .greet, .block p, .emph-kicker, .emph-big, .emph-sub,
+  .teaser .so, .teaser .dots, .md-name, .prices .ph{
+    font-family:'Nanum Pen Script','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+  }
+  .block p{ font-size:28px; line-height:1.6; }
+  .greet{ font-size:38px; line-height:1.4; }
+  .md-name{ font-size:30px; }
+  .emph-kicker{ font-size:24px; }
+  .emph-big{ font-size:36px; line-height:1.4; }
+  .emph-sub{ font-size:27px; }
+  .prices .ph{ font-size:32px; }
+  .teaser .so{ font-size:52px; }
+  .teaser .dots{ font-size:34px; }
+  @media(min-width:720px){
+    .block p{ font-size:31px; }
+    .greet{ font-size:44px; }
+    .emph-big{ font-size:44px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== 카드뉴스 ===== -->
+<div class="cardnews">
+  <img src="pdp_샐러리.jpg" alt="6월, 강원도 홍천에서 전해온 소식 — 강원유기농 제철 샐러리 최저가 기획">
+</div>
+
+<!-- ===== 스토리 ===== -->
+<div class="story">
+
+  <!-- MD 인사 -->
+  <section class="hello-wrap">
+    <div class="wrap">
+      <div class="md-portrait reveal"><img src="KakaoTalk_20260618_094756166.jpg" alt="두레생협 채소 MD 유현수"></div>
+      <div class="md-name reveal">유현수</div>
+      <div class="md-role reveal">두레생협 채소 담당 MD</div>
+      <p class="greet reveal d1">조합원님,<br>제가 산지에서 본 이야기를<br>들려드리고 싶어요.</p>
+    </div>
+  </section>
+
+  <!-- 1. 방문 & 풍년 -->
+  <section class="block">
+    <div class="wrap">
+      <p class="reveal">지난 6월 12일부터 이틀간, 저는 푸른 기운이 가득한 강원유기농 산지에 다녀왔습니다.</p>
+      <p class="reveal d1">올해 유승호·김삼봉 생산자님의 샐러리 밭은 <span class="hl-g">그 어느 해보다 풍년</span>이었습니다.</p>
+      <p class="reveal d2">홍천의 맑은 공기와 고랭지 기후를 듬뿍 받아 푸르고 아삭하며, 깊은 향을 품은 최고 품질의 샐러리가 가득 수확되고 있었습니다.</p>
+    </div>
+  </section>
+
+  <!-- 사진 -->
+  <div class="photo reveal">
+    <figure><img src="KakaoTalk_20260617_100748794_01.jpg" alt="하우스 가득 자란 샐러리를 수확하는 생산자들"></figure>
+    <figcaption>하우스 가득, 한 포기씩 손으로 거둔 샐러리</figcaption>
+  </div>
+
+  <!-- 2. 수심 -->
+  <section class="block">
+    <div class="wrap">
+      <p class="reveal">하지만 현장에서 마주한 생산자님들의 얼굴에는 <span class="hl">수심</span>이 가득했습니다.</p>
+      <p class="reveal d1">전반적인 농산물 소비 둔화로 인해, 이 귀한 샐러리들이 갈 곳을 찾지 못하고 정체되어 있기 때문입니다.</p>
+    </div>
+  </section>
+
+  <!-- 전면 사진 -->
+  <div class="bleed reveal">
+    <img src="KakaoTalk_20260617_100732928_01.jpg" alt="수확한 샐러리를 들어 보이는 강원유기농 생산자">
+  </div>
+
+  <!-- 3. 다짐 -->
+  <section class="block">
+    <div class="wrap">
+      <p class="reveal">자식처럼 키워낸 샐러리를 보며 시름하시는 생산자님들을 뵙고, 담당 MD로서 이 좋은 제철 채소를 조합원님들께 <span class="hl-g">반드시 잘 전달해야겠다</span>고 다짐했습니다.</p>
+    </div>
+  </section>
+
+  <!-- 그래서 -->
+  <section class="teaser">
+    <div class="so reveal">그 . 래 . 서 !!</div>
+    <div class="dots reveal d1">· · ·</div>
+  </section>
+
+  <!-- 강조 -->
+  <section class="emph">
+    <div class="emph-inner">
+      <div class="emph-kicker reveal">강원유기농 생산자분들과 뜻을 모았습니다</div>
+      <div class="emph-big reveal d1">두레생협 샐러리 공급 역사상<br><span class="peak"><em>최저가</em><svg class="ul" viewBox="0 0 200 14" preserveAspectRatio="none" aria-hidden="true"><path d="M3,9 C45,3 90,11 130,6 C160,3 185,7 197,5" fill="none" stroke="#e0a52e" stroke-width="4" stroke-linecap="round"/></svg></span></div>
+      <div class="emph-sub reveal d2">가장 파격적인 기획으로 찾아갑니다.</div>
+    </div>
+  </section>
+
+  <!-- 가격 -->
+  <section class="prices">
+    <div class="ph reveal">26주 기획 특가 ✿</div>
+    <div class="pgrid">
+      <div class="pcard reveal">
+        <span class="pbadge">25%</span>
+        <img src="33778C.jpg" alt="샐러리 500g 무농약">
+        <div class="pin">
+          <div class="pname">샐러리 (500g/무농약)</div>
+          <div class="prow"><span class="ptag">조합원</span><span class="porig">3,600원</span><span class="psale">2,700원</span></div>
+        </div>
+      </div>
+      <div class="pcard reveal d1">
+        <span class="pbadge">25%</span>
+        <img src="38345B.jpg" alt="샐러리 스틱 200g 무농약">
+        <div class="pin">
+          <div class="pname">샐러리 (200g/무농약/스틱)</div>
+          <div class="prow"><span class="ptag">조합원</span><span class="porig">2,950원</span><span class="psale">2,200원</span></div>
+        </div>
+      </div>
+      <div class="pcard reveal d2">
+        <span class="pbadge">30%</span>
+        <img src="1355C.jpg" alt="양상추 300g 무농약">
+        <div class="pin">
+          <div class="pname">양상추 (300g/무농약)</div>
+          <div class="prow"><span class="ptag">조합원</span><span class="porig">2,000원</span><span class="psale">1,400원</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 마무리 + 버튼 -->
+  <section class="block closing">
+    <div class="wrap">
+      <p class="reveal">조합원님의 식탁에서<br>산지로 따뜻한 힘을 보태주세요.</p>
+      <a class="cta-btn reveal d1" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1672" target="_blank" rel="noopener">두레몰에서 주문하기&nbsp;→</a>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold:0.18 });
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+
+</body>
+</html>
