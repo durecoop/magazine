@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>두레생협 6월 기획전 — 유기농의 달 · 농축산물 할인지원</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  *{ margin:0; padding:0; box-sizing:border-box; word-break:keep-all; }
+  :root{
+    --bg:#fff7e6;
+    --sheet:#fffdf7;
+    --ink:#2b2926;
+    --sub:#8d867a;
+    --green:#1ba94f;
+    --green-dk:#137a3a;
+    --red:#ee3b25;
+    --red-dk:#cf2f1c;
+    --yellow:#ffd633;
+    --line:#ece3cf;
+  }
+  body{
+    font-family:"Noto Sans KR",sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    font-size:21px; line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .display{ font-family:"Noto Sans KR",sans-serif; font-weight:900; letter-spacing:-.5px; }
+
+  .sheet{
+    max-width:680px; margin:0 auto; background:var(--sheet);
+    box-shadow:0 0 0 1px var(--line);
+    overflow:hidden;
+  }
+
+  /* 마스트헤드 */
+  .masthead{
+    text-align:center; padding:34px 28px 30px;
+    background:
+      radial-gradient(circle at 12% 18%, #fff0b8 0 12px, transparent 13px),
+      radial-gradient(circle at 88% 30%, #ffe1e1 0 12px, transparent 13px),
+      var(--sheet);
+    border-bottom:4px solid var(--ink);
+  }
+  .masthead .pill{
+    display:inline-block; background:var(--red); color:#fff;
+    font-weight:900; font-size:15px; letter-spacing:.5px;
+    padding:6px 16px; border-radius:999px; margin-bottom:16px;
+  }
+  .masthead h1{
+    font-family:"Noto Sans KR",sans-serif; font-weight:900;
+    font-size:46px; line-height:1.25; letter-spacing:-1.5px;
+  }
+  .masthead h1 .hl{
+    background:linear-gradient(transparent 52%, var(--yellow) 52%);
+    padding:0 4px;
+  }
+  .masthead h1 .grn{ color:var(--green); }
+  .masthead .sub{
+    display:inline-block; margin-top:16px;
+    font-size:20px; font-weight:700; color:var(--ink);
+  }
+
+  /* 챕터 */
+  .chapter{ padding-bottom:34px; }
+  .cover{ display:block; width:100%; height:auto; }
+
+  .band{
+    display:flex; align-items:center; gap:14px;
+    padding:16px 26px; color:#fff;
+  }
+  .band.green{ background:var(--green); }
+  .band.red{ background:var(--red); }
+  .band .no{ font-family:"Noto Sans KR",sans-serif; font-weight:900; font-size:44px; line-height:1; opacity:.9; }
+  .band .ttl{ font-family:"Noto Sans KR",sans-serif; font-weight:900; font-size:29px; line-height:1.15; }
+  .band .cap{ display:block; font-family:"Noto Sans KR"; font-weight:700; font-size:16.5px; opacity:.95; margin-top:4px; }
+
+  /* 품목 리스트 */
+  .items{ list-style:none; padding:8px 22px 0; }
+  .items li{
+    display:flex; align-items:center; gap:16px;
+    padding:16px 6px;
+    border-bottom:2px dotted var(--line);
+  }
+  .ph{ position:relative; flex-shrink:0; }
+  .thumb{ width:100px; height:100px; object-fit:cover; border-radius:12px; background:#eee5d4; display:block; }
+  .off{
+    position:absolute; top:-9px; left:-9px;
+    width:54px; height:54px; border-radius:50%;
+    background:var(--red); color:#fff;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    font-family:"Noto Sans KR",sans-serif; font-weight:900; font-size:20px; line-height:.95;
+    box-shadow:0 3px 7px rgba(0,0,0,.22);
+    transform:rotate(-8deg);
+  }
+  .off small{ font-size:11px; font-weight:700; }
+  .off.coupon{ background:var(--green); width:60px; height:60px; font-size:16px; }
+
+  .desc{ flex:1; min-width:0; }
+  .desc .name{ font-size:26px; font-weight:900; line-height:1.3; }
+  .desc .spec{ display:block; font-size:17px; color:#8a8275; margin-top:4px; }
+  .desc .tag{
+    display:inline-block; margin-top:8px;
+    font-size:15.5px; font-weight:700; color:var(--green-dk);
+    background:#e7f6ec; border-radius:5px; padding:2px 10px;
+  }
+  .cost{ text-align:right; flex-shrink:0; line-height:1.25; }
+  .cost .now{ font-family:"Noto Sans KR",sans-serif; font-weight:900; font-size:33px; color:var(--red); white-space:nowrap; }
+  .cost .now small{ font-family:"Noto Sans KR"; font-size:18px; font-weight:900; }
+  .cost .was{ display:block; font-size:16.5px; color:#b3a892; text-decoration:line-through; margin-top:3px; }
+  .cost .mem{ display:block; font-size:16px; font-weight:700; color:#8a8275; white-space:nowrap; }
+  .cost .mem s{ color:#b3a892; }
+  .cost .qlbl{ display:block; font-size:15px; font-weight:900; color:var(--red); margin-top:5px; }
+
+  .note{ font-size:16.5px; color:#6d655a; font-weight:600; padding:16px 28px 0; line-height:1.65; }
+
+  /* CTA */
+  .cta{
+    display:flex; align-items:center; justify-content:center; gap:10px;
+    margin:24px 24px 0; padding:20px;
+    border-radius:14px; text-decoration:none;
+    font-family:"Noto Sans KR",sans-serif; font-weight:900; font-size:26px; letter-spacing:-.5px;
+    color:#fff; box-shadow:0 5px 0 rgba(0,0,0,.18);
+    transition:transform .08s, box-shadow .08s;
+  }
+  .cta.green{ background:var(--green); }
+  .cta.red{ background:var(--red); }
+  .cta:active{ transform:translateY(4px); box-shadow:0 1px 0 rgba(0,0,0,.18); }
+  .cta .arw{ font-size:26px; }
+
+  /* 절취선 느낌 구분 */
+  .cut{
+    text-align:center; color:#cdbf9f; font-size:14px; letter-spacing:6px;
+    padding:18px 0; background:var(--bg);
+  }
+
+  footer{
+    padding:26px 28px 36px; background:var(--ink); color:#d9d3c7;
+    font-size:15px; line-height:1.8;
+  }
+  footer b{ color:#fff; font-family:"Noto Sans KR",sans-serif; font-weight:900; font-size:21px; letter-spacing:-.3px; }
+
+  @media (max-width:480px){
+    body{ font-size:19px; }
+    .masthead{ padding:28px 20px 26px; }
+    .masthead h1{ font-size:38px; }
+    .masthead .sub{ font-size:18px; }
+    .band{ padding:14px 20px; gap:12px; }
+    .band .no{ font-size:38px; }
+    .band .ttl{ font-size:24px; }
+    .band .cap{ font-size:15.5px; }
+    .items{ padding:6px 16px 0; }
+    .thumb{ width:90px; height:90px; }
+    .desc .name{ font-size:23px; }
+    .desc .spec{ font-size:16px; }
+    .cost .now{ font-size:29px; }
+    .cta{ font-size:23px; margin-left:16px; margin-right:16px; }
+    .note,footer{ padding-left:20px; padding-right:20px; }
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <header class="masthead">
+    <span class="pill">두레생협 6월 기획전</span>
+    <h1>이번 주만!<br><span class="hl">놓치면 아쉬운</span> <span class="grn">혜택</span></h1>
+    <span class="sub">유기농의 달 · 농축산물 할인지원</span>
+  </header>
+
+  <!-- 챕터 1 : 유기농의 달 -->
+  <section class="chapter">
+    <img class="cover" src="cover-organic.png" alt="6월 한 달은 건강하게, 유기농 농산물 먹는 달!">
+    <div class="band green">
+      <span class="no">01</span>
+      <div><span class="ttl">유기농의 달</span><span class="cap">제철 토마토부터 블루베리까지, 친환경 인증 생활재 특가</span></div>
+    </div>
+
+    <ul class="items">
+      <li>
+        <div class="ph">
+          <img class="thumb" src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/40657C.jpg" data-alt="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/40657C.png" alt="백미">
+          <span class="off">7<small>%↓</small></span>
+        </div>
+        <div class="desc"><span class="name">백미</span><span class="spec">10kg / 유기</span><span class="tag">유기농</span></div>
+        <div class="cost"><span class="now">52,000<small>원</small></span><span class="was">56,000원</span></div>
+      </li>
+      <li>
+        <div class="ph">
+          <img class="thumb" src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/31882C.jpg" data-alt="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/31882C.png" alt="친환경 블루베리">
+          <span class="off">12<small>%↓</small></span>
+        </div>
+        <div class="desc"><span class="name">친환경 블루베리</span><span class="spec">500g</span><span class="tag">유기농 · 무농약</span></div>
+        <div class="cost"><span class="now">19,900<small>원</small></span><span class="was">22,500원</span></div>
+      </li>
+      <li>
+        <div class="ph">
+          <img class="thumb" src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/51728C.jpg" data-alt="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/51728C.png" alt="참외">
+          <span class="off">11<small>%↓</small></span>
+        </div>
+        <div class="desc"><span class="name">참외</span><span class="spec">성주 최동진 · 김기정 부부 · 1.2kg / 무농약</span><span class="tag">무농약</span></div>
+        <div class="cost"><span class="now">8,500<small>원</small></span><span class="was">9,500원</span></div>
+      </li>
+      <li>
+        <div class="ph">
+          <img class="thumb" src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/20435C.png" data-alt="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/20435C.jpg" alt="정규연 토마토">
+          <span class="off">19<small>%↓</small></span>
+        </div>
+        <div class="desc"><span class="name">정규연 토마토</span><span class="spec">합천 정규연 생산자 · 1kg / 유기</span><span class="tag">유기농</span></div>
+        <div class="cost"><span class="now">5,900<small>원</small></span><span class="was">7,300원</span></div>
+      </li>
+      <li>
+        <div class="ph">
+          <img class="thumb" src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/10736C.jpg" data-alt="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/10736C.png" alt="토마토">
+          <span class="off">19<small>%↓</small></span>
+        </div>
+        <div class="desc"><span class="name">토마토</span><span class="spec">1kg / 무농약</span><span class="tag">무농약</span></div>
+        <div class="cost"><span class="now">5,900<small>원</small></span><span class="was">7,300원</span></div>
+      </li>
+      <li>
+        <div class="ph">
+          <img class="thumb" src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/49310C.jpg" data-alt="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/49310C.png" alt="대추방울토마토">
+          <span class="off">17<small>%↓</small></span>
+        </div>
+        <div class="desc"><span class="name">대추방울토마토</span><span class="spec">오창 김대동 생산자 · 500g / 무농약</span><span class="tag">무농약</span></div>
+        <div class="cost"><span class="now">4,900<small>원</small></span><span class="was">5,900원</span></div>
+      </li>
+    </ul>
+
+    <p class="note">＊본 기획행사는 친환경농산물자조금관리위원회의 지원을 받아 진행됩니다.</p>
+
+    <a class="cta green" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1672#book8" target="_blank">
+      유기농데이 특가 보러가기 <span class="arw">›</span>
+    </a>
+  </section>
+
+  <div class="cut">✂ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─</div>
+
+  <!-- 챕터 2 : 농축산물 할인지원 -->
+  <section class="chapter">
+    <img class="cover" src="cover-farmprice.png" alt="6월 농축산물 할인지원 20% 할인 · 주문일 기준 6/22(월)~6/24(수), 1인 최대 1만원">
+    <div class="band red">
+      <span class="no">02</span>
+      <div><span class="ttl">20% 쿠폰, 축산물에 쓰면 이득!</span><span class="cap">1인 최대 1만 원 · 단가 높은 품목일수록 혜택 UP</span></div>
+    </div>
+
+    <ul class="items">
+      <li>
+        <div class="ph">
+          <img class="thumb" src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59229C.jpg" data-alt="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59229C.png" alt="동물복지 삼겹살">
+          <span class="off coupon">20<small>% 쿠폰</small></span>
+        </div>
+        <div class="desc"><span class="name">동물복지 삼겹살</span><span class="spec">구이용 · 400g</span><span class="tag">동물복지</span></div>
+        <div class="cost"><span class="mem">조합원가 <s>17,200원</s></span><span class="qlbl">쿠폰가</span><span class="now">13,760<small>원</small></span></div>
+      </li>
+      <li>
+        <div class="ph">
+          <img class="thumb" src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59230C.jpg" data-alt="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/59230C.png" alt="동물복지 목살">
+          <span class="off coupon">20<small>% 쿠폰</small></span>
+        </div>
+        <div class="desc"><span class="name">동물복지 목살</span><span class="spec">구이용 · 400g</span><span class="tag">동물복지</span></div>
+        <div class="cost"><span class="mem">조합원가 <s>16,100원</s></span><span class="qlbl">쿠폰가</span><span class="now">12,880<small>원</small></span></div>
+      </li>
+      <li>
+        <div class="ph">
+          <img class="thumb" src="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58374C.png" data-alt="https://dureimg.ecoop.or.kr:9091/Delsys/DLOG/Goods/GoodsMaster/GoodsImage/58374C.jpg" alt="돼지 목살">
+          <span class="off coupon">20<small>% 쿠폰</small></span>
+        </div>
+        <div class="desc"><span class="name">돼지 목살</span><span class="spec">400g</span><span class="tag">무항생제</span></div>
+        <div class="cost"><span class="mem">조합원가 <s>14,000원</s></span><span class="qlbl">쿠폰가</span><span class="now">11,200<small>원</small></span></div>
+      </li>
+    </ul>
+
+    <p class="note">＊주문일 기준 6/22(월)~6/24(수) · 1인 최대 1만 원 · 기획전 상단의 쿠폰을 다운받아 장바구니에서 적용해 주십시오. 쿠폰 적용가는 조합원가에 20%를 적용한 예시입니다.</p>
+
+    <a class="cta red" href="https://www.ecoop.or.kr/DureShop/plan/planView.do?returnTypeGb=plan&returnNo=1673" target="_blank">
+      할인 쿠폰 받으러 가기 <span class="arw">›</span>
+    </a>
+  </section>
+
+  <footer>
+    <b>두레생협 6월 기획전</b><br>
+    가격은 모두 조합원가 기준이며, 행사 기간과 재고 사정에 따라 변동될 수 있습니다.<br>
+    자세한 내용은 두레몰에서 확인해 주십시오.
+  </footer>
+
+</div>
+<script>
+  document.querySelectorAll('img.thumb').forEach(function(img){
+    img.addEventListener('error', function(){
+      if (this.dataset.alt){ this.src = this.dataset.alt; this.dataset.alt=''; }
+      else { this.style.visibility='hidden'; }
+    });
+  });
+</script>
+</body>
+</html>
